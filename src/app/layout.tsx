@@ -11,7 +11,7 @@ const outfit = localFont({
   ],
   variable: "--font-outfit",
   display: "swap",
-  fallback: ["system-ui", "sans-serif"],
+  fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
 });
 
 const siteUrl = "https://flutterly.co.uk";
@@ -19,25 +19,29 @@ const siteUrl = "https://flutterly.co.uk";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Flutterly Ltd | Expert Web & Mobile App Development in the UK",
+    default: "Flutterly Ltd | Web & Mobile App Development UK",
     template: "%s | Flutterly Ltd",
   },
   description:
-    "Flutterly Ltd is a UK-based digital agency specialising in high-performance web development, mobile apps, and enterprise solutions. We build with React, Next.js, Flutter, and SwiftUI.",
+    "UK-based digital agency specialising in high-performance web development, cross-platform mobile apps, and enterprise solutions. Expert developers building with React, Next.js, Flutter, and SwiftUI.",
   keywords: [
-    "web development",
+    "web development UK",
     "mobile app development",
-    "React",
-    "Next.js",
-    "Flutter",
-    "SwiftUI",
-    "UK web agency",
-    "enterprise solutions",
+    "React development agency",
+    "Next.js developer UK",
+    "Flutter app development",
+    "SwiftUI development",
+    "UK digital agency",
+    "enterprise software solutions",
     "Flutterly",
-    "Reading UK",
-    "digital agency",
+    "Reading UK developer",
+    "custom web applications",
+    "cross-platform mobile apps",
+    "React Native development",
+    "progressive web apps",
+    "e-commerce development UK",
   ],
-  authors: [{ name: "Flutterly Ltd" }],
+  authors: [{ name: "Flutterly Ltd", url: siteUrl }],
   creator: "Flutterly Ltd",
   publisher: "Flutterly Ltd",
   robots: {
@@ -56,21 +60,21 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: siteUrl,
     siteName: "Flutterly Ltd",
-    title: "Flutterly Ltd | Expert Web & Mobile App Development",
+    title: "Flutterly Ltd | Web & Mobile App Development UK",
     description:
-      "UK-based digital agency building high-performance websites, mobile apps, and enterprise solutions with modern technologies.",
+      "UK-based digital agency building high-performance websites, cross-platform mobile apps, and enterprise solutions with modern technologies.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Flutterly Ltd - Build Beautiful Apps",
+        alt: "Flutterly Ltd - Web & Mobile App Development",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Flutterly Ltd | Expert Web & Mobile App Development",
+    title: "Flutterly Ltd | Web & Mobile App Development UK",
     description:
       "UK-based digital agency building high-performance websites, mobile apps, and enterprise solutions.",
     images: ["/og-image.png"],
@@ -93,6 +97,7 @@ function JsonLd() {
       "@type": "PostalAddress",
       streetAddress: "Flat 21, 3 Erleigh Road",
       addressLocality: "Reading",
+      addressRegion: "Berkshire",
       postalCode: "RG1 5LR",
       addressCountry: "GB",
     },
@@ -101,6 +106,7 @@ function JsonLd() {
       telephone: "+44-7780-580534",
       contactType: "customer service",
       email: "anoop@flutterly.co.uk",
+      availableLanguage: ["English"],
     },
     founder: {
       "@type": "Person",
@@ -115,6 +121,15 @@ function JsonLd() {
       "Next.js",
       "Flutter",
       "SwiftUI",
+      "Enterprise Solutions",
+    ],
+    areaServed: {
+      "@type": "Country",
+      name: "United Kingdom",
+    },
+    serviceType: [
+      "Web Development",
+      "Mobile App Development",
       "Enterprise Solutions",
     ],
   };
