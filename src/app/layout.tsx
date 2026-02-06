@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import ScrollToTop from "@/components/ScrollToTop";
 import "./globals.css";
 
 const outfit = localFont({
@@ -152,7 +153,10 @@ export default function RootLayout({
       <head>
         <JsonLd />
       </head>
-      <body className={`${outfit.variable} antialiased`}>{children}</body>
+      <body className={`${outfit.variable} antialiased`}>
+        <ScrollToTop />
+        {children}
+      </body>
     </html>
   );
 }
