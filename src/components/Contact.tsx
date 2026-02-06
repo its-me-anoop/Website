@@ -2,90 +2,40 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Github,
-  Linkedin,
-  Twitter,
-  ArrowRight,
-} from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "anoop@flutterly.co.uk",
-    href: "mailto:anoop@flutterly.co.uk",
-    color: "text-blue-400",
-    bg: "bg-blue-500/10",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+44 7780 580534",
-    href: "tel:+447780580534",
-    color: "text-cyan-400",
-    bg: "bg-cyan-500/10",
-  },
-  {
-    icon: MapPin,
-    label: "Address",
-    value: "Flat 21, 3 Erleigh Road, Reading RG1 5LR, UK",
-    href: undefined,
-    color: "text-violet-400",
-    bg: "bg-violet-500/10",
-  },
-];
-
-const socialLinks = [
-  { icon: Github, label: "GitHub", href: "https://github.com" },
-  {
-    icon: Linkedin,
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/anoop-jose-0b308a296/",
-  },
-  { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
-];
 
 export default function Contact() {
   return (
-    <footer id="contact" className="relative pt-28 pb-12">
-      <div
-        className="absolute top-0 left-0 right-0 section-divider"
-        aria-hidden="true"
-      />
-
-      <div className="container mx-auto px-6">
-        {/* CTA Section */}
+    <footer id="contact" className="py-20 md:py-28">
+      <div className="max-w-[980px] mx-auto px-6 lg:px-0">
+        {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16 md:mb-20"
         >
-          <p className="text-sm font-medium uppercase tracking-widest text-blue-400 mb-4">
-            Get In Touch
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Let&apos;s Build Something Amazing
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-100 mb-5">
+            Let&apos;s talk.
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg mb-8">
-            Ready to start your next project? Get in touch with us today for a
-            free consultation.
+          <p className="text-lg md:text-xl text-gray-400 max-w-[500px] mx-auto">
+            Ready to start your next project? Get in touch for a free
+            consultation.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
-          {/* Contact info */}
+        {/* Two-column layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 mb-20">
+          {/* Left - Contact info */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            <div className="relative h-12 w-48 mb-8">
+            <div className="relative h-8 w-32 mb-10">
               <Image
                 src="/logo-tagline.png"
                 alt="Flutterly Ltd - Build Beautiful Apps"
@@ -94,75 +44,55 @@ export default function Contact() {
               />
             </div>
 
-            <p className="text-gray-400 mb-10 max-w-md leading-relaxed">
-              We&apos;re a UK-based digital agency passionate about creating
-              exceptional digital experiences. Let&apos;s discuss how we can help
-              bring your vision to life.
+            <p className="text-gray-400 mb-10 max-w-sm leading-relaxed">
+              A UK-based digital agency passionate about creating exceptional
+              digital experiences.
             </p>
 
-            <div className="space-y-5">
-              {contactInfo.map((item) => {
-                const content = (
-                  <div className="flex items-center gap-4 group">
-                    <div
-                      className={`w-11 h-11 rounded-xl ${item.bg} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      <item.icon className={`w-5 h-5 ${item.color}`} />
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-500 mb-0.5">
-                        {item.label}
-                      </p>
-                      <p className="text-gray-300 text-sm group-hover:text-white transition-colors duration-300">
-                        {item.value}
-                      </p>
-                    </div>
-                  </div>
-                );
-                return item.href ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="block"
-                  >
-                    {content}
-                  </a>
-                ) : (
-                  <div key={item.label}>{content}</div>
-                );
-              })}
-            </div>
-
-            {/* Social links */}
-            <div className="flex gap-3 mt-10">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Visit our ${link.label}`}
-                  className="w-10 h-10 rounded-xl bg-white/5 border border-white/[0.08] flex items-center justify-center text-gray-500 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-                >
-                  <link.icon className="w-4 h-4" />
-                </a>
-              ))}
+            <div className="space-y-6">
+              <a
+                href="mailto:anoop@flutterly.co.uk"
+                className="flex items-center gap-4 group"
+              >
+                <Mail className="w-5 h-5 text-gray-500 group-hover:text-apple-blue transition-colors" />
+                <span className="text-gray-300 group-hover:text-white transition-colors">
+                  anoop@flutterly.co.uk
+                </span>
+              </a>
+              <a
+                href="tel:+447780580534"
+                className="flex items-center gap-4 group"
+              >
+                <Phone className="w-5 h-5 text-gray-500 group-hover:text-apple-blue transition-colors" />
+                <span className="text-gray-300 group-hover:text-white transition-colors">
+                  +44 7780 580534
+                </span>
+              </a>
+              <div className="flex items-start gap-4">
+                <MapPin className="w-5 h-5 text-gray-500 mt-0.5" />
+                <span className="text-gray-300">
+                  Flat 21, 3 Erleigh Road
+                  <br />
+                  Reading RG1 5LR, United Kingdom
+                </span>
+              </div>
             </div>
           </motion.div>
 
-          {/* Contact form */}
+          {/* Right - Form */}
           <motion.form
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="p-8 md:p-10 rounded-2xl bg-white/[0.02] border border-white/[0.06] space-y-6"
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="space-y-5"
             aria-label="Contact form"
           >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="space-y-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
                 <label
                   htmlFor="firstName"
-                  className="text-sm font-medium text-gray-400"
+                  className="block text-sm text-gray-400 mb-2"
                 >
                   First Name
                 </label>
@@ -171,14 +101,14 @@ export default function Contact() {
                   name="firstName"
                   type="text"
                   required
-                  className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.05] transition-all duration-300"
+                  className="w-full bg-surface border border-[#333336] rounded-xl px-4 py-3 text-gray-100 placeholder:text-gray-600 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue/30 transition-all"
                   placeholder="John"
                 />
               </div>
-              <div className="space-y-2">
+              <div>
                 <label
                   htmlFor="lastName"
-                  className="text-sm font-medium text-gray-400"
+                  className="block text-sm text-gray-400 mb-2"
                 >
                   Last Name
                 </label>
@@ -187,15 +117,15 @@ export default function Contact() {
                   name="lastName"
                   type="text"
                   required
-                  className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.05] transition-all duration-300"
+                  className="w-full bg-surface border border-[#333336] rounded-xl px-4 py-3 text-gray-100 placeholder:text-gray-600 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue/30 transition-all"
                   placeholder="Doe"
                 />
               </div>
             </div>
-            <div className="space-y-2">
+            <div>
               <label
                 htmlFor="email"
-                className="text-sm font-medium text-gray-400"
+                className="block text-sm text-gray-400 mb-2"
               >
                 Email
               </label>
@@ -204,14 +134,14 @@ export default function Contact() {
                 name="email"
                 type="email"
                 required
-                className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.05] transition-all duration-300"
+                className="w-full bg-surface border border-[#333336] rounded-xl px-4 py-3 text-gray-100 placeholder:text-gray-600 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue/30 transition-all"
                 placeholder="john@example.com"
               />
             </div>
-            <div className="space-y-2">
+            <div>
               <label
                 htmlFor="message"
-                className="text-sm font-medium text-gray-400"
+                className="block text-sm text-gray-400 mb-2"
               >
                 Message
               </label>
@@ -219,46 +149,54 @@ export default function Contact() {
                 id="message"
                 name="message"
                 required
-                className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.05] transition-all duration-300 h-32 resize-none"
+                rows={5}
+                className="w-full bg-surface border border-[#333336] rounded-xl px-4 py-3 text-gray-100 placeholder:text-gray-600 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue/30 transition-all resize-none"
                 placeholder="Tell us about your project..."
               />
             </div>
             <button
               type="submit"
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 font-semibold text-white hover:shadow-lg hover:shadow-blue-600/25 transition-all duration-300 flex items-center justify-center gap-2 group"
+              className="w-full bg-apple-blue text-white font-medium rounded-xl py-3.5 hover:bg-apple-blue-hover transition-colors duration-300"
             >
               Send Message
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </button>
           </motion.form>
         </div>
 
-        {/* Bottom bar */}
-        <div className="section-divider mb-8" aria-hidden="true" />
+        {/* Footer bottom */}
+        <div className="h-px bg-[#333336] mb-8" aria-hidden="true" />
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-600 text-sm">
-            &copy; {new Date().getFullYear()} Flutterly Ltd. All rights
-            reserved.
+          <p className="text-xs text-gray-600">
+            Copyright &copy; {new Date().getFullYear()} Flutterly Ltd. All
+            rights reserved.
           </p>
-          <div className="flex gap-6">
+          <div className="flex gap-8">
             <Link
               href="/#services"
-              className="text-gray-600 hover:text-gray-400 transition-colors duration-300 text-sm"
+              className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
             >
               Services
             </Link>
             <Link
               href="/projects"
-              className="text-gray-600 hover:text-gray-400 transition-colors duration-300 text-sm"
+              className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
             >
               Work
             </Link>
             <Link
               href="/#about"
-              className="text-gray-600 hover:text-gray-400 transition-colors duration-300 text-sm"
+              className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
             >
               About
             </Link>
+            <a
+              href="https://www.linkedin.com/in/anoop-jose-0b308a296/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              LinkedIn
+            </a>
           </div>
         </div>
       </div>

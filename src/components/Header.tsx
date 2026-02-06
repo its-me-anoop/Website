@@ -1,10 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight } from "lucide-react";
 
 const navLinks = [
   { name: "Services", href: "/#services" },
@@ -18,129 +16,132 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [isMobileMenuOpen]);
 
+  const closeMobileMenu = useCallback(() => setIsMobileMenuOpen(false), []);
+
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "glass-strong py-3 shadow-lg shadow-black/20"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <nav
-        className="container mx-auto px-6 flex justify-between items-center"
-        aria-label="Main navigation"
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
+          isScrolled
+            ? "bg-black/80 backdrop-blur-2xl backdrop-saturate-150"
+            : "bg-transparent"
+        }`}
       >
-        <Link href="/" className="relative h-10 w-40 z-10" aria-label="Flutterly Ltd - Home">
-          <Image
-            src="/logo-horizontal.png"
-            alt="Flutterly Ltd"
-            fill
-            className="object-contain object-left"
-            priority
-          />
-        </Link>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="relative text-sm font-medium text-gray-300 hover:text-white transition-colors duration-300 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-blue-500 after:transition-all after:duration-300 hover:after:w-full"
-            >
-              {link.name}
-            </Link>
-          ))}
-          <Link
-            href="/#contact"
-            className="ml-2 px-5 py-2 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/25 flex items-center gap-2"
-          >
-            Get in Touch
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden relative z-10 w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isMobileMenuOpen}
+        <nav
+          className="max-w-[980px] mx-auto px-6 lg:px-0 h-12 flex items-center justify-between"
+          aria-label="Main navigation"
         >
-          {isMobileMenuOpen ? (
-            <X className="w-5 h-5" />
-          ) : (
-            <Menu className="w-5 h-5" />
-          )}
-        </button>
-      </nav>
-
-      {/* Mobile Nav */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden fixed inset-0 top-0 bg-black/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center"
+          {/* Logo */}
+          <Link
+            href="/"
+            className="relative h-7 w-28 shrink-0"
+            aria-label="Flutterly - Home"
           >
-            <div className="flex flex-col items-center gap-8">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Link
-                    href={link.href}
-                    className="text-3xl font-semibold text-white hover:text-blue-400 transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.1 }}
+            <Image
+              src="/logo-horizontal.png"
+              alt="Flutterly"
+              fill
+              className="object-contain object-left"
+              priority
+            />
+          </Link>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-7">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-xs text-gray-300 hover:text-white transition-colors duration-300"
               >
-                <Link
-                  href="/#contact"
-                  className="mt-4 px-8 py-3 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-500 transition-colors flex items-center gap-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Get in Touch
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </motion.div>
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden relative w-8 h-8 flex items-center justify-center"
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
+          >
+            <div className="relative w-[17px] h-[9px]">
+              <span
+                className={`absolute left-0 top-0 w-full h-[1px] bg-gray-100 transition-all duration-300 ease-in-out origin-center ${
+                  isMobileMenuOpen
+                    ? "rotate-45 translate-y-[4px]"
+                    : "rotate-0 translate-y-0"
+                }`}
+              />
+              <span
+                className={`absolute left-0 bottom-0 w-full h-[1px] bg-gray-100 transition-all duration-300 ease-in-out origin-center ${
+                  isMobileMenuOpen
+                    ? "-rotate-45 -translate-y-[4px]"
+                    : "rotate-0 translate-y-0"
+                }`}
+              />
             </div>
-          </motion.div>
+          </button>
+        </nav>
+
+        {/* Apple-style thin border when scrolled */}
+        {isScrolled && (
+          <div className="h-px bg-[#424245]/60" aria-hidden="true" />
         )}
-      </AnimatePresence>
-    </motion.header>
+      </header>
+
+      {/* Mobile Menu - Full screen overlay */}
+      <div
+        className={`fixed inset-0 z-40 md:hidden transition-all duration-400 ease-in-out ${
+          isMobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/95 backdrop-blur-2xl"
+          onClick={closeMobileMenu}
+        />
+
+        {/* Menu content */}
+        <div className="relative z-10 pt-20 px-12 h-full flex flex-col">
+          <div className="flex-1 flex flex-col justify-center -mt-20">
+            {navLinks.map((link, index) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={closeMobileMenu}
+                className={`block py-4 border-b border-[#333336] text-2xl font-semibold text-gray-100 tracking-tight transition-all duration-300 ease-in-out ${
+                  isMobileMenuOpen
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-4"
+                }`}
+                style={{
+                  transitionDelay: isMobileMenuOpen
+                    ? `${150 + index * 50}ms`
+                    : "0ms",
+                }}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
