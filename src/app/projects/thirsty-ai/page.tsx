@@ -1,278 +1,264 @@
-import type { Metadata } from "next";
+"use client";
+
+import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Contact } from "@/components/sections/Contact";
-import { ArrowLeft, BellRing, BrainCircuit, Cpu, LockKeyhole, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowLeft, BellRing, BrainCircuit, Cpu, LockKeyhole, ShieldCheck, Sparkles, Droplets } from "lucide-react";
 
-export const metadata: Metadata = {
-    title: "Thirsty.ai | Flutterly Projects",
-    description:
-        "Case study for Thirsty.ai, a privacy-first iOS hydration tracker powered by on-device Apple Foundation Models.",
+// Animation variants
+const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: "easeOut" }
+    }
+};
+
+const stagger: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.1 }
+    }
 };
 
 const features = [
     {
         title: "On-device Foundation AI",
         description:
-            "Hydration guidance runs directly on iPhone using Apple Foundation Models, so insight generation stays fast, context-aware, and private.",
+            "Hydration guidance runs directly on iPhone using Apple Foundation Models. Insight generation stays fast, context-aware, and completely private.",
         icon: Cpu,
         accent: "from-blue-500/20 to-cyan-500/5",
     },
     {
         title: "Privacy by Default",
         description:
-            "No cloud model calls are required for daily coaching. Sensitive patterns and personal health context remain on-device.",
+            "No cloud model calls for daily coaching. Your sensitive health patterns and personal context remain strictly on your device.",
         icon: LockKeyhole,
         accent: "from-emerald-500/20 to-teal-500/5",
     },
     {
         title: "Smart Reminder Engine",
         description:
-            "Reminders adapt to routine, activity trends, and hydration consistency to nudge users at the right moments, not random times.",
+            "Reminders adapt to your routine, activity trends, and hydration consistency to nudge you at the right moments, avoiding alert fatigue.",
         icon: BellRing,
         accent: "from-sky-500/20 to-indigo-500/5",
     },
 ];
 
-const appIconSrc = "/projects/thirsty-ai/app-icon.png";
-
 const productScreens = [
     {
-        title: "Hydration Intelligence Dashboard",
+        title: "Hydration Intelligence",
         description:
-            "A clear, glanceable home view that combines hydration progress, AI-generated coaching, and adaptive reminders into one focused daily surface.",
+            "A glanceable home view combining real-time progress, AI-generated coaching, and adaptive reminders into one focused surface.",
         src: "/projects/thirsty-ai/dashboard-new.png",
-        alt: "Thirsty.ai hydration dashboard screen with daily insights and progress tracking.",
-        frameClass: "h-[32rem] sm:h-[36rem] lg:h-[40rem]",
+        alt: "Thirsty.ai hydration dashboard",
+        colSpan: "lg:col-span-2",
+        height: "h-[30rem] md:h-[40rem]"
     },
     {
-        title: "Actionable Insights Screen",
+        title: "Actionable Insights",
         description:
-            "AI-generated insight cards translate hydration history into timely, practical prompts that keep users engaged and consistent every day.",
+            "AI-generated cards translate your hydration history into timely, practical prompts that keep you engaged without being intrusive.",
         src: "/projects/thirsty-ai/insights-new.png",
-        alt: "Thirsty.ai insights screen with hydration coach recommendations and trend-based guidance.",
-        frameClass: "h-[32rem] sm:h-[36rem] lg:h-[40rem]",
+        alt: "Thirsty.ai insights screen",
+        colSpan: "lg:col-span-1",
+        height: "h-[30rem] md:h-[40rem]"
     },
 ];
 
 export default function ThirstyAiProjectPage() {
     return (
-        <main className="min-h-screen bg-black text-white selection:bg-blue-500/30">
+        <main className="min-h-screen bg-[#050505] text-white selection:bg-blue-500/30">
             <Navbar />
 
-            <section className="relative overflow-hidden pt-32 pb-20">
-                <div className="absolute inset-0">
-                    <div className="absolute top-20 -left-16 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
-                    <div className="absolute bottom-10 right-0 h-80 w-80 rounded-full bg-cyan-500/20 blur-3xl" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_65%)]" />
+            {/* Hero Section */}
+            <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+                {/* Ambient Background */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none">
+                    <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px]" />
+                    <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/10 rounded-full blur-[100px]" />
                 </div>
 
-                <div className="container relative z-10 mx-auto px-6">
-                    <Link
-                        href="/projects"
-                        className="mb-8 inline-flex items-center gap-2 text-sm text-gray-300 transition-colors hover:text-white"
+                <div className="container relative z-10 mx-auto max-w-7xl">
+                    <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="mb-12"
                     >
-                        <ArrowLeft className="h-4 w-4" />
-                        Back to Projects
-                    </Link>
+                        <Link
+                            href="/projects"
+                            className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors group"
+                        >
+                            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                            Back to Projects
+                        </Link>
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-                        <div>
-                            <div className="max-w-4xl">
-                                <div className="mb-6 inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3 pr-5">
-                                    <div className="relative h-12 w-12 overflow-hidden rounded-xl border border-white/20 bg-black/40">
-                                        <Image src={appIconSrc} alt="Thirsty.ai app icon" fill className="object-cover" />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100">Thirsty.ai</p>
-                                        <p className="text-sm text-gray-300">Privacy-first hydration companion</p>
-                                    </div>
-                                </div>
-
-                                <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-2 text-sm font-medium text-blue-200">
-                                    <BrainCircuit className="h-4 w-4" />
-                                    iOS AI Product Showcase
-                                </span>
-
-                                <h1 className="mb-6 text-4xl font-bold leading-tight md:text-6xl">
-                                    Thirsty.ai helps people stay hydrated with{" "}
-                                    <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                                        private on-device intelligence
-                                    </span>
-                                    .
-                                </h1>
-
-                                <p className="max-w-3xl text-lg leading-relaxed text-gray-300 md:text-xl">
-                                    We built a privacy-first hydration tracker for iOS that transforms daily intake data into
-                                    personalized recommendations and reminders using Apple Foundation Models running directly on-device.
-                                </p>
-                            </div>
-
-                            <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
-                                <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                                    <p className="mb-2 text-sm text-gray-400">AI Stack</p>
-                                    <p className="text-xl font-semibold">Apple Foundation Models</p>
-                                </div>
-                                <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                                    <p className="mb-2 text-sm text-gray-400">Platform</p>
-                                    <p className="text-xl font-semibold">Native iOS Experience</p>
-                                </div>
-                                <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                                    <p className="mb-2 text-sm text-gray-400">Core Promise</p>
-                                    <p className="text-xl font-semibold">Personalization without Cloud Exposure</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <article className="relative mx-auto w-full max-w-[24rem]">
-                            <div className="pointer-events-none absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-cyan-400/25 via-blue-500/10 to-indigo-500/20 blur-2xl" />
-                            <div className="relative overflow-hidden rounded-[2rem] border border-white/15 bg-[#061524]/70 shadow-[0_35px_90px_-35px_rgba(34,211,238,0.55)]">
-                                <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-black/45 p-2 backdrop-blur">
-                                    <div className="relative h-8 w-8 overflow-hidden rounded-lg border border-white/20">
-                                        <Image src={appIconSrc} alt="" fill className="object-cover" />
-                                    </div>
-                                    <div className="text-left">
-                                        <p className="text-xs font-semibold text-white">Thirsty.ai</p>
-                                        <p className="text-[11px] text-cyan-100/90">Main Dashboard</p>
-                                    </div>
-                                </div>
-                                <div className="absolute inset-0 bg-gradient-to-b from-white/15 via-transparent to-transparent" />
-                                <div className="relative h-[35rem] w-full sm:h-[40rem]">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <motion.div initial="hidden" animate="visible" variants={stagger}>
+                            <motion.div variants={fadeInUp} className="mb-8 flex items-center gap-4">
+                                <div className="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
                                     <Image
-                                        src="/projects/thirsty-ai/dashboard-new.png"
-                                        alt="Thirsty.ai dashboard screen showcasing personalized hydration progress and assistant guidance."
-                                        fill
-                                        priority
-                                        className="object-contain object-top p-3"
+                                        src="/projects/thirsty-ai/app-icon.png"
+                                        alt="Thirsty.ai Icon"
+                                        width={48}
+                                        height={48}
+                                        className="rounded-xl shadow-lg"
                                     />
                                 </div>
+                                <div>
+                                    <h1 className="text-2xl font-semibold tracking-tight">Thirsty.ai</h1>
+                                    <p className="text-zinc-400 text-sm">iOS & AI • 2024</p>
+                                </div>
+                            </motion.div>
+
+                            <motion.h2 variants={fadeInUp} className="text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1] mb-6">
+                                Intelligent hydration, <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">privacy-first.</span>
+                            </motion.h2>
+
+                            <motion.p variants={fadeInUp} className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-xl mb-8">
+                                We built an iOS hydration tracker that leverages on-device Apple Foundation Models to deliver personalized guidance without ever sending health data to the cloud.
+                            </motion.p>
+
+                            <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
+                                <span className="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-zinc-300">SwiftUI</span>
+                                <span className="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-zinc-300">CoreML</span>
+                                <span className="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-zinc-300">HealthKit</span>
+                            </motion.div>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                            className="relative h-[600px] w-full flex items-center justify-center lg:justify-end"
+                        >
+                            <div className="relative w-full max-w-[320px] h-full">
+                                <div className="absolute inset-0 bg-blue-500/20 blur-[80px] rounded-full" />
+                                <Image
+                                    src="/projects/thirsty-ai/dashboard-new.png"
+                                    alt="Thirsty.ai Dashboard"
+                                    fill
+                                    className="object-contain relative z-10 drop-shadow-2xl"
+                                    priority
+                                />
                             </div>
-                            <p className="mt-4 text-center text-sm text-gray-400">
-                                Dashboard experience designed for fast daily hydration check-ins.
-                            </p>
-                        </article>
+                        </motion.div>
                     </div>
                 </div>
             </section>
 
-            <section className="pb-24">
-                <div className="container mx-auto px-6">
-                    <div className="mb-10 max-w-3xl">
-                        <h2 className="mb-4 text-3xl font-bold md:text-4xl">Feature Highlights</h2>
-                        <p className="text-gray-400">
-                            Thirsty.ai combines personalized machine intelligence with clear product UX principles: privacy, utility,
-                            and consistency.
+            {/* Features Grid */}
+            <section className="py-24 px-6 bg-[#0A0A0A]">
+                <div className="container mx-auto max-w-7xl">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeInUp}
+                        className="mb-16 max-w-2xl"
+                    >
+                        <h3 className="text-3xl font-medium tracking-tight mb-4">Privacy meets Intelligence</h3>
+                        <p className="text-zinc-400 text-lg">
+                            We challenged the norm of cloud-dependent health apps by re-architecting the entire intelligence stack to run locally on the user's device.
                         </p>
-                    </div>
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                        {features.map((feature) => (
-                            <article
-                                key={feature.title}
-                                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-7"
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={stagger}
+                        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                    >
+                        {features.map((feature, i) => (
+                            <motion.div
+                                key={i}
+                                variants={fadeInUp}
+                                className="group p-8 rounded-3xl bg-white/[0.02] border border-white/10 hover:bg-white/[0.04] transition-colors"
                             >
-                                <div className={`absolute inset-0 bg-gradient-to-br ${feature.accent} opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
-                                <div className="relative">
-                                    <div className="mb-4 inline-flex rounded-xl border border-white/15 bg-black/30 p-3">
-                                        <feature.icon className="h-6 w-6 text-cyan-300" />
-                                    </div>
-                                    <h3 className="mb-3 text-2xl font-semibold">{feature.title}</h3>
-                                    <p className="leading-relaxed text-gray-300">{feature.description}</p>
+                                <div className="mb-6 w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <feature.icon className="w-6 h-6 text-zinc-100" />
                                 </div>
-                            </article>
+                                <h4 className="text-xl font-medium mb-3">{feature.title}</h4>
+                                <p className="text-zinc-400 leading-relaxed">{feature.description}</p>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Visual Showcase */}
+            <section className="py-24 px-6">
+                <div className="container mx-auto max-w-7xl">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        {productScreens.map((screen, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: index * 0.2 }}
+                                className={`group relative rounded-3xl border border-white/10 overflow-hidden bg-zinc-900/50 ${screen.colSpan ?? "lg:col-span-1"}`}
+                            >
+                                <div className={`relative w-full ${screen.height} bg-[#080808]`}>
+                                    <Image
+                                        src={screen.src}
+                                        alt={screen.alt}
+                                        fill
+                                        className="object-contain p-8 group-hover:scale-[1.02] transition-transform duration-700"
+                                    />
+                                </div>
+                                <div className="absolute inset-0 pointer-events-none border border-white/5 rounded-3xl" />
+                                <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                                    <h4 className="text-xl font-medium mb-2">{screen.title}</h4>
+                                    <p className="text-zinc-400 text-sm max-w-md">{screen.description}</p>
+                                </div>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section className="pb-24">
-                <div className="container mx-auto px-6">
-                    <div className="mb-10 max-w-3xl">
-                        <h2 className="mb-4 text-3xl font-bold md:text-4xl">Product Experience</h2>
-                        <p className="text-gray-400">
-                            Key product surfaces that prove value in everyday use: the real-time dashboard and AI-powered insights
-                            feed.
-                        </p>
-                    </div>
+            {/* Impact / Outcome */}
+            <section className="py-24 px-6 border-t border-white/5">
+                <div className="container mx-auto max-w-4xl text-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-8"
+                    >
+                        <Sparkles className="w-4 h-4" />
+                        Outcome
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                        {productScreens.map((screen) => (
-                            <article
-                                key={screen.title}
-                                className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5"
-                            >
-                                <div className="relative">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-blue-500/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                                    <div
-                                        className={`relative ${screen.frameClass} bg-gradient-to-b from-[#081a2a] via-[#05121f] to-[#02080f]`}
-                                    >
-                                        <Image
-                                            src={screen.src}
-                                            alt={screen.alt}
-                                            fill
-                                            className="object-contain object-top p-4 transition-transform duration-700 group-hover:scale-[1.02]"
-                                            sizes="(max-width: 1024px) 100vw, 50vw"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="border-t border-white/10 p-6">
-                                    <h3 className="mb-2 text-2xl font-semibold">{screen.title}</h3>
-                                    <p className="text-gray-300 leading-relaxed">{screen.description}</p>
-                                </div>
-                            </article>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                    <motion.h3
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="text-3xl md:text-5xl font-semibold tracking-tight mb-6"
+                    >
+                        Design for trust.
+                    </motion.h3>
 
-            <section className="pb-24">
-                <div className="container mx-auto px-6">
-                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                        <article className="rounded-2xl border border-orange-400/20 bg-orange-500/5 p-8">
-                            <h2 className="mb-4 text-3xl font-bold">The Challenge</h2>
-                            <p className="text-gray-300 leading-relaxed">
-                                Hydration apps are often generic, noisy, and disconnected from user context. The core challenge was to
-                                create truly personalized guidance while protecting sensitive health behavior from unnecessary cloud
-                                processing.
-                            </p>
-                        </article>
-
-                        <article className="rounded-2xl border border-cyan-400/20 bg-cyan-500/5 p-8">
-                            <h2 className="mb-4 text-3xl font-bold">The Solution</h2>
-                            <p className="text-gray-300 leading-relaxed">
-                                We architected Thirsty.ai around on-device Apple Foundation Models, then layered a clean iOS experience
-                                on top: adaptive reminder logic, habit-aware hydration insights, and privacy-first defaults across the
-                                product.
-                            </p>
-                        </article>
-                    </div>
-                </div>
-            </section>
-
-            <section className="pb-24">
-                <div className="container mx-auto px-6">
-                    <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/0 p-8 md:p-12">
-                        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-                            <div className="max-w-3xl">
-                                <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-gray-300">
-                                    <ShieldCheck className="h-4 w-4 text-emerald-300" />
-                                    Product Outcome
-                                </span>
-                                <h2 className="mb-4 text-3xl font-bold md:text-4xl">Intelligent hydration coaching, designed for trust</h2>
-                                <p className="text-gray-300">
-                                    Thirsty.ai demonstrates how consumer wellness products can deliver meaningful AI personalization
-                                    without compromising user privacy or app responsiveness.
-                                </p>
-                            </div>
-
-                            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-500/15 px-5 py-3 text-cyan-100">
-                                <Sparkles className="h-4 w-4" />
-                                Privacy-first AI in production
-                            </div>
-                        </div>
-                    </div>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
+                        className="text-xl text-zinc-400 leading-relaxed mb-12"
+                    >
+                        Thirsty.ai proves that consumer wellness products can deliver deep, meaningful AI personalization without compromising on user privacy or application performance.
+                    </motion.p>
                 </div>
             </section>
 
