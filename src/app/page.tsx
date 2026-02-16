@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import Process from "@/components/Process";
-import Projects from "@/components/Projects";
-import About from "@/components/About";
-import Contact from "@/components/Contact";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { Hero } from "@/components/sections/Hero";
+import { Services } from "@/components/sections/Services";
+import { Work } from "@/components/sections/Work";
+import { Contact } from "@/components/sections/Contact";
 
 export const metadata: Metadata = {
   title: "Web & Mobile Development",
@@ -18,14 +17,13 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-[#1d1d1f]">
-      <Header />
+    <main className="min-h-screen bg-black text-white selection:bg-blue-500/30">
+      <Navbar />
       <Hero />
       <Services />
-      <Process />
-      <Projects />
-      <About />
+      <Work />
       <Contact />
+      <Footer />
     </main>
   );
 }

@@ -1,17 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
-const outfit = localFont({
-  src: [
-    {
-      path: "../fonts/Outfit-VariableFont_wght.ttf",
-      style: "normal",
-    },
-  ],
-  variable: "--font-outfit",
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
   display: "swap",
-  fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 const siteUrl = "https://flutterly.uk";
@@ -147,7 +148,13 @@ export default function RootLayout({
       <head>
         <JsonLd />
       </head>
-      <body className={`${outfit.variable} antialiased`}>{children}</body>
+      <body className={cn(
+        inter.variable,
+        jetbrainsMono.variable,
+        "antialiased bg-background text-foreground font-sans min-h-screen selection:bg-accent/20 selection:text-foreground"
+      )}>
+        {children}
+      </body>
     </html>
   );
 }
