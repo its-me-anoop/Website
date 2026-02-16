@@ -61,10 +61,7 @@ export function FeaturedWork() {
                                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                             </Link>
 
-                            <div className="flex items-center gap-4 px-6 py-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
-                                <Droplets className="text-blue-500" size={24} />
-                                <span className="text-white font-medium">4.9 App Store Rating</span>
-                            </div>
+
                         </div>
                     </motion.div>
 
