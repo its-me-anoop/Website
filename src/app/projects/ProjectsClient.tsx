@@ -1,7 +1,9 @@
 "use client";
 
-import Header from "@/components/Header";
-import Contact from "@/components/Contact";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { Contact } from "@/components/sections/Contact";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ExternalLink,
@@ -11,9 +13,21 @@ import {
   Stethoscope,
   Shield,
   Activity,
+  Droplet,
 } from "lucide-react";
 
 const projects = [
+  {
+    title: "Thirsty.ai",
+    description: "A privacy-first iOS hydration tracker powered by on-device Apple Foundation Models. Features intelligent reminders and personalized insights without compromising user data.",
+    icon: Droplet,
+    tags: ["iOS", "AI", "SwiftUI", "Privacy"],
+    link: "/projects/thirsty-ai",
+    color: "from-blue-500 to-cyan-500",
+    bg: "bg-blue-500/10",
+    border: "border-blue-500/20",
+    internal: true,
+  },
   {
     title: "Greenmead Housing",
     description:
@@ -85,7 +99,7 @@ const projects = [
 export default function ProjectsClient() {
   return (
     <main className="min-h-screen bg-black text-white selection:bg-blue-500/30">
-      <Header />
+      <Navbar />
 
       <section className="pt-32 pb-24 relative">
         <div className="container mx-auto px-6">
@@ -118,9 +132,8 @@ export default function ProjectsClient() {
                 className="group relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
               >
                 <div
-                  className={`relative rounded-2xl overflow-hidden border ${project.border} ${project.bg} aspect-[16/10] flex items-center justify-center ${
-                    index % 2 === 1 ? "lg:order-2" : ""
-                  }`}
+                  className={`relative rounded-2xl overflow-hidden border ${project.border} ${project.bg} aspect-[16/10] flex items-center justify-center ${index % 2 === 1 ? "lg:order-2" : ""
+                    }`}
                 >
                   <div
                     className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 blur-3xl`}
@@ -149,15 +162,24 @@ export default function ProjectsClient() {
                     ))}
                   </div>
 
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition-colors"
-                  >
-                    Visit Website
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
+                  {project.internal ? (
+                    <Link
+                      href={project.link}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition-colors"
+                    >
+                      View Case Study
+                    </Link>
+                  ) : (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition-colors"
+                    >
+                      Visit Website
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -166,6 +188,7 @@ export default function ProjectsClient() {
       </section>
 
       <Contact />
+      <Footer />
     </main>
   );
 }

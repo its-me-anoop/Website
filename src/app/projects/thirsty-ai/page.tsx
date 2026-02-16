@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import Header from "@/components/Header";
-import Contact from "@/components/Contact";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { Contact } from "@/components/sections/Contact";
 import { ArrowLeft, BellRing, BrainCircuit, Cpu, LockKeyhole, ShieldCheck, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -59,7 +60,7 @@ const productScreens = [
 export default function ThirstyAiProjectPage() {
     return (
         <main className="min-h-screen bg-black text-white selection:bg-blue-500/30">
-            <Header />
+            <Navbar />
 
             <section className="relative overflow-hidden pt-32 pb-20">
                 <div className="absolute inset-0">
@@ -276,6 +277,7 @@ export default function ThirstyAiProjectPage() {
             </section>
 
             <Contact />
+            <Footer />
         </main>
     );
 }
