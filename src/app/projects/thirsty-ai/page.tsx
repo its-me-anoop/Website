@@ -72,16 +72,14 @@ const productScreens = [
         description:
             "A glanceable home view combining real-time progress, AI-generated coaching, and adaptive reminders into one focused surface.",
         src: "/projects/thirsty-ai/dashboard-new.png",
-        alt: "Thirsty.ai hydration dashboard",
-        colSpan: "lg:col-span-2"
+        alt: "Thirsty.ai hydration dashboard"
     },
     {
         title: "Actionable Insights",
         description:
             "AI-generated cards translate your hydration history into timely, practical prompts that keep you engaged without being intrusive.",
         src: "/projects/thirsty-ai/insights-new.png",
-        alt: "Thirsty.ai insights screen",
-        colSpan: "lg:col-span-1"
+        alt: "Thirsty.ai insights screen"
     },
 ];
 
@@ -215,40 +213,43 @@ export default function ThirstyAiProjectPage() {
             {/* Visual Showcase */}
             <section className="py-24 px-6">
                 <div className="container mx-auto max-w-7xl">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
-                        variants={stagger}
-                        className="grid grid-cols-1 lg:grid-cols-2 gap-16 justify-items-center"
-                    >
+                    <div className="flex flex-col gap-24 lg:gap-40">
                         {productScreens.map((screen, index) => (
                             <motion.div
                                 key={index}
                                 variants={scaleIn}
-                                className={`group relative flex flex-col items-center ${screen.colSpan ?? "lg:col-span-1"}`}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, margin: "-100px" }}
+                                className={`flex flex-col items-center gap-12 lg:gap-24 ${index % 2 === 1 ? "lg:flex-row-reverse" : "lg:flex-row"}`}
                             >
-                                <div className="relative w-full max-w-[320px] mb-8 transform transition-transform duration-500 group-hover:-translate-y-2">
-                                    {/* Background glow for the phone */}
-                                    <div className="absolute inset-0 bg-blue-500/20 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-110" />
-
-                                    <Iphone17ProFrame>
-                                        <Image
-                                            src={screen.src}
-                                            alt={screen.alt}
-                                            fill
-                                            className="object-cover"
-                                        />
-                                    </Iphone17ProFrame>
+                                {/* Text Content */}
+                                <div className="flex-1 text-center lg:text-left space-y-6">
+                                    <h4 className="text-3xl md:text-4xl font-semibold tracking-tight">{screen.title}</h4>
+                                    <p className="text-lg text-zinc-400 leading-relaxed max-w-md mx-auto lg:mx-0">
+                                        {screen.description}
+                                    </p>
                                 </div>
 
-                                <div className="text-center max-w-md">
-                                    <h4 className="text-xl font-medium mb-2">{screen.title}</h4>
-                                    <p className="text-zinc-400 text-sm">{screen.description}</p>
+                                {/* Phone Frame */}
+                                <div className="flex-1 w-full flex justify-center items-center">
+                                    <div className="relative w-full max-w-[320px] transform transition-transform duration-700 hover:scale-[1.02]">
+                                        {/* Background glow for the phone */}
+                                        <div className="absolute inset-0 bg-blue-500/20 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-125" />
+
+                                        <Iphone17ProFrame>
+                                            <Image
+                                                src={screen.src}
+                                                alt={screen.alt}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </Iphone17ProFrame>
+                                    </div>
                                 </div>
                             </motion.div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 

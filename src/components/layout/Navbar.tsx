@@ -38,7 +38,7 @@ export function Navbar() {
                 }}
                 animate={hidden ? "hidden" : "visible"}
                 transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none"
+                className="fixed top-6 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none"
             >
                 <nav className="pointer-events-auto flex items-center justify-between gap-6 rounded-full border border-white/10 bg-black/50 backdrop-blur-xl pl-6 pr-2 py-2 shadow-lg ring-1 ring-white/5">
                     <Link href="/" className="text-sm font-medium tracking-tight text-white hover:text-white/80 transition-colors mr-4">
