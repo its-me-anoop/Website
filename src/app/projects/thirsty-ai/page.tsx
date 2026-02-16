@@ -58,8 +58,7 @@ const productScreens = [
             "A glanceable home view combining real-time progress, AI-generated coaching, and adaptive reminders into one focused surface.",
         src: "/projects/thirsty-ai/dashboard-new.png",
         alt: "Thirsty.ai hydration dashboard",
-        colSpan: "lg:col-span-2",
-        height: "h-[30rem] md:h-[40rem]"
+        colSpan: "lg:col-span-2"
     },
     {
         title: "Actionable Insights",
@@ -67,8 +66,7 @@ const productScreens = [
             "AI-generated cards translate your hydration history into timely, practical prompts that keep you engaged without being intrusive.",
         src: "/projects/thirsty-ai/insights-new.png",
         alt: "Thirsty.ai insights screen",
-        colSpan: "lg:col-span-1",
-        height: "h-[30rem] md:h-[40rem]"
+        colSpan: "lg:col-span-1"
     },
 ];
 
@@ -212,7 +210,7 @@ export default function ThirstyAiProjectPage() {
                                 transition={{ duration: 0.6, delay: index * 0.2 }}
                                 className={`group relative flex flex-col items-center ${screen.colSpan ?? "lg:col-span-1"}`}
                             >
-                                <div className="relative mb-8 transform transition-transform duration-500 group-hover:-translate-y-2">
+                                <div className="relative w-full max-w-[320px] mb-8 transform transition-transform duration-500 group-hover:-translate-y-2">
                                     {/* Background glow for the phone */}
                                     <div className="absolute inset-0 bg-blue-500/20 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-110" />
 
