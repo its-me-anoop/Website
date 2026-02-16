@@ -11,9 +11,9 @@ interface SafariBrowserFrameProps {
 
 export function SafariBrowserFrame({ children, className, url = "flutterly.co.uk" }: SafariBrowserFrameProps) {
     return (
-        <div className={cn("relative w-full rounded-xl overflow-hidden shadow-2xl bg-zinc-900 border border-white/10", className)}>
+        <div className={cn("relative w-full rounded-xl overflow-hidden shadow-2xl bg-zinc-900 border border-white/10 flex flex-col", className)}>
             {/* Browser Toolbar */}
-            <div className="flex items-center gap-4 px-4 py-3 bg-zinc-900/90 backdrop-blur border-b border-white/5 disabled:opacity-50">
+            <div className="flex items-center gap-4 px-4 py-3 bg-zinc-900/90 backdrop-blur border-b border-white/5 disabled:opacity-50 shrink-0">
                 {/* Window Controls */}
                 <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]" />
@@ -34,7 +34,7 @@ export function SafariBrowserFrame({ children, className, url = "flutterly.co.uk
             </div>
 
             {/* Content Area */}
-            <div className="relative w-full bg-zinc-950">
+            <div className="relative w-full flex-1 bg-zinc-950 min-h-0">
                 {children}
             </div>
         </div>
