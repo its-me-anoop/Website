@@ -10,12 +10,17 @@ import { ArrowLeft, BellRing, BrainCircuit, Cpu, LockKeyhole, ShieldCheck, Spark
 import { Iphone17ProFrame } from "@/components/ui/Iphone17ProFrame";
 
 // Animation variants
+// refined easing for that "Apple" feel
+// refined easing for that "Apple" feel
+const appleEase: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
+
 const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30, filter: "blur(5px)" },
     visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.6, ease: "easeOut" }
+        filter: "blur(0px)",
+        transition: { duration: 0.8, ease: appleEase }
     }
 };
 
@@ -23,7 +28,17 @@ const stagger: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: { staggerChildren: 0.1 }
+        transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+    }
+};
+
+const scaleIn: Variants = {
+    hidden: { opacity: 0, scale: 0.95, filter: "blur(10px)" },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        filter: "blur(0px)",
+        transition: { duration: 1.0, ease: appleEase }
     }
 };
 
@@ -133,9 +148,9 @@ export default function ThirstyAiProjectPage() {
                         </motion.div>
 
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                            variants={scaleIn}
+                            initial="hidden"
+                            animate="visible"
                             className="relative w-full flex items-center justify-center lg:justify-end"
                         >
                             <div className="relative w-full max-w-[320px]">
@@ -174,7 +189,7 @@ export default function ThirstyAiProjectPage() {
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "-50px" }}
                         variants={stagger}
                         className="grid grid-cols-1 md:grid-cols-3 gap-6"
                     >
@@ -200,14 +215,17 @@ export default function ThirstyAiProjectPage() {
             {/* Visual Showcase */}
             <section className="py-24 px-6">
                 <div className="container mx-auto max-w-7xl">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 justify-items-center">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        variants={stagger}
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-16 justify-items-center"
+                    >
                         {productScreens.map((screen, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 40 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: index * 0.2 }}
+                                variants={scaleIn}
                                 className={`group relative flex flex-col items-center ${screen.colSpan ?? "lg:col-span-1"}`}
                             >
                                 <div className="relative w-full max-w-[320px] mb-8 transform transition-transform duration-500 group-hover:-translate-y-2">
@@ -230,7 +248,7 @@ export default function ThirstyAiProjectPage() {
                                 </div>
                             </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
@@ -272,6 +290,6 @@ export default function ThirstyAiProjectPage() {
 
             <Contact />
             <Footer />
-        </main>
+        </main >
     );
 }
