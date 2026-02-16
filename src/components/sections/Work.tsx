@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { SafariBrowserFrame } from "@/components/ui/SafariBrowserFrame";
 
 // Using existing images found in public folder
 const projects = [
@@ -11,25 +12,32 @@ const projects = [
         title: "Thirsty.ai",
         category: "iOS & AI",
         image: "/projects/thirsty-ai/dashboard-new.png",
-        link: "/projects/thirsty-ai"
+        link: "/projects/thirsty-ai",
+        isWeb: false
     },
     {
         title: "Greenmead",
         category: "Web Development",
         image: "/project-greenmead.png",
-        link: "/projects/greenmead" // Assuming a link structure
+        link: "/projects/greenmead", // Assuming a link structure
+        isWeb: true,
+        url: "greenmead.co.uk"
     },
     {
         title: "JJ Paper",
         category: "E-commerce",
         image: "/project-jjpaper.png",
-        link: "/projects/jjpaper"
+        link: "/projects/jjpaper",
+        isWeb: true,
+        url: "jjpaperessential.com"
     },
     {
         title: "Sandbourne",
         category: "Real Estate",
         image: "/project-sandbourne.png",
-        link: "/projects/sandbourne"
+        link: "/projects/sandbourne",
+        isWeb: true,
+        url: "sandbourne.co.uk"
     }
 ];
 
@@ -58,18 +66,33 @@ export function Work() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-900 border border-white/10"
+                            className="group relative"
                         >
-                            <Image
-                                src={project.image}
-                                alt={project.title}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out opacity-80 group-hover:opacity-100"
-                            />
+                            {project.isWeb ? (
+                                <div className="group-hover:-translate-y-2 transition-transform duration-500">
+                                    <SafariBrowserFrame url={project.url} className="aspect-[4/3]">
+                                        <Image
+                                            src={project.image}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity"
+                                        />
+                                    </SafariBrowserFrame>
+                                </div>
+                            ) : (
+                                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-900 border border-white/10">
+                                    <Image
+                                        src={project.image}
+                                        alt={project.title}
+                                        fill
+                                        className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out opacity-80 group-hover:opacity-100"
+                                    />
+                                </div>
+                            )}
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                                <h3 className="text-xl font-medium text-white">{project.title}</h3>
-                                <p className="text-sm text-zinc-300">{project.category}</p>
+                            <div className="mt-4 flex flex-col">
+                                <h3 className="text-xl font-medium text-white group-hover:text-blue-400 transition-colors">{project.title}</h3>
+                                <p className="text-sm text-zinc-400">{project.category}</p>
                             </div>
                         </motion.div>
                     ))}
@@ -78,3 +101,4 @@ export function Work() {
         </section>
     );
 }
+

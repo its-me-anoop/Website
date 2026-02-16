@@ -15,6 +15,9 @@ import {
   Activity,
   Droplet,
 } from "lucide-react";
+import Image from "next/image";
+import { Iphone17ProFrame } from "@/components/ui/Iphone17ProFrame";
+import { SafariBrowserFrame } from "@/components/ui/SafariBrowserFrame";
 
 const projects = [
   {
@@ -27,6 +30,8 @@ const projects = [
     bg: "bg-blue-500/10",
     border: "border-blue-500/20",
     internal: true,
+    type: "app",
+    image: "/projects/thirsty-ai/dashboard-new.png"
   },
   {
     title: "Greenmead Housing",
@@ -38,6 +43,8 @@ const projects = [
     color: "from-green-500 to-emerald-500",
     bg: "bg-green-500/10",
     border: "border-green-500/20",
+    type: "web",
+    image: "/project-greenmead.png"
   },
   {
     title: "Sandbourne Care",
@@ -49,6 +56,8 @@ const projects = [
     color: "from-teal-500 to-cyan-500",
     bg: "bg-teal-500/10",
     border: "border-teal-500/20",
+    type: "web",
+    image: "/project-sandbourne.png"
   },
   {
     title: "JJ Paper Essentials",
@@ -60,6 +69,8 @@ const projects = [
     color: "from-lime-500 to-green-500",
     bg: "bg-lime-500/10",
     border: "border-lime-500/20",
+    type: "web",
+    image: "/project-jjpaper.png"
   },
   {
     title: "Nursely",
@@ -71,6 +82,7 @@ const projects = [
     color: "from-blue-500 to-indigo-500",
     bg: "bg-blue-500/10",
     border: "border-blue-500/20",
+    type: "app"
   },
   {
     title: "Montis Care",
@@ -82,6 +94,7 @@ const projects = [
     color: "from-rose-500 to-pink-500",
     bg: "bg-rose-500/10",
     border: "border-rose-500/20",
+    type: "web"
   },
   {
     title: "Uniq Healthcare",
@@ -93,6 +106,7 @@ const projects = [
     color: "from-purple-500 to-violet-500",
     bg: "bg-purple-500/10",
     border: "border-purple-500/20",
+    type: "web"
   },
 ];
 
@@ -131,18 +145,58 @@ export default function ProjectsClient() {
                 transition={{ duration: 0.6 }}
                 className="group relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
               >
-                <div
-                  className={`relative rounded-2xl overflow-hidden border ${project.border} ${project.bg} aspect-[16/10] flex items-center justify-center ${index % 2 === 1 ? "lg:order-2" : ""
-                    }`}
-                >
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 blur-3xl`}
-                  />
-                  <div
-                    className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${project.color} flex items-center justify-center shadow-2xl shadow-${project.color}/20 group-hover:scale-110 transition-transform duration-500`}
-                  >
-                    <project.icon className="w-16 h-16 text-white" />
-                  </div>
+                <div className={`${index % 2 === 1 ? "lg:order-2" : ""}`}>
+                  {/* Visual Handling */}
+                  {project.type === 'web' ? (
+                    <div className="group-hover:-translate-y-2 transition-transform duration-500">
+                      <SafariBrowserFrame url={project.link.replace('https://', '').replace('www.', '')} className="aspect-[16/10]">
+                        {project.image ? (
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity"
+                          />
+                        ) : (
+                          <div className={`w-full h-full bg-gradient-to-br ${project.color} flex items-center justify-center`}>
+                            <div className={`w-24 h-24 rounded-2xl bg-black/20 backdrop-blur-sm flex items-center justify-center`}>
+                              <project.icon className="w-12 h-12 text-white/50" />
+                            </div>
+                          </div>
+                        )}
+                      </SafariBrowserFrame>
+                    </div>
+                  ) : (
+                    // Mobile / App Handling
+                    project.image ? (
+                      <div className="relative flex justify-center">
+                        <div className="relative w-full max-w-[280px]">
+                          <Iphone17ProFrame>
+                            <Image
+                              src={project.image}
+                              alt={project.title}
+                              fill
+                              className="object-cover"
+                            />
+                          </Iphone17ProFrame>
+                        </div>
+                      </div>
+                    ) : (
+                      // Fallback for apps without images
+                      <div
+                        className={`relative rounded-2xl overflow-hidden border ${project.border} ${project.bg} aspect-[16/10] flex items-center justify-center`}
+                      >
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 blur-3xl`}
+                        />
+                        <div
+                          className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${project.color} flex items-center justify-center shadow-2xl shadow-${project.color}/20 group-hover:scale-110 transition-transform duration-500`}
+                        >
+                          <project.icon className="w-16 h-16 text-white" />
+                        </div>
+                      </div>
+                    )
+                  )}
                 </div>
 
                 <div className={`${index % 2 === 1 ? "lg:order-1" : ""}`}>
