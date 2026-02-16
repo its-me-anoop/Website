@@ -1,11 +1,18 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function Footer() {
     return (
         <footer className="w-full py-12 px-6 border-t border-white/10 bg-black">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-                <div className="flex flex-col items-center md:items-start gap-2">
-                    <span className="text-lg font-semibold text-white tracking-tight">Flutterly Ltd</span>
+                <div className="flex flex-col items-center md:items-start gap-4">
+                    <Image
+                        src="/logo-horizontal.png"
+                        alt="Flutterly Ltd"
+                        width={120}
+                        height={30}
+                        className="h-8 w-auto object-contain opacity-80"
+                    />
                     <p className="text-sm text-zinc-500">
                         © {new Date().getFullYear()} Flutterly Ltd. All rights reserved.
                     </p>

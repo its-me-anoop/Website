@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 
 const navItems = [
@@ -48,8 +48,15 @@ export function Navbar() {
                 className="fixed top-6 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none"
             >
                 <nav className="pointer-events-auto flex items-center justify-between gap-6 rounded-full border border-white/10 bg-black/50 backdrop-blur-xl pl-6 pr-2 py-2 shadow-lg ring-1 ring-white/5">
-                    <Link href="/" className="text-sm font-medium tracking-tight text-white hover:text-white/80 transition-colors mr-4">
-                        Flutterly
+                    <Link href="/" className="mr-4 flex items-center">
+                        <Image
+                            src="/logo-horizontal.png"
+                            alt="Flutterly"
+                            width={100}
+                            height={24}
+                            className="h-6 w-auto object-contain"
+                            priority
+                        />
                     </Link>
 
                     <ul className="hidden md:flex items-center gap-1">
