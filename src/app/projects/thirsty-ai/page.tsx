@@ -35,22 +35,24 @@ const features = [
     },
 ];
 
+const appIconSrc = "/projects/thirsty-ai/app-icon.png";
+
 const productScreens = [
     {
         title: "Hydration Intelligence Dashboard",
         description:
             "A clear, glanceable home view that combines hydration progress, AI-generated coaching, and adaptive reminders into one focused daily surface.",
-        src: "/projects/thirsty-ai/dashboard.png",
+        src: "/projects/thirsty-ai/dashboard-new.png",
         alt: "Thirsty.ai hydration dashboard screen with daily insights and progress tracking.",
-        aspectClass: "aspect-[9/16]",
+        frameClass: "h-[32rem] sm:h-[36rem] lg:h-[40rem]",
     },
     {
         title: "Actionable Insights Screen",
         description:
             "AI-generated insight cards translate hydration history into timely, practical prompts that keep users engaged and consistent every day.",
-        src: "/projects/thirsty-ai/insights.png",
+        src: "/projects/thirsty-ai/insights-new.png",
         alt: "Thirsty.ai insights screen with hydration coach recommendations and trend-based guidance.",
-        aspectClass: "aspect-[9/16]",
+        frameClass: "h-[32rem] sm:h-[36rem] lg:h-[40rem]",
     },
 ];
 
@@ -78,6 +80,16 @@ export default function ThirstyAiProjectPage() {
                     <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
                         <div>
                             <div className="max-w-4xl">
+                                <div className="mb-6 inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3 pr-5">
+                                    <div className="relative h-12 w-12 overflow-hidden rounded-xl border border-white/20 bg-black/40">
+                                        <Image src={appIconSrc} alt="Thirsty.ai app icon" fill className="object-cover" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100">Thirsty.ai</p>
+                                        <p className="text-sm text-gray-300">Privacy-first hydration companion</p>
+                                    </div>
+                                </div>
+
                                 <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-2 text-sm font-medium text-blue-200">
                                     <BrainCircuit className="h-4 w-4" />
                                     iOS AI Product Showcase
@@ -113,17 +125,26 @@ export default function ThirstyAiProjectPage() {
                             </div>
                         </div>
 
-                        <article className="relative mx-auto w-full max-w-sm lg:max-w-none">
+                        <article className="relative mx-auto w-full max-w-[24rem]">
                             <div className="pointer-events-none absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-cyan-400/25 via-blue-500/10 to-indigo-500/20 blur-2xl" />
                             <div className="relative overflow-hidden rounded-[2rem] border border-white/15 bg-[#061524]/70 shadow-[0_35px_90px_-35px_rgba(34,211,238,0.55)]">
+                                <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-black/45 p-2 backdrop-blur">
+                                    <div className="relative h-8 w-8 overflow-hidden rounded-lg border border-white/20">
+                                        <Image src={appIconSrc} alt="" fill className="object-cover" />
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="text-xs font-semibold text-white">Thirsty.ai</p>
+                                        <p className="text-[11px] text-cyan-100/90">Main Dashboard</p>
+                                    </div>
+                                </div>
                                 <div className="absolute inset-0 bg-gradient-to-b from-white/15 via-transparent to-transparent" />
-                                <div className="relative aspect-[9/16] w-full">
+                                <div className="relative h-[35rem] w-full sm:h-[40rem]">
                                     <Image
-                                        src="/projects/thirsty-ai/dashboard.png"
+                                        src="/projects/thirsty-ai/dashboard-new.png"
                                         alt="Thirsty.ai dashboard screen showcasing personalized hydration progress and assistant guidance."
                                         fill
                                         priority
-                                        className="object-cover object-top"
+                                        className="object-contain object-top p-3"
                                     />
                                 </div>
                             </div>
@@ -183,12 +204,14 @@ export default function ThirstyAiProjectPage() {
                             >
                                 <div className="relative">
                                     <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-blue-500/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                                    <div className={`relative ${screen.aspectClass}`}>
+                                    <div
+                                        className={`relative ${screen.frameClass} bg-gradient-to-b from-[#081a2a] via-[#05121f] to-[#02080f]`}
+                                    >
                                         <Image
                                             src={screen.src}
                                             alt={screen.alt}
                                             fill
-                                            className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                                            className="object-contain object-top p-4 transition-transform duration-700 group-hover:scale-[1.02]"
                                             sizes="(max-width: 1024px) 100vw, 50vw"
                                         />
                                     </div>
