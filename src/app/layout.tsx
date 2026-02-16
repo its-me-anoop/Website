@@ -1,10 +1,5 @@
-<<<<<<< ours
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-=======
 import type { Metadata, Viewport } from "next";
-import { Outfit } from "next/font/google";
->>>>>>> theirs
+import localFont from "next/font/local";
 import "./globals.css";
 
 const outfit = localFont({
@@ -19,70 +14,14 @@ const outfit = localFont({
   fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
 });
 
-<<<<<<< ours
-const siteUrl = "https://flutterly.co.uk";
-=======
 const siteUrl = "https://flutterly.uk";
 const siteName = "Flutterly Ltd";
 const siteDescription =
-  "Flutterly Ltd builds high-performance web and mobile products with Next.js, React, Flutter, and enterprise-grade support.";
->>>>>>> theirs
+  "UK-based digital agency specialising in high-performance web development, cross-platform mobile apps, and enterprise solutions. Expert developers building with React, Next.js, Flutter, and SwiftUI.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-<<<<<<< ours
-    default: "Flutterly Ltd | Web & Mobile App Development UK",
-    template: "%s | Flutterly Ltd",
-  },
-  description:
-    "UK-based digital agency specialising in high-performance web development, cross-platform mobile apps, and enterprise solutions. Expert developers building with React, Next.js, Flutter, and SwiftUI.",
-  keywords: [
-    "web development UK",
-    "mobile app development",
-    "React development agency",
-    "Next.js developer UK",
-    "Flutter app development",
-    "SwiftUI development",
-    "UK digital agency",
-    "enterprise software solutions",
-    "Flutterly",
-    "Reading UK developer",
-    "custom web applications",
-    "cross-platform mobile apps",
-    "React Native development",
-    "progressive web apps",
-    "e-commerce development UK",
-  ],
-  authors: [{ name: "Flutterly Ltd", url: siteUrl }],
-  creator: "Flutterly Ltd",
-  publisher: "Flutterly Ltd",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_GB",
-    url: siteUrl,
-    siteName: "Flutterly Ltd",
-    title: "Flutterly Ltd | Web & Mobile App Development UK",
-    description:
-      "UK-based digital agency building high-performance websites, cross-platform mobile apps, and enterprise solutions with modern technologies.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Flutterly Ltd - Web & Mobile App Development",
-=======
     default: `${siteName} | Web & Mobile Development`,
     template: `%s | ${siteName}`,
   },
@@ -114,22 +53,11 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: "Flutterly Ltd",
->>>>>>> theirs
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-<<<<<<< ours
-    title: "Flutterly Ltd | Web & Mobile App Development UK",
-    description:
-      "UK-based digital agency building high-performance websites, mobile apps, and enterprise solutions.",
-    images: ["/og-image.png"],
-  },
-  alternates: {
-    canonical: siteUrl,
-  },
-=======
     title: `${siteName} | Web & Mobile Development`,
     description: siteDescription,
     images: ["/logo-horizontal.png"],
@@ -149,24 +77,6 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#000000",
-};
-
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: siteName,
-  url: siteUrl,
-  logo: `${siteUrl}/logo-icon.png`,
-  sameAs: ["https://www.linkedin.com/in/anoop-jose-0b308a296/"],
-};
-
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: siteName,
-  url: siteUrl,
-  description: siteDescription,
->>>>>>> theirs
 };
 
 function JsonLd() {
@@ -234,24 +144,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-<<<<<<< ours
       <head>
         <JsonLd />
       </head>
       <body className={`${outfit.variable} antialiased`}>{children}</body>
-=======
-      <body className={`${outfit.variable} antialiased`}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-        {children}
-      </body>
->>>>>>> theirs
     </html>
   );
 }
