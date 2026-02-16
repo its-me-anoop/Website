@@ -18,8 +18,8 @@ export function FeaturedWork() {
 
     return (
         <section ref={containerRef} className="relative py-32 px-6 bg-black overflow-hidden">
-            {/* Ambient Background */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] opacity-40 pointer-events-none" />
+            {/* Ambient Background - Optimized blur */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[80px] opacity-40 pointer-events-none will-change-transform" />
 
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -68,10 +68,10 @@ export function FeaturedWork() {
                     {/* Visual */}
                     <motion.div
                         style={{ y }}
-                        className="relative flex justify-center lg:justify-end"
+                        className="relative flex justify-center lg:justify-end will-change-transform"
                     >
-                        <div className="relative w-full max-w-[320px] transform rotate-[-6deg] hover:rotate-0 transition-transform duration-700 ease-out">
-                            <div className="absolute inset-0 bg-blue-500/20 blur-[60px] rounded-full scale-110" />
+                        <div className="relative w-full max-w-[320px] transform rotate-[-6deg] hover:rotate-0 transition-transform duration-700 ease-out will-change-transform">
+                            <div className="absolute inset-0 bg-blue-500/20 blur-[40px] rounded-full scale-110" />
                             <Iphone17ProFrame className="shadow-2xl">
                                 <Image
                                     src="/projects/thirsty-ai/dashboard-new.png"
