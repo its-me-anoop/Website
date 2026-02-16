@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
@@ -15,6 +16,7 @@ const navItems = [
 
 export function Navbar() {
     const { scrollY } = useScroll();
+    const pathname = usePathname();
     const [hidden, setHidden] = useState(false);
     const [prevScroll, setPrevScroll] = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -28,6 +30,11 @@ export function Navbar() {
         }
         setPrevScroll(latest);
     });
+
+    const getHref = (href: string) => {
+        if (pathname === "/") return href;
+        return `/${href}`;
+    };
 
     return (
         <>
@@ -49,7 +56,7 @@ export function Navbar() {
                         {navItems.map((item) => (
                             <li key={item.name}>
                                 <Link
-                                    href={item.href}
+                                    href={getHref(item.href)}
                                     className="px-4 py-2 text-sm text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5"
                                 >
                                     {item.name}
@@ -96,7 +103,7 @@ export function Navbar() {
                             {navItems.map((item) => (
                                 <Link
                                     key={item.name}
-                                    href={item.href}
+                                    href={getHref(item.href)}
                                     onClick={() => setMobileMenuOpen(false)}
                                     className="text-2xl font-medium text-zinc-400 hover:text-white"
                                 >
