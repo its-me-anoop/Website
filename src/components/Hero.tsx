@@ -4,61 +4,85 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+const appleEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: appleEase,
+      staggerChildren: 0.12,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: appleEase } },
+};
+
 export default function Hero() {
   return (
-    <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-[#fbfbfd]">
-      {/* Subtle background gradient */}
+    <section className="relative overflow-hidden bg-white pb-20 pt-28 md:pb-24 md:pt-36">
       <div className="absolute inset-0 z-0" aria-hidden="true">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-b from-[#0071e3]/[0.04] via-transparent to-transparent rounded-full blur-3xl" />
+        <div className="absolute -top-28 left-1/2 h-[430px] w-[900px] -translate-x-1/2 rounded-full bg-gradient-to-b from-[#0071e3]/10 via-[#0071e3]/[0.03] to-transparent blur-3xl" />
       </div>
 
-      <div className="max-w-[980px] mx-auto px-6 relative z-10 text-center pt-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      <motion.div
+        initial="hidden"
+        animate="show"
+        variants={containerVariants}
+        className="relative z-10 mx-auto max-w-[1020px] px-6 text-center"
+      >
+        <motion.p variants={itemVariants} className="mb-5 text-base font-semibold tracking-tight text-[#0071e3] md:text-lg">
+          Flutterly Ltd
+        </motion.p>
+
+        <motion.h1
+          variants={itemVariants}
+          className="mx-auto max-w-[900px] text-[clamp(2.5rem,7vw,5.3rem)] font-semibold leading-[1.03] tracking-[-0.03em] text-[#1d1d1f]"
         >
-          <p className="text-[#0071e3] text-lg md:text-xl font-semibold mb-4 tracking-tight">
-            Flutterly Ltd
-          </p>
+          Digital experiences crafted with care and precision.
+        </motion.h1>
 
-          <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-tight leading-[1.05] text-[#1d1d1f] mb-6">
-            Digital experiences{" "}
-            <br className="hidden sm:block" />
-            crafted to perfection.
-          </h1>
+        <motion.p
+          variants={itemVariants}
+          className="mx-auto mt-7 max-w-[680px] text-base leading-relaxed text-[#86868b] md:text-xl md:leading-relaxed"
+        >
+          High-performance websites, native mobile apps, and enterprise solutions designed to scale smoothly and feel effortless.
+        </motion.p>
 
-          <p className="text-lg md:text-xl text-[#86868b] max-w-[600px] mx-auto mb-10 leading-relaxed font-normal">
-            High-performance websites, native mobile apps, and enterprise solutions.
-            Built with precision and purpose.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/#contact"
-              className="group inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#0071e3] text-white text-base font-medium hover:bg-[#0077ed] transition-colors duration-200"
-            >
-              Start a project
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
-            </Link>
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-[#0071e3] text-base font-medium hover:bg-[#0071e3]/[0.06] transition-colors duration-200"
-            >
-              View our work
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
+        <motion.div
+          variants={itemVariants}
+          className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
+        >
+          <Link
+            href="/#contact"
+            className="group inline-flex min-w-[180px] items-center justify-center gap-2 rounded-full bg-[#0071e3] px-7 py-3 text-base font-medium text-white transition-colors duration-200 hover:bg-[#0077ed]"
+          >
+            Start a project
+            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+          </Link>
+          <Link
+            href="/projects"
+            className="inline-flex min-w-[180px] items-center justify-center gap-2 rounded-full border border-[#0071e3]/20 px-7 py-3 text-base font-medium text-[#0071e3] transition-colors duration-200 hover:bg-[#0071e3]/[0.06]"
+          >
+            View our work
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </motion.div>
 
-        {/* Tech stack */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-24 pb-12"
+          variants={itemVariants}
+          className="mx-auto mt-16 max-w-[900px] rounded-[28px] border border-black/10 bg-white p-5 shadow-[0_12px_40px_rgba(0,0,0,0.06)] sm:p-6"
         >
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-3">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#86868b]">
+            Trusted Stack
+          </p>
+          <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
             {[
               "React",
               "Next.js",
@@ -66,17 +90,20 @@ export default function Hero() {
               "SwiftUI",
               "React Native",
               "Node.js",
-            ].map((tech) => (
-              <span
+            ].map((tech, index) => (
+              <motion.span
                 key={tech}
-                className="text-sm font-medium text-[#86868b]"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 + index * 0.06, duration: 0.45, ease: appleEase }}
+                className="rounded-full border border-black/10 px-3 py-1.5 text-sm font-medium text-[#86868b]"
               >
                 {tech}
-              </span>
+              </motion.span>
             ))}
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
+const appleEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const stats = [
   { value: "50+", label: "Projects Delivered" },
   { value: "100%", label: "Client Satisfaction" },
@@ -17,126 +19,144 @@ const strengths = [
   "User-centric design that drives results",
 ];
 
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: appleEase,
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: appleEase } },
+};
+
 export default function About() {
   return (
-    <section id="about" className="py-24 md:py-32 bg-white">
-      <div className="max-w-[980px] mx-auto px-6">
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24 md:mb-32"
-        >
+    <section id="about" className="bg-white py-24 md:py-32">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={sectionVariants}
+        className="mx-auto max-w-[1020px] px-6"
+      >
+        <motion.div variants={itemVariants} className="mb-14 text-center md:mb-20">
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#0071e3]">
+            Why Flutterly
+          </h2>
+          <p className="mx-auto max-w-[760px] text-3xl font-semibold leading-tight tracking-[-0.02em] text-[#1d1d1f] md:text-4xl lg:text-[2.8rem]">
+            We build digital products that create measurable business value.
+          </p>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="mb-16 grid grid-cols-2 gap-4 md:mb-24 md:grid-cols-4">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.08 }}
-              className="text-center"
+              whileHover={{ y: -3 }}
+              transition={{ delay: index * 0.05 }}
+              className="rounded-2xl border border-black/10 bg-white p-5 text-center shadow-[0_8px_24px_rgba(0,0,0,0.04)] md:p-6"
             >
-              <h3 className="text-4xl md:text-5xl font-bold text-[#1d1d1f] tracking-tight">
+              <h3 className="text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-4xl">
                 {stat.value}
               </h3>
-              <p className="text-sm text-[#86868b] mt-1">{stat.label}</p>
+              <p className="mt-1 text-xs text-[#86868b] md:text-sm">{stat.label}</p>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Why Choose Us */}
-        <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-20 mb-24 md:mb-32">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex-1"
-          >
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-[#0071e3] mb-3">
-              Why Flutterly
-            </h2>
-            <p className="text-3xl md:text-4xl font-bold tracking-tight text-[#1d1d1f] leading-tight mb-6">
-              We don&apos;t just write code.{" "}
-              <span className="text-[#86868b]">We build digital assets that drive growth.</span>
+        <div className="mb-20 flex flex-col items-start gap-12 lg:mb-28 lg:flex-row lg:gap-16">
+          <motion.div variants={itemVariants} className="flex-1">
+            <p className="mb-6 text-3xl font-semibold leading-tight tracking-tight text-[#1d1d1f] md:text-4xl">
+              Strategic thinking, meticulous execution, and long-term support.
             </p>
-            <p className="text-[#86868b] text-lg mb-8 leading-relaxed">
+            <p className="mb-8 text-base leading-relaxed text-[#86868b] md:text-lg">
               Our team works closely with you to understand your unique challenges
               and deliver solutions that scale with your business.
             </p>
-            <ul className="space-y-4">
-              {strengths.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-[#0071e3]/10 flex items-center justify-center mt-0.5 shrink-0">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#0071e3]" />
+            <ul className="space-y-3.5">
+              {strengths.map((item, index) => (
+                <motion.li
+                  key={item}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.6 }}
+                  transition={{ delay: 0.1 + index * 0.07, duration: 0.5, ease: appleEase }}
+                  className="flex items-start gap-3"
+                >
+                  <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0071e3]/10">
+                    <div className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
                   </div>
-                  <span className="text-[#1d1d1f] text-[15px]">{item}</span>
-                </li>
+                  <span className="text-[15px] text-[#1d1d1f] md:text-base">{item}</span>
+                </motion.li>
               ))}
             </ul>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-            className="flex-1 w-full"
-          >
-            <div className="grid grid-cols-2 gap-4">
-              {stats.map((stat) => (
+          <motion.div variants={itemVariants} className="w-full flex-1 rounded-[28px] border border-black/10 bg-white p-6 shadow-[0_12px_34px_rgba(0,0,0,0.05)] md:p-8">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#0071e3]">
+              What You Can Expect
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              {stats.map((stat, index) => (
                 <div
                   key={stat.label}
-                  className="p-6 md:p-8 rounded-2xl bg-[#f5f5f7] text-center"
+                  className={`rounded-2xl border border-black/10 p-5 text-center ${
+                    index % 2 === 0 ? "bg-white" : "bg-[#0071e3]/[0.03]"
+                  }`}
                 >
-                  <h4 className="text-3xl md:text-4xl font-bold text-[#1d1d1f] tracking-tight">
+                  <h4 className="text-2xl font-semibold tracking-tight text-[#1d1d1f] md:text-3xl">
                     {stat.value}
                   </h4>
-                  <p className="text-xs text-[#86868b] mt-1">{stat.label}</p>
+                  <p className="mt-1 text-xs text-[#86868b]">{stat.label}</p>
                 </div>
               ))}
             </div>
           </motion.div>
         </div>
 
-        {/* Founder */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="rounded-3xl bg-[#f5f5f7] p-10 md:p-16"
+          variants={itemVariants}
+          className="rounded-[34px] border border-black/10 bg-white p-7 shadow-[0_18px_50px_rgba(0,0,0,0.06)] md:p-12"
         >
-          <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-            <div className="relative w-56 h-56 md:w-72 md:h-72 shrink-0 order-1 md:order-2">
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-[#e8e8ed] to-[#f5f5f7]" />
+          <div className="flex flex-col items-center gap-10 md:flex-row md:gap-14">
+            <div className="relative order-1 h-[300px] w-[240px] shrink-0 overflow-hidden rounded-[30px] border border-black/10 bg-white shadow-[0_14px_36px_rgba(0,0,0,0.08)] md:order-2 md:h-[380px] md:w-[300px]">
               <Image
-                src="/anoop-jose.png"
+                src="/anoop-jose.jpg"
                 alt="Anoop Jose - Lead Developer and Founder of Flutterly Ltd"
                 fill
-                className="object-contain rounded-3xl relative z-10"
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 240px, 300px"
               />
             </div>
 
-            <div className="flex-1 order-2 md:order-1 text-center md:text-left">
-              <h3 className="text-3xl md:text-4xl font-bold text-[#1d1d1f] tracking-tight mb-2">
+            <div className="order-2 flex-1 text-center md:order-1 md:text-left">
+              <h3 className="mb-2 text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-4xl">
                 Anoop Jose
               </h3>
-              <p className="text-[#0071e3] font-medium text-lg mb-6">
+              <p className="mb-6 text-lg font-medium text-[#0071e3]">
                 Lead Developer &amp; Founder
               </p>
 
-              <blockquote className="text-lg md:text-xl text-[#6e6e73] leading-relaxed mb-8">
+              <blockquote className="mb-8 text-lg leading-relaxed text-[#86868b] md:text-xl">
                 &ldquo;I believe in crafting digital experiences that are not just
                 functional, but truly memorable. Every line of code is written with
                 performance, scalability, and the user in mind.&rdquo;
               </blockquote>
 
-              <div className="flex gap-3 justify-center md:justify-start">
+              <div className="flex flex-wrap justify-center gap-3 md:justify-start">
                 <a
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full bg-white text-[#1d1d1f] text-sm font-medium hover:bg-[#e8e8ed] transition-colors duration-200"
+                  className="rounded-full border border-black/10 px-4 py-2 text-sm font-medium text-[#1d1d1f] transition-colors duration-200 hover:border-[#0071e3]/30 hover:text-[#0071e3]"
                 >
                   GitHub
                 </a>
@@ -144,7 +164,7 @@ export default function About() {
                   href="https://www.linkedin.com/in/anoop-jose-0b308a296/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full bg-white text-[#1d1d1f] text-sm font-medium hover:bg-[#e8e8ed] transition-colors duration-200"
+                  className="rounded-full border border-black/10 px-4 py-2 text-sm font-medium text-[#1d1d1f] transition-colors duration-200 hover:border-[#0071e3]/30 hover:text-[#0071e3]"
                 >
                   LinkedIn
                 </a>
@@ -152,7 +172,7 @@ export default function About() {
                   href="https://twitter.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full bg-white text-[#1d1d1f] text-sm font-medium hover:bg-[#e8e8ed] transition-colors duration-200"
+                  className="rounded-full border border-black/10 px-4 py-2 text-sm font-medium text-[#1d1d1f] transition-colors duration-200 hover:border-[#0071e3]/30 hover:text-[#0071e3]"
                 >
                   Twitter
                 </a>
@@ -160,7 +180,7 @@ export default function About() {
             </div>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

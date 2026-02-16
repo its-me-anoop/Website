@@ -10,7 +10,7 @@ const projects = [
     title: "Thirsty.ai",
     description:
       "A privacy-first iOS hydration tracker that delivers personalized coaching and reminders using Apple Foundation Models running on-device.",
-    image: "/projects/thirsty-ai/hero.png",
+    image: "/projects/thirsty-ai/app-icon.png",
     tags: ["iOS Product", "AI", "Privacy-First"],
     link: "/projects/thirsty-ai",
     color: "bg-blue-50",
