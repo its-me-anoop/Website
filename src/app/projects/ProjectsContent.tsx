@@ -11,9 +11,20 @@ import {
   Stethoscope,
   Shield,
   Activity,
+  Droplets,
+  ArrowRight,
 } from "lucide-react";
+import Link from "next/link";
 
 const projects = [
+  {
+    title: "Thirsty.ai",
+    description:
+      "An iOS hydration tracker powered by on-device Apple Foundation Models. Delivering private, personalized coaching with adaptive reminders and zero cloud dependency.",
+    icon: Droplets,
+    tags: ["iOS App", "On-device AI", "Privacy-first"],
+    link: "/projects/thirsty-ai",
+  },
   {
     title: "Greenmead Housing",
     description:
@@ -123,15 +134,25 @@ export default function ProjectsContent() {
                   ))}
                 </div>
 
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0071e3] hover:underline"
-                >
-                  Visit Website
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
+                {project.link.startsWith("/") ? (
+                  <Link
+                    href={project.link}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0071e3] hover:underline"
+                  >
+                    View Case Study
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                ) : (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0071e3] hover:underline"
+                  >
+                    Visit Website
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
               </motion.article>
             ))}
           </div>
