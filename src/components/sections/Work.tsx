@@ -8,6 +8,12 @@ import { ArrowUpRight } from "lucide-react";
 // Using existing images found in public folder
 const projects = [
     {
+        title: "Thirsty.ai",
+        category: "iOS & AI",
+        image: "/projects/thirsty-ai/dashboard-new.png",
+        link: "/projects/thirsty-ai"
+    },
+    {
         title: "Greenmead",
         category: "Web Development",
         image: "/project-greenmead.png",
