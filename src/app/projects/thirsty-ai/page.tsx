@@ -42,17 +42,15 @@ const productScreens = [
             "A clear, glanceable home view that combines hydration progress, AI-generated coaching, and adaptive reminders into one focused daily surface.",
         src: "/projects/thirsty-ai/dashboard.png",
         alt: "Thirsty.ai hydration dashboard screen with daily insights and progress tracking.",
-        containerClass: "lg:col-span-7",
-        aspectClass: "aspect-[16/10]",
+        aspectClass: "aspect-[9/16]",
     },
     {
-        title: "Seamless Onboarding Flow",
+        title: "Actionable Insights Screen",
         description:
-            "A structured onboarding experience that captures habits and goals early, allowing Thirsty.ai to deliver relevant recommendations from the first session.",
-        src: "/projects/thirsty-ai/onboarding.png",
-        alt: "Thirsty.ai onboarding sequence on iPhone introducing personalization setup.",
-        containerClass: "lg:col-span-5",
-        aspectClass: "aspect-[4/5]",
+            "AI-generated insight cards translate hydration history into timely, practical prompts that keep users engaged and consistent every day.",
+        src: "/projects/thirsty-ai/insights.png",
+        alt: "Thirsty.ai insights screen with hydration coach recommendations and trend-based guidance.",
+        aspectClass: "aspect-[9/16]",
     },
 ];
 
@@ -121,8 +119,8 @@ export default function ThirstyAiProjectPage() {
                                 <div className="absolute inset-0 bg-gradient-to-b from-white/15 via-transparent to-transparent" />
                                 <div className="relative aspect-[9/16] w-full">
                                     <Image
-                                        src="/projects/thirsty-ai/hero.png"
-                                        alt="Thirsty.ai hero iOS screen showcasing hydration assistant and personalized AI guidance."
+                                        src="/projects/thirsty-ai/dashboard.png"
+                                        alt="Thirsty.ai dashboard screen showcasing personalized hydration progress and assistant guidance."
                                         fill
                                         priority
                                         className="object-cover object-top"
@@ -130,7 +128,7 @@ export default function ThirstyAiProjectPage() {
                                 </div>
                             </div>
                             <p className="mt-4 text-center text-sm text-gray-400">
-                                Hero experience designed for fast daily hydration check-ins.
+                                Dashboard experience designed for fast daily hydration check-ins.
                             </p>
                         </article>
                     </div>
@@ -172,16 +170,16 @@ export default function ThirstyAiProjectPage() {
                     <div className="mb-10 max-w-3xl">
                         <h2 className="mb-4 text-3xl font-bold md:text-4xl">Product Experience</h2>
                         <p className="text-gray-400">
-                            Key screens from Thirsty.ai that show the complete journey from onboarding through ongoing, adaptive
-                            hydration coaching.
+                            Key product surfaces that prove value in everyday use: the real-time dashboard and AI-powered insights
+                            feed.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                         {productScreens.map((screen) => (
                             <article
                                 key={screen.title}
-                                className={`${screen.containerClass} group overflow-hidden rounded-3xl border border-white/10 bg-white/5`}
+                                className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5"
                             >
                                 <div className="relative">
                                     <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-blue-500/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
