@@ -7,6 +7,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Contact } from "@/components/sections/Contact";
 import { ArrowLeft, BellRing, BrainCircuit, Cpu, LockKeyhole, ShieldCheck, Sparkles, Droplets } from "lucide-react";
+import { Iphone17ProFrame } from "@/components/ui/Iphone17ProFrame";
 
 // Animation variants
 const fadeInUp: Variants = {
@@ -137,17 +138,19 @@ export default function ThirstyAiProjectPage() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                            className="relative h-[600px] w-full flex items-center justify-center lg:justify-end"
+                            className="relative w-full flex items-center justify-center lg:justify-end"
                         >
-                            <div className="relative w-full max-w-[320px] h-full">
-                                <div className="absolute inset-0 bg-blue-500/20 blur-[80px] rounded-full" />
-                                <Image
-                                    src="/projects/thirsty-ai/dashboard-new.png"
-                                    alt="Thirsty.ai Dashboard"
-                                    fill
-                                    className="object-contain relative z-10 drop-shadow-2xl"
-                                    priority
-                                />
+                            <div className="relative w-full max-w-[320px]">
+                                <div className="absolute inset-0 bg-blue-500/20 blur-[80px] rounded-full scale-125" />
+                                <Iphone17ProFrame>
+                                    <Image
+                                        src="/projects/thirsty-ai/dashboard-new.png"
+                                        alt="Thirsty.ai Dashboard"
+                                        fill
+                                        className="object-cover relative z-10"
+                                        priority
+                                    />
+                                </Iphone17ProFrame>
                             </div>
                         </motion.div>
                     </div>
@@ -194,10 +197,12 @@ export default function ThirstyAiProjectPage() {
                 </div>
             </section>
 
+
+
             {/* Visual Showcase */}
             <section className="py-24 px-6">
                 <div className="container mx-auto max-w-7xl">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 justify-items-center">
                         {productScreens.map((screen, index) => (
                             <motion.div
                                 key={index}
@@ -205,20 +210,25 @@ export default function ThirstyAiProjectPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: index * 0.2 }}
-                                className={`group relative rounded-3xl border border-white/10 overflow-hidden bg-zinc-900/50 ${screen.colSpan ?? "lg:col-span-1"}`}
+                                className={`group relative flex flex-col items-center ${screen.colSpan ?? "lg:col-span-1"}`}
                             >
-                                <div className={`relative w-full ${screen.height} bg-[#080808]`}>
-                                    <Image
-                                        src={screen.src}
-                                        alt={screen.alt}
-                                        fill
-                                        className="object-contain p-8 group-hover:scale-[1.02] transition-transform duration-700"
-                                    />
+                                <div className="relative mb-8 transform transition-transform duration-500 group-hover:-translate-y-2">
+                                    {/* Background glow for the phone */}
+                                    <div className="absolute inset-0 bg-blue-500/20 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-110" />
+
+                                    <Iphone17ProFrame>
+                                        <Image
+                                            src={screen.src}
+                                            alt={screen.alt}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </Iphone17ProFrame>
                                 </div>
-                                <div className="absolute inset-0 pointer-events-none border border-white/5 rounded-3xl" />
-                                <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+
+                                <div className="text-center max-w-md">
                                     <h4 className="text-xl font-medium mb-2">{screen.title}</h4>
-                                    <p className="text-zinc-400 text-sm max-w-md">{screen.description}</p>
+                                    <p className="text-zinc-400 text-sm">{screen.description}</p>
                                 </div>
                             </motion.div>
                         ))}
