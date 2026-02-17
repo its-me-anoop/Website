@@ -5,11 +5,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
+
+const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
 const navItems = [
     { name: "Services", href: "#services" },
-    { name: "Work", href: "#work" },
+    { name: "Products", href: "#products" },
     { name: "Contact", href: "#contact" },
 ];
 
@@ -44,48 +46,50 @@ export function Navbar() {
                     hidden: { y: "-120%", opacity: 0 },
                 }}
                 animate={hidden ? "hidden" : "visible"}
-                transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                className="fixed top-0 left-0 right-0 z-[100] flex justify-center px-4 pt-4 pointer-events-none"
+                transition={{ duration: 0.4, ease }}
+                className="fixed top-0 left-0 right-0 z-[100] px-6 md:px-14"
             >
-                <nav className="pointer-events-auto flex items-center justify-between gap-2 sm:gap-6 rounded-2xl border border-white/[0.06] bg-[#0C0C0E]/80 backdrop-blur-2xl backdrop-saturate-150 pl-5 pr-2 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-2xl">
-                    <Link href="/" className="flex items-center shrink-0">
-                        <Image
-                            src="/logo-horizontal.png"
-                            alt="Flutterly"
-                            width={100}
-                            height={24}
-                            className="h-5 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
-                            priority
-                        />
-                    </Link>
+                <nav className="flex items-center justify-between py-5 max-w-[1340px] mx-auto">
+                    <div className="flex items-center gap-12">
+                        <Link href="/" className="flex items-center shrink-0">
+                            <Image
+                                src="/logo-icon.png"
+                                alt="Flutterly"
+                                width={120}
+                                height={32}
+                                className="h-7 w-auto object-contain"
+                                priority
+                            />
+                        </Link>
 
-                    <ul className="hidden md:flex items-center gap-0.5">
-                        {navItems.map((item) => (
-                            <li key={item.name}>
-                                <Link
-                                    href={getHref(item.href)}
-                                    className="px-3.5 py-2 text-[13px] font-medium text-foreground-secondary hover:text-foreground transition-colors rounded-lg hover:bg-white/[0.04]"
-                                >
-                                    {item.name}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
+                        <ul className="hidden md:flex items-center gap-8">
+                            {navItems.map((item) => (
+                                <li key={item.name}>
+                                    <Link
+                                        href={getHref(item.href)}
+                                        className="text-[13px] font-medium text-foreground-secondary hover:text-foreground transition-colors"
+                                    >
+                                        {item.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-4">
                         <Link
                             href="mailto:anoop@flutterly.co.uk"
-                            className="hidden md:inline-flex items-center justify-center gap-1.5 rounded-xl bg-accent hover:bg-accent-hover text-white px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:shadow-[0_0_20px_rgba(99,102,241,0.3)]"
+                            className="hidden md:inline-flex items-center justify-center bg-accent hover:bg-accent-hover text-background px-6 py-2.5 text-[12px] font-semibold tracking-wide transition-colors min-h-[44px]"
                         >
                             Start a Project
                         </Link>
 
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="md:hidden flex items-center justify-center w-10 h-10 text-foreground-secondary hover:text-foreground transition-colors rounded-xl hover:bg-white/[0.04]"
+                            className="md:hidden flex items-center justify-center w-11 h-11 text-foreground-secondary hover:text-foreground transition-colors"
                             aria-label="Toggle menu"
                         >
-                            {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+                            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                         </button>
                     </div>
                 </nav>
@@ -99,13 +103,13 @@ export function Navbar() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed inset-0 z-[99] bg-[#0C0C0E]/95 backdrop-blur-2xl md:hidden"
+                        className="fixed inset-0 z-[99] bg-background/95 backdrop-blur-2xl md:hidden"
                     >
                         <motion.nav
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+                            transition={{ duration: 0.3, delay: 0.1, ease }}
                             className="flex flex-col items-center justify-center h-full gap-2 px-8"
                         >
                             {navItems.map((item, index) => (
@@ -133,10 +137,9 @@ export function Navbar() {
                                 <Link
                                     href="mailto:anoop@flutterly.co.uk"
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-accent-hover text-white rounded-2xl text-lg font-medium transition-colors min-h-[48px]"
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-accent-hover text-background text-lg font-semibold transition-colors min-h-[48px]"
                                 >
                                     Start a Project
-                                    <ArrowRight size={18} />
                                 </Link>
                             </motion.div>
                         </motion.nav>

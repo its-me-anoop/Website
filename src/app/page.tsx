@@ -4,7 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { FeaturedWork } from "@/components/sections/FeaturedWork";
 import { Services } from "@/components/sections/Services";
-import { Work } from "@/components/sections/Work";
+import { ClientLogos } from "@/components/sections/ClientLogos";
 import { Contact } from "@/components/sections/Contact";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function Home() {
       <Hero />
       <FeaturedWork />
       <Services />
-      <Work />
+      <ClientLogos />
       <Contact />
       <Footer />
     </main>

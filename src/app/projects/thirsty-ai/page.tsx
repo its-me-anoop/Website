@@ -76,14 +76,8 @@ export default function ThirstyAiProjectPage() {
             <Navbar />
 
             {/* Hero */}
-            <section className="relative pt-28 pb-20 px-6 overflow-hidden">
-                {/* Ambient */}
-                <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                    <div className="absolute top-20 left-1/4 w-[400px] h-[400px] bg-accent/[0.06] rounded-full blur-[120px]" />
-                    <div className="absolute bottom-0 right-1/4 w-[350px] h-[350px] bg-purple-500/[0.04] rounded-full blur-[100px]" />
-                </div>
-
-                <div className="relative z-10 max-w-5xl mx-auto">
+            <section className="relative pt-28 pb-20 px-6 md:px-14 overflow-hidden">
+                <div className="relative z-10 max-w-[1340px] mx-auto">
                     <motion.div
                         initial={{ opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -91,18 +85,18 @@ export default function ThirstyAiProjectPage() {
                         className="mb-12"
                     >
                         <Link
-                            href="/projects"
+                            href="/"
                             className="inline-flex items-center gap-2 text-sm text-foreground-secondary hover:text-foreground transition-colors group min-h-[44px]"
                         >
                             <ArrowLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
-                            Back to Projects
+                            Back to Home
                         </Link>
                     </motion.div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                         <motion.div initial="hidden" animate="visible" variants={stagger}>
                             <motion.div variants={fadeInUp} className="mb-6 flex items-center gap-3">
-                                <div className="p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.06]">
+                                <div className="p-2.5 bg-surface border border-border">
                                     <Image
                                         src="/projects/thirsty-ai/app-icon.png"
                                         alt="Thirsty.ai Icon"
@@ -117,9 +111,9 @@ export default function ThirstyAiProjectPage() {
                                 </div>
                             </motion.div>
 
-                            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-display font-semibold tracking-[-0.03em] leading-[1.1] mb-5">
+                            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-display font-semibold tracking-[-0.02em] leading-[1.1] mb-5">
                                 Intelligent hydration,{" "}
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-400">
+                                <span className="text-accent">
                                     privacy-first.
                                 </span>
                             </motion.h2>
@@ -130,7 +124,7 @@ export default function ThirstyAiProjectPage() {
 
                             <motion.div variants={fadeInUp} className="flex flex-wrap gap-2">
                                 {["SwiftUI", "CoreML", "HealthKit"].map(tag => (
-                                    <span key={tag} className="px-3 py-1.5 rounded-lg border border-white/[0.06] bg-white/[0.03] text-xs font-mono text-foreground-secondary">
+                                    <span key={tag} className="px-3 py-1.5 border border-border text-xs text-foreground-secondary">
                                         {tag}
                                     </span>
                                 ))}
@@ -161,8 +155,8 @@ export default function ThirstyAiProjectPage() {
             </section>
 
             {/* Features */}
-            <section className="py-24 px-6 bg-background-secondary">
-                <div className="max-w-5xl mx-auto">
+            <section className="py-24 px-6 md:px-14 bg-background-secondary">
+                <div className="max-w-[1340px] mx-auto">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
@@ -170,7 +164,7 @@ export default function ThirstyAiProjectPage() {
                         variants={fadeInUp}
                         className="mb-14"
                     >
-                        <h3 className="text-sm font-medium text-foreground-tertiary uppercase tracking-widest mb-3">Core Features</h3>
+                        <h3 className="text-[10px] font-medium text-foreground-tertiary uppercase tracking-[0.15em] mb-4">Core Features</h3>
                         <p className="text-2xl md:text-3xl font-display font-semibold tracking-tight max-w-lg">
                             Privacy meets intelligence.
                         </p>
@@ -181,18 +175,18 @@ export default function ThirstyAiProjectPage() {
                         whileInView="visible"
                         viewport={{ once: true, margin: "-50px" }}
                         variants={stagger}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-4"
+                        className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border"
                     >
                         {features.map((feature, i) => (
                             <motion.div
                                 key={i}
                                 variants={fadeInUp}
-                                className="group p-6 md:p-8 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300"
+                                className="group p-8 md:p-10 bg-background-secondary hover:bg-surface transition-colors duration-300"
                             >
-                                <div className="mb-5 w-10 h-10 rounded-xl bg-accent/[0.1] flex items-center justify-center group-hover:bg-accent/[0.15] transition-colors">
+                                <div className="mb-6 w-10 h-10 flex items-center justify-center">
                                     <feature.icon className="w-5 h-5 text-accent" />
                                 </div>
-                                <h4 className="text-base font-display font-semibold mb-2 tracking-tight">{feature.title}</h4>
+                                <h4 className="text-base font-display font-semibold mb-3 tracking-tight">{feature.title}</h4>
                                 <p className="text-sm text-foreground-secondary leading-relaxed">{feature.description}</p>
                             </motion.div>
                         ))}
@@ -201,8 +195,8 @@ export default function ThirstyAiProjectPage() {
             </section>
 
             {/* Product Screens */}
-            <section className="py-24 px-6">
-                <div className="max-w-5xl mx-auto">
+            <section className="py-24 px-6 md:px-14">
+                <div className="max-w-[1340px] mx-auto">
                     <div className="flex flex-col gap-24 lg:gap-32">
                         {productScreens.map((screen, index) => (
                             <motion.div
@@ -239,14 +233,14 @@ export default function ThirstyAiProjectPage() {
             </section>
 
             {/* Outcome */}
-            <section className="py-24 px-6 border-t border-white/[0.04]">
+            <section className="py-24 px-6 md:px-14 border-t border-border">
                 <div className="max-w-3xl mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.96 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, ease }}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/[0.08] border border-accent/20 text-accent text-xs font-medium mb-8"
+                        className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent-muted border border-accent/20 text-accent text-xs font-medium mb-8"
                     >
                         <Sparkles className="w-3.5 h-3.5" />
                         Outcome
@@ -257,7 +251,7 @@ export default function ThirstyAiProjectPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1, ease }}
-                        className="text-3xl md:text-4xl font-display font-semibold tracking-[-0.03em] mb-5"
+                        className="text-3xl md:text-4xl font-display font-semibold tracking-[-0.02em] mb-5"
                     >
                         Designed for trust.
                     </motion.h3>

@@ -1,25 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Instrument_Sans } from "next/font/google";
+import { Playfair_Display, Manrope } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const instrumentSans = Instrument_Sans({
-  variable: "--font-instrument-sans",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair-display",
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
+});
+
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const siteUrl = "https://flutterly.uk";
@@ -84,7 +79,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0C0C0E",
+  themeColor: "#0F0F0F",
 };
 
 function JsonLd() {
@@ -156,9 +151,8 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className={cn(
-        inter.variable,
-        jetbrainsMono.variable,
-        instrumentSans.variable,
+        playfairDisplay.variable,
+        manrope.variable,
         "antialiased bg-background text-foreground font-sans min-h-screen"
       )}>
         {children}
