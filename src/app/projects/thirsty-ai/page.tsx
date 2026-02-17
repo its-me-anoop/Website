@@ -6,21 +6,17 @@ import Image from "next/image";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Contact } from "@/components/sections/Contact";
-import { ArrowLeft, BellRing, BrainCircuit, Cpu, LockKeyhole, ShieldCheck, Sparkles, Droplets } from "lucide-react";
+import { ArrowLeft, BellRing, Cpu, LockKeyhole, Sparkles } from "lucide-react";
 import { Iphone17ProFrame } from "@/components/ui/Iphone17ProFrame";
 
-// Animation variants
-// refined easing for that "Apple" feel
-// refined easing for that "Apple" feel
-const appleEase: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
+const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
 const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 30, filter: "blur(5px)" },
+    hidden: { opacity: 0, y: 24 },
     visible: {
         opacity: 1,
         y: 0,
-        filter: "blur(0px)",
-        transition: { duration: 0.8, ease: appleEase }
+        transition: { duration: 0.7, ease }
     }
 };
 
@@ -28,56 +24,47 @@ const stagger: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+        transition: { staggerChildren: 0.12, delayChildren: 0.1 }
     }
 };
 
 const scaleIn: Variants = {
-    hidden: { opacity: 0, scale: 0.95, filter: "blur(10px)" },
+    hidden: { opacity: 0, scale: 0.96 },
     visible: {
         opacity: 1,
         scale: 1,
-        filter: "blur(0px)",
-        transition: { duration: 1.0, ease: appleEase }
+        transition: { duration: 0.8, ease }
     }
 };
 
 const features = [
     {
         title: "On-device Foundation AI",
-        description:
-            "Hydration guidance runs directly on iPhone using Apple Foundation Models. Insight generation stays fast, context-aware, and completely private.",
+        description: "Hydration guidance runs directly on iPhone using Apple Foundation Models. Fast, context-aware, and completely private.",
         icon: Cpu,
-        accent: "from-blue-500/20 to-cyan-500/5",
     },
     {
         title: "Privacy by Default",
-        description:
-            "No cloud model calls for daily coaching. Your sensitive health patterns and personal context remain strictly on your device.",
+        description: "No cloud model calls for daily coaching. Your health patterns and personal context remain strictly on your device.",
         icon: LockKeyhole,
-        accent: "from-emerald-500/20 to-teal-500/5",
     },
     {
         title: "Smart Reminder Engine",
-        description:
-            "Reminders adapt to your routine, activity trends, and hydration consistency to nudge you at the right moments, avoiding alert fatigue.",
+        description: "Reminders adapt to your routine and hydration consistency, nudging you at the right moments without alert fatigue.",
         icon: BellRing,
-        accent: "from-sky-500/20 to-indigo-500/5",
     },
 ];
 
 const productScreens = [
     {
         title: "Hydration Intelligence",
-        description:
-            "A glanceable home view combining real-time progress, AI-generated coaching, and adaptive reminders into one focused surface.",
+        description: "A glanceable home view combining real-time progress, AI-generated coaching, and adaptive reminders into one focused surface.",
         src: "/projects/thirsty-ai/dashboard-new.png",
         alt: "Thirsty.ai hydration dashboard"
     },
     {
         title: "Actionable Insights",
-        description:
-            "AI-generated cards translate your hydration history into timely, practical prompts that keep you engaged without being intrusive.",
+        description: "AI-generated cards translate your hydration history into timely, practical prompts that keep you engaged without being intrusive.",
         src: "/projects/thirsty-ai/insights-new.png",
         alt: "Thirsty.ai insights screen"
     },
@@ -85,63 +72,68 @@ const productScreens = [
 
 export default function ThirstyAiProjectPage() {
     return (
-        <main className="min-h-screen bg-[#050505] text-white selection:bg-blue-500/30">
+        <main className="min-h-screen bg-background text-foreground">
             <Navbar />
 
-            {/* Hero Section */}
-            <section className="relative pt-32 pb-20 px-6 overflow-hidden">
-                {/* Ambient Background */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none">
-                    <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px]" />
-                    <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/10 rounded-full blur-[100px]" />
+            {/* Hero */}
+            <section className="relative pt-28 pb-20 px-6 overflow-hidden">
+                {/* Ambient */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                    <div className="absolute top-20 left-1/4 w-[400px] h-[400px] bg-accent/[0.06] rounded-full blur-[120px]" />
+                    <div className="absolute bottom-0 right-1/4 w-[350px] h-[350px] bg-purple-500/[0.04] rounded-full blur-[100px]" />
                 </div>
 
-                <div className="container relative z-10 mx-auto max-w-7xl">
+                <div className="relative z-10 max-w-5xl mx-auto">
                     <motion.div
-                        initial={{ opacity: 0, x: -10 }}
+                        initial={{ opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4 }}
+                        transition={{ duration: 0.4, ease }}
                         className="mb-12"
                     >
                         <Link
                             href="/projects"
-                            className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors group"
+                            className="inline-flex items-center gap-2 text-sm text-foreground-secondary hover:text-foreground transition-colors group min-h-[44px]"
                         >
-                            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
                             Back to Projects
                         </Link>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                         <motion.div initial="hidden" animate="visible" variants={stagger}>
-                            <motion.div variants={fadeInUp} className="mb-8 flex items-center gap-4">
-                                <div className="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <motion.div variants={fadeInUp} className="mb-6 flex items-center gap-3">
+                                <div className="p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.06]">
                                     <Image
                                         src="/projects/thirsty-ai/app-icon.png"
                                         alt="Thirsty.ai Icon"
-                                        width={48}
-                                        height={48}
-                                        className="rounded-xl shadow-lg"
+                                        width={40}
+                                        height={40}
+                                        className="rounded-lg"
                                     />
                                 </div>
                                 <div>
-                                    <h1 className="text-2xl font-semibold tracking-tight">Thirsty.ai</h1>
-                                    <p className="text-zinc-400 text-sm">iOS & AI • 2024</p>
+                                    <h1 className="text-xl font-display font-semibold tracking-tight">Thirsty.ai</h1>
+                                    <p className="text-foreground-tertiary text-xs">iOS & AI &middot; 2024</p>
                                 </div>
                             </motion.div>
 
-                            <motion.h2 variants={fadeInUp} className="text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1] mb-6">
-                                Intelligent hydration, <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">privacy-first.</span>
+                            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-display font-semibold tracking-[-0.03em] leading-[1.1] mb-5">
+                                Intelligent hydration,{" "}
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-400">
+                                    privacy-first.
+                                </span>
                             </motion.h2>
 
-                            <motion.p variants={fadeInUp} className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-xl mb-8">
-                                We built an iOS hydration tracker that leverages on-device Apple Foundation Models to deliver personalized guidance without ever sending health data to the cloud.
+                            <motion.p variants={fadeInUp} className="text-lg text-foreground-secondary leading-relaxed max-w-md mb-6">
+                                An iOS hydration tracker leveraging on-device Apple Foundation Models for personalized guidance without ever sending health data to the cloud.
                             </motion.p>
 
-                            <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
-                                <span className="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-zinc-300">SwiftUI</span>
-                                <span className="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-zinc-300">CoreML</span>
-                                <span className="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-zinc-300">HealthKit</span>
+                            <motion.div variants={fadeInUp} className="flex flex-wrap gap-2">
+                                {["SwiftUI", "CoreML", "HealthKit"].map(tag => (
+                                    <span key={tag} className="px-3 py-1.5 rounded-lg border border-white/[0.06] bg-white/[0.03] text-xs font-mono text-foreground-secondary">
+                                        {tag}
+                                    </span>
+                                ))}
                             </motion.div>
                         </motion.div>
 
@@ -151,8 +143,8 @@ export default function ThirstyAiProjectPage() {
                             animate="visible"
                             className="relative w-full flex items-center justify-center lg:justify-end"
                         >
-                            <div className="relative w-full max-w-[320px]">
-                                <div className="absolute inset-0 bg-blue-500/20 blur-[80px] rounded-full scale-125" />
+                            <div className="relative w-full max-w-[280px]">
+                                <div className="absolute inset-0 bg-accent/[0.1] blur-[80px] rounded-full scale-125 pointer-events-none" />
                                 <Iphone17ProFrame>
                                     <Image
                                         src="/projects/thirsty-ai/dashboard-new.png"
@@ -168,19 +160,19 @@ export default function ThirstyAiProjectPage() {
                 </div>
             </section>
 
-            {/* Features Grid */}
-            <section className="py-24 px-6 bg-[#0A0A0A]">
-                <div className="container mx-auto max-w-7xl">
+            {/* Features */}
+            <section className="py-24 px-6 bg-background-secondary">
+                <div className="max-w-5xl mx-auto">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
                         variants={fadeInUp}
-                        className="mb-16 max-w-2xl"
+                        className="mb-14"
                     >
-                        <h3 className="text-3xl font-medium tracking-tight mb-4">Privacy meets Intelligence</h3>
-                        <p className="text-zinc-400 text-lg">
-                            We challenged the norm of cloud-dependent health apps by re-architecting the entire intelligence stack to run locally on the user's device.
+                        <h3 className="text-sm font-medium text-foreground-tertiary uppercase tracking-widest mb-3">Core Features</h3>
+                        <p className="text-2xl md:text-3xl font-display font-semibold tracking-tight max-w-lg">
+                            Privacy meets intelligence.
                         </p>
                     </motion.div>
 
@@ -189,54 +181,47 @@ export default function ThirstyAiProjectPage() {
                         whileInView="visible"
                         viewport={{ once: true, margin: "-50px" }}
                         variants={stagger}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                        className="grid grid-cols-1 md:grid-cols-3 gap-4"
                     >
                         {features.map((feature, i) => (
                             <motion.div
                                 key={i}
                                 variants={fadeInUp}
-                                className="group p-8 rounded-3xl bg-white/[0.02] border border-white/10 hover:bg-white/[0.04] transition-colors"
+                                className="group p-6 md:p-8 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300"
                             >
-                                <div className="mb-6 w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                    <feature.icon className="w-6 h-6 text-zinc-100" />
+                                <div className="mb-5 w-10 h-10 rounded-xl bg-accent/[0.1] flex items-center justify-center group-hover:bg-accent/[0.15] transition-colors">
+                                    <feature.icon className="w-5 h-5 text-accent" />
                                 </div>
-                                <h4 className="text-xl font-medium mb-3">{feature.title}</h4>
-                                <p className="text-zinc-400 leading-relaxed">{feature.description}</p>
+                                <h4 className="text-base font-display font-semibold mb-2 tracking-tight">{feature.title}</h4>
+                                <p className="text-sm text-foreground-secondary leading-relaxed">{feature.description}</p>
                             </motion.div>
                         ))}
                     </motion.div>
                 </div>
             </section>
 
-
-
-            {/* Visual Showcase */}
+            {/* Product Screens */}
             <section className="py-24 px-6">
-                <div className="container mx-auto max-w-7xl">
-                    <div className="flex flex-col gap-24 lg:gap-40">
+                <div className="max-w-5xl mx-auto">
+                    <div className="flex flex-col gap-24 lg:gap-32">
                         {productScreens.map((screen, index) => (
                             <motion.div
                                 key={index}
                                 variants={scaleIn}
                                 initial="hidden"
                                 whileInView="visible"
-                                viewport={{ once: true, margin: "-100px" }}
-                                className={`flex flex-col items-center gap-12 lg:gap-24 ${index % 2 === 1 ? "lg:flex-row-reverse" : "lg:flex-row"}`}
+                                viewport={{ once: true, margin: "-80px" }}
+                                className={`flex flex-col items-center gap-10 lg:gap-16 ${index % 2 === 1 ? "lg:flex-row-reverse" : "lg:flex-row"}`}
                             >
-                                {/* Text Content */}
-                                <div className="flex-1 text-center lg:text-left space-y-6">
-                                    <h4 className="text-3xl md:text-4xl font-semibold tracking-tight">{screen.title}</h4>
-                                    <p className="text-lg text-zinc-400 leading-relaxed max-w-md mx-auto lg:mx-0">
+                                <div className="flex-1 text-center lg:text-left space-y-4">
+                                    <h4 className="text-2xl md:text-3xl font-display font-semibold tracking-tight">{screen.title}</h4>
+                                    <p className="text-foreground-secondary leading-relaxed max-w-sm mx-auto lg:mx-0">
                                         {screen.description}
                                     </p>
                                 </div>
 
-                                {/* Phone Frame */}
                                 <div className="flex-1 w-full flex justify-center items-center">
-                                    <div className="relative w-full max-w-[320px] transform transition-transform duration-700 hover:scale-[1.02]">
-                                        {/* Background glow for the phone */}
-                                        <div className="absolute inset-0 bg-blue-500/20 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-125" />
-
+                                    <div className="relative w-full max-w-[280px]">
                                         <Iphone17ProFrame>
                                             <Image
                                                 src={screen.src}
@@ -253,44 +238,44 @@ export default function ThirstyAiProjectPage() {
                 </div>
             </section>
 
-            {/* Impact / Outcome */}
-            <section className="py-24 px-6 border-t border-white/5">
-                <div className="container mx-auto max-w-4xl text-center">
+            {/* Outcome */}
+            <section className="py-24 px-6 border-t border-white/[0.04]">
+                <div className="max-w-3xl mx-auto text-center">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
+                        initial={{ opacity: 0, scale: 0.96 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-8"
+                        transition={{ duration: 0.5, ease }}
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/[0.08] border border-accent/20 text-accent text-xs font-medium mb-8"
                     >
-                        <Sparkles className="w-4 h-4" />
+                        <Sparkles className="w-3.5 h-3.5" />
                         Outcome
                     </motion.div>
 
                     <motion.h3
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="text-3xl md:text-5xl font-semibold tracking-tight mb-6"
+                        transition={{ delay: 0.1, ease }}
+                        className="text-3xl md:text-4xl font-display font-semibold tracking-[-0.03em] mb-5"
                     >
-                        Design for trust.
+                        Designed for trust.
                     </motion.h3>
 
                     <motion.p
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        className="text-xl text-zinc-400 leading-relaxed mb-12"
+                        transition={{ delay: 0.15, ease }}
+                        className="text-lg text-foreground-secondary leading-relaxed max-w-xl mx-auto"
                     >
-                        Thirsty.ai proves that consumer wellness products can deliver deep, meaningful AI personalization without compromising on user privacy or application performance.
+                        Thirsty.ai proves that consumer wellness products can deliver meaningful AI personalization without compromising on user privacy or performance.
                     </motion.p>
                 </div>
             </section>
 
             <Contact />
             <Footer />
-        </main >
+        </main>
     );
 }

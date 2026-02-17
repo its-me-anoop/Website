@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +13,13 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   display: "swap",
+});
+
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 const siteUrl = "https://flutterly.uk";
@@ -77,7 +84,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#0C0C0E",
 };
 
 function JsonLd() {
@@ -151,7 +158,8 @@ export default function RootLayout({
       <body className={cn(
         inter.variable,
         jetbrainsMono.variable,
-        "antialiased bg-background text-foreground font-sans min-h-screen selection:bg-accent/20 selection:text-foreground"
+        instrumentSans.variable,
+        "antialiased bg-background text-foreground font-sans min-h-screen"
       )}>
         {children}
       </body>

@@ -11,30 +11,26 @@ interface SafariBrowserFrameProps {
 
 export function SafariBrowserFrame({ children, className, url = "flutterly.co.uk" }: SafariBrowserFrameProps) {
     return (
-        <div className={cn("relative w-full rounded-xl overflow-hidden shadow-2xl bg-zinc-900 border border-white/10 flex flex-col", className)}>
-            {/* Browser Toolbar */}
-            <div className="flex items-center gap-4 px-4 py-3 bg-zinc-900/90 backdrop-blur border-b border-white/5 disabled:opacity-50 shrink-0">
-                {/* Window Controls */}
-                <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]" />
-                    <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]" />
-                    <div className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]" />
+        <div className={cn("relative w-full rounded-xl overflow-hidden shadow-xl shadow-black/20 bg-surface border border-white/[0.06] flex flex-col", className)}>
+            {/* Toolbar */}
+            <div className="flex items-center gap-4 px-4 py-2.5 bg-surface/90 backdrop-blur-sm border-b border-white/[0.04] shrink-0">
+                <div className="flex items-center gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-white/[0.08]" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-white/[0.08]" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-white/[0.08]" />
                 </div>
 
-                {/* Address Bar */}
                 <div className="flex-1 flex justify-center">
-                    <div className="flex items-center justify-center w-full max-w-md bg-zinc-800/50 rounded-md py-1 px-3 text-xs text-zinc-400 font-medium border border-white/5 truncate">
-                        <span className="opacity-50 mr-2">🔒</span>
+                    <div className="flex items-center justify-center w-full max-w-[240px] bg-white/[0.04] rounded-md py-1 px-3 text-[11px] text-foreground-tertiary font-medium border border-white/[0.04] truncate">
                         {url}
                     </div>
                 </div>
 
-                {/* Empty Spacer to balance window controls */}
-                <div className="w-14" />
+                <div className="w-10" />
             </div>
 
-            {/* Content Area */}
-            <div className="relative w-full flex-1 bg-zinc-950 min-h-0">
+            {/* Content */}
+            <div className="relative w-full flex-1 bg-background min-h-0">
                 {children}
             </div>
         </div>

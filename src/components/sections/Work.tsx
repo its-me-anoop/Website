@@ -6,20 +6,23 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SafariBrowserFrame } from "@/components/ui/SafariBrowserFrame";
 
-// Using existing images found in public folder
+const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
+
 const projects = [
     {
         title: "Thirsty.ai",
         category: "iOS & AI",
         image: "/projects/thirsty-ai/dashboard-new.png",
-        link: "/projects/thirsty-ai",
+        href: "/projects/thirsty-ai",
+        isExternal: false,
         isWeb: false
     },
     {
         title: "Greenmead",
         category: "Web Development",
         image: "/project-greenmead.png",
-        link: "/projects/greenmead", // Assuming a link structure
+        href: "https://www.greenmead.co.uk",
+        isExternal: true,
         isWeb: true,
         url: "greenmead.co.uk"
     },
@@ -27,7 +30,8 @@ const projects = [
         title: "JJ Paper",
         category: "E-commerce",
         image: "/project-jjpaper.png",
-        link: "/projects/jjpaper",
+        href: "https://www.jjpaperessential.com",
+        isExternal: true,
         isWeb: true,
         url: "jjpaperessential.com"
     },
@@ -35,7 +39,8 @@ const projects = [
         title: "Sandbourne",
         category: "Real Estate",
         image: "/project-sandbourne.png",
-        link: "/projects/sandbourne",
+        href: "https://sandbournecare.co.uk",
+        isExternal: true,
         isWeb: true,
         url: "sandbourne.co.uk"
     }
@@ -43,62 +48,90 @@ const projects = [
 
 export function Work() {
     return (
-        <section id="work" className="py-32 px-6 bg-black">
-            <div className="max-w-7xl mx-auto">
+        <section id="work" className="py-24 md:py-32 px-6">
+            <div className="max-w-5xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8 gap-6"
+                    transition={{ duration: 0.6, ease }}
+                    className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4"
                 >
-                    <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white">Selected Work</h2>
-                    <Link href="/projects" className="text-zinc-400 hover:text-white transition-colors flex items-center gap-2">
-                        View all projects <ArrowUpRight size={18} />
+                    <div>
+                        <h2 className="text-sm font-medium text-foreground-tertiary uppercase tracking-widest mb-3">Portfolio</h2>
+                        <p className="text-2xl md:text-3xl font-display font-semibold tracking-tight text-foreground">
+                            Selected Work
+                        </p>
+                    </div>
+                    <Link
+                        href="/projects"
+                        className="text-sm text-foreground-secondary hover:text-foreground transition-colors flex items-center gap-1.5 group"
+                    >
+                        All projects
+                        <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </Link>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {projects.map((project, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="group relative"
-                        >
-                            {project.isWeb ? (
-                                <div className="group-hover:-translate-y-2 transition-transform duration-500">
-                                    <SafariBrowserFrame url={project.url} className="aspect-[4/3]">
-                                        <Image
-                                            src={project.image}
-                                            alt={project.title}
-                                            fill
-                                            className="object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity"
-                                        />
-                                    </SafariBrowserFrame>
-                                </div>
-                            ) : (
-                                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-900 border border-white/10">
-                                    <Image
-                                        src={project.image}
-                                        alt={project.title}
-                                        fill
-                                        className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out opacity-80 group-hover:opacity-100"
-                                    />
-                                </div>
-                            )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {projects.map((project, index) => {
+                        const CardContent = (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: index * 0.08, ease }}
+                                className="group relative"
+                            >
+                                <div className="rounded-2xl overflow-hidden border border-white/[0.06] hover:border-white/[0.1] transition-all duration-300 bg-white/[0.02] hover:bg-white/[0.03]">
+                                    {project.isWeb ? (
+                                        <SafariBrowserFrame url={project.url} className="aspect-[16/10]">
+                                            <Image
+                                                src={project.image}
+                                                alt={project.title}
+                                                fill
+                                                className="object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                                            />
+                                        </SafariBrowserFrame>
+                                    ) : (
+                                        <div className="relative aspect-[16/10] bg-gradient-to-br from-accent/[0.08] to-purple-500/[0.05]">
+                                            <Image
+                                                src={project.image}
+                                                alt={project.title}
+                                                fill
+                                                className="object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out opacity-90 group-hover:opacity-100"
+                                            />
+                                        </div>
+                                    )}
 
-                            <div className="mt-4 flex flex-col">
-                                <h3 className="text-xl font-medium text-white group-hover:text-blue-400 transition-colors">{project.title}</h3>
-                                <p className="text-sm text-zinc-400">{project.category}</p>
-                            </div>
-                        </motion.div>
-                    ))}
+                                    <div className="p-5 flex items-center justify-between">
+                                        <div>
+                                            <h3 className="text-base font-display font-semibold text-foreground tracking-tight">{project.title}</h3>
+                                            <p className="text-xs text-foreground-tertiary mt-0.5">{project.category}</p>
+                                        </div>
+                                        <div className="w-8 h-8 rounded-lg bg-white/[0.04] flex items-center justify-center group-hover:bg-white/[0.08] transition-colors">
+                                            <ArrowUpRight size={14} className="text-foreground-secondary group-hover:text-foreground transition-colors" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        );
+
+                        if (project.isExternal) {
+                            return (
+                                <a key={index} href={project.href} target="_blank" rel="noopener noreferrer">
+                                    {CardContent}
+                                </a>
+                            );
+                        }
+
+                        return (
+                            <Link key={index} href={project.href}>
+                                {CardContent}
+                            </Link>
+                        );
+                    })}
                 </div>
             </div>
         </section>
     );
 }
-
