@@ -6,6 +6,7 @@ import { FeaturedWork } from "@/components/sections/FeaturedWork";
 import { Services } from "@/components/sections/Services";
 import { ClientLogos } from "@/components/sections/ClientLogos";
 import { Contact } from "@/components/sections/Contact";
+import About from "@/components/About";
 
 export const metadata: Metadata = {
   title: "Web & Mobile Development",
@@ -23,6 +24,7 @@ export default function Home() {
       <Hero />
       <FeaturedWork />
       <Services />
+      <About />
       <ClientLogos />
       <Contact />
       <Footer />
