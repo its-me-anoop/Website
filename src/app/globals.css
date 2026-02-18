@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  /* Core palette - editorial dark */
-  --background: #0F0F0F;
-  --background-secondary: #0A0A0A;
-  --foreground: #FAF8F5;
-  --foreground-secondary: #888888;
-  --foreground-tertiary: #666666;
-  --foreground-muted: #444444;
+  /* Core palette - Apple Inspired Light */
+  --background: #ffffff;
+  --background-secondary: #f5f5f7;
+  --foreground: #1d1d1f;
+  --foreground-secondary: #86868b;
+  --foreground-tertiary: #6e6e73;
+  --foreground-muted: #a1a1a6;
 
-  /* Accent - champagne gold */
-  --accent: #C9A962;
-  --accent-hover: #D4B872;
-  --accent-muted: rgba(201, 169, 98, 0.12);
+  /* Accent - Apple Blue */
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --accent-muted: rgba(0, 113, 227, 0.1);
 
   /* Surfaces */
-  --surface: #161616;
-  --surface-elevated: #1A1A1A;
+  --surface: #ffffff;
+  --surface-elevated: #fbfbfd;
 
   /* Borders */
-  --border: #1F1F1F;
-  --border-hover: #2A2A2A;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.12);
 }
 
 @theme inline {
@@ -36,17 +36,21 @@
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
   --color-border: var(--border);
-  --color-border-hover: var(--border-hover);
+  --color-border-strong: var(--border-strong);
 
-  --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: var(--font-playfair-display), Georgia, "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+  background: var(--background);
+  color: var(--foreground);
 }
 
 body {
+  margin: 0;
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
@@ -58,13 +62,13 @@ body {
 
 /* Selection */
 ::selection {
-  background: rgba(201, 169, 98, 0.25);
-  color: #fff;
+  background: rgba(0, 113, 227, 0.2);
+  color: inherit;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -72,12 +76,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  border: 2px solid var(--background);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 /* Focus styles */
@@ -86,18 +91,15 @@ body {
   outline-offset: 2px;
 }
 
-/* Animations */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Glass Effects */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
-.animate-fade-in-up {
-  animation: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.glass-dark {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
