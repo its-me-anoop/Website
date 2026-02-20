@@ -12,9 +12,9 @@ export function Footer() {
             <Image
               src="/logo-icon.png"
               alt="Flutterly"
-              width={24}
-              height={24}
-              className="grayscale invert opacity-50"
+              width={32}
+              height={32}
+              className="grayscale invert opacity-80"
             />
             <span className="font-display text-foreground-tertiary text-lg">
               flutterly
