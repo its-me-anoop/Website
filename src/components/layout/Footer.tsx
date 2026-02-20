@@ -22,6 +22,12 @@ export function Footer() {
 
                     <div className="flex items-center gap-8">
                         <Link
+                            href="/little-artist/privacy-policy"
+                            className="text-sm text-foreground-tertiary hover:text-foreground transition-colors"
+                        >
+                            Privacy
+                        </Link>
+                        <Link
                             href="mailto:anoop@flutterly.co.uk"
                             className="text-sm text-foreground-tertiary hover:text-foreground transition-colors"
                         >
