@@ -10,43 +10,43 @@ const projectImages = [
     {
         src: "/projects/thirsty-ai/dashboard-new.png",
         alt: "Thirsty AI Dashboard",
-        width: 320,
-        height: 240,
+        width: 220,
+        height: 165,
         className: "rounded-2xl shadow-xl",
         wrapperClassName: "z-10",
     },
     {
         src: "/projects/thirsty-ai/insights-new.png",
         alt: "Thirsty AI Insights",
-        width: 280,
-        height: 220,
+        width: 190,
+        height: 150,
         className: "rounded-2xl shadow-lg rotate-2",
-        wrapperClassName: "-mt-12 ml-8 z-20",
+        wrapperClassName: "-mt-8 ml-6 z-20",
     },
     {
         src: "/projects/thirsty-ai/onboarding.png",
         alt: "Thirsty AI Onboarding",
-        width: 200,
-        height: 160,
+        width: 140,
+        height: 112,
         className: "rounded-2xl shadow-lg -rotate-2",
-        wrapperClassName: "-mt-8 -ml-4 z-0",
+        wrapperClassName: "-mt-6 -ml-3 z-0",
     },
 ];
 
 export function Hero() {
     return (
-        <section className="relative min-h-[100svh] flex items-center px-5 md:px-10 overflow-hidden">
+        <section className="relative min-h-0 flex items-center px-5 md:px-10 overflow-hidden">
             {/* Background organic blobs */}
             <div
-                className="absolute top-[10%] -left-[10%] w-[500px] h-[500px] rounded-full bg-sage-muted opacity-40 blur-3xl pointer-events-none"
+                className="absolute top-[10%] -left-[10%] w-[350px] h-[350px] rounded-full bg-sage-muted opacity-40 blur-3xl pointer-events-none"
                 aria-hidden="true"
             />
             <div
-                className="absolute bottom-[5%] right-[5%] w-[400px] h-[400px] rounded-full bg-accent/10 opacity-40 blur-3xl pointer-events-none"
+                className="absolute bottom-[5%] right-[5%] w-[280px] h-[280px] rounded-full bg-accent/10 opacity-40 blur-3xl pointer-events-none"
                 aria-hidden="true"
             />
 
-            <div className="max-w-[1200px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-28 md:py-32">
+            <div className="max-w-[1200px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center pt-28 pb-16 md:pt-32 md:pb-20">
                 {/* Left column: text content */}
                 <div className="flex flex-col">
                     {/* Pill badge */}
@@ -139,23 +139,6 @@ export function Hero() {
                 </motion.div>
             </div>
 
-            {/* Scroll indicator */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2"
-            >
-                <motion.div
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{
-                        duration: 2.2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                    className="w-[1.5px] h-14 bg-gradient-to-b from-foreground-tertiary/50 to-transparent rounded-full"
-                />
-            </motion.div>
         </section>
     );
 }
