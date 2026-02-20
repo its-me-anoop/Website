@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
     motion,
@@ -65,12 +66,20 @@ export function Navbar() {
                 }`}
             >
                 <nav className="flex items-center justify-between py-5 max-w-[1200px] mx-auto">
-                    {/* Wordmark */}
+                    {/* Logo */}
                     <Link
                         href="/"
-                        className="font-display font-semibold text-xl text-foreground tracking-tight"
+                        className="flex items-center gap-2"
                     >
-                        flutterly
+                        <Image
+                            src="/logo-icon.png"
+                            alt="Flutterly"
+                            width={32}
+                            height={32}
+                        />
+                        <span className="font-display font-semibold text-xl text-foreground tracking-tight">
+                            flutterly
+                        </span>
                     </Link>
 
                     {/* Desktop nav links */}

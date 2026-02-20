@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 
 export function Footer() {
@@ -8,6 +9,13 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Left: Brand + Copyright */}
           <div className="flex items-center gap-3">
+            <Image
+              src="/logo-icon.png"
+              alt="Flutterly"
+              width={24}
+              height={24}
+              className="opacity-60"
+            />
             <span className="font-display text-foreground-tertiary text-lg">
               flutterly
             </span>
