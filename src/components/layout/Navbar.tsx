@@ -76,6 +76,7 @@ export function Navbar() {
                             alt="Flutterly"
                             width={32}
                             height={32}
+                            className="grayscale brightness-[0.3]"
                         />
                         <span className="font-display font-semibold text-xl text-foreground tracking-tight">
                             flutterly

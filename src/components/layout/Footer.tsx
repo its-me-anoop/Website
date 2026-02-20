@@ -14,7 +14,7 @@ export function Footer() {
               alt="Flutterly"
               width={24}
               height={24}
-              className="opacity-60"
+              className="grayscale invert opacity-50"
             />
             <span className="font-display text-foreground-tertiary text-lg">
               flutterly
