@@ -1,17 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Manrope } from "next/font/google";
+import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair-display",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
@@ -20,7 +20,7 @@ const manrope = Manrope({
 const siteUrl = "https://flutterly.uk";
 const siteName = "Flutterly Ltd";
 const siteDescription =
-  "UK-based digital agency specialising in high-performance web development, cross-platform mobile apps, and enterprise solutions. Expert developers building with React, Next.js, Flutter, and SwiftUI.";
+  "UK-based digital studio crafting high-performance web applications, cross-platform mobile apps, and enterprise solutions with care and creativity.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0F0F0F",
+  themeColor: "#F5EFE6",
 };
 
 function JsonLd() {
@@ -90,7 +90,7 @@ function JsonLd() {
     url: siteUrl,
     logo: `${siteUrl}/logo-horizontal.png`,
     description:
-      "UK-based digital agency specialising in web development, mobile apps, and enterprise solutions.",
+      "UK-based digital studio crafting web applications, mobile apps, and enterprise solutions.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Flat 21, 3 Erleigh Road",
@@ -151,8 +151,8 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className={cn(
-        playfairDisplay.variable,
-        manrope.variable,
+        fraunces.variable,
+        plusJakartaSans.variable,
         "antialiased bg-background text-foreground font-sans min-h-screen"
       )}>
         {children}

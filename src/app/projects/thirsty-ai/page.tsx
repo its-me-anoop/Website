@@ -42,16 +42,28 @@ const features = [
         title: "On-device Foundation AI",
         description: "Hydration guidance runs directly on iPhone using Apple Foundation Models. Fast, context-aware, and completely private.",
         icon: Cpu,
+        color: {
+            iconBg: "bg-sage-muted",
+            iconText: "text-sage",
+        },
     },
     {
         title: "Privacy by Default",
         description: "No cloud model calls for daily coaching. Your health patterns and personal context remain strictly on your device.",
         icon: LockKeyhole,
+        color: {
+            iconBg: "bg-accent/[0.15]",
+            iconText: "text-accent",
+        },
     },
     {
         title: "Smart Reminder Engine",
         description: "Reminders adapt to your routine and hydration consistency, nudging you at the right moments without alert fatigue.",
         icon: BellRing,
+        color: {
+            iconBg: "bg-deep-earth/[0.08]",
+            iconText: "text-foreground",
+        },
     },
 ];
 
@@ -77,7 +89,17 @@ export default function ThirstyAiProjectPage() {
 
             {/* Hero */}
             <section className="relative pt-28 pb-20 px-6 md:px-14 overflow-hidden">
-                <div className="relative z-10 max-w-[1340px] mx-auto">
+                {/* Background organic blobs */}
+                <div
+                    className="absolute top-[10%] -right-[10%] w-[500px] h-[500px] rounded-full bg-sage-muted opacity-30 blur-3xl pointer-events-none"
+                    aria-hidden="true"
+                />
+                <div
+                    className="absolute bottom-[5%] -left-[10%] w-[400px] h-[400px] rounded-full bg-accent/10 opacity-30 blur-3xl pointer-events-none"
+                    aria-hidden="true"
+                />
+
+                <div className="relative z-10 max-w-[1200px] mx-auto">
                     <motion.div
                         initial={{ opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -96,7 +118,7 @@ export default function ThirstyAiProjectPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                         <motion.div initial="hidden" animate="visible" variants={stagger}>
                             <motion.div variants={fadeInUp} className="mb-6 flex items-center gap-3">
-                                <div className="p-2.5 bg-surface border border-border">
+                                <div className="p-2.5 bg-background-secondary rounded-xl border border-border">
                                     <Image
                                         src="/projects/thirsty-ai/app-icon.png"
                                         alt="Thirsty.ai Icon"
@@ -111,7 +133,7 @@ export default function ThirstyAiProjectPage() {
                                 </div>
                             </motion.div>
 
-                            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-display font-semibold tracking-[-0.02em] leading-[1.1] mb-5">
+                            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-display font-medium tracking-[-0.02em] leading-[1.1] mb-5">
                                 Intelligent hydration,{" "}
                                 <span className="text-accent">
                                     privacy-first.
@@ -124,7 +146,7 @@ export default function ThirstyAiProjectPage() {
 
                             <motion.div variants={fadeInUp} className="flex flex-wrap gap-2">
                                 {["SwiftUI", "CoreML", "HealthKit"].map(tag => (
-                                    <span key={tag} className="px-3 py-1.5 border border-border text-xs text-foreground-secondary">
+                                    <span key={tag} className="px-3 py-1.5 rounded-full bg-accent/[0.08] text-accent text-xs font-medium">
                                         {tag}
                                     </span>
                                 ))}
@@ -156,7 +178,7 @@ export default function ThirstyAiProjectPage() {
 
             {/* Features */}
             <section className="py-24 px-6 md:px-14 bg-background-secondary">
-                <div className="max-w-[1340px] mx-auto">
+                <div className="max-w-[1200px] mx-auto">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
@@ -164,8 +186,8 @@ export default function ThirstyAiProjectPage() {
                         variants={fadeInUp}
                         className="mb-14"
                     >
-                        <h3 className="text-[10px] font-medium text-foreground-tertiary uppercase tracking-[0.15em] mb-4">Core Features</h3>
-                        <p className="text-2xl md:text-3xl font-display font-semibold tracking-tight max-w-lg">
+                        <h3 className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">Core Features</h3>
+                        <p className="text-2xl md:text-3xl font-display font-medium tracking-tight max-w-lg">
                             Privacy meets intelligence.
                         </p>
                     </motion.div>
@@ -175,16 +197,16 @@ export default function ThirstyAiProjectPage() {
                         whileInView="visible"
                         viewport={{ once: true, margin: "-50px" }}
                         variants={stagger}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border"
+                        className="grid grid-cols-1 md:grid-cols-3 gap-6"
                     >
                         {features.map((feature, i) => (
                             <motion.div
                                 key={i}
                                 variants={fadeInUp}
-                                className="group p-8 md:p-10 bg-background-secondary hover:bg-surface transition-colors duration-300"
+                                className="bg-surface rounded-2xl p-8 hover:shadow-sm transition-shadow duration-300"
                             >
-                                <div className="mb-6 w-10 h-10 flex items-center justify-center">
-                                    <feature.icon className="w-5 h-5 text-accent" />
+                                <div className={`mb-6 w-14 h-14 rounded-xl ${feature.color.iconBg} flex items-center justify-center`}>
+                                    <feature.icon className={`w-6 h-6 ${feature.color.iconText}`} />
                                 </div>
                                 <h4 className="text-base font-display font-semibold mb-3 tracking-tight">{feature.title}</h4>
                                 <p className="text-sm text-foreground-secondary leading-relaxed">{feature.description}</p>
@@ -196,7 +218,7 @@ export default function ThirstyAiProjectPage() {
 
             {/* Product Screens */}
             <section className="py-24 px-6 md:px-14">
-                <div className="max-w-[1340px] mx-auto">
+                <div className="max-w-[1200px] mx-auto">
                     <div className="flex flex-col gap-24 lg:gap-32">
                         {productScreens.map((screen, index) => (
                             <motion.div
@@ -208,7 +230,7 @@ export default function ThirstyAiProjectPage() {
                                 className={`flex flex-col items-center gap-10 lg:gap-16 ${index % 2 === 1 ? "lg:flex-row-reverse" : "lg:flex-row"}`}
                             >
                                 <div className="flex-1 text-center lg:text-left space-y-4">
-                                    <h4 className="text-2xl md:text-3xl font-display font-semibold tracking-tight">{screen.title}</h4>
+                                    <h4 className="text-2xl md:text-3xl font-display font-medium tracking-tight">{screen.title}</h4>
                                     <p className="text-foreground-secondary leading-relaxed max-w-sm mx-auto lg:mx-0">
                                         {screen.description}
                                     </p>
@@ -233,14 +255,14 @@ export default function ThirstyAiProjectPage() {
             </section>
 
             {/* Outcome */}
-            <section className="py-24 px-6 md:px-14 border-t border-border">
+            <section className="py-24 px-6 md:px-14 bg-deep-earth">
                 <div className="max-w-3xl mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.96 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, ease }}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent-muted border border-accent/20 text-accent text-xs font-medium mb-8"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-accent/[0.15] rounded-full text-accent text-xs font-medium mb-8"
                     >
                         <Sparkles className="w-3.5 h-3.5" />
                         Outcome
@@ -251,7 +273,7 @@ export default function ThirstyAiProjectPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1, ease }}
-                        className="text-3xl md:text-4xl font-display font-semibold tracking-[-0.02em] mb-5"
+                        className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-[#FDFBF7] mb-5"
                     >
                         Designed for trust.
                     </motion.h3>
@@ -261,7 +283,7 @@ export default function ThirstyAiProjectPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.15, ease }}
-                        className="text-lg text-foreground-secondary leading-relaxed max-w-xl mx-auto"
+                        className="text-lg text-foreground-tertiary leading-relaxed max-w-xl mx-auto"
                     >
                         Thirsty.ai proves that consumer wellness products can deliver meaningful AI personalization without compromising on user privacy or performance.
                     </motion.p>

@@ -9,60 +9,105 @@ const services = [
     {
         icon: Globe,
         title: "Web Development",
-        description: "High-performance websites and web applications built with modern frameworks and thoughtful architecture.",
-        tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"]
+        description:
+            "Modern, performant web applications built with Next.js, React, and Tailwind CSS. From landing pages to complex web apps.",
+        tags: ["Next.js", "React", "Tailwind"],
+        color: {
+            iconBg: "bg-sage-muted",
+            iconText: "text-sage",
+            tagBg: "bg-sage-muted",
+            tagText: "text-sage",
+        },
     },
     {
         icon: Smartphone,
         title: "Mobile Development",
-        description: "Native-quality apps for iOS and Android with fluid interfaces and platform-native feel.",
-        tags: ["Flutter", "React Native", "SwiftUI", "Kotlin"]
+        description:
+            "Native and cross-platform mobile apps with Flutter, SwiftUI, and React Native. Beautiful on every device.",
+        tags: ["Flutter", "SwiftUI", "React Native"],
+        color: {
+            iconBg: "bg-accent/[0.15]",
+            iconText: "text-accent",
+            tagBg: "bg-accent/[0.15]",
+            tagText: "text-accent",
+        },
     },
     {
         icon: Server,
         title: "Enterprise Solutions",
-        description: "Scalable backend systems, cloud infrastructure, and internal tools that grow with your business.",
-        tags: ["Cloud Architecture", "API Design", "Databases"]
-    }
+        description:
+            "Scalable cloud architecture, API design, and database solutions. Built for growth and reliability.",
+        tags: ["Cloud", "APIs", "Databases"],
+        color: {
+            iconBg: "bg-deep-earth/[0.08]",
+            iconText: "text-foreground",
+            tagBg: "bg-deep-earth/[0.08]",
+            tagText: "text-foreground",
+        },
+    },
 ];
 
 export function Services() {
     return (
         <section id="services" className="py-24 md:py-32 px-6 md:px-14">
-            <div className="max-w-[1340px] mx-auto">
+            <div className="max-w-[1200px] mx-auto">
+                {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, ease }}
-                    className="mb-16"
+                    className="text-center mb-16"
                 >
-                    <h2 className="text-[10px] font-medium text-foreground-tertiary uppercase tracking-[0.15em] mb-4">What We Do</h2>
-                    <p className="text-2xl md:text-3xl font-display font-semibold tracking-tight text-foreground max-w-lg">
-                        End-to-end development for web, mobile, and cloud.
+                    <p className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">
+                        What We Do
                     </p>
+                    <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight text-foreground">
+                        End-to-end craft for digital products
+                    </h2>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
+                {/* Service Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {services.map((service, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1, ease }}
-                            className="group p-8 md:p-10 bg-background hover:bg-surface transition-colors duration-300"
+                            transition={{
+                                duration: 0.6,
+                                delay: index * 0.12,
+                                ease,
+                            }}
+                            className="bg-background-secondary rounded-2xl p-8"
                         >
-                            <div className="w-10 h-10 flex items-center justify-center mb-6">
-                                <service.icon className="w-5 h-5 text-accent" />
+                            {/* Icon */}
+                            <div
+                                className={`w-14 h-14 rounded-xl ${service.color.iconBg} flex items-center justify-center mb-6`}
+                            >
+                                <service.icon
+                                    className={`w-6 h-6 ${service.color.iconText}`}
+                                />
                             </div>
 
-                            <h3 className="text-lg font-display font-semibold text-foreground mb-3 tracking-tight">{service.title}</h3>
-                            <p className="text-sm text-foreground-secondary leading-relaxed mb-6">{service.description}</p>
+                            {/* Title */}
+                            <h3 className="text-xl font-display font-medium text-foreground mb-3">
+                                {service.title}
+                            </h3>
 
+                            {/* Description */}
+                            <p className="text-sm font-sans text-foreground-secondary leading-relaxed mb-6">
+                                {service.description}
+                            </p>
+
+                            {/* Tags */}
                             <div className="flex flex-wrap gap-2">
-                                {service.tags.map(tag => (
-                                    <span key={tag} className="text-[11px] text-foreground-tertiary border border-border px-2.5 py-1">
+                                {service.tags.map((tag) => (
+                                    <span
+                                        key={tag}
+                                        className={`text-xs ${service.color.tagBg} ${service.color.tagText} rounded-full px-3 py-1 font-medium`}
+                                    >
                                         {tag}
                                     </span>
                                 ))}
