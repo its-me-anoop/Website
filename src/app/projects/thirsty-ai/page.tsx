@@ -8,6 +8,15 @@ import { Footer } from "@/components/layout/Footer";
 import { Contact } from "@/components/sections/Contact";
 import { ArrowLeft, BellRing, Cpu, LockKeyhole, Sparkles } from "lucide-react";
 import { Iphone17ProFrame } from "@/components/ui/Iphone17ProFrame";
+import dynamic from "next/dynamic";
+
+const LiquidEffectAnimation = dynamic(
+    () =>
+        import("@/components/ui/LiquidEffectAnimation").then(
+            (mod) => mod.LiquidEffectAnimation
+        ),
+    { ssr: false }
+);
 
 const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
@@ -87,15 +96,26 @@ export default function ThirstyAiProjectPage() {
         <main className="min-h-screen bg-background text-foreground">
             <Navbar />
 
-            {/* Hero */}
+            {/* Hero with Liquid Effect Background */}
             <section className="relative pt-28 pb-20 px-6 md:px-14 overflow-hidden">
-                {/* Background organic blobs */}
+                {/* Liquid effect background layer */}
+                <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
+                    <LiquidEffectAnimation
+                        text={["Thirsty.ai"]}
+                        subText=""
+                        tagline=""
+                        backgroundColor="#F5EFE6"
+                        textColor="#B8704D"
+                    />
+                </div>
+
+                {/* Background organic blobs with liquid animation */}
                 <div
-                    className="absolute top-[10%] -right-[10%] w-[500px] h-[500px] rounded-full bg-sage-muted opacity-30 blur-3xl pointer-events-none"
+                    className="absolute top-[10%] -right-[10%] w-[500px] h-[500px] rounded-full bg-sage-muted opacity-30 blur-3xl pointer-events-none animate-liquid-float"
                     aria-hidden="true"
                 />
                 <div
-                    className="absolute bottom-[5%] -left-[10%] w-[400px] h-[400px] rounded-full bg-accent/10 opacity-30 blur-3xl pointer-events-none"
+                    className="absolute bottom-[5%] -left-[10%] w-[400px] h-[400px] rounded-full bg-accent/10 opacity-30 blur-3xl pointer-events-none animate-liquid-float-reverse"
                     aria-hidden="true"
                 />
 
@@ -160,7 +180,7 @@ export default function ThirstyAiProjectPage() {
                             className="relative w-full flex items-center justify-center lg:justify-end"
                         >
                             <div className="relative w-full max-w-[280px]">
-                                <div className="absolute inset-0 bg-accent/[0.1] blur-[80px] rounded-full scale-125 pointer-events-none" />
+                                <div className="absolute inset-0 bg-accent/[0.1] blur-[80px] rounded-full scale-125 pointer-events-none animate-liquid-glow" />
                                 <Iphone17ProFrame>
                                     <Image
                                         src="/projects/thirsty-ai/dashboard-new.png"
@@ -254,9 +274,20 @@ export default function ThirstyAiProjectPage() {
                 </div>
             </section>
 
-            {/* Outcome */}
-            <section className="py-24 px-6 md:px-14 bg-deep-earth">
-                <div className="max-w-3xl mx-auto text-center">
+            {/* Outcome with Liquid Effect */}
+            <section className="relative py-24 px-6 md:px-14 bg-deep-earth overflow-hidden">
+                {/* Liquid effect background */}
+                <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
+                    <LiquidEffectAnimation
+                        text={["Trust"]}
+                        subText=""
+                        tagline=""
+                        backgroundColor="#2A2420"
+                        textColor="#B8704D"
+                    />
+                </div>
+
+                <div className="relative z-10 max-w-3xl mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.96 }}
                         whileInView={{ opacity: 1, scale: 1 }}
