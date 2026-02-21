@@ -96,19 +96,8 @@ export default function ThirstyAiProjectPage() {
         <main className="min-h-screen bg-background text-foreground">
             <Navbar />
 
-            {/* Hero with Liquid Effect Background */}
+            {/* Hero */}
             <section className="relative pt-28 pb-20 px-6 md:px-14 overflow-hidden">
-                {/* Liquid effect background layer */}
-                <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
-                    <LiquidEffectAnimation
-                        text={["Thirsty.ai"]}
-                        subText=""
-                        tagline=""
-                        backgroundColor="#F5EFE6"
-                        textColor="#B8704D"
-                    />
-                </div>
-
                 {/* Background organic blobs with liquid animation */}
                 <div
                     className="absolute top-[10%] -right-[10%] w-[500px] h-[500px] rounded-full bg-sage-muted opacity-30 blur-3xl pointer-events-none animate-liquid-float"
@@ -196,6 +185,22 @@ export default function ThirstyAiProjectPage() {
                 </div>
             </section>
 
+            {/* Liquid Effect Banner — interactive, full-width */}
+            <motion.section
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease }}
+                className="relative w-full h-[340px] md:h-[420px] overflow-hidden"
+            >
+                <LiquidEffectAnimation
+                    text={["Thirsty.ai"]}
+                    subText="Stay hydrated, intelligently"
+                    backgroundColor="#F5EFE6"
+                    textColor="#3D3830"
+                />
+            </motion.section>
+
             {/* Features */}
             <section className="py-24 px-6 md:px-14 bg-background-secondary">
                 <div className="max-w-[1200px] mx-auto">
@@ -276,8 +281,8 @@ export default function ThirstyAiProjectPage() {
 
             {/* Outcome with Liquid Effect */}
             <section className="relative py-24 px-6 md:px-14 bg-deep-earth overflow-hidden">
-                {/* Liquid effect background */}
-                <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
+                {/* Visible liquid effect background */}
+                <div className="absolute inset-0">
                     <LiquidEffectAnimation
                         text={["Trust"]}
                         subText=""
@@ -287,13 +292,14 @@ export default function ThirstyAiProjectPage() {
                     />
                 </div>
 
+                {/* Content overlay with frosted panel */}
                 <div className="relative z-10 max-w-3xl mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.96 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, ease }}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-accent/[0.15] rounded-full text-accent text-xs font-medium mb-8"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-accent/[0.15] backdrop-blur-sm rounded-full text-accent text-xs font-medium mb-8"
                     >
                         <Sparkles className="w-3.5 h-3.5" />
                         Outcome
@@ -304,7 +310,7 @@ export default function ThirstyAiProjectPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1, ease }}
-                        className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-[#FDFBF7] mb-5"
+                        className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-[#FDFBF7] mb-5 drop-shadow-lg"
                     >
                         Designed for trust.
                     </motion.h3>
@@ -314,7 +320,7 @@ export default function ThirstyAiProjectPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.15, ease }}
-                        className="text-lg text-foreground-tertiary leading-relaxed max-w-xl mx-auto"
+                        className="text-lg text-[#FDFBF7]/80 leading-relaxed max-w-xl mx-auto drop-shadow-md"
                     >
                         Thirsty.ai proves that consumer wellness products can deliver meaningful AI personalization without compromising on user privacy or performance.
                     </motion.p>

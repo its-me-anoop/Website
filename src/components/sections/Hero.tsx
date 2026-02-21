@@ -88,14 +88,15 @@ export function Hero() {
                     </motion.div>
                 </div>
 
-                {/* Right column: Liquid effect animation (desktop only) */}
+                {/* Right column: Liquid effect animation */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.4, ease }}
-                    className="hidden lg:block relative"
+                    className="relative"
                 >
-                    <div className="relative w-full aspect-square max-w-[500px] ml-auto rounded-[40px] overflow-hidden shadow-2xl shadow-accent/10">
+                    {/* Desktop: large square */}
+                    <div className="hidden lg:block relative w-full aspect-square max-w-[500px] ml-auto rounded-[40px] overflow-hidden shadow-2xl shadow-accent/10">
                         <LiquidEffectAnimation
                             text={["Thirsty.ai"]}
                             subText="Intelligent Hydration"
@@ -103,6 +104,16 @@ export function Hero() {
                             backgroundColor="#F5EFE6"
                             textColor="#3D3830"
                             className="rounded-[40px]"
+                        />
+                    </div>
+                    {/* Mobile: shorter banner */}
+                    <div className="lg:hidden relative w-full h-[240px] rounded-3xl overflow-hidden shadow-xl shadow-accent/10">
+                        <LiquidEffectAnimation
+                            text={["Thirsty.ai"]}
+                            subText="Intelligent Hydration"
+                            backgroundColor="#F5EFE6"
+                            textColor="#3D3830"
+                            className="rounded-3xl"
                         />
                     </div>
                 </motion.div>
