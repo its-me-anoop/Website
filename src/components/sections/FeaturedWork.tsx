@@ -33,18 +33,7 @@ export function FeaturedWork() {
             ref={containerRef}
             className="relative bg-background-secondary py-24 md:py-32 px-6 md:px-14 overflow-hidden"
         >
-            {/* Liquid effect background */}
-            <div className="absolute inset-0 opacity-[0.08] pointer-events-none">
-                <LiquidEffectAnimation
-                    text={["Hydrate"]}
-                    subText=""
-                    tagline=""
-                    backgroundColor="#FDFBF7"
-                    textColor="#B8704D"
-                />
-            </div>
-
-            <div className="max-w-[1200px] mx-auto relative z-10">
+            <div className="max-w-[1200px] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     {/* Left — Content */}
                     <motion.div
@@ -96,26 +85,36 @@ export function FeaturedWork() {
                         </div>
                     </motion.div>
 
-                    {/* Right — Phone Mockup */}
+                    {/* Right — Phone Mockup with Liquid Effect backdrop */}
                     <motion.div
                         style={{ y }}
                         className="relative flex justify-center lg:justify-end will-change-transform"
                     >
-                        <div className="relative w-full max-w-[280px]">
-                            {/* Liquid radial glow */}
-                            <div
-                                className="absolute inset-0 scale-150 pointer-events-none blur-[80px] opacity-40 animate-liquid-glow"
-                                style={{
-                                    background:
-                                        "radial-gradient(circle, rgba(184,112,77,0.35) 0%, rgba(139,158,126,0.2) 60%, transparent 100%)",
-                                }}
-                            />
+                        <div className="relative w-full max-w-[380px]">
+                            {/* Liquid effect backdrop behind the phone */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1, ease }}
+                                className="absolute -inset-10 rounded-[40px] overflow-hidden z-0"
+                            >
+                                <LiquidEffectAnimation
+                                    text={["Hydrate"]}
+                                    subText=""
+                                    tagline=""
+                                    backgroundColor="#FDFBF7"
+                                    textColor="#B8704D"
+                                />
+                            </motion.div>
 
+                            {/* Phone */}
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8, ease }}
+                                className="relative z-10 mx-auto max-w-[280px]"
                             >
                                 <Iphone17ProFrame className="shadow-2xl shadow-black/30">
                                     <Image
