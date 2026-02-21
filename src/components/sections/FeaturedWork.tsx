@@ -6,6 +6,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Iphone17ProFrame } from "@/components/ui/Iphone17ProFrame";
 import { useRef } from "react";
+import dynamic from "next/dynamic";
+
+const LiquidEffectAnimation = dynamic(
+    () =>
+        import("@/components/ui/LiquidEffectAnimation").then(
+            (mod) => mod.LiquidEffectAnimation
+        ),
+    { ssr: false }
+);
 
 const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
@@ -24,7 +33,18 @@ export function FeaturedWork() {
             ref={containerRef}
             className="relative bg-background-secondary py-24 md:py-32 px-6 md:px-14 overflow-hidden"
         >
-            <div className="max-w-[1200px] mx-auto">
+            {/* Liquid effect background */}
+            <div className="absolute inset-0 opacity-[0.08] pointer-events-none">
+                <LiquidEffectAnimation
+                    text={["Hydrate"]}
+                    subText=""
+                    tagline=""
+                    backgroundColor="#FDFBF7"
+                    textColor="#B8704D"
+                />
+            </div>
+
+            <div className="max-w-[1200px] mx-auto relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     {/* Left — Content */}
                     <motion.div
@@ -82,9 +102,9 @@ export function FeaturedWork() {
                         className="relative flex justify-center lg:justify-end will-change-transform"
                     >
                         <div className="relative w-full max-w-[280px]">
-                            {/* Radial glow */}
+                            {/* Liquid radial glow */}
                             <div
-                                className="absolute inset-0 scale-150 pointer-events-none blur-[80px] opacity-40"
+                                className="absolute inset-0 scale-150 pointer-events-none blur-[80px] opacity-40 animate-liquid-glow"
                                 style={{
                                     background:
                                         "radial-gradient(circle, rgba(184,112,77,0.35) 0%, rgba(139,158,126,0.2) 60%, transparent 100%)",

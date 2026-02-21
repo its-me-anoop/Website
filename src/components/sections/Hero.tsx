@@ -2,47 +2,28 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const LiquidEffectAnimation = dynamic(
+    () =>
+        import("@/components/ui/LiquidEffectAnimation").then(
+            (mod) => mod.LiquidEffectAnimation
+        ),
+    { ssr: false }
+);
 
 const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
-
-const projectImages = [
-    {
-        src: "/projects/thirsty-ai/dashboard-new.png",
-        alt: "Thirsty AI Dashboard",
-        width: 220,
-        height: 165,
-        className: "rounded-2xl shadow-xl",
-        wrapperClassName: "z-10",
-    },
-    {
-        src: "/projects/thirsty-ai/insights-new.png",
-        alt: "Thirsty AI Insights",
-        width: 190,
-        height: 150,
-        className: "rounded-2xl shadow-lg rotate-2",
-        wrapperClassName: "-mt-8 ml-6 z-20",
-    },
-    {
-        src: "/projects/thirsty-ai/onboarding.png",
-        alt: "Thirsty AI Onboarding",
-        width: 140,
-        height: 112,
-        className: "rounded-2xl shadow-lg -rotate-2",
-        wrapperClassName: "-mt-6 -ml-3 z-0",
-    },
-];
 
 export function Hero() {
     return (
         <section className="relative min-h-0 flex items-center px-5 md:px-10 overflow-hidden">
-            {/* Background organic blobs */}
+            {/* Background organic blobs with liquid animation */}
             <div
-                className="absolute top-[10%] -left-[10%] w-[350px] h-[350px] rounded-full bg-sage-muted opacity-40 blur-3xl pointer-events-none"
+                className="absolute top-[10%] -left-[10%] w-[350px] h-[350px] rounded-full bg-sage-muted opacity-40 blur-3xl pointer-events-none animate-liquid-float"
                 aria-hidden="true"
             />
             <div
-                className="absolute bottom-[5%] right-[5%] w-[280px] h-[280px] rounded-full bg-accent/10 opacity-40 blur-3xl pointer-events-none"
+                className="absolute bottom-[5%] right-[5%] w-[280px] h-[280px] rounded-full bg-accent/10 opacity-40 blur-3xl pointer-events-none animate-liquid-float-reverse"
                 aria-hidden="true"
             />
 
@@ -107,38 +88,25 @@ export function Hero() {
                     </motion.div>
                 </div>
 
-                {/* Right column: scattered project images (desktop only) */}
+                {/* Right column: Liquid effect animation (desktop only) */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.4, ease }}
-                    className="hidden lg:flex flex-wrap items-center justify-center relative"
+                    className="hidden lg:block relative"
                 >
-                    {projectImages.map((img, index) => (
-                        <motion.div
-                            key={img.src}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                                duration: 0.7,
-                                delay: 0.5 + index * 0.15,
-                                ease,
-                            }}
-                            className={img.wrapperClassName}
-                        >
-                            <Image
-                                src={img.src}
-                                alt={img.alt}
-                                width={img.width}
-                                height={img.height}
-                                className={img.className}
-                                priority={index === 0}
-                            />
-                        </motion.div>
-                    ))}
+                    <div className="relative w-full aspect-square max-w-[500px] ml-auto rounded-[40px] overflow-hidden shadow-2xl shadow-accent/10">
+                        <LiquidEffectAnimation
+                            text={["Thirsty.ai"]}
+                            subText="Intelligent Hydration"
+                            tagline="Built with care"
+                            backgroundColor="#F5EFE6"
+                            textColor="#3D3830"
+                            className="rounded-[40px]"
+                        />
+                    </div>
                 </motion.div>
             </div>
-
         </section>
     );
 }
