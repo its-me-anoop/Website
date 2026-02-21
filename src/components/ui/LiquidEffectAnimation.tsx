@@ -80,6 +80,7 @@ const noiseGLSL = /* glsl */ `
 const vertexShader = /* glsl */ `
   uniform float uTime;
   uniform vec2 uMouse;
+  uniform float uTouchActive;
   varying vec2 vUv;
   varying vec3 vNormal;
   varying float vDisplacement;
@@ -98,9 +99,11 @@ const vertexShader = /* glsl */ `
     float n3 = snoise(vec3(pos.x * 6.0, pos.y * 6.0, uTime * 0.7 + 20.0)) * 0.02;
     float noise = n1 + n2 + n3;
 
-    // Mouse interaction ripple
+    // Pointer interaction ripple (mouse + touch)
     float mouseDist = distance(uv, uMouse);
-    float mouseWave = sin(mouseDist * 25.0 - uTime * 4.0) * exp(-mouseDist * 5.0) * 0.08;
+    float rippleStrength = 0.08 + uTouchActive * 0.12;
+    float rippleRadius = 5.0 - uTouchActive * 2.0;
+    float mouseWave = sin(mouseDist * 25.0 - uTime * 4.0) * exp(-mouseDist * rippleRadius) * rippleStrength;
 
     pos.z += noise + mouseWave;
     vDisplacement = pos.z;
@@ -324,6 +327,7 @@ export function LiquidEffectAnimation({
           uTexture: { value: texture },
           uTime: { value: 0 },
           uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+          uTouchActive: { value: 0.0 },
           uMetalness: { value: 0.35 },
           uRoughness: { value: 0.45 },
           uAccentColor: { value: new THREE.Vector3(accentColor.r, accentColor.g, accentColor.b) },
@@ -337,27 +341,57 @@ export function LiquidEffectAnimation({
       const mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
 
-      // Mouse tracking
+      // Pointer tracking (mouse + touch)
       const mouse = new THREE.Vector2(0.5, 0.5);
       const targetMouse = new THREE.Vector2(0.5, 0.5);
-      const handleMouseMove = (e: MouseEvent) => {
+      let touchActive = 0;
+      let targetTouchActive = 0;
+
+      const updatePointer = (clientX: number, clientY: number) => {
         const rect = container.getBoundingClientRect();
-        targetMouse.x = (e.clientX - rect.left) / rect.width;
-        targetMouse.y = 1.0 - (e.clientY - rect.top) / rect.height;
+        targetMouse.x = (clientX - rect.left) / rect.width;
+        targetMouse.y = 1.0 - (clientY - rect.top) / rect.height;
       };
+
+      const handleMouseMove = (e: MouseEvent) => {
+        updatePointer(e.clientX, e.clientY);
+      };
+
+      const handleTouchStart = (e: TouchEvent) => {
+        targetTouchActive = 1;
+        const touch = e.touches[0];
+        updatePointer(touch.clientX, touch.clientY);
+      };
+
+      const handleTouchMove = (e: TouchEvent) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        updatePointer(touch.clientX, touch.clientY);
+      };
+
+      const handleTouchEnd = () => {
+        targetTouchActive = 0;
+      };
+
       container.addEventListener("mousemove", handleMouseMove);
+      container.addEventListener("touchstart", handleTouchStart, { passive: true });
+      container.addEventListener("touchmove", handleTouchMove, { passive: false });
+      container.addEventListener("touchend", handleTouchEnd, { passive: true });
 
       // Animation
       const clock = new THREE.Clock();
       const animate = () => {
         if (disposed) return;
 
-        // Smooth mouse follow
-        mouse.x += (targetMouse.x - mouse.x) * 0.05;
-        mouse.y += (targetMouse.y - mouse.y) * 0.05;
+        // Smooth pointer follow (faster lerp for touch responsiveness)
+        const lerpSpeed = targetTouchActive > 0.5 ? 0.12 : 0.05;
+        mouse.x += (targetMouse.x - mouse.x) * lerpSpeed;
+        mouse.y += (targetMouse.y - mouse.y) * lerpSpeed;
+        touchActive += (targetTouchActive - touchActive) * 0.08;
 
         material.uniforms.uTime.value = clock.getElapsedTime();
         material.uniforms.uMouse.value = mouse;
+        material.uniforms.uTouchActive.value = touchActive;
 
         renderer.render(scene, camera);
         animFrameId = requestAnimationFrame(animate);
@@ -393,6 +427,9 @@ export function LiquidEffectAnimation({
         disposed = true;
         cancelAnimationFrame(animFrameId);
         container.removeEventListener("mousemove", handleMouseMove);
+        container.removeEventListener("touchstart", handleTouchStart);
+        container.removeEventListener("touchmove", handleTouchMove);
+        container.removeEventListener("touchend", handleTouchEnd);
         resizeObserver.disconnect();
         geometry.dispose();
         material.dispose();
@@ -423,7 +460,7 @@ export function LiquidEffectAnimation({
     <div
       ref={containerRef}
       className={`w-full h-full ${className}`}
-      style={{ minHeight: "200px" }}
+      style={{ minHeight: "200px", touchAction: "none" }}
     />
   );
 }
