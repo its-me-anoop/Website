@@ -3,9 +3,9 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "WaterQuest — Privacy Policy",
+  title: "Thirsty.ai — Privacy Policy",
   description:
-    "Privacy policy for WaterQuest (Thirsty.ai), the iOS hydration tracking app with on-device AI.",
+    "Privacy policy for Thirsty.ai, the iOS hydration tracking app with on-device AI.",
   alternates: {
     canonical: "/projects/thirsty-ai/privacy-policy",
   },
@@ -67,7 +67,7 @@ export default function ThirstyAiPrivacyPolicy() {
             Legal
           </p>
           <h1 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
-            WaterQuest — Privacy Policy
+            Thirsty.ai — Privacy Policy
           </h1>
           <p className="text-foreground-secondary text-[15px]">
             Effective: {effectiveDate}
@@ -78,7 +78,7 @@ export default function ThirstyAiPrivacyPolicy() {
       {/* Summary */}
       <PolicySection label="01" title="Summary">
         <p>
-          WaterQuest is designed to assist users with hydration tracking and,
+          Thirsty.ai is designed to assist users with hydration tracking and,
           optionally, to utilise device data for personalised goal setting. The
           app limits data collection to essentials, and users can manage
           permissions at any time via Settings.
@@ -214,7 +214,7 @@ export default function ThirstyAiPrivacyPolicy() {
       {/* Children's Privacy */}
       <PolicySection label="10" title="Children&rsquo;s Privacy">
         <p>
-          WaterQuest is{" "}
+          Thirsty.ai is{" "}
           <strong className="text-foreground">
             not intended for use by individuals under the age of 13
           </strong>
