@@ -80,18 +80,18 @@ const productScreens = [
     {
         title: "Hydration Intelligence",
         description: "A glanceable home view combining real-time progress, AI-generated coaching, and adaptive reminders into one focused surface.",
-        src: "/projects/thirsty-ai/dashboard-new.png",
-        alt: "Thirsty.ai hydration dashboard"
+        src: "/projects/sipstreak/dashboard-new.png",
+        alt: "Sipstreak hydration dashboard"
     },
     {
         title: "Actionable Insights",
         description: "AI-generated cards translate your hydration history into timely, practical prompts that keep you engaged without being intrusive.",
-        src: "/projects/thirsty-ai/insights-new.png",
-        alt: "Thirsty.ai insights screen"
+        src: "/projects/sipstreak/insights-new.png",
+        alt: "Sipstreak insights screen"
     },
 ];
 
-export default function ThirstyAiProjectPage() {
+export default function SipstreakProjectPage() {
     return (
         <main className="min-h-screen bg-background text-foreground">
             <Navbar />
@@ -101,7 +101,7 @@ export default function ThirstyAiProjectPage() {
                 {/* Liquid effect background layer */}
                 <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
                     <LiquidEffectAnimation
-                        text={["Thirsty.ai"]}
+                        text={["Sipstreak"]}
                         subText=""
                         tagline=""
                         backgroundColor="#F5EFE6"
@@ -140,15 +140,15 @@ export default function ThirstyAiProjectPage() {
                             <motion.div variants={fadeInUp} className="mb-6 flex items-center gap-3">
                                 <div className="p-2.5 bg-background-secondary rounded-xl border border-border">
                                     <Image
-                                        src="/projects/thirsty-ai/app-icon.png"
-                                        alt="Thirsty.ai Icon"
+                                        src="/projects/sipstreak/app-icon.png"
+                                        alt="Sipstreak Icon"
                                         width={40}
                                         height={40}
                                         className="rounded-lg"
                                     />
                                 </div>
                                 <div>
-                                    <h1 className="text-xl font-display font-semibold tracking-tight">Thirsty.ai</h1>
+                                    <h1 className="text-xl font-display font-semibold tracking-tight">Sipstreak</h1>
                                     <p className="text-foreground-tertiary text-xs">iOS & AI &middot; 2024</p>
                                 </div>
                             </motion.div>
@@ -183,8 +183,8 @@ export default function ThirstyAiProjectPage() {
                                 <div className="absolute inset-0 bg-accent/[0.1] blur-[80px] rounded-full scale-125 pointer-events-none animate-liquid-glow" />
                                 <Iphone17ProFrame>
                                     <Image
-                                        src="/projects/thirsty-ai/dashboard-new.png"
-                                        alt="Thirsty.ai Dashboard"
+                                        src="/projects/sipstreak/dashboard-new.png"
+                                        alt="Sipstreak Dashboard"
                                         fill
                                         className="object-cover relative z-10"
                                         priority
@@ -316,7 +316,7 @@ export default function ThirstyAiProjectPage() {
                         transition={{ delay: 0.15, ease }}
                         className="text-lg text-foreground-tertiary leading-relaxed max-w-xl mx-auto"
                     >
-                        Thirsty.ai proves that consumer wellness products can deliver meaningful AI personalization without compromising on user privacy or performance.
+                        Sipstreak proves that consumer wellness products can deliver meaningful AI personalization without compromising on user privacy or performance.
                     </motion.p>
                 </div>
             </section>

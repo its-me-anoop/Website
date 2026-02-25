@@ -3,11 +3,11 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Thirsty.ai — Privacy Policy",
+  title: "Sipstreak — Privacy Policy",
   description:
-    "Privacy policy for Thirsty.ai, the iOS hydration tracking app with on-device AI.",
+    "Privacy policy for Sipstreak, the iOS hydration tracking app with on-device AI.",
   alternates: {
-    canonical: "/projects/thirsty-ai/privacy-policy",
+    canonical: "/projects/sipstreak/privacy-policy",
   },
 };
 
@@ -55,7 +55,7 @@ function Bullet({
   );
 }
 
-export default function ThirstyAiPrivacyPolicy() {
+export default function SipstreakPrivacyPolicy() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -67,7 +67,7 @@ export default function ThirstyAiPrivacyPolicy() {
             Legal
           </p>
           <h1 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
-            Thirsty.ai — Privacy Policy
+            Sipstreak — Privacy Policy
           </h1>
           <p className="text-foreground-secondary text-[15px]">
             Effective: {effectiveDate}
@@ -78,7 +78,7 @@ export default function ThirstyAiPrivacyPolicy() {
       {/* Summary */}
       <PolicySection label="01" title="Summary">
         <p>
-          Thirsty.ai is designed to assist users with hydration tracking and,
+          Sipstreak is designed to assist users with hydration tracking and,
           optionally, to utilise device data for personalised goal setting. The
           app limits data collection to essentials, and users can manage
           permissions at any time via Settings.
@@ -214,7 +214,7 @@ export default function ThirstyAiPrivacyPolicy() {
       {/* Children's Privacy */}
       <PolicySection label="10" title="Children&rsquo;s Privacy">
         <p>
-          Thirsty.ai is{" "}
+          Sipstreak is{" "}
           <strong className="text-foreground">
             not intended for use by individuals under the age of 13
           </strong>

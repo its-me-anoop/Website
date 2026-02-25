@@ -66,7 +66,7 @@ export function FeaturedWork() {
                         {/* Title */}
                         <div className="space-y-3">
                             <h2 className="text-4xl md:text-5xl font-display font-medium tracking-tight text-foreground leading-[1.1]">
-                                Thirsty.ai
+                                Sipstreak
                             </h2>
                             <p className="text-xl font-medium text-accent">
                                 Intelligent hydration, privacy-first
@@ -84,7 +84,7 @@ export function FeaturedWork() {
                         {/* CTA */}
                         <div className="pt-2">
                             <Link
-                                href="/projects/thirsty-ai"
+                                href="/projects/sipstreak"
                                 className="group inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white rounded-full px-7 py-3.5 text-[15px] font-medium transition-colors min-h-[48px]"
                             >
                                 View Case Study
@@ -119,8 +119,8 @@ export function FeaturedWork() {
                             >
                                 <Iphone17ProFrame className="shadow-2xl shadow-black/30">
                                     <Image
-                                        src="/projects/thirsty-ai/dashboard-new.png"
-                                        alt="Thirsty.ai Dashboard"
+                                        src="/projects/sipstreak/dashboard-new.png"
+                                        alt="Sipstreak Dashboard"
                                         fill
                                         className="object-cover"
                                     />

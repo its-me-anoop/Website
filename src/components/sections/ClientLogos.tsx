@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
-const clients = ["Thirsty.ai", "Greenmead", "JJ Paper", "Sandbourne"];
+const clients = ["Sipstreak", "Greenmead", "JJ Paper", "Sandbourne"];
 
 export function ClientLogos() {
   return (

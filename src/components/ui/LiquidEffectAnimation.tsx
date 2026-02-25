@@ -263,7 +263,7 @@ function createTextTexture(
 }
 
 export function LiquidEffectAnimation({
-  text = ["Thirsty.ai"],
+  text = ["Sipstreak"],
   subText = "",
   tagline = "",
   backgroundColor = "#F5EFE6",
