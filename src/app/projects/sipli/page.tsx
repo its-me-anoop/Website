@@ -108,29 +108,18 @@ function BeverageCard({
     factor: number;
     index: number;
 }) {
-    const barColor =
-        factor >= 95
-            ? "#0A84FF"
-            : factor >= 80
-              ? "#32D4DE"
-              : factor >= 60
-                ? "#4ADE80"
-                : factor >= 40
-                  ? "#FBBF24"
-                  : "#F97316";
     return (
         <motion.div
             variants={fadeInUp}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="bg-white/70 backdrop-blur-sm border border-white/60 rounded-2xl p-4 cursor-default shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow"
+            className="bg-surface border border-border rounded-2xl p-4 cursor-default hover:border-border-strong transition-colors"
         >
             <span className="text-2xl block mb-2">{emoji}</span>
-            <p className="text-xs font-semibold text-[#1A2B3C] mb-1">{name}</p>
+            <p className="text-xs font-semibold text-foreground mb-1">{name}</p>
             <div className="flex items-center gap-2">
-                <div className="flex-1 h-1.5 rounded-full bg-[#E8EFF5] overflow-hidden">
+                <div className="flex-1 h-1.5 rounded-full bg-surface-elevated overflow-hidden">
                     <motion.div
-                        className="h-full rounded-full"
-                        style={{ background: barColor }}
+                        className="h-full rounded-full bg-accent"
                         initial={{ width: 0 }}
                         whileInView={{ width: `${factor}%` }}
                         viewport={{ once: true }}
@@ -142,8 +131,7 @@ function BeverageCard({
                     />
                 </div>
                 <span
-                    className="text-[10px] font-bold tabular-nums"
-                    style={{ color: barColor }}
+                    className="text-[10px] font-bold tabular-nums text-accent"
                 >
                     {factor}%
                 </span>
@@ -156,28 +144,25 @@ function FeatureCard({
     icon: Icon,
     title,
     description,
-    accentColor = "#0A84FF",
 }: {
     icon: React.ElementType;
     title: string;
     description: string;
-    accentColor?: string;
 }) {
     return (
         <motion.div
             variants={fadeInUp}
-            className="bg-white rounded-3xl p-8 md:p-10 shadow-[0_1px_3px_rgba(0,0,0,0.04)] border border-[#E8EFF5]"
+            className="bg-surface rounded-3xl p-8 md:p-10 border border-border"
         >
             <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
-                style={{ background: `${accentColor}12` }}
+                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-accent-muted"
             >
-                <Icon className="w-6 h-6" style={{ color: accentColor }} />
+                <Icon className="w-6 h-6 text-accent" />
             </div>
-            <h4 className="text-lg font-display font-semibold tracking-tight text-[#1A2B3C] mb-3">
+            <h4 className="text-lg font-display font-semibold tracking-tight text-foreground mb-3">
                 {title}
             </h4>
-            <p className="text-sm text-[#5A6E7F] leading-relaxed">
+            <p className="text-sm text-foreground-secondary leading-relaxed">
                 {description}
             </p>
         </motion.div>
@@ -192,8 +177,7 @@ function FeatureCard({
 export default function SipliPage() {
     return (
         <main
-            className="min-h-screen font-sans"
-            style={{ background: "#F8FBFF", color: "#1A2B3C" }}
+            className="min-h-screen bg-background text-foreground"
         >
             <Navbar />
 
@@ -201,18 +185,15 @@ export default function SipliPage() {
                Section 1: Hero
                ═══════════════════════════════════════ */}
             <section
-                className="relative pt-28 pb-20 px-6 md:px-14 min-h-[90vh] flex items-center overflow-hidden"
-                style={{ background: "#0D1B2A" }}
+                className="relative pt-28 pb-20 px-6 md:px-14 min-h-[90vh] flex items-center overflow-hidden bg-background-secondary"
             >
                 {/* Decorative glows */}
                 <div
-                    className="absolute top-[5%] -right-[15%] w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none animate-subtle-float"
-                    style={{ background: "rgba(10,132,255,0.08)" }}
+                    className="absolute top-[5%] -right-[15%] w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none animate-subtle-float bg-accent-muted"
                     aria-hidden="true"
                 />
                 <div
-                    className="absolute bottom-[10%] -left-[10%] w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none animate-subtle-float"
-                    style={{ background: "rgba(50,212,222,0.06)" }}
+                    className="absolute bottom-[10%] -left-[10%] w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none animate-subtle-float bg-accent-muted"
                     aria-hidden="true"
                 />
 
@@ -225,7 +206,7 @@ export default function SipliPage() {
                     >
                         <Link
                             href="/"
-                            className="inline-flex items-center gap-2 text-sm text-[#8FA3B4] hover:text-white transition-colors group min-h-[44px]"
+                            className="inline-flex items-center gap-2 text-sm text-foreground-secondary hover:text-accent transition-colors group min-h-[44px]"
                         >
                             <ArrowLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
                             Back to Home
@@ -243,7 +224,7 @@ export default function SipliPage() {
                                 variants={fadeInUp}
                                 className="mb-6"
                             >
-                                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wide bg-[#0A84FF]/[0.15] text-[#38BDF8]">
+                                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wide bg-accent-muted text-accent">
                                     <Droplets className="w-3.5 h-3.5" />
                                     Hydration Tracking for iOS
                                 </span>
@@ -251,17 +232,17 @@ export default function SipliPage() {
 
                             <motion.h1
                                 variants={fadeInUp}
-                                className="text-[clamp(2.5rem,5.5vw,4rem)] font-display font-medium tracking-[-0.03em] leading-[1.08] mb-6 text-white"
+                                className="text-[clamp(2.5rem,5.5vw,4rem)] font-display font-medium tracking-[-0.03em] leading-[1.08] mb-6 text-foreground"
                             >
                                 Staying hydrated,{" "}
-                                <span className="text-[#38BDF8]">
+                                <span className="text-accent">
                                     effortlessly.
                                 </span>
                             </motion.h1>
 
                             <motion.p
                                 variants={fadeInUp}
-                                className="text-lg text-[#8FA3B4] leading-relaxed max-w-md mb-8"
+                                className="text-lg text-foreground-secondary leading-relaxed max-w-md mb-8"
                             >
                                 Set a personalized daily goal based on your
                                 weight and activity level, then watch your
@@ -272,7 +253,7 @@ export default function SipliPage() {
                             <motion.div variants={fadeInUp}>
                                 <Link
                                     href="https://apps.apple.com/us/app/sipli/id6758851574"
-                                    className="inline-flex items-center gap-3 bg-white text-[#0D1B2A] rounded-[14px] px-7 py-4 hover:bg-white/90 transition-colors"
+                                    className="inline-flex items-center gap-3 bg-accent text-background rounded-[14px] px-7 py-4 hover:bg-accent-hover transition-colors"
                                 >
                                     <svg
                                         viewBox="0 0 24 24"
@@ -303,11 +284,7 @@ export default function SipliPage() {
                             <div className="relative">
                                 {/* Radial glow */}
                                 <div
-                                    className="absolute inset-0 scale-150 pointer-events-none blur-[80px] opacity-30"
-                                    style={{
-                                        background:
-                                            "radial-gradient(circle, rgba(99,102,241,0.3) 0%, rgba(20,184,166,0.15) 60%, transparent 100%)",
-                                    }}
+                                    className="absolute inset-0 scale-150 pointer-events-none blur-[80px] opacity-30 bg-accent-muted"
                                 />
                                 <Image
                                     src="/projects/sipli/iphone_and_ipad.png"
@@ -327,8 +304,7 @@ export default function SipliPage() {
                Section 2: Feature Highlights
                ═══════════════════════════════════════ */}
             <section
-                className="py-24 md:py-32 px-6 md:px-14"
-                style={{ background: "#EEF5FC" }}
+                className="py-24 md:py-32 px-6 md:px-14 bg-background"
             >
                 <div className="max-w-[1200px] mx-auto">
                     <motion.div
@@ -338,12 +314,12 @@ export default function SipliPage() {
                         variants={fadeInUp}
                         className="mb-14"
                     >
-                        <h3 className="text-xs font-medium text-[#8FA3B4] uppercase tracking-widest mb-4">
+                        <h3 className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">
                             Why Sipli
                         </h3>
-                        <p className="text-2xl md:text-3xl font-display font-medium tracking-tight max-w-lg text-[#1A2B3C]">
+                        <p className="text-2xl md:text-3xl font-display font-medium tracking-tight max-w-lg text-foreground">
                             Everything you need to build{" "}
-                            <span className="text-[#0A84FF]">
+                            <span className="text-accent">
                                 better habits.
                             </span>
                         </p>
@@ -360,23 +336,19 @@ export default function SipliPage() {
                             <motion.div
                                 key={i}
                                 variants={fadeInUp}
-                                className="bg-white rounded-2xl p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04)] border border-[#E8EFF5] hover:shadow-md transition-shadow duration-300"
+                                className="bg-surface rounded-2xl p-8 border border-border hover:border-border-strong transition-colors duration-300"
                             >
                                 <div
-                                    className="mb-5 w-12 h-12 rounded-xl flex items-center justify-center"
-                                    style={{
-                                        background: `rgba(10,132,255,0.08)`,
-                                    }}
+                                    className="mb-5 w-12 h-12 rounded-xl flex items-center justify-center bg-accent-muted"
                                 >
                                     <item.icon
-                                        className="w-5 h-5"
-                                        style={{ color: "#0A84FF" }}
+                                        className="w-5 h-5 text-accent"
                                     />
                                 </div>
-                                <h4 className="text-base font-display font-semibold mb-2 tracking-tight text-[#1A2B3C]">
+                                <h4 className="text-base font-display font-semibold mb-2 tracking-tight text-foreground">
                                     {item.title}
                                 </h4>
-                                <p className="text-sm text-[#5A6E7F] leading-relaxed">
+                                <p className="text-sm text-foreground-secondary leading-relaxed">
                                     {item.description}
                                 </p>
                             </motion.div>
@@ -388,7 +360,7 @@ export default function SipliPage() {
             {/* ═══════════════════════════════════════
                Section 3: Smart Hydration Goals
                ═══════════════════════════════════════ */}
-            <section className="py-24 md:py-32 px-6 md:px-14">
+            <section className="py-24 md:py-32 px-6 md:px-14 bg-background">
                 <div className="max-w-[1200px] mx-auto">
                     <motion.div
                         initial="hidden"
@@ -398,16 +370,16 @@ export default function SipliPage() {
                         className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
                     >
                         <motion.div variants={fadeInUp}>
-                            <h3 className="text-xs font-medium text-[#8FA3B4] uppercase tracking-widest mb-4">
+                            <h3 className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">
                                 Smart Hydration Goals
                             </h3>
-                            <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] leading-[1.1] mb-5 text-[#1A2B3C]">
+                            <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] leading-[1.1] mb-5 text-foreground">
                                 Your goal.{" "}
-                                <span className="text-[#0A84FF]">
+                                <span className="text-accent">
                                     Personalized.
                                 </span>
                             </h2>
-                            <p className="text-[#5A6E7F] leading-relaxed mb-6 max-w-md">
+                            <p className="text-foreground-secondary leading-relaxed mb-6 max-w-md">
                                 Your daily target isn&apos;t a guess &mdash;
                                 it&apos;s calculated from your body weight and
                                 activity level. Connect Apple Health to let Sipli
@@ -424,10 +396,10 @@ export default function SipliPage() {
                                         key={i}
                                         className="flex items-start gap-3"
                                     >
-                                        <div className="mt-0.5 w-5 h-5 rounded-full bg-[#0A84FF]/10 flex items-center justify-center flex-shrink-0">
-                                            <Check className="w-3 h-3 text-[#0A84FF]" />
+                                        <div className="mt-0.5 w-5 h-5 rounded-full bg-accent-muted flex items-center justify-center flex-shrink-0">
+                                            <Check className="w-3 h-3 text-accent" />
                                         </div>
-                                        <p className="text-sm text-[#5A6E7F]">
+                                        <p className="text-sm text-foreground-secondary">
                                             {item}
                                         </p>
                                     </div>
@@ -455,8 +427,7 @@ export default function SipliPage() {
                Section 4: Track Any Beverage
                ═══════════════════════════════════════ */}
             <section
-                className="py-24 md:py-32 px-6 md:px-14"
-                style={{ background: "#EEF5FC" }}
+                className="py-24 md:py-32 px-6 md:px-14 bg-background-secondary"
             >
                 <div className="max-w-[1200px] mx-auto">
                     <motion.div
@@ -466,16 +437,16 @@ export default function SipliPage() {
                         variants={fadeInUp}
                         className="text-center mb-14"
                     >
-                        <h3 className="text-xs font-medium text-[#8FA3B4] uppercase tracking-widest mb-4">
+                        <h3 className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">
                             Beverage Tracking
                         </h3>
-                        <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-[#1A2B3C] mb-4">
+                        <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-foreground mb-4">
                             Track{" "}
-                            <span className="text-[#0A84FF]">
+                            <span className="text-accent">
                                 any beverage.
                             </span>
                         </h2>
-                        <p className="text-[#5A6E7F] max-w-lg mx-auto">
+                        <p className="text-foreground-secondary max-w-lg mx-auto">
                             18 drink types, each with a realistic hydration
                             factor. See exactly how much effective hydration
                             you&apos;re getting from every sip.
@@ -505,7 +476,7 @@ export default function SipliPage() {
                         whileInView="visible"
                         viewport={{ once: true }}
                         variants={fadeInUp}
-                        className="text-center text-sm text-[#8FA3B4] mt-8"
+                        className="text-center text-sm text-foreground-tertiary mt-8"
                     >
                         + Lemonade, Sparkling Water, Energy Drink, Soup,
                         Cocktail, and more
@@ -516,7 +487,7 @@ export default function SipliPage() {
             {/* ═══════════════════════════════════════
                Section 5: Insights
                ═══════════════════════════════════════ */}
-            <section className="py-24 md:py-32 px-6 md:px-14">
+            <section className="py-24 md:py-32 px-6 md:px-14 bg-background">
                 <div className="max-w-[1200px] mx-auto">
                     <motion.div
                         initial="hidden"
@@ -544,14 +515,14 @@ export default function SipliPage() {
                             variants={fadeInUp}
                             className="order-1 lg:order-2"
                         >
-                            <h3 className="text-xs font-medium text-[#8FA3B4] uppercase tracking-widest mb-4">
+                            <h3 className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">
                                 Insights
                             </h3>
-                            <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] leading-[1.1] mb-5 text-[#1A2B3C]">
+                            <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] leading-[1.1] mb-5 text-foreground">
                                 Understand your{" "}
-                                <span className="text-[#0A84FF]">habits.</span>
+                                <span className="text-accent">habits.</span>
                             </h2>
-                            <p className="text-[#5A6E7F] leading-relaxed mb-6 max-w-md">
+                            <p className="text-foreground-secondary leading-relaxed mb-6 max-w-md">
                                 Visualize your hydration journey with detailed
                                 charts, streaks, and AI-powered tips that help
                                 you stay consistent.
@@ -562,8 +533,8 @@ export default function SipliPage() {
                                         key={i}
                                         className="flex items-center gap-3"
                                     >
-                                        <div className="w-1.5 h-1.5 rounded-full bg-[#0A84FF]" />
-                                        <p className="text-sm text-[#5A6E7F]">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                                        <p className="text-sm text-foreground-secondary">
                                             {feat}
                                         </p>
                                     </div>
@@ -578,8 +549,7 @@ export default function SipliPage() {
                Section 6: Design Showcase (dark)
                ═══════════════════════════════════════ */}
             <section
-                className="py-24 md:py-32 px-6 md:px-14 overflow-hidden"
-                style={{ background: "#0D1B2A" }}
+                className="py-24 md:py-32 px-6 md:px-14 overflow-hidden bg-background-secondary"
             >
                 <div className="max-w-[1200px] mx-auto">
                     <motion.div
@@ -589,14 +559,14 @@ export default function SipliPage() {
                         variants={fadeInUp}
                         className="text-center mb-16"
                     >
-                        <h3 className="text-xs font-medium text-[#38BDF8]/60 uppercase tracking-widest mb-4">
+                        <h3 className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">
                             Beautiful Design
                         </h3>
-                        <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-white mb-4">
+                        <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-foreground mb-4">
                             Designed to{" "}
-                            <span className="text-[#32D4DE]">delight.</span>
+                            <span className="text-accent">delight.</span>
                         </h2>
-                        <p className="text-[#8FA3B4] max-w-lg mx-auto leading-relaxed">
+                        <p className="text-foreground-secondary max-w-lg mx-auto leading-relaxed">
                             Animated liquid-fill progress, glassmorphism cards,
                             custom haptics, full iPad support, and Light, Dark &
                             System themes.
@@ -669,10 +639,10 @@ export default function SipliPage() {
                             <motion.div
                                 key={i}
                                 variants={fadeInUp}
-                                className="flex flex-col items-center gap-3 py-6 px-4 rounded-2xl border border-white/5 bg-white/[0.03]"
+                                className="flex flex-col items-center gap-3 py-6 px-4 rounded-2xl border border-border bg-surface hover:border-border-strong transition-colors"
                             >
-                                <item.icon className="w-5 h-5 text-[#32D4DE]" />
-                                <span className="text-xs text-white/70 text-center font-medium">
+                                <item.icon className="w-5 h-5 text-accent" />
+                                <span className="text-xs text-foreground-secondary text-center font-medium">
                                     {item.label}
                                 </span>
                             </motion.div>
@@ -685,8 +655,7 @@ export default function SipliPage() {
                Section 7: Smart Reminders + Apple Health
                ═══════════════════════════════════════ */}
             <section
-                className="py-24 md:py-32 px-6 md:px-14"
-                style={{ background: "#EEF5FC" }}
+                className="py-24 md:py-32 px-6 md:px-14 bg-background"
             >
                 <div className="max-w-[1200px] mx-auto">
                     <motion.div
@@ -700,13 +669,11 @@ export default function SipliPage() {
                             icon={Bell}
                             title="Reminders that adapt"
                             description="Sipli schedules reminders around your activity. They pause when you've hit your goal, adapt to your sleep schedule, and reschedule when you log a drink. Choose smart adaptive or classic fixed-time."
-                            accentColor="#0A84FF"
                         />
                         <FeatureCard
                             icon={Heart}
                             title="Apple Health integration"
                             description="Reads your workouts and calories to adjust your daily goal. Writes water intake automatically. Two-way sync keeps everything in harmony with one-tap manual sync."
-                            accentColor="#FF375F"
                         />
                     </motion.div>
                 </div>
@@ -716,8 +683,7 @@ export default function SipliPage() {
                Section 8: Privacy & Accessibility
                ═══════════════════════════════════════ */}
             <section
-                className="py-24 md:py-32 px-6 md:px-14"
-                style={{ background: "#0D1B2A" }}
+                className="py-24 md:py-32 px-6 md:px-14 bg-background-secondary"
             >
                 <div className="max-w-[1200px] mx-auto">
                     <motion.div
@@ -727,9 +693,9 @@ export default function SipliPage() {
                         variants={fadeInUp}
                         className="text-center mb-14"
                     >
-                        <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-white">
+                        <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-foreground">
                             Built on{" "}
-                            <span className="text-[#32D4DE]">trust.</span>
+                            <span className="text-accent">trust.</span>
                         </h2>
                     </motion.div>
 
@@ -742,15 +708,15 @@ export default function SipliPage() {
                     >
                         <motion.div
                             variants={fadeInUp}
-                            className="rounded-3xl p-8 md:p-10 border border-white/[0.06] bg-white/[0.03]"
+                            className="rounded-3xl p-8 md:p-10 border border-border bg-surface"
                         >
-                            <div className="w-14 h-14 rounded-2xl bg-[#32D4DE]/10 flex items-center justify-center mb-6">
-                                <Shield className="w-6 h-6 text-[#32D4DE]" />
+                            <div className="w-14 h-14 rounded-2xl bg-accent-muted flex items-center justify-center mb-6">
+                                <Shield className="w-6 h-6 text-accent" />
                             </div>
-                            <h4 className="text-lg font-display font-semibold text-white mb-3 tracking-tight">
+                            <h4 className="text-lg font-display font-semibold text-foreground mb-3 tracking-tight">
                                 Privacy first
                             </h4>
-                            <p className="text-sm text-[#8FA3B4] leading-relaxed">
+                            <p className="text-sm text-foreground-secondary leading-relaxed">
                                 All your data stays on your device. No accounts,
                                 no cloud sync, no tracking, no ads. Sipli only
                                 communicates with Apple services &mdash;
@@ -761,15 +727,15 @@ export default function SipliPage() {
 
                         <motion.div
                             variants={fadeInUp}
-                            className="rounded-3xl p-8 md:p-10 border border-white/[0.06] bg-white/[0.03]"
+                            className="rounded-3xl p-8 md:p-10 border border-border bg-surface"
                         >
-                            <div className="w-14 h-14 rounded-2xl bg-[#0A84FF]/10 flex items-center justify-center mb-6">
-                                <Eye className="w-6 h-6 text-[#0A84FF]" />
+                            <div className="w-14 h-14 rounded-2xl bg-accent-muted flex items-center justify-center mb-6">
+                                <Eye className="w-6 h-6 text-accent" />
                             </div>
-                            <h4 className="text-lg font-display font-semibold text-white mb-3 tracking-tight">
+                            <h4 className="text-lg font-display font-semibold text-foreground mb-3 tracking-tight">
                                 Accessible to everyone
                             </h4>
-                            <p className="text-sm text-[#8FA3B4] leading-relaxed">
+                            <p className="text-sm text-foreground-secondary leading-relaxed">
                                 Full VoiceOver support, Dynamic Type, and
                                 Reduce Motion are built into every screen.
                                 Sipli is designed so everyone can track their
@@ -783,14 +749,10 @@ export default function SipliPage() {
             {/* ═══════════════════════════════════════
                Section 9: Final CTA
                ═══════════════════════════════════════ */}
-            <section className="relative py-32 md:py-40 px-6 md:px-14 overflow-hidden">
+            <section className="relative py-32 md:py-40 px-6 md:px-14 overflow-hidden bg-background">
                 {/* Glow */}
                 <div
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full blur-3xl pointer-events-none"
-                    style={{
-                        background:
-                            "radial-gradient(ellipse, rgba(10,132,255,0.08) 0%, rgba(50,212,222,0.04) 50%, transparent 70%)",
-                    }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full blur-3xl pointer-events-none bg-accent-muted"
                     aria-hidden="true"
                 />
 
@@ -802,20 +764,20 @@ export default function SipliPage() {
                         variants={stagger}
                     >
                         <motion.div variants={fadeInUp} className="mb-4">
-                            <Droplets className="w-10 h-10 text-[#0A84FF] mx-auto" />
+                            <Droplets className="w-10 h-10 text-accent mx-auto" />
                         </motion.div>
 
                         <motion.h2
                             variants={fadeInUp}
-                            className="text-3xl md:text-5xl font-display font-medium tracking-[-0.03em] leading-[1.1] mb-5 text-[#1A2B3C]"
+                            className="text-3xl md:text-5xl font-display font-medium tracking-[-0.03em] leading-[1.1] mb-5 text-foreground"
                         >
                             Start your hydration{" "}
-                            <span className="text-[#0A84FF]">journey.</span>
+                            <span className="text-accent">journey.</span>
                         </motion.h2>
 
                         <motion.p
                             variants={fadeInUp}
-                            className="text-lg text-[#5A6E7F] mb-8"
+                            className="text-lg text-foreground-secondary mb-8"
                         >
                             Free on the App Store.
                         </motion.p>
@@ -823,7 +785,7 @@ export default function SipliPage() {
                         <motion.div variants={fadeInUp}>
                             <Link
                                 href="https://apps.apple.com/us/app/sipli/id6758851574"
-                                className="inline-flex items-center gap-3 bg-[#1A2B3C] text-white rounded-[14px] px-7 py-4 hover:bg-[#0D1B2A] transition-colors"
+                                className="inline-flex items-center gap-3 bg-accent text-background rounded-[14px] px-7 py-4 hover:bg-accent-hover transition-colors"
                             >
                                 <svg
                                     viewBox="0 0 24 24"
@@ -845,7 +807,7 @@ export default function SipliPage() {
 
                         <motion.p
                             variants={fadeInUp}
-                            className="text-xs text-[#8FA3B4] mt-6"
+                            className="text-xs text-foreground-tertiary mt-6"
                         >
                             Requires iOS 18.0 or later. Works on iPhone and
                             iPad.

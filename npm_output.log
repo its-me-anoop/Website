@@ -1,0 +1,13 @@
+
+> flutterly-website@0.1.0 dev
+> next dev
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.10 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://192.168.0.2:3000
+
+ ✓ Starting...
+ ✓ Ready in 1196ms
+ ○ Compiling /projects/sipli ...
+ GET /projects/sipli 200 in 7.8s (compile: 7.2s, render: 679ms)
