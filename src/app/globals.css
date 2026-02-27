@@ -1,34 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  /* Clean Digital Palette */
-  --background: #FAFBFD;
-  --background-secondary: #F1F5F9;
-  --foreground: #0F172A;
-  --foreground-secondary: #475569;
-  --foreground-tertiary: #94A3B8;
-  --foreground-muted: #94A3B8;
+  /* Dark Schematic Palette */
+  --background: #050505;
+  --background-secondary: #0A0A0A;
+  --foreground: #EDEDED;
+  --foreground-secondary: #A1A1AA;
+  --foreground-tertiary: #52525B;
+  --foreground-muted: #27272A;
 
-  /* Accent - Indigo */
-  --accent: #6366F1;
-  --accent-hover: #4F46E5;
-  --accent-muted: rgba(99, 102, 241, 0.08);
+  /* Accent - Acid Lime */
+  --accent: #D4FF00;
+  --accent-hover: #B8E600;
+  --accent-muted: rgba(212, 255, 0, 0.1);
 
-  /* Secondary Accent - Teal */
-  --teal: #14B8A6;
-  --teal-muted: rgba(20, 184, 166, 0.10);
+  /* Secondary Accent - Cyan */
+  --teal: #00F0FF;
+  --teal-muted: rgba(0, 240, 255, 0.1);
 
   /* Surfaces */
-  --surface: #FFFFFF;
-  --surface-elevated: #FFFFFF;
+  --surface: #0F0F0F;
+  --surface-elevated: #141414;
 
   /* Dark surfaces */
-  --deep-earth: #0F172A;
-  --stone: #E2E8F0;
+  --deep-earth: #000000;
+  --stone: #18181B;
 
-  /* Borders */
-  --border: rgba(15, 23, 42, 0.06);
-  --border-strong: rgba(15, 23, 42, 0.10);
+  /* Borders - Schematic Style */
+  --border: rgba(237, 237, 237, 0.08);
+  --border-strong: rgba(237, 237, 237, 0.15);
 }
 
 @theme inline {
@@ -72,29 +72,41 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Noise Texture Overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
 /* Selection */
 ::selection {
-  background: rgba(99, 102, 241, 0.2);
-  color: inherit;
+  background: var(--accent);
+  color: #000;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(15, 23, 42, 0.12);
-  border-radius: 10px;
-  border: 2px solid var(--background);
+  background: var(--foreground-tertiary);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(15, 23, 42, 0.2);
+  background: var(--foreground-secondary);
 }
 
 /* Focus styles */
