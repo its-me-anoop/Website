@@ -1,34 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  /* Organic Modernism Palette */
-  --background: #F5EFE6;
-  --background-secondary: #FDFBF7;
-  --foreground: #3D3830;
-  --foreground-secondary: #6B5E52;
-  --foreground-tertiary: #A89B8C;
-  --foreground-muted: #A89B8C;
+  /* Clean Digital Palette */
+  --background: #FAFBFD;
+  --background-secondary: #F1F5F9;
+  --foreground: #0F172A;
+  --foreground-secondary: #475569;
+  --foreground-tertiary: #94A3B8;
+  --foreground-muted: #94A3B8;
 
-  /* Accent - Clay */
-  --accent: #B8704D;
-  --accent-hover: #D4835B;
-  --accent-muted: rgba(184, 112, 77, 0.08);
+  /* Accent - Indigo */
+  --accent: #6366F1;
+  --accent-hover: #4F46E5;
+  --accent-muted: rgba(99, 102, 241, 0.08);
 
-  /* Secondary Accent - Sage */
-  --sage: #8B9E7E;
-  --sage-muted: rgba(139, 158, 126, 0.15);
+  /* Secondary Accent - Teal */
+  --teal: #14B8A6;
+  --teal-muted: rgba(20, 184, 166, 0.10);
 
   /* Surfaces */
-  --surface: #FDFBF7;
-  --surface-elevated: #FDFBF7;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFFFF;
 
   /* Dark surfaces */
-  --deep-earth: #2A2420;
-  --stone: #E7E0D5;
+  --deep-earth: #0F172A;
+  --stone: #E2E8F0;
 
   /* Borders */
-  --border: rgba(61, 56, 48, 0.08);
-  --border-strong: rgba(61, 56, 48, 0.12);
+  --border: rgba(15, 23, 42, 0.06);
+  --border-strong: rgba(15, 23, 42, 0.10);
 }
 
 @theme inline {
@@ -41,8 +41,8 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-muted: var(--accent-muted);
-  --color-sage: var(--sage);
-  --color-sage-muted: var(--sage-muted);
+  --color-teal: var(--teal);
+  --color-teal-muted: var(--teal-muted);
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
   --color-deep-earth: var(--deep-earth);
@@ -74,7 +74,7 @@ body {
 
 /* Selection */
 ::selection {
-  background: rgba(184, 112, 77, 0.2);
+  background: rgba(99, 102, 241, 0.2);
   color: inherit;
 }
 
@@ -88,13 +88,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(61, 56, 48, 0.12);
+  background: rgba(15, 23, 42, 0.12);
   border-radius: 10px;
   border: 2px solid var(--background);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(61, 56, 48, 0.2);
+  background: rgba(15, 23, 42, 0.2);
 }
 
 /* Focus styles */
@@ -103,64 +103,16 @@ body {
   outline-offset: 2px;
 }
 
-/* Liquid effect animations */
-@keyframes liquid-float {
+/* Subtle float animation for decorative elements */
+@keyframes subtle-float {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  }
-  25% {
-    transform: translate(10px, -15px) scale(1.05);
-    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: translateY(0);
   }
   50% {
-    transform: translate(-5px, 10px) scale(0.98);
-    border-radius: 50% 60% 30% 60% / 30% 50% 70% 60%;
-  }
-  75% {
-    transform: translate(8px, 5px) scale(1.02);
-    border-radius: 60% 30% 60% 40% / 70% 40% 50% 60%;
+    transform: translateY(-3px);
   }
 }
 
-@keyframes liquid-float-reverse {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-    border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%;
-  }
-  25% {
-    transform: translate(-8px, 12px) scale(1.03);
-    border-radius: 70% 30% 50% 60% / 60% 40% 60% 30%;
-  }
-  50% {
-    transform: translate(6px, -8px) scale(0.97);
-    border-radius: 30% 50% 60% 70% / 50% 30% 60% 40%;
-  }
-  75% {
-    transform: translate(-12px, -5px) scale(1.04);
-    border-radius: 50% 70% 30% 50% / 30% 60% 50% 70%;
-  }
-}
-
-@keyframes liquid-glow {
-  0%, 100% {
-    opacity: 0.35;
-    transform: scale(1.5);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(1.6);
-  }
-}
-
-.animate-liquid-float {
-  animation: liquid-float 12s ease-in-out infinite;
-}
-
-.animate-liquid-float-reverse {
-  animation: liquid-float-reverse 14s ease-in-out infinite;
-}
-
-.animate-liquid-glow {
-  animation: liquid-glow 6s ease-in-out infinite;
+.animate-subtle-float {
+  animation: subtle-float 20s ease-in-out infinite;
 }

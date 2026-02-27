@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${baseUrl}/projects/sipstreak`,
+      url: `${baseUrl}/projects/sipli`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     {
-      url: `${baseUrl}/projects/sipstreak/privacy-policy`,
+      url: `${baseUrl}/projects/sipli/privacy-policy`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.3,

@@ -3,11 +3,11 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Sipstreak — Privacy Policy",
+  title: "Sipli — Privacy Policy",
   description:
-    "Privacy policy for Sipstreak, the iOS hydration tracking app with on-device AI.",
+    "Privacy policy for Sipli, the iOS hydration tracking app with on-device AI.",
   alternates: {
-    canonical: "/projects/sipstreak/privacy-policy",
+    canonical: "/projects/sipli/privacy-policy",
   },
 };
 
@@ -55,7 +55,7 @@ function Bullet({
   );
 }
 
-export default function SipstreakPrivacyPolicy() {
+export default function SipliPrivacyPolicy() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -67,7 +67,7 @@ export default function SipstreakPrivacyPolicy() {
             Legal
           </p>
           <h1 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
-            Sipstreak — Privacy Policy
+            Sipli — Privacy Policy
           </h1>
           <p className="text-foreground-secondary text-[15px]">
             Effective: {effectiveDate}
@@ -78,7 +78,7 @@ export default function SipstreakPrivacyPolicy() {
       {/* Summary */}
       <PolicySection label="01" title="Summary">
         <p>
-          Sipstreak is designed to assist users with hydration tracking and,
+          Sipli is designed to assist users with hydration tracking and,
           optionally, to utilise device data for personalised goal setting. The
           app limits data collection to essentials, and users can manage
           permissions at any time via Settings.
@@ -214,7 +214,7 @@ export default function SipstreakPrivacyPolicy() {
       {/* Children's Privacy */}
       <PolicySection label="10" title="Children&rsquo;s Privacy">
         <p>
-          Sipstreak is{" "}
+          Sipli is{" "}
           <strong className="text-foreground">
             not intended for use by individuals under the age of 13
           </strong>

@@ -1,10 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
-const clients = ["Sipstreak", "Greenmead", "JJ Paper", "Sandbourne"];
+const clients = [
+  { name: "Sipli", image: "/projects/sipli/app-icon.png" },
+  { name: "Greenmead", image: "/project-greenmead.png" },
+  { name: "JJ Paper", image: "/project-jjpaper.png" },
+  { name: "Sandbourne", image: "/project-sandbourne.png" },
+];
 
 export function ClientLogos() {
   return (
@@ -20,41 +26,28 @@ export function ClientLogos() {
           Trusted By
         </motion.p>
 
-        {/* Desktop: flex row with dividers */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1, ease }}
-          className="hidden md:flex items-center justify-center gap-0"
-        >
-          {clients.map((client, index) => (
-            <div key={client} className="flex items-center">
-              {index > 0 && (
-                <div className="w-px h-8 bg-border-strong mx-10" />
-              )}
-              <span className="font-display text-xl font-medium text-foreground-secondary">
-                {client}
-              </span>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Mobile: 2x2 grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.1, ease }}
-          className="md:hidden grid grid-cols-2 gap-y-8"
+          className="flex flex-wrap items-center justify-center gap-8 md:gap-12"
         >
           {clients.map((client) => (
-            <span
-              key={client}
-              className="font-display text-xl font-medium text-foreground-secondary"
-            >
-              {client}
-            </span>
+            <div key={client.name} className="flex items-center gap-3">
+              <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-background-secondary flex-shrink-0">
+                <Image
+                  src={client.image}
+                  alt={client.name}
+                  fill
+                  sizes="40px"
+                  className="object-cover"
+                />
+              </div>
+              <span className="font-display text-lg font-medium text-foreground-secondary">
+                {client.name}
+              </span>
+            </div>
           ))}
         </motion.div>
       </div>

@@ -12,18 +12,14 @@ export function Contact() {
       id="contact"
       className="py-24 md:py-32 px-6 bg-background relative overflow-hidden"
     >
-      {/* Decorative organic shapes */}
+      {/* Subtle gradient backdrop */}
       <div
-        className="absolute top-16 -left-24 w-72 h-72 rounded-full opacity-40 pointer-events-none"
-        style={{ background: "rgba(139, 158, 126, 0.15)" }}
-      />
-      <div
-        className="absolute bottom-12 -right-20 w-64 h-64 rounded-full opacity-30 pointer-events-none"
-        style={{ background: "rgba(184, 112, 77, 0.08)" }}
-      />
-      <div
-        className="absolute top-1/2 right-1/4 w-40 h-40 rounded-full opacity-20 pointer-events-none"
-        style={{ background: "rgba(139, 158, 126, 0.15)" }}
+        className="absolute inset-0 pointer-events-none opacity-40"
+        aria-hidden="true"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 80%, rgba(99,102,241,0.06) 0%, transparent 60%)",
+        }}
       />
 
       {/* Centered card */}

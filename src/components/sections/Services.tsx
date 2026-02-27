@@ -13,10 +13,10 @@ const services = [
             "Modern, performant web applications built with Next.js, React, and Tailwind CSS. From landing pages to complex web apps.",
         tags: ["Next.js", "React", "Tailwind"],
         color: {
-            iconBg: "bg-sage-muted",
-            iconText: "text-sage",
-            tagBg: "bg-sage-muted",
-            tagText: "text-sage",
+            iconBg: "bg-teal-muted",
+            iconText: "text-teal",
+            tagBg: "bg-teal-muted",
+            tagText: "text-teal",
         },
     },
     {
@@ -26,9 +26,9 @@ const services = [
             "Native and cross-platform mobile apps with Flutter, SwiftUI, and React Native. Beautiful on every device.",
         tags: ["Flutter", "SwiftUI", "React Native"],
         color: {
-            iconBg: "bg-accent/[0.15]",
+            iconBg: "bg-accent-muted",
             iconText: "text-accent",
-            tagBg: "bg-accent/[0.15]",
+            tagBg: "bg-accent-muted",
             tagText: "text-accent",
         },
     },

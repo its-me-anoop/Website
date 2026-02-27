@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-deep-earth">
+    <footer className="bg-[#0F172A]">
       <div className="max-w-[1200px] mx-auto py-10 px-6 md:px-20">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Left: Brand + Copyright */}

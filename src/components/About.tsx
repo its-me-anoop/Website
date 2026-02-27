@@ -33,7 +33,7 @@ const socials = [
 
 export default function About() {
   return (
-    <section id="about" className="py-24 md:py-32 bg-deep-earth">
+    <section id="about" className="py-24 md:py-32 bg-[#0F172A]">
       <div className="max-w-[1200px] mx-auto px-6">
         {/* Section Header */}
         <motion.div
@@ -66,6 +66,7 @@ export default function About() {
             <div className="relative w-72 h-80 overflow-hidden rounded-[80px_20px_80px_20px]">
               <Image
                 src="/anoop-jose.jpg"
+                sizes="288px"
                 alt="Anoop Jose - Lead Developer and Founder of Flutterly Ltd"
                 fill
                 className="object-cover"
