@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /_next/
 
-Sitemap: https://flutterly.co.uk/sitemap.xml
+Sitemap: https://flutterly.uk/sitemap.xml

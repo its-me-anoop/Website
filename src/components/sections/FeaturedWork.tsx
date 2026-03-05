@@ -96,7 +96,7 @@ const Card = ({ title, category, description, image, href, color, i, progress, r
                         <motion.div style={{ scale: imageScale }} className="w-full h-full relative">
                             <Image
                                 src={image}
-                                alt={title}
+                                alt={`${title} — ${description}`}
                                 fill
                                 className="object-cover"
                             />

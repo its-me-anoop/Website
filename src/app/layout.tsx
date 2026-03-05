@@ -76,6 +76,10 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  icons: {
+    icon: "/logo-icon.png",
+    apple: "/logo-icon.png",
+  },
 };
 
 export const viewport: Viewport = {
@@ -146,7 +150,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <head>
         <JsonLd />
       </head>

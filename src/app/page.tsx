@@ -11,7 +11,7 @@ import About from "@/components/About";
 export const metadata: Metadata = {
   title: "Web & Mobile Development",
   description:
-    "Flutterly Ltd delivers modern web and mobile software development services using Next.js, React, Flutter, and scalable architecture.",
+    "Flutterly Ltd is a UK-based digital studio delivering high-performance web applications, cross-platform mobile apps, and enterprise solutions using Next.js, React, Flutter, and SwiftUI.",
   alternates: {
     canonical: "/",
   },
