@@ -137,7 +137,7 @@ export function Hero() {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
 
-    const ambientLight = new THREE.HemisphereLight(0x5f6ba2, 0x06070a, 0.34);
+    const ambientLight = new THREE.HemisphereLight(0x6276a8, 0x06070a, 0.42);
     scene.add(ambientLight);
 
     const coldTopLight = new THREE.PointLight(0x29d8ff, 26, 18, 2);
@@ -148,6 +148,18 @@ export function Hero() {
     const cyanPoolLight = new THREE.PointLight(0x2af2ff, 32, 16, 2);
     cyanPoolLight.position.set(0, -3.6, -10.4);
     scene.add(cyanPoolLight);
+
+    const magentaFillLight = new THREE.PointLight(0xff4fd8, 15, 18, 2);
+    magentaFillLight.position.set(-3.6, -1.5, -9.2);
+    scene.add(magentaFillLight);
+
+    const blueRimLight = new THREE.PointLight(0x4f8dff, 12, 20, 2);
+    blueRimLight.position.set(4.8, 0.8, -13.5);
+    scene.add(blueRimLight);
+
+    const amberCeilingWash = new THREE.PointLight(0xff8f3f, 18, 24, 2);
+    amberCeilingWash.position.set(0, 4.7, -15.5);
+    scene.add(amberCeilingWash);
 
     const flameLights: THREE.PointLight[] = [];
     const flameMeshes: THREE.Mesh[] = [];
@@ -211,9 +223,43 @@ export function Hero() {
           const light = 34 + Math.floor(Math.random() * 12);
           ctx.fillStyle = `hsl(${hue} ${sat}% ${light}%)`;
           ctx.fillRect(x + 8, row * blockH + 8, blockW - 16, blockH - 16);
+          const surface = ctx.createLinearGradient(
+            x + 8,
+            row * blockH + 8,
+            x + blockW - 8,
+            row * blockH + blockH - 8
+          );
+          surface.addColorStop(0, "rgba(255,255,255,0.08)");
+          surface.addColorStop(0.5, "rgba(255,255,255,0.01)");
+          surface.addColorStop(1, "rgba(0,0,0,0.12)");
+          ctx.fillStyle = surface;
+          ctx.fillRect(x + 8, row * blockH + 8, blockW - 16, blockH - 16);
           ctx.strokeStyle = "rgba(18,14,14,0.55)";
           ctx.lineWidth = 8;
           ctx.strokeRect(x + 8, row * blockH + 8, blockW - 16, blockH - 16);
+
+          for (let i = 0; i < 90; i += 1) {
+            const alpha = 0.03 + Math.random() * 0.05;
+            ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+            ctx.fillRect(
+              x + 16 + Math.random() * (blockW - 32),
+              row * blockH + 16 + Math.random() * (blockH - 32),
+              2 + Math.random() * 3,
+              2 + Math.random() * 3
+            );
+          }
+
+          for (let i = 0; i < 4; i += 1) {
+            const crackX = x + 20 + Math.random() * (blockW - 40);
+            const crackY = row * blockH + 20 + Math.random() * (blockH - 40);
+            ctx.strokeStyle = `rgba(22,16,15,${0.18 + Math.random() * 0.22})`;
+            ctx.lineWidth = 1 + Math.random() * 2;
+            ctx.beginPath();
+            ctx.moveTo(crackX, crackY);
+            ctx.lineTo(crackX + Math.random() * 40 - 20, crackY + Math.random() * 18 - 9);
+            ctx.lineTo(crackX + Math.random() * 68 - 34, crackY + Math.random() * 28 - 14);
+            ctx.stroke();
+          }
         }
       }
     });
@@ -448,6 +494,25 @@ export function Hero() {
     addTorch(-5.2);
     addTorch(5.2);
 
+    [-2.25, 0, 2.25].forEach((x, index) => {
+      const rune = addMesh(
+        baseGroup,
+        new THREE.BoxGeometry(0.32, 0.9, 0.16),
+        new THREE.MeshStandardMaterial({
+          color: [0x7ce4ff, 0xffa95b, 0xa26cff][index],
+          emissive: [0x0f7d9f, 0xa34b08, 0x4b1ca8][index],
+          emissiveIntensity: 0.8,
+          roughness: 0.28,
+          metalness: 0.12,
+        }),
+        {
+          position: [x, -1.15, -15.45],
+          castShadow: false,
+        }
+      );
+      rune.rotation.y = 0.06 * (index - 1);
+    });
+
     const ceilingGlow = addMesh(
       baseGroup,
       new THREE.BoxGeometry(3.2, 0.18, 0.8),
@@ -478,9 +543,9 @@ export function Hero() {
       new THREE.BufferGeometry(),
       new THREE.PointsMaterial({
         size: 0.06,
-        color: 0xffb370,
+        color: 0xffd2a6,
         transparent: true,
-        opacity: 0.42,
+        opacity: 0.52,
       })
     );
 
@@ -616,6 +681,9 @@ export function Hero() {
 
       coldTopLight.intensity = 24 + Math.sin(elapsed * 1.1) * 2;
       cyanPoolLight.intensity = 30 + Math.sin(elapsed * 1.5) * 2.4;
+      magentaFillLight.intensity = 12 + Math.sin(elapsed * 0.9 + 1.3) * 1.8;
+      blueRimLight.intensity = 10 + Math.cos(elapsed * 0.8) * 1.4;
+      amberCeilingWash.intensity = 17 + Math.sin(elapsed * 0.6) * 2.2;
       flameLights.forEach((light, index) => {
         light.intensity =
           25 + Math.sin(elapsed * 7 + index * 0.9) * 6 + Math.random() * 1.8;
@@ -633,16 +701,16 @@ export function Hero() {
       const textDepthOffset = THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, -34, 28);
       const textScaleDepth = THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, 0.9, 1.08);
       const textRotateXDepth = THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, 10, -12);
-      const textTranslateX = camera.position.x * 11;
-      const textTranslateY = camera.position.y * 10 + textDepthOffset;
-      const textRotateY = camera.position.x * -3.2;
+      const textTranslateX = camera.position.x * 7.5;
+      const textTranslateY = camera.position.y * 9 + textDepthOffset;
+      const textRotateY = camera.position.x * -2.4;
       const textRotateZ = (0.5 - scrollProgress) * 5 + camera.position.x * -0.65;
 
       welcomeText.classList.toggle("opacity-0", scrollProgress <= 0.01);
       welcomeText.classList.toggle("opacity-100", scrollProgress > 0.01);
       welcomeText.style.opacity = `${easedReveal}`;
       welcomeText.style.transform =
-        `translate3d(calc(-50% + ${textTranslateX}px), ${-56 + (1 - easedReveal) * 82 + textTranslateY}px, 0) ` +
+        `translate3d(${textTranslateX}px, ${-56 + (1 - easedReveal) * 82 + textTranslateY}px, 0) ` +
         `rotateX(${8 + (1 - easedReveal) * -64 + textRotateXDepth}deg) rotateY(${textRotateY}deg) ` +
         `rotateZ(${textRotateZ}deg) scale(${(0.9 + easedReveal * 0.12) * textScaleDepth})`;
 
@@ -716,16 +784,18 @@ export function Hero() {
           </div>
         </div>
 
-        <div
-          ref={welcomeTextRef}
-          className="pointer-events-none absolute left-1/2 bottom-[12vh] z-30 w-[min(1000px,calc(100vw-48px))] -translate-x-1/2 text-center opacity-0 [transform-style:preserve-3d]"
-        >
-          <span className="block text-[clamp(2.8rem,8vw,7rem)] font-semibold uppercase leading-[0.92] tracking-[-0.06em] text-[#fff7ed] [text-shadow:0_1px_0_rgba(255,255,255,0.05),0_14px_34px_rgba(0,0,0,0.38),0_0_38px_rgba(74,214,255,0.16)]">
-            Welcome to
-          </span>
-          <span className="block bg-[linear-gradient(120deg,#fff3e0_0%,#ffbb74_38%,#62e8ff_100%)] bg-clip-text text-[clamp(2.8rem,8vw,7rem)] font-semibold uppercase leading-[0.92] tracking-[-0.06em] text-transparent [text-shadow:0_1px_0_rgba(255,255,255,0.05),0_14px_34px_rgba(0,0,0,0.38),0_0_38px_rgba(74,214,255,0.16)]">
-            Flutterly
-          </span>
+        <div className="pointer-events-none absolute inset-x-0 bottom-[12vh] z-30 flex justify-center px-4">
+          <div
+            ref={welcomeTextRef}
+            className="w-[min(1000px,calc(100vw-48px))] text-center opacity-0 [transform-style:preserve-3d]"
+          >
+            <span className="block text-[clamp(2.8rem,8vw,7rem)] font-semibold uppercase leading-[0.92] tracking-[-0.06em] text-[#fff7ed] [text-shadow:0_1px_0_rgba(255,255,255,0.05),0_14px_34px_rgba(0,0,0,0.38),0_0_38px_rgba(74,214,255,0.16)]">
+              Welcome to
+            </span>
+            <span className="block bg-[linear-gradient(120deg,#fff3e0_0%,#ffbb74_38%,#62e8ff_100%)] bg-clip-text text-[clamp(2.8rem,8vw,7rem)] font-semibold uppercase leading-[0.92] tracking-[-0.06em] text-transparent [text-shadow:0_1px_0_rgba(255,255,255,0.05),0_14px_34px_rgba(0,0,0,0.38),0_0_38px_rgba(74,214,255,0.16)]">
+              Flutterly
+            </span>
+          </div>
         </div>
       </div>
 
