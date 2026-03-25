@@ -8,14 +8,13 @@ export function Footer() {
 
         {/* Brand */}
         <div>
-            <div className="mb-4 sm:mb-6">
+            <div className="mb-4 sm:mb-6 inline-block bg-white rounded-xl px-4 py-2">
                 <Image
                     src="/flutterly-title.png"
                     alt="Flutterly Ltd"
-                    width={240}
-                    height={50}
-                    className="h-8 w-auto"
-                    style={{ filter: "brightness(0) invert(1)" }}
+                    width={200}
+                    height={42}
+                    className="h-7 w-auto"
                 />
             </div>
             <p className="max-w-xs text-sm leading-relaxed text-foreground-secondary">
