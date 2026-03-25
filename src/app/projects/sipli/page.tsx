@@ -7,17 +7,20 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import {
     ArrowLeft,
-    Target,
     Droplets,
     Zap,
     Bell,
     Heart,
     Shield,
-    Eye,
-    BarChart3,
     Calendar,
     Smartphone,
     Check,
+    Sparkles,
+    CloudRain,
+    Watch,
+    Command,
+    ChevronRight,
+    Star,
 } from "lucide-react";
 
 /* ═══════════════════════════════════════════
@@ -27,7 +30,7 @@ import {
 const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
 const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 24 },
+    hidden: { opacity: 0, y: 32 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
 };
 
@@ -35,140 +38,61 @@ const stagger: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+        transition: { staggerChildren: 0.11, delayChildren: 0.05 },
     },
 };
 
 const scaleIn: Variants = {
-    hidden: { opacity: 0, scale: 0.96 },
+    hidden: { opacity: 0, scale: 0.94 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease } },
 };
 
-/* ═══════════════════════════════════════════
-   Data
-   ═══════════════════════════════════════════ */
-
-const beverages = [
-    { name: "Water", emoji: "💧", factor: 100 },
-    { name: "Sparkling Water", emoji: "🫧", factor: 100 },
-    { name: "Coconut Water", emoji: "🥥", factor: 100 },
-    { name: "Herbal Tea", emoji: "🍵", factor: 100 },
-    { name: "Coffee", emoji: "☕", factor: 80 },
-    { name: "Milk", emoji: "🥛", factor: 90 },
-    { name: "Juice", emoji: "🧃", factor: 85 },
-    { name: "Smoothie", emoji: "🫐", factor: 90 },
-    { name: "Sports Drink", emoji: "⚡", factor: 80 },
-    { name: "Soda", emoji: "🥤", factor: 45 },
-    { name: "Beer", emoji: "🍺", factor: 30 },
-    { name: "Wine", emoji: "🍷", factor: 25 },
-];
-
-const highlights = [
-    {
-        icon: Target,
-        title: "Smart Goals",
-        description:
-            "Your daily target is calculated from body weight and activity level. Adjusts for workouts and weather.",
-    },
-    {
-        icon: Droplets,
-        title: "18 Beverages",
-        description:
-            "Every drink has an accurate hydration factor. Water counts at 100%, coffee at 80%, wine at just 25%.",
-    },
-    {
-        icon: Zap,
-        title: "AI Coaching",
-        description:
-            "Personalized hydration tips powered by on-device Apple Intelligence. Private, fast, context-aware.",
-    },
-];
-
-const insightFeatures = [
-    "Interactive weekly & monthly charts",
-    "Hydration heatmap at a glance",
-    "Current and longest streaks",
-    "Week-over-week trends & consistency",
-    "Beverage breakdown pie chart",
-    "AI-powered coaching tips",
-];
+const floatIn: Variants = {
+    hidden: { opacity: 0, y: 48 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1.0, ease } },
+};
 
 /* ═══════════════════════════════════════════
-   Local Components
+   Sub-components
    ═══════════════════════════════════════════ */
 
-function BeverageCard({
-    emoji,
-    name,
-    factor,
-    index,
-}: {
-    emoji: string;
-    name: string;
-    factor: number;
-    index: number;
-}) {
+function AppStoreBadge({ className = "" }: { className?: string }) {
     return (
-        <motion.div
-            variants={fadeInUp}
-            whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="bg-surface border border-border rounded-2xl p-4 cursor-default hover:border-border-strong transition-colors"
+        <Link
+            href="https://apps.apple.com/us/app/sipli/id6758851574"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex items-center gap-3 bg-accent text-background font-sans rounded-[14px] px-7 py-4 hover:bg-accent-hover transition-all duration-200 hover:scale-[1.02] ${className}`}
         >
-            <span className="text-2xl block mb-2">{emoji}</span>
-            <p className="text-xs font-semibold text-foreground mb-1">{name}</p>
-            <div className="flex items-center gap-2">
-                <div className="flex-1 h-1.5 rounded-full bg-surface-elevated overflow-hidden">
-                    <motion.div
-                        className="h-full rounded-full bg-accent"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${factor}%` }}
-                        viewport={{ once: true }}
-                        transition={{
-                            duration: 0.8,
-                            delay: index * 0.05,
-                            ease,
-                        }}
-                    />
-                </div>
-                <span
-                    className="text-[10px] font-bold tabular-nums text-accent"
-                >
-                    {factor}%
-                </span>
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 flex-shrink-0">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+            </svg>
+            <div>
+                <div className="text-[10px] leading-tight opacity-60">Download on the</div>
+                <div className="text-base font-semibold leading-tight">App Store</div>
             </div>
-        </motion.div>
+        </Link>
     );
 }
 
-function FeatureCard({
-    icon: Icon,
-    title,
-    description,
-}: {
-    icon: React.ElementType;
-    title: string;
-    description: string;
-}) {
+function SectionLabel({ children }: { children: React.ReactNode }) {
     return (
-        <motion.div
-            variants={fadeInUp}
-            className="bg-surface rounded-3xl p-8 md:p-10 border border-border"
-        >
-            <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-accent-muted"
-            >
-                <Icon className="w-6 h-6 text-accent" />
-            </div>
-            <h4 className="text-lg font-display font-semibold tracking-tight text-foreground mb-3">
-                {title}
-            </h4>
-            <p className="text-sm text-foreground-secondary leading-relaxed">
-                {description}
-            </p>
-        </motion.div>
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-accent-muted text-accent border border-accent/20 mb-6">
+            {children}
+        </div>
     );
 }
 
+function CheckItem({ children }: { children: React.ReactNode }) {
+    return (
+        <div className="flex items-start gap-3">
+            <div className="mt-0.5 w-5 h-5 rounded-full bg-accent-muted border border-accent/20 flex items-center justify-center flex-shrink-0">
+                <Check className="w-3 h-3 text-accent" />
+            </div>
+            <p className="text-sm text-foreground-secondary leading-relaxed">{children}</p>
+        </div>
+    );
+}
 
 /* ═══════════════════════════════════════════
    Page
@@ -176,25 +100,20 @@ function FeatureCard({
 
 export default function SipliPage() {
     return (
-        <main
-            className="min-h-screen bg-background text-foreground"
-        >
+        <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
             <Navbar />
 
-            {/* ═══════════════════════════════════════
-               Section 1: Hero
-               ═══════════════════════════════════════ */}
-            <section
-                className="relative pt-28 pb-20 px-6 md:px-14 min-h-[90vh] flex items-center overflow-hidden bg-background-secondary"
-            >
-                {/* Decorative glows */}
+            {/* ── HERO ── */}
+            <section className="relative pt-28 pb-20 px-6 md:px-14 min-h-[92vh] flex items-center overflow-hidden">
                 <div
-                    className="absolute top-[5%] -right-[15%] w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none animate-subtle-float bg-accent-muted"
-                    aria-hidden="true"
+                    className="absolute top-[5%] right-[-8%] w-[600px] h-[600px] rounded-full pointer-events-none"
+                    style={{ background: "rgba(212,255,0,0.07)", filter: "blur(130px)" }}
+                    aria-hidden
                 />
                 <div
-                    className="absolute bottom-[10%] -left-[10%] w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none animate-subtle-float bg-accent-muted"
-                    aria-hidden="true"
+                    className="absolute bottom-[-5%] left-[-5%] w-[400px] h-[400px] rounded-full pointer-events-none"
+                    style={{ background: "rgba(212,255,0,0.05)", filter: "blur(100px)" }}
+                    aria-hidden
                 />
 
                 <div className="relative z-10 max-w-[1200px] mx-auto w-full">
@@ -213,85 +132,76 @@ export default function SipliPage() {
                         </Link>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                         {/* Text */}
-                        <motion.div
-                            initial="hidden"
-                            animate="visible"
-                            variants={stagger}
-                        >
-                            <motion.div
-                                variants={fadeInUp}
-                                className="mb-6"
-                            >
-                                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wide bg-accent-muted text-accent">
-                                    <Droplets className="w-3.5 h-3.5" />
-                                    Hydration Tracking for iOS
+                        <motion.div initial="hidden" animate="visible" variants={stagger}>
+                            <motion.div variants={fadeInUp}>
+                                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-accent-muted text-accent border border-accent/20 mb-6">
+                                    <Droplets className="w-3 h-3" />
+                                    iOS App · Free
                                 </span>
                             </motion.div>
 
                             <motion.h1
                                 variants={fadeInUp}
-                                className="text-[clamp(2.5rem,5.5vw,4rem)] font-display font-medium tracking-[-0.03em] leading-[1.08] mb-6 text-foreground"
+                                className="font-display font-medium tracking-[-0.035em] leading-[1.04] mb-3 text-foreground"
+                                style={{ fontSize: "clamp(3.25rem, 7vw, 5.5rem)" }}
                             >
-                                Staying hydrated,{" "}
-                                <span className="text-accent">
-                                    effortlessly.
-                                </span>
+                                Sipli
                             </motion.h1>
 
                             <motion.p
                                 variants={fadeInUp}
-                                className="text-lg text-foreground-secondary leading-relaxed max-w-md mb-8"
+                                className="font-display font-light tracking-tight text-accent mb-6 leading-snug"
+                                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.75rem)" }}
                             >
-                                Set a personalized daily goal based on your
-                                weight and activity level, then watch your
-                                progress come to life with a beautiful
-                                liquid-fill animation.
+                                Stay Hydrated, Effortlessly.
                             </motion.p>
 
-                            <motion.div variants={fadeInUp}>
-                                <Link
-                                    href="https://apps.apple.com/us/app/sipli/id6758851574"
-                                    className="inline-flex items-center gap-3 bg-accent text-background rounded-[14px] px-7 py-4 hover:bg-accent-hover transition-colors"
-                                >
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                        className="w-5 h-5"
-                                    >
-                                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                                    </svg>
-                                    <div>
-                                        <div className="text-[10px] leading-tight opacity-60">
-                                            Download on the
-                                        </div>
-                                        <div className="text-base font-semibold leading-tight">
-                                            App Store
-                                        </div>
-                                    </div>
-                                </Link>
+                            <motion.p
+                                variants={fadeInUp}
+                                className="text-base text-foreground-secondary leading-relaxed max-w-[420px] mb-8"
+                            >
+                                Your AI-powered hydration companion. Personalized daily goals,
+                                intelligent coaching, 18+ beverages tracked, rich insights,
+                                and widgets — beautifully crafted for iPhone and iPad.
+                            </motion.p>
+
+                            <motion.div
+                                variants={fadeInUp}
+                                className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
+                            >
+                                <AppStoreBadge />
+                                <div className="flex items-center gap-1">
+                                    {[...Array(5)].map((_, i) => (
+                                        <Star key={i} className="w-3.5 h-3.5 fill-accent text-accent" />
+                                    ))}
+                                    <span className="text-sm text-foreground-secondary ml-2">
+                                        Free on the App Store
+                                    </span>
+                                </div>
                             </motion.div>
                         </motion.div>
 
-                        {/* Device mockup */}
+                        {/* Hero screenshot */}
                         <motion.div
-                            variants={scaleIn}
                             initial="hidden"
                             animate="visible"
-                            className="relative w-full flex items-center justify-center lg:justify-end"
+                            variants={floatIn}
+                            className="flex justify-center lg:justify-end"
                         >
-                            <div className="relative">
-                                {/* Radial glow */}
+                            <div className="relative w-[270px] md:w-[300px] flex-shrink-0">
                                 <div
-                                    className="absolute inset-0 scale-150 pointer-events-none blur-[80px] opacity-30 bg-accent-muted"
+                                    className="absolute inset-0 rounded-full pointer-events-none"
+                                    style={{ background: "rgba(212,255,0,0.18)", filter: "blur(80px)", transform: "scale(0.75)" }}
                                 />
                                 <Image
-                                    src="/projects/sipli/iphone_and_ipad.png"
-                                    alt="Sipli on iPhone and iPad"
-                                    width={1024}
-                                    height={1366}
-                                    className="relative w-full max-w-[500px] lg:max-w-[560px] h-auto"
+                                    src="/images/sipli/iphone/01-hero-1320x2868.png"
+                                    alt="Sipli app — home screen"
+                                    width={1320}
+                                    height={2868}
+                                    className="relative w-full h-auto"
+                                    style={{ filter: "drop-shadow(0 32px 64px rgba(0,0,0,0.85))" }}
                                     priority
                                 />
                             </div>
@@ -300,28 +210,490 @@ export default function SipliPage() {
                 </div>
             </section>
 
-            {/* ═══════════════════════════════════════
-               Section 2: Feature Highlights
-               ═══════════════════════════════════════ */}
-            <section
-                className="py-24 md:py-32 px-6 md:px-14 bg-background"
-            >
+            {/* ── FEATURE STRIP ── */}
+            <section className="py-14 px-6 md:px-14 border-y border-border bg-surface">
+                <div className="max-w-[1200px] mx-auto">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-50px" }}
+                        variants={stagger}
+                        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+                    >
+                        {[
+                            { icon: Sparkles, label: "AI Coaching", desc: "On-device Apple Intelligence" },
+                            { icon: Droplets,  label: "18+ Beverages", desc: "Accurate hydration factors" },
+                            { icon: CloudRain, label: "Weather Adaptive", desc: "Goals adjust to conditions" },
+                            { icon: Heart,     label: "HealthKit Sync", desc: "Two-way Apple Health sync" },
+                        ].map((item, i) => (
+                            <motion.div
+                                key={i}
+                                variants={fadeInUp}
+                                className="flex flex-col items-center text-center gap-3 py-6 px-4 rounded-2xl border border-border hover:border-accent/30 transition-colors duration-300 bg-background/60"
+                            >
+                                <div className="w-10 h-10 rounded-xl bg-accent-muted flex items-center justify-center">
+                                    <item.icon className="w-5 h-5 text-accent" />
+                                </div>
+                                <div>
+                                    <p className="text-sm font-semibold text-foreground mb-0.5">{item.label}</p>
+                                    <p className="text-xs text-foreground-tertiary">{item.desc}</p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── AI COACH ── */}
+            <section className="py-28 md:py-36 px-6 md:px-14 bg-background relative overflow-hidden">
+                <div
+                    className="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
+                    style={{ background: "rgba(212,255,0,0.06)", filter: "blur(120px)" }}
+                    aria-hidden
+                />
+                <div className="max-w-[1200px] mx-auto">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-80px" }}
+                        variants={stagger}
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+                    >
+                        <motion.div
+                            variants={scaleIn}
+                            className="flex justify-center lg:justify-start order-2 lg:order-1"
+                        >
+                            <div className="relative w-[260px] md:w-[285px] flex-shrink-0">
+                                <div
+                                    className="absolute inset-0 rounded-full pointer-events-none"
+                                    style={{ background: "rgba(212,255,0,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
+                                />
+                                <Image
+                                    src="/images/sipli/iphone/02-coach-1320x2868.png"
+                                    alt="Sipli AI Coach"
+                                    width={1320}
+                                    height={2868}
+                                    className="relative w-full h-auto"
+                                    style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.75))" }}
+                                />
+                            </div>
+                        </motion.div>
+
+                        <motion.div variants={fadeInUp} className="order-1 lg:order-2">
+                            <SectionLabel>
+                                <Sparkles className="w-3 h-3" /> AI Coach
+                            </SectionLabel>
+                            <h2
+                                className="font-display font-medium tracking-[-0.025em] leading-[1.08] mb-5 text-foreground"
+                                style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)" }}
+                            >
+                                Your personal{" "}
+                                <span className="text-accent">hydration coach.</span>
+                            </h2>
+                            <p className="text-foreground-secondary leading-relaxed mb-7 max-w-[420px]">
+                                Powered by on-device Apple Intelligence, the AI Coach
+                                analyzes your habits and delivers personalized tips —
+                                privately, without ever leaving your device.
+                            </p>
+                            <div className="space-y-3.5">
+                                <CheckItem>Context-aware advice based on your actual data</CheckItem>
+                                <CheckItem>Understands your beverage mix, streak, and schedule</CheckItem>
+                                <CheckItem>Completely private — processed on-device only</CheckItem>
+                                <CheckItem>Smart nudges when you fall behind your daily goal</CheckItem>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── BEVERAGES ── */}
+            <section className="py-28 md:py-36 px-6 md:px-14 bg-background-secondary relative overflow-hidden">
+                <div
+                    className="absolute left-[-5%] top-1/3 w-[450px] h-[450px] rounded-full pointer-events-none"
+                    style={{ background: "rgba(212,255,0,0.05)", filter: "blur(100px)" }}
+                    aria-hidden
+                />
+                <div className="max-w-[1200px] mx-auto">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-80px" }}
+                        variants={stagger}
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+                    >
+                        <motion.div variants={fadeInUp}>
+                            <SectionLabel>
+                                <Droplets className="w-3 h-3" /> Beverages
+                            </SectionLabel>
+                            <h2
+                                className="font-display font-medium tracking-[-0.025em] leading-[1.08] mb-5 text-foreground"
+                                style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)" }}
+                            >
+                                Not just water —{" "}
+                                <span className="text-accent">every sip counts.</span>
+                            </h2>
+                            <p className="text-foreground-secondary leading-relaxed mb-7 max-w-[420px]">
+                                Track 18+ drinks with accurate hydration factors. Coffee,
+                                tea, sparkling water, coconut water, milk — Sipli knows
+                                that not all beverages hydrate equally.
+                            </p>
+                            <motion.div variants={stagger} className="flex flex-wrap gap-2">
+                                {[
+                                    { name: "Water",        pct: "100%" },
+                                    { name: "Sparkling",    pct: "100%" },
+                                    { name: "Coconut Water",pct: "95%"  },
+                                    { name: "Herbal Tea",   pct: "100%" },
+                                    { name: "Coffee",       pct: "80%"  },
+                                    { name: "Green Tea",    pct: "90%"  },
+                                    { name: "Milk",         pct: "90%"  },
+                                    { name: "Juice",        pct: "85%"  },
+                                    { name: "Smoothie",     pct: "90%"  },
+                                    { name: "Sports Drink", pct: "80%"  },
+                                    { name: "Soda",         pct: "45%"  },
+                                    { name: "+ more",       pct: ""     },
+                                ].map((b) => (
+                                    <motion.span
+                                        key={b.name}
+                                        variants={fadeInUp}
+                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-surface border border-border text-foreground-secondary hover:border-border-strong transition-colors"
+                                    >
+                                        {b.name}
+                                        {b.pct && (
+                                            <span className="text-accent font-bold">{b.pct}</span>
+                                        )}
+                                    </motion.span>
+                                ))}
+                            </motion.div>
+                        </motion.div>
+
+                        <motion.div variants={scaleIn} className="flex justify-center lg:justify-end">
+                            <div className="relative w-[260px] md:w-[285px] flex-shrink-0">
+                                <div
+                                    className="absolute inset-0 rounded-full pointer-events-none"
+                                    style={{ background: "rgba(212,255,0,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
+                                />
+                                <Image
+                                    src="/images/sipli/iphone/03-beverages-1320x2868.png"
+                                    alt="Sipli beverages screen"
+                                    width={1320}
+                                    height={2868}
+                                    className="relative w-full h-auto"
+                                    style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.75))" }}
+                                />
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── INSIGHTS (iPad showcase) ── */}
+            <section className="py-28 md:py-36 px-6 md:px-14 bg-background relative overflow-hidden">
+                <div
+                    className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[500px] pointer-events-none"
+                    style={{ background: "radial-gradient(ellipse 60% 100% at 50% 50%, rgba(212,255,0,0.06), transparent)" }}
+                    aria-hidden
+                />
+                <div className="relative z-10 max-w-[1200px] mx-auto">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={stagger}
+                        className="text-center mb-14"
+                    >
+                        <motion.div variants={fadeInUp}>
+                            <SectionLabel>Insights</SectionLabel>
+                        </motion.div>
+                        <motion.h2
+                            variants={fadeInUp}
+                            className="font-display font-medium tracking-[-0.025em] leading-[1.08] mb-5 text-foreground"
+                            style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)" }}
+                        >
+                            Understand your{" "}
+                            <span className="text-accent">habits.</span>
+                        </motion.h2>
+                        <motion.p
+                            variants={fadeInUp}
+                            className="text-foreground-secondary max-w-[480px] mx-auto leading-relaxed"
+                        >
+                            Weekly charts, hydration heatmaps, beverage breakdowns, and
+                            streak tracking — everything you need to stay consistent.
+                        </motion.p>
+                    </motion.div>
+
+                    {/* iPad screenshot */}
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-50px" }}
+                        variants={scaleIn}
+                        className="flex justify-center mb-14"
+                    >
+                        <div className="relative w-full max-w-[620px]">
+                            <div
+                                className="absolute inset-0 rounded-3xl pointer-events-none"
+                                style={{ background: "rgba(212,255,0,0.10)", filter: "blur(80px)", transform: "scale(0.85)" }}
+                            />
+                            <Image
+                                src="/images/sipli/ipad/02-ipad-insights-1668x2388.png"
+                                alt="Sipli insights on iPad"
+                                width={1668}
+                                height={2388}
+                                className="relative w-full h-auto rounded-2xl"
+                                style={{ filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.85))" }}
+                            />
+                        </div>
+                    </motion.div>
+
+                    {/* Feature chips */}
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={stagger}
+                        className="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-2xl mx-auto"
+                    >
+                        {[
+                            "Weekly & monthly bar charts",
+                            "Hydration heatmap calendar",
+                            "Current & longest streaks",
+                            "Week-over-week trends",
+                            "Beverage breakdown chart",
+                            "AI coaching tips",
+                        ].map((feat, i) => (
+                            <motion.div
+                                key={i}
+                                variants={fadeInUp}
+                                className="flex items-center gap-2.5 p-3.5 rounded-xl bg-surface border border-border"
+                            >
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                                <span className="text-xs text-foreground-secondary">{feat}</span>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── DIARY ── */}
+            <section className="py-28 md:py-36 px-6 md:px-14 bg-background-secondary relative overflow-hidden">
+                <div
+                    className="absolute right-[-5%] bottom-0 w-[400px] h-[400px] rounded-full pointer-events-none"
+                    style={{ background: "rgba(212,255,0,0.05)", filter: "blur(100px)" }}
+                    aria-hidden
+                />
+                <div className="max-w-[1200px] mx-auto">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-80px" }}
+                        variants={stagger}
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+                    >
+                        <motion.div variants={fadeInUp} className="order-1">
+                            <SectionLabel>
+                                <Calendar className="w-3 h-3" /> Diary
+                            </SectionLabel>
+                            <h2
+                                className="font-display font-medium tracking-[-0.025em] leading-[1.08] mb-5 text-foreground"
+                                style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)" }}
+                            >
+                                Every day,{" "}
+                                <span className="text-accent">captured.</span>
+                            </h2>
+                            <p className="text-foreground-secondary leading-relaxed mb-7 max-w-[420px]">
+                                Go back any day in your hydration history. See exactly
+                                what you drank, when you drank it, and how close you got
+                                to your goal — perfect for spotting patterns.
+                            </p>
+                            <div className="space-y-3.5">
+                                <CheckItem>Browse any past date with a single tap</CheckItem>
+                                <CheckItem>Full log of every beverage and time of day</CheckItem>
+                                <CheckItem>See goal progress and completion for any date</CheckItem>
+                                <CheckItem>Syncs seamlessly with Apple Health history</CheckItem>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            variants={scaleIn}
+                            className="order-2 flex justify-center lg:justify-end"
+                        >
+                            <div className="relative w-[260px] md:w-[285px] flex-shrink-0">
+                                <div
+                                    className="absolute inset-0 rounded-full pointer-events-none"
+                                    style={{ background: "rgba(212,255,0,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
+                                />
+                                <Image
+                                    src="/images/sipli/iphone/06-diary-1320x2868.jpg"
+                                    alt="Sipli diary screen"
+                                    width={1320}
+                                    height={2868}
+                                    className="relative w-full h-auto"
+                                    style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.75))" }}
+                                />
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── WIDGETS ── */}
+            <section className="py-28 md:py-36 px-6 md:px-14 bg-background relative overflow-hidden">
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: "radial-gradient(ellipse 50% 60% at 20% 50%, rgba(212,255,0,0.05), transparent)" }}
+                    aria-hidden
+                />
+                <div className="relative z-10 max-w-[1200px] mx-auto">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-80px" }}
+                        variants={stagger}
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+                    >
+                        <motion.div
+                            variants={scaleIn}
+                            className="flex justify-center lg:justify-start order-2 lg:order-1"
+                        >
+                            <div className="relative w-[260px] md:w-[285px] flex-shrink-0">
+                                <div
+                                    className="absolute inset-0 rounded-full pointer-events-none"
+                                    style={{ background: "rgba(212,255,0,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
+                                />
+                                <Image
+                                    src="/images/sipli/iphone/07-widgets-1320x2868.jpg"
+                                    alt="Sipli widgets"
+                                    width={1320}
+                                    height={2868}
+                                    className="relative w-full h-auto"
+                                    style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.75))" }}
+                                />
+                            </div>
+                        </motion.div>
+
+                        <motion.div variants={fadeInUp} className="order-1 lg:order-2">
+                            <SectionLabel>
+                                <Smartphone className="w-3 h-3" /> Widgets
+                            </SectionLabel>
+                            <h2
+                                className="font-display font-medium tracking-[-0.025em] leading-[1.08] mb-5 text-foreground"
+                                style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)" }}
+                            >
+                                Always within{" "}
+                                <span className="text-accent">reach.</span>
+                            </h2>
+                            <p className="text-foreground-secondary leading-relaxed mb-7 max-w-[420px]">
+                                Log a drink or check progress without opening the app.
+                                Home screen and lock screen widgets keep your hydration
+                                goal front and center at all times.
+                            </p>
+                            <div className="space-y-3.5">
+                                <CheckItem>Home screen widgets in small, medium, and large</CheckItem>
+                                <CheckItem>Lock screen widgets for instant glanceable data</CheckItem>
+                                <CheckItem>Tap-to-log quick-add from your home screen</CheckItem>
+                                <CheckItem>Live progress ring updates in real time</CheckItem>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── 3-PHONE GALLERY ── */}
+            <section className="py-20 md:py-28 px-6 md:px-14 bg-background-secondary overflow-hidden">
                 <div className="max-w-[1200px] mx-auto">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
                         variants={fadeInUp}
-                        className="mb-14"
+                        className="text-center mb-14"
                     >
-                        <h3 className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">
-                            Why Sipli
-                        </h3>
-                        <p className="text-2xl md:text-3xl font-display font-medium tracking-tight max-w-lg text-foreground">
-                            Everything you need to build{" "}
-                            <span className="text-accent">
-                                better habits.
-                            </span>
+                        <h2
+                            className="font-display font-medium tracking-tight text-foreground"
+                            style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
+                        >
+                            Beautifully crafted,{" "}
+                            <span className="text-accent">every screen.</span>
+                        </h2>
+                    </motion.div>
+
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-50px" }}
+                        variants={stagger}
+                        className="flex items-end justify-center gap-4 md:gap-8"
+                    >
+                        <motion.div
+                            variants={fadeInUp}
+                            className="flex-shrink-0 mb-10"
+                            style={{ width: "clamp(120px, 14vw, 180px)" }}
+                        >
+                            <Image
+                                src="/images/sipli/iphone/04-insights-1320x2868.png"
+                                alt="Sipli insights"
+                                width={1320}
+                                height={2868}
+                                className="w-full h-auto"
+                                style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.65))" }}
+                            />
+                        </motion.div>
+                        <motion.div
+                            variants={scaleIn}
+                            className="relative flex-shrink-0"
+                            style={{ width: "clamp(150px, 18vw, 230px)" }}
+                        >
+                            <div
+                                className="absolute inset-0 rounded-full pointer-events-none"
+                                style={{ background: "rgba(212,255,0,0.20)", filter: "blur(60px)", transform: "scale(0.7)" }}
+                            />
+                            <Image
+                                src="/images/sipli/iphone/01-hero-1320x2868.png"
+                                alt="Sipli home"
+                                width={1320}
+                                height={2868}
+                                className="relative w-full h-auto"
+                                style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.85))" }}
+                            />
+                        </motion.div>
+                        <motion.div
+                            variants={fadeInUp}
+                            className="flex-shrink-0 mb-10"
+                            style={{ width: "clamp(120px, 14vw, 180px)" }}
+                        >
+                            <Image
+                                src="/images/sipli/iphone/05-breakdown-1320x2868.jpg"
+                                alt="Sipli breakdown"
+                                width={1320}
+                                height={2868}
+                                className="w-full h-auto"
+                                style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.65))" }}
+                            />
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── FEATURES GRID ── */}
+            <section className="py-28 md:py-36 px-6 md:px-14 bg-background">
+                <div className="max-w-[1200px] mx-auto">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeInUp}
+                        className="text-center mb-14"
+                    >
+                        <h2
+                            className="font-display font-medium tracking-[-0.02em] text-foreground mb-3"
+                            style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+                        >
+                            Everything you{" "}
+                            <span className="text-accent">need.</span>
+                        </h2>
+                        <p className="text-foreground-secondary max-w-[420px] mx-auto">
+                            Smart reminders, weather-adjusted goals, HealthKit sync, and
+                            a design crafted to delight.
                         </p>
                     </motion.div>
 
@@ -330,26 +702,53 @@ export default function SipliPage() {
                         whileInView="visible"
                         viewport={{ once: true, margin: "-50px" }}
                         variants={stagger}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
                     >
-                        {highlights.map((item, i) => (
+                        {[
+                            {
+                                icon: Bell,
+                                title: "Smart Reminders",
+                                desc: "Adaptive reminders that pause when you've hit your goal and reschedule after every drink you log.",
+                            },
+                            {
+                                icon: Heart,
+                                title: "Apple Health Sync",
+                                desc: "Two-way HealthKit sync. Reads workouts to adjust your goal, writes hydration data back automatically.",
+                            },
+                            {
+                                icon: Shield,
+                                title: "Privacy First",
+                                desc: "No accounts, no cloud servers, no tracking. Your data stays on your device and only talks to Apple services.",
+                            },
+                            {
+                                icon: CloudRain,
+                                title: "Weather Adjusted",
+                                desc: "On hot, humid days your goal automatically increases. Powered by WeatherKit — always accurate.",
+                            },
+                            {
+                                icon: Smartphone,
+                                title: "iPhone & iPad",
+                                desc: "Full native support for both iPhone and iPad with beautifully optimised layouts for every screen size.",
+                            },
+                            {
+                                icon: Zap,
+                                title: "Dark & Light Mode",
+                                desc: "Follow your system theme or set a preference. Both modes are crafted with equal precision and care.",
+                            },
+                        ].map((item, i) => (
                             <motion.div
                                 key={i}
                                 variants={fadeInUp}
-                                className="bg-surface rounded-2xl p-8 border border-border hover:border-border-strong transition-colors duration-300"
+                                className="bg-surface rounded-2xl p-7 border border-border hover:border-border-strong transition-colors duration-300"
                             >
-                                <div
-                                    className="mb-5 w-12 h-12 rounded-xl flex items-center justify-center bg-accent-muted"
-                                >
-                                    <item.icon
-                                        className="w-5 h-5 text-accent"
-                                    />
+                                <div className="w-12 h-12 rounded-xl bg-accent-muted flex items-center justify-center mb-5">
+                                    <item.icon className="w-5 h-5 text-accent" />
                                 </div>
-                                <h4 className="text-base font-display font-semibold mb-2 tracking-tight text-foreground">
+                                <h4 className="text-base font-display font-semibold mb-2.5 text-foreground tracking-tight">
                                     {item.title}
                                 </h4>
                                 <p className="text-sm text-foreground-secondary leading-relaxed">
-                                    {item.description}
+                                    {item.desc}
                                 </p>
                             </motion.div>
                         ))}
@@ -357,419 +756,108 @@ export default function SipliPage() {
                 </div>
             </section>
 
-            {/* ═══════════════════════════════════════
-               Section 3: Smart Hydration Goals
-               ═══════════════════════════════════════ */}
-            <section className="py-24 md:py-32 px-6 md:px-14 bg-background">
-                <div className="max-w-[1200px] mx-auto">
+            {/* ── COMING SOON ── */}
+            <section className="py-24 md:py-32 px-6 md:px-14 bg-background-secondary relative overflow-hidden">
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: "linear-gradient(135deg, rgba(212,255,0,0.04) 0%, transparent 60%)" }}
+                    aria-hidden
+                />
+                <div className="relative z-10 max-w-[1200px] mx-auto">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true, margin: "-80px" }}
+                        viewport={{ once: true }}
                         variants={stagger}
-                        className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
                     >
                         <motion.div variants={fadeInUp}>
-                            <h3 className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">
-                                Smart Hydration Goals
-                            </h3>
-                            <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] leading-[1.1] mb-5 text-foreground">
-                                Your goal.{" "}
-                                <span className="text-accent">
-                                    Personalized.
-                                </span>
+                            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-teal-muted text-teal border border-teal/20 mb-6">
+                                Coming Soon
+                            </span>
+                            <h2
+                                className="font-display font-medium tracking-[-0.025em] leading-[1.08] mb-5 text-foreground"
+                                style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+                            >
+                                The future is{" "}
+                                <span className="text-accent">incoming.</span>
                             </h2>
-                            <p className="text-foreground-secondary leading-relaxed mb-6 max-w-md">
-                                Your daily target isn&apos;t a guess &mdash;
-                                it&apos;s calculated from your body weight and
-                                activity level. Connect Apple Health to let Sipli
-                                automatically adjust your goal when you work out.
+                            <p className="text-foreground-secondary leading-relaxed mb-8 max-w-[400px]">
+                                Sipli is constantly evolving. Here&apos;s what&apos;s on the roadmap.
                             </p>
                             <div className="space-y-3">
                                 {[
-                                    "Weight-based daily goal calculation",
-                                    "Auto-adjusts for workouts via Apple Health",
-                                    "Weather-aware — increases on hot, humid days",
-                                    "Activity level factored into every target",
+                                    {
+                                        icon: Watch,
+                                        label: "Apple Watch App",
+                                        desc: "Log drinks directly from your wrist",
+                                    },
+                                    {
+                                        icon: Command,
+                                        label: "Shortcuts Support",
+                                        desc: "Automate logging with Siri Shortcuts",
+                                    },
                                 ].map((item, i) => (
                                     <div
                                         key={i}
-                                        className="flex items-start gap-3"
+                                        className="flex items-center gap-4 p-4 rounded-2xl border border-border bg-surface hover:border-border-strong transition-colors"
                                     >
-                                        <div className="mt-0.5 w-5 h-5 rounded-full bg-accent-muted flex items-center justify-center flex-shrink-0">
-                                            <Check className="w-3 h-3 text-accent" />
+                                        <div className="w-10 h-10 rounded-xl bg-accent-muted flex items-center justify-center flex-shrink-0">
+                                            <item.icon className="w-5 h-5 text-accent" />
                                         </div>
-                                        <p className="text-sm text-foreground-secondary">
-                                            {item}
-                                        </p>
+                                        <div>
+                                            <p className="text-sm font-semibold text-foreground">{item.label}</p>
+                                            <p className="text-xs text-foreground-tertiary mt-0.5">{item.desc}</p>
+                                        </div>
+                                        <ChevronRight className="w-4 h-4 text-foreground-tertiary ml-auto" />
                                     </div>
                                 ))}
                             </div>
                         </motion.div>
 
-                        <motion.div
-                            variants={scaleIn}
-                            className="flex justify-center lg:justify-end"
-                        >
-                            <Image
-                                src="/projects/sipli/dashboard.png"
-                                alt="Sipli smart hydration goals"
-                                width={1284}
-                                height={2778}
-                                className="w-full max-w-[260px] h-auto"
-                            />
-                        </motion.div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* ═══════════════════════════════════════
-               Section 4: Track Any Beverage
-               ═══════════════════════════════════════ */}
-            <section
-                className="py-24 md:py-32 px-6 md:px-14 bg-background-secondary"
-            >
-                <div className="max-w-[1200px] mx-auto">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeInUp}
-                        className="text-center mb-14"
-                    >
-                        <h3 className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">
-                            Beverage Tracking
-                        </h3>
-                        <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-foreground mb-4">
-                            Track{" "}
-                            <span className="text-accent">
-                                any beverage.
-                            </span>
-                        </h2>
-                        <p className="text-foreground-secondary max-w-lg mx-auto">
-                            18 drink types, each with a realistic hydration
-                            factor. See exactly how much effective hydration
-                            you&apos;re getting from every sip.
-                        </p>
-                    </motion.div>
-
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                        variants={stagger}
-                        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
-                    >
-                        {beverages.map((bev, i) => (
-                            <BeverageCard
-                                key={bev.name}
-                                emoji={bev.emoji}
-                                name={bev.name}
-                                factor={bev.factor}
-                                index={i}
-                            />
-                        ))}
-                    </motion.div>
-
-                    <motion.p
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeInUp}
-                        className="text-center text-sm text-foreground-tertiary mt-8"
-                    >
-                        + Lemonade, Sparkling Water, Energy Drink, Soup,
-                        Cocktail, and more
-                    </motion.p>
-                </div>
-            </section>
-
-            {/* ═══════════════════════════════════════
-               Section 5: Insights
-               ═══════════════════════════════════════ */}
-            <section className="py-24 md:py-32 px-6 md:px-14 bg-background">
-                <div className="max-w-[1200px] mx-auto">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-80px" }}
-                        variants={stagger}
-                        className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
-                    >
-                        {/* Chart visual */}
-                        <motion.div
-                            variants={scaleIn}
-                            className="order-2 lg:order-1 flex justify-center"
-                        >
-                            <Image
-                                src="/projects/sipli/analytics.png"
-                                alt="Sipli insights and analytics"
-                                width={1284}
-                                height={2778}
-                                className="w-full max-w-[280px] h-auto"
-                            />
-                        </motion.div>
-
-                        {/* Text */}
-                        <motion.div
-                            variants={fadeInUp}
-                            className="order-1 lg:order-2"
-                        >
-                            <h3 className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">
-                                Insights
-                            </h3>
-                            <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] leading-[1.1] mb-5 text-foreground">
-                                Understand your{" "}
-                                <span className="text-accent">habits.</span>
-                            </h2>
-                            <p className="text-foreground-secondary leading-relaxed mb-6 max-w-md">
-                                Visualize your hydration journey with detailed
-                                charts, streaks, and AI-powered tips that help
-                                you stay consistent.
-                            </p>
-                            <div className="space-y-2.5">
-                                {insightFeatures.map((feat, i) => (
-                                    <div
-                                        key={i}
-                                        className="flex items-center gap-3"
-                                    >
-                                        <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                                        <p className="text-sm text-foreground-secondary">
-                                            {feat}
-                                        </p>
-                                    </div>
-                                ))}
+                        <motion.div variants={scaleIn} className="flex justify-center lg:justify-end">
+                            <div className="relative w-[260px] md:w-[285px] flex-shrink-0">
+                                <div
+                                    className="absolute inset-0 rounded-full pointer-events-none"
+                                    style={{ background: "rgba(212,255,0,0.10)", filter: "blur(70px)", transform: "scale(0.75)" }}
+                                />
+                                <Image
+                                    src="/images/sipli/iphone/08-more-1320x2868.jpg"
+                                    alt="Sipli — more features"
+                                    width={1320}
+                                    height={2868}
+                                    className="relative w-full h-auto"
+                                    style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.75))" }}
+                                />
                             </div>
                         </motion.div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* ═══════════════════════════════════════
-               Section 6: Design Showcase (dark)
-               ═══════════════════════════════════════ */}
-            <section
-                className="py-24 md:py-32 px-6 md:px-14 overflow-hidden bg-background-secondary"
-            >
-                <div className="max-w-[1200px] mx-auto">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeInUp}
-                        className="text-center mb-16"
-                    >
-                        <h3 className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-4">
-                            Beautiful Design
-                        </h3>
-                        <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-foreground mb-4">
-                            Designed to{" "}
-                            <span className="text-accent">delight.</span>
-                        </h2>
-                        <p className="text-foreground-secondary max-w-lg mx-auto leading-relaxed">
-                            Animated liquid-fill progress, glassmorphism cards,
-                            custom haptics, full iPad support, and Light, Dark &
-                            System themes.
-                        </p>
-                    </motion.div>
-
-                    {/* Three phone mockups */}
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                        variants={stagger}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
-                    >
-                        <motion.div variants={fadeInUp} className="flex justify-center md:mt-8">
-                            <Image
-                                src="/projects/sipli/analytics.png"
-                                alt="Sipli Analytics"
-                                width={1284}
-                                height={2778}
-                                className="w-full max-w-[240px] h-auto"
-                            />
-                        </motion.div>
-                        <motion.div variants={scaleIn} className="flex justify-center">
-                            <Image
-                                src="/projects/sipli/dashboard.png"
-                                alt="Sipli Dashboard"
-                                width={1284}
-                                height={2778}
-                                className="w-full max-w-[260px] h-auto"
-                            />
-                        </motion.div>
-                        <motion.div variants={fadeInUp} className="flex justify-center md:mt-8">
-                            <Image
-                                src="/projects/sipli/dashboard_dark.png"
-                                alt="Sipli Dark Mode"
-                                width={1284}
-                                height={2778}
-                                className="w-full max-w-[240px] h-auto"
-                            />
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Design features */}
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={stagger}
-                        className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16"
-                    >
-                        {[
-                            {
-                                icon: Smartphone,
-                                label: "iPhone & iPad",
-                            },
-                            {
-                                icon: Eye,
-                                label: "Light & Dark themes",
-                            },
-                            {
-                                icon: Calendar,
-                                label: "Full diary view",
-                            },
-                            {
-                                icon: BarChart3,
-                                label: "Rich analytics",
-                            },
-                        ].map((item, i) => (
-                            <motion.div
-                                key={i}
-                                variants={fadeInUp}
-                                className="flex flex-col items-center gap-3 py-6 px-4 rounded-2xl border border-border bg-surface hover:border-border-strong transition-colors"
-                            >
-                                <item.icon className="w-5 h-5 text-accent" />
-                                <span className="text-xs text-foreground-secondary text-center font-medium">
-                                    {item.label}
-                                </span>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* ═══════════════════════════════════════
-               Section 7: Smart Reminders + Apple Health
-               ═══════════════════════════════════════ */}
-            <section
-                className="py-24 md:py-32 px-6 md:px-14 bg-background"
-            >
-                <div className="max-w-[1200px] mx-auto">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                        variants={stagger}
-                        className="grid grid-cols-1 md:grid-cols-2 gap-6"
-                    >
-                        <FeatureCard
-                            icon={Bell}
-                            title="Reminders that adapt"
-                            description="Sipli schedules reminders around your activity. They pause when you've hit your goal, adapt to your sleep schedule, and reschedule when you log a drink. Choose smart adaptive or classic fixed-time."
-                        />
-                        <FeatureCard
-                            icon={Heart}
-                            title="Apple Health integration"
-                            description="Reads your workouts and calories to adjust your daily goal. Writes water intake automatically. Two-way sync keeps everything in harmony with one-tap manual sync."
-                        />
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* ═══════════════════════════════════════
-               Section 8: Privacy & Accessibility
-               ═══════════════════════════════════════ */}
-            <section
-                className="py-24 md:py-32 px-6 md:px-14 bg-background-secondary"
-            >
-                <div className="max-w-[1200px] mx-auto">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeInUp}
-                        className="text-center mb-14"
-                    >
-                        <h2 className="text-3xl md:text-4xl font-display font-medium tracking-[-0.02em] text-foreground">
-                            Built on{" "}
-                            <span className="text-accent">trust.</span>
-                        </h2>
-                    </motion.div>
-
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                        variants={stagger}
-                        className="grid grid-cols-1 md:grid-cols-2 gap-6"
-                    >
-                        <motion.div
-                            variants={fadeInUp}
-                            className="rounded-3xl p-8 md:p-10 border border-border bg-surface"
-                        >
-                            <div className="w-14 h-14 rounded-2xl bg-accent-muted flex items-center justify-center mb-6">
-                                <Shield className="w-6 h-6 text-accent" />
-                            </div>
-                            <h4 className="text-lg font-display font-semibold text-foreground mb-3 tracking-tight">
-                                Privacy first
-                            </h4>
-                            <p className="text-sm text-foreground-secondary leading-relaxed">
-                                All your data stays on your device. No accounts,
-                                no cloud sync, no tracking, no ads. Sipli only
-                                communicates with Apple services &mdash;
-                                HealthKit, WeatherKit, and StoreKit &mdash;
-                                never with third-party servers.
-                            </p>
-                        </motion.div>
-
-                        <motion.div
-                            variants={fadeInUp}
-                            className="rounded-3xl p-8 md:p-10 border border-border bg-surface"
-                        >
-                            <div className="w-14 h-14 rounded-2xl bg-accent-muted flex items-center justify-center mb-6">
-                                <Eye className="w-6 h-6 text-accent" />
-                            </div>
-                            <h4 className="text-lg font-display font-semibold text-foreground mb-3 tracking-tight">
-                                Accessible to everyone
-                            </h4>
-                            <p className="text-sm text-foreground-secondary leading-relaxed">
-                                Full VoiceOver support, Dynamic Type, and
-                                Reduce Motion are built into every screen.
-                                Sipli is designed so everyone can track their
-                                hydration with ease.
-                            </p>
-                        </motion.div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* ═══════════════════════════════════════
-               Section 9: Final CTA
-               ═══════════════════════════════════════ */}
-            <section className="relative py-32 md:py-40 px-6 md:px-14 overflow-hidden bg-background">
-                {/* Glow */}
+            {/* ── FINAL CTA ── */}
+            <section className="relative py-40 md:py-52 px-6 md:px-14 overflow-hidden bg-background">
                 <div
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full blur-3xl pointer-events-none bg-accent-muted"
-                    aria-hidden="true"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full pointer-events-none"
+                    style={{ background: "rgba(212,255,0,0.10)", filter: "blur(150px)" }}
+                    aria-hidden
                 />
 
-                <div className="relative z-10 max-w-[600px] mx-auto text-center">
+                <div className="relative z-10 max-w-[580px] mx-auto text-center">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
                         variants={stagger}
                     >
-                        <motion.div variants={fadeInUp} className="mb-4">
-                            <Droplets className="w-10 h-10 text-accent mx-auto" />
+                        <motion.div variants={fadeInUp} className="mb-6">
+                            <Droplets className="w-12 h-12 text-accent mx-auto" />
                         </motion.div>
 
                         <motion.h2
                             variants={fadeInUp}
-                            className="text-3xl md:text-5xl font-display font-medium tracking-[-0.03em] leading-[1.1] mb-5 text-foreground"
+                            className="font-display font-medium tracking-[-0.03em] leading-[1.05] mb-5 text-foreground"
+                            style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}
                         >
                             Start your hydration{" "}
                             <span className="text-accent">journey.</span>
@@ -777,40 +865,20 @@ export default function SipliPage() {
 
                         <motion.p
                             variants={fadeInUp}
-                            className="text-lg text-foreground-secondary mb-8"
+                            className="text-lg text-foreground-secondary mb-10"
                         >
-                            Free on the App Store.
+                            Free on the App Store. iPhone and iPad.
                         </motion.p>
 
-                        <motion.div variants={fadeInUp}>
-                            <Link
-                                href="https://apps.apple.com/us/app/sipli/id6758851574"
-                                className="inline-flex items-center gap-3 bg-accent text-background rounded-[14px] px-7 py-4 hover:bg-accent-hover transition-colors"
-                            >
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    className="w-5 h-5"
-                                >
-                                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                                </svg>
-                                <div>
-                                    <div className="text-[10px] leading-tight opacity-80">
-                                        Download on the
-                                    </div>
-                                    <div className="text-base font-semibold leading-tight">
-                                        App Store
-                                    </div>
-                                </div>
-                            </Link>
+                        <motion.div variants={fadeInUp} className="flex justify-center">
+                            <AppStoreBadge />
                         </motion.div>
 
                         <motion.p
                             variants={fadeInUp}
-                            className="text-xs text-foreground-tertiary mt-6"
+                            className="text-xs text-foreground-tertiary mt-8"
                         >
-                            Requires iOS 18.0 or later. Works on iPhone and
-                            iPad.
+                            Requires iOS 18.0 or later. Works on iPhone and iPad.
                         </motion.p>
                     </motion.div>
                 </div>
