@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function Footer() {
   return (
@@ -7,8 +8,15 @@ export function Footer() {
 
         {/* Brand */}
         <div>
-            <div className="mb-4 sm:mb-6 flex items-center gap-2">
-                <span className="font-display font-bold text-2xl text-foreground tracking-tight">flutterly</span>
+            <div className="mb-4 sm:mb-6">
+                <Image
+                    src="/flutterly-title.png"
+                    alt="Flutterly Ltd"
+                    width={240}
+                    height={50}
+                    className="h-8 w-auto"
+                    style={{ filter: "brightness(0) invert(1)" }}
+                />
             </div>
             <p className="max-w-xs text-sm leading-relaxed text-foreground-secondary">
                 A digital craft studio based in the UK. Building the future of web and mobile interactions.

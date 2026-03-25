@@ -10,6 +10,7 @@ import {
     useMotionValueEvent,
 } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
@@ -69,8 +70,16 @@ export function Navbar() {
                 >
                     {/* Logo */}
                     <Link href="/" className="flex min-w-0 items-center gap-2 group">
-                        <div className="relative h-8 w-8 flex-shrink-0 flex items-center justify-center overflow-hidden rounded-lg bg-surface-elevated border border-border group-hover:border-accent/50 transition-colors">
-                             <span className="font-display font-bold text-accent text-lg">f</span>
+                        <div className="relative h-8 w-8 flex-shrink-0 overflow-hidden rounded-lg bg-surface-elevated border border-border group-hover:border-accent/50 transition-colors">
+                            <Image
+                                src="/flutterly-logo.png"
+                                alt="Flutterly"
+                                width={32}
+                                height={32}
+                                className="w-full h-full object-cover"
+                                style={{ filter: "brightness(0) invert(1)" }}
+                                priority
+                            />
                         </div>
                         <span className={`truncate font-display font-semibold text-base sm:text-lg tracking-tight transition-colors ${scrolled ? "text-foreground" : "text-foreground"}`}>
                             flutterly

@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: "/logo-horizontal.png",
+        url: "/flutterly-title.png",
         width: 1200,
         height: 630,
         alt: "Flutterly Ltd",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteName} | Web & Mobile Development`,
     description: siteDescription,
-    images: ["/logo-horizontal.png"],
+    images: ["/flutterly-title.png"],
   },
   robots: {
     index: true,
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FAFBFD",
+  themeColor: "#050505",
 };
 
 function JsonLd() {
@@ -88,7 +88,7 @@ function JsonLd() {
     "@type": "Organization",
     name: "Flutterly Ltd",
     url: siteUrl,
-    logo: `${siteUrl}/logo-horizontal.png`,
+    logo: `${siteUrl}/flutterly-title.png`,
     description:
       "UK-based digital studio crafting web applications, mobile apps, and enterprise solutions.",
     address: {
