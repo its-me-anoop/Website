@@ -100,19 +100,19 @@ function CheckItem({ children }: { children: React.ReactNode }) {
 
 export default function SipliPage() {
     return (
-        <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+        <main className="sipli-theme min-h-screen bg-background text-foreground overflow-x-hidden">
             <Navbar />
 
             {/* ── HERO ── */}
             <section className="relative pt-28 pb-20 px-6 md:px-14 min-h-[92vh] flex items-center overflow-hidden">
                 <div
                     className="absolute top-[5%] right-[-8%] w-[600px] h-[600px] rounded-full pointer-events-none"
-                    style={{ background: "rgba(212,255,0,0.07)", filter: "blur(130px)" }}
+                    style={{ background: "rgba(77,212,232,0.07)", filter: "blur(130px)" }}
                     aria-hidden
                 />
                 <div
                     className="absolute bottom-[-5%] left-[-5%] w-[400px] h-[400px] rounded-full pointer-events-none"
-                    style={{ background: "rgba(212,255,0,0.05)", filter: "blur(100px)" }}
+                    style={{ background: "rgba(77,212,232,0.05)", filter: "blur(100px)" }}
                     aria-hidden
                 />
 
@@ -193,7 +193,7 @@ export default function SipliPage() {
                             <div className="relative w-[270px] md:w-[300px] flex-shrink-0">
                                 <div
                                     className="absolute inset-0 rounded-full pointer-events-none"
-                                    style={{ background: "rgba(212,255,0,0.18)", filter: "blur(80px)", transform: "scale(0.75)" }}
+                                    style={{ background: "rgba(77,212,232,0.18)", filter: "blur(80px)", transform: "scale(0.75)" }}
                                 />
                                 <Image
                                     src="/images/sipli/iphone/01-hero-1320x2868.png"
@@ -248,7 +248,7 @@ export default function SipliPage() {
             <section className="py-28 md:py-36 px-6 md:px-14 bg-background relative overflow-hidden">
                 <div
                     className="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-                    style={{ background: "rgba(212,255,0,0.06)", filter: "blur(120px)" }}
+                    style={{ background: "rgba(77,212,232,0.06)", filter: "blur(120px)" }}
                     aria-hidden
                 />
                 <div className="max-w-[1200px] mx-auto">
@@ -266,7 +266,7 @@ export default function SipliPage() {
                             <div className="relative w-[260px] md:w-[285px] flex-shrink-0">
                                 <div
                                     className="absolute inset-0 rounded-full pointer-events-none"
-                                    style={{ background: "rgba(212,255,0,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
+                                    style={{ background: "rgba(77,212,232,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
                                 />
                                 <Image
                                     src="/images/sipli/iphone/02-coach-1320x2868.png"
@@ -310,7 +310,7 @@ export default function SipliPage() {
             <section className="py-28 md:py-36 px-6 md:px-14 bg-background-secondary relative overflow-hidden">
                 <div
                     className="absolute left-[-5%] top-1/3 w-[450px] h-[450px] rounded-full pointer-events-none"
-                    style={{ background: "rgba(212,255,0,0.05)", filter: "blur(100px)" }}
+                    style={{ background: "rgba(77,212,232,0.05)", filter: "blur(100px)" }}
                     aria-hidden
                 />
                 <div className="max-w-[1200px] mx-auto">
@@ -370,7 +370,7 @@ export default function SipliPage() {
                             <div className="relative w-[260px] md:w-[285px] flex-shrink-0">
                                 <div
                                     className="absolute inset-0 rounded-full pointer-events-none"
-                                    style={{ background: "rgba(212,255,0,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
+                                    style={{ background: "rgba(77,212,232,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
                                 />
                                 <Image
                                     src="/images/sipli/iphone/03-beverages-1320x2868.png"
@@ -390,7 +390,7 @@ export default function SipliPage() {
             <section className="py-28 md:py-36 px-6 md:px-14 bg-background relative overflow-hidden">
                 <div
                     className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[500px] pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse 60% 100% at 50% 50%, rgba(212,255,0,0.06), transparent)" }}
+                    style={{ background: "radial-gradient(ellipse 60% 100% at 50% 50%, rgba(77,212,232,0.06), transparent)" }}
                     aria-hidden
                 />
                 <div className="relative z-10 max-w-[1200px] mx-auto">
@@ -432,7 +432,7 @@ export default function SipliPage() {
                         <div className="relative w-full max-w-[620px]">
                             <div
                                 className="absolute inset-0 rounded-3xl pointer-events-none"
-                                style={{ background: "rgba(212,255,0,0.10)", filter: "blur(80px)", transform: "scale(0.85)" }}
+                                style={{ background: "rgba(77,212,232,0.10)", filter: "blur(80px)", transform: "scale(0.85)" }}
                             />
                             <Image
                                 src="/images/sipli/ipad/02-ipad-insights-1668x2388.png"
@@ -478,7 +478,7 @@ export default function SipliPage() {
             <section className="py-28 md:py-36 px-6 md:px-14 bg-background-secondary relative overflow-hidden">
                 <div
                     className="absolute right-[-5%] bottom-0 w-[400px] h-[400px] rounded-full pointer-events-none"
-                    style={{ background: "rgba(212,255,0,0.05)", filter: "blur(100px)" }}
+                    style={{ background: "rgba(77,212,232,0.05)", filter: "blur(100px)" }}
                     aria-hidden
                 />
                 <div className="max-w-[1200px] mx-auto">
@@ -520,7 +520,7 @@ export default function SipliPage() {
                             <div className="relative w-[260px] md:w-[285px] flex-shrink-0">
                                 <div
                                     className="absolute inset-0 rounded-full pointer-events-none"
-                                    style={{ background: "rgba(212,255,0,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
+                                    style={{ background: "rgba(77,212,232,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
                                 />
                                 <Image
                                     src="/images/sipli/iphone/06-diary-1320x2868.jpg"
@@ -540,7 +540,7 @@ export default function SipliPage() {
             <section className="py-28 md:py-36 px-6 md:px-14 bg-background relative overflow-hidden">
                 <div
                     className="absolute inset-0 pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse 50% 60% at 20% 50%, rgba(212,255,0,0.05), transparent)" }}
+                    style={{ background: "radial-gradient(ellipse 50% 60% at 20% 50%, rgba(77,212,232,0.05), transparent)" }}
                     aria-hidden
                 />
                 <div className="relative z-10 max-w-[1200px] mx-auto">
@@ -558,7 +558,7 @@ export default function SipliPage() {
                             <div className="relative w-[260px] md:w-[285px] flex-shrink-0">
                                 <div
                                     className="absolute inset-0 rounded-full pointer-events-none"
-                                    style={{ background: "rgba(212,255,0,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
+                                    style={{ background: "rgba(77,212,232,0.14)", filter: "blur(70px)", transform: "scale(0.75)" }}
                                 />
                                 <Image
                                     src="/images/sipli/iphone/07-widgets-1320x2868.jpg"
@@ -645,7 +645,7 @@ export default function SipliPage() {
                         >
                             <div
                                 className="absolute inset-0 rounded-full pointer-events-none"
-                                style={{ background: "rgba(212,255,0,0.20)", filter: "blur(60px)", transform: "scale(0.7)" }}
+                                style={{ background: "rgba(77,212,232,0.20)", filter: "blur(60px)", transform: "scale(0.7)" }}
                             />
                             <Image
                                 src="/images/sipli/iphone/01-hero-1320x2868.png"
@@ -760,7 +760,7 @@ export default function SipliPage() {
             <section className="py-24 md:py-32 px-6 md:px-14 bg-background-secondary relative overflow-hidden">
                 <div
                     className="absolute inset-0 pointer-events-none"
-                    style={{ background: "linear-gradient(135deg, rgba(212,255,0,0.04) 0%, transparent 60%)" }}
+                    style={{ background: "linear-gradient(135deg, rgba(77,212,232,0.04) 0%, transparent 60%)" }}
                     aria-hidden
                 />
                 <div className="relative z-10 max-w-[1200px] mx-auto">
@@ -819,7 +819,7 @@ export default function SipliPage() {
                             <div className="relative w-[260px] md:w-[285px] flex-shrink-0">
                                 <div
                                     className="absolute inset-0 rounded-full pointer-events-none"
-                                    style={{ background: "rgba(212,255,0,0.10)", filter: "blur(70px)", transform: "scale(0.75)" }}
+                                    style={{ background: "rgba(77,212,232,0.10)", filter: "blur(70px)", transform: "scale(0.75)" }}
                                 />
                                 <Image
                                     src="/images/sipli/iphone/08-more-1320x2868.jpg"
@@ -839,7 +839,7 @@ export default function SipliPage() {
             <section className="relative py-40 md:py-52 px-6 md:px-14 overflow-hidden bg-background">
                 <div
                     className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full pointer-events-none"
-                    style={{ background: "rgba(212,255,0,0.10)", filter: "blur(150px)" }}
+                    style={{ background: "rgba(77,212,232,0.10)", filter: "blur(150px)" }}
                     aria-hidden
                 />
 

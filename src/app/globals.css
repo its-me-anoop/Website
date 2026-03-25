@@ -31,6 +31,37 @@
   --border-strong: rgba(237, 237, 237, 0.15);
 }
 
+/* ─────────────────────────────────────────────
+   Sipli page — deep navy + teal/cyan palette
+   Scoped so only /projects/sipli gets these,
+   CSS cascade propagates through all children.
+   ───────────────────────────────────────────── */
+.sipli-theme {
+  --background:           #060F1E;
+  --background-secondary: #091524;
+  --foreground:           #EEF6FF;
+  --foreground-secondary: rgba(200, 228, 255, 0.68);
+  --foreground-tertiary:  rgba(160, 205, 240, 0.40);
+  --foreground-muted:     rgba(77,  212, 232, 0.08);
+
+  /* Accent — teal/cyan matching the app */
+  --accent:               #4DD4E8;
+  --accent-hover:         #38C4D8;
+  --accent-muted:         rgba(77, 212, 232, 0.12);
+
+  /* Re-use teal slot for "Coming Soon" badge */
+  --teal:                 #4DD4E8;
+  --teal-muted:           rgba(77, 212, 232, 0.10);
+
+  /* Card surfaces */
+  --surface:              #0C1B30;
+  --surface-elevated:     #102038;
+
+  /* Borders — teal-tinted */
+  --border:               rgba(77, 212, 232, 0.10);
+  --border-strong:        rgba(77, 212, 232, 0.22);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-background-secondary: var(--background-secondary);
