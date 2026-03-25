@@ -73,34 +73,34 @@ const Card = ({ title, category, description, image, href, color, i, progress, r
     const scale = useTransform(progress, range, [1, targetScale]);
 
     return (
-        <div ref={container} className="sticky top-0 flex h-screen items-center justify-center">
+        <div ref={container} className="flex min-h-fit items-center justify-center md:sticky md:top-0 md:h-screen">
             <motion.div
                 style={{ scale, backgroundColor: color, top: `calc(-5vh + ${i * 25}px)` }}
-                className="relative flex h-[600px] w-full origin-top flex-col overflow-hidden rounded-3xl border border-border/10 shadow-2xl"
+                className="relative flex min-h-[520px] w-full origin-top flex-col overflow-hidden rounded-[28px] border border-border/10 shadow-2xl md:h-[600px]"
             >
                 <div className="flex h-full flex-col md:flex-row">
-                    <div className="relative z-10 flex w-full flex-col justify-between p-10 md:w-[40%]">
+                    <div className="relative z-10 flex w-full flex-col justify-between p-6 sm:p-8 md:w-[40%] md:p-10">
                         <div>
                             <div className="mb-4 flex items-center gap-3">
                                 <div className="h-2 w-2 rounded-full bg-accent" />
                                 <span className="font-mono text-xs uppercase tracking-widest text-foreground-tertiary">{category}</span>
                             </div>
-                            <h2 className="mb-4 font-display text-4xl font-bold leading-[0.95] text-foreground md:text-5xl">{title}</h2>
-                            <p className="max-w-sm text-lg leading-relaxed text-foreground-secondary">{description}</p>
+                            <h2 className="mb-4 font-display text-3xl font-bold leading-[0.95] text-foreground sm:text-4xl md:text-5xl">{title}</h2>
+                            <p className="max-w-sm text-base leading-relaxed text-foreground-secondary sm:text-lg">{description}</p>
                         </div>
 
                         <Link
                             href={href}
-                            className="group mt-8 inline-flex items-center gap-2 text-foreground transition-colors hover:text-accent"
+                            className="group mt-8 inline-flex items-center gap-2 text-sm sm:text-base text-foreground transition-colors hover:text-accent"
                         >
                             <span className="text-sm font-bold uppercase tracking-wide">View Project</span>
                             <ArrowUpRight size={18} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                         </Link>
                     </div>
 
-                    <div className="relative h-full w-full overflow-hidden md:w-[60%]">
+                    <div className="relative h-[280px] w-full overflow-hidden sm:h-[340px] md:h-full md:w-[60%]">
                         <motion.div style={{ scale: imageScale }} className="relative h-full w-full">
-                            <Image src={image} alt={title} fill className="object-cover" />
+                            <Image src={image} alt={title} fill sizes="(max-width: 767px) 100vw, 60vw" className="object-cover object-center" />
                             <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-black/40 md:to-black/80" />
                         </motion.div>
                     </div>
@@ -118,11 +118,11 @@ export function FeaturedWork() {
     });
 
     return (
-        <section ref={container} id="products" className="relative bg-background px-4 pb-20 md:px-10">
-            <div className="mx-auto max-w-[1200px] py-24">
-                <div className="mb-20">
+        <section ref={container} id="products" className="relative bg-background px-4 pb-16 sm:px-6 md:px-10 md:pb-20">
+            <div className="mx-auto max-w-[1200px] py-16 sm:py-20 md:py-24">
+                <div className="mb-12 sm:mb-16 md:mb-20">
                     <span className="mb-2 block font-mono text-xs uppercase tracking-widest text-accent">[01]</span>
-                    <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-foreground">Selected Work</h2>
+                    <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">Selected Work</h2>
                 </div>
 
                 {projects.map((project, i) => {

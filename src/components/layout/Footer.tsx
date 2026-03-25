@@ -2,21 +2,21 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="bg-background border-t border-border/20 py-20 px-4 md:px-10">
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
+    <footer className="bg-background border-t border-border/20 px-4 py-14 sm:px-6 sm:py-16 md:px-10 md:py-20">
+      <div className="mx-auto flex max-w-[1200px] flex-col gap-10 md:flex-row md:items-end md:justify-between">
 
         {/* Brand */}
         <div>
-            <div className="flex items-center gap-2 mb-6">
+            <div className="mb-4 sm:mb-6 flex items-center gap-2">
                 <span className="font-display font-bold text-2xl text-foreground tracking-tight">flutterly</span>
             </div>
-            <p className="text-foreground-secondary text-sm max-w-xs leading-relaxed">
+            <p className="max-w-xs text-sm leading-relaxed text-foreground-secondary">
                 A digital craft studio based in the UK. Building the future of web and mobile interactions.
             </p>
         </div>
 
         {/* Links */}
-        <div className="flex flex-col md:flex-row gap-10 md:gap-20">
+        <div className="flex flex-col gap-8 sm:gap-10 md:flex-row md:gap-20">
              <div className="flex flex-col gap-4">
                 <span className="text-xs font-mono text-foreground-tertiary uppercase tracking-widest">Socials</span>
                  <Link href="https://linkedin.com/in/anoop-jose-0b308a296/" target="_blank" className="text-foreground hover:text-accent transition-colors">LinkedIn</Link>
@@ -31,7 +31,7 @@ export function Footer() {
         </div>
 
       </div>
-       <div className="max-w-[1200px] mx-auto mt-20 pt-10 border-t border-border/10 flex justify-between items-center">
+       <div className="mx-auto mt-10 sm:mt-14 md:mt-20 flex max-w-[1200px] flex-col gap-3 border-t border-border/10 pt-6 sm:pt-8 md:flex-row md:items-center md:justify-between md:pt-10">
             <p className="text-[10px] text-foreground-tertiary uppercase tracking-widest">Designed & Developed by Anoop Jose</p>
             <p className="text-[10px] text-foreground-tertiary uppercase tracking-widest">London, UK</p>
        </div>

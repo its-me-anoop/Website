@@ -14,14 +14,14 @@ const clients = [
 
 export function ClientLogos() {
   return (
-    <section className="py-16 md:py-20 px-6 bg-background">
+    <section className="bg-background px-4 py-14 sm:px-6 sm:py-16 md:py-20">
       <div className="max-w-[1200px] mx-auto text-center">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease }}
-          className="text-xs font-medium text-foreground-tertiary uppercase tracking-widest mb-12"
+          className="mb-8 sm:mb-12 text-xs font-medium text-foreground-tertiary uppercase tracking-widest"
         >
           Trusted By
         </motion.p>
@@ -31,20 +31,20 @@ export function ClientLogos() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1, ease }}
-          className="flex flex-wrap items-center justify-center gap-8 md:gap-12"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-5 sm:gap-8 md:gap-12"
         >
           {clients.map((client) => (
             <div key={client.name} className="flex items-center gap-3">
-              <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-background-secondary flex-shrink-0">
+              <div className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-xl overflow-hidden bg-background-secondary flex-shrink-0">
                 <Image
                   src={client.image}
                   alt={client.name}
                   fill
-                  sizes="40px"
+                  sizes="(max-width: 640px) 36px, 40px"
                   className="object-cover"
                 />
               </div>
-              <span className="font-display text-lg font-medium text-foreground-secondary">
+              <span className="font-display text-base sm:text-lg font-medium text-foreground-secondary">
                 {client.name}
               </span>
             </div>

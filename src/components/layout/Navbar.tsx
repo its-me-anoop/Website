@@ -58,21 +58,21 @@ export function Navbar() {
                 }}
                 animate={hidden ? "hidden" : "visible"}
                 transition={{ duration: 0.4, ease }}
-                className="fixed top-6 left-0 right-0 z-[100] px-4 md:px-0 flex justify-center pointer-events-none"
+                className="fixed top-3 left-0 right-0 z-[100] px-3 sm:top-4 sm:px-4 md:top-6 md:px-0 flex justify-center pointer-events-none"
             >
                 <div
-                    className={`pointer-events-auto flex items-center justify-between py-3 px-6 rounded-2xl transition-all duration-300 ${
+                    className={`pointer-events-auto flex min-w-0 items-center justify-between py-2.5 px-3 sm:px-4 md:px-6 rounded-2xl transition-all duration-300 ${
                         scrolled
-                            ? "bg-surface/80 backdrop-blur-xl border border-border/50 shadow-2xl w-[90%] md:w-[600px]"
+                            ? "bg-surface/80 backdrop-blur-xl border border-border/50 shadow-2xl w-full max-w-[92vw] sm:max-w-[90vw] md:w-[600px]"
                             : "bg-transparent w-full max-w-[1200px]"
                     }`}
                 >
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2 group">
-                        <div className="relative w-8 h-8 flex items-center justify-center overflow-hidden rounded-lg bg-surface-elevated border border-border group-hover:border-accent/50 transition-colors">
+                    <Link href="/" className="flex min-w-0 items-center gap-2 group">
+                        <div className="relative h-8 w-8 flex-shrink-0 flex items-center justify-center overflow-hidden rounded-lg bg-surface-elevated border border-border group-hover:border-accent/50 transition-colors">
                              <span className="font-display font-bold text-accent text-lg">f</span>
                         </div>
-                        <span className={`font-display font-semibold text-lg tracking-tight transition-colors ${scrolled ? "text-foreground" : "text-foreground"}`}>
+                        <span className={`truncate font-display font-semibold text-base sm:text-lg tracking-tight transition-colors ${scrolled ? "text-foreground" : "text-foreground"}`}>
                             flutterly
                         </span>
                     </Link>
@@ -104,7 +104,7 @@ export function Navbar() {
                     {/* Mobile hamburger */}
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg text-foreground bg-surface-elevated border border-border transition-colors duration-200"
+                        className="md:hidden ml-3 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg text-foreground bg-surface-elevated border border-border transition-colors duration-200"
                         aria-label="Toggle menu"
                     >
                         {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -120,14 +120,14 @@ export function Navbar() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.25, ease }}
-                        className="fixed inset-0 z-[99] bg-background/95 backdrop-blur-2xl md:hidden flex flex-col items-center justify-center"
+                        className="fixed inset-0 z-[99] bg-background/95 backdrop-blur-2xl md:hidden flex flex-col items-center justify-center px-4"
                     >
                         <motion.nav
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ duration: 0.3, ease }}
-                            className="w-full px-8 space-y-6 text-center"
+                            className="w-full max-w-sm px-4 space-y-5 text-center"
                         >
                              {navItems.map((item, index) => (
                                 <motion.div
@@ -144,7 +144,7 @@ export function Navbar() {
                                         onClick={() =>
                                             setMobileMenuOpen(false)
                                         }
-                                        className="block text-4xl font-display font-medium text-foreground hover:text-accent transition-colors duration-200"
+                                        className="block text-3xl sm:text-4xl font-display font-medium text-foreground hover:text-accent transition-colors duration-200"
                                     >
                                         {item.name}
                                     </Link>
@@ -160,7 +160,7 @@ export function Navbar() {
                                 <Link
                                     href="mailto:anoop@flutterly.co.uk"
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="inline-flex items-center justify-center rounded-full bg-accent hover:bg-accent-hover text-black px-12 py-5 text-lg font-bold uppercase tracking-wider transition-colors duration-200"
+                                    className="inline-flex items-center justify-center rounded-full bg-accent hover:bg-accent-hover text-black px-8 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-bold uppercase tracking-[0.18em] transition-colors duration-200"
                                 >
                                     Let&apos;s Talk
                                 </Link>

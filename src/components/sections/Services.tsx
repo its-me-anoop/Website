@@ -31,12 +31,12 @@ const services = [
 
 export function Services() {
     return (
-        <section id="services" className="py-24 md:py-32 px-4 md:px-10 bg-background-secondary border-t border-border">
+        <section id="services" className="border-t border-border bg-background-secondary px-4 py-16 sm:px-6 sm:py-20 md:px-10 md:py-32">
             <div className="max-w-[1200px] mx-auto">
                 {/* Header */}
-                 <div className="mb-20">
+                 <div className="mb-12 sm:mb-16 md:mb-20">
                      <span className="text-xs font-mono text-accent uppercase tracking-widest block mb-2">[02]</span>
-                     <h2 className="text-3xl font-display font-bold text-foreground uppercase tracking-tight">Capabilities</h2>
+                     <h2 className="text-3xl font-display font-bold text-foreground uppercase tracking-tight sm:text-4xl">Capabilities</h2>
                 </div>
 
                 {/* Technical Grid */}
@@ -52,22 +52,22 @@ export function Services() {
                                 delay: index * 0.1,
                                 ease,
                             }}
-                            className="group relative bg-background p-10 hover:bg-foreground hover:text-background transition-colors duration-500"
+                            className="group relative bg-background p-6 sm:p-8 md:p-10 hover:bg-foreground hover:text-background transition-colors duration-500"
                         >
-                            <div className="flex flex-col h-full justify-between gap-10">
+                            <div className="flex h-full flex-col justify-between gap-8 sm:gap-10">
                                 <div>
                                     {/* Icon */}
-                                    <div className="mb-8 text-accent group-hover:text-background transition-colors duration-500">
+                                    <div className="mb-6 sm:mb-8 text-accent group-hover:text-background transition-colors duration-500">
                                         <service.icon size={32} strokeWidth={1.5} />
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className="text-2xl font-display font-bold mb-4 tracking-tight group-hover:text-background transition-colors duration-500">
+                                    <h3 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-display font-bold tracking-tight group-hover:text-background transition-colors duration-500">
                                         {service.title}
                                     </h3>
 
                                     {/* Description */}
-                                    <p className="text-foreground-secondary text-sm leading-relaxed group-hover:text-background/70 transition-colors duration-500">
+                                    <p className="text-foreground-secondary text-sm sm:text-[15px] leading-relaxed group-hover:text-background/70 transition-colors duration-500">
                                         {service.description}
                                     </p>
                                 </div>
