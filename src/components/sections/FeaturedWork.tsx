@@ -10,10 +10,10 @@ const projects = [
     {
         title: "Sipli",
         category: "Mobile Application",
-        description: "Intelligent hydration tracking with on-device AI.",
-        image: "/projects/sipli/iphone_and_ipad.png",
+        description: "AI-powered hydration tracking for iPhone and iPad. Smart goals, 18+ beverages, insights, widgets, and an on-device AI coach.",
+        image: "/images/sipli/iphone/01-hero-1320x2868.png",
         href: "/projects/sipli",
-        color: "#1d1d1f",
+        color: "#060F1E",
     },
     {
         title: "Artling",

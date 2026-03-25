@@ -200,7 +200,7 @@ export default function SipliPage() {
                                     alt="Sipli app — home screen"
                                     width={1320}
                                     height={2868}
-                                    className="relative w-full h-auto"
+                                    className="relative w-full h-auto rounded-3xl"
                                     style={{ filter: "drop-shadow(0 32px 64px rgba(0,0,0,0.85))" }}
                                     priority
                                 />
@@ -273,7 +273,7 @@ export default function SipliPage() {
                                     alt="Sipli AI Coach"
                                     width={1320}
                                     height={2868}
-                                    className="relative w-full h-auto"
+                                    className="relative w-full h-auto rounded-3xl"
                                     style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.75))" }}
                                 />
                             </div>
@@ -377,7 +377,7 @@ export default function SipliPage() {
                                     alt="Sipli beverages screen"
                                     width={1320}
                                     height={2868}
-                                    className="relative w-full h-auto"
+                                    className="relative w-full h-auto rounded-3xl"
                                     style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.75))" }}
                                 />
                             </div>
@@ -439,7 +439,7 @@ export default function SipliPage() {
                                 alt="Sipli insights on iPad"
                                 width={1668}
                                 height={2388}
-                                className="relative w-full h-auto rounded-2xl"
+                                className="relative w-full h-auto rounded-3xl"
                                 style={{ filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.85))" }}
                             />
                         </div>
@@ -527,7 +527,7 @@ export default function SipliPage() {
                                     alt="Sipli diary screen"
                                     width={1320}
                                     height={2868}
-                                    className="relative w-full h-auto"
+                                    className="relative w-full h-auto rounded-3xl"
                                     style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.75))" }}
                                 />
                             </div>
@@ -565,7 +565,7 @@ export default function SipliPage() {
                                     alt="Sipli widgets"
                                     width={1320}
                                     height={2868}
-                                    className="relative w-full h-auto"
+                                    className="relative w-full h-auto rounded-3xl"
                                     style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.75))" }}
                                 />
                             </div>
@@ -634,7 +634,7 @@ export default function SipliPage() {
                                 alt="Sipli insights"
                                 width={1320}
                                 height={2868}
-                                className="w-full h-auto"
+                                className="w-full h-auto rounded-3xl"
                                 style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.65))" }}
                             />
                         </motion.div>
@@ -652,7 +652,7 @@ export default function SipliPage() {
                                 alt="Sipli home"
                                 width={1320}
                                 height={2868}
-                                className="relative w-full h-auto"
+                                className="relative w-full h-auto rounded-3xl"
                                 style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.85))" }}
                             />
                         </motion.div>
@@ -666,7 +666,7 @@ export default function SipliPage() {
                                 alt="Sipli breakdown"
                                 width={1320}
                                 height={2868}
-                                className="w-full h-auto"
+                                className="w-full h-auto rounded-3xl"
                                 style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.65))" }}
                             />
                         </motion.div>
@@ -826,7 +826,7 @@ export default function SipliPage() {
                                     alt="Sipli — more features"
                                     width={1320}
                                     height={2868}
-                                    className="relative w-full h-auto"
+                                    className="relative w-full h-auto rounded-3xl"
                                     style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.75))" }}
                                 />
                             </div>
