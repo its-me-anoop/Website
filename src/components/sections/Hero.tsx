@@ -1290,38 +1290,7 @@ export function Hero() {
       <div className="sticky top-0 h-screen overflow-hidden">
         <div ref={canvasContainerRef} className="absolute inset-0 z-10" />
 
-        <div
-          className="pointer-events-none absolute inset-0 z-20"
-          style={{
-            background:
-              "radial-gradient(120% 64% at 48% -2%, rgba(173, 226, 255, 0.24), transparent 46%), radial-gradient(76% 52% at 84% 24%, rgba(255, 193, 133, 0.22), transparent 58%), radial-gradient(68% 45% at 12% 68%, rgba(105, 181, 235, 0.14), transparent 72%), linear-gradient(180deg, rgba(6, 8, 13, 0.1) 0%, rgba(5, 6, 10, 0.16) 34%, rgba(8, 10, 15, 0.46) 68%, rgba(3, 4, 8, 0.82) 100%)",
-          }}
-        />
-
-        <div
-          className="pointer-events-none absolute inset-0 z-20 opacity-[0.24] mix-blend-soft-light"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 18% 22%, rgba(255,255,255,0.18), transparent 0 18%), radial-gradient(circle at 78% 66%, rgba(255,255,255,0.12), transparent 0 12%), radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06), transparent 0 44%)",
-          }}
-        />
-
-        <div
-          className="pointer-events-none absolute inset-0 z-20 opacity-[0.06] mix-blend-screen"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.74' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E\")",
-            backgroundSize: "280px 280px",
-          }}
-        />
-
-        <div
-          className="pointer-events-none absolute inset-0 z-20"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 56%, transparent 0 38%, rgba(0, 0, 0, 0.18) 62%, rgba(0, 0, 0, 0.42) 100%)",
-          }}
-        />
+        <div className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(180deg,rgba(4,6,10,0.08)_0%,rgba(4,6,10,0.34)_56%,rgba(3,4,8,0.74)_100%)]" />
 
         <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-[6vh] sm:h-[8vh] bg-[linear-gradient(180deg,rgba(0,0,0,0.55),rgba(0,0,0,0))]" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-[10vh] sm:h-[12vh] bg-[linear-gradient(0deg,rgba(0,0,0,0.58),rgba(0,0,0,0))]" />
@@ -1338,14 +1307,27 @@ export function Hero() {
         <div className="pointer-events-none absolute inset-x-0 bottom-[12vh] z-40 flex justify-center px-4 sm:bottom-[13vh]">
           <div
             ref={welcomeTextRef}
-            className="w-[min(1000px,calc(100vw-32px))] sm:w-[min(1000px,calc(100vw-48px))] text-center opacity-0 [transform-style:preserve-3d]"
+            className="w-[min(960px,calc(100vw-32px))] rounded-2xl border border-white/10 bg-black/35 px-5 py-6 text-center opacity-0 shadow-[0_20px_80px_rgba(0,0,0,0.45)] backdrop-blur-lg [transform-style:preserve-3d] sm:w-[min(960px,calc(100vw-48px))] sm:px-8 sm:py-8"
           >
-            <span className="block text-[clamp(2.2rem,10vw,6.6rem)] font-semibold uppercase leading-[0.9] tracking-[-0.075em] text-[#fff5e8] [text-shadow:0_1px_0_rgba(255,255,255,0.05),0_18px_56px_rgba(0,0,0,0.6),0_0_34px_rgba(74,214,255,0.12)]">
-              Welcome to
-            </span>
-            <span className="block bg-[linear-gradient(118deg,#fff1db_0%,#ffc97e_22%,#ff9864_54%,#88dcff_100%)] bg-clip-text text-[clamp(2.2rem,10vw,6.6rem)] font-semibold uppercase leading-[0.9] tracking-[-0.075em] text-transparent [text-shadow:0_1px_0_rgba(255,255,255,0.05),0_18px_56px_rgba(0,0,0,0.6),0_0_34px_rgba(74,214,255,0.12)]">
-              Flutterly
-            </span>
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.28em] text-accent sm:text-xs">
+              Flutterly · Product Engineering Studio
+            </p>
+            <h1 className="mx-auto max-w-4xl text-balance text-[clamp(1.7rem,5.3vw,3.8rem)] font-semibold leading-[1.03] tracking-[-0.04em] text-white">
+              We design and build web and mobile products that launch faster, convert better, and scale with confidence.
+            </h1>
+            <p className="mx-auto mt-4 max-w-3xl text-pretty text-sm leading-relaxed text-foreground-secondary sm:mt-5 sm:text-base">
+              From strategy to shipping, Flutterly turns complex product ideas into clean digital experiences your users trust and your team can grow.
+            </p>
+            <div className="mt-5 flex flex-wrap justify-center gap-2.5 sm:mt-6">
+              {["Web Platforms", "Mobile Apps", "Enterprise Systems"].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-white/14 bg-white/5 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-foreground-secondary sm:px-4"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
