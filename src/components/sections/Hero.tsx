@@ -137,6 +137,7 @@ export function Hero() {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
+    const maxAnisotropy = renderer.capabilities.getMaxAnisotropy();
 
     const ambientLight = new THREE.HemisphereLight(0x8aa0c7, 0x2b1c14, 0.52);
     scene.add(ambientLight);
@@ -176,6 +177,16 @@ export function Hero() {
     amberRimLight.position.set(4.4, 1.8, -8.8);
     scene.add(amberRimLight);
 
+    const moonBackLight = new THREE.DirectionalLight(0xa4d5ff, 2.4);
+    moonBackLight.position.set(-3.8, 5.8, -18);
+    moonBackLight.target.position.set(0, -1.8, -10.5);
+    scene.add(moonBackLight);
+    scene.add(moonBackLight.target);
+
+    const floorBounceLight = new THREE.PointLight(0xffb983, 8.8, 18, 2);
+    floorBounceLight.position.set(0, -4.35, -11.3);
+    scene.add(floorBounceLight);
+
     const pendantLights: THREE.PointLight[] = [];
     const deskLampLights: THREE.PointLight[] = [];
 
@@ -210,6 +221,25 @@ export function Hero() {
     };
 
     const createDepthMap = (
+      draw: (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void
+    ) => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 1024;
+      canvas.height = 1024;
+      const context = canvas.getContext("2d");
+
+      if (!context) {
+        return new THREE.CanvasTexture(canvas);
+      }
+
+      draw(context, canvas);
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      return texture;
+    };
+
+    const createRoughnessMap = (
       draw: (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void
     ) => {
       const canvas = document.createElement("canvas");
@@ -278,6 +308,23 @@ export function Hero() {
       }
     });
     floorBumpTexture.repeat.copy(floorTexture.repeat);
+
+    const floorRoughnessTexture = createRoughnessMap((ctx, canvas) => {
+      ctx.fillStyle = "#9c9c9c";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < 3400; i += 1) {
+        const shade = 62 + Math.floor(Math.random() * 120);
+        ctx.fillStyle = `rgba(${shade},${shade},${shade},${0.06 + Math.random() * 0.16})`;
+        ctx.fillRect(
+          Math.random() * canvas.width,
+          Math.random() * canvas.height,
+          2 + Math.random() * 4,
+          2 + Math.random() * 4
+        );
+      }
+    });
+    floorRoughnessTexture.repeat.copy(floorTexture.repeat);
 
     const stoneTexture = makeCanvasTexture((ctx, canvas) => {
       ctx.fillStyle = "#5a4946";
@@ -377,6 +424,22 @@ export function Hero() {
     });
     stoneBumpTexture.repeat.copy(stoneTexture.repeat);
 
+    const stoneRoughnessTexture = createRoughnessMap((ctx, canvas) => {
+      ctx.fillStyle = "#8a8a8a";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < 3000; i += 1) {
+        const tone = 38 + Math.floor(Math.random() * 170);
+        ctx.fillStyle = `rgba(${tone},${tone},${tone},${0.04 + Math.random() * 0.18})`;
+        ctx.fillRect(
+          Math.random() * canvas.width,
+          Math.random() * canvas.height,
+          1 + Math.random() * 5,
+          1 + Math.random() * 5
+        );
+      }
+    });
+    stoneRoughnessTexture.repeat.copy(stoneTexture.repeat);
+
     const ceilingTexture = makeCanvasTexture((ctx, canvas) => {
       ctx.fillStyle = "#3f2b27";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -404,6 +467,37 @@ export function Hero() {
       }
     });
     ceilingBumpTexture.repeat.copy(ceilingTexture.repeat);
+
+    const ceilingRoughnessTexture = createRoughnessMap((ctx, canvas) => {
+      ctx.fillStyle = "#7f7f7f";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < 1800; i += 1) {
+        const value = 78 + Math.floor(Math.random() * 120);
+        ctx.fillStyle = `rgba(${value},${value},${value},${0.04 + Math.random() * 0.14})`;
+        ctx.fillRect(
+          Math.random() * canvas.width,
+          Math.random() * canvas.height,
+          3 + Math.random() * 6,
+          1 + Math.random() * 3
+        );
+      }
+    });
+    ceilingRoughnessTexture.repeat.copy(ceilingTexture.repeat);
+
+    [
+      floorTexture,
+      floorBumpTexture,
+      floorRoughnessTexture,
+      stoneTexture,
+      stoneBumpTexture,
+      stoneRoughnessTexture,
+      ceilingTexture,
+      ceilingBumpTexture,
+      ceilingRoughnessTexture,
+    ].forEach((texture) => {
+      texture.anisotropy = Math.min(16, maxAnisotropy);
+      texture.needsUpdate = true;
+    });
 
     const addMesh = (
       parent: THREE.Object3D,
@@ -435,29 +529,32 @@ export function Hero() {
 
     const stoneMaterial = new THREE.MeshStandardMaterial({
       color: 0x65524d,
-      roughness: 0.94,
-      metalness: 0.04,
+      roughness: 0.88,
+      metalness: 0.03,
       map: stoneTexture,
       bumpMap: stoneBumpTexture,
-      bumpScale: 0.18,
+      bumpScale: 0.2,
+      roughnessMap: stoneRoughnessTexture,
     });
 
     const floorMaterial = new THREE.MeshStandardMaterial({
       color: 0x2d211d,
-      roughness: 0.54,
-      metalness: 0.04,
+      roughness: 0.44,
+      metalness: 0.08,
       map: floorTexture,
       bumpMap: floorBumpTexture,
-      bumpScale: 0.07,
+      bumpScale: 0.08,
+      roughnessMap: floorRoughnessTexture,
     });
 
     const ceilingMaterial = new THREE.MeshStandardMaterial({
       color: 0x4a332d,
-      roughness: 0.88,
+      roughness: 0.81,
       metalness: 0.06,
       map: ceilingTexture,
       bumpMap: ceilingBumpTexture,
       bumpScale: 0.12,
+      roughnessMap: ceilingRoughnessTexture,
     });
 
     const shelfMaterial = new THREE.MeshStandardMaterial({
@@ -916,6 +1013,34 @@ export function Hero() {
     rightWarmHaze.position.set(4.2, -0.15, -11.2);
     rightWarmHaze.rotation.set(0, -0.18, 0.14);
 
+    const centerDepthHaze = makeHazePlane(
+      7.8,
+      6.4,
+      [
+        [0, "rgba(152,218,255,0.38)"],
+        [0.3, "rgba(95,166,214,0.2)"],
+        [0.68, "rgba(255,186,126,0.08)"],
+        [1, "rgba(0,0,0,0)"],
+      ],
+      0.22
+    );
+    centerDepthHaze.position.set(0, -0.9, -12.2);
+    const centerDepthHazeMaterial = centerDepthHaze.material as THREE.MeshBasicMaterial;
+
+    const foregroundMist = makeHazePlane(
+      8.4,
+      4.5,
+      [
+        [0, "rgba(255,205,150,0.25)"],
+        [0.34, "rgba(154,214,255,0.16)"],
+        [1, "rgba(0,0,0,0)"],
+      ],
+      0.16
+    );
+    foregroundMist.position.set(0, -3.2, -7.4);
+    foregroundMist.rotation.set(-0.2, 0, 0);
+    const foregroundMistMaterial = foregroundMist.material as THREE.MeshBasicMaterial;
+
     const estimateDepthFromFaceSize = (bbox: FaceBoundingBox) => {
       const faceScale = Math.max(bbox.width, bbox.height);
       const normalizedDepth = THREE.MathUtils.clamp(
@@ -1007,26 +1132,36 @@ export function Hero() {
       animationFrameId = window.requestAnimationFrame(animate);
 
       const elapsed = clock.getElapsedTime();
-      const smoothness = 0.075;
-      const depthSmoothing = 0.05;
+      const smoothness = 0.068;
+      const depthSmoothing = 0.045;
       const currentDepth = (camera.userData.depth as number | undefined) ?? 0;
       const smoothedDepth = currentDepth + (tracker.targetDepth - currentDepth) * depthSmoothing;
       camera.userData.depth = smoothedDepth;
+      const depthMomentum = (camera.userData.depthMomentum as number | undefined) ?? 0;
+      const nextDepthMomentum = depthMomentum + (smoothedDepth - depthMomentum) * 0.12;
+      camera.userData.depthMomentum = nextDepthMomentum;
 
       const parallaxMultiplier =
-        1 + THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, -0.18, 0.42);
+        1 + THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, -0.22, 0.55);
       const rangeX = 4.7 * parallaxMultiplier;
-      const rangeY = 2.45 * parallaxMultiplier;
-      const targetZ = THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, 1.65, 2.65);
+      const rangeY = 2.45 * (1 + THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, -0.16, 0.38));
+      const targetZ = THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, 1.58, 2.84);
       const targetFov = isCompactViewport
-        ? THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, 58, 50)
-        : THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, 62, 49);
+        ? THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, 58.5, 49.4)
+        : THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, 63.2, 47.8);
+      const depthLean = nextDepthMomentum * 0.08;
 
-      camera.position.x += (tracker.targetX * rangeX - camera.position.x) * smoothness;
-      camera.position.y += (tracker.targetY * rangeY - camera.position.y) * smoothness;
+      camera.position.x += (tracker.targetX * rangeX - camera.position.x) * (smoothness + 0.012);
+      camera.position.y +=
+        (tracker.targetY * rangeY + Math.sin(elapsed * 0.18) * 0.04 - camera.position.y) *
+        smoothness;
       camera.position.z += (targetZ - camera.position.z) * depthSmoothing;
       camera.fov += (targetFov - camera.fov) * depthSmoothing;
       camera.updateProjectionMatrix();
+
+      baseGroup.position.z = -depthLean * 3.4;
+      baseGroup.rotation.y = camera.position.x * 0.011 + depthLean * 0.42;
+      baseGroup.rotation.x = camera.position.y * -0.009 + depthLean * 0.28;
 
       centerPoolMaterial.emissiveIntensity = 1.15 + Math.sin(elapsed * 1.6) * 0.14;
       ceilingGlowMaterial.emissiveIntensity = 1.05 + Math.sin(elapsed * 1.3) * 0.1;
@@ -1035,6 +1170,12 @@ export function Hero() {
       backHaze.position.y = -0.62 + Math.sin(elapsed * 0.18) * 0.05;
       leftLightShaft.rotation.z = -0.34 + Math.sin(elapsed * 0.18) * 0.018;
       rightWarmHaze.rotation.z = 0.14 + Math.cos(elapsed * 0.24) * 0.016;
+      centerDepthHaze.rotation.z = Math.sin(elapsed * 0.22) * 0.012;
+      centerDepthHaze.position.z = -12.1 - smoothedDepth * 0.85;
+      centerDepthHazeMaterial.opacity =
+        0.18 + THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, -0.03, 0.08);
+      foregroundMist.position.y = -3.2 + Math.sin(elapsed * 0.16) * 0.08;
+      foregroundMistMaterial.opacity = 0.12 + Math.cos(elapsed * 0.3) * 0.02;
 
       keyLight.intensity = 40 + Math.sin(elapsed * 0.58) * 1.4;
       coldTopLight.intensity = 20 + Math.sin(elapsed * 1.1) * 1.5;
@@ -1043,6 +1184,9 @@ export function Hero() {
       blueRimLight.intensity = 6.5 + Math.cos(elapsed * 0.8) * 0.8;
       amberCeilingWash.intensity = 24 + Math.sin(elapsed * 0.6) * 1.8;
       amberRimLight.intensity = 11 + Math.cos(elapsed * 0.7 + 0.8) * 1.1;
+      moonBackLight.intensity = 2.1 + Math.sin(elapsed * 0.36 + 0.6) * 0.22;
+      floorBounceLight.intensity =
+        8.3 + Math.cos(elapsed * 0.68) * 0.7 + THREE.MathUtils.mapLinear(smoothedDepth, -1, 1, -1, 1.3);
       pendantLights.forEach((light, index) => {
         light.intensity = 15 + Math.sin(elapsed * 0.8 + index * 1.2) * 0.8;
       });
@@ -1150,7 +1294,7 @@ export function Hero() {
           className="pointer-events-none absolute inset-0 z-20"
           style={{
             background:
-              "radial-gradient(circle at 38% 18%, rgba(188, 229, 255, 0.2), transparent 20%), radial-gradient(circle at 74% 32%, rgba(255, 182, 118, 0.14), transparent 24%), linear-gradient(180deg, rgba(5, 4, 7, 0.18) 0%, rgba(9, 10, 14, 0.08) 26%, rgba(7, 8, 11, 0.22) 54%, rgba(3, 4, 8, 0.74) 100%)",
+              "radial-gradient(120% 64% at 48% -2%, rgba(173, 226, 255, 0.24), transparent 46%), radial-gradient(76% 52% at 84% 24%, rgba(255, 193, 133, 0.22), transparent 58%), radial-gradient(68% 45% at 12% 68%, rgba(105, 181, 235, 0.14), transparent 72%), linear-gradient(180deg, rgba(6, 8, 13, 0.1) 0%, rgba(5, 6, 10, 0.16) 34%, rgba(8, 10, 15, 0.46) 68%, rgba(3, 4, 8, 0.82) 100%)",
           }}
         />
 
@@ -1166,8 +1310,8 @@ export function Hero() {
           className="pointer-events-none absolute inset-0 z-20 opacity-[0.06] mix-blend-screen"
           style={{
             backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.85'/%3E%3C/svg%3E\")",
-            backgroundSize: "240px 240px",
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.74' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E\")",
+            backgroundSize: "280px 280px",
           }}
         />
 
