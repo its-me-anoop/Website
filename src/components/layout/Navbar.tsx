@@ -15,9 +15,9 @@ import Image from "next/image";
 const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
 const navItems = [
-    { name: "Services", href: "#services" },
-    { name: "Work", href: "#products" },
-    { name: "About", href: "#about" },
+    { name: "Work", href: "#work" },
+    { name: "Practice", href: "#practice" },
+    { name: "Studio", href: "#about" },
 ];
 
 export function Navbar() {
@@ -102,10 +102,10 @@ export function Navbar() {
                     </div>
                      <div className="hidden md:flex">
                         <Link
-                            href="mailto:anoop@flutterly.co.uk"
+                            href={pathname === "/" ? "#brief" : "/#brief"}
                             className="inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-hover text-black px-5 py-2 text-xs font-bold uppercase tracking-wide transition-all duration-200 hover:scale-105"
                         >
-                            Let&apos;s Talk
+                            Send a brief
                         </Link>
                     </div>
 
@@ -166,11 +166,11 @@ export function Navbar() {
                                 className="pt-8"
                             >
                                 <Link
-                                    href="mailto:anoop@flutterly.co.uk"
+                                    href={pathname === "/" ? "#brief" : "/#brief"}
                                     onClick={() => setMobileMenuOpen(false)}
                                     className="inline-flex items-center justify-center rounded-full bg-accent hover:bg-accent-hover text-black px-8 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-bold uppercase tracking-[0.18em] transition-colors duration-200"
                                 >
-                                    Let&apos;s Talk
+                                    Send a brief
                                 </Link>
                             </motion.div>
                         </motion.nav>

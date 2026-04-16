@@ -27,109 +27,175 @@ const socials = [
 
 export default function About() {
   return (
-    <section id="about" className="relative overflow-hidden border-t border-border bg-background py-16 sm:py-20 md:py-32">
-        {/* Marquee */}
-        <div className="absolute top-0 left-0 w-full overflow-hidden whitespace-nowrap py-3 sm:py-4 opacity-[0.03] pointer-events-none select-none">
+    <section
+      id="about"
+      aria-labelledby="about-heading"
+      className="relative overflow-hidden border-t border-border bg-background px-4 py-20 sm:px-6 sm:py-28 md:px-10 md:py-36"
+    >
+      <div className="relative z-10 mx-auto max-w-[1200px]">
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease }}
+          className="mb-14 border-b border-border pb-8 sm:mb-20"
+        >
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.28em] text-accent">
+            № 04 · The Studio
+          </p>
+          <h2
+            id="about-heading"
+            className="max-w-4xl font-display text-4xl font-light leading-[0.95] tracking-[-0.02em] text-foreground sm:text-5xl md:text-6xl"
+          >
+            One person,{" "}
+            <span className="italic text-foreground-secondary">
+              a few trusted collaborators,
+            </span>{" "}
+            and a very short client list.
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* Left: Pull quote + body */}
+          <div className="lg:col-span-7">
+            <motion.blockquote
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, ease }}
+              className="relative"
+            >
+              <span
+                aria-hidden
+                className="absolute -left-1 -top-8 font-display text-[8rem] leading-none text-accent/30 sm:text-[11rem]"
+              >
+                &ldquo;
+              </span>
+              <p className="relative font-display text-2xl font-light italic leading-[1.25] tracking-[-0.01em] text-foreground sm:text-3xl md:text-[2.25rem] md:leading-[1.22]">
+                I started Flutterly because I was tired of handing off work to
+                people who didn&rsquo;t care about it as much as I did. So I
+                stopped handing it off.
+              </p>
+              <footer className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-foreground-tertiary">
+                — Anoop Jose, Founder
+              </footer>
+            </motion.blockquote>
+
             <motion.div
-                className="inline-block text-[16vw] sm:text-[12vw] font-display font-bold leading-none text-foreground"
-                animate={{ x: "-50%" }}
-                transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, delay: 0.1, ease }}
+              className="mt-10 space-y-5 border-t border-border pt-8 text-base leading-relaxed text-foreground-secondary sm:text-[17px]"
             >
-                DESIGN DEVELOP SHIP DESIGN DEVELOP SHIP DESIGN DEVELOP SHIP
+              <p>
+                Flutterly is a UK-registered product studio, founded in 2024
+                after a decade of shipping inside larger teams. We&rsquo;re
+                small on purpose. We take on a handful of engagements a year so
+                we can write the code, draw the pixels, and answer the email —
+                usually in that order.
+              </p>
+              <p>
+                We&rsquo;re at our best with founders sketching the first
+                version, teams redesigning something their users secretly hate,
+                and companies who want a partner — not a vendor — for the long
+                run.
+              </p>
             </motion.div>
-             <motion.div
-                className="inline-block text-[16vw] sm:text-[12vw] font-display font-bold leading-none text-foreground"
-                animate={{ x: "-50%" }}
-                transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
+
+            {/* Meta ledger */}
+            <motion.dl
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, delay: 0.2, ease }}
+              className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-border pt-8 sm:grid-cols-4"
             >
-                DESIGN DEVELOP SHIP DESIGN DEVELOP SHIP DESIGN DEVELOP SHIP
-            </motion.div>
-        </div>
-
-      <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 md:px-10">
-        <div className="grid grid-cols-1 items-start gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-24">
-             {/* Left: Image */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease }}
-                className="relative"
-            >
-                <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden rounded-sm group">
-                     {/* Grayscale Filter Layer */}
-                    <div className="absolute inset-0 bg-foreground mix-blend-color z-10 group-hover:opacity-0 transition-opacity duration-700 ease-in-out" />
-
-                    <Image
-                        src="/anoop-jose.jpg"
-                        alt="Anoop Jose"
-                        fill
-                        className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
-                    />
-
-                    {/* Overlay Text */}
-                     <div className="absolute bottom-4 left-4 z-20 sm:bottom-6 sm:left-6">
-                         <p className="mb-2 inline-block bg-black/50 px-3 py-1 text-[10px] sm:text-xs font-mono uppercase tracking-widest text-white backdrop-blur-md">Lead Developer</p>
-                         <h3 className="text-white font-display text-xl sm:text-2xl font-bold">Anoop Jose</h3>
-                     </div>
+              {[
+                { label: "Founded", value: "2024" },
+                { label: "Based", value: "Reading, UK" },
+                { label: "Headcount", value: "1 + friends" },
+                { label: "Reply time", value: "Within a day" },
+              ].map((m) => (
+                <div key={m.label} className="flex flex-col gap-1">
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
+                    {m.label}
+                  </dt>
+                  <dd className="font-display text-lg text-foreground">
+                    {m.value}
+                  </dd>
                 </div>
+              ))}
+            </motion.dl>
 
-                {/* Decorative Elements */}
-                 <div className="absolute -top-4 -left-4 w-24 h-24 border-t border-l border-accent opacity-50" />
-                 <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b border-r border-accent opacity-50" />
+            {/* Socials */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, delay: 0.3, ease }}
+              className="mt-10 flex flex-wrap gap-3"
+            >
+              {socials.map((social) => (
+                <Link
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-foreground-secondary transition-colors hover:border-foreground-tertiary hover:text-foreground"
+                >
+                  <social.icon size={14} strokeWidth={1.5} />
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em]">
+                    {social.label}
+                  </span>
+                  <ArrowUpRight
+                    size={12}
+                    className="opacity-0 transition-all duration-300 group-hover:opacity-100"
+                  />
+                </Link>
+              ))}
             </motion.div>
+          </div>
 
-
-            {/* Right: Content */}
-            <div className="flex h-full flex-col justify-center pt-2 sm:pt-4 lg:pt-0">
-                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.1, ease }}
-                >
-                     <span className="mb-4 sm:mb-6 block text-xs font-mono text-accent uppercase tracking-widest">[03] The Studio</span>
-                    <h2 className="mb-6 sm:mb-8 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-[1.05] sm:leading-[1.1]">
-                        Bridging the gap between <span className="text-foreground-tertiary decoration-wavy underline decoration-accent/50 underline-offset-4">design</span> and <span className="text-foreground-tertiary decoration-wavy underline decoration-accent/50 underline-offset-4">engineering</span>.
-                    </h2>
-                </motion.div>
-
-                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.2, ease }}
-                    className="space-y-5 sm:space-y-6 text-base sm:text-lg text-foreground-secondary leading-relaxed"
-                >
-                    <p>
-                        Flutterly isn&apos;t just a dev shop. We are a creative technology partner. We understand that in today&apos;s digital landscape, the quality of execution is just as important as the idea itself.
-                    </p>
-                    <p>
-                        Founded by Anoop Jose, a software engineer with a passion for pixel-perfect interfaces, we specialize in building products that feel tangible, responsive, and alive.
-                    </p>
-                </motion.div>
-
-                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.3, ease }}
-                    className="mt-8 sm:mt-10 flex flex-wrap gap-3 sm:gap-4"
-                >
-                     {socials.map((social) => (
-                         <Link
-                            key={social.label}
-                            href={social.href}
-                            target="_blank"
-                            className="flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2.5 sm:px-5 sm:py-3 hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-300 group"
-                         >
-                             <social.icon size={18} />
-                             <span className="text-sm font-medium">{social.label}</span>
-                             <ArrowUpRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                         </Link>
-                     ))}
-                </motion.div>
+          {/* Right: Portrait */}
+          <motion.figure
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, delay: 0.15, ease }}
+            className="relative lg:col-span-5 lg:sticky lg:top-28"
+          >
+            <div className="group relative aspect-[4/5] overflow-hidden">
+              <Image
+                src="/anoop-jose.jpg"
+                alt="Portrait of Anoop Jose, founder of Flutterly"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover grayscale transition-all duration-[1.2s] ease-out group-hover:grayscale-0 group-hover:scale-[1.02]"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent"
+              />
+              <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4">
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
+                    Founder · Lead Engineer
+                  </p>
+                  <p className="mt-1 font-display text-xl text-foreground">
+                    Anoop Jose
+                  </p>
+                </div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
+                  ↓ Hover
+                </p>
+              </div>
             </div>
+            <figcaption className="mt-4 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
+              Photographed in the studio, Reading · 2025
+            </figcaption>
+          </motion.figure>
         </div>
       </div>
     </section>

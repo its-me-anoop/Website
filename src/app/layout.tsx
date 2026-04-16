@@ -18,29 +18,32 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 const siteUrl = "https://flutterly.uk";
-const siteName = "Flutterly Ltd";
+const siteName = "Flutterly";
 const siteDescription =
-  "UK-based digital studio crafting high-performance web applications, cross-platform mobile apps, and enterprise solutions with care and creativity.";
+  "A small UK product studio led by Anoop Jose. We take on one brief at a time and ship web and mobile products with care — from Reading, Berkshire.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} | Web & Mobile Development`,
-    template: `%s | ${siteName}`,
+    default: `${siteName} — A small UK studio building products with care`,
+    template: `%s · ${siteName}`,
   },
   description: siteDescription,
   keywords: [
-    "web development",
-    "mobile app development",
-    "next.js agency",
-    "flutter development",
-    "react development",
-    "enterprise support",
-    "uk software agency",
+    "product studio UK",
+    "design engineering",
+    "Next.js studio",
+    "Flutter app development",
+    "iOS app studio",
+    "SwiftUI developer UK",
+    "React development Reading",
+    "small agency UK",
+    "founder-led studio",
+    "Anoop Jose",
   ],
-  authors: [{ name: siteName }],
-  creator: siteName,
-  publisher: siteName,
+  authors: [{ name: "Flutterly Ltd" }],
+  creator: "Flutterly Ltd",
+  publisher: "Flutterly Ltd",
   alternates: {
     canonical: "/",
   },
@@ -48,20 +51,21 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName,
-    title: `${siteName} | Web & Mobile Development`,
+    locale: "en_GB",
+    title: `${siteName} — A small UK studio building products with care`,
     description: siteDescription,
     images: [
       {
         url: "/flutterly-title.png",
         width: 1200,
         height: 630,
-        alt: "Flutterly Ltd",
+        alt: "Flutterly — product studio, Reading, UK",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} | Web & Mobile Development`,
+    title: `${siteName} — A small UK studio building products with care`,
     description: siteDescription,
     images: ["/flutterly-title.png"],
   },

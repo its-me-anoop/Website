@@ -2,126 +2,166 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
 const stagger = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.15 },
   },
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 22 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease },
+    transition: { duration: 0.8, ease },
   },
 };
-
-const capabilities = ["Web Platforms", "Mobile Apps", "Enterprise Systems"];
 
 export function Hero() {
   return (
     <section
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-background px-4 pt-28 pb-20 sm:px-6 sm:pt-36 sm:pb-28 md:px-10 md:pt-40 md:pb-32"
-      aria-label="Flutterly hero"
+      className="relative min-h-screen overflow-hidden bg-background px-4 pt-24 pb-10 sm:px-6 sm:pt-32 md:px-10 md:pt-36"
+      aria-label="Flutterly — A product studio from Reading, UK"
     >
-      {/* Subtle grid pattern */}
+      {/* Soft editorial grid — column rules */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-full -translate-x-1/2 opacity-[0.05] md:block"
         style={{
+          maxWidth: 1200,
           backgroundImage:
-            "linear-gradient(rgba(237,237,237,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(237,237,237,0.12) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
+            "linear-gradient(90deg, rgba(237,237,237,0.4) 1px, transparent 1px)",
+          backgroundSize: "calc(100% / 12) 100%",
         }}
       />
 
-      {/* Radial glow */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(1100px,160vw)] aspect-square rounded-full bg-[radial-gradient(circle,rgba(212,255,0,0.045)_0%,transparent_70%)]" />
-
       <motion.div
-        className="relative z-10 mx-auto w-full max-w-[1200px]"
+        className="relative z-10 mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-[1200px] flex-col justify-between"
         variants={stagger}
         initial="hidden"
         animate="visible"
       >
-        {/* Label */}
-        <motion.p
-          variants={fadeUp}
-          className="mb-6 font-mono text-[11px] uppercase tracking-[0.28em] text-accent sm:mb-8 sm:text-xs"
-        >
-          Flutterly · Product Engineering Studio
-        </motion.p>
-
-        {/* Headline */}
-        <motion.h1
-          variants={fadeUp}
-          className="max-w-4xl text-balance font-display text-[clamp(2.2rem,6.5vw,5rem)] font-bold leading-[1.02] tracking-[-0.035em] text-foreground"
-        >
-          We design &amp; build
-          <br className="hidden sm:block" />{" "}
-          <span className="text-accent">digital products</span>{" "}
-          that ship fast &amp; scale.
-        </motion.h1>
-
-        {/* Subheading */}
-        <motion.p
-          variants={fadeUp}
-          className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-foreground-secondary sm:mt-7 sm:text-lg sm:leading-relaxed"
-        >
-          From strategy to shipping — we turn complex product ideas into
-          clean digital experiences your users trust and your team can grow.
-        </motion.p>
-
-        {/* CTA row */}
+        {/* Ledger bar — top meta */}
         <motion.div
           variants={fadeUp}
-          className="mt-8 flex flex-wrap items-center gap-4 sm:mt-10"
+          className="grid grid-cols-2 gap-4 border-b border-border pb-4 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary sm:grid-cols-4 sm:pb-5 sm:text-[11px]"
         >
-          <Link
-            href="#contact"
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-accent px-7 py-3.5 text-sm font-bold uppercase tracking-[0.14em] text-background transition-colors hover:bg-accent-hover sm:px-8 sm:py-4"
-          >
-            <span>Get in touch</span>
-            <ArrowRight
-              size={16}
-              className="transition-transform group-hover:translate-x-0.5"
-            />
-          </Link>
-
-          <Link
-            href="#products"
-            className="inline-flex items-center gap-2 rounded-full border border-border-strong px-7 py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-foreground-secondary transition-colors hover:border-foreground-tertiary hover:text-foreground sm:px-8 sm:py-4"
-          >
-            View work
-          </Link>
+          <MetaCell label="Studio" value="Flutterly Ltd" />
+          <MetaCell label="Est." value="Reading, UK · 2024" />
+          <MetaCell label="On the bench" value="Sipli 2.0" />
+          <MetaCell
+            label="Status"
+            value={
+              <span className="inline-flex items-center gap-2 text-foreground">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+                </span>
+                Taking briefs · Summer ’26
+              </span>
+            }
+          />
         </motion.div>
 
-        {/* Capability tags */}
+        {/* Headline block */}
+        <div className="flex flex-1 flex-col justify-center py-14 sm:py-20 md:py-24">
+          <motion.h1
+            variants={fadeUp}
+            className="font-display text-[clamp(2.5rem,8.2vw,7.25rem)] font-light leading-[0.94] tracking-[-0.035em] text-foreground"
+          >
+            <span className="block italic text-foreground-secondary/90">
+              A small studio
+            </span>
+            <span className="block">
+              building{" "}
+              <span className="relative inline-block">
+                <span className="relative z-10">products</span>
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 bottom-[0.08em] h-[0.18em] bg-accent/70"
+                />
+              </span>{" "}
+              people
+            </span>
+            <span className="block font-normal">want to keep open.</span>
+          </motion.h1>
+
+          {/* Lede — offset, narrow, asymmetric */}
+          <motion.div
+            variants={fadeUp}
+            className="mt-10 grid grid-cols-1 items-start gap-6 sm:mt-14 md:grid-cols-12 md:gap-10"
+          >
+            <div className="hidden md:col-span-5 md:block" aria-hidden />
+            <p className="md:col-span-6 text-pretty text-[17px] leading-[1.55] text-foreground-secondary sm:text-lg">
+              Flutterly is a UK design-and-engineering practice led by{" "}
+              <span className="text-foreground">Anoop Jose</span>. We ship web
+              and mobile products that feel considered, fast, and alive — then
+              keep shipping long after launch.
+            </p>
+          </motion.div>
+
+          {/* CTA row */}
+          <motion.div
+            variants={fadeUp}
+            className="mt-10 flex flex-col items-start gap-4 sm:mt-14 sm:flex-row sm:items-center sm:gap-6"
+          >
+            <Link
+              href="#brief"
+              className="group inline-flex items-center gap-3 rounded-full bg-accent px-7 py-4 text-xs font-bold uppercase tracking-[0.22em] text-background transition-colors hover:bg-accent-hover"
+            >
+              <span>Send a brief</span>
+              <ArrowUpRight
+                size={16}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </Link>
+
+            <Link
+              href="#work"
+              className="group inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-foreground-secondary transition-colors hover:text-foreground"
+            >
+              <span className="border-b border-border pb-1 group-hover:border-foreground">
+                Read the ledger
+              </span>
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Bottom rule — signature + disclosure */}
         <motion.div
           variants={fadeUp}
-          className="mt-14 flex flex-wrap items-center gap-3 border-t border-border pt-8 sm:mt-20 sm:gap-4 sm:pt-10"
+          className="flex flex-col gap-3 border-t border-border pt-5 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary sm:flex-row sm:items-end sm:justify-between sm:text-[11px]"
         >
-          <span className="mr-1 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground-tertiary sm:text-[11px]">
-            What we do
-          </span>
-          {capabilities.map((item) => (
-            <span
-              key={item}
-              className="rounded-full border border-border bg-surface px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-foreground-secondary sm:px-4 sm:text-[11px]"
-            >
-              {item}
-            </span>
-          ))}
+          <p className="max-w-sm leading-relaxed normal-case tracking-normal font-sans text-[13px] text-foreground-secondary">
+            <span className="italic text-foreground">№ 01 </span> — An
+            introduction. Scroll for the ledger, the practice, and how to put
+            something on our bench.
+          </p>
+          <p>
+            Reading, UK · 51.4543° N, 0.9781° W
+          </p>
         </motion.div>
       </motion.div>
-
-      {/* Bottom fade */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
     </section>
+  );
+}
+
+function MetaCell({
+  label,
+  value,
+}: {
+  label: string;
+  value: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-1">
+      <span className="text-foreground-tertiary">{label}</span>
+      <span className="text-foreground-secondary">{value}</span>
+    </div>
   );
 }

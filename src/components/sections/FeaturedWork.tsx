@@ -1,145 +1,258 @@
 "use client";
 
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useRef } from "react";
+import { useState } from "react";
 
-const projects = [
-    {
-        title: "Sipli",
-        category: "Mobile Application",
-        description: "AI-powered hydration tracking for iPhone and iPad. Smart goals, 18+ beverages, insights, widgets, and an on-device AI coach.",
-        image: "/images/sipli/iphone/01-hero-1320x2868.png",
-        href: "/projects/sipli",
-        color: "#060F1E",
-    },
-    {
-        title: "Artling",
-        category: "Mobile Application",
-        description: "Family artwork archive with sharing, timelines, and AI-assisted captions.",
-        image: "/projects/artling/fox-painter.png",
-        href: "/projects/artling",
-        color: "#241816",
-    },
-    {
-        title: "Greenmead",
-        category: "Brand & Web",
-        description: "Digital presence for a sustainable living community.",
-        image: "/project-greenmead.png",
-        href: "#",
-        color: "#18181b",
-    },
-    {
-        title: "JJ Paper",
-        category: "E-commerce",
-        description: "Artisan paper goods store built with Next.js.",
-        image: "/project-jjpaper.png",
-        href: "#",
-        color: "#0f0f0f",
-    },
-    {
-        title: "Sandbourne",
-        category: "Web Application",
-        description: "Booking system for boutique hospitality.",
-        image: "/project-sandbourne.png",
-        href: "#",
-        color: "#0a0a0a",
-    },
-];
+const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
-interface CardProps {
+type Project = {
+    number: string;
     title: string;
+    year: string;
     category: string;
     description: string;
     image: string;
     href: string;
-    color: string;
-    i: number;
-    progress: MotionValue<number>;
-    range: [number, number];
-    targetScale: number;
-}
-
-const Card = ({ title, category, description, image, href, color, i, progress, range, targetScale }: CardProps) => {
-    const container = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: container,
-        offset: ["start end", "start start"],
-    });
-
-    const imageScale = useTransform(scrollYProgress, [0, 1], [1.2, 1]);
-    const scale = useTransform(progress, range, [1, targetScale]);
-
-    return (
-        <div ref={container} className="flex min-h-fit items-center justify-center md:sticky md:top-0 md:h-screen">
-            <motion.div
-                style={{ scale, backgroundColor: color, top: `calc(-5vh + ${i * 25}px)` }}
-                className="relative flex min-h-[520px] w-full origin-top flex-col overflow-hidden rounded-[28px] border border-border/10 shadow-2xl md:h-[600px]"
-            >
-                <div className="flex h-full flex-col md:flex-row">
-                    <div className="relative z-10 flex w-full flex-col justify-between p-6 sm:p-8 md:w-[40%] md:p-10">
-                        <div>
-                            <div className="mb-4 flex items-center gap-3">
-                                <div className="h-2 w-2 rounded-full bg-accent" />
-                                <span className="font-mono text-xs uppercase tracking-widest text-foreground-tertiary">{category}</span>
-                            </div>
-                            <h2 className="mb-4 font-display text-3xl font-bold leading-[0.95] text-foreground sm:text-4xl md:text-5xl">{title}</h2>
-                            <p className="max-w-sm text-base leading-relaxed text-foreground-secondary sm:text-lg">{description}</p>
-                        </div>
-
-                        <Link
-                            href={href}
-                            className="group mt-8 inline-flex items-center gap-2 text-sm sm:text-base text-foreground transition-colors hover:text-accent"
-                        >
-                            <span className="text-sm font-bold uppercase tracking-wide">View Project</span>
-                            <ArrowUpRight size={18} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                        </Link>
-                    </div>
-
-                    <div className="relative h-[280px] w-full overflow-hidden sm:h-[340px] md:h-full md:w-[60%]">
-                        <motion.div style={{ scale: imageScale }} className="relative h-full w-full">
-                            <Image src={image} alt={title} fill sizes="(max-width: 767px) 100vw, 60vw" className="object-cover object-center" />
-                            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-black/40 md:to-black/80" />
-                        </motion.div>
-                    </div>
-                </div>
-            </motion.div>
-        </div>
-    );
+    live: boolean;
 };
 
+const projects: Project[] = [
+    {
+        number: "01",
+        title: "Sipli",
+        year: "2025",
+        category: "iOS · iPadOS",
+        description:
+            "An AI hydration coach in your pocket. 18+ beverages, widgets, and an on-device model that feels human.",
+        image: "/projects/sipli/app-icon.png",
+        href: "/projects/sipli",
+        live: true,
+    },
+    {
+        number: "02",
+        title: "Artling",
+        year: "2025",
+        category: "iOS · Family archive",
+        description:
+            "A quiet corner of the App Store for families to archive, caption, and share a lifetime of children’s artwork.",
+        image: "/projects/artling/fox-painter.png",
+        href: "/projects/artling",
+        live: true,
+    },
+    {
+        number: "03",
+        title: "Greenmead",
+        year: "2024",
+        category: "Brand · Marketing site",
+        description:
+            "Digital home for a sustainable living community — warm typography, low carbon footprint.",
+        image: "/project-greenmead.png",
+        href: "#",
+        live: false,
+    },
+    {
+        number: "04",
+        title: "JJ Paper",
+        year: "2024",
+        category: "Commerce · Next.js",
+        description:
+            "Artisan paper goods, direct to door. A storefront that feels as considered as what it sells.",
+        image: "/project-jjpaper.png",
+        href: "#",
+        live: false,
+    },
+    {
+        number: "05",
+        title: "Sandbourne",
+        year: "2024",
+        category: "Booking · Hospitality",
+        description:
+            "A reservations engine for boutique inns — built to feel effortless from the first tap to the front desk.",
+        image: "/project-sandbourne.png",
+        href: "#",
+        live: false,
+    },
+];
+
 export function FeaturedWork() {
-    const container = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: container,
-        offset: ["start start", "end end"],
-    });
+    const [hovered, setHovered] = useState<Project | null>(null);
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+    const springX = useSpring(mouseX, { stiffness: 140, damping: 18, mass: 0.4 });
+    const springY = useSpring(mouseY, { stiffness: 140, damping: 18, mass: 0.4 });
+
+    const handleMove = (e: React.MouseEvent) => {
+        mouseX.set(e.clientX);
+        mouseY.set(e.clientY);
+    };
 
     return (
-        <section ref={container} id="products" className="relative bg-background px-4 pb-16 sm:px-6 md:px-10 md:pb-20">
-            <div className="mx-auto max-w-[1200px] py-16 sm:py-20 md:py-24">
-                <div className="mb-12 sm:mb-16 md:mb-20">
-                    <span className="mb-2 block font-mono text-xs uppercase tracking-widest text-accent">[01]</span>
-                    <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">Selected Work</h2>
+        <section
+            id="work"
+            aria-labelledby="work-heading"
+            className="relative border-t border-border bg-background px-4 py-20 sm:px-6 sm:py-28 md:px-10 md:py-36"
+            onMouseMove={handleMove}
+        >
+            <div className="mx-auto max-w-[1200px]">
+                {/* Section header — editorial style */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease }}
+                    className="mb-12 grid grid-cols-1 items-end gap-6 border-b border-border pb-8 sm:mb-16 md:grid-cols-12"
+                >
+                    <div className="md:col-span-5">
+                        <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.28em] text-accent">
+                            № 02 · Ledger of Ships
+                        </p>
+                        <h2
+                            id="work-heading"
+                            className="font-display text-4xl font-light leading-[0.95] tracking-[-0.02em] text-foreground sm:text-5xl md:text-6xl"
+                        >
+                            Five recent things
+                            <br />
+                            <span className="italic text-foreground-secondary">we’re proud of.</span>
+                        </h2>
+                    </div>
+                    <div className="md:col-span-5 md:col-start-8">
+                        <p className="text-pretty text-[15px] leading-relaxed text-foreground-secondary">
+                            A running journal of client work and internal products. Dates
+                            are when we shipped — not when we started. We’re usually still
+                            iterating long after the first release.
+                        </p>
+                    </div>
+                </motion.div>
+
+                {/* Column headings — like a ledger */}
+                <div className="hidden grid-cols-12 gap-6 border-b border-border/50 py-4 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary md:grid">
+                    <span className="col-span-1">№</span>
+                    <span className="col-span-4">Project</span>
+                    <span className="col-span-2">Year</span>
+                    <span className="col-span-4">Category</span>
+                    <span className="col-span-1 text-right">View</span>
                 </div>
 
-                {projects.map((project, i) => {
-                    const targetScale = 1 - (projects.length - i) * 0.05;
-
-                    return (
-                        <Card
+                {/* Rows */}
+                <ul role="list" className="divide-y divide-border">
+                    {projects.map((project, i) => (
+                        <ProjectRow
                             key={project.title}
-                            i={i}
-                            {...project}
-                            progress={scrollYProgress}
-                            range={[i * 0.25, 1]}
-                            targetScale={targetScale}
+                            project={project}
+                            index={i}
+                            onHoverStart={() => setHovered(project)}
+                            onHoverEnd={() => setHovered(null)}
                         />
-                    );
-                })}
+                    ))}
+                </ul>
+
+                {/* Footnote */}
+                <p className="mt-10 max-w-md font-mono text-[11px] uppercase tracking-[0.22em] text-foreground-tertiary">
+                    A few engagements are covered by NDAs and don’t appear here. Happy to
+                    walk through them on a call.
+                </p>
             </div>
+
+            {/* Floating image preview — desktop only */}
+            <AnimatePresence>
+                {hovered && (
+                    <motion.div
+                        key={hovered.title}
+                        initial={{ opacity: 0, scale: 0.94 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.94 }}
+                        transition={{ duration: 0.25, ease }}
+                        style={{
+                            x: springX,
+                            y: springY,
+                            translateX: "-50%",
+                            translateY: "-115%",
+                        }}
+                        className="pointer-events-none fixed left-0 top-0 z-50 hidden aspect-[4/5] w-[260px] overflow-hidden rounded-xl border border-border-strong bg-surface shadow-[0_40px_80px_rgba(0,0,0,0.6)] md:block"
+                    >
+                        <Image
+                            src={hovered.image}
+                            alt=""
+                            fill
+                            sizes="260px"
+                            className="object-cover"
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
+    );
+}
+
+function ProjectRow({
+    project,
+    index,
+    onHoverStart,
+    onHoverEnd,
+}: {
+    project: Project;
+    index: number;
+    onHoverStart: () => void;
+    onHoverEnd: () => void;
+}) {
+    const isLink = project.href !== "#";
+    const Wrapper: React.ElementType = isLink ? Link : "div";
+    const wrapperProps = isLink ? { href: project.href } : {};
+
+    return (
+        <li>
+            <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, ease, delay: index * 0.04 }}
+                onMouseEnter={onHoverStart}
+                onMouseLeave={onHoverEnd}
+            >
+                <Wrapper
+                    {...wrapperProps}
+                    className="group grid grid-cols-12 items-baseline gap-4 py-6 transition-colors duration-300 hover:bg-accent/[0.015] sm:gap-6 sm:py-8"
+                    aria-label={`${project.title} — ${project.category}, ${project.year}`}
+                >
+                    <span className="col-span-2 font-mono text-xs text-foreground-tertiary sm:text-sm md:col-span-1">
+                        {project.number}
+                    </span>
+
+                    <div className="col-span-10 md:col-span-4">
+                        <h3 className="font-display text-2xl font-medium leading-tight tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">
+                            {project.title}
+                            {project.live && (
+                                <span
+                                    aria-label="Live"
+                                    className="ml-2 align-middle inline-block h-1.5 w-1.5 rounded-full bg-accent"
+                                />
+                            )}
+                        </h3>
+                        <p className="mt-2 text-[14px] leading-relaxed text-foreground-secondary sm:text-[15px] md:max-w-md">
+                            {project.description}
+                        </p>
+                    </div>
+
+                    <span className="col-span-3 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground-secondary sm:text-xs md:col-span-2">
+                        {project.year}
+                    </span>
+
+                    <span className="col-span-6 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground-secondary sm:text-xs md:col-span-4">
+                        {project.category}
+                    </span>
+
+                    <span className="col-span-3 flex items-center justify-end text-foreground-tertiary transition-colors group-hover:text-accent md:col-span-1">
+                        <ArrowUpRight
+                            size={20}
+                            strokeWidth={1.5}
+                            className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                        />
+                    </span>
+                </Wrapper>
+            </motion.div>
+        </li>
     );
 }
