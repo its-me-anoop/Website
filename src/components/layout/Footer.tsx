@@ -17,8 +17,7 @@ const columns = [
     label: "Elsewhere",
     items: [
       { name: "LinkedIn", href: "https://www.linkedin.com/in/anoop-jose-0b308a296/", external: true },
-      { name: "GitHub", href: "https://github.com", external: true },
-      { name: "Twitter", href: "https://twitter.com", external: true },
+      { name: "Email", href: "mailto:anoop@flutterly.co.uk", external: false },
     ],
   },
   {
@@ -97,7 +96,7 @@ export function Footer() {
         {/* Bottom ledger */}
         <div className="mt-16 flex flex-col gap-3 border-t border-border pt-6 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} Flutterly Ltd · All rights reserved</p>
-          <p>Hand-built in Reading · Last updated {year}</p>
+          <p>Hand-built in Reading, UK</p>
         </div>
       </div>
     </footer>

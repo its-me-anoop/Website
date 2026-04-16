@@ -103,7 +103,7 @@ export function Navbar() {
                      <div className="hidden md:flex">
                         <Link
                             href={pathname === "/" ? "#brief" : "/#brief"}
-                            className="inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-hover text-black px-5 py-2 text-xs font-bold uppercase tracking-wide transition-all duration-200 hover:scale-105"
+                            className="inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-hover text-background px-5 py-2 text-xs font-bold uppercase tracking-wide transition-all duration-200 hover:scale-105"
                         >
                             Send a brief
                         </Link>
@@ -168,7 +168,7 @@ export function Navbar() {
                                 <Link
                                     href={pathname === "/" ? "#brief" : "/#brief"}
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="inline-flex items-center justify-center rounded-full bg-accent hover:bg-accent-hover text-black px-8 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-bold uppercase tracking-[0.18em] transition-colors duration-200"
+                                    className="inline-flex items-center justify-center rounded-full bg-accent hover:bg-accent-hover text-background px-8 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-bold uppercase tracking-[0.18em] transition-colors duration-200"
                                 >
                                     Send a brief
                                 </Link>

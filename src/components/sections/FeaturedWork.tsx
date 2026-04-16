@@ -1,10 +1,20 @@
 "use client";
 
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import {
+    motion,
+    AnimatePresence,
+    useMotionValue,
+    useSpring,
+    useTransform,
+} from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
+
+// Floating preview card — 260×325 (4:5 aspect). Offset above cursor.
+const PREVIEW_HEIGHT = 325;
+const PREVIEW_OFFSET = 24;
 
 const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
@@ -83,6 +93,11 @@ export function FeaturedWork() {
     const mouseY = useMotionValue(0);
     const springX = useSpring(mouseX, { stiffness: 140, damping: 18, mass: 0.4 });
     const springY = useSpring(mouseY, { stiffness: 140, damping: 18, mass: 0.4 });
+    // Keep the preview fully on-screen: place it above the cursor, but never
+    // above the viewport top (min Y = PREVIEW_HEIGHT + PREVIEW_OFFSET).
+    const clampedY = useTransform(springY, (y) =>
+        Math.max(y, PREVIEW_HEIGHT + PREVIEW_OFFSET)
+    );
 
     const handleMove = (e: React.MouseEvent) => {
         mouseX.set(e.clientX);
@@ -167,9 +182,9 @@ export function FeaturedWork() {
                         transition={{ duration: 0.25, ease }}
                         style={{
                             x: springX,
-                            y: springY,
+                            y: clampedY,
                             translateX: "-50%",
-                            translateY: "-115%",
+                            translateY: `calc(-100% - ${PREVIEW_OFFSET}px)`,
                         }}
                         className="pointer-events-none fixed left-0 top-0 z-50 hidden aspect-[4/5] w-[260px] overflow-hidden rounded-xl border border-border-strong bg-surface shadow-[0_40px_80px_rgba(0,0,0,0.6)] md:block"
                     >
@@ -214,7 +229,9 @@ function ProjectRow({
             >
                 <Wrapper
                     {...wrapperProps}
-                    className="group grid grid-cols-12 items-baseline gap-4 py-6 transition-colors duration-300 hover:bg-accent/[0.015] sm:gap-6 sm:py-8"
+                    className={`grid grid-cols-12 items-baseline gap-4 py-6 transition-colors duration-300 sm:gap-6 sm:py-8 ${
+                        isLink ? "group hover:bg-accent/[0.015]" : "group cursor-default"
+                    }`}
                     aria-label={`${project.title} — ${project.category}, ${project.year}`}
                 >
                     <span className="col-span-2 font-mono text-xs text-foreground-tertiary sm:text-sm md:col-span-1">
@@ -222,7 +239,9 @@ function ProjectRow({
                     </span>
 
                     <div className="col-span-10 md:col-span-4">
-                        <h3 className="font-display text-2xl font-medium leading-tight tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-3xl md:text-4xl">
+                        <h3 className={`font-display text-2xl font-medium leading-tight tracking-tight transition-colors sm:text-3xl md:text-4xl ${
+                            isLink ? "text-foreground group-hover:text-accent" : "text-foreground-secondary"
+                        }`}>
                             {project.title}
                             {project.live && (
                                 <span
@@ -244,12 +263,18 @@ function ProjectRow({
                         {project.category}
                     </span>
 
-                    <span className="col-span-3 flex items-center justify-end text-foreground-tertiary transition-colors group-hover:text-accent md:col-span-1">
-                        <ArrowUpRight
-                            size={20}
-                            strokeWidth={1.5}
-                            className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                        />
+                    <span className="col-span-3 flex items-center justify-end md:col-span-1">
+                        {isLink ? (
+                            <ArrowUpRight
+                                size={20}
+                                strokeWidth={1.5}
+                                className="text-foreground-tertiary transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                            />
+                        ) : (
+                            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
+                                Soon
+                            </span>
+                        )}
                     </span>
                 </Wrapper>
             </motion.div>

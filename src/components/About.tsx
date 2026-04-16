@@ -3,25 +3,22 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Github, Linkedin, Twitter, ArrowUpRight } from "lucide-react";
+import { Linkedin, Mail, ArrowUpRight } from "lucide-react";
 
 const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
 const socials = [
   {
-    label: "GitHub",
-    href: "https://github.com",
-    icon: Github,
-  },
-  {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/anoop-jose-0b308a296/",
     icon: Linkedin,
+    external: true,
   },
   {
-    label: "Twitter",
-    href: "https://twitter.com",
-    icon: Twitter,
+    label: "Email",
+    href: "mailto:anoop@flutterly.co.uk",
+    icon: Mail,
+    external: false,
   },
 ];
 
@@ -141,8 +138,9 @@ export default function About() {
                 <Link
                   key={social.label}
                   href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(social.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   className="group inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-foreground-secondary transition-colors hover:border-foreground-tertiary hover:text-foreground"
                 >
                   <social.icon size={14} strokeWidth={1.5} />
@@ -178,22 +176,17 @@ export default function About() {
                 aria-hidden
                 className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent"
               />
-              <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4">
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
-                    Founder · Lead Engineer
-                  </p>
-                  <p className="mt-1 font-display text-xl text-foreground">
-                    Anoop Jose
-                  </p>
-                </div>
+              <div className="absolute bottom-5 left-5 right-5">
                 <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
-                  ↓ Hover
+                  Founder · Lead Engineer
+                </p>
+                <p className="mt-1 font-display text-xl text-foreground">
+                  Anoop Jose
                 </p>
               </div>
             </div>
             <figcaption className="mt-4 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
-              Photographed in the studio, Reading · 2025
+              Reading, UK
             </figcaption>
           </motion.figure>
         </div>
