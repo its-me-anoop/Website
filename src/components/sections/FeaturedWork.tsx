@@ -239,20 +239,33 @@ function ProjectRow({
                     </span>
 
                     <div className="col-span-10 md:col-span-4">
-                        <h3 className={`font-display text-2xl font-medium leading-tight tracking-tight transition-colors sm:text-3xl md:text-4xl ${
-                            isLink ? "text-foreground group-hover:text-accent" : "text-foreground-secondary"
-                        }`}>
-                            {project.title}
-                            {project.live && (
-                                <span
-                                    aria-label="Live"
-                                    className="ml-2 align-middle inline-block h-1.5 w-1.5 rounded-full bg-accent"
+                        <div className="flex items-start gap-4 sm:gap-5">
+                            <div className="relative aspect-[4/5] w-12 shrink-0 overflow-hidden rounded-sm border border-border bg-surface sm:w-14 md:w-16">
+                                <Image
+                                    src={project.image}
+                                    alt=""
+                                    fill
+                                    sizes="(max-width: 640px) 48px, (max-width: 768px) 56px, 64px"
+                                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                                 />
-                            )}
-                        </h3>
-                        <p className="mt-2 text-[14px] leading-relaxed text-foreground-secondary sm:text-[15px] md:max-w-md">
-                            {project.description}
-                        </p>
+                            </div>
+                            <div className="flex-1">
+                                <h3 className={`font-display text-2xl font-medium leading-tight tracking-tight transition-colors sm:text-3xl md:text-4xl ${
+                                    isLink ? "text-foreground group-hover:text-accent" : "text-foreground-secondary"
+                                }`}>
+                                    {project.title}
+                                    {project.live && (
+                                        <span
+                                            aria-label="Live"
+                                            className="ml-2 align-middle inline-block h-1.5 w-1.5 rounded-full bg-accent"
+                                        />
+                                    )}
+                                </h3>
+                                <p className="mt-2 text-[14px] leading-relaxed text-foreground-secondary sm:text-[15px] md:max-w-md">
+                                    {project.description}
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     <span className="col-span-3 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground-secondary sm:text-xs md:col-span-2">
