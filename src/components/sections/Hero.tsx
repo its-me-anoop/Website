@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
@@ -21,6 +22,24 @@ const fadeUp = {
     transition: { duration: 0.8, ease },
   },
 };
+
+const contactSheet = [
+  {
+    src: "/projects/sipli/dashboard.png",
+    alt: "Sipli — hydration dashboard on iPhone",
+    tag: "Sipli",
+  },
+  {
+    src: "/abstract-sandbourne.png",
+    alt: "Sandbourne — abstract brand study",
+    tag: "Sandbourne",
+  },
+  {
+    src: "/abstract-jjpaper.png",
+    alt: "JJ Paper — abstract brand study",
+    tag: "JJ Paper",
+  },
+];
 
 export function Hero() {
   return (
@@ -94,9 +113,45 @@ export function Hero() {
           {/* Lede — offset, narrow, asymmetric */}
           <motion.div
             variants={fadeUp}
-            className="mt-10 grid grid-cols-1 items-start gap-6 sm:mt-14 md:grid-cols-12 md:gap-10"
+            className="mt-10 grid grid-cols-1 items-start gap-8 sm:mt-14 md:grid-cols-12 md:gap-10"
           >
-            <div className="hidden md:col-span-5 md:block" aria-hidden />
+            {/* Contact sheet — recent frames from the bench */}
+            <figure className="md:col-span-5">
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                {contactSheet.map((frame, i) => (
+                  <motion.div
+                    key={frame.src}
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.9,
+                      delay: 0.45 + i * 0.08,
+                      ease,
+                    }}
+                    className="group relative aspect-[4/5] overflow-hidden rounded-sm border border-border bg-surface"
+                  >
+                    <Image
+                      src={frame.src}
+                      alt={frame.alt}
+                      fill
+                      sizes="(max-width: 768px) 33vw, 160px"
+                      className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
+                    />
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-40"
+                    />
+                    <span className="absolute bottom-1.5 left-1.5 font-mono text-[9px] uppercase tracking-[0.18em] text-foreground/90 sm:text-[10px]">
+                      {frame.tag}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+              <figcaption className="mt-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary sm:text-[11px]">
+                <span>Contact sheet · Recent frames</span>
+                <span aria-hidden>03 / 05</span>
+              </figcaption>
+            </figure>
             <p className="md:col-span-6 text-pretty text-[17px] leading-[1.55] text-foreground-secondary sm:text-lg">
               Flutterly is a UK design-and-engineering practice led by{" "}
               <span className="text-foreground">Anoop Jose</span>. We ship web
