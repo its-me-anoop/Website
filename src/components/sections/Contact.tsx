@@ -1,54 +1,91 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Phone, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
+const details = [
+  {
+    k: "Write",
+    v: <Link href="mailto:anoop@flutterly.co.uk" className="transition-colors hover:text-[var(--accent)]">anoop@flutterly.co.uk</Link>,
+  },
+  {
+    k: "Ring",
+    v: <Link href="tel:+447780580534" className="transition-colors hover:text-[var(--accent)]">+44 7780 580 534</Link>,
+  },
+  { k: "Visit", v: "Reading, UK" },
+  { k: "Usual reply", v: "Within a working day" },
+];
 
 export function Contact() {
   return (
     <section
-      id="contact"
-      className="overflow-hidden border-t border-border bg-background px-4 py-16 sm:px-6 sm:py-20 md:px-10 md:py-32"
+      id="brief"
+      className="relative overflow-hidden border-t border-[var(--rule)] bg-[var(--ink)] pb-[120px] pt-[140px] text-[var(--paper)]"
     >
-      <div className="max-w-[1200px] mx-auto text-center">
-         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease }}
-        >
-             <h2 className="mb-8 sm:mb-10 text-[15vw] sm:text-[12vw] md:text-[10vw] font-display font-bold text-foreground leading-[0.84] sm:leading-[0.8] tracking-tighter">
-                LET&apos;S TALK
-            </h2>
-        </motion.div>
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, var(--accent), transparent)",
+        }}
+      />
 
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2, ease }}
-            className="flex flex-col items-stretch justify-center gap-4 sm:gap-6 md:flex-row md:items-center"
-        >
-            <Link
-                href="mailto:anoop@flutterly.co.uk"
-                className="group relative inline-flex w-full sm:w-auto items-center justify-center gap-3 sm:gap-4 rounded-full bg-foreground px-7 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold uppercase tracking-[0.18em] sm:tracking-wide text-background overflow-hidden"
-            >
-                <span className="relative z-10 group-hover:text-foreground transition-colors duration-300">Email Us</span>
-                 <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
-                 <ArrowRight className="relative z-10 group-hover:text-foreground transition-colors duration-300 group-hover:translate-x-1 transition-transform" />
-            </Link>
+      <div className="mx-auto w-full max-w-[1240px] px-5 md:px-7">
+        <div className="font-mono text-[10.5px] uppercase tracking-[0.28em] text-[var(--accent)]">
+          № 06 · The brief
+        </div>
 
-             <Link
-                href="tel:+447780580534"
-                className="group relative inline-flex w-full sm:w-auto items-center justify-center gap-3 sm:gap-4 rounded-full border border-border px-7 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold uppercase tracking-[0.18em] sm:tracking-wide text-foreground overflow-hidden hover:border-accent"
+        <h2
+          className="mt-6 font-display font-extralight leading-[0.92] tracking-[-0.04em]"
+          style={{
+            fontSize: "clamp(64px,11vw,180px)",
+            fontVariationSettings: '"opsz" 144, "SOFT" 50, "WONK" 0',
+          }}
+        >
+          Got a brief
+          <br />
+          <em className="italic text-[var(--accent)]">worth</em> building?
+        </h2>
+
+        <div className="mt-10 grid items-end gap-10 border-t border-[rgba(245,239,228,0.15)] pt-10 md:grid-cols-2 md:gap-16">
+          <p className="max-w-[420px] text-[17px] leading-[1.6] text-[rgba(245,239,228,0.7)]">
+            We only take a handful of projects a year, so not every fit is the
+            right fit. Write anyway — if we can&rsquo;t help, we&rsquo;ll usually
+            know someone who can.
+          </p>
+          <Link
+            href="mailto:anoop@flutterly.co.uk"
+            className="group inline-flex items-center gap-3 self-start border-b border-[rgba(245,239,228,0.25)] pb-2.5 font-display text-[28px] text-[var(--paper)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)] md:self-end"
+          >
+            anoop@flutterly.co.uk
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
             >
-                 <span className="relative z-10 group-hover:text-background transition-colors duration-300">Call Us</span>
-                 <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
-                 <Phone size={20} className="relative z-10 group-hover:text-background transition-colors duration-300" />
-            </Link>
-        </motion.div>
+              <path
+                d="M5 17 17 5M8 5h9v9"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                fill="none"
+                strokeLinecap="round"
+              />
+            </svg>
+          </Link>
+        </div>
+
+        {/* Details */}
+        <div className="mt-20 grid gap-7 border-t border-[rgba(245,239,228,0.15)] pt-8 md:grid-cols-4">
+          {details.map((d) => (
+            <div key={d.k} className="flex flex-col gap-1.5">
+              <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[rgba(245,239,228,0.5)]">
+                {d.k}
+              </span>
+              <span className="font-display text-[18px] text-[var(--paper)]">
+                {d.v}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

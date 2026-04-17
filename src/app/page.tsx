@@ -3,15 +3,15 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { FeaturedWork } from "@/components/sections/FeaturedWork";
-import { Services } from "@/components/sections/Services";
-import { ClientLogos } from "@/components/sections/ClientLogos";
+import { Practice } from "@/components/sections/Practice";
+import { OpenSource } from "@/components/sections/OpenSource";
 import { Contact } from "@/components/sections/Contact";
 import About from "@/components/About";
 
 export const metadata: Metadata = {
-  title: "Web & Mobile Development",
+  title: "A small studio building products people keep open.",
   description:
-    "Flutterly Ltd delivers modern web and mobile software development services using Next.js, React, Flutter, and scalable architecture.",
+    "Flutterly Ltd is a UK design-and-engineering practice led by Anoop Jose. We ship web and mobile products that feel considered, fast, and alive — then keep shipping long after launch.",
   alternates: {
     canonical: "/",
   },
@@ -19,13 +19,13 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen bg-[var(--paper)] text-[var(--ink)]">
       <Navbar />
       <Hero />
       <FeaturedWork />
-      <Services />
+      <Practice />
+      <OpenSource />
       <About />
-      <ClientLogos />
       <Contact />
       <Footer />
     </main>
