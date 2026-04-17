@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const ledger = [
   { k: "Studio", v: "Flutterly Ltd" },
@@ -10,9 +11,33 @@ const ledger = [
 ];
 
 const cards = [
-  { tag: "Sandbourne", idx: "03 / 05", year: "2024", variant: "c1" },
-  { tag: "Sipli", idx: "01 / 05", year: "2026", variant: "c2" },
-  { tag: "Greenmead", idx: "02 / 05", year: "2024", variant: "c3" },
+  {
+    tag: "Sandbourne",
+    idx: "03 / 05",
+    year: "2024",
+    variant: "c1",
+    src: "/abstract-sandbourne.png",
+    alt: "Sandbourne — abstract brand study",
+    darkText: true,
+  },
+  {
+    tag: "Sipli",
+    idx: "01 / 05",
+    year: "2026",
+    variant: "c2",
+    src: "/images/sipli/iphone/01-hero-1320x2868.png",
+    alt: "Sipli 3.0 — hydration dashboard on iPhone",
+    darkText: false,
+  },
+  {
+    tag: "Greenmead",
+    idx: "02 / 05",
+    year: "2024",
+    variant: "c3",
+    src: "/abstract-greenmead.png",
+    alt: "Greenmead — abstract brand study",
+    darkText: true,
+  },
 ] as const;
 
 export function Hero() {
@@ -282,77 +307,45 @@ export function Hero() {
           </div>
 
           {/* Card deck */}
-          <div className="relative h-[380px] max-md:h-[320px]" aria-hidden="true">
+          <div className="relative h-[380px] max-md:h-[320px]">
             {cards.map((card) => {
-              const base = "absolute aspect-[4/5] w-[260px] overflow-hidden rounded-[18px] border border-[var(--rule-2)] transition-transform duration-700 hover:!rotate-0 hover:-translate-y-1.5 max-md:w-[200px]";
-              const variants = {
-                c1: {
-                  className: "right-[40%] top-5 -rotate-6",
-                  style: {
-                    background: "linear-gradient(145deg,#f4d3a2,#d99a5f)",
-                    boxShadow: "var(--shadow)",
-                  },
-                  textDark: true,
-                },
-                c2: {
-                  className: "right-[15%] top-0 rotate-2 z-10",
-                  style: {
-                    background: "linear-gradient(160deg,#1a1812,#352b20)",
-                    boxShadow: "var(--shadow)",
-                  },
-                  textDark: false,
-                },
-                c3: {
-                  className: "right-[-5%] top-[70px] rotate-[8deg]",
-                  style: {
-                    background: "linear-gradient(155deg,#c4d9c9,#6d9688)",
-                    boxShadow: "var(--shadow)",
-                  },
-                  textDark: true,
-                },
-              };
-              const v = variants[card.variant];
+              const base =
+                "group absolute aspect-[4/5] w-[260px] overflow-hidden rounded-[18px] border border-[var(--rule-2)] bg-[var(--paper-2)] shadow-[var(--shadow)] transition-transform duration-700 hover:!rotate-0 hover:-translate-y-1.5 max-md:w-[200px]";
+              const positions = {
+                c1: "right-[40%] top-5 -rotate-6",
+                c2: "right-[15%] top-0 rotate-2 z-10",
+                c3: "right-[-5%] top-[70px] rotate-[8deg]",
+              } as const;
               return (
                 <div
                   key={card.tag}
-                  className={`${base} ${v.className}`}
-                  style={v.style}
+                  className={`${base} ${positions[card.variant]}`}
                 >
-                  {card.variant === "c2" && (
-                    <span
-                      className="absolute inset-0"
-                      style={{
-                        background:
-                          "radial-gradient(circle at 30% 30%, rgba(209,74,31,.35), transparent 60%), radial-gradient(circle at 70% 70%,rgba(13,107,92,.3),transparent 55%)",
-                        mixBlendMode: "screen",
-                      }}
-                    />
-                  )}
-                  {card.variant === "c1" && (
-                    <span
-                      className="absolute inset-0"
-                      style={{
-                        background:
-                          "radial-gradient(circle at 50% 60%,rgba(255,240,220,.5),transparent 65%)",
-                      }}
-                    />
-                  )}
+                  <Image
+                    src={card.src}
+                    alt={card.alt}
+                    fill
+                    sizes="(max-width: 768px) 200px, 260px"
+                    className="object-cover"
+                  />
                   <span
-                    className={`absolute left-2.5 top-2.5 rounded-full px-2 py-1 font-mono text-[10px] uppercase tracking-[0.22em] ${
-                      v.textDark
+                    className="absolute inset-x-0 bottom-0 h-1/2"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, transparent, rgba(21,20,15,0.35))",
+                    }}
+                    aria-hidden="true"
+                  />
+                  <span
+                    className={`absolute left-2.5 top-2.5 rounded-full px-2 py-1 font-mono text-[10px] uppercase tracking-[0.22em] backdrop-blur-sm ${
+                      card.darkText
                         ? "bg-[rgba(245,239,228,0.85)] text-[var(--ink-2)]"
-                        : "bg-[rgba(245,239,228,0.15)] text-[var(--paper)] backdrop-blur-sm"
+                        : "bg-[rgba(245,239,228,0.18)] text-[var(--paper)]"
                     }`}
                   >
                     {card.tag}
                   </span>
-                  <div
-                    className={`absolute bottom-3 left-3 right-3 flex justify-between font-mono text-[10px] uppercase tracking-[0.2em] ${
-                      v.textDark
-                        ? "text-[var(--ink-2)]"
-                        : "text-[rgba(245,239,228,0.75)]"
-                    }`}
-                  >
+                  <div className="absolute bottom-3 left-3 right-3 flex justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-[rgba(245,239,228,0.85)]">
                     <span>{card.idx}</span>
                     <span>{card.year}</span>
                   </div>

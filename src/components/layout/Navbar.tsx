@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -51,19 +52,14 @@ export function Navbar() {
             href="/"
             className="flex items-center gap-2.5 border-r border-[var(--rule-2)] pr-3 font-display text-[17px] tracking-[-0.01em] text-[var(--ink)]"
           >
-            <span
-              className="relative block h-[22px] w-[22px] rounded-full"
-              style={{
-                background:
-                  "conic-gradient(from 200deg, var(--accent), var(--accent-2), var(--accent))",
-              }}
-              aria-hidden="true"
-            >
-              <span
-                className="absolute rounded-full"
-                style={{ inset: 4, background: "var(--paper)" }}
-              />
-            </span>
+            <Image
+              src="/flutterly-logo.png"
+              alt=""
+              width={22}
+              height={22}
+              className="h-[22px] w-[22px] rounded-full object-cover"
+              priority
+            />
             <span className="font-medium">Flutterly</span>
           </Link>
 
@@ -82,7 +78,7 @@ export function Navbar() {
 
           <Link
             href={getHref("#brief")}
-            className="group ml-auto inline-flex items-center gap-2 rounded-full bg-[var(--ink)] px-3.5 py-2 text-[13px] text-[var(--paper)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--accent-ink)]"
+            className="group ml-auto hidden items-center gap-2 rounded-full bg-[var(--ink)] px-3.5 py-2 text-[13px] text-[var(--paper)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] md:inline-flex"
           >
             <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-[var(--accent)] group-hover:bg-[var(--accent-ink)]" />
             <span>Send a brief</span>
@@ -90,7 +86,7 @@ export function Navbar() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--rule-2)] text-[var(--ink-2)]"
+            className="md:hidden ml-auto inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--rule-2)] text-[var(--ink-2)]"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}

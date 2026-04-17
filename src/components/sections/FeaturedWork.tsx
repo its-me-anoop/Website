@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 function ArrowUp({ size = 12 }: { size?: number }) {
@@ -101,7 +102,7 @@ export function FeaturedWork() {
           {/* Sipli hero tile */}
           <Link
             href="/projects/sipli"
-            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] border border-[rgba(245,239,228,0.1)] bg-[linear-gradient(165deg,#1a1812,#2a2418)] p-6 text-[var(--paper)] transition-all hover:-translate-y-0.5 max-md:col-span-full max-md:row-span-3 md:col-span-7 md:row-span-3"
+            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] border border-[rgba(245,239,228,0.1)] bg-[linear-gradient(165deg,#0b2540,#0a1930)] p-6 text-[var(--paper)] transition-all hover:-translate-y-0.5 max-md:col-span-full max-md:row-span-3 md:col-span-7 md:row-span-3"
           >
             <div
               aria-hidden="true"
@@ -111,20 +112,23 @@ export function FeaturedWork() {
                   "radial-gradient(600px 300px at 80% 20%, rgba(77,212,232,.38), transparent 60%), radial-gradient(500px 280px at 20% 90%, rgba(209,74,31,.28), transparent 60%)",
               }}
             />
-            <span
+            <div
               aria-hidden="true"
-              className="absolute -bottom-10 -right-14 h-[480px] w-[320px] rounded-[44px] border border-[rgba(245,239,228,0.1)] transition-transform duration-700 group-hover:-translate-y-2 group-hover:rotate-[4deg]"
-              style={{
-                background: "linear-gradient(170deg,#0b2540,#0a1930)",
-                boxShadow:
-                  "inset 0 0 0 8px rgba(245,239,228,0.02), 0 40px 80px -20px rgba(0,0,0,0.5)",
-                transform: "rotate(8deg)",
-              }}
-            />
+              className="pointer-events-none absolute -bottom-24 -right-16 h-[120%] w-[46%] overflow-hidden rounded-[44px] border border-[rgba(245,239,228,0.1)] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.55)] transition-transform duration-700 group-hover:-translate-y-3 group-hover:rotate-[5deg]"
+              style={{ transform: "rotate(8deg)" }}
+            >
+              <Image
+                src="/images/sipli/iphone/01-hero-1320x2868.png"
+                alt=""
+                fill
+                sizes="(max-width: 768px) 100vw, 520px"
+                className="object-cover object-top"
+              />
+            </div>
             <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[rgba(245,239,228,0.6)]">
               01 · 2026 · iOS · iPadOS · watchOS
             </span>
-            <div>
+            <div className="relative max-w-[60%]">
               <h3 className="font-display text-[34px] font-normal leading-tight tracking-[-0.02em]">
                 Sipli.
               </h3>
@@ -170,13 +174,15 @@ export function FeaturedWork() {
               color: "#2a1b10",
             }}
           >
-            <span
-              aria-hidden="true"
-              className="absolute -right-5 top-10 h-[120px] w-[120px] rounded-full"
+            <Image
+              src="/projects/artling/fox-painter.png"
+              alt=""
+              width={160}
+              height={224}
+              sizes="160px"
+              className="pointer-events-none absolute -right-3 top-8 w-[140px] rotate-[6deg] transition-transform duration-700 group-hover:-translate-y-1 group-hover:rotate-0"
               style={{
-                background:
-                  "radial-gradient(circle at 35% 35%, #fff5e6, #d99a5f 60%)",
-                boxShadow: "0 10px 30px rgba(184,120,65,0.4)",
+                filter: "drop-shadow(0 12px 24px rgba(184,120,65,0.45))",
               }}
             />
             <span className="relative font-mono text-[10.5px] uppercase tracking-[0.22em]">
@@ -186,7 +192,7 @@ export function FeaturedWork() {
               <h3 className="font-display text-[34px] font-normal leading-tight tracking-[-0.02em]">
                 Artling.
               </h3>
-              <p className="mt-2 max-w-[22ch] text-[13px] leading-[1.5]">
+              <p className="mt-2 max-w-[18ch] text-[13px] leading-[1.5]">
                 A quiet corner of the App Store for families to archive
                 children&rsquo;s artwork.
               </p>
@@ -219,12 +225,23 @@ export function FeaturedWork() {
           {/* Greenmead */}
           <Link
             href="#"
-            className="group relative flex flex-col justify-between overflow-hidden rounded-[22px] p-6 transition-all hover:-translate-y-0.5 max-md:col-span-full md:col-span-4 md:row-span-1"
-            style={{
-              background: "linear-gradient(135deg,#c4d9c9,#6d9688)",
-              color: "#10281f",
-            }}
+            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] p-6 text-[#10281f] transition-all hover:-translate-y-0.5 max-md:col-span-full md:col-span-4 md:row-span-1"
           >
+            <Image
+              src="/abstract-greenmead.png"
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, 420px"
+              className="-z-10 object-cover transition-transform duration-[900ms] group-hover:scale-[1.04]"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -z-10"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(196,217,201,0.75), rgba(109,150,136,0.55))",
+              }}
+            />
             <span className="font-mono text-[10.5px] uppercase tracking-[0.22em]">
               03 · 2024 · Brand
             </span>
@@ -239,8 +256,23 @@ export function FeaturedWork() {
           {/* JJ Paper */}
           <Link
             href="#"
-            className="group relative flex flex-col justify-between overflow-hidden rounded-[22px] bg-[var(--paper-3)] p-6 text-[var(--ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full md:col-span-4 md:row-span-1"
+            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] bg-[var(--paper-3)] p-6 text-[var(--ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full md:col-span-4 md:row-span-1"
           >
+            <Image
+              src="/abstract-jjpaper.png"
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, 420px"
+              className="-z-10 object-cover opacity-75 transition-transform duration-[900ms] group-hover:scale-[1.04]"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -z-10"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(232,223,204,0.55), rgba(245,239,228,0.25))",
+              }}
+            />
             <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[var(--muted)]">
               04 · 2024 · Commerce
             </span>
@@ -255,38 +287,37 @@ export function FeaturedWork() {
           {/* Sandbourne */}
           <Link
             href="#"
-            className="group relative flex flex-col justify-between overflow-hidden rounded-[22px] p-6 text-[var(--ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full md:col-span-4 md:row-span-2"
+            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] p-6 text-[var(--ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full md:col-span-4 md:row-span-2"
           >
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 -z-10"
-              style={{
-                background: "linear-gradient(180deg,#e8dfcc 0%, #c7bfa9 100%)",
-              }}
+            <Image
+              src="/abstract-sandbourne.png"
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, 420px"
+              className="-z-10 object-cover transition-transform duration-[900ms] group-hover:scale-[1.04]"
             />
-            <div
+            <span
               aria-hidden="true"
-              className="absolute inset-x-0 bottom-0 h-[55%]"
+              className="pointer-events-none absolute inset-0 -z-10"
               style={{
                 background:
-                  "linear-gradient(180deg,transparent,rgba(21,20,15,.15) 80%), repeating-linear-gradient(90deg, rgba(21,20,15,.08) 0 1px, transparent 1px 20px), linear-gradient(180deg,#9da98f,#4a6652)",
-                borderTop: "1px solid rgba(21,20,15,0.1)",
+                  "linear-gradient(180deg, rgba(245,239,228,0.35) 0%, rgba(245,239,228,0.1) 40%, rgba(21,20,15,0.35) 100%)",
               }}
             />
-            <span className="relative z-[1] font-mono text-[10.5px] uppercase tracking-[0.22em] text-[var(--muted)]">
+            <span className="relative font-mono text-[10.5px] uppercase tracking-[0.22em] text-[var(--muted)]">
               05 · 2024 · Hospitality
             </span>
-            <div className="relative z-[1]">
-              <h3 className="font-display text-[34px] font-normal leading-tight tracking-[-0.02em]">
+            <div className="relative">
+              <h3 className="font-display text-[34px] font-normal leading-tight tracking-[-0.02em] text-[var(--paper)]" style={{textShadow:"0 1px 14px rgba(21,20,15,0.35)"}}>
                 Sandbourne.
               </h3>
-              <p className="mt-2 max-w-[28ch] text-[13px] leading-[1.5] text-[var(--ink-2)]">
+              <p className="mt-2 max-w-[28ch] text-[13px] leading-[1.5] text-[rgba(245,239,228,0.92)]" style={{textShadow:"0 1px 10px rgba(21,20,15,0.45)"}}>
                 A reservations engine for boutique inns — effortless from first
                 tap to front desk.
               </p>
             </div>
-            <div className="relative z-[1] flex items-center justify-between font-mono text-[10.5px] uppercase tracking-[0.2em] text-[var(--muted)]">
-              <span className="inline-flex items-center gap-1.5 text-[var(--ink-2)]">
+            <div className="relative flex items-center justify-between font-mono text-[10.5px] uppercase tracking-[0.2em] text-[rgba(245,239,228,0.75)]">
+              <span className="inline-flex items-center gap-1.5 text-[var(--paper)]">
                 Case <ArrowUp />
               </span>
             </div>

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const meta = [
   { k: "Founded", v: "2024" },
   { k: "Based", v: "Reading, UK" },
@@ -75,33 +77,29 @@ export default function About() {
 
           {/* Portrait */}
           <figure
-            className="relative m-0 overflow-hidden rounded-[22px] bg-[linear-gradient(170deg,#2a2418,#15140f)]"
+            className="relative m-0 overflow-hidden rounded-[22px] bg-[#15140f]"
             style={{
               aspectRatio: "4/5",
               boxShadow: "var(--shadow)",
             }}
           >
-            <div
-              aria-hidden="true"
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(circle at 30% 30%, rgba(209,74,31,.35), transparent 55%), radial-gradient(circle at 70% 75%, rgba(13,107,92,.3), transparent 55%)",
-              }}
+            <Image
+              src="/anoop-jose.jpg"
+              alt="Portrait of Anoop Jose"
+              fill
+              sizes="(max-width: 768px) 100vw, 520px"
+              className="object-cover"
             />
             <span
               aria-hidden="true"
-              className="absolute inset-x-0 bottom-0 text-center font-display font-light leading-[0.9] tracking-[-0.05em]"
+              className="absolute inset-x-0 bottom-0 h-2/3"
               style={{
-                padding: 30,
-                fontSize: 220,
-                color: "rgba(245,239,228,0.08)",
+                background:
+                  "linear-gradient(180deg, transparent, rgba(21,20,15,0.85))",
               }}
-            >
-              A.J.
-            </span>
+            />
             <figcaption className="absolute inset-x-5 bottom-5 z-[2] text-[var(--paper)]">
-              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[rgba(245,239,228,0.6)]">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[rgba(245,239,228,0.7)]">
                 Founder · Lead Engineer
               </div>
               <div className="mt-1 font-display text-[22px]">Anoop Jose</div>
