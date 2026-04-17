@@ -25,8 +25,8 @@ const fadeUp = {
 
 const contactSheet = [
   {
-    src: "/projects/sipli/dashboard.png",
-    alt: "Sipli — hydration dashboard on iPhone",
+    src: "/images/sipli/iphone/01-hero-1320x2868.png",
+    alt: "Sipli 3.0 — hydration dashboard on iPhone",
     tag: "Sipli",
   },
   {

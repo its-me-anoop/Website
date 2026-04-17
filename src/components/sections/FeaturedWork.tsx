@@ -37,7 +37,7 @@ const projects: Project[] = [
         category: "iOS · iPadOS · watchOS",
         description:
             "An AI hydration coach on your wrist. 35+ beverages, Apple Watch quick-logging, and an on-device model that feels human.",
-        image: "/projects/sipli/app-icon.png",
+        image: "/images/sipli/iphone/01-hero-1320x2868.png",
         href: "/projects/sipli",
         live: true,
     },

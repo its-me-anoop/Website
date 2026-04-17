@@ -70,13 +70,13 @@ export function Navbar() {
                 >
                     {/* Logo */}
                     <Link href="/" className="flex min-w-0 items-center gap-2 group">
-                        <div className="relative h-8 w-8 flex-shrink-0 overflow-hidden rounded-xl bg-white p-[3px]">
+                        <div className="relative h-8 w-8 flex-shrink-0 overflow-hidden">
                             <Image
                                 src="/flutterly-logo.png"
                                 alt="Flutterly"
                                 width={32}
                                 height={32}
-                                className="w-full h-full object-contain"
+                                className="w-full h-full object-contain brightness-0 invert"
                                 priority
                             />
                         </div>

@@ -47,13 +47,13 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-10">
           {/* Brand block */}
           <div className="md:col-span-5">
-            <div className="mb-5 inline-block rounded-lg bg-white p-2">
+            <div className="mb-5 inline-block">
               <Image
                 src="/flutterly-logo.png"
                 alt="Flutterly logo"
                 width={24}
                 height={24}
-                className="h-6 w-6"
+                className="h-6 w-6 brightness-0 invert"
               />
             </div>
             <p className="max-w-sm text-[15px] leading-relaxed text-foreground-secondary">
