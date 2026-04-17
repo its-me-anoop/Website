@@ -33,10 +33,10 @@ const projects: Project[] = [
     {
         number: "01",
         title: "Sipli",
-        year: "2025",
-        category: "iOS · iPadOS",
+        year: "2026",
+        category: "iOS · iPadOS · watchOS",
         description:
-            "An AI hydration coach in your pocket. 18+ beverages, widgets, and an on-device model that feels human.",
+            "An AI hydration coach on your wrist. 35+ beverages, Apple Watch quick-logging, and an on-device model that feels human.",
         image: "/projects/sipli/app-icon.png",
         href: "/projects/sipli",
         live: true,

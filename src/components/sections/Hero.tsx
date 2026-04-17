@@ -72,7 +72,7 @@ export function Hero() {
         >
           <MetaCell label="Studio" value="Flutterly Ltd" />
           <MetaCell label="Est." value="Reading, UK · 2024" />
-          <MetaCell label="On the bench" value="Sipli 2.0" />
+          <MetaCell label="On the bench" value="Sipli 3.0" />
           <MetaCell
             label="Status"
             value={
