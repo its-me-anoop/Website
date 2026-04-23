@@ -21,6 +21,7 @@ import {
     Command,
     ChevronRight,
     Star,
+    Leaf,
 } from "lucide-react";
 
 /* ═══════════════════════════════════════════
@@ -367,6 +368,154 @@ export default function SipliPage() {
                     </motion.div>
                 </div>
             </section>
+
+            {/* ── EARTH WEEK ── */}
+            <section className="py-24 md:py-32 px-6 md:px-14 bg-background-secondary relative overflow-hidden">
+                <div
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full pointer-events-none"
+                    style={{ background: "rgba(56,158,107,0.10)", filter: "blur(140px)" }}
+                    aria-hidden
+                />
+                <div className="relative z-10 max-w-[1200px] mx-auto">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-80px" }}
+                        variants={stagger}
+                    >
+                        {/* Banner Card */}
+                        <motion.div
+                            variants={scaleIn}
+                            className="relative rounded-[32px] overflow-hidden p-10 md:p-14 lg:p-16"
+                            style={{
+                                background:
+                                    "linear-gradient(135deg, rgb(56,158,107) 0%, rgb(20,115,77) 55%, rgb(10,77,56) 100%)",
+                            }}
+                        >
+                            <div
+                                className="absolute -top-20 -right-16 w-72 h-72 rounded-full pointer-events-none"
+                                style={{ background: "rgba(255,255,255,0.08)", filter: "blur(60px)" }}
+                                aria-hidden
+                            />
+                            <div
+                                className="absolute -bottom-24 -left-16 w-80 h-80 rounded-full pointer-events-none"
+                                style={{ background: "rgba(0,0,0,0.18)", filter: "blur(80px)" }}
+                                aria-hidden
+                            />
+
+                            <div className="relative max-w-[640px]">
+                                <motion.div variants={fadeInUp}>
+                                    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-white/20 text-white border border-white/20 mb-6 backdrop-blur-sm">
+                                        <Leaf className="w-3 h-3" />
+                                        Earth Week 2026 · Apr 20–26
+                                    </span>
+                                </motion.div>
+
+                                <motion.h2
+                                    variants={fadeInUp}
+                                    className="font-display font-medium tracking-[-0.025em] leading-[1.05] mb-5 text-white"
+                                    style={{ fontSize: "clamp(2.25rem, 4.8vw, 3.75rem)" }}
+                                >
+                                    Every sip,{" "}
+                                    <span className="italic font-light text-white/90">
+                                        less plastic.
+                                    </span>
+                                </motion.h2>
+
+                                <motion.p
+                                    variants={fadeInUp}
+                                    className="text-white/85 leading-relaxed mb-8 max-w-[480px]"
+                                >
+                                    From April 20 to 26, Sipli joins Earth Week with a quiet
+                                    in-app moment for the refill habit — a shareable Refill
+                                    Pledge, a leaf-green home banner, and an Insights tile
+                                    that counts every sip you log during the week.
+                                </motion.p>
+
+                                <motion.blockquote
+                                    variants={fadeInUp}
+                                    className="border-l-2 border-white/40 pl-5 mb-9"
+                                >
+                                    <p
+                                        className="font-display italic text-white leading-snug"
+                                        style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}
+                                    >
+                                        “I pledge to refill, not rebuy, this Earth Week.”
+                                    </p>
+                                    <p className="text-white/70 text-xs mt-2 tracking-wide uppercase font-semibold">
+                                        The Sipli Refill Pledge
+                                    </p>
+                                </motion.blockquote>
+
+                                <motion.div variants={fadeInUp}>
+                                    <AppStoreBadge />
+                                </motion.div>
+                            </div>
+                        </motion.div>
+
+                        {/* What's inside */}
+                        <motion.div
+                            variants={stagger}
+                            className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6"
+                        >
+                            {[
+                                {
+                                    title: "Refill Pledge",
+                                    desc: "A shareable pledge card — exported straight from your device. No accounts, no cloud.",
+                                },
+                                {
+                                    title: "Earth Week banner",
+                                    desc: "A leaf-green card on the Dashboard from April 20 through the 26th, dismissible any time.",
+                                },
+                                {
+                                    title: "Sips this Earth Week",
+                                    desc: "A dedicated Insights tile that quietly counts every drink you log during the week.",
+                                },
+                                {
+                                    title: "Why reusable bottles",
+                                    desc: "Year-round in Settings — the honest case for tap water, reusable bottles, and habit over hype.",
+                                },
+                            ].map((f, i) => (
+                                <motion.div
+                                    key={i}
+                                    variants={fadeInUp}
+                                    className="p-6 rounded-2xl border border-border bg-surface hover:border-border-strong transition-colors"
+                                >
+                                    <div className="flex items-start gap-3">
+                                        <div
+                                            className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                                            style={{ background: "rgba(56,158,107,0.14)" }}
+                                        >
+                                            <Leaf
+                                                className="w-4 h-4"
+                                                style={{ color: "rgb(56,158,107)" }}
+                                            />
+                                        </div>
+                                        <div>
+                                            <h4 className="text-base font-display font-semibold mb-1.5 text-foreground tracking-tight">
+                                                {f.title}
+                                            </h4>
+                                            <p className="text-sm text-foreground-secondary leading-relaxed">
+                                                {f.desc}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+
+                        <motion.p
+                            variants={fadeInUp}
+                            className="text-xs text-foreground-tertiary text-center mt-8 max-w-[520px] mx-auto leading-relaxed"
+                        >
+                            Sipli doesn’t count bottles saved or fabricate eco-metrics. It
+                            just helps you notice each sip — and noticing is usually what
+                            makes a habit stick.
+                        </motion.p>
+                    </motion.div>
+                </div>
+            </section>
+
 
             {/* ── AI COACH ── */}
             <section className="py-28 md:py-36 px-6 md:px-14 bg-background relative overflow-hidden">

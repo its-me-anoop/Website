@@ -1,132 +1,110 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Linkedin, Mail } from "lucide-react";
 
-const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const facts = [
-  ["Based in", "Reading, UK"],
-  ["Founded", "2024"],
-  ["Led by", "Anoop Jose"],
-  ["Focus", "One active build"],
+const meta = [
+  { k: "Founded", v: "2024" },
+  { k: "Based", v: "Reading, UK" },
+  { k: "Headcount", v: "1 + friends" },
+  { k: "Reply time", v: "Within a day" },
 ];
 
 export default function About() {
   return (
     <section
-      id="about"
-      aria-labelledby="about-heading"
-      className="bg-background px-5 py-20 text-foreground sm:px-8 sm:py-28"
+      id="studio"
+      className="relative border-t border-[var(--rule)] bg-[var(--paper-2)] py-[120px]"
     >
-      <div className="mx-auto max-w-[1180px]">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease }}
-          className="mx-auto max-w-4xl text-center"
-        >
-          <p className="text-xl font-semibold text-foreground-secondary">
-            Studio
-          </p>
-          <h2
-            id="about-heading"
-            className="mt-3 text-4xl font-semibold leading-tight sm:text-6xl md:text-7xl"
-          >
-            Small by design. Close to every detail.
-          </h2>
-          <p className="mx-auto mt-5 max-w-3xl text-xl leading-8 text-foreground-secondary">
-            Flutterly is led by Anoop Jose, with a trusted network of
-            collaborators added only when the product genuinely benefits from
-            more hands.
-          </p>
-        </motion.div>
-
-        <div className="mt-14 grid gap-6 lg:grid-cols-[0.88fr_1.12fr]">
-          <motion.figure
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, ease }}
-            className="overflow-hidden rounded-[8px] bg-background-secondary"
-          >
-            <div className="relative aspect-[4/5]">
-              <Image
-                src="/anoop-jose.jpg"
-                alt="Portrait of Anoop Jose, founder of Flutterly"
-                fill
-                sizes="(max-width: 1024px) 100vw, 480px"
-                className="object-cover"
-              />
+      <div className="mx-auto w-full max-w-[1240px] px-5 md:px-7">
+        {/* Head */}
+        <div className="mb-14 grid items-end gap-10 md:grid-cols-2 md:gap-16">
+          <div>
+            <div className="font-mono text-[10.5px] uppercase tracking-[0.28em] text-[var(--accent)]">
+              № 05 · The studio
             </div>
-            <figcaption className="p-6">
-              <p className="text-lg font-semibold">Anoop Jose</p>
-              <p className="mt-1 text-foreground-secondary">
-                Founder and lead engineer
-              </p>
-            </figcaption>
-          </motion.figure>
+            <h2
+              className="mt-3 font-display text-[clamp(40px,5.5vw,72px)] font-light leading-[1.02] tracking-[-0.025em]"
+              style={{ fontVariationSettings: '"opsz" 144, "SOFT" 50, "WONK" 0' }}
+            >
+              One person, <em className="italic text-[var(--ink-2)]">a few trusted<br />collaborators</em>,
+              a short<br />client list.
+            </h2>
+          </div>
+          <p className="max-w-[420px] text-[16px] leading-[1.6] text-[var(--ink-2)]">
+            Flutterly is a UK-registered product studio, founded in 2024 after a
+            decade of shipping inside larger teams.
+          </p>
+        </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, delay: 0.08, ease }}
-            className="rounded-[8px] bg-background-secondary p-7 sm:p-10"
-          >
-            <p className="text-3xl font-semibold leading-tight sm:text-5xl">
-              The best products feel inevitable because someone cared about the
-              invisible parts.
-            </p>
-            <div className="mt-8 grid gap-5 text-lg leading-8 text-foreground-secondary sm:grid-cols-2">
-              <p>
-                We keep strategy, interaction design, implementation, and launch
-                work in the same conversation. That makes the product simpler to
-                use and easier to own.
+        {/* Body grid */}
+        <div className="grid gap-10 md:grid-cols-2 md:gap-20">
+          <div>
+            <blockquote
+              className="m-0 font-display text-[clamp(28px,3.4vw,44px)] font-light italic leading-[1.2] tracking-[-0.02em] text-[var(--ink)]"
+              style={{ fontVariationSettings: '"opsz" 144, "SOFT" 50, "WONK" 0' }}
+            >
+              <span
+                aria-hidden="true"
+                className="mr-[0.1em] inline-block text-[1.6em] leading-[0] align-[-0.2em] text-[var(--accent)]"
+              >
+                &ldquo;
+              </span>
+              I started Flutterly because I was tired of handing off work to
+              people who didn&rsquo;t care about it as much as I did. So I
+              stopped handing it off.
+            </blockquote>
+            <div className="mt-8 max-w-[480px] text-[16px] leading-[1.7] text-[var(--ink-2)]">
+              <p className="m-0">
+                We&rsquo;re small on purpose. We take on a handful of engagements
+                a year so we can write the code, draw the pixels, and answer the
+                email — usually in that order.
               </p>
-              <p>
-                We work with founders and teams replacing rough tools, building
-                native mobile apps, or turning a sharp product idea into a
-                release people can trust.
+              <p className="mt-3.5">
+                We&rsquo;re at our best with founders sketching the first version,
+                teams redesigning something their users secretly hate, and
+                companies who want a partner — not a vendor — for the long run.
               </p>
             </div>
-
-            <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-[8px] bg-border sm:grid-cols-4">
-              {facts.map(([label, value]) => (
-                <div key={label} className="bg-background p-4">
-                  <dt className="text-sm text-foreground-tertiary">{label}</dt>
-                  <dd className="mt-2 text-lg font-semibold">{value}</dd>
+            <div className="mt-10 grid grid-cols-2 gap-4 border-t border-[var(--rule)] pt-6 md:grid-cols-4">
+              {meta.map((m) => (
+                <div key={m.k} className="flex flex-col gap-1">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
+                    {m.k}
+                  </span>
+                  <span className="font-display text-[17px]">{m.v}</span>
                 </div>
               ))}
-            </dl>
-
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Link
-                href="https://www.linkedin.com/in/anoop-jose-0b308a296/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background transition duration-200 hover:bg-black"
-              >
-                <Linkedin size={16} aria-hidden />
-                LinkedIn
-              </Link>
-              <Link
-                href="mailto:anoop@flutterly.co.uk"
-                className="group inline-flex min-h-11 items-center gap-1 rounded-full px-3 text-sm font-medium text-accent transition duration-200 hover:text-accent-hover"
-              >
-                Email Anoop
-                <ArrowRight
-                  size={16}
-                  className="transition duration-200 group-hover:translate-x-0.5"
-                  aria-hidden
-                />
-                <Mail className="sr-only" size={1} aria-hidden />
-              </Link>
             </div>
-          </motion.div>
+          </div>
+
+          {/* Portrait */}
+          <figure
+            className="relative m-0 overflow-hidden rounded-[22px] bg-[#15140f]"
+            style={{
+              aspectRatio: "4/5",
+              boxShadow: "var(--shadow)",
+            }}
+          >
+            <Image
+              src="/anoop-jose.jpg"
+              alt="Portrait of Anoop Jose"
+              fill
+              sizes="(max-width: 768px) 100vw, 520px"
+              className="object-cover"
+            />
+            <span
+              aria-hidden="true"
+              className="absolute inset-x-0 bottom-0 h-2/3"
+              style={{
+                background:
+                  "linear-gradient(180deg, transparent, rgba(21,20,15,0.85))",
+              }}
+            />
+            <figcaption className="absolute inset-x-5 bottom-5 z-[2] text-[var(--paper)]">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[rgba(245,239,228,0.7)]">
+                Founder · Lead Engineer
+              </div>
+              <div className="mt-1 font-display text-[22px]">Anoop Jose</div>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>

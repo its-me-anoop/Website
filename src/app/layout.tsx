@@ -1,33 +1,54 @@
 import type { Metadata, Viewport } from "next";
+import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal", "italic"],
+  axes: ["SOFT", "WONK", "opsz"],
+});
+
+const geist = Geist({
+  variable: "--font-geist",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500"],
+});
 
 const siteUrl = "https://flutterly.uk";
-const siteName = "Flutterly";
+const siteName = "Flutterly Ltd";
 const siteDescription =
-  "Flutterly is a Reading-based product studio designing and building polished web and mobile apps with a native, considered feel.";
+  "UK-based digital studio crafting high-performance web applications, cross-platform mobile apps, and enterprise solutions with care and creativity.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} — Apps that feel instantly familiar`,
-    template: `%s · ${siteName}`,
+    default: `${siteName} | Web & Mobile Development`,
+    template: `%s | ${siteName}`,
   },
   description: siteDescription,
   keywords: [
-    "product studio UK",
-    "design engineering",
-    "Next.js studio",
-    "Flutter app development",
-    "iOS app studio",
-    "SwiftUI developer UK",
-    "React development Reading",
-    "small agency UK",
-    "founder-led studio",
-    "Anoop Jose",
+    "web development",
+    "mobile app development",
+    "next.js agency",
+    "flutter development",
+    "react development",
+    "enterprise support",
+    "uk software agency",
   ],
-  authors: [{ name: "Flutterly Ltd" }],
-  creator: "Flutterly Ltd",
-  publisher: "Flutterly Ltd",
+  authors: [{ name: siteName }],
+  creator: siteName,
+  publisher: siteName,
   alternates: {
     canonical: "/",
   },
@@ -35,21 +56,20 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName,
-    locale: "en_GB",
-    title: `${siteName} — Apps that feel instantly familiar`,
+    title: `${siteName} | Web & Mobile Development`,
     description: siteDescription,
     images: [
       {
         url: "/flutterly-title.png",
         width: 1200,
         height: 630,
-        alt: "Flutterly — product studio, Reading, UK",
+        alt: "Flutterly Ltd",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} — Apps that feel instantly familiar`,
+    title: `${siteName} | Web & Mobile Development`,
     description: siteDescription,
     images: ["/flutterly-title.png"],
   },
@@ -67,7 +87,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5f5f7",
+  themeColor: "#f5efe4",
 };
 
 function JsonLd() {
@@ -78,7 +98,7 @@ function JsonLd() {
     url: siteUrl,
     logo: `${siteUrl}/flutterly-title.png`,
     description:
-      "Reading-based product studio designing and building polished web and mobile apps with a native, considered feel.",
+      "UK-based digital studio crafting web applications, mobile apps, and enterprise solutions.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Flat 21, 3 Erleigh Road",
@@ -97,7 +117,7 @@ function JsonLd() {
     founder: {
       "@type": "Person",
       name: "Anoop Jose",
-      jobTitle: "Founder and Lead Engineer",
+      jobTitle: "Lead Developer & Founder",
     },
     sameAs: ["https://www.linkedin.com/in/anoop-jose-0b308a296/"],
     knowsAbout: [
@@ -107,7 +127,7 @@ function JsonLd() {
       "Next.js",
       "Flutter",
       "SwiftUI",
-      "Product Design",
+      "Enterprise Solutions",
     ],
     areaServed: {
       "@type": "Country",
@@ -116,7 +136,7 @@ function JsonLd() {
     serviceType: [
       "Web Development",
       "Mobile App Development",
-      "Product Design",
+      "Enterprise Solutions",
     ],
   };
 
@@ -138,7 +158,12 @@ export default function RootLayout({
       <head>
         <JsonLd />
       </head>
-      <body className="min-h-screen bg-background font-sans text-foreground antialiased">
+      <body className={cn(
+        fraunces.variable,
+        geist.variable,
+        geistMono.variable,
+        "antialiased bg-background text-foreground font-sans min-h-screen"
+      )}>
         {children}
       </body>
     </html>

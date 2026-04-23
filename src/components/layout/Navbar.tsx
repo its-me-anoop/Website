@@ -1,123 +1,150 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
 
 const navItems = [
   { name: "Work", href: "#work" },
-  { name: "Process", href: "#practice" },
-  { name: "Studio", href: "#about" },
+  { name: "Practice", href: "#practice" },
+  { name: "Open source", href: "#oss" },
+  { name: "Studio", href: "#studio" },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
-  const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 12);
-  });
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const getHref = (href: string) => (pathname === "/" ? href : `/${href}`);
+  const getHref = (href: string) => {
+    if (pathname === "/") return href;
+    return `/${href}`;
+  };
 
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-[100]">
+      <nav
+        aria-label="Primary"
+        className="fixed top-3 left-1/2 z-[100] -translate-x-1/2 w-[min(96vw,780px)] md:w-auto"
+      >
         <div
-          className={`mx-auto flex h-12 w-full items-center justify-between px-5 text-sm transition duration-300 md:px-10 ${
-            scrolled
-              ? "border-b border-border bg-background/82 backdrop-blur-xl"
-              : "bg-background/66 backdrop-blur-xl"
-          }`}
+          className="flex items-center gap-1.5 rounded-full border border-[var(--rule-2)] bg-[rgba(245,239,228,0.78)] py-2 pl-4 pr-2 backdrop-blur-xl md:gap-1.5"
+          style={{
+            boxShadow: scrolled
+              ? "0 14px 34px -18px rgba(21,20,15,0.35)"
+              : "0 10px 30px -18px rgba(21,20,15,0.18)",
+            transition: "box-shadow 0.3s ease",
+          }}
         >
-          <Link href="/" className="flex items-center gap-2 font-semibold">
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 border-r border-[var(--rule-2)] pr-3 font-display text-[17px] tracking-[-0.01em] text-[var(--ink)]"
+          >
             <Image
               src="/flutterly-logo.png"
-              alt="Flutterly"
+              alt=""
               width={22}
               height={22}
-              className="h-[18px] w-[18px] object-contain brightness-0"
+              className="h-[22px] w-[22px] rounded-full object-cover"
               priority
             />
-            <span>Flutterly</span>
+            <span className="font-medium">Flutterly</span>
           </Link>
 
-          <nav
-            className="hidden items-center gap-8 text-xs text-foreground-secondary md:flex"
-            aria-label="Primary"
-          >
+          <ul className="hidden items-center gap-0.5 px-1 text-[13.5px] md:flex">
             {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={getHref(item.href)}
-                className="transition duration-200 hover:text-foreground"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="hidden md:block">
-            <Link
-              href={pathname === "/" ? "#brief" : "/#brief"}
-              className="inline-flex min-h-8 items-center rounded-full bg-accent px-4 text-xs font-medium text-white transition duration-200 hover:bg-accent-hover"
-            >
-              Start a project
-            </Link>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setMenuOpen((open) => !open)}
-            className="flex h-9 w-9 items-center justify-center rounded-full text-foreground md:hidden"
-            aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </header>
-
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.24, ease }}
-            className="fixed inset-x-0 top-12 z-[99] border-b border-border bg-background/96 px-5 py-6 shadow-xl backdrop-blur-xl md:hidden"
-          >
-            <nav className="grid gap-1" aria-label="Mobile primary">
-              {navItems.map((item) => (
+              <li key={item.name}>
                 <Link
-                  key={item.name}
                   href={getHref(item.href)}
-                  onClick={() => setMenuOpen(false)}
-                  className="rounded-[8px] px-2 py-3 text-2xl font-semibold"
+                  className="block rounded-full px-3 py-1.5 text-[var(--ink-2)] transition-colors hover:bg-[rgba(21,20,15,0.06)] hover:text-[var(--ink)]"
                 >
                   {item.name}
                 </Link>
+              </li>
+            ))}
+          </ul>
+
+          <Link
+            href={getHref("#brief")}
+            className="group ml-auto hidden items-center gap-2 rounded-full bg-[var(--ink)] px-3.5 py-2 text-[13px] text-[var(--paper)] transition-colors hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] md:inline-flex"
+          >
+            <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-[var(--accent)] group-hover:bg-[var(--accent-ink)]" />
+            <span>Send a brief</span>
+          </Link>
+
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden ml-auto inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--rule-2)] text-[var(--ink-2)]"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
+        </div>
+      </nav>
+
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease }}
+            className="fixed inset-0 z-[99] flex flex-col items-center justify-center bg-[rgba(245,239,228,0.97)] px-6 backdrop-blur-xl md:hidden"
+          >
+            <motion.nav
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3, ease }}
+              className="w-full max-w-sm space-y-5 text-center"
+            >
+              {navItems.map((item, index) => (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.08 + index * 0.05,
+                    ease,
+                  }}
+                >
+                  <Link
+                    href={getHref(item.href)}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block font-display text-4xl font-light tracking-tight text-[var(--ink)] transition-colors hover:text-[var(--accent)]"
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
               ))}
-              <Link
-                href={pathname === "/" ? "#brief" : "/#brief"}
-                onClick={() => setMenuOpen(false)}
-                className="mt-3 inline-flex min-h-11 items-center justify-center rounded-full bg-accent px-5 text-sm font-medium text-white"
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, ease }}
+                className="pt-8"
               >
-                Start a project
-              </Link>
-            </nav>
+                <Link
+                  href={getHref("#brief")}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--ink)] px-7 py-3.5 text-sm font-medium text-[var(--paper)]"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+                  Send a brief
+                </Link>
+              </motion.div>
+            </motion.nav>
           </motion.div>
         )}
       </AnimatePresence>
