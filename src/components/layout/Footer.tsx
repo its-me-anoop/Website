@@ -1,79 +1,69 @@
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 
 const year = new Date().getFullYear();
 
 const columns = [
   {
-    label: "Studio",
+    label: "Explore",
     items: [
-      { name: "Ledger", href: "/#work" },
-      { name: "Practice", href: "/#practice" },
-      { name: "About", href: "/#about" },
-      { name: "Send a brief", href: "/#brief" },
+      { name: "Work", href: "/#work" },
+      { name: "Process", href: "/#practice" },
+      { name: "Studio", href: "/#about" },
+      { name: "Start", href: "/#brief" },
     ],
   },
   {
-    label: "Elsewhere",
+    label: "Contact",
     items: [
-      { name: "LinkedIn", href: "https://www.linkedin.com/in/anoop-jose-0b308a296/", external: true },
-      { name: "Email", href: "mailto:anoop@flutterly.co.uk", external: false },
+      { name: "anoop@flutterly.co.uk", href: "mailto:anoop@flutterly.co.uk" },
+      { name: "+44 7780 580 534", href: "tel:+447780580534" },
+      {
+        name: "LinkedIn",
+        href: "https://www.linkedin.com/in/anoop-jose-0b308a296/",
+        external: true,
+      },
     ],
   },
   {
-    label: "Paperwork",
+    label: "Company",
     items: [
       { name: "Flutterly Ltd", href: "/#about" },
-      { name: "Reading, Berkshire, UK", href: "/#about" },
-      { name: "anoop@flutterly.co.uk", href: "mailto:anoop@flutterly.co.uk" },
+      { name: "Reading, UK", href: "/#about" },
+      { name: "Sipli privacy", href: "/projects/sipli/privacy-policy" },
     ],
   },
 ];
 
 export function Footer() {
   return (
-    <footer className="bg-background border-t border-border px-4 pt-16 pb-8 sm:px-6 sm:pt-20 md:px-10 md:pt-24">
-      <div className="mx-auto max-w-[1200px]">
-        {/* Oversize wordmark — editorial statement */}
-        <div className="mb-12 overflow-hidden border-b border-border pb-10 sm:mb-16 sm:pb-14">
-          <p
-            aria-hidden
-            className="select-none font-display text-[22vw] font-light leading-[0.9] tracking-[-0.04em] text-foreground sm:text-[18vw]"
-          >
-            Flutterly<span className="text-accent">.</span>
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-10">
-          {/* Brand block */}
-          <div className="md:col-span-5">
-            <div className="mb-5 inline-block">
+    <footer className="border-t border-border bg-background px-5 py-10 text-foreground sm:px-8">
+      <div className="mx-auto max-w-[1180px]">
+        <div className="grid gap-10 md:grid-cols-[1fr_1.4fr]">
+          <div>
+            <Link href="/" className="inline-flex items-center gap-2 font-semibold">
               <Image
                 src="/flutterly-logo.png"
-                alt="Flutterly logo"
-                width={24}
-                height={24}
-                className="h-6 w-6 brightness-0 invert"
+                alt="Flutterly"
+                width={22}
+                height={22}
+                className="h-[18px] w-[18px] brightness-0"
               />
-            </div>
-            <p className="max-w-sm text-[15px] leading-relaxed text-foreground-secondary">
-              A small UK product studio. We design, engineer, and ship web and
-              mobile software for founders and teams who still care about the
-              craft.
-            </p>
-            <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
-              Est. 2024 · Reading, UK
+              Flutterly
+            </Link>
+            <p className="mt-4 max-w-sm text-sm leading-6 text-foreground-secondary">
+              Polished web and mobile products, designed and built from
+              Reading, UK.
             </p>
           </div>
 
-          {/* Link columns */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-10 md:col-span-7">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             {columns.map((column) => (
               <div key={column.label}>
-                <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
+                <p className="mb-3 text-xs font-semibold text-foreground">
                   {column.label}
                 </p>
-                <ul className="space-y-3">
+                <ul className="space-y-2">
                   {column.items.map((item) => (
                     <li key={item.name}>
                       <Link
@@ -81,7 +71,7 @@ export function Footer() {
                         {...("external" in item && item.external
                           ? { target: "_blank", rel: "noopener noreferrer" }
                           : {})}
-                        className="text-sm text-foreground-secondary transition-colors hover:text-foreground"
+                        className="text-xs text-foreground-secondary transition duration-200 hover:text-foreground"
                       >
                         {item.name}
                       </Link>
@@ -93,10 +83,9 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom ledger */}
-        <div className="mt-16 flex flex-col gap-3 border-t border-border pt-6 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} Flutterly Ltd · All rights reserved</p>
-          <p>Hand-built in Reading, UK</p>
+        <div className="mt-10 flex flex-col gap-2 border-t border-border pt-5 text-xs text-foreground-tertiary sm:flex-row sm:items-center sm:justify-between">
+          <p>Copyright © {year} Flutterly Ltd. All rights reserved.</p>
+          <p>Built with care in Reading.</p>
         </div>
       </div>
     </footer>

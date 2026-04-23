@@ -11,23 +11,23 @@ import About from "@/components/About";
 const siteUrl = "https://flutterly.uk";
 
 export const metadata: Metadata = {
-  title: "A small UK studio building products people keep open",
+  title: "Flutterly — Apps that feel instantly familiar",
   description:
-    "Flutterly is a Reading-based design-and-engineering studio led by Anoop Jose. We take on one brief at a time, ship every week, and build web and mobile products you own end-to-end.",
+    "Flutterly is a Reading-based product studio designing and building polished web and mobile apps with a native, considered feel.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Flutterly — A small UK studio building products people keep open",
+    title: "Flutterly — Apps that feel instantly familiar",
     description:
-      "A Reading-based design-and-engineering studio. One brief at a time. Weekly ships. Yours to own. Web and mobile products built with care.",
+      "A Reading-based product studio for polished web and mobile apps. Clear strategy, careful interfaces, and production code.",
     url: siteUrl,
     type: "website",
   },
   twitter: {
-    title: "Flutterly — A small UK studio building products people keep open",
+    title: "Flutterly — Apps that feel instantly familiar",
     description:
-      "A Reading-based design-and-engineering studio. One brief at a time. Weekly ships. Yours to own.",
+      "A Reading-based product studio for polished web and mobile apps.",
   },
 };
 
@@ -43,7 +43,7 @@ const homePageJsonLd = {
       image: `${siteUrl}/flutterly-title.png`,
       logo: `${siteUrl}/flutterly-logo.png`,
       description:
-        "Reading-based design-and-engineering studio building web and mobile products with care. Led by Anoop Jose.",
+        "Reading-based product studio designing and building polished web and mobile apps with a native, considered feel. Led by Anoop Jose.",
       priceRange: "££-£££",
       telephone: "+44-7780-580534",
       email: "anoop@flutterly.co.uk",
@@ -124,7 +124,7 @@ const homePageJsonLd = {
       "@type": "WebPage",
       "@id": `${siteUrl}/#home`,
       url: siteUrl,
-      name: "Flutterly — A small UK studio building products people keep open",
+      name: "Flutterly — Apps that feel instantly familiar",
       isPartOf: { "@id": `${siteUrl}/#website` },
       about: { "@id": `${siteUrl}/#studio` },
       primaryImageOfPage: `${siteUrl}/flutterly-title.png`,
@@ -138,7 +138,7 @@ const homePageJsonLd = {
           name: "What kind of projects does Flutterly take on?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "We focus on early-stage products, redesigns of internal tools, and ambitious mobile apps. We take one engagement at a time so the client on the bench has our full attention.",
+            text: "We focus on polished web and mobile products, internal tools, and native-feeling app experiences. We take one engagement at a time so the active client has our full attention.",
           },
         },
         {

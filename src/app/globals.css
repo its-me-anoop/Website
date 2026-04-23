@@ -1,34 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  /* Dark Schematic Palette */
-  --background: #050505;
-  --background-secondary: #0A0A0A;
-  --foreground: #EDEDED;
-  --foreground-secondary: #A1A1AA;
-  --foreground-tertiary: #52525B;
-  --foreground-muted: #27272A;
+  /* Apple-inspired product palette */
+  --background: #f5f5f7;
+  --background-secondary: #ffffff;
+  --foreground: #1d1d1f;
+  --foreground-secondary: #6e6e73;
+  --foreground-tertiary: #86868b;
+  --foreground-muted: rgba(29, 29, 31, 0.06);
 
-  /* Accent - Acid Lime */
-  --accent: #D4FF00;
-  --accent-hover: #B8E600;
-  --accent-muted: rgba(212, 255, 0, 0.1);
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --accent-muted: rgba(0, 113, 227, 0.1);
 
-  /* Secondary Accent - Cyan */
-  --teal: #00F0FF;
-  --teal-muted: rgba(0, 240, 255, 0.1);
+  --teal: #00a6d6;
+  --teal-muted: rgba(0, 166, 214, 0.1);
+  --coral: #ff6a3d;
+  --paper: #fbfbfd;
+  --ink: #1d1d1f;
 
-  /* Surfaces */
-  --surface: #0F0F0F;
-  --surface-elevated: #141414;
+  --surface: #ffffff;
+  --surface-elevated: #fbfbfd;
 
-  /* Dark surfaces */
   --deep-earth: #000000;
-  --stone: #18181B;
+  --stone: #e8e8ed;
 
-  /* Borders - Schematic Style */
-  --border: rgba(237, 237, 237, 0.08);
-  --border-strong: rgba(237, 237, 237, 0.15);
+  --border: rgba(0, 0, 0, 0.1);
+  --border-strong: rgba(0, 0, 0, 0.18);
 }
 
 /* ─────────────────────────────────────────────
@@ -74,6 +72,9 @@
   --color-accent-muted: var(--accent-muted);
   --color-teal: var(--teal);
   --color-teal-muted: var(--teal-muted);
+  --color-coral: var(--coral);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
   --color-deep-earth: var(--deep-earth);
@@ -81,8 +82,8 @@
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
 
-  --font-sans: var(--font-plus-jakarta-sans), system-ui, sans-serif;
-  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
 }
 
 html {
@@ -103,23 +104,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Noise Texture Overlay */
-.noise-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
 /* Selection */
 ::selection {
   background: var(--accent);
-  color: #000;
+  color: #fff;
 }
 
 /* Scrollbar */
@@ -128,11 +116,11 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: #f5f5f7;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--foreground-tertiary);
+  background: #c7c7cc;
   border-radius: 4px;
 }
 
@@ -146,16 +134,32 @@ body {
   outline-offset: 2px;
 }
 
-/* Subtle float animation for decorative elements */
-@keyframes subtle-float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-3px);
-  }
+.apple-hero-glow {
+  background:
+    radial-gradient(circle at 50% 10%, rgba(0, 113, 227, 0.16), transparent 34%),
+    radial-gradient(circle at 22% 50%, rgba(255, 106, 61, 0.1), transparent 28%),
+    radial-gradient(circle at 78% 50%, rgba(0, 166, 214, 0.12), transparent 30%),
+    linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 100%);
 }
 
-.animate-subtle-float {
-  animation: subtle-float 20s ease-in-out infinite;
+.apple-dark-glow {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0, 113, 227, 0.28), transparent 34%),
+    radial-gradient(circle at 82% 35%, rgba(80, 80, 90, 0.28), transparent 36%),
+    linear-gradient(180deg, #0b0b0f 0%, #000 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
 }

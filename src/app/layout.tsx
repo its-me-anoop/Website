@@ -1,31 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
-});
 
 const siteUrl = "https://flutterly.uk";
 const siteName = "Flutterly";
 const siteDescription =
-  "A small UK product studio led by Anoop Jose. We take on one brief at a time and ship web and mobile products with care — from Reading, Berkshire.";
+  "Flutterly is a Reading-based product studio designing and building polished web and mobile apps with a native, considered feel.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} — A small UK studio building products with care`,
+    default: `${siteName} — Apps that feel instantly familiar`,
     template: `%s · ${siteName}`,
   },
   description: siteDescription,
@@ -52,7 +36,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName,
     locale: "en_GB",
-    title: `${siteName} — A small UK studio building products with care`,
+    title: `${siteName} — Apps that feel instantly familiar`,
     description: siteDescription,
     images: [
       {
@@ -65,7 +49,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} — A small UK studio building products with care`,
+    title: `${siteName} — Apps that feel instantly familiar`,
     description: siteDescription,
     images: ["/flutterly-title.png"],
   },
@@ -83,7 +67,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: "#f5f5f7",
 };
 
 function JsonLd() {
@@ -94,7 +78,7 @@ function JsonLd() {
     url: siteUrl,
     logo: `${siteUrl}/flutterly-title.png`,
     description:
-      "UK-based digital studio crafting web applications, mobile apps, and enterprise solutions.",
+      "Reading-based product studio designing and building polished web and mobile apps with a native, considered feel.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Flat 21, 3 Erleigh Road",
@@ -113,7 +97,7 @@ function JsonLd() {
     founder: {
       "@type": "Person",
       name: "Anoop Jose",
-      jobTitle: "Lead Developer & Founder",
+      jobTitle: "Founder and Lead Engineer",
     },
     sameAs: ["https://www.linkedin.com/in/anoop-jose-0b308a296/"],
     knowsAbout: [
@@ -123,7 +107,7 @@ function JsonLd() {
       "Next.js",
       "Flutter",
       "SwiftUI",
-      "Enterprise Solutions",
+      "Product Design",
     ],
     areaServed: {
       "@type": "Country",
@@ -132,7 +116,7 @@ function JsonLd() {
     serviceType: [
       "Web Development",
       "Mobile App Development",
-      "Enterprise Solutions",
+      "Product Design",
     ],
   };
 
@@ -154,11 +138,7 @@ export default function RootLayout({
       <head>
         <JsonLd />
       </head>
-      <body className={cn(
-        fraunces.variable,
-        plusJakartaSans.variable,
-        "antialiased bg-background text-foreground font-sans min-h-screen"
-      )}>
+      <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         {children}
       </body>
     </html>

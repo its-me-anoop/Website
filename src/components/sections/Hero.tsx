@@ -1,21 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
+import { useRef } from "react";
 
-const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
-
-const stagger = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08, delayChildren: 0.15 },
-  },
-};
+const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 28 },
   visible: {
     opacity: 1,
     y: 0,
@@ -23,200 +17,142 @@ const fadeUp = {
   },
 };
 
-const contactSheet = [
-  {
-    src: "/images/sipli/iphone/01-hero-1320x2868.png",
-    alt: "Sipli 3.0 — hydration dashboard on iPhone",
-    tag: "Sipli",
+const stagger = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.12 },
   },
-  {
-    src: "/abstract-sandbourne.png",
-    alt: "Sandbourne — abstract brand study",
-    tag: "Sandbourne",
-  },
-  {
-    src: "/abstract-jjpaper.png",
-    alt: "JJ Paper — abstract brand study",
-    tag: "JJ Paper",
-  },
-];
+};
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0px", "90px"]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
+
   return (
     <section
-      className="relative min-h-screen overflow-hidden bg-background px-4 pt-24 pb-10 sm:px-6 sm:pt-32 md:px-10 md:pt-36"
-      aria-label="Flutterly — A product studio from Reading, UK"
+      ref={sectionRef}
+      className="apple-hero-glow relative isolate overflow-hidden px-5 pt-24 text-center text-foreground sm:px-8 md:pt-28"
+      aria-label="Flutterly product studio"
     >
-      {/* Soft editorial grid — column rules */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-full -translate-x-1/2 opacity-[0.05] md:block"
-        style={{
-          maxWidth: 1200,
-          backgroundImage:
-            "linear-gradient(90deg, rgba(237,237,237,0.4) 1px, transparent 1px)",
-          backgroundSize: "calc(100% / 12) 100%",
-        }}
-      />
-
       <motion.div
-        className="relative z-10 mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-[1200px] flex-col justify-between"
         variants={stagger}
         initial="hidden"
         animate="visible"
+        className="mx-auto flex min-h-[96svh] max-w-[1180px] flex-col items-center"
       >
-        {/* Ledger bar — top meta */}
+        <motion.p
+          variants={fadeUp}
+          className="text-lg font-semibold text-foreground-secondary md:text-xl"
+        >
+          Flutterly
+        </motion.p>
+        <motion.h1
+          variants={fadeUp}
+          className="mt-3 max-w-5xl text-5xl font-semibold leading-none text-foreground sm:text-7xl md:text-8xl"
+        >
+          Apps that feel instantly familiar.
+        </motion.h1>
+        <motion.p
+          variants={fadeUp}
+          className="mt-6 max-w-3xl text-xl leading-8 text-foreground-secondary md:text-2xl md:leading-9"
+        >
+          We design and build polished web and mobile products with the clarity,
+          speed, and restraint people expect from the software they keep using.
+        </motion.p>
+
         <motion.div
           variants={fadeUp}
-          className="grid grid-cols-2 gap-4 border-b border-border pb-4 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary sm:grid-cols-4 sm:pb-5 sm:text-[11px]"
+          className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
-          <MetaCell label="Studio" value="Flutterly Ltd" />
-          <MetaCell label="Est." value="Reading, UK · 2024" />
-          <MetaCell label="On the bench" value="Sipli 3.0" />
-          <MetaCell
-            label="Status"
-            value={
-              <span className="inline-flex items-center gap-2 text-foreground">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-                </span>
-                Taking briefs · Summer ’26
-              </span>
-            }
+          <Link
+            href="#brief"
+            className="inline-flex min-h-11 items-center rounded-full bg-accent px-6 text-base font-medium text-white transition duration-200 hover:bg-accent-hover"
+          >
+            Start a project
+          </Link>
+          <Link
+            href="#work"
+            className="group inline-flex min-h-11 items-center gap-1 rounded-full px-4 text-base font-medium text-accent transition duration-200 hover:text-accent-hover"
+          >
+            See the work
+            <ArrowRight
+              size={18}
+              className="transition duration-200 group-hover:translate-x-0.5"
+              aria-hidden
+            />
+          </Link>
+        </motion.div>
+
+        <motion.div
+          style={{ y: imageY, scale: imageScale }}
+          variants={fadeUp}
+          className="relative mt-12 w-full flex-1 md:mt-16"
+        >
+          <div
+            aria-hidden
+            className="absolute left-1/2 top-12 h-72 w-72 -translate-x-1/2 rounded-full bg-accent-muted blur-3xl sm:h-[420px] sm:w-[420px]"
           />
-        </motion.div>
-
-        {/* Headline block */}
-        <div className="flex flex-1 flex-col justify-center py-14 sm:py-20 md:py-24">
-          <motion.h1
-            variants={fadeUp}
-            className="font-display text-[clamp(2.5rem,8.2vw,7.25rem)] font-light leading-[0.94] tracking-[-0.035em] text-foreground"
-          >
-            <span className="block italic text-foreground-secondary/90">
-              A small studio
-            </span>
-            <span className="block">
-              building{" "}
-              <span className="relative inline-block">
-                <span className="relative z-10">products</span>
-                <span
-                  aria-hidden
-                  className="absolute inset-x-0 bottom-[0.08em] h-[0.18em] bg-accent/70"
-                />
-              </span>{" "}
-              people
-            </span>
-            <span className="block font-normal">want to keep open.</span>
-          </motion.h1>
-
-          {/* Lede — offset, narrow, asymmetric */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-10 grid grid-cols-1 items-start gap-8 sm:mt-14 md:grid-cols-12 md:gap-10"
-          >
-            {/* Contact sheet — recent frames from the bench */}
-            <figure className="md:col-span-5">
-              <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                {contactSheet.map((frame, i) => (
-                  <motion.div
-                    key={frame.src}
-                    initial={{ opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.9,
-                      delay: 0.45 + i * 0.08,
-                      ease,
-                    }}
-                    className="group relative aspect-[4/5] overflow-hidden rounded-sm border border-border bg-surface"
-                  >
-                    <Image
-                      src={frame.src}
-                      alt={frame.alt}
-                      fill
-                      sizes="(max-width: 768px) 33vw, 160px"
-                      className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-40"
-                    />
-                    <span className="absolute bottom-1.5 left-1.5 font-mono text-[9px] uppercase tracking-[0.18em] text-foreground/90 sm:text-[10px]">
-                      {frame.tag}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-              <figcaption className="mt-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary sm:text-[11px]">
-                <span>Contact sheet · Recent frames</span>
-                <span aria-hidden>03 / 05</span>
-              </figcaption>
-            </figure>
-            <p className="md:col-span-6 text-pretty text-[17px] leading-[1.55] text-foreground-secondary sm:text-lg">
-              Flutterly is a UK design-and-engineering practice led by{" "}
-              <span className="text-foreground">Anoop Jose</span>. We ship web
-              and mobile products that feel considered, fast, and alive — then
-              keep shipping long after launch.
-            </p>
-          </motion.div>
-
-          {/* CTA row */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-10 flex flex-col items-start gap-4 sm:mt-14 sm:flex-row sm:items-center sm:gap-6"
-          >
-            <Link
-              href="#brief"
-              className="group inline-flex items-center gap-3 rounded-full bg-accent px-7 py-4 text-xs font-bold uppercase tracking-[0.22em] text-background transition-colors hover:bg-accent-hover"
+          <div className="relative mx-auto h-[390px] w-full max-w-[960px] sm:h-[560px] md:h-[640px]">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.25, ease }}
+              className="absolute left-1/2 top-0 w-[78%] max-w-[720px] -translate-x-1/2"
             >
-              <span>Send a brief</span>
-              <ArrowUpRight
-                size={16}
-                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              <Image
+                src="/projects/sipli/iphone_and_ipad.png"
+                alt="Sipli shown across iPhone and iPad"
+                width={1400}
+                height={980}
+                className="h-auto w-full drop-shadow-[0_36px_80px_rgba(0,0,0,0.22)]"
+                priority
               />
-            </Link>
-
-            <Link
-              href="#work"
-              className="group inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-foreground-secondary transition-colors hover:text-foreground"
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 48 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.38, ease }}
+              className="absolute bottom-0 left-4 w-[30%] max-w-[230px] sm:left-16"
             >
-              <span className="border-b border-border pb-1 group-hover:border-foreground">
-                Read the ledger
-              </span>
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Bottom rule — signature + disclosure */}
-        <motion.div
-          variants={fadeUp}
-          className="flex flex-col gap-3 border-t border-border pt-5 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary sm:flex-row sm:items-end sm:justify-between sm:text-[11px]"
-        >
-          <p className="max-w-sm leading-relaxed normal-case tracking-normal font-sans text-[13px] text-foreground-secondary">
-            <span className="italic text-foreground">№ 01 </span> — An
-            introduction. Scroll for the ledger, the practice, and how to put
-            something on our bench.
-          </p>
-          <p>
-            Reading, UK · 51.4543° N, 0.9781° W
-          </p>
+              <Image
+                src="/images/sipli/iphone/02-coach-1320x2868.png"
+                alt="Sipli hydration coaching screen"
+                width={560}
+                height={1216}
+                className="h-auto w-full rounded-[8px] drop-shadow-[0_28px_60px_rgba(0,0,0,0.24)]"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 44 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.48, ease }}
+              className="absolute bottom-8 right-3 w-[29%] max-w-[220px] sm:right-20"
+            >
+              <Image
+                src="/projects/artling/fox-painter.png"
+                alt="Artling app artwork preview"
+                width={520}
+                height={650}
+                className="h-auto w-full rounded-[8px] drop-shadow-[0_28px_60px_rgba(0,0,0,0.18)]"
+              />
+            </motion.div>
+          </div>
         </motion.div>
+
+        <motion.a
+          variants={fadeUp}
+          href="#work"
+          className="absolute bottom-6 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white/70 text-foreground-secondary backdrop-blur-xl transition duration-200 hover:text-foreground"
+          aria-label="Scroll to work"
+        >
+          <ChevronDown size={20} aria-hidden />
+        </motion.a>
       </motion.div>
     </section>
-  );
-}
-
-function MetaCell({
-  label,
-  value,
-}: {
-  label: string;
-  value: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col gap-1">
-      <span className="text-foreground-tertiary">{label}</span>
-      <span className="text-foreground-secondary">{value}</span>
-    </div>
   );
 }

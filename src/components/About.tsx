@@ -3,23 +3,15 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { ArrowRight, Linkedin, Mail } from "lucide-react";
 
-const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
+const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const socials = [
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/anoop-jose-0b308a296/",
-    icon: Linkedin,
-    external: true,
-  },
-  {
-    label: "Email",
-    href: "mailto:anoop@flutterly.co.uk",
-    icon: Mail,
-    external: false,
-  },
+const facts = [
+  ["Based in", "Reading, UK"],
+  ["Founded", "2024"],
+  ["Led by", "Anoop Jose"],
+  ["Focus", "One active build"],
 ];
 
 export default function About() {
@@ -27,168 +19,114 @@ export default function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="relative overflow-hidden border-t border-border bg-background px-4 py-20 sm:px-6 sm:py-28 md:px-10 md:py-36"
+      className="bg-background px-5 py-20 text-foreground sm:px-8 sm:py-28"
     >
-      <div className="relative z-10 mx-auto max-w-[1200px]">
-        {/* Section header */}
+      <div className="mx-auto max-w-[1180px]">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease }}
-          className="mb-14 border-b border-border pb-8 sm:mb-20"
+          className="mx-auto max-w-4xl text-center"
         >
-          <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.28em] text-accent">
-            № 04 · The Studio
+          <p className="text-xl font-semibold text-foreground-secondary">
+            Studio
           </p>
           <h2
             id="about-heading"
-            className="max-w-4xl font-display text-4xl font-light leading-[0.95] tracking-[-0.02em] text-foreground sm:text-5xl md:text-6xl"
+            className="mt-3 text-4xl font-semibold leading-tight sm:text-6xl md:text-7xl"
           >
-            One person,{" "}
-            <span className="italic text-foreground-secondary">
-              a few trusted collaborators,
-            </span>{" "}
-            and a very short client list.
+            Small by design. Close to every detail.
           </h2>
+          <p className="mx-auto mt-5 max-w-3xl text-xl leading-8 text-foreground-secondary">
+            Flutterly is led by Anoop Jose, with a trusted network of
+            collaborators added only when the product genuinely benefits from
+            more hands.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* Left: Pull quote + body */}
-          <div className="lg:col-span-7">
-            <motion.blockquote
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, ease }}
-              className="relative"
-            >
-              <span
-                aria-hidden
-                className="absolute -left-1 -top-8 font-display text-[8rem] leading-none text-accent/30 sm:text-[11rem]"
-              >
-                &ldquo;
-              </span>
-              <p className="relative font-display text-2xl font-light italic leading-[1.25] tracking-[-0.01em] text-foreground sm:text-3xl md:text-[2.25rem] md:leading-[1.22]">
-                I started Flutterly because I was tired of handing off work to
-                people who didn&rsquo;t care about it as much as I did. So I
-                stopped handing it off.
-              </p>
-              <footer className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-foreground-tertiary">
-                — Anoop Jose, Founder
-              </footer>
-            </motion.blockquote>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, delay: 0.1, ease }}
-              className="mt-10 space-y-5 border-t border-border pt-8 text-base leading-relaxed text-foreground-secondary sm:text-[17px]"
-            >
-              <p>
-                Flutterly is a UK-registered product studio, founded in 2024
-                after a decade of shipping inside larger teams. We&rsquo;re
-                small on purpose. We take on a handful of engagements a year so
-                we can write the code, draw the pixels, and answer the email —
-                usually in that order.
-              </p>
-              <p>
-                We&rsquo;re at our best with founders sketching the first
-                version, teams redesigning something their users secretly hate,
-                and companies who want a partner — not a vendor — for the long
-                run.
-              </p>
-            </motion.div>
-
-            {/* Meta ledger */}
-            <motion.dl
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, delay: 0.2, ease }}
-              className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-border pt-8 sm:grid-cols-4"
-            >
-              {[
-                { label: "Founded", value: "2024" },
-                { label: "Based", value: "Reading, UK" },
-                { label: "Headcount", value: "1 + friends" },
-                { label: "Reply time", value: "Within a day" },
-              ].map((m) => (
-                <div key={m.label} className="flex flex-col gap-1">
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
-                    {m.label}
-                  </dt>
-                  <dd className="font-display text-lg text-foreground">
-                    {m.value}
-                  </dd>
-                </div>
-              ))}
-            </motion.dl>
-
-            {/* Socials */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, delay: 0.3, ease }}
-              className="mt-10 flex flex-wrap gap-3"
-            >
-              {socials.map((social) => (
-                <Link
-                  key={social.label}
-                  href={social.href}
-                  {...(social.external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  className="group inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-foreground-secondary transition-colors hover:border-foreground-tertiary hover:text-foreground"
-                >
-                  <social.icon size={14} strokeWidth={1.5} />
-                  <span className="font-mono text-[11px] uppercase tracking-[0.18em]">
-                    {social.label}
-                  </span>
-                  <ArrowUpRight
-                    size={12}
-                    className="opacity-0 transition-all duration-300 group-hover:opacity-100"
-                  />
-                </Link>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Right: Portrait */}
+        <div className="mt-14 grid gap-6 lg:grid-cols-[0.88fr_1.12fr]">
           <motion.figure
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, delay: 0.15, ease }}
-            className="relative lg:col-span-5 lg:sticky lg:top-28"
+            transition={{ duration: 0.8, ease }}
+            className="overflow-hidden rounded-[8px] bg-background-secondary"
           >
-            <div className="group relative aspect-[4/5] overflow-hidden">
+            <div className="relative aspect-[4/5]">
               <Image
                 src="/anoop-jose.jpg"
                 alt="Portrait of Anoop Jose, founder of Flutterly"
                 fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover grayscale transition-all duration-[1.2s] ease-out group-hover:grayscale-0 group-hover:scale-[1.02]"
+                sizes="(max-width: 1024px) 100vw, 480px"
+                className="object-cover"
               />
-              <div
-                aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent"
-              />
-              <div className="absolute bottom-5 left-5 right-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
-                  Founder · Lead Engineer
-                </p>
-                <p className="mt-1 font-display text-xl text-foreground">
-                  Anoop Jose
-                </p>
-              </div>
             </div>
-            <figcaption className="mt-4 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary">
-              Reading, UK
+            <figcaption className="p-6">
+              <p className="text-lg font-semibold">Anoop Jose</p>
+              <p className="mt-1 text-foreground-secondary">
+                Founder and lead engineer
+              </p>
             </figcaption>
           </motion.figure>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, delay: 0.08, ease }}
+            className="rounded-[8px] bg-background-secondary p-7 sm:p-10"
+          >
+            <p className="text-3xl font-semibold leading-tight sm:text-5xl">
+              The best products feel inevitable because someone cared about the
+              invisible parts.
+            </p>
+            <div className="mt-8 grid gap-5 text-lg leading-8 text-foreground-secondary sm:grid-cols-2">
+              <p>
+                We keep strategy, interaction design, implementation, and launch
+                work in the same conversation. That makes the product simpler to
+                use and easier to own.
+              </p>
+              <p>
+                We work with founders and teams replacing rough tools, building
+                native mobile apps, or turning a sharp product idea into a
+                release people can trust.
+              </p>
+            </div>
+
+            <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-[8px] bg-border sm:grid-cols-4">
+              {facts.map(([label, value]) => (
+                <div key={label} className="bg-background p-4">
+                  <dt className="text-sm text-foreground-tertiary">{label}</dt>
+                  <dd className="mt-2 text-lg font-semibold">{value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link
+                href="https://www.linkedin.com/in/anoop-jose-0b308a296/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background transition duration-200 hover:bg-black"
+              >
+                <Linkedin size={16} aria-hidden />
+                LinkedIn
+              </Link>
+              <Link
+                href="mailto:anoop@flutterly.co.uk"
+                className="group inline-flex min-h-11 items-center gap-1 rounded-full px-3 text-sm font-medium text-accent transition duration-200 hover:text-accent-hover"
+              >
+                Email Anoop
+                <ArrowRight
+                  size={16}
+                  className="transition duration-200 group-hover:translate-x-0.5"
+                  aria-hidden
+                />
+                <Mail className="sr-only" size={1} aria-hidden />
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
