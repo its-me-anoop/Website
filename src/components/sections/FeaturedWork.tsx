@@ -93,10 +93,10 @@ export function FeaturedWork() {
 
         {/* Bento grid */}
         <div
-          className="grid gap-[18px]"
+          className="grid gap-[14px] md:gap-[18px]"
           style={{
             gridTemplateColumns: "repeat(12, 1fr)",
-            gridAutoRows: "160px",
+            gridAutoRows: "140px",
           }}
         >
           {/* Sipli hero tile */}
@@ -114,7 +114,7 @@ export function FeaturedWork() {
             />
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -bottom-24 -right-16 h-[120%] w-[46%] overflow-hidden rounded-[44px] border border-[rgba(245,239,228,0.1)] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.55)] transition-transform duration-700 group-hover:-translate-y-3 group-hover:rotate-[5deg]"
+              className="pointer-events-none absolute -bottom-20 -right-10 h-[70%] w-[52%] overflow-hidden rounded-[36px] border border-[rgba(245,239,228,0.1)] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.55)] transition-transform duration-700 group-hover:-translate-y-3 group-hover:rotate-[5deg] md:-bottom-24 md:-right-16 md:h-[120%] md:w-[46%] md:rounded-[44px]"
               style={{ transform: "rotate(8deg)" }}
             >
               <Image
@@ -128,11 +128,11 @@ export function FeaturedWork() {
             <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[rgba(245,239,228,0.6)]">
               01 · 2026 · iOS · iPadOS · watchOS
             </span>
-            <div className="relative max-w-[60%]">
-              <h3 className="font-display text-[34px] font-normal leading-tight tracking-[-0.02em]">
+            <div className="relative max-w-[70%] md:max-w-[60%]">
+              <h3 className="font-display text-[28px] leading-tight tracking-[-0.02em] md:text-[34px]">
                 Sipli.
               </h3>
-              <p className="mt-2 max-w-[36ch] text-[14px] leading-[1.5] text-[rgba(245,239,228,0.85)]">
+              <p className="mt-2 max-w-[36ch] text-[13px] leading-[1.5] text-[rgba(245,239,228,0.85)] md:text-[14px]">
                 An AI hydration coach on your wrist. 35+ beverages, Apple Watch
                 quick-logging, and an on-device model that feels human.
               </p>
@@ -167,7 +167,7 @@ export function FeaturedWork() {
           {/* Artling */}
           <Link
             href="#"
-            className="group relative flex flex-col justify-between overflow-hidden rounded-[22px] p-6 transition-all hover:-translate-y-0.5 max-md:col-span-3 max-md:row-span-2 md:col-span-3 md:row-span-2"
+            className="group relative flex flex-col justify-between overflow-hidden rounded-[22px] p-6 transition-all hover:-translate-y-0.5 max-md:col-span-6 max-md:row-span-2 md:col-span-3 md:row-span-2"
             style={{
               background:
                 "radial-gradient(circle at 30% 40%, #f4c9a5, #d99a5f 55%, #b87841 90%)",
@@ -180,7 +180,7 @@ export function FeaturedWork() {
               width={160}
               height={224}
               sizes="160px"
-              className="pointer-events-none absolute -right-3 top-8 w-[140px] rotate-[6deg] transition-transform duration-700 group-hover:-translate-y-1 group-hover:rotate-0"
+              className="pointer-events-none absolute -right-4 top-4 w-[80px] rotate-[6deg] opacity-80 transition-transform duration-700 group-hover:-translate-y-1 group-hover:rotate-0 md:top-8 md:w-[140px] md:opacity-100"
               style={{
                 filter: "drop-shadow(0 12px 24px rgba(184,120,65,0.45))",
               }}
@@ -207,7 +207,7 @@ export function FeaturedWork() {
           {/* GitHub mini tile */}
           <div
             aria-label="Open source activity"
-            className="relative flex flex-col justify-between overflow-hidden rounded-[22px] bg-[#15140f] p-6 text-[var(--paper)] max-md:col-span-3 max-md:row-span-2 md:col-span-2 md:row-span-2"
+            className="relative flex flex-col justify-between overflow-hidden rounded-[22px] bg-[#15140f] p-6 text-[var(--paper)] max-md:col-span-6 max-md:row-span-2 md:col-span-2 md:row-span-2"
           >
             <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[rgba(245,239,228,0.55)]">
               GitHub · 2026
@@ -225,7 +225,7 @@ export function FeaturedWork() {
           {/* Greenmead */}
           <Link
             href="#"
-            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] p-6 text-[#10281f] transition-all hover:-translate-y-0.5 max-md:col-span-full md:col-span-4 md:row-span-1"
+            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] p-6 text-[#10281f] transition-all hover:-translate-y-0.5 max-md:col-span-full max-md:row-span-1 md:col-span-4 md:row-span-1"
           >
             <Image
               src="/abstract-greenmead.png"
@@ -256,7 +256,7 @@ export function FeaturedWork() {
           {/* JJ Paper */}
           <Link
             href="#"
-            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] bg-[var(--paper-3)] p-6 text-[var(--ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full md:col-span-4 md:row-span-1"
+            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] bg-[var(--paper-3)] p-6 text-[var(--ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full max-md:row-span-1 md:col-span-4 md:row-span-1"
           >
             <Image
               src="/abstract-jjpaper.png"
@@ -287,7 +287,7 @@ export function FeaturedWork() {
           {/* Sandbourne */}
           <Link
             href="#"
-            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] p-6 text-[var(--ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full md:col-span-4 md:row-span-2"
+            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] p-6 text-[var(--ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full max-md:row-span-2 md:col-span-4 md:row-span-2"
           >
             <Image
               src="/abstract-sandbourne.png"
