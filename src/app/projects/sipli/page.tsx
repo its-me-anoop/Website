@@ -60,7 +60,7 @@ const floatIn: Variants = {
 function AppStoreBadge({ className = "" }: { className?: string }) {
     return (
         <Link
-            href="https://apps.apple.com/us/app/sipli/id6758851574"
+            href="https://apps.apple.com/us/app/sipli-water-tracker/id6758851574"
             target="_blank"
             rel="noopener noreferrer"
             className={`inline-flex items-center gap-3 bg-accent text-background font-sans rounded-[14px] px-7 py-4 hover:bg-accent-hover transition-all duration-200 hover:scale-[1.02] ${className}`}
@@ -136,10 +136,14 @@ export default function SipliPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                         {/* Text */}
                         <motion.div initial="hidden" animate="visible" variants={stagger}>
-                            <motion.div variants={fadeInUp}>
-                                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-accent-muted text-accent border border-accent/20 mb-6">
+                            <motion.div variants={fadeInUp} className="flex flex-wrap gap-2 mb-6">
+                                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-accent-muted text-accent border border-accent/20">
                                     <Droplets className="w-3 h-3" />
-                                    iOS App · Free
+                                    Version 3.0 · Free
+                                </span>
+                                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-teal-muted text-teal border border-teal/20">
+                                    <Watch className="w-3 h-3" />
+                                    New on Apple Watch
                                 </span>
                             </motion.div>
 
@@ -163,9 +167,10 @@ export default function SipliPage() {
                                 variants={fadeInUp}
                                 className="text-base text-foreground-secondary leading-relaxed max-w-[420px] mb-8"
                             >
-                                Your AI-powered hydration companion. Personalized daily goals,
-                                intelligent coaching, 18+ beverages tracked, rich insights,
-                                and widgets — beautifully crafted for iPhone and iPad.
+                                Adaptive goals that flex with your body, weather, and
+                                workouts. Now on Apple Watch — log a sip in one tap from
+                                your wrist. 35+ beverages, on-device AI coaching, and
+                                reminders that think with you, not at you.
                             </motion.p>
 
                             <motion.div
@@ -222,10 +227,10 @@ export default function SipliPage() {
                         className="grid grid-cols-2 md:grid-cols-4 gap-4"
                     >
                         {[
-                            { icon: Sparkles, label: "AI Coaching", desc: "On-device Apple Intelligence" },
-                            { icon: Droplets,  label: "18+ Beverages", desc: "Accurate hydration factors" },
-                            { icon: CloudRain, label: "Weather Adaptive", desc: "Goals adjust to conditions" },
-                            { icon: Heart,     label: "HealthKit Sync", desc: "Two-way Apple Health sync" },
+                            { icon: Watch,     label: "Apple Watch",   desc: "One-tap logging on your wrist" },
+                            { icon: Sparkles,  label: "AI Coaching",   desc: "On-device Apple Intelligence" },
+                            { icon: Droplets,  label: "35+ Beverages", desc: "Science-backed hydration factors" },
+                            { icon: Heart,     label: "HealthKit Sync",desc: "Two-way Apple Health sync" },
                         ].map((item, i) => (
                             <motion.div
                                 key={i}
@@ -241,6 +246,125 @@ export default function SipliPage() {
                                 </div>
                             </motion.div>
                         ))}
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── APPLE WATCH (NEW IN 3.0) ── */}
+            <section className="py-28 md:py-36 px-6 md:px-14 bg-background-secondary relative overflow-hidden">
+                <div
+                    className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+                    style={{ background: "rgba(77,212,232,0.08)", filter: "blur(130px)" }}
+                    aria-hidden
+                />
+                <div className="relative z-10 max-w-[1200px] mx-auto">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-80px" }}
+                        variants={stagger}
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+                    >
+                        <motion.div variants={fadeInUp}>
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-teal-muted text-teal border border-teal/20 mb-6">
+                                <Sparkles className="w-3 h-3" /> New in 3.0
+                            </div>
+                            <h2
+                                className="font-display font-medium tracking-[-0.025em] leading-[1.08] mb-5 text-foreground"
+                                style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)" }}
+                            >
+                                Sipli on{" "}
+                                <span className="text-accent">your wrist.</span>
+                            </h2>
+                            <p className="text-foreground-secondary leading-relaxed mb-7 max-w-[440px]">
+                                A brand-new Apple Watch app. Log a sip in one tap, glance
+                                at your progress ring from any watch face, and celebrate
+                                goal-met trophies right where you&apos;ll see them.
+                            </p>
+                            <div className="space-y-3.5">
+                                <CheckItem>One-tap logging for water, coffee, tea — whatever you&apos;re drinking</CheckItem>
+                                <CheckItem>Live progress ring complication on your watch face</CheckItem>
+                                <CheckItem>Smart Stack widgets in small, medium, and large</CheckItem>
+                                <CheckItem>Full two-way sync with iPhone and Apple Health — instant</CheckItem>
+                                <CheckItem>Goal-met trophy on your wrist, right when you hit it</CheckItem>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            variants={scaleIn}
+                            className="flex justify-center lg:justify-end"
+                        >
+                            <div className="relative">
+                                <div
+                                    className="absolute inset-0 rounded-full pointer-events-none"
+                                    style={{ background: "rgba(77,212,232,0.20)", filter: "blur(90px)", transform: "scale(0.85)" }}
+                                />
+                                <div
+                                    className="relative rounded-[56px] border-[6px] border-[#1a2332] shadow-2xl flex items-center justify-center"
+                                    style={{
+                                        width: "260px",
+                                        height: "310px",
+                                        background: "linear-gradient(145deg, #0a1420 0%, #0f1d2e 100%)",
+                                        boxShadow:
+                                            "0 30px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05)",
+                                    }}
+                                    aria-hidden
+                                >
+                                    {/* Digital crown hint */}
+                                    <div
+                                        className="absolute top-12 right-[-8px] w-3 h-16 rounded-r-md"
+                                        style={{ background: "linear-gradient(90deg, #1a2332, #252f3d)" }}
+                                    />
+                                    <div
+                                        className="absolute bottom-12 right-[-6px] w-2.5 h-10 rounded-r-md"
+                                        style={{ background: "linear-gradient(90deg, #1a2332, #252f3d)" }}
+                                    />
+
+                                    {/* Watch face content */}
+                                    <div className="relative w-[200px] h-[240px] flex flex-col items-center justify-center">
+                                        {/* Progress ring */}
+                                        <div className="relative w-[150px] h-[150px] mb-3">
+                                            <svg viewBox="0 0 150 150" className="w-full h-full -rotate-90">
+                                                <circle
+                                                    cx="75"
+                                                    cy="75"
+                                                    r="62"
+                                                    fill="none"
+                                                    stroke="rgba(77,212,232,0.15)"
+                                                    strokeWidth="10"
+                                                />
+                                                <circle
+                                                    cx="75"
+                                                    cy="75"
+                                                    r="62"
+                                                    fill="none"
+                                                    stroke="#4dd4e8"
+                                                    strokeWidth="10"
+                                                    strokeLinecap="round"
+                                                    strokeDasharray="389"
+                                                    strokeDashoffset="97"
+                                                />
+                                            </svg>
+                                            <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                                <Droplets className="w-7 h-7 text-accent mb-1" />
+                                                <div className="text-foreground font-display font-semibold text-xl leading-none">
+                                                    1.9L
+                                                </div>
+                                                <div className="text-foreground-tertiary text-[10px] mt-1 tracking-wider uppercase">
+                                                    of 2.4L
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-muted border border-accent/20">
+                                            <div className="w-1 h-1 rounded-full bg-accent animate-pulse" />
+                                            <span className="text-[9px] font-semibold tracking-widest uppercase text-accent">
+                                                12 day streak
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
                     </motion.div>
                 </div>
             </section>
@@ -392,6 +516,7 @@ export default function SipliPage() {
                 </div>
             </section>
 
+
             {/* ── AI COACH ── */}
             <section className="py-28 md:py-36 px-6 md:px-14 bg-background relative overflow-hidden">
                 <div
@@ -481,24 +606,25 @@ export default function SipliPage() {
                                 <span className="text-accent">every sip counts.</span>
                             </h2>
                             <p className="text-foreground-secondary leading-relaxed mb-7 max-w-[420px]">
-                                Track 18+ drinks with accurate hydration factors. Coffee,
-                                tea, sparkling water, coconut water, milk — Sipli knows
-                                that not all beverages hydrate equally.
+                                Track 35+ drinks with science-backed hydration factors —
+                                specialty coffees, teas, matcha, kombucha, plant milks,
+                                juices, sports drinks, and more. Caffeine and alcohol are
+                                accounted for, so a cold brew doesn&apos;t count like water.
                             </p>
                             <motion.div variants={stagger} className="flex flex-wrap gap-2">
                                 {[
                                     { name: "Water",        pct: "100%" },
                                     { name: "Sparkling",    pct: "100%" },
-                                    { name: "Coconut Water",pct: "95%"  },
                                     { name: "Herbal Tea",   pct: "100%" },
-                                    { name: "Coffee",       pct: "80%"  },
+                                    { name: "Coconut Water",pct: "95%"  },
+                                    { name: "Matcha",       pct: "90%"  },
+                                    { name: "Kombucha",     pct: "90%"  },
+                                    { name: "Plant Milk",   pct: "90%"  },
                                     { name: "Green Tea",    pct: "90%"  },
-                                    { name: "Milk",         pct: "90%"  },
-                                    { name: "Juice",        pct: "85%"  },
-                                    { name: "Smoothie",     pct: "90%"  },
+                                    { name: "Cold Brew",    pct: "80%"  },
+                                    { name: "Cappuccino",   pct: "80%"  },
                                     { name: "Sports Drink", pct: "80%"  },
-                                    { name: "Soda",         pct: "45%"  },
-                                    { name: "+ more",       pct: ""     },
+                                    { name: "+ 25 more",    pct: ""     },
                                 ].map((b) => (
                                     <motion.span
                                         key={b.name}
@@ -856,7 +982,7 @@ export default function SipliPage() {
                             {
                                 icon: Bell,
                                 title: "Smart Reminders",
-                                desc: "Adaptive reminders that pause when you've hit your goal and reschedule after every drink you log.",
+                                desc: "Rebuilt in 3.0. Pauses when you're ahead, nudges when you drift — no 2 a.m. buzzes, no pestering.",
                             },
                             {
                                 icon: Heart,
@@ -875,8 +1001,8 @@ export default function SipliPage() {
                             },
                             {
                                 icon: Smartphone,
-                                title: "iPhone & iPad",
-                                desc: "Full native support for both iPhone and iPad with beautifully optimised layouts for every screen size.",
+                                title: "iPhone, iPad & Watch",
+                                desc: "Full native support across iPhone, iPad, and Apple Watch with layouts optimised for every screen size.",
                             },
                             {
                                 icon: Zap,
@@ -921,29 +1047,31 @@ export default function SipliPage() {
                     >
                         <motion.div variants={fadeInUp}>
                             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-teal-muted text-teal border border-teal/20 mb-6">
-                                Coming Soon
+                                The Refill Pledge · Earth Week
                             </span>
                             <h2
                                 className="font-display font-medium tracking-[-0.025em] leading-[1.08] mb-5 text-foreground"
                                 style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
                             >
-                                The future is{" "}
-                                <span className="text-accent">incoming.</span>
+                                Refill,{" "}
+                                <span className="text-accent">not rebuy.</span>
                             </h2>
-                            <p className="text-foreground-secondary leading-relaxed mb-8 max-w-[400px]">
-                                Sipli is constantly evolving. Here&apos;s what&apos;s on the roadmap.
+                            <p className="text-foreground-secondary leading-relaxed mb-8 max-w-[420px]">
+                                Every April, Sipli joins Earth Week with the Refill Pledge —
+                                a simple idea: track each refill and watch a quiet daily
+                                habit keep plastic bottles out of your hand.
                             </p>
                             <div className="space-y-3">
                                 {[
                                     {
-                                        icon: Watch,
-                                        label: "Apple Watch App",
-                                        desc: "Log drinks directly from your wrist",
+                                        icon: Droplets,
+                                        label: "Refill Counter",
+                                        desc: "Every reusable fill adds up over the week",
                                     },
                                     {
                                         icon: Command,
                                         label: "Shortcuts Support",
-                                        desc: "Automate logging with Siri Shortcuts",
+                                        desc: "On the roadmap — automate logging with Siri",
                                     },
                                 ].map((item, i) => (
                                     <div
@@ -1015,7 +1143,7 @@ export default function SipliPage() {
                             variants={fadeInUp}
                             className="text-lg text-foreground-secondary mb-10"
                         >
-                            Free on the App Store. iPhone and iPad.
+                            Free on the App Store. iPhone, iPad, and Apple Watch.
                         </motion.p>
 
                         <motion.div variants={fadeInUp} className="flex justify-center">
@@ -1026,7 +1154,7 @@ export default function SipliPage() {
                             variants={fadeInUp}
                             className="text-xs text-foreground-tertiary mt-8"
                         >
-                            Requires iOS 18.0 or later. Works on iPhone and iPad.
+                            Requires iOS 17.0 or later. Works on iPhone, iPad, and Apple Watch.
                         </motion.p>
                     </motion.div>
                 </div>
