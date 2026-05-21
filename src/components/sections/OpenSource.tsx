@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 type Cell = { level: "" | "l1" | "l2" | "l3" | "l4"; count: number };
 
@@ -102,55 +103,80 @@ function Heatmap() {
 
   const bg = (level: string) => {
     switch (level) {
-      case "l4": return "bg-[var(--accent)]";
-      case "l3": return "bg-[rgba(209,74,31,0.78)]";
-      case "l2": return "bg-[rgba(209,74,31,0.55)]";
-      case "l1": return "bg-[rgba(209,74,31,0.35)]";
-      default: return "bg-[rgba(245,239,228,0.06)]";
+      case "l4":
+        return "bg-[var(--accent)] shadow-[0_0_8px_rgba(0,113,227,0.5)]";
+      case "l3":
+        return "bg-blue-500/80";
+      case "l2":
+        return "bg-blue-500/50";
+      case "l1":
+        return "bg-blue-500/25";
+      default:
+        return "bg-white/5 hover:bg-white/10 transition-colors";
     }
   };
 
   return (
     <div
       ref={ref}
-      className="relative overflow-hidden rounded-[22px] border border-[rgba(245,239,228,0.08)] bg-[#1e1c16] p-6"
+      className="relative overflow-hidden rounded-[24px] border border-white/5 bg-[#09090b]/40 p-6 backdrop-blur-xl transition-all duration-500 hover:border-white/10 hover:bg-[#09090b]/60"
     >
-      <div className="mb-5 flex items-baseline justify-between gap-4">
-        <span className="font-mono text-[12px] tracking-[0.14em] text-[var(--accent)]">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <span className="font-mono text-[11px] tracking-[0.14em] text-[var(--accent)] font-semibold">
           @ its-me-anoop
         </span>
-        <div className="flex gap-6 font-mono text-[10.5px] uppercase tracking-[0.22em] text-[rgba(245,239,228,0.5)]">
+        <div className="flex gap-6 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 font-semibold">
           <div>
             Commits · ytd
-            <b className="mt-1 block font-display text-[22px] font-light normal-case tracking-normal text-[var(--paper)]">
+            <b className="mt-1 block font-sans text-xl font-bold tracking-tight text-white normal-case">
               {shown || "—"}
             </b>
           </div>
           <div>
             Best streak
-            <b className="mt-1 block font-display text-[22px] font-light normal-case tracking-normal text-[var(--paper)]">
+            <b className="mt-1 block font-sans text-xl font-bold tracking-tight text-white normal-case">
               27d
             </b>
           </div>
           <div>
             Repos
-            <b className="mt-1 block font-display text-[22px] font-light normal-case tracking-normal text-[var(--paper)]">
+            <b className="mt-1 block font-sans text-xl font-bold tracking-tight text-white normal-case">
               12
             </b>
           </div>
         </div>
       </div>
+
       <div
-        className="grid gap-[3px]"
+        className="grid gap-[3.5px]"
         style={{ gridTemplateColumns: "repeat(52, 1fr)", aspectRatio: "52/7" }}
         aria-hidden="true"
       >
         {(data?.cells || []).map((c, i) => (
-          <span key={i} className={`aspect-square rounded-[2px] ${bg(c.level)}`} />
+          <span
+            key={i}
+            className={`aspect-square rounded-[2px] transition-all duration-300 ${bg(
+              c.level
+            )}`}
+          />
         ))}
       </div>
-      <div className="mt-2.5 grid grid-cols-12 font-mono text-[9px] uppercase tracking-[0.18em] text-[rgba(245,239,228,0.4)]">
-        {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((m) => (
+
+      <div className="mt-4.5 grid grid-cols-12 font-mono text-[9px] uppercase tracking-[0.18em] text-zinc-500 font-medium">
+        {[
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ].map((m) => (
           <span key={m}>{m}</span>
         ))}
       </div>
@@ -158,61 +184,72 @@ function Heatmap() {
   );
 }
 
+/**
+ * OpenSource section, completely redesigned with a gorgeous space-black digital grid palette.
+ * Highlights repository cards and includes interactive micro-details and modern spec badges.
+ */
 export function OpenSource() {
   return (
     <section
       id="oss"
-      className="relative border-t border-[var(--rule)] bg-[#15140f] py-[120px] text-[var(--paper)]"
+      className="relative border-t border-white/5 bg-transparent py-[120px] text-white overflow-hidden"
     >
-      <div className="mx-auto w-full max-w-[1240px] px-5 md:px-7">
-        {/* Head */}
-        <div className="mb-14 grid items-end gap-10 md:grid-cols-2 md:gap-16">
+      {/* Background glow shadow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/4 bottom-0 h-[400px] w-[500px] rounded-full bg-blue-500/5 blur-[120px]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1240px] px-5 md:px-7">
+        {/* Section Header */}
+        <div className="mb-16 grid items-end gap-10 md:grid-cols-2 md:gap-16">
           <div>
-            <div className="font-mono text-[10.5px] uppercase tracking-[0.28em] text-[var(--accent)]">
+            <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--accent)]">
               № 04 · Open source
             </div>
-            <h2
-              className="mt-3 font-display text-[clamp(40px,5.5vw,72px)] font-light leading-[1.02] tracking-[-0.025em] text-[var(--paper)]"
-              style={{ fontVariationSettings: '"opsz" 144, "SOFT" 50, "WONK" 0' }}
-            >
+            <h2 className="mt-3 font-sans text-[clamp(36px,5vw,64px)] font-extrabold leading-[1.02] tracking-[-0.03em]">
               We ship in
               <br />
-              <em className="italic text-[rgba(245,239,228,0.85)]">public, too.</em>
+              <span className="text-zinc-500 font-light">public, too.</span>
             </h2>
           </div>
-          <p className="max-w-[420px] text-[16px] leading-[1.6] text-[rgba(245,239,228,0.7)]">
+          <p className="max-w-[420px] text-[15px] leading-[1.6] text-zinc-400">
             Small tools, experiments, and bits of client work that are safe to
             open up. Pull requests are welcome — so are issues, and so is silence.
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid gap-8 md:grid-cols-[1.2fr_1fr]">
-          <Heatmap />
-          <div className="flex flex-col gap-2.5">
+        {/* Layout Grid */}
+        <div className="grid gap-6 md:grid-cols-[1.3fr_1fr]">
+          <div className="flex flex-col justify-start">
+            <Heatmap />
+          </div>
+
+          <div className="flex flex-col gap-4">
             {repos.map((r) => (
               <Link
                 key={r.name}
                 href="#"
-                className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-[14px] border border-[rgba(245,239,228,0.08)] bg-[#1a1812] px-5 py-4 transition-all hover:translate-x-0.5 hover:border-[rgba(209,74,31,0.4)] hover:bg-[#221f17]"
+                className="group grid grid-cols-[1fr_auto] items-center gap-4 rounded-[20px] border border-white/5 bg-[#09090b]/40 px-5 py-4.5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-white/10 hover:bg-[#09090b]/75"
               >
                 <div>
-                  <div className="font-mono text-[13px] text-[var(--paper)]">
-                    <span className="text-[var(--muted-2)]">{r.slash}</span>
+                  <div className="font-mono text-[13px] text-zinc-300 font-semibold group-hover:text-white transition-colors">
+                    <span className="text-zinc-600 font-normal">{r.slash}</span>
                     {r.name}
                   </div>
-                  <div className="mt-1 text-[13px] text-[rgba(245,239,228,0.6)]">
+                  <div className="mt-1 text-[13px] text-zinc-400 font-normal group-hover:text-zinc-300 transition-colors">
                     {r.desc}
                   </div>
                 </div>
+
                 <div className="text-right">
-                  <div className="inline-flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-[0.2em] text-[rgba(245,239,228,0.7)]">
-                    <span className={`h-2 w-2 rounded-full ${r.langClass}`} />
+                  <div className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-medium">
+                    <span className={`h-1.5 w-1.5 rounded-full ${r.langClass}`} />
                     {r.lang}
                   </div>
-                  <div className="mt-1 flex justify-end gap-3.5 font-mono text-[11px] text-[rgba(245,239,228,0.55)]">
-                    <span>★ {r.stars}</span>
-                    <span>↳ {r.forks}</span>
+                  <div className="mt-1 flex justify-end gap-3.5 font-mono text-[11px] text-zinc-500 font-medium group-hover:text-zinc-400 transition-colors">
+                    <span className="flex items-center gap-0.5">★ {r.stars}</span>
+                    <span className="flex items-center gap-0.5">↳ {r.forks}</span>
                   </div>
                 </div>
               </Link>

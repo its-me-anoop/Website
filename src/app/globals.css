@@ -1,31 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  /* ── Warm paper palette ── */
-  --paper: #f5efe4;
-  --paper-2: #efe7d8;
-  --paper-3: #e8dfcc;
-  --ink: #15140f;
-  --ink-2: #2a2820;
-  --muted: #6b665b;
-  --muted-2: #8a8578;
-  --rule: rgba(21, 20, 15, 0.12);
-  --rule-2: rgba(21, 20, 15, 0.22);
+  /* ── Apple Premium Space & Slate Dark Theme ── */
+  --paper: #000000;
+  --paper-2: #09090b;
+  --paper-3: #121214;
+  --ink: #f5f5f7;
+  --ink-2: #e4e4e7;
+  --muted: #a1a1aa;
+  --muted-2: #71717a;
+  --rule: rgba(255, 255, 255, 0.08);
+  --rule-2: rgba(255, 255, 255, 0.15);
 
-  /* warm ember — primary */
-  --accent: #d14a1f;
-  --accent-hover: #b53e17;
-  --accent-muted: rgba(209, 74, 31, 0.12);
-  --accent-ink: #fff6ec;
+  /* Apple Pro Royal Blue */
+  --accent: #0071e3;
+  --accent-hover: #147ce5;
+  --accent-muted: rgba(0, 113, 227, 0.15);
+  --accent-ink: #ffffff;
 
-  /* deep teal — rare accent */
-  --accent-2: #0d6b5c;
+  /* Premium Emerald / Teal Accent */
+  --accent-2: #30d158;
 
-  /* dark surface */
-  --surface: #1a1812;
-  --surface-ink: #f5efe4;
+  /* Surface and overlays */
+  --surface: #18181b;
+  --surface-ink: #f5f5f7;
 
-  /* semantic aliases so any legacy class still resolves */
+  /* Aliases for backwards compatibility */
   --background: var(--paper);
   --background-secondary: var(--paper-2);
   --foreground: var(--ink);
@@ -35,13 +35,13 @@
   --border: var(--rule);
   --border-strong: var(--rule-2);
   --teal: var(--accent-2);
-  --teal-muted: rgba(13, 107, 92, 0.1);
+  --teal-muted: rgba(48, 209, 88, 0.1);
   --deep-earth: #000000;
-  --stone: #1a1812;
+  --stone: #09090b;
 
-  --radius: 14px;
-  --radius-lg: 22px;
-  --shadow: 0 1px 0 rgba(21, 20, 15, 0.05), 0 20px 40px -24px rgba(21, 20, 15, 0.18);
+  --radius: 16px;
+  --radius-lg: 24px;
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.8), 0 20px 40px -24px rgba(0, 0, 0, 0.9);
 }
 
 /* Sipli page keeps its own dark deep-navy palette */
@@ -95,8 +95,8 @@
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
 
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-geist), -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-geist), -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
 

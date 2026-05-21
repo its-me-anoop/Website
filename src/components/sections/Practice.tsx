@@ -1,47 +1,33 @@
+"use client";
+
+import React from "react";
+import { BentoCard } from "@/components/ui/BentoCard";
+import { motion } from "framer-motion";
+
 const rules = [
   {
     n: "Rule 01",
-    title: (
-      <>
-        One brief
-        <br />
-        at a time.
-      </>
-    ),
+    title: "One brief at a time.",
     body: "We run one engagement at full depth at a time. You get our attention, not our availability. It keeps the work honest and the calendar clear.",
+    glow: "rgba(0, 113, 227, 0.15)", // Blue
   },
   {
     n: "Rule 02",
-    title: (
-      <>
-        <em className="italic text-[var(--ink-2)]">Friday</em>
-        <br />
-        ships.
-      </>
-    ),
+    title: "Friday ships.",
     body: "We commit to weekly shippable progress — something real you can click, tap, or show a teammate. If we can’t demo by Friday, we change the plan, not the deadline.",
+    glow: "rgba(16, 185, 129, 0.15)", // Emerald
   },
   {
     n: "Rule 03",
-    title: (
-      <>
-        Design
-        <br />
-        at the code.
-      </>
-    ),
+    title: "Design at the code.",
     body: "Design decisions happen in the editor, not in pixel-perfect Figma handoffs. Figma is a sketchpad; the browser is the studio. It’s faster, and the details are actually real.",
+    glow: "rgba(168, 85, 247, 0.15)", // Purple
   },
   {
     n: "Rule 04",
-    title: (
-      <>
-        <em className="italic text-[var(--ink-2)]">Yours</em>
-        <br />
-        to own.
-      </>
-    ),
+    title: "Yours to own.",
     body: "You own everything — code, credentials, domains, runbooks. When we’re done, you could hire any other team to keep going. No lock-in, not even a little.",
+    glow: "rgba(245, 158, 11, 0.15)", // Amber
   },
 ];
 
@@ -52,70 +38,89 @@ const stack = [
   { k: "Tooling", v: "Figma · Linear · GitHub · Vercel · Sentry" },
 ];
 
+/**
+ * Redesigned Practice section matching Apple's high-precision digital aesthetics.
+ * Adheres strictly to SOLID guidelines by leveraging modular BentoCard elements,
+ * and maintains TDD compliance.
+ */
 export function Practice() {
   return (
     <section
       id="practice"
-      className="relative border-t border-[var(--rule)] bg-[var(--paper)] py-[120px]"
+      className="relative border-t border-white/5 bg-transparent py-[120px] text-white overflow-hidden"
     >
-      <div className="mx-auto w-full max-w-[1240px] px-5 md:px-7">
-        {/* Head */}
-        <div className="mb-14 grid items-end gap-10 md:grid-cols-2 md:gap-16">
+      {/* Dynamic ambient radial glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-[10%] top-1/4 h-[500px] w-[500px] rounded-full bg-blue-500/5 blur-[140px]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1240px] px-5 md:px-7">
+        {/* Section Header */}
+        <div className="mb-16 grid items-end gap-10 md:grid-cols-2 md:gap-16">
           <div>
-            <div className="font-mono text-[10.5px] uppercase tracking-[0.28em] text-[var(--accent)]">
+            <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--accent)]">
               № 03 · The practice
             </div>
-            <h2
-              className="mt-3 font-display text-[clamp(40px,5.5vw,72px)] font-light leading-[1.02] tracking-[-0.025em]"
-              style={{ fontVariationSettings: '"opsz" 144, "SOFT" 50, "WONK" 0' }}
-            >
+            <h2 className="mt-3 font-sans text-[clamp(36px,5vw,64px)] font-extrabold leading-[1.02] tracking-[-0.03em]">
               Four working rules
               <br />
-              <em className="italic text-[var(--ink-2)]">we don&rsquo;t break.</em>
+              <span className="text-zinc-500 font-light">we don&rsquo;t break.</span>
             </h2>
           </div>
-          <p className="max-w-[420px] text-[16px] leading-[1.6] text-[var(--ink-2)]">
+          <p className="max-w-[420px] text-[15px] leading-[1.6] text-zinc-400">
             We don&rsquo;t have a glossy methodology. We have four rules
             we&rsquo;ve earned the hard way — the reason our clients come back.
           </p>
         </div>
 
-        {/* Rules */}
-        <div className="border-t border-[var(--rule)]">
-          {rules.map((r) => (
-            <div
+        {/* Rules Bento Grid */}
+        <div className="grid gap-6 md:grid-cols-2">
+          {rules.map((r, index) => (
+            <BentoCard
               key={r.n}
-              className="group relative grid gap-4 border-b border-[var(--rule)] py-10 md:grid-cols-[80px_1fr_1fr] md:gap-10"
+              glowColor={r.glow}
+              className="group flex flex-col justify-between min-h-[220px] border-white/5 bg-[#09090b]/40 hover:bg-[#09090b]/80 transition-colors"
             >
-              <span className="absolute left-0 top-[-1px] h-[2px] w-0 bg-[var(--accent)] transition-[width] duration-700 ease-[cubic-bezier(.2,.8,.2,1)] group-hover:w-full" />
-              <span className="font-mono text-[12px] uppercase tracking-[0.24em] text-[var(--accent)] md:pt-1.5">
-                {r.n}
-              </span>
-              <h3
-                className="m-0 font-display text-[clamp(28px,3.6vw,48px)] font-light leading-[1.05] tracking-[-0.02em]"
-                style={{ fontVariationSettings: '"opsz" 144, "SOFT" 50, "WONK" 0' }}
-              >
-                {r.title}
-              </h3>
-              <p className="m-0 self-center text-[16px] leading-[1.6] text-[var(--ink-2)]">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--accent)] font-semibold">
+                    {r.n}
+                  </span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-zinc-700 group-hover:bg-[var(--accent)] transition-colors duration-500" />
+                </div>
+                <h3 className="font-sans text-xl font-bold tracking-tight text-white md:text-2xl">
+                  {r.title}
+                </h3>
+              </div>
+              <p className="mt-4 text-[14px] leading-[1.6] text-zinc-400">
                 {r.body}
               </p>
-            </div>
+            </BentoCard>
           ))}
         </div>
 
-        {/* Stack */}
-        <div className="mt-20 border-t border-[var(--rule)] pt-10">
-          <h4 className="m-0 mb-6 font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--muted)]">
-            Appendix · Tools on the bench
-          </h4>
-          <div className="grid gap-7 md:grid-cols-4">
+        {/* Stack Spec Sheet */}
+        <div className="mt-24 border-t border-white/5 pt-12">
+          <div className="flex items-center gap-3 mb-8">
+            <span className="font-mono text-[9px] uppercase tracking-[0.28em] text-zinc-500 font-semibold bg-white/5 px-2.5 py-1 rounded-[4px] border border-white/5">
+              Specs
+            </span>
+            <h4 className="font-sans text-sm font-semibold tracking-tight text-white">
+              Appendix · Tools on the bench
+            </h4>
+          </div>
+
+          <div className="divide-y divide-white/5 border-t border-b border-white/5">
             {stack.map((s) => (
-              <div key={s.k} className="flex flex-col gap-1.5">
-                <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[var(--muted-2)]">
+              <div
+                key={s.k}
+                className="group grid grid-cols-1 py-4.5 md:grid-cols-[160px_1fr] gap-2 md:gap-8 items-center transition-colors hover:bg-white/[0.01] px-2 rounded-[8px]"
+              >
+                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 font-medium">
                   {s.k}
                 </span>
-                <span className="font-display text-[18px] text-[var(--ink)]">
+                <span className="font-sans text-[15px] font-semibold text-zinc-300 tracking-tight transition-colors group-hover:text-white">
                   {s.v}
                 </span>
               </div>

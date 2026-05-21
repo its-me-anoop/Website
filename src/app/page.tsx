@@ -7,6 +7,7 @@ import { Practice } from "@/components/sections/Practice";
 import { OpenSource } from "@/components/sections/OpenSource";
 import { Contact } from "@/components/sections/Contact";
 import About from "@/components/About";
+import { SpaceMeshBackground } from "@/components/visual/SpaceMeshBackground";
 
 export const metadata: Metadata = {
   title: "A small studio building products people keep open.",
@@ -19,7 +20,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[var(--paper)] text-[var(--ink)]">
+    <main className="relative min-h-screen bg-black text-[var(--ink)] isolate">
+      <SpaceMeshBackground />
       <Navbar />
       <Hero />
       <FeaturedWork />

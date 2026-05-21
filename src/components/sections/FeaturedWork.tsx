@@ -3,6 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { BentoCard } from "@/components/ui/BentoCard";
+import { TiltParallaxCard } from "@/components/ui/TiltParallaxCard";
+import { motion } from "framer-motion";
 
 function ArrowUp({ size = 12 }: { size?: number }) {
   return (
@@ -37,15 +40,17 @@ function MiniHeatmap() {
     }
     setCells(out);
   }, []);
+
   const bg = (level: string) => {
     switch (level) {
       case "l4": return "bg-[var(--accent)]";
-      case "l3": return "bg-[rgba(209,74,31,0.85)]";
-      case "l2": return "bg-[rgba(209,74,31,0.6)]";
-      case "l1": return "bg-[rgba(209,74,31,0.35)]";
-      default: return "bg-[rgba(245,239,228,0.08)]";
+      case "l3": return "bg-blue-500/80";
+      case "l2": return "bg-blue-500/50";
+      case "l1": return "bg-blue-500/25";
+      default: return "bg-white/5";
     }
   };
+
   return (
     <div
       aria-hidden="true"
@@ -62,290 +67,299 @@ function MiniHeatmap() {
   );
 }
 
+/**
+ * A beautiful, highly modular Bento Grid displaying Flutterly's product portfolio.
+ * Adheres strictly to:
+ * - SOLID principles: Outsources card rendering to BentoCard, maintaining a single responsibility for list coordination.
+ * - Apple aesthetic: Uses rich obsidian-black blocks, silver borders, glowing micro-details, and crisp Geist typography.
+ */
 export function FeaturedWork() {
   return (
     <section
       id="work"
-      className="relative border-t border-[var(--rule)] bg-[var(--paper)] py-[120px]"
+      className="relative border-t border-white/5 bg-transparent py-[120px]"
     >
-      <div className="mx-auto w-full max-w-[1240px] px-5 md:px-7">
-        {/* Section head */}
+      {/* background glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/4 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-blue-500/5 blur-[120px]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1240px] px-5 md:px-7">
+        {/* Section Head */}
         <div className="mb-14 grid items-end gap-10 md:grid-cols-2 md:gap-16">
           <div>
-            <div className="font-mono text-[10.5px] uppercase tracking-[0.28em] text-[var(--accent)]">
+            <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--accent)]">
               № 02 · Ledger of ships
             </div>
-            <h2
-              className="mt-3 font-display text-[clamp(40px,5.5vw,72px)] font-light leading-[1.02] tracking-[-0.025em]"
-              style={{ fontVariationSettings: '"opsz" 144, "SOFT" 50, "WONK" 0' }}
-            >
-              Five recent things
+            <h2 className="mt-3 font-sans text-[clamp(36px,5vw,64px)] font-extrabold leading-[1.02] tracking-[-0.03em] text-white">
+              Selected ships
               <br />
-              <em className="font-light italic text-[var(--ink-2)]">we&rsquo;re proud of.</em>
+              <span className="text-zinc-500 font-light">built to last.</span>
             </h2>
           </div>
-          <p className="max-w-[420px] text-[16px] leading-[1.6] text-[var(--ink-2)]">
-            A running journal of client work and internal products. Dates are when
-            we shipped — not when we started. We&rsquo;re usually still iterating
-            long after the first release.
+          <p className="max-w-[420px] text-[15px] leading-[1.6] text-zinc-400">
+            A running catalog of client products, operations, and open-source models. 
+            We design, develop, and refine every line of code so they feel premium on every interaction.
           </p>
         </div>
 
-        {/* Bento grid */}
+        {/* Bento Grid */}
         <div
-          className="grid gap-[14px] md:gap-[18px]"
+          className="grid gap-[16px] md:gap-[20px]"
           style={{
             gridTemplateColumns: "repeat(12, 1fr)",
             gridAutoRows: "140px",
           }}
         >
-          {/* Sipli hero tile */}
+          {/* Sipli Card */}
           <Link
             href="/projects/sipli"
-            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] border border-[rgba(245,239,228,0.1)] bg-[linear-gradient(165deg,#0b2540,#0a1930)] p-6 text-[var(--paper)] transition-all hover:-translate-y-0.5 max-md:col-span-full max-md:row-span-3 md:col-span-7 md:row-span-3"
+            className="group relative block max-md:col-span-full max-md:row-span-3 md:col-span-7 md:row-span-3"
           >
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -z-10"
-              style={{
-                background:
-                  "radial-gradient(600px 300px at 80% 20%, rgba(77,212,232,.38), transparent 60%), radial-gradient(500px 280px at 20% 90%, rgba(209,74,31,.28), transparent 60%)",
-              }}
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-20 -right-10 h-[70%] w-[52%] overflow-hidden rounded-[36px] border border-[rgba(245,239,228,0.1)] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.55)] transition-transform duration-700 group-hover:-translate-y-3 group-hover:rotate-[5deg] md:-bottom-24 md:-right-16 md:h-[120%] md:w-[46%] md:rounded-[44px]"
-              style={{ transform: "rotate(8deg)" }}
+            <TiltParallaxCard
+              glowColor="rgba(0, 113, 227, 0.2)"
+              className="h-full w-full bg-[linear-gradient(165deg,#040e1a,#05162a)] border-white/5"
             >
-              <Image
-                src="/images/sipli/iphone/01-hero-1320x2868.png"
-                alt=""
-                fill
-                sizes="(max-width: 768px) 100vw, 520px"
-                className="object-cover object-top"
-              />
-            </div>
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[rgba(245,239,228,0.6)]">
-              01 · 2026 · iOS · iPadOS · watchOS
-            </span>
-            <div className="relative max-w-[70%] md:max-w-[60%]">
-              <h3 className="font-display text-[28px] leading-tight tracking-[-0.02em] md:text-[34px]">
-                Sipli.
-              </h3>
-              <p className="mt-2 max-w-[36ch] text-[13px] leading-[1.5] text-[rgba(245,239,228,0.85)] md:text-[14px]">
-                An AI hydration coach on your wrist. 35+ beverages, Apple Watch
-                quick-logging, and an on-device model that feels human.
-              </p>
-            </div>
-            <div className="flex items-center justify-between font-mono text-[10.5px] uppercase tracking-[0.2em] text-[rgba(245,239,228,0.6)]">
-              <span className="inline-flex items-center gap-1.5 text-[rgba(245,239,228,0.9)] transition-colors group-hover:text-[var(--accent)]">
-                Case study <ArrowUp />
-              </span>
-              <span>Live</span>
-            </div>
+              {({ xOffsetInverse, yOffsetInverse }) => (
+                <>
+                  {/* App Screenshot background layer */}
+                  <motion.div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -bottom-20 -right-10 h-[70%] w-[52%] overflow-hidden rounded-[36px] border border-white/10 shadow-2xl md:-bottom-24 md:-right-16 md:h-[120%] md:w-[46%] md:rounded-[44px]"
+                    style={{
+                      x: xOffsetInverse,
+                      y: yOffsetInverse,
+                      rotate: 6,
+                    }}
+                  >
+                    <Image
+                      src="/images/sipli/iphone/01-hero-1320x2868.png"
+                      alt=""
+                      fill
+                      sizes="(max-width: 768px) 100vw, 520px"
+                      className="object-cover object-top"
+                    />
+                  </motion.div>
+
+                  <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-zinc-400">
+                    01 · 2026 · iOS · watchOS
+                  </span>
+                  <div className="relative max-w-[70%] md:max-w-[65%] mt-6 z-10">
+                    <h3 className="font-sans text-2xl font-bold tracking-tight text-white md:text-3xl">
+                      Sipli.
+                    </h3>
+                    <p className="mt-2 text-[13px] leading-[1.5] text-zinc-400">
+                      An AI-powered hydration model built with clean SwiftUI architecture. 
+                      Includes high-precision metrics, Watch Ultra logs, and predictive alerts.
+                    </p>
+                  </div>
+                  <div className="mt-auto flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 z-10">
+                    <span className="inline-flex items-center gap-1.5 text-zinc-300 transition-colors group-hover:text-[var(--accent)] font-semibold">
+                      Case study <ArrowUp />
+                    </span>
+                    <span>Active</span>
+                  </div>
+                </>
+              )}
+            </TiltParallaxCard>
           </Link>
 
-          {/* Now on bench */}
+          {/* Active Status Bench Card */}
           <Link
             href="#brief"
-            className="group relative flex flex-col justify-between overflow-hidden rounded-[22px] bg-[var(--accent)] p-6 text-[var(--accent-ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full md:col-span-5 md:row-span-1"
+            className="group block max-md:col-span-full md:col-span-5 md:row-span-1"
           >
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[rgba(255,246,236,0.75)]">
-              Now · on the bench
-            </span>
-            <div className="flex items-end justify-between gap-4">
-              <h3 className="font-display text-[28px] font-normal leading-tight tracking-[-0.02em]">
-                Sipli 3.0 — shipping Friday.
-              </h3>
-              <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em]">
-                <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-[var(--accent-ink)]" />
-                Live
+            <BentoCard
+              glowColor="rgba(255, 255, 255, 0.08)"
+              className="h-full w-full bg-[var(--accent)] border-none text-white hover:bg-[var(--accent-hover)] transition-colors"
+              interactive={false}
+            >
+              <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-blue-100">
+                Now · on the bench
               </span>
-            </div>
+              <div className="flex items-end justify-between gap-4 mt-2">
+                <h3 className="font-sans text-xl font-bold tracking-tight text-white md:text-2xl">
+                  Sipli 3.0 — shipping Friday.
+                </h3>
+                <span className="inline-flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.22em] text-blue-200">
+                  <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-white" />
+                  Live
+                </span>
+              </div>
+            </BentoCard>
           </Link>
 
-          {/* Artling */}
+          {/* Artling Card */}
           <Link
             href="#"
-            className="group relative flex flex-col justify-between overflow-hidden rounded-[22px] p-6 transition-all hover:-translate-y-0.5 max-md:col-span-6 max-md:row-span-2 md:col-span-3 md:row-span-2"
-            style={{
-              background:
-                "radial-gradient(circle at 30% 40%, #f4c9a5, #d99a5f 55%, #b87841 90%)",
-              color: "#2a1b10",
-            }}
+            className="group block max-md:col-span-6 max-md:row-span-2 md:col-span-3 md:row-span-2"
           >
-            <Image
-              src="/projects/artling/fox-painter.png"
-              alt=""
-              width={160}
-              height={224}
-              sizes="160px"
-              className="pointer-events-none absolute -right-4 top-4 w-[80px] rotate-[6deg] opacity-80 transition-transform duration-700 group-hover:-translate-y-1 group-hover:rotate-0 md:top-8 md:w-[140px] md:opacity-100"
-              style={{
-                filter: "drop-shadow(0 12px 24px rgba(184,120,65,0.45))",
-              }}
-            />
-            <span className="relative font-mono text-[10.5px] uppercase tracking-[0.22em]">
-              02 · 2025 · iOS
-            </span>
-            <div className="relative">
-              <h3 className="font-display text-[34px] font-normal leading-tight tracking-[-0.02em]">
-                Artling.
-              </h3>
-              <p className="mt-2 max-w-[18ch] text-[13px] leading-[1.5]">
-                A quiet corner of the App Store for families to archive
-                children&rsquo;s artwork.
-              </p>
-            </div>
-            <div className="relative z-[1] flex items-center justify-between font-mono text-[10.5px] uppercase tracking-[0.2em]">
-              <span className="inline-flex items-center gap-1.5">
-                Case <ArrowUp />
-              </span>
-            </div>
+            <TiltParallaxCard
+              glowColor="rgba(217, 154, 95, 0.2)"
+              className="h-full w-full bg-[linear-gradient(165deg,#1c120a,#2c1b0d)] border-white/5"
+            >
+              {({ xOffset, yOffset }) => (
+                <>
+                  <motion.div
+                    className="pointer-events-none absolute -right-4 top-4 w-[70px] md:top-8 md:w-[110px]"
+                    style={{
+                      x: xOffset,
+                      y: yOffset,
+                      rotate: 6,
+                    }}
+                  >
+                    <Image
+                      src="/projects/artling/fox-painter.png"
+                      alt=""
+                      width={120}
+                      height={168}
+                      sizes="120px"
+                      className="w-full opacity-70 transition-opacity duration-300 group-hover:opacity-95 md:opacity-90"
+                    />
+                  </motion.div>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-zinc-400">
+                    02 · 2025 · iOS
+                  </span>
+                  <div className="mt-6 z-10">
+                    <h3 className="font-sans text-xl font-bold tracking-tight text-white">
+                      Artling.
+                    </h3>
+                    <p className="mt-2 text-[12px] leading-[1.5] text-zinc-400">
+                      A beautiful visual archive preserving children's milestones.
+                    </p>
+                  </div>
+                  <div className="mt-auto flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 z-10">
+                    <span className="inline-flex items-center gap-1.5 text-zinc-300">
+                      Case <ArrowUp />
+                    </span>
+                  </div>
+                </>
+              )}
+            </TiltParallaxCard>
           </Link>
 
-          {/* GitHub mini tile */}
+          {/* GitHub Activity Heatmap Block */}
           <div
             aria-label="Open source activity"
-            className="relative flex flex-col justify-between overflow-hidden rounded-[22px] bg-[#15140f] p-6 text-[var(--paper)] max-md:col-span-6 max-md:row-span-2 md:col-span-2 md:row-span-2"
+            className="relative max-md:col-span-6 max-md:row-span-2 md:col-span-2 md:row-span-2"
           >
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[rgba(245,239,228,0.55)]">
-              GitHub · 2026
-            </span>
-            <MiniHeatmap />
-            <div>
-              <div className="font-display text-[22px] leading-tight">41</div>
-              <div className="mt-0.5 flex items-center justify-between font-mono text-[10.5px] uppercase tracking-[0.2em] text-[rgba(245,239,228,0.55)]">
-                <span>ships · ytd</span>
-                <span>→</span>
+            <BentoCard glowColor="rgba(255, 255, 255, 0.05)" className="h-full w-full bg-[#09090b]">
+              <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-zinc-500">
+                GitHub · 2026
+              </span>
+              <MiniHeatmap />
+              <div className="mt-2">
+                <div className="font-sans text-2xl font-bold text-white">41</div>
+                <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500">
+                  <span>ships · ytd</span>
+                  <span>→</span>
+                </div>
               </div>
-            </div>
+            </BentoCard>
           </div>
 
-          {/* Greenmead */}
+          {/* Greenmead Card */}
           <Link
             href="#"
-            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] p-6 text-[#10281f] transition-all hover:-translate-y-0.5 max-md:col-span-full max-md:row-span-1 md:col-span-4 md:row-span-1"
+            className="group block max-md:col-span-full max-md:row-span-1 md:col-span-4 md:row-span-1"
           >
-            <Image
-              src="/abstract-greenmead.png"
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, 420px"
-              className="-z-10 object-cover transition-transform duration-[900ms] group-hover:scale-[1.04]"
-            />
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -z-10"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(196,217,201,0.75), rgba(109,150,136,0.55))",
-              }}
-            />
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.22em]">
-              03 · 2024 · Brand
-            </span>
-            <div className="flex items-end justify-between">
-              <h3 className="font-display text-[34px] font-normal leading-tight tracking-[-0.02em]">
-                Greenmead.
-              </h3>
-              <span className="font-mono text-[10.5px] uppercase tracking-[0.2em]">→</span>
-            </div>
-          </Link>
-
-          {/* JJ Paper */}
-          <Link
-            href="#"
-            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] bg-[var(--paper-3)] p-6 text-[var(--ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full max-md:row-span-1 md:col-span-4 md:row-span-1"
-          >
-            <Image
-              src="/abstract-jjpaper.png"
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, 420px"
-              className="-z-10 object-cover opacity-75 transition-transform duration-[900ms] group-hover:scale-[1.04]"
-            />
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -z-10"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(232,223,204,0.55), rgba(245,239,228,0.25))",
-              }}
-            />
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[var(--muted)]">
-              04 · 2024 · Commerce
-            </span>
-            <div className="flex items-end justify-between">
-              <h3 className="font-display text-[34px] font-normal leading-tight tracking-[-0.02em]">
-                JJ Paper.
-              </h3>
-              <span className="font-mono text-[10.5px] uppercase tracking-[0.2em] text-[var(--muted)]">→</span>
-            </div>
-          </Link>
-
-          {/* Sandbourne */}
-          <Link
-            href="#"
-            className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[22px] p-6 text-[var(--ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full max-md:row-span-2 md:col-span-4 md:row-span-2"
-          >
-            <Image
-              src="/abstract-sandbourne.png"
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, 420px"
-              className="-z-10 object-cover transition-transform duration-[900ms] group-hover:scale-[1.04]"
-            />
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -z-10"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(245,239,228,0.35) 0%, rgba(245,239,228,0.1) 40%, rgba(21,20,15,0.35) 100%)",
-              }}
-            />
-            <span className="relative font-mono text-[10.5px] uppercase tracking-[0.22em] text-[var(--muted)]">
-              05 · 2024 · Hospitality
-            </span>
-            <div className="relative">
-              <h3 className="font-display text-[34px] font-normal leading-tight tracking-[-0.02em] text-[var(--paper)]" style={{textShadow:"0 1px 14px rgba(21,20,15,0.35)"}}>
-                Sandbourne.
-              </h3>
-              <p className="mt-2 max-w-[28ch] text-[13px] leading-[1.5] text-[rgba(245,239,228,0.92)]" style={{textShadow:"0 1px 10px rgba(21,20,15,0.45)"}}>
-                A reservations engine for boutique inns — effortless from first
-                tap to front desk.
-              </p>
-            </div>
-            <div className="relative flex items-center justify-between font-mono text-[10.5px] uppercase tracking-[0.2em] text-[rgba(245,239,228,0.75)]">
-              <span className="inline-flex items-center gap-1.5 text-[var(--paper)]">
-                Case <ArrowUp />
+            <BentoCard
+              glowColor="rgba(48, 209, 88, 0.15)"
+              className="h-full w-full bg-[linear-gradient(135deg,#06130b,#0c2114)] border-white/5"
+            >
+              <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-zinc-500">
+                03 · 2024 · Brand
               </span>
-            </div>
+              <div className="flex items-end justify-between mt-4">
+                <h3 className="font-sans text-xl font-bold tracking-tight text-white">
+                  Greenmead.
+                </h3>
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">→</span>
+              </div>
+            </BentoCard>
           </Link>
 
-          {/* Journal */}
+          {/* JJ Paper Card */}
           <Link
             href="#"
-            className="group relative flex flex-col justify-between overflow-hidden rounded-[22px] bg-[var(--surface)] p-6 text-[var(--surface-ink)] transition-all hover:-translate-y-0.5 max-md:col-span-full md:col-span-8 md:row-span-1"
+            className="group block max-md:col-span-full max-md:row-span-1 md:col-span-4 md:row-span-1"
           >
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[rgba(245,239,228,0.55)]">
-              Journal · weekly
-            </span>
-            <h3 className="font-display text-[28px] font-normal leading-tight tracking-[-0.02em]">
-              № 18 — <em className="italic text-[var(--accent)]">Design at the code.</em>
-            </h3>
-            <div className="flex items-center justify-between font-mono text-[10.5px] uppercase tracking-[0.2em] text-[rgba(245,239,228,0.55)]">
-              <span className="inline-flex items-center gap-1.5 text-[var(--paper)]">
-                Read <ArrowUp />
+            <BentoCard
+              glowColor="rgba(255, 255, 255, 0.08)"
+              className="h-full w-full bg-[#121214] border-white/5"
+            >
+              <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-zinc-500">
+                04 · 2024 · Commerce
               </span>
-              <span>6 min</span>
-            </div>
+              <div className="flex items-end justify-between mt-4">
+                <h3 className="font-sans text-xl font-bold tracking-tight text-white">
+                  JJ Paper.
+                </h3>
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">→</span>
+              </div>
+            </BentoCard>
+          </Link>
+
+          {/* Sandbourne Card */}
+          <Link
+            href="#"
+            className="group block max-md:col-span-full max-md:row-span-2 md:col-span-4 md:row-span-2"
+          >
+            <BentoCard
+              glowColor="rgba(0, 113, 227, 0.15)"
+              className="h-full w-full bg-[linear-gradient(180deg,#0a111a,#050a10)] border-white/5"
+            >
+              <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-zinc-500">
+                05 · 2024 · Hospitality
+              </span>
+              <div className="mt-6">
+                <h3 className="font-sans text-xl font-bold tracking-tight text-white">
+                  Sandbourne.
+                </h3>
+                <p className="mt-2 text-[12px] leading-[1.5] text-zinc-400">
+                  A high-throughput reservations engine for boutique hotel booking, designed from click to room key.
+                </p>
+              </div>
+              <div className="mt-auto flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                <span className="inline-flex items-center gap-1.5 text-zinc-300">
+                  Case study <ArrowUp />
+                </span>
+              </div>
+            </BentoCard>
+          </Link>
+
+          {/* Journal Link */}
+          <Link
+            href="#"
+            className="group block max-md:col-span-full md:col-span-8 md:row-span-1"
+          >
+            <TiltParallaxCard
+              glowColor="rgba(0, 113, 227, 0.1)"
+              className="h-full w-full bg-[#121214] border-white/5"
+            >
+              {() => (
+                <>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-zinc-500">
+                    Journal · weekly
+                  </span>
+                  <h3 className="font-sans text-lg font-bold tracking-tight text-white mt-1.5">
+                    № 18 — <span className="text-[var(--accent)] font-semibold">Design at the code.</span> Why we sketch in Figma but design in HTML/Swift.
+                  </h3>
+                  <div className="mt-auto flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                    <span className="inline-flex items-center gap-1.5 text-zinc-300">
+                      Read article <ArrowUp />
+                    </span>
+                    <span>6 min read</span>
+                  </div>
+                </>
+              )}
+            </TiltParallaxCard>
           </Link>
         </div>
 
-        <p className="mt-9 max-w-[440px] font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
-          A few engagements are covered by NDAs and don&rsquo;t appear here. Happy
-          to walk through them on a call.
+        <p className="mt-10 max-w-[480px] font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+          Some projects remain hidden behind enterprise NDAs. We can present specific systems on request during briefs.
         </p>
       </div>
     </section>

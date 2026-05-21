@@ -1,15 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  display: "swap",
-  style: ["normal", "italic"],
-  axes: ["SOFT", "WONK", "opsz"],
-});
 
 const geist = Geist({
   variable: "--font-geist",
@@ -87,7 +79,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5efe4",
+  themeColor: "#000000",
 };
 
 function JsonLd() {
@@ -159,7 +151,6 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className={cn(
-        fraunces.variable,
         geist.variable,
         geistMono.variable,
         "antialiased bg-background text-foreground font-sans min-h-screen"

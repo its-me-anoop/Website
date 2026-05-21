@@ -1,48 +1,30 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { Iphone17ProFrame } from "@/components/ui/Iphone17ProFrame";
+import { AppleButton } from "@/components/ui/AppleButton";
 
 const ledger = [
   { k: "Studio", v: "Flutterly Ltd" },
   { k: "Est.", v: "Reading, UK · 2024" },
-  { k: "On the bench", v: "Sipli 3.0" },
+  { k: "Focus", v: "High-Performance Apps" },
 ];
 
-const cards = [
-  {
-    tag: "Sandbourne",
-    idx: "03 / 05",
-    year: "2024",
-    variant: "c1",
-    src: "/abstract-sandbourne.png",
-    alt: "Sandbourne — abstract brand study",
-    darkText: true,
-  },
-  {
-    tag: "Sipli",
-    idx: "01 / 05",
-    year: "2026",
-    variant: "c2",
-    src: "/images/sipli/iphone/01-hero-1320x2868.png",
-    alt: "Sipli 3.0 — hydration dashboard on iPhone",
-    darkText: false,
-  },
-  {
-    tag: "Greenmead",
-    idx: "02 / 05",
-    year: "2024",
-    variant: "c3",
-    src: "/abstract-greenmead.png",
-    alt: "Greenmead — abstract brand study",
-    darkText: true,
-  },
-] as const;
-
+/**
+ * An ultra-premium Hero section designed with Apple Pro aesthetics.
+ * Features:
+ * - A dynamic interactive background canvas painting neon fluid waves.
+ * - Technical hardware specs ledger.
+ * - Pure high-contrast geometric typography.
+ * - An interactive, pixel-perfect floating iPhone 17 Pro simulation displaying a custom live-updating app interface.
+ */
 export function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const heroRef = useRef<HTMLElement>(null);
+  const [activeTab, setActiveTab] = useState<"hydration" | "insights" | "alerts">("hydration");
 
   useEffect(() => {
     const cv = canvasRef.current;
@@ -57,8 +39,10 @@ export function Hero() {
     let t = 0;
     let running = true;
     let raf = 0;
-    const hueBase = 23;
-    const intensity = 0.7;
+    
+    // Cool Apple neon blue-green spectrum
+    const hueBase = 215; 
+    const intensity = 0.65;
 
     const resize = () => {
       const r = hero.getBoundingClientRect();
@@ -84,16 +68,8 @@ export function Hero() {
       tMouseX = 0.5;
       tMouseY = 0.3;
     };
-    const onTouch = (e: TouchEvent) => {
-      const touch = e.touches[0];
-      if (!touch) return;
-      const r = hero.getBoundingClientRect();
-      tMouseX = (touch.clientX - r.left) / r.width;
-      tMouseY = (touch.clientY - r.top) / r.height;
-    };
     hero.addEventListener("mousemove", onMove);
     hero.addEventListener("mouseleave", onLeave);
-    hero.addEventListener("touchmove", onTouch, { passive: true });
 
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => (running = e.isIntersecting)),
@@ -107,66 +83,66 @@ export function Hero() {
     const frame = () => {
       raf = requestAnimationFrame(frame);
       if (!running || W === 0 || H === 0) return;
-      t += 0.006;
-      mouseX += (tMouseX - mouseX) * 0.08;
-      mouseY += (tMouseY - mouseY) * 0.08;
+      t += 0.005;
+      mouseX += (tMouseX - mouseX) * 0.06;
+      mouseY += (tMouseY - mouseY) * 0.06;
 
       ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = "rgba(245,239,228,0.18)";
+      ctx.fillStyle = "rgba(0,0,0,0.15)";
       ctx.fillRect(0, 0, W, H);
 
-      ctx.globalCompositeOperation = "multiply";
+      ctx.globalCompositeOperation = "screen";
 
       const cx = mouseX * W;
       const cy = mouseY * H;
 
-      // warm sun
-      const r1 = 360 + Math.sin(t * 0.7) * 40;
+      // Primary Blue Neon Sun
+      const r1 = 400 + Math.sin(t * 0.5) * 50;
       const g1 = ctx.createRadialGradient(cx, cy, 0, cx, cy, r1);
-      g1.addColorStop(0, hsla(hueBase, 85, 62, 0.35 * intensity));
-      g1.addColorStop(0.5, hsla(hueBase, 85, 60, 0.14 * intensity));
-      g1.addColorStop(1, hsla(hueBase, 80, 55, 0));
+      g1.addColorStop(0, hsla(hueBase, 90, 50, 0.22 * intensity));
+      g1.addColorStop(0.5, hsla(hueBase + 20, 85, 45, 0.08 * intensity));
+      g1.addColorStop(1, hsla(hueBase, 80, 40, 0));
       ctx.fillStyle = g1;
       ctx.fillRect(0, 0, W, H);
 
-      // cool echo
-      const ox = W * (0.9 - mouseX * 0.8) + Math.cos(t) * 60;
-      const oy = H * (0.9 - mouseY * 0.6) + Math.sin(t * 1.3) * 40;
-      const r2 = 300 + Math.cos(t * 0.5) * 50;
+      // Secondary Emerald Green echo
+      const ox = W * (0.8 - mouseX * 0.6) + Math.cos(t) * 80;
+      const oy = H * (0.8 - mouseY * 0.5) + Math.sin(t * 1.1) * 50;
+      const r2 = 350 + Math.cos(t * 0.4) * 60;
       const g2 = ctx.createRadialGradient(ox, oy, 0, ox, oy, r2);
-      const h2 = (hueBase + 170) % 360;
-      g2.addColorStop(0, hsla(h2, 45, 38, 0.2 * intensity));
-      g2.addColorStop(1, hsla(h2, 45, 38, 0));
+      const h2 = (hueBase + 120) % 360; // Shift to Emerald green
+      g2.addColorStop(0, hsla(h2, 85, 48, 0.14 * intensity));
+      g2.addColorStop(1, hsla(h2, 80, 40, 0));
       ctx.fillStyle = g2;
       ctx.fillRect(0, 0, W, H);
 
-      // drifting blobs
-      for (let i = 0; i < 4; i++) {
-        const a = i * 1.6 + t * 0.4;
-        const x = W * 0.5 + Math.cos(a) * W * 0.35 + (mouseX - 0.5) * 60 * (i + 1);
-        const y = H * 0.55 + Math.sin(a * 1.1) * H * 0.28 + (mouseY - 0.5) * 40 * (i + 1);
-        const r = 160 + i * 30;
+      // Drifting subtle glowing nodes
+      for (let i = 0; i < 3; i++) {
+        const a = i * 2.0 + t * 0.3;
+        const x = W * 0.5 + Math.cos(a) * W * 0.28 + (mouseX - 0.5) * 50 * (i + 1);
+        const y = H * 0.5 + Math.sin(a * 1.2) * H * 0.24 + (mouseY - 0.5) * 30 * (i + 1);
+        const r = 200 + i * 40;
         const gi = ctx.createRadialGradient(x, y, 0, x, y, r);
-        const hh = (hueBase + i * 10) % 360;
-        gi.addColorStop(0, hsla(hh, 75, 62, 0.1 * intensity));
-        gi.addColorStop(1, hsla(hh, 75, 62, 0));
+        const hh = (hueBase + i * 15) % 360;
+        gi.addColorStop(0, hsla(hh, 90, 50, 0.06 * intensity));
+        gi.addColorStop(1, hsla(hh, 80, 40, 0));
         ctx.fillStyle = gi;
         ctx.fillRect(0, 0, W, H);
       }
 
-      // flow streaks
+      // technical flow grid lines
       ctx.globalCompositeOperation = "source-over";
-      ctx.strokeStyle = hsla(hueBase, 50, 35, 0.06 * intensity);
+      ctx.strokeStyle = hsla(hueBase, 40, 20, 0.05 * intensity);
       ctx.lineWidth = 1;
-      const step = 54;
+      const step = 64;
       ctx.beginPath();
       for (let x = 0; x < W; x += step) {
         for (let y = 0; y < H; y += step) {
           const dx = x - cx;
           const dy = y - cy;
           const d = Math.sqrt(dx * dx + dy * dy);
-          const ang = Math.atan2(dy, dx) + Math.sin(d * 0.003 - t) * 0.8 + t * 0.3;
-          const len = 22 + Math.sin(d * 0.01 - t * 1.2) * 10;
+          const ang = Math.atan2(dy, dx) + Math.sin(d * 0.002 - t) * 0.5 + t * 0.15;
+          const len = 18 + Math.sin(d * 0.008 - t * 1.1) * 8;
           ctx.moveTo(x, y);
           ctx.lineTo(x + Math.cos(ang) * len, y + Math.sin(ang) * len);
         }
@@ -180,7 +156,6 @@ export function Hero() {
       window.removeEventListener("resize", onResize);
       hero.removeEventListener("mousemove", onMove);
       hero.removeEventListener("mouseleave", onLeave);
-      hero.removeEventListener("touchmove", onTouch);
       io.disconnect();
     };
   }, []);
@@ -189,196 +164,312 @@ export function Hero() {
     <header
       ref={heroRef}
       id="top"
-      className="relative min-h-screen overflow-hidden bg-[var(--paper)] pb-10 pt-[120px] isolate"
+      className="relative min-h-screen overflow-hidden bg-black pb-12 pt-[130px] isolate"
     >
       <canvas
         ref={canvasRef}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-60"
       />
-      {/* radial gradients */}
+      {/* background vignette overlay */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-[1]"
         style={{
           background:
-            "radial-gradient(1200px 600px at 110% 10%, rgba(209,74,31,.08), transparent 60%), radial-gradient(900px 500px at -10% 90%, rgba(13,107,92,.07), transparent 60%)",
-        }}
-      />
-      {/* noise */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-[1] opacity-50 mix-blend-multiply"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0 0.06  0 0 0 .4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+            "radial-gradient(circle at 50% 30%, transparent 10%, rgba(0,0,0,0.85) 80%)",
         }}
       />
 
       <div className="relative z-[2] mx-auto w-full max-w-[1240px] px-5 md:px-7">
-        {/* Ledger */}
-        <div className="mb-12 grid grid-cols-2 gap-5 border-b border-[var(--rule)] pb-5 pt-3 md:mb-16 md:grid-cols-4 md:gap-5">
+        {/* Ledger Grid */}
+        <div className="mb-14 grid grid-cols-2 gap-5 border-b border-white/5 pb-5 pt-2 md:mb-16 md:grid-cols-4">
           {ledger.map((cell) => (
             <div key={cell.k} className="flex flex-col gap-1">
-              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--muted-2)]">
+              <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-zinc-500">
                 {cell.k}
               </span>
-              <span className="text-[13px] text-[var(--ink-2)]">{cell.v}</span>
+              <span className="text-[12px] font-medium text-zinc-300">{cell.v}</span>
             </div>
           ))}
           <div className="flex flex-col gap-1">
-            <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--muted-2)]">
-              Status
+            <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-zinc-500">
+              Availability
             </span>
-            <span className="inline-flex items-center gap-2 text-[13px] text-[var(--ink-2)]">
+            <span className="inline-flex items-center gap-1.5 text-[12px] font-medium text-zinc-300">
               <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-[var(--accent)]" />
-              Taking briefs · Summer &rsquo;26
+              Taking Briefs · Summer &rsquo;26
             </span>
           </div>
         </div>
 
-        {/* Display headline */}
-        <h1
-          className="font-display text-[clamp(52px,8.8vw,136px)] font-light leading-[0.94] tracking-[-0.025em]"
-          style={{ fontVariationSettings: '"opsz" 144, "SOFT" 50, "WONK" 0' }}
-        >
-          <span className="block overflow-hidden">
-            <span className="inline-block italic text-[var(--ink-2)] [animation:rise_.9s_cubic-bezier(.2,.8,.2,1)_.08s_backwards_forwards]">
-              A small studio
+        {/* Hero Title & Subtitle */}
+        <div className="text-center md:text-left">
+          <h1 className="font-sans text-[clamp(44px,7.8vw,104px)] font-bold leading-[0.96] tracking-[-0.04em] text-white">
+            <span className="block">Apps that feel</span>
+            <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-200 to-emerald-300">
+              instantly familiar.
             </span>
-          </span>
-          <span className="block overflow-hidden">
-            <span className="inline-block [animation:rise_.9s_cubic-bezier(.2,.8,.2,1)_.18s_backwards_forwards]">
-              building{" "}
-              <span className="relative inline-block px-[0.04em]">
-                products
-                <span
-                  className="absolute bottom-[0.12em] left-0 right-0 h-[0.14em] origin-left scale-x-0 rounded-[2px] bg-[var(--accent)] opacity-[0.85] [animation:mark-fill_1s_cubic-bezier(.2,.8,.2,1)_.9s_forwards]"
-                  aria-hidden="true"
-                />
-              </span>{" "}
-              people
-            </span>
-          </span>
-          <span className="block overflow-hidden">
-            <span className="inline-block [animation:rise_.9s_cubic-bezier(.2,.8,.2,1)_.28s_backwards_forwards]">
-              want to keep open.
-            </span>
-          </span>
-        </h1>
+          </h1>
+          <p className="mt-6 max-w-[620px] text-[16px] leading-[1.6] text-zinc-400 md:text-[18px]">
+            Flutterly is a boutique product studio designing and engineering polished web and mobile
+            experiences with the precision, responsiveness, and restraint people expect from their daily tools.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 md:justify-start">
+            <Link href="#brief">
+              <AppleButton variant="primary" className="shadow-2xl shadow-blue-500/20">
+                Start a project
+              </AppleButton>
+            </Link>
+            <Link
+              href="#work"
+              className="inline-flex items-center gap-1.5 py-3 pr-2 pl-2 text-sm font-medium text-zinc-300 transition-colors hover:text-white"
+            >
+              See our ships ↓
+            </Link>
+          </div>
+        </div>
 
-        {/* Lede + card deck */}
-        <div className="mt-16 grid gap-10 md:mt-16 md:grid-cols-[1.15fr_1fr] md:items-end md:gap-16">
-          <div>
-            <p className="max-w-[520px] text-[19px] leading-[1.55] text-[var(--ink-2)]">
-              Flutterly is a UK design-and-engineering practice led by{" "}
-              <strong className="font-medium text-[var(--ink)]">Anoop Jose</strong>.
-              We ship web and mobile products that feel considered, fast, and alive —
-              then keep shipping long after launch.
+        {/* Centerpiece Showcase: High-Precision Interactive iPhone Pro */}
+        <div className="mt-16 grid items-center gap-12 md:mt-24 md:grid-cols-[1fr_1.1fr]">
+          <div className="flex flex-col gap-6 text-center md:text-left">
+            <div className="inline-flex items-center gap-2 self-center rounded-full bg-white/5 px-3 py-1 text-[11px] font-medium tracking-wide text-zinc-400 border border-white/5 md:self-start">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-2)]" />
+              Interactive Prototype
+            </div>
+            <h3 className="font-sans text-2xl font-bold tracking-tight text-white md:text-4xl">
+              Simulated Experience
+            </h3>
+            <p className="text-[14px] leading-[1.6] text-zinc-400">
+              Tap the buttons below to switch screens inside the iPhone 17 Pro device container. 
+              We build using high-performance frameworks so interactive systems react instantly.
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-4">
-              <Link
-                href="#brief"
-                className="group inline-flex items-center gap-2.5 rounded-full bg-[var(--ink)] px-5 py-3.5 text-sm font-medium text-[var(--paper)] transition-all hover:-translate-y-px hover:bg-[var(--accent)] hover:text-[var(--accent-ink)]"
-              >
-                Send a brief
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+
+            <div className="flex flex-wrap justify-center gap-2.5 md:justify-start">
+              {[
+                { id: "hydration", label: "Hydration" },
+                { id: "insights", label: "Insights" },
+                { id: "alerts", label: "Coach" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`rounded-full px-4 py-2 text-xs font-semibold tracking-wide transition-all border cursor-pointer ${
+                    activeTab === tab.id
+                      ? "bg-white text-black border-white shadow-xl"
+                      : "bg-white/5 text-zinc-400 border-white/5 hover:bg-white/10 hover:text-white"
+                  }`}
                 >
-                  <path
-                    d="M3 11 11 3M5 3h6v6"
-                    stroke="currentColor"
-                    strokeWidth="1.4"
-                    fill="none"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </Link>
-              <Link
-                href="#work"
-                className="inline-flex items-center gap-2 border-b border-transparent py-3.5 pr-1 pl-1 text-sm font-medium text-[var(--ink-2)] transition-colors hover:border-[var(--ink)] hover:text-[var(--ink)]"
-              >
-                Read the ledger ↓
-              </Link>
+                  {tab.label}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Card deck */}
-          <div className="relative h-[380px] max-md:h-[320px]">
-            {cards.map((card) => {
-              const base =
-                "group absolute aspect-[4/5] w-[260px] overflow-hidden rounded-[18px] border border-[var(--rule-2)] bg-[var(--paper-2)] shadow-[var(--shadow)] transition-transform duration-700 hover:!rotate-0 hover:-translate-y-1.5 max-md:w-[200px]";
-              const positions = {
-                c1: "right-[40%] top-5 -rotate-6",
-                c2: "right-[15%] top-0 rotate-2 z-10",
-                c3: "right-[-5%] top-[70px] rotate-[8deg]",
-              } as const;
-              return (
-                <div
-                  key={card.tag}
-                  className={`${base} ${positions[card.variant]}`}
-                >
-                  <Image
-                    src={card.src}
-                    alt={card.alt}
-                    fill
-                    sizes="(max-width: 768px) 200px, 260px"
-                    className="object-cover"
-                  />
-                  <span
-                    className="absolute inset-x-0 bottom-0 h-1/2"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, transparent, rgba(21,20,15,0.35))",
-                    }}
-                    aria-hidden="true"
-                  />
-                  <span
-                    className={`absolute left-2.5 top-2.5 rounded-full px-2 py-1 font-mono text-[10px] uppercase tracking-[0.22em] backdrop-blur-sm ${
-                      card.darkText
-                        ? "bg-[rgba(245,239,228,0.85)] text-[var(--ink-2)]"
-                        : "bg-[rgba(245,239,228,0.18)] text-[var(--paper)]"
-                    }`}
-                  >
-                    {card.tag}
-                  </span>
-                  <div className="absolute bottom-3 left-3 right-3 flex justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-[rgba(245,239,228,0.85)]">
-                    <span>{card.idx}</span>
-                    <span>{card.year}</span>
-                  </div>
-                </div>
-              );
-            })}
-            <span className="absolute -bottom-7 right-[15%] font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--muted)]">
-              Contact sheet · <span className="text-[var(--accent)]">03 / 05</span>
-            </span>
-          </div>
-        </div>
+          {/* iPhone Frame Container */}
+          <div className="relative flex justify-center">
+            {/* Ambient behind-device glow */}
+            <div
+              className="pointer-events-none absolute -inset-4 opacity-40 blur-3xl transition-all duration-1000"
+              style={{
+                background:
+                  activeTab === "hydration"
+                    ? "radial-gradient(circle, rgba(0, 113, 227, 0.3) 0%, transparent 70%)"
+                    : activeTab === "insights"
+                    ? "radial-gradient(circle, rgba(48, 209, 88, 0.25) 0%, transparent 70%)"
+                    : "radial-gradient(circle, rgba(255, 159, 10, 0.25) 0%, transparent 70%)",
+              }}
+            />
 
-        {/* Hero footer */}
-        <div className="mt-20 flex flex-wrap items-baseline justify-between gap-5 border-t border-[var(--rule)] pt-4.5 text-[13px] text-[var(--muted)]">
-          <span>
-            <em className="not-italic text-[var(--ink)]">№ 01</em> — An introduction.
-            Scroll for the ledger, the practice, and how to put something on our bench.
-          </span>
-          <Link
-            href="#work"
-            className="inline-flex items-center gap-2 text-[var(--ink-2)]"
-          >
-            <span
-              className="relative inline-block h-3.5 w-3.5 rounded-full border border-current"
-              style={{ animation: "bob 2s infinite" }}
-            >
-              <span
-                className="absolute inset-x-0 bottom-0.5 m-auto h-1 w-1 rotate-45 border-r border-b border-current"
-                style={{ transform: "translateY(-3px) rotate(45deg)" }}
-              />
-            </span>
-            Ledger of ships
-          </Link>
+            <Iphone17ProFrame className="shadow-2xl scale-[0.9] sm:scale-100 transition-transform duration-500">
+              {/* App Screen Simulation */}
+              <div className="relative flex h-full w-full flex-col bg-[#050B14] p-5 text-white font-sans">
+                {/* Header */}
+                <div className="mt-8 flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-medium text-zinc-500 uppercase tracking-widest">
+                      Hydration
+                    </span>
+                    <span className="text-[16px] font-bold tracking-tight">Sipli</span>
+                  </div>
+                  <span className="rounded-full bg-blue-500/10 px-2.5 py-1 text-[9px] font-bold text-blue-400 border border-blue-500/10">
+                    Active
+                  </span>
+                </div>
+
+                {/* Tab Switch screens with AnimatePresence and Spring transitions */}
+                <div className="flex-grow flex flex-col justify-center overflow-hidden">
+                  <AnimatePresence mode="wait">
+                    {activeTab === "hydration" && (
+                      <motion.div
+                        key="hydration"
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -15 }}
+                        transition={{ type: "spring", stiffness: 180, damping: 18 }}
+                        className="flex-grow flex flex-col justify-center items-center py-6"
+                      >
+                        {/* Circle Indicator */}
+                        <div className="relative flex h-40 w-40 items-center justify-center rounded-full bg-blue-500/5 shadow-2xl">
+                          {/* Inner glowing pulse */}
+                          <div className="absolute inset-2 rounded-full bg-blue-500/2 animate-pulse" />
+                          {/* Outer thin ring */}
+                          <div className="absolute inset-0 rounded-full border border-white/5" />
+                          
+                          {/* Premium SVG Circular progress ring */}
+                          <svg className="absolute inset-0 h-full w-full -rotate-90" viewBox="0 0 100 100">
+                            {/* Background Track */}
+                            <circle
+                              cx="50"
+                              cy="50"
+                              r="42"
+                              className="stroke-blue-500/10 fill-none"
+                              strokeWidth="4"
+                            />
+                            {/* Animated Active Segment */}
+                            <motion.circle
+                              cx="50"
+                              cy="50"
+                              r="42"
+                              className="stroke-blue-400 fill-none"
+                              strokeWidth="4"
+                              strokeLinecap="round"
+                              initial={{ strokeDasharray: "263.89 263.89", strokeDashoffset: 263.89 }}
+                              animate={{ strokeDashoffset: 263.89 * (1 - 0.72) }}
+                              transition={{ type: "spring", stiffness: 60, damping: 15, delay: 0.15 }}
+                            />
+                          </svg>
+
+                          <div className="flex flex-col items-center z-10">
+                            <span className="text-3xl font-extrabold tracking-tight">72%</span>
+                            <span className="text-[9px] font-medium uppercase tracking-wider text-zinc-400 mt-0.5">
+                              1.8L of 2.5L
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Action button */}
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="mt-8 flex h-10 w-32 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white shadow-lg shadow-blue-500/20 active:scale-95 transition-transform cursor-pointer"
+                        >
+                          + Add Drink
+                        </motion.button>
+                      </motion.div>
+                    )}
+
+                    {activeTab === "insights" && (
+                      <motion.div
+                        key="insights"
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -15 }}
+                        transition={{ type: "spring", stiffness: 180, damping: 18 }}
+                        className="flex-grow flex flex-col justify-center py-6"
+                      >
+                        <span className="text-xs font-bold text-zinc-400 mb-3">Weekly Intake</span>
+                        
+                        {/* Staggered Vertical Bar Chart */}
+                        <motion.div
+                          initial="hidden"
+                          animate="visible"
+                          variants={{
+                            hidden: { opacity: 0 },
+                            visible: {
+                              opacity: 1,
+                              transition: {
+                                staggerChildren: 0.05,
+                              },
+                            },
+                          }}
+                          className="flex items-end justify-between h-28 px-2 gap-1.5"
+                        >
+                          {[60, 80, 45, 95, 70, 85, 90].map((val, idx) => (
+                            <div key={idx} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                              <motion.div
+                                variants={{
+                                  hidden: { height: 0, opacity: 0 },
+                                  visible: {
+                                    height: `${val}%`,
+                                    opacity: 1,
+                                    transition: { type: "spring", stiffness: 150, damping: 14 }
+                                  }
+                                }}
+                                className={`w-full rounded-t-sm ${
+                                  idx === 6 ? "bg-emerald-400 shadow-md shadow-emerald-400/25" : "bg-zinc-700/80"
+                                }`}
+                              />
+                              <span className="text-[8px] font-mono text-zinc-500">
+                                {["M", "T", "W", "T", "F", "S", "S"][idx]}
+                              </span>
+                            </div>
+                          ))}
+                        </motion.div>
+
+                        {/* Slide-in Streak Info */}
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.25, type: "spring", stiffness: 120, damping: 14 }}
+                          className="mt-5 rounded-xl bg-zinc-900/60 p-3 border border-white/5"
+                        >
+                          <div className="text-[10px] text-zinc-500 uppercase font-mono">Streak</div>
+                          <div className="text-sm font-bold text-white mt-0.5">14 Days Consistent</div>
+                        </motion.div>
+                      </motion.div>
+                    )}
+
+                    {activeTab === "alerts" && (
+                      <motion.div
+                        key="alerts"
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -15 }}
+                        transition={{ type: "spring", stiffness: 180, damping: 18 }}
+                        className="flex-grow flex flex-col justify-center py-6"
+                      >
+                        {/* Slide from Left for Coach */}
+                        <motion.div
+                          initial={{ opacity: 0, x: -15 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ type: "spring", stiffness: 130, damping: 15, delay: 0.05 }}
+                          className="rounded-2xl bg-zinc-900/80 p-4 border border-white/5 shadow-xl flex flex-col gap-3"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
+                            <span className="text-[9px] font-bold text-amber-400 uppercase tracking-widest">
+                              Smart Coach
+                            </span>
+                          </div>
+                          <p className="text-xs leading-relaxed text-zinc-300">
+                            &ldquo;You are tracking slightly behind your usual afternoon pace. Take a glass of water now to maintain optimal focus.&rdquo;
+                          </p>
+                        </motion.div>
+                        
+                        {/* Slide from Right for Tip */}
+                        <motion.div
+                          initial={{ opacity: 0, x: 15 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ type: "spring", stiffness: 120, damping: 14, delay: 0.18 }}
+                          className="mt-4 rounded-2xl bg-blue-500/10 p-4 border border-blue-500/5 shadow-xl flex flex-col gap-1.5"
+                        >
+                          <span className="text-[9px] font-mono uppercase text-zinc-500">Hydration Tip</span>
+                          <span className="text-xs text-white font-medium">Drinking early boosts focus.</span>
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Footer simulation */}
+                <div className="mt-auto border-t border-zinc-900 pt-3 flex justify-between text-[8px] text-zinc-500 font-mono">
+                  <span>Device: Watch Ultra</span>
+                  <span>Sync: Just Now</span>
+                </div>
+              </div>
+            </Iphone17ProFrame>
+          </div>
         </div>
       </div>
     </header>
