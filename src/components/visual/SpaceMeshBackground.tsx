@@ -3,10 +3,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 
 /**
- * A premium multilayered Obsidian space mesh background.
- * Overlaps slow-drifting, organic radial HSL glow gradients (neon blues, emerald greens, and soft amber)
- * that animate smoothly in the background, creating depth.
- * Automatically switches to static layout when prefers-reduced-motion is detected.
+ * A premium multilayered space mesh background with Apple-style
+ * slow-drifting organic radial glow gradients that animate smoothly.
  */
 export function SpaceMeshBackground() {
   const shouldReduceMotion = useReducedMotion();
@@ -15,9 +13,9 @@ export function SpaceMeshBackground() {
     return (
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-black">
         {/* Static high-fidelity glows */}
-        <div className="absolute left-[10%] top-[15%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,113,227,0.05)_0%,transparent_70%)] blur-[120px]" />
-        <div className="absolute right-[10%] top-[45%] w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(48,209,88,0.03)_0%,transparent_70%)] blur-[140px]" />
-        <div className="absolute left-[20%] bottom-[10%] w-[550px] h-[550px] rounded-full bg-[radial-gradient(circle,rgba(255,159,10,0.02)_0%,transparent_70%)] blur-[110px]" />
+        <div className="absolute left-[10%] top-[15%] w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(0,113,227,0.04)_0%,transparent_70%)] blur-[140px]" />
+        <div className="absolute right-[10%] top-[45%] w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle,rgba(48,209,88,0.025)_0%,transparent_70%)] blur-[160px]" />
+        <div className="absolute left-[20%] bottom-[10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(255,159,10,0.015)_0%,transparent_70%)] blur-[130px]" />
       </div>
     );
   }
@@ -27,48 +25,48 @@ export function SpaceMeshBackground() {
       {/* Glow 1 - Premium Apple Cobalt Blue */}
       <motion.div
         animate={{
-          x: [0, 60, -30, 0],
-          y: [0, -50, 30, 0],
-          scale: [1, 1.12, 0.92, 1],
+          x: [0, 80, -40, 0],
+          y: [0, -60, 40, 0],
+          scale: [1, 1.1, 0.95, 1],
         }}
         transition={{
-          duration: 30,
+          duration: 40,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute left-[5%] top-[10%] w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(0,113,227,0.05)_0%,transparent_75%)] blur-[90px]"
+        className="absolute left-[5%] top-[10%] w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle,rgba(0,113,227,0.04)_0%,transparent_75%)] blur-[100px]"
       />
 
       {/* Glow 2 - Deep Emerald Green */}
       <motion.div
         animate={{
-          x: [0, -80, 50, 0],
-          y: [0, 60, -40, 0],
-          scale: [1, 0.92, 1.08, 1],
+          x: [0, -100, 60, 0],
+          y: [0, 80, -50, 0],
+          scale: [1, 0.95, 1.08, 1],
         }}
         transition={{
-          duration: 36,
+          duration: 48,
           repeat: Infinity,
           ease: "easeInOut",
-          delay: 1.5,
+          delay: 2,
         }}
-        className="absolute right-[5%] top-[35%] w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle,rgba(48,209,88,0.035)_0%,transparent_75%)] blur-[110px]"
+        className="absolute right-[5%] top-[35%] w-[900px] h-[900px] rounded-full bg-[radial-gradient(circle,rgba(48,209,88,0.025)_0%,transparent_75%)] blur-[120px]"
       />
 
       {/* Glow 3 - Amber / Gold Aurora */}
       <motion.div
         animate={{
-          x: [0, 40, -50, 0],
-          y: [0, 40, 60, 0],
-          scale: [1, 1.08, 0.95, 1],
+          x: [0, 50, -60, 0],
+          y: [0, 50, 80, 0],
+          scale: [1, 1.05, 0.95, 1],
         }}
         transition={{
-          duration: 26,
+          duration: 35,
           repeat: Infinity,
           ease: "easeInOut",
-          delay: 3,
+          delay: 4,
         }}
-        className="absolute left-[15%] bottom-[5%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(255,159,10,0.02)_0%,transparent_75%)] blur-[100px]"
+        className="absolute left-[15%] bottom-[5%] w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(255,159,10,0.015)_0%,transparent_75%)] blur-[110px]"
       />
     </div>
   );

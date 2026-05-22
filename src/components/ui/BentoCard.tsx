@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, HTMLMotionProps } from "framer-motion";
+import { motion, HTMLMotionProps, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export interface BentoCardProps extends HTMLMotionProps<"div"> {
@@ -9,16 +9,15 @@ export interface BentoCardProps extends HTMLMotionProps<"div"> {
 }
 
 /**
- * A highly reusable, premium glassmorphic bento card.
- * Adheres to SOLID design principles:
- * - Single Responsibility: Handles outer card container aesthetics, layout transitions, and interactive highlights.
- * - Liskov Substitution / Open-Closed: Extends full Framer Motion Div props and HTML elements.
+ * A highly reusable, premium glassmorphic bento card
+ * with Apple-style spotlight tracking and smooth animations.
  */
 export const BentoCard = React.forwardRef<HTMLDivElement, BentoCardProps>(
   ({ className, children, glowColor = "rgba(255, 255, 255, 0.05)", interactive = true, ...props }, ref) => {
     const [coords, setCoords] = React.useState({ x: 0, y: 0 });
     const [hovered, setHovered] = React.useState(false);
     const localRef = React.useRef<HTMLDivElement | null>(null);
+    const shouldReduceMotion = useReducedMotion();
 
     React.useImperativeHandle(ref, () => localRef.current!);
 
@@ -34,24 +33,29 @@ export const BentoCard = React.forwardRef<HTMLDivElement, BentoCardProps>(
     return (
       <motion.div
         ref={localRef}
-        whileHover={interactive ? { y: -2 } : undefined}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        whileHover={interactive && !shouldReduceMotion ? { y: -3, scale: 1.005 } : undefined}
+        transition={{ 
+          duration: 0.4, 
+          ease: [0.22, 1, 0.36, 1],
+        }}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => interactive && setHovered(true)}
         onMouseLeave={() => interactive && setHovered(false)}
         className={cn(
-          "relative flex flex-col justify-between overflow-hidden rounded-[24px] border border-white/5 bg-[#09090b]/80 p-6 backdrop-blur-xl shadow-[var(--shadow)] transition-all duration-500 hover:border-white/10 hover:shadow-2xl group",
+          "relative flex flex-col justify-between overflow-hidden rounded-[24px] border border-white/[0.04] bg-[#0a0a0a]/80 p-6 backdrop-blur-xl transition-all duration-500 hover:border-white/[0.08] hover:shadow-xl hover:shadow-black/20 group",
           className
         )}
         {...props}
       >
-        {/* Apple Spotlight Glow */}
+        {/* Apple-style Spotlight Glow */}
         {interactive && (
-          <div
-            className="pointer-events-none absolute inset-0 transition-opacity duration-300"
+          <motion.div
+            className="pointer-events-none absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: hovered ? 1 : 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             style={{
-              opacity: hovered ? 1 : 0,
-              background: `radial-gradient(350px circle at ${coords.x}px ${coords.y}px, ${glowColor}, transparent 80%)`,
+              background: `radial-gradient(400px circle at ${coords.x}px ${coords.y}px, ${glowColor}, transparent 70%)`,
             }}
             aria-hidden="true"
           />
