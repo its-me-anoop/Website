@@ -4,20 +4,21 @@ import { render, screen } from "@testing-library/react";
 import { Footer } from "./Footer";
 
 describe("Footer Component", () => {
-  it("renders the studio brand and copyright info correctly", () => {
+  it("renders the brand and copyright info", () => {
     render(<Footer />);
-    
-    expect(screen.getByText("Flutterly Ltd")).toBeInTheDocument();
+
+    // The brand logo/name appears in the header
+    expect(screen.getAllByText(/Flutterly/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/2026/)).toBeInTheDocument();
     expect(screen.getByText(/Anoop Jose/)).toBeInTheDocument();
   });
 
-  it("renders secondary navigation links", () => {
+  it("renders the link columns", () => {
     render(<Footer />);
-    
-    expect(screen.getByRole("link", { name: "Work" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Practice" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Open Source" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Studio" })).toBeInTheDocument();
+
+    expect(screen.getByRole("link", { name: /Services/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^Work$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Process/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /About/i })).toBeInTheDocument();
   });
 });

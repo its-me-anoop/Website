@@ -3,75 +3,52 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { ArrowUpRight, Mail, MapPin, Phone, Clock } from "lucide-react";
+import { AppleButton } from "@/components/ui/AppleButton";
 
 const details = [
   {
-    k: "Write",
-    v: (
-      <Link
-        href="mailto:anoop@flutterly.co.uk"
-        className="transition-colors duration-300 hover:text-[var(--accent)] font-semibold"
-      >
-        anoop@flutterly.co.uk
-      </Link>
-    ),
+    icon: Mail,
+    k: "Email",
+    v: "anoop@flutterly.co.uk",
+    href: "mailto:anoop@flutterly.co.uk",
   },
   {
-    k: "Ring",
-    v: (
-      <Link
-        href="tel:+447780580534"
-        className="transition-colors duration-300 hover:text-[var(--accent)] font-semibold"
-      >
-        +44 7780 580 534
-      </Link>
-    ),
+    icon: Phone,
+    k: "Phone",
+    v: "+44 7780 580 534",
+    href: "tel:+447780580534",
   },
-  { k: "Visit", v: "Reading, UK" },
-  { k: "Usual reply", v: "Within a working day" },
+  { icon: MapPin, k: "Office", v: "Reading, UK" },
+  { icon: Clock, k: "Reply", v: "Within 48 hours" },
 ];
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3,
-    },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.3 } },
 };
 
 const itemVariants = {
-  hidden: { 
-    opacity: 0, 
-    y: 20,
-  },
-  visible: { 
-    opacity: 1, 
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 18,
-    },
+    transition: { type: "spring" as const, stiffness: 100, damping: 18 },
   },
 };
 
-/**
- * Contact section with Apple-style fluid animations and polished interactions.
- */
 export function Contact() {
   const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section
       ref={ref}
       id="brief"
-      className="relative overflow-hidden border-t border-white/[0.04] bg-transparent pb-[130px] pt-[150px] text-white"
+      className="relative overflow-hidden border-t border-white/[0.04] pt-32 pb-24 md:pt-40"
+      aria-labelledby="contact-heading"
     >
-      {/* Animated top line divider */}
+      {/* Top gradient line */}
       <motion.div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-[1px]"
@@ -80,108 +57,118 @@ export function Contact() {
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         style={{
           background:
-            "linear-gradient(90deg, transparent 10%, var(--accent) 50%, transparent 90%)",
+            "linear-gradient(90deg, transparent 10%, #6366f1 35%, #a855f7 50%, #ec4899 65%, transparent 90%)",
         }}
       />
 
-      {/* Background radial glow */}
+      {/* Glow */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/[0.03] blur-[160px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={isInView ? { opacity: 1, scale: 1 } : {}}
         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(168,85,247,0.15) 0%, rgba(99,102,241,0.06) 35%, transparent 70%)",
+          filter: "blur(60px)",
+        }}
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[1240px] px-5 md:px-7">
-        <motion.div 
-          className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--accent)] font-semibold"
-          initial={{ opacity: 0, x: -20 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
+        <motion.span
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[11px] font-semibold tracking-tight text-ink-3 backdrop-blur"
         >
-          № 06 · The brief
-        </motion.div>
+          <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulse-dot" />
+          Get in touch
+        </motion.span>
 
-        <motion.h2 
-          className="mt-6 font-sans font-black leading-[0.92] tracking-[-0.04em] text-white text-[clamp(52px,9vw,120px)]"
-          initial={{ opacity: 0, y: 50, filter: "blur(12px)" }}
+        <motion.h2
+          id="contact-heading"
+          initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
           animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-          transition={{ 
-            duration: 1,
-            delay: 0.2,
-            ease: [0.22, 1, 0.36, 1],
-          }}
+          transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-6 font-display text-[clamp(48px,9vw,120px)] font-black leading-[0.92] tracking-[-0.04em] text-white"
         >
-          Got a brief
+          Let&rsquo;s build
           <br />
-          <span className="italic font-light text-[var(--accent)]">worth</span> building?
+          something <span className="text-gradient">great.</span>
         </motion.h2>
 
-        <motion.div 
-          className="mt-14 grid items-end gap-10 border-t border-white/[0.04] pt-10 md:grid-cols-2 md:gap-16"
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-12 grid items-start gap-10 md:grid-cols-2 md:gap-16"
         >
-          <p className="max-w-[420px] text-[15px] leading-[1.7] text-zinc-400">
-            We only take a handful of projects a year, so not every fit is the
-            right fit. Write anyway — if we can&rsquo;t help, we&rsquo;ll usually
-            know someone who can.
+          <p className="max-w-[440px] text-[16px] leading-[1.7] text-ink-3">
+            We only take a handful of projects a year, so not every fit is the right
+            fit. Write anyway — if we can&rsquo;t help, we&rsquo;ll usually know someone
+            who can.
           </p>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.5 }}
-          >
+
+          <div className="flex flex-col items-start gap-5">
             <Link
               href="mailto:anoop@flutterly.co.uk"
-              className="group inline-flex items-center gap-3 self-start border-b border-white/10 pb-2 font-sans text-[clamp(20px,3vw,32px)] font-bold tracking-tight text-white transition-all duration-400 hover:border-[var(--accent)] hover:text-[var(--accent)] md:self-end"
+              className="group inline-flex items-center gap-3 border-b border-white/10 pb-2 font-display text-[clamp(22px,3vw,36px)] font-bold tracking-tight text-white transition-all duration-400 hover:border-brand hover:text-brand-hover"
+              aria-label="Email anoop@flutterly.co.uk"
             >
               anoop@flutterly.co.uk
-              <motion.svg
-                width="24"
-                height="24"
-                viewBox="0 0 22 22"
-                className="text-zinc-500 transition-all duration-300 group-hover:text-[var(--accent)]"
-                aria-hidden="true"
-                whileHover={{ x: 3, y: -3 }}
-                transition={{ duration: 0.2 }}
-              >
-                <path
-                  d="M5 17 17 5M8 5h9v9"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  fill="none"
-                  strokeLinecap="round"
-                />
-              </motion.svg>
+              <ArrowUpRight className="h-6 w-6 text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-hover" />
             </Link>
-          </motion.div>
+
+            <Link href="mailto:anoop@flutterly.co.uk" aria-label="Start a project brief">
+              <AppleButton variant="primary" size="lg" className="group">
+                Start a project
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </AppleButton>
+            </Link>
+          </div>
         </motion.div>
 
-        {/* Details Grid */}
-        <motion.div 
-          className="mt-28 grid gap-7 border-t border-white/[0.04] pt-10 md:grid-cols-4"
+        {/* Details */}
+        <motion.div
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={containerVariants}
+          className="mt-24 grid gap-4 border-t border-white/[0.06] pt-10 md:grid-cols-4"
         >
-          {details.map((d, index) => (
-            <motion.div
-              key={d.k}
-              className="group flex flex-col gap-1.5 transition-all duration-400 hover:translate-y-[-2px]"
-              variants={itemVariants}
-            >
-              <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-zinc-500 font-semibold transition-colors duration-300 group-hover:text-zinc-400">
-                {d.k}
-              </span>
-              <span className="font-sans text-[16px] text-zinc-300 font-medium tracking-tight transition-colors duration-300 group-hover:text-white">
-                {d.v}
-              </span>
-            </motion.div>
-          ))}
+          {details.map((d) => {
+            const Icon = d.icon;
+            const Inner = (
+              <>
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.03] text-brand transition-all duration-300 group-hover:border-brand/40 group-hover:bg-brand/10">
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted">
+                    {d.k}
+                  </span>
+                  <span className="mt-0.5 font-display text-[14.5px] font-semibold tracking-tight text-ink-2 transition-colors duration-300 group-hover:text-white">
+                    {d.v}
+                  </span>
+                </div>
+              </>
+            );
+
+            const className =
+              "group flex items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-3.5 backdrop-blur transition-all duration-400 hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-white/[0.04]";
+
+            return (
+              <motion.div key={d.k} variants={itemVariants}>
+                {d.href ? (
+                  <Link href={d.href} className={className}>
+                    {Inner}
+                  </Link>
+                ) : (
+                  <div className={className}>{Inner}</div>
+                )}
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>

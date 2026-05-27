@@ -21,7 +21,8 @@ describe("AppleButton component", () => {
   it("applies primary styles by default", () => {
     render(<AppleButton>Primary</AppleButton>);
     const button = screen.getByRole("button", { name: /primary/i });
-    expect(button.className).toContain("bg-[var(--accent)]");
+    // Primary uses a gradient background
+    expect(button.className).toMatch(/linear-gradient/);
   });
 
   it("applies custom classnames correctly", () => {

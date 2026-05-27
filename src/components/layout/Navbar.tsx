@@ -1,123 +1,131 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { AppleButton } from "@/components/ui/AppleButton";
 import { cn } from "@/lib/utils";
 
 const navItems = [
+  { name: "Services", href: "#services" },
   { name: "Work", href: "#work" },
   { name: "Process", href: "#practice" },
   { name: "Studio", href: "#studio" },
-  { name: "Open Source", href: "#oss" },
 ];
 
-/**
- * A sleek, high-precision floating glassmorphic Navigation Bar
- * with Apple-style fluid animations.
- */
 export function Navbar() {
   const pathname = usePathname();
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const shouldReduceMotion = useReducedMotion();
 
+  // Scroll progress for top progress bar
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 200,
+    damping: 40,
+    restDelta: 0.001,
+  });
+  const progressScale = useTransform(progress, [0, 1], [0, 1]);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 20);
-    if (latest < 100) {
-      setActiveSection("");
-    }
+    setScrolled(latest > 24);
+    if (latest < 100) setActiveSection("");
   });
 
   useEffect(() => {
-    const sections = ["work", "practice", "studio", "oss"];
-    const observerOptions = {
-      root: null,
-      rootMargin: "-30% 0px -50% 0px",
-      threshold: 0.1,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
+    const sections = ["services", "work", "practice", "oss", "studio"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { root: null, rootMargin: "-30% 0px -50% 0px", threshold: 0.1 }
+    );
     sections.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
+    return () => sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.unobserve(el);
+    });
+  }, []);
 
-    return () => {
-      sections.forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) observer.unobserve(el);
-      });
+  // Close menu on Esc
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
     };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   const getHref = (href: string) => (pathname === "/" ? href : `/${href}`);
 
   return (
     <>
-      <motion.header 
-        className="fixed left-0 right-0 top-0 z-[100] p-4"
-        initial={{ opacity: 0, y: -20 }}
+      {/* Top scroll progress bar */}
+      <motion.div
+        aria-hidden="true"
+        className="fixed inset-x-0 top-0 z-[110] h-[2px] origin-left bg-gradient-to-r from-brand via-violet to-fuchsia"
+        style={{ scaleX: progressScale }}
+      />
+
+      <motion.header
+        className="fixed inset-x-0 top-0 z-[100] p-3 md:p-4"
+        initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ 
-          duration: 0.7,
-          ease: [0.22, 1, 0.36, 1],
-          delay: 0.1,
-        }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
       >
         <motion.div
           className={cn(
-            "mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between rounded-full border px-6 text-[13px] transition-all",
+            "mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between rounded-full border px-5 text-[13px] transition-all duration-400",
             scrolled || menuOpen
-              ? "border-white/[0.06] bg-black/70 shadow-lg shadow-black/30 backdrop-blur-xl"
+              ? "border-white/[0.08] bg-[rgba(10,11,20,0.7)] shadow-xl shadow-black/40 backdrop-blur-2xl"
               : "border-transparent bg-transparent"
           )}
-          animate={{
-            backgroundColor: scrolled || menuOpen ? "rgba(0, 0, 0, 0.7)" : "rgba(0, 0, 0, 0)",
-            borderColor: scrolled || menuOpen ? "rgba(255, 255, 255, 0.06)" : "rgba(255, 255, 255, 0)",
-          }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Logo */}
-          <Link 
-            href="/" 
-            className="flex items-center gap-2.5 font-sans font-medium text-white transition-opacity duration-300 hover:opacity-80"
+          <Link
+            href="/"
+            className="group flex items-center gap-2.5 font-display font-semibold text-white"
+            aria-label="Flutterly home"
           >
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ rotate: -6, scale: 1.06 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+              transition={{ type: "spring", stiffness: 400, damping: 18 }}
+              className="relative grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-brand to-fuchsia shadow-md shadow-brand/30"
             >
               <Image
                 src="/flutterly-logo.png"
-                alt="Flutterly"
-                width={20}
-                height={20}
-                className="h-5 w-5 object-contain invert brightness-0"
+                alt=""
+                width={18}
+                height={18}
+                className="h-4 w-4 object-contain invert brightness-0"
                 priority
               />
             </motion.div>
-            <span className="tracking-tight text-white font-semibold">Flutterly</span>
+            <span className="tracking-tight">Flutterly</span>
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop nav */}
           <nav
-            className="hidden items-center gap-1 text-[12px] font-medium tracking-wide text-zinc-400 md:flex relative"
+            className="relative hidden items-center gap-0.5 text-[12.5px] font-medium tracking-tight text-ink-3 md:flex"
             aria-label="Primary"
           >
             {navItems.map((item) => {
@@ -127,23 +135,19 @@ export function Navbar() {
                   key={item.name}
                   href={getHref(item.href)}
                   className={cn(
-                    "relative rounded-full px-4 py-2 transition-colors duration-300",
-                    isActive ? "text-white font-semibold" : "hover:text-white"
+                    "relative rounded-full px-3.5 py-1.5 transition-colors duration-300",
+                    isActive ? "text-white" : "hover:text-white"
                   )}
                 >
                   {isActive && !shouldReduceMotion && (
                     <motion.span
                       layoutId="active-nav-pill"
-                      className="absolute inset-0 -z-10 rounded-full border border-white/[0.08] bg-white/[0.04] backdrop-blur-md"
-                      transition={{ 
-                        type: "spring", 
-                        stiffness: 400, 
-                        damping: 35,
-                      }}
+                      className="absolute inset-0 -z-10 rounded-full border border-white/[0.08] bg-white/[0.05] backdrop-blur"
+                      transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     />
                   )}
                   {isActive && shouldReduceMotion && (
-                    <span className="absolute inset-0 -z-10 rounded-full border border-white/[0.08] bg-white/[0.04] backdrop-blur-md" />
+                    <span className="absolute inset-0 -z-10 rounded-full border border-white/[0.08] bg-white/[0.05] backdrop-blur" />
                   )}
                   {item.name}
                 </Link>
@@ -151,45 +155,44 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Start CTA */}
+          {/* CTA */}
           <div className="hidden md:block">
             <Link href={pathname === "/" ? "#brief" : "/#brief"}>
-              <AppleButton variant="primary" className="min-h-9 px-4 py-1.5 text-[11px] font-semibold">
+              <AppleButton variant="primary" size="sm" magnetic={false}>
                 Start a project
               </AppleButton>
             </Link>
           </div>
 
-          {/* Mobile Menu Trigger */}
+          {/* Mobile menu */}
           <motion.button
             type="button"
-            onClick={() => setMenuOpen((open) => !open)}
-            className="flex h-9 w-9 items-center justify-center rounded-full text-zinc-400 transition-colors duration-300 hover:text-white md:hidden"
-            aria-label="Toggle menu"
+            onClick={() => setMenuOpen((o) => !o)}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.04] text-ink-2 backdrop-blur transition-colors duration-300 hover:text-white md:hidden"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 0.94 }}
           >
             <AnimatePresence mode="wait">
               {menuOpen ? (
                 <motion.div
-                  key="close"
+                  key="x"
                   initial={{ opacity: 0, rotate: -90 }}
                   animate={{ opacity: 1, rotate: 0 }}
                   exit={{ opacity: 0, rotate: 90 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <X size={18} />
+                  <X size={18} aria-hidden="true" />
                 </motion.div>
               ) : (
                 <motion.div
-                  key="menu"
+                  key="m"
                   initial={{ opacity: 0, rotate: 90 }}
                   animate={{ opacity: 1, rotate: 0 }}
                   exit={{ opacity: 0, rotate: -90 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Menu size={18} />
+                  <Menu size={18} aria-hidden="true" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -197,57 +200,50 @@ export function Navbar() {
         </motion.div>
       </motion.header>
 
-      {/* Mobile Nav Overlay */}
+      {/* Mobile overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -12, scale: 0.98 }}
-            transition={{ 
-              duration: 0.3, 
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="fixed inset-x-0 top-20 z-[99] mx-4 rounded-[24px] border border-white/[0.06] bg-black/95 px-6 py-6 shadow-2xl backdrop-blur-2xl md:hidden"
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-3 top-[72px] z-[99] rounded-[28px] border border-white/[0.08] bg-[rgba(10,11,20,0.92)] p-5 shadow-2xl backdrop-blur-2xl md:hidden"
           >
             <nav className="grid gap-1" aria-label="Mobile primary">
-              {navItems.map((item, index) => (
+              {navItems.map((item, i) => (
                 <motion.div
                   key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ 
-                    delay: index * 0.05,
-                    duration: 0.3,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
+                  transition={{ delay: i * 0.06, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <Link
                     href={getHref(item.href)}
                     onClick={() => setMenuOpen(false)}
-                    className="block rounded-xl px-3 py-3.5 text-lg font-medium text-zinc-300 transition-all duration-300 hover:bg-white/[0.04] hover:text-white"
+                    className="block rounded-xl px-3 py-3 text-[17px] font-medium text-ink-2 transition-all duration-300 hover:bg-white/[0.04] hover:text-white"
                   >
                     {item.name}
                   </Link>
                 </motion.div>
               ))}
-              <motion.hr 
-                className="my-3 border-white/[0.04]"
-                initial={{ opacity: 0, scaleX: 0 }}
-                animate={{ opacity: 1, scaleX: 1 }}
-                transition={{ delay: 0.25, duration: 0.4 }}
+              <motion.hr
+                className="my-2 border-white/[0.06]"
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{ scaleX: 1, opacity: 1 }}
+                transition={{ delay: 0.25, duration: 0.35 }}
               />
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
+                transition={{ delay: 0.3, duration: 0.35 }}
               >
                 <Link
                   href={pathname === "/" ? "#brief" : "/#brief"}
                   onClick={() => setMenuOpen(false)}
-                  className="mt-2 block"
+                  className="block"
                 >
-                  <AppleButton variant="primary" className="w-full text-[13px] font-semibold">
+                  <AppleButton variant="primary" size="md" className="w-full" magnetic={false}>
                     Start a project
                   </AppleButton>
                 </Link>

@@ -3,13 +3,13 @@ import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { OpenSource } from "./OpenSource";
 
-// Mock IntersectionObserver correctly as a constructor class
+type IOCallback = (entries: Array<{ isIntersecting: boolean }>) => void;
+
 class MockIntersectionObserver {
   observe = vi.fn();
   unobserve = vi.fn();
   disconnect = vi.fn();
-  constructor(public callback: any) {
-    // Proactively call the callback to simulate intersection and trigger the counter logic
+  constructor(public callback: IOCallback) {
     setTimeout(() => {
       this.callback([{ isIntersecting: true }]);
     }, 0);
@@ -18,10 +18,10 @@ class MockIntersectionObserver {
 vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
 
 describe("OpenSource Section", () => {
-  it("renders the section headers and descriptions correctly", () => {
+  it("renders the section header and description", () => {
     render(<OpenSource />);
-    
-    expect(screen.getByText("№ 04 · Open source")).toBeInTheDocument();
+
+    expect(screen.getByText("Open source")).toBeInTheDocument();
     expect(screen.getByText("We ship in")).toBeInTheDocument();
     expect(screen.getByText(/public, too/)).toBeInTheDocument();
     expect(
@@ -31,32 +31,32 @@ describe("OpenSource Section", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the git repository list with languages and stats", () => {
+  it("renders the repository list with names and languages", () => {
     render(<OpenSource />);
-    
-    // Check repository names and descriptions
+
     expect(screen.getByText("hydration-engine")).toBeInTheDocument();
-    expect(screen.getByText("On-device hydration model — ships inside Sipli.")).toBeInTheDocument();
+    expect(
+      screen.getByText("On-device hydration model — ships inside Sipli.")
+    ).toBeInTheDocument();
     expect(screen.getByText("Swift")).toBeInTheDocument();
-    expect(screen.getByText("★ 412")).toBeInTheDocument();
-    
+
     expect(screen.getByText("nextjs-seo-kit")).toBeInTheDocument();
     expect(screen.getByText("TypeScript")).toBeInTheDocument();
-    
+
     expect(screen.getByText("gesture-lab")).toBeInTheDocument();
     expect(screen.getByText("Dart")).toBeInTheDocument();
-    
+
     expect(screen.getByText("friday-ship")).toBeInTheDocument();
     expect(screen.getByText("JavaScript")).toBeInTheDocument();
   });
 
-  it("renders the git stats overview panel correctly", () => {
+  it("renders the git stats overview", () => {
     render(<OpenSource />);
-    
-    expect(screen.getByText("@ its-me-anoop")).toBeInTheDocument();
-    expect(screen.getByText(/Commits · ytd/)).toBeInTheDocument();
+
+    expect(screen.getByText(/@its-me-anoop/)).toBeInTheDocument();
+    expect(screen.getByText(/Commits/)).toBeInTheDocument();
     expect(screen.getByText(/Best streak/)).toBeInTheDocument();
-    expect(screen.getByText(/27d/)).toBeInTheDocument();
-    expect(screen.getByText(/Repos/)).toBeInTheDocument();
+    expect(screen.getByText("27d")).toBeInTheDocument();
+    expect(screen.getByText("Repos")).toBeInTheDocument();
   });
 });
