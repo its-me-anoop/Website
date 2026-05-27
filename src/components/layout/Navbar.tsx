@@ -17,9 +17,8 @@ const navItems = [
 ];
 
 /**
- * A sleek, high-precision floating glassmorphic Navigation Bar.
- * Styled in the official Apple pro aesthetic, using Geist sans-serif,
- * glass/blur overlays, and responsive mobile integrations.
+ * A sleek, high-precision floating glassmorphic Navigation Bar
+ * with Apple-style fluid animations.
  */
 export function Navbar() {
   const pathname = usePathname();
@@ -71,30 +70,54 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-[100] p-4 transition-all duration-500">
-        <div
-          className={`mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between rounded-full border px-6 text-[13px] transition-all duration-500 ${
+      <motion.header 
+        className="fixed left-0 right-0 top-0 z-[100] p-4"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ 
+          duration: 0.7,
+          ease: [0.22, 1, 0.36, 1],
+          delay: 0.1,
+        }}
+      >
+        <motion.div
+          className={cn(
+            "mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between rounded-full border px-6 text-[13px] transition-all",
             scrolled || menuOpen
-              ? "border-white/10 bg-[#000000]/70 shadow-lg shadow-black/40 backdrop-blur-xl"
+              ? "border-white/[0.06] bg-black/70 shadow-lg shadow-black/30 backdrop-blur-xl"
               : "border-transparent bg-transparent"
-          }`}
+          )}
+          animate={{
+            backgroundColor: scrolled || menuOpen ? "rgba(0, 0, 0, 0.7)" : "rgba(0, 0, 0, 0)",
+            borderColor: scrolled || menuOpen ? "rgba(255, 255, 255, 0.06)" : "rgba(255, 255, 255, 0)",
+          }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 font-sans font-medium text-white transition-opacity hover:opacity-85">
-            <Image
-              src="/flutterly-logo.png"
-              alt="Flutterly"
-              width={20}
-              height={20}
-              className="h-5 w-5 object-contain invert brightness-0"
-              priority
-            />
+          <Link 
+            href="/" 
+            className="flex items-center gap-2.5 font-sans font-medium text-white transition-opacity duration-300 hover:opacity-80"
+          >
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Image
+                src="/flutterly-logo.png"
+                alt="Flutterly"
+                width={20}
+                height={20}
+                className="h-5 w-5 object-contain invert brightness-0"
+                priority
+              />
+            </motion.div>
             <span className="tracking-tight text-white font-semibold">Flutterly</span>
           </Link>
 
           {/* Desktop Nav */}
           <nav
-            className="hidden items-center gap-1.5 text-[12px] font-medium tracking-wide text-zinc-400 md:flex relative"
+            className="hidden items-center gap-1 text-[12px] font-medium tracking-wide text-zinc-400 md:flex relative"
             aria-label="Primary"
           >
             {navItems.map((item) => {
@@ -104,19 +127,23 @@ export function Navbar() {
                   key={item.name}
                   href={getHref(item.href)}
                   className={cn(
-                    "relative rounded-full px-4 py-1.5 transition-colors duration-300",
+                    "relative rounded-full px-4 py-2 transition-colors duration-300",
                     isActive ? "text-white font-semibold" : "hover:text-white"
                   )}
                 >
                   {isActive && !shouldReduceMotion && (
                     <motion.span
                       layoutId="active-nav-pill"
-                      className="absolute inset-0 -z-10 rounded-full border border-white/10 bg-white/5 shadow-inner backdrop-blur-md"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      className="absolute inset-0 -z-10 rounded-full border border-white/[0.08] bg-white/[0.04] backdrop-blur-md"
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 400, 
+                        damping: 35,
+                      }}
                     />
                   )}
                   {isActive && shouldReduceMotion && (
-                    <span className="absolute inset-0 -z-10 rounded-full border border-white/10 bg-white/5 shadow-inner backdrop-blur-md" />
+                    <span className="absolute inset-0 -z-10 rounded-full border border-white/[0.08] bg-white/[0.04] backdrop-blur-md" />
                   )}
                   {item.name}
                 </Link>
@@ -134,49 +161,97 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Trigger */}
-          <button
+          <motion.button
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
-            className="flex h-9 w-9 items-center justify-center rounded-full text-zinc-400 hover:text-white transition-colors md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-zinc-400 transition-colors duration-300 hover:text-white md:hidden"
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            {menuOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
-        </div>
-      </header>
+            <AnimatePresence mode="wait">
+              {menuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X size={18} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ opacity: 0, rotate: 90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: -90 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu size={18} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.button>
+        </motion.div>
+      </motion.header>
 
       {/* Mobile Nav Overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-0 top-20 z-[99] mx-4 rounded-3xl border border-white/10 bg-[#000000]/95 px-6 py-6 shadow-2xl backdrop-blur-2xl md:hidden"
+            initial={{ opacity: 0, y: -12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.98 }}
+            transition={{ 
+              duration: 0.3, 
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="fixed inset-x-0 top-20 z-[99] mx-4 rounded-[24px] border border-white/[0.06] bg-black/95 px-6 py-6 shadow-2xl backdrop-blur-2xl md:hidden"
           >
-            <nav className="grid gap-2" aria-label="Mobile primary">
-              {navItems.map((item) => (
-                <Link
+            <nav className="grid gap-1" aria-label="Mobile primary">
+              {navItems.map((item, index) => (
+                <motion.div
                   key={item.name}
-                  href={getHref(item.href)}
-                  onClick={() => setMenuOpen(false)}
-                  className="rounded-xl px-3 py-3 text-lg font-medium text-zinc-300 transition-colors hover:bg-white/5 hover:text-white"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ 
+                    delay: index * 0.05,
+                    duration: 0.3,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
-                  {item.name}
-                </Link>
+                  <Link
+                    href={getHref(item.href)}
+                    onClick={() => setMenuOpen(false)}
+                    className="block rounded-xl px-3 py-3.5 text-lg font-medium text-zinc-300 transition-all duration-300 hover:bg-white/[0.04] hover:text-white"
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
               ))}
-              <hr className="my-2 border-white/5" />
-              <Link
-                href={pathname === "/" ? "#brief" : "/#brief"}
-                onClick={() => setMenuOpen(false)}
-                className="mt-2 block"
+              <motion.hr 
+                className="my-3 border-white/[0.04]"
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                transition={{ delay: 0.25, duration: 0.4 }}
+              />
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.4 }}
               >
-                <AppleButton variant="primary" className="w-full text-[13px] font-semibold">
-                  Start a project
-                </AppleButton>
-              </Link>
+                <Link
+                  href={pathname === "/" ? "#brief" : "/#brief"}
+                  onClick={() => setMenuOpen(false)}
+                  className="mt-2 block"
+                >
+                  <AppleButton variant="primary" className="w-full text-[13px] font-semibold">
+                    Start a project
+                  </AppleButton>
+                </Link>
+              </motion.div>
             </nav>
           </motion.div>
         )}

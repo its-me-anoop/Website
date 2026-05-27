@@ -3,26 +3,26 @@
 :root {
   /* ── Apple Premium Space & Slate Dark Theme ── */
   --paper: #000000;
-  --paper-2: #09090b;
-  --paper-3: #121214;
+  --paper-2: #0a0a0a;
+  --paper-3: #111111;
   --ink: #f5f5f7;
-  --ink-2: #e4e4e7;
-  --muted: #a1a1aa;
-  --muted-2: #71717a;
-  --rule: rgba(255, 255, 255, 0.08);
-  --rule-2: rgba(255, 255, 255, 0.15);
+  --ink-2: #e8e8ed;
+  --muted: #86868b;
+  --muted-2: #6e6e73;
+  --rule: rgba(255, 255, 255, 0.06);
+  --rule-2: rgba(255, 255, 255, 0.12);
 
   /* Apple Pro Royal Blue */
   --accent: #0071e3;
-  --accent-hover: #147ce5;
-  --accent-muted: rgba(0, 113, 227, 0.15);
+  --accent-hover: #0077ed;
+  --accent-muted: rgba(0, 113, 227, 0.12);
   --accent-ink: #ffffff;
 
   /* Premium Emerald / Teal Accent */
   --accent-2: #30d158;
 
   /* Surface and overlays */
-  --surface: #18181b;
+  --surface: #1d1d1f;
   --surface-ink: #f5f5f7;
 
   /* Aliases for backwards compatibility */
@@ -35,13 +35,20 @@
   --border: var(--rule);
   --border-strong: var(--rule-2);
   --teal: var(--accent-2);
-  --teal-muted: rgba(48, 209, 88, 0.1);
+  --teal-muted: rgba(48, 209, 88, 0.08);
   --deep-earth: #000000;
-  --stone: #09090b;
+  --stone: #0a0a0a;
 
-  --radius: 16px;
-  --radius-lg: 24px;
-  --shadow: 0 1px 0 rgba(0, 0, 0, 0.8), 0 20px 40px -24px rgba(0, 0, 0, 0.9);
+  --radius: 18px;
+  --radius-lg: 28px;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.3), 0 16px 48px rgba(0, 0, 0, 0.5);
+  
+  /* Apple-style easing curves */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* Sipli page keeps its own dark deep-navy palette */
@@ -104,6 +111,7 @@ html {
   scroll-behavior: smooth;
   background: var(--paper);
   color: var(--ink);
+  scroll-padding-top: 100px;
 }
 
 body {
@@ -117,6 +125,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  letter-spacing: -0.01em;
+}
+
+/* ── Apple-style Global Transitions ── */
+* {
+  transition-timing-function: var(--ease-out-expo);
+}
+
+/* ── Typography Smoothing for Headings ── */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+  font-feature-settings: "ss01", "cv11", "liga", "kern";
+}
+
+p {
+  text-wrap: pretty;
 }
 
 /* Sipli page overrides paper with its dark navy */
@@ -174,12 +198,12 @@ body {
 
 /* ── Animations ── */
 @keyframes pulse-dot {
-  0% { box-shadow: 0 0 0 0 rgba(209, 74, 31, 0.55); }
-  70% { box-shadow: 0 0 0 8px rgba(209, 74, 31, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(209, 74, 31, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(0, 113, 227, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(0, 113, 227, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 113, 227, 0); }
 }
 .animate-pulse-dot {
-  animation: pulse-dot 2.4s infinite;
+  animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes rise {
@@ -199,10 +223,78 @@ body {
 
 @keyframes subtle-float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
+  50% { transform: translateY(-4px); }
 }
 .animate-subtle-float {
-  animation: subtle-float 20s ease-in-out infinite;
+  animation: subtle-float 6s var(--ease-in-out-quint) infinite;
+}
+
+/* Apple-style fade in up animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s var(--ease-out-expo) forwards;
+}
+
+/* Staggered reveal classes */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.reveal-stagger.revealed > * {
+  animation: fade-in-up 0.7s var(--ease-out-expo) forwards;
+}
+
+.reveal-stagger.revealed > *:nth-child(1) { animation-delay: 0ms; }
+.reveal-stagger.revealed > *:nth-child(2) { animation-delay: 80ms; }
+.reveal-stagger.revealed > *:nth-child(3) { animation-delay: 160ms; }
+.reveal-stagger.revealed > *:nth-child(4) { animation-delay: 240ms; }
+.reveal-stagger.revealed > *:nth-child(5) { animation-delay: 320ms; }
+.reveal-stagger.revealed > *:nth-child(6) { animation-delay: 400ms; }
+
+/* Blur in animation */
+@keyframes blur-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+.animate-blur-in {
+  animation: blur-in 0.6s var(--ease-out-expo) forwards;
+}
+
+/* Shimmer animation for subtle highlights */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
 }
 
 /* Reduced motion */
@@ -211,5 +303,11 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .reveal-stagger > *,
+  .reveal-stagger.revealed > * {
+    opacity: 1;
+    transform: none;
+    animation: none;
   }
 }

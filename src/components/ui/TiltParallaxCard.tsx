@@ -16,18 +16,18 @@ export interface TiltParallaxCardProps extends Omit<HTMLMotionProps<"div">, "chi
 }
 
 /**
- * A state-of-the-art interactive bento card component with:
- * 1. Coordinates-tracked spotlight glow.
- * 2. 3D spring-damped tilt perspective relative to cursor.
- * 3. Exposed parallax motion offsets via a render-prop pattern.
- * 4. Automatic accessibility bypass for prefers-reduced-motion.
+ * A premium interactive bento card component with:
+ * 1. Apple-style coordinates-tracked spotlight glow
+ * 2. 3D spring-damped tilt perspective relative to cursor
+ * 3. Exposed parallax motion offsets via render-prop pattern
+ * 4. Automatic accessibility bypass for prefers-reduced-motion
  */
 export function TiltParallaxCard({
   className,
   children,
   glowColor = "rgba(255, 255, 255, 0.05)",
-  maxTilt = 6,
-  maxParallax = 12,
+  maxTilt = 5,
+  maxParallax = 10,
   interactive = true,
   ...props
 }: TiltParallaxCardProps) {
@@ -40,7 +40,8 @@ export function TiltParallaxCard({
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
 
-  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
+  // Apple-style smooth spring config
+  const springConfig = { damping: 30, stiffness: 180, mass: 0.5 };
   const springX = useSpring(mouseX, springConfig);
   const springY = useSpring(mouseY, springConfig);
 
@@ -97,21 +98,26 @@ export function TiltParallaxCard({
         transformPerspective: 1200,
         transformStyle: "preserve-3d",
       }}
-      whileHover={shouldReduceMotion || !interactive ? undefined : { y: -3 }}
-      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={shouldReduceMotion || !interactive ? undefined : { y: -4, scale: 1.005 }}
+      transition={{ 
+        duration: 0.4, 
+        ease: [0.22, 1, 0.36, 1],
+      }}
       className={cn(
-        "relative flex flex-col justify-between overflow-hidden rounded-[24px] border border-white/5 bg-[#09090b]/80 p-6 backdrop-blur-xl shadow-[var(--shadow)] transition-all duration-500 hover:border-white/10 hover:shadow-2xl group",
+        "relative flex flex-col justify-between overflow-hidden rounded-[24px] border border-white/[0.04] bg-[#0a0a0a]/80 p-6 backdrop-blur-xl transition-all duration-500 hover:border-white/[0.08] hover:shadow-xl hover:shadow-black/20 group",
         className
       )}
       {...props}
     >
       {/* Dynamic Cursor Spotlight Layer */}
       {interactive && (
-        <div
-          className="pointer-events-none absolute inset-0 transition-opacity duration-300"
+        <motion.div
+          className="pointer-events-none absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: hovered ? 1 : 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
           style={{
-            opacity: hovered ? 1 : 0,
-            background: `radial-gradient(350px circle at ${coords.x}px ${coords.y}px, ${glowColor}, transparent 80%)`,
+            background: `radial-gradient(400px circle at ${coords.x}px ${coords.y}px, ${glowColor}, transparent 70%)`,
           }}
           aria-hidden="true"
         />
