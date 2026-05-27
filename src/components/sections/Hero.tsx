@@ -6,6 +6,9 @@ import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Iphone17ProFrame } from "@/components/ui/Iphone17ProFrame";
 import { AppleButton } from "@/components/ui/AppleButton";
+import { FloatingTechBadges } from "@/components/ui/FloatingTechBadges";
+import { AnimatedCodeBlock } from "@/components/ui/AnimatedCodeBlock";
+import { TechMarquee } from "@/components/ui/TechMarquee";
 
 const ledger = [
   { k: "Studio", v: "Flutterly Ltd" },
