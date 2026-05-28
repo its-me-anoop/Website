@@ -123,6 +123,7 @@ function PhoneShot({
         width={1320}
         height={2868}
         priority={priority}
+        sizes="(min-width: 768px) 290px, 260px"
         className="relative h-auto w-full rounded-[var(--r-xl)]"
         style={{ filter: "drop-shadow(0 32px 64px rgba(0,0,0,0.7))" }}
       />
@@ -243,7 +244,7 @@ export function SipliLanding() {
               className="flex justify-center lg:justify-end"
             >
               <PhoneShot
-                src="/images/sipli/iphone/01-hero-1320x2868.png"
+                src="/images/sipli/iphone/01-hero-1320x2868.jpg"
                 alt="Sipli app — home screen"
                 priority
               />
@@ -442,7 +443,7 @@ export function SipliLanding() {
         <div className="relative mx-auto grid w-full max-w-[1280px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <Reveal className="order-2 flex justify-center lg:order-1 lg:justify-start">
             <PhoneShot
-              src="/images/sipli/iphone/02-coach-1320x2868.png"
+              src="/images/sipli/iphone/02-coach-1320x2868.jpg"
               alt="Sipli AI Coach screen"
             />
           </Reveal>
@@ -525,7 +526,7 @@ export function SipliLanding() {
 
           <Reveal delay={0.08} className="flex justify-center lg:justify-end">
             <PhoneShot
-              src="/images/sipli/iphone/03-beverages-1320x2868.png"
+              src="/images/sipli/iphone/03-beverages-1320x2868.jpg"
               alt="Sipli beverages screen"
             />
           </Reveal>
@@ -572,6 +573,7 @@ export function SipliLanding() {
                 alt="Sipli insights on iPad"
                 width={1668}
                 height={2388}
+                sizes="(max-width: 680px) 100vw, 620px"
                 className="relative h-auto w-full rounded-[var(--r-xl)]"
                 style={{ filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.7))" }}
               />
@@ -695,10 +697,11 @@ export function SipliLanding() {
               style={{ width: "clamp(120px, 14vw, 180px)" }}
             >
               <Image
-                src="/images/sipli/iphone/04-insights-1320x2868.png"
+                src="/images/sipli/iphone/04-insights-1320x2868.jpg"
                 alt="Sipli insights"
                 width={1320}
                 height={2868}
+                sizes="(min-width: 768px) 180px, 140px"
                 className="h-auto w-full rounded-[var(--r-lg)]"
                 style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
               />
@@ -718,10 +721,11 @@ export function SipliLanding() {
                 aria-hidden="true"
               />
               <Image
-                src="/images/sipli/iphone/01-hero-1320x2868.png"
+                src="/images/sipli/iphone/01-hero-1320x2868.jpg"
                 alt="Sipli home"
                 width={1320}
                 height={2868}
+                sizes="(min-width: 768px) 230px, 150px"
                 className="relative h-auto w-full rounded-[var(--r-lg)]"
                 style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.7))" }}
               />
@@ -736,6 +740,7 @@ export function SipliLanding() {
                 alt="Sipli breakdown"
                 width={1320}
                 height={2868}
+                sizes="(min-width: 768px) 180px, 140px"
                 className="h-auto w-full rounded-[var(--r-lg)]"
                 style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
               />
