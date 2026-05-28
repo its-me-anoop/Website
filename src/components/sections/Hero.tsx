@@ -154,7 +154,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 30, scale: 0.94 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 1.1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="relative"
+              className="relative w-[280px] sm:w-[300px] lg:w-[320px]"
             >
               {/* Ambient device glow */}
               <motion.div
