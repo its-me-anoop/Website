@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArtlingLanding } from "@/components/projects/artling/ArtlingLanding";
+import { site } from "@/lib/site";
 
 const title = "Artling";
 const description =
@@ -32,6 +33,30 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Artling",
+  operatingSystem: "iOS, iPadOS",
+  applicationCategory: "LifestyleApplication",
+  description,
+  url: `${site.url}/projects/artling`,
+  image: `${site.url}/projects/artling/fox-painter.png`,
+  author: {
+    "@type": "Organization",
+    name: site.legalName,
+    url: site.url,
+  },
+};
+
 export default function ArtlingPage() {
-  return <ArtlingLanding />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ArtlingLanding />
+    </>
+  );
 }

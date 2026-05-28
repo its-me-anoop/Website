@@ -24,34 +24,30 @@ function PolicySection({
   children: ReactNode;
 }) {
   return (
-    <section className="border-b border-border px-6 py-16 last:border-b-0 md:px-14 md:py-20">
-      <div className="mx-auto max-w-[820px]">
-        <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.15em] text-foreground-tertiary">
+    <section className="border-b border-line px-[var(--gutter)] py-14 last:border-b-0 md:py-16">
+      <div className="mx-auto grid max-w-[920px] gap-x-12 gap-y-4 md:grid-cols-[auto_1fr] md:items-start">
+        <p className="font-mono text-[12px] font-medium uppercase tracking-[0.18em] text-signal md:pt-1">
           {label}
         </p>
-        <h2 className="mb-6 text-xl font-display font-semibold text-foreground md:text-2xl">
-          {title}
-        </h2>
-        <div className="space-y-4 text-[15px] leading-relaxed text-foreground-secondary">
-          {children}
+        <div>
+          <h2 className="mb-5 font-display text-xl font-semibold tracking-tight text-ink md:text-2xl">
+            {title}
+          </h2>
+          <div className="space-y-4 text-[15.5px] leading-[1.75] text-ink-2">
+            {children}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function Bullet({
-  bold,
-  children,
-}: {
-  bold?: string;
-  children?: ReactNode;
-}) {
+function Bullet({ bold, children }: { bold?: string; children?: ReactNode }) {
   return (
     <li className="flex items-start gap-3">
-      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-signal" aria-hidden="true" />
       <span>
-        {bold ? <strong className="text-foreground">{bold} </strong> : null}
+        {bold ? <strong className="text-ink">{bold} </strong> : null}
         {children}
       </span>
     </li>
@@ -60,22 +56,28 @@ function Bullet({
 
 export default function ArtlingPrivacyPolicyPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="artling-theme min-h-screen bg-background text-foreground">
       <Navbar />
 
-      <section className="bg-background-secondary px-6 pb-16 pt-32 md:px-14 md:pb-20 md:pt-40">
-        <div className="mx-auto max-w-[820px]">
-          <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.15em] text-foreground-tertiary">
+      <header className="relative overflow-hidden border-b border-line px-[var(--gutter)] pb-16 pt-36 md:pt-44">
+        <div
+          className="pointer-events-none absolute right-[-10%] top-0 h-[400px] w-[400px] rounded-full"
+          style={{ background: "var(--signal-glow)", filter: "blur(130px)" }}
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto max-w-[920px]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-ink-3 backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true" />
             Legal
-          </p>
-          <h1 className="mb-4 text-3xl font-display font-semibold text-foreground md:text-4xl">
+          </span>
+          <h1 className="mt-5 text-[clamp(32px,5vw,52px)] font-semibold tracking-[-0.03em] text-ink">
             Artling — Privacy Policy
           </h1>
-          <p className="text-[15px] text-foreground-secondary">
+          <p className="mt-4 text-[15px] text-ink-3">
             Effective: {effectiveDate}
           </p>
         </div>
-      </section>
+      </header>
 
       <PolicySection label="01" title="Overview">
         <p>
@@ -128,7 +130,10 @@ export default function ArtlingPrivacyPolicyPage() {
       </PolicySection>
 
       <PolicySection label="03" title="How We Use Information">
-        <p>Your information is used to operate the app and its features, including to:</p>
+        <p>
+          Your information is used to operate the app and its features,
+          including to:
+        </p>
         <ul className="mt-2 space-y-3">
           <Bullet>Store and organise child profiles and artwork galleries.</Bullet>
           <Bullet>
@@ -331,15 +336,15 @@ export default function ArtlingPrivacyPolicyPage() {
           practices, contact{" "}
           <a
             href="mailto:anoop@flutterly.co.uk"
-            className="text-accent hover:underline"
+            className="text-signal underline-offset-4 hover:underline"
           >
             anoop@flutterly.co.uk
           </a>
           .
         </p>
-        <div className="mt-6 rounded-2xl bg-background-secondary p-5">
-          <p className="text-sm font-medium text-foreground">Flutterly Ltd</p>
-          <p className="mt-1 text-sm text-foreground-tertiary">
+        <div className="mt-6 rounded-[var(--r-md)] border border-line bg-surface/50 p-5">
+          <p className="text-sm font-medium text-ink">Flutterly Ltd</p>
+          <p className="mt-1 text-sm text-ink-3">
             Flat 21, 3 Erleigh Road, Reading, Berkshire RG1 5LR, United Kingdom
           </p>
         </div>
