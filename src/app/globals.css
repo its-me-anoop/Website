@@ -234,17 +234,19 @@ p {
 
 /* A calm card surface with a hairline edge. */
 .surface {
-  background: color-mix(in oklab, var(--surface) 60%, transparent);
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
   border: 1px solid var(--line);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
 }
 
-/* Glassmorphic chrome for the floating nav. */
+/* Glassmorphic chrome for the floating nav. A lower blur radius + a slightly
+   more opaque fill keeps the frosted look while cutting the per-frame
+   backdrop-filter cost (expensive on mobile Safari while scrolling). */
 .glass {
-  background: color-mix(in oklab, var(--obsidian) 62%, transparent);
-  backdrop-filter: blur(22px) saturate(150%);
-  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  background: color-mix(in oklab, var(--obsidian) 76%, transparent);
+  backdrop-filter: blur(12px) saturate(125%);
+  -webkit-backdrop-filter: blur(12px) saturate(125%);
   border: 1px solid var(--line);
 }
 

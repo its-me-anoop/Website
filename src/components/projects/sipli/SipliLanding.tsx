@@ -118,8 +118,7 @@ function PhoneShot({
       <div
         className="pointer-events-none absolute inset-0 rounded-full"
         style={{
-          background: "var(--signal-glow)",
-          filter: "blur(80px)",
+          background: "radial-gradient(circle, var(--signal-glow), transparent 70%)",
           transform: "scale(0.72)",
         }}
         aria-hidden="true"
@@ -164,12 +163,12 @@ export function SipliLanding() {
       <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-20 pt-36 md:pt-40">
         <div
           className="pointer-events-none absolute right-[-8%] top-[6%] h-[600px] w-[600px] rounded-full"
-          style={{ background: "var(--signal-glow)", filter: "blur(140px)" }}
+          style={{ background: "radial-gradient(circle, var(--signal-glow), transparent 70%)" }}
           aria-hidden="true"
         />
         <div
           className="pointer-events-none absolute bottom-[-6%] left-[-6%] h-[420px] w-[420px] rounded-full"
-          style={{ background: "var(--signal-faint)", filter: "blur(110px)" }}
+          style={{ background: "radial-gradient(circle, var(--signal-faint), transparent 70%)" }}
           aria-hidden="true"
         />
 
@@ -304,7 +303,7 @@ export function SipliLanding() {
       <section className="relative overflow-hidden px-[var(--gutter)] py-[var(--space-section)]">
         <div
           className="pointer-events-none absolute left-[-10%] top-1/2 h-[600px] w-[600px] -translate-y-1/2 rounded-full"
-          style={{ background: "var(--signal-glow)", filter: "blur(140px)" }}
+          style={{ background: "radial-gradient(circle, var(--signal-glow), transparent 70%)" }}
           aria-hidden="true"
         />
         <div className="relative mx-auto grid w-full max-w-[1280px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
@@ -350,12 +349,12 @@ export function SipliLanding() {
             >
               <div
                 className="pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full"
-                style={{ background: "rgba(255,255,255,0.08)", filter: "blur(60px)" }}
+                style={{ background: "radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%)" }}
                 aria-hidden="true"
               />
               <div
                 className="pointer-events-none absolute -bottom-24 -left-16 h-80 w-80 rounded-full"
-                style={{ background: "rgba(0,0,0,0.18)", filter: "blur(80px)" }}
+                style={{ background: "radial-gradient(circle, rgba(0,0,0,0.18), transparent 70%)" }}
                 aria-hidden="true"
               />
               <div className="relative max-w-[640px]">
@@ -572,8 +571,7 @@ export function SipliLanding() {
               <div
                 className="pointer-events-none absolute inset-0 rounded-[var(--r-xl)]"
                 style={{
-                  background: "var(--signal-glow)",
-                  filter: "blur(80px)",
+                  background: "radial-gradient(circle, var(--signal-glow), transparent 70%)",
                   transform: "scale(0.85)",
                 }}
                 aria-hidden="true"
@@ -724,8 +722,7 @@ export function SipliLanding() {
               <div
                 className="pointer-events-none absolute inset-0 rounded-full"
                 style={{
-                  background: "var(--signal-glow)",
-                  filter: "blur(60px)",
+                  background: "radial-gradient(circle, var(--signal-glow), transparent 70%)",
                   transform: "scale(0.7)",
                 }}
                 aria-hidden="true"
@@ -895,7 +892,7 @@ export function SipliLanding() {
       <section className="relative overflow-hidden border-t border-line px-[var(--gutter)] py-[var(--space-section)]">
         <div
           className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{ background: "var(--signal-glow)", filter: "blur(150px)" }}
+          style={{ background: "radial-gradient(circle, var(--signal-glow), transparent 70%)" }}
           aria-hidden="true"
         />
         <Reveal className="relative mx-auto max-w-[580px] text-center">
@@ -929,8 +926,7 @@ function WatchMock({ reduce }: { reduce: boolean }) {
       <div
         className="pointer-events-none absolute inset-0 rounded-full"
         style={{
-          background: "var(--signal-glow)",
-          filter: "blur(90px)",
+          background: "radial-gradient(circle, var(--signal-glow), transparent 70%)",
           transform: "scale(0.85)",
         }}
       />

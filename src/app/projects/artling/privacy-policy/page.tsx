@@ -62,7 +62,7 @@ export default function ArtlingPrivacyPolicyPage() {
       <header className="relative overflow-hidden border-b border-line px-[var(--gutter)] pb-16 pt-36 md:pt-44">
         <div
           className="pointer-events-none absolute right-[-10%] top-0 h-[400px] w-[400px] rounded-full"
-          style={{ background: "var(--signal-glow)", filter: "blur(130px)" }}
+          style={{ background: "radial-gradient(circle, var(--signal-glow), transparent 70%)" }}
           aria-hidden="true"
         />
         <div className="relative mx-auto max-w-[920px]">

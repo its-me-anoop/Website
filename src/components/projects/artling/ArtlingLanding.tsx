@@ -235,12 +235,12 @@ export function ArtlingLanding() {
       <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-20 pt-36 md:pt-40">
         <div
           className="pointer-events-none absolute right-[-8%] top-[6%] h-[600px] w-[600px] rounded-full"
-          style={{ background: "var(--signal-glow)", filter: "blur(140px)" }}
+          style={{ background: "radial-gradient(circle, var(--signal-glow), transparent 70%)" }}
           aria-hidden="true"
         />
         <div
           className="pointer-events-none absolute bottom-[-6%] left-[-6%] h-[420px] w-[420px] rounded-full"
-          style={{ background: "var(--signal-faint)", filter: "blur(110px)" }}
+          style={{ background: "radial-gradient(circle, var(--signal-faint), transparent 70%)" }}
           aria-hidden="true"
         />
 
@@ -500,7 +500,7 @@ export function ArtlingLanding() {
           <Reveal blur className="relative overflow-hidden rounded-[var(--r-xl)] border border-line bg-surface/60 p-8 backdrop-blur-xl md:p-10">
             <div
               className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full"
-              style={{ background: "var(--signal-glow)", filter: "blur(60px)" }}
+              style={{ background: "radial-gradient(circle, var(--signal-glow), transparent 70%)" }}
               aria-hidden="true"
             />
             <div className="relative">
@@ -590,7 +590,7 @@ export function ArtlingLanding() {
       <section className="relative overflow-hidden border-t border-line px-[var(--gutter)] py-[var(--space-section)]">
         <div
           className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{ background: "var(--signal-glow)", filter: "blur(150px)" }}
+          style={{ background: "radial-gradient(circle, var(--signal-glow), transparent 70%)" }}
           aria-hidden="true"
         />
         <Reveal className="relative mx-auto w-full max-w-[1280px]">
