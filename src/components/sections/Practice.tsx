@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Compass, PenTool, Code2, Rocket, LifeBuoy } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
@@ -86,7 +86,7 @@ export function Practice() {
             const Icon = step.icon;
             const isLeft = i % 2 === 0;
             return (
-              <motion.li
+              <m.li
                 key={step.n}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -112,13 +112,13 @@ export function Practice() {
                     <Icon className="h-7 w-7" aria-hidden="true" />
                   </span>
                 </div>
-              </motion.li>
+              </m.li>
             );
           })}
         </ol>
 
         {/* Tech stack */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10% 0px" }}
@@ -148,7 +148,7 @@ export function Practice() {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

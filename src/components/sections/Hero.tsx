@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowRight, Code2, Smartphone, Layers, Zap, Sparkles } from "lucide-react";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { Button } from "@/components/ui/Button";
@@ -51,7 +51,7 @@ export function Hero() {
       <div className="mx-auto grid w-full max-w-[1280px] items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
         {/* Copy */}
         <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease }}
@@ -64,9 +64,9 @@ export function Hero() {
             <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-2">
               Booking briefs for Summer&nbsp;’26
             </span>
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 24, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.9, delay: 0.05, ease }}
@@ -74,9 +74,9 @@ export function Hero() {
           >
             We build apps people{" "}
             <span className="text-signal">love opening.</span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.22, ease }}
@@ -86,9 +86,9 @@ export function Hero() {
             <span className="text-ink">fast, beautiful web and mobile apps.</span>{" "}
             Built with Next.js, React, SwiftUI and Flutter — shipped with care,
             kept alive long after launch.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4, ease }}
@@ -105,16 +105,16 @@ export function Hero() {
                 See our work
               </Button>
             </Link>
-          </motion.div>
+          </m.div>
 
-          <motion.dl
+          <m.dl
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.58, ease }}
             className="mt-12 grid w-full max-w-md grid-cols-4 gap-4 border-t border-line pt-7 lg:max-w-lg"
           >
             {stats.map((s, i) => (
-              <motion.div
+              <m.div
                 key={s.label}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -127,20 +127,20 @@ export function Hero() {
                 <dt className="mt-0.5 text-[11px] font-medium text-muted">
                   {s.label}
                 </dt>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.dl>
+          </m.dl>
         </div>
 
         {/* Interactive phone */}
         <div className="relative flex flex-col items-center lg:items-end">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 1.1, delay: 0.35, ease }}
             className="relative w-[280px] sm:w-[300px] lg:w-[320px]"
           >
-            <motion.div
+            <m.div
               aria-hidden="true"
               className="pointer-events-none absolute -inset-16 -z-10 blur-3xl"
               animate={{
@@ -176,7 +176,7 @@ export function Hero() {
                       Sipli
                     </span>
                   </div>
-                  <motion.span
+                  <m.span
                     key={activeTab}
                     initial={{ opacity: 0, scale: 0.92 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -184,7 +184,7 @@ export function Hero() {
                     className="rounded-full border border-line-2 bg-white/[0.05] px-2.5 py-1 font-mono text-[9px] font-semibold uppercase tracking-wider text-ink-2"
                   >
                     Live
-                  </motion.span>
+                  </m.span>
                 </div>
 
                 <div className="flex flex-grow flex-col justify-center overflow-hidden">
@@ -196,9 +196,9 @@ export function Hero() {
                 </div>
               </div>
             </PhoneFrame>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.95, ease }}
@@ -210,7 +210,7 @@ export function Hero() {
               const active = activeTab === tab.id;
               const Icon = tab.icon;
               return (
-                <motion.button
+                <m.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   role="tab"
@@ -222,7 +222,7 @@ export function Hero() {
                   }`}
                 >
                   {active && (
-                    <motion.span
+                    <m.span
                       layoutId="hero-tab-pill"
                       className="absolute inset-0 rounded-full bg-signal"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -232,10 +232,10 @@ export function Hero() {
                     <Icon className="h-3.5 w-3.5" aria-hidden="true" />
                     {tab.label}
                   </span>
-                </motion.button>
+                </m.button>
               );
             })}
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </header>
@@ -254,7 +254,7 @@ function FloatingChip({
   icon?: React.ReactNode;
 }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 12, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ delay, duration: 0.6, ease }}
@@ -262,13 +262,13 @@ function FloatingChip({
     >
       {icon}
       <span>{children}</span>
-    </motion.div>
+    </m.div>
   );
 }
 
 function TabHydration() {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -20, scale: 0.98 }}
@@ -286,7 +286,7 @@ function TabHydration() {
             </linearGradient>
           </defs>
           <circle cx="50" cy="50" r="42" className="fill-none stroke-white/[0.07]" strokeWidth="5" />
-          <motion.circle
+          <m.circle
             cx="50"
             cy="50"
             r="42"
@@ -309,21 +309,21 @@ function TabHydration() {
         </div>
       </div>
 
-      <motion.button
+      <m.button
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.96 }}
         className="mt-8 inline-flex h-10 items-center gap-1.5 rounded-full bg-signal px-5 text-[12px] font-bold text-signal-ink"
         aria-label="Add a drink"
       >
         + Add Drink
-      </motion.button>
-    </motion.div>
+      </m.button>
+    </m.div>
   );
 }
 
 function TabInsights() {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -20, scale: 0.98 }}
@@ -335,7 +335,7 @@ function TabInsights() {
       <span className="mb-3 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
         Weekly Intake
       </span>
-      <motion.div
+      <m.div
         initial="hidden"
         animate="visible"
         variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.06 } } }}
@@ -343,7 +343,7 @@ function TabInsights() {
       >
         {[60, 80, 45, 95, 70, 85, 90].map((val, idx) => (
           <div key={idx} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5">
-            <motion.div
+            <m.div
               variants={{
                 hidden: { height: 0, opacity: 0 },
                 visible: { height: `${val}%`, opacity: 1, transition: { type: "spring", stiffness: 120, damping: 16 } },
@@ -353,8 +353,8 @@ function TabInsights() {
             <span className="font-mono text-[8px] text-muted">{["M", "T", "W", "T", "F", "S", "S"][idx]}</span>
           </div>
         ))}
-      </motion.div>
-      <motion.div
+      </m.div>
+      <m.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, type: "spring", stiffness: 100, damping: 16 }}
@@ -362,14 +362,14 @@ function TabInsights() {
       >
         <div className="font-mono text-[10px] uppercase text-muted">Streak</div>
         <div className="mt-0.5 text-sm font-semibold text-ink">14 days consistent</div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }
 
 function TabAlerts() {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -20, scale: 0.98 }}
@@ -378,7 +378,7 @@ function TabAlerts() {
       id="hero-demo-alerts"
       role="tabpanel"
     >
-      <motion.div
+      <m.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ type: "spring", stiffness: 120, damping: 18, delay: 0.1 }}
@@ -395,8 +395,8 @@ function TabAlerts() {
           You&rsquo;re 250&thinsp;ml behind your 2&thinsp;PM checkpoint. A glass of water
           now keeps your afternoon energy steady.
         </p>
-      </motion.div>
-      <motion.div
+      </m.div>
+      <m.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ type: "spring", stiffness: 120, damping: 18, delay: 0.25 }}
@@ -406,15 +406,15 @@ function TabAlerts() {
           <div className="font-mono text-[10px] uppercase tracking-wide text-aqua">Quick Add</div>
           <div className="mt-0.5 text-sm font-semibold text-ink">250&thinsp;ml Glass</div>
         </div>
-        <motion.button
+        <m.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="flex h-9 w-9 items-center justify-center rounded-full bg-aqua font-bold text-[#04141a]"
           aria-label="Quick add water"
         >
           +
-        </motion.button>
-      </motion.div>
-    </motion.div>
+        </m.button>
+      </m.div>
+    </m.div>
   );
 }

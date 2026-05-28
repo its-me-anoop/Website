@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Globe, Smartphone, Server, Boxes, ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
@@ -63,7 +63,7 @@ export function Services() {
           lede="From the first whiteboard sketch to the App Store submission. Four tightly-knit disciplines, one team, one accountable engineer."
         />
 
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -73,16 +73,16 @@ export function Services() {
           {services.map((s) => {
             const Icon = s.icon;
             return (
-              <motion.div key={s.title} variants={staggerItem}>
+              <m.div key={s.title} variants={staggerItem}>
                 <SpotlightCard glow={s.glow} className="h-full min-h-[280px]">
                   <div className="flex items-start justify-between">
-                    <motion.span
+                    <m.span
                       whileHover={{ rotate: 6, scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 300, damping: 18 }}
                       className="flex h-12 w-12 items-center justify-center rounded-2xl border border-line-2 bg-white/[0.04] text-signal"
                     >
                       <Icon className="h-5 w-5" aria-hidden="true" />
-                    </motion.span>
+                    </m.span>
                     <span className="rounded-full border border-line bg-white/[0.03] px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
                       {s.tag}
                     </span>
@@ -117,10 +117,10 @@ export function Services() {
                     </Link>
                   </div>
                 </SpotlightCard>
-              </motion.div>
+              </m.div>
             );
           })}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

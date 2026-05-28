@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Github, Star, GitFork, ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { staggerContainer, staggerItem } from "@/components/ui/Reveal";
@@ -174,7 +174,7 @@ function Heatmap() {
         aria-hidden="true"
       >
         {heatmapData.cells.map((c, i) => (
-          <motion.span
+          <m.span
             key={i}
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -186,8 +186,8 @@ function Heatmap() {
       </div>
 
       <div className="mt-4 grid grid-cols-12 font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
-        {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((m) => (
-          <span key={m}>{m}</span>
+        {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((mo) => (
+          <span key={mo}>{mo}</span>
         ))}
       </div>
     </div>
@@ -219,7 +219,7 @@ export function OpenSource() {
         <div className="grid gap-6 lg:grid-cols-[1.25fr_1fr]">
           <Heatmap />
 
-          <motion.ul
+          <m.ul
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -228,7 +228,7 @@ export function OpenSource() {
             aria-label="Featured repositories"
           >
             {repos.map((r) => (
-              <motion.li key={r.name} variants={staggerItem}>
+              <m.li key={r.name} variants={staggerItem}>
                 <Link
                   href={`https://github.com/its-me-anoop/${r.name}`}
                   target="_blank"
@@ -259,9 +259,9 @@ export function OpenSource() {
                     </div>
                   </div>
                 </Link>
-              </motion.li>
+              </m.li>
             ))}
-          </motion.ul>
+          </m.ul>
         </div>
       </div>
     </section>

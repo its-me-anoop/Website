@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowUpRight, Mail, MapPin, Phone, Clock } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { staggerContainer, staggerItem } from "@/components/ui/Reveal";
@@ -24,7 +24,7 @@ export function Contact() {
       aria-labelledby="contact-heading"
     >
       {/* Top gradient line */}
-      <motion.div
+      <m.div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-px origin-center"
         initial={{ scaleX: 0, opacity: 0 }}
@@ -38,7 +38,7 @@ export function Contact() {
       />
 
       <div className="mx-auto w-full max-w-[1280px]">
-        <motion.span
+        <m.span
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -47,9 +47,9 @@ export function Contact() {
         >
           <span className="h-1.5 w-1.5 rounded-full bg-signal animate-pulse-ring" />
           Get in touch
-        </motion.span>
+        </m.span>
 
-        <motion.h2
+        <m.h2
           id="contact-heading"
           initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -60,9 +60,9 @@ export function Contact() {
           Let&rsquo;s build
           <br />
           something <span className="text-signal">great.</span>
-        </motion.h2>
+        </m.h2>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -92,10 +92,10 @@ export function Contact() {
               </Button>
             </Link>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Details */}
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -122,7 +122,7 @@ export function Contact() {
             const cls =
               "group flex items-center gap-3 rounded-2xl border border-line bg-white/[0.02] p-3.5 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-line-2 hover:bg-white/[0.04]";
             return (
-              <motion.div key={d.k} variants={staggerItem}>
+              <m.div key={d.k} variants={staggerItem}>
                 {d.href ? (
                   <Link href={d.href} className={cls}>
                     {inner}
@@ -130,10 +130,10 @@ export function Contact() {
                 ) : (
                   <div className={cls}>{inner}</div>
                 )}
-              </motion.div>
+              </m.div>
             );
           })}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

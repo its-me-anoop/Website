@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import {
-  motion,
+  m,
   useMotionValue,
   useSpring,
   useTransform,
@@ -73,7 +73,7 @@ export function SpotlightCard({
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onMouseMove={onMove}
       onMouseEnter={() => !off && setHovered(true)}
@@ -102,7 +102,7 @@ export function SpotlightCard({
       {...props}
     >
       {!off && (
-        <motion.div
+        <m.div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
           initial={{ opacity: 0 }}
@@ -114,6 +114,6 @@ export function SpotlightCard({
         />
       )}
       {typeof children === "function" ? children({ px, py }) : children}
-    </motion.div>
+    </m.div>
   );
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { m, useReducedMotion, type Variants } from "framer-motion";
 import {
   ArrowLeft,
   Bell,
@@ -183,12 +183,12 @@ export function SipliLanding() {
           </Link>
 
           <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
-            <motion.div
+            <m.div
               initial="hidden"
               animate="visible"
               variants={heroStagger}
             >
-              <motion.div
+              <m.div
                 variants={heroItem}
                 className="mb-6 flex flex-wrap gap-2"
               >
@@ -200,23 +200,23 @@ export function SipliLanding() {
                   <Watch className="h-3 w-3" aria-hidden="true" />
                   New on Apple Watch
                 </Eyebrow>
-              </motion.div>
+              </m.div>
 
-              <motion.h1
+              <m.h1
                 variants={heroItem}
                 className="text-[clamp(52px,8vw,88px)] font-semibold leading-[0.98] tracking-[-0.04em] text-ink"
               >
                 Sipli
-              </motion.h1>
+              </m.h1>
 
-              <motion.p
+              <m.p
                 variants={heroItem}
                 className="mt-3 font-display text-[clamp(20px,2.5vw,28px)] font-light leading-snug tracking-tight text-signal"
               >
                 Stay Hydrated, Effortlessly.
-              </motion.p>
+              </m.p>
 
-              <motion.p
+              <m.p
                 variants={heroItem}
                 className="mt-6 max-w-[460px] text-[16px] leading-[1.7] text-ink-3"
               >
@@ -224,9 +224,9 @@ export function SipliLanding() {
                 Now on Apple Watch — log a sip in one tap from your wrist. 35+
                 beverages, on-device AI coaching, and reminders that think with
                 you, not at you.
-              </motion.p>
+              </m.p>
 
-              <motion.div
+              <m.div
                 variants={heroItem}
                 className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
               >
@@ -243,10 +243,10 @@ export function SipliLanding() {
                     Free on the App Store
                   </span>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={reduce ? false : { opacity: 0, y: 36, scale: 0.95 }}
               animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 1, delay: 0.25, ease }}
@@ -258,14 +258,14 @@ export function SipliLanding() {
                 priority
                 blurDataURL={HERO_BLUR}
               />
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </header>
 
       {/* ── FEATURE STRIP ── */}
       <section className="border-y border-line bg-surface/40 px-[var(--gutter)] py-14">
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -280,7 +280,7 @@ export function SipliLanding() {
           ].map((item) => {
             const Icon = item.icon;
             return (
-              <motion.div
+              <m.div
                 key={item.label}
                 variants={staggerItem}
                 className="flex flex-col items-center gap-3 rounded-[var(--r-md)] border border-line bg-white/[0.02] px-4 py-6 text-center transition-colors duration-300 hover:border-line-2"
@@ -294,10 +294,10 @@ export function SipliLanding() {
                   </p>
                   <p className="text-xs text-muted">{item.desc}</p>
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
-        </motion.div>
+        </m.div>
       </section>
 
       {/* ── APPLE WATCH ── */}
@@ -388,7 +388,7 @@ export function SipliLanding() {
             </div>
           </Reveal>
 
-          <motion.div
+          <m.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -413,7 +413,7 @@ export function SipliLanding() {
                 desc: "Year-round in Settings — the honest case for tap water, reusable bottles, and habit over hype.",
               },
             ].map((f) => (
-              <motion.div
+              <m.div
                 key={f.title}
                 variants={staggerItem}
                 className="rounded-[var(--r-lg)] border border-line bg-surface/50 p-6 backdrop-blur-sm transition-colors hover:border-line-2"
@@ -434,9 +434,9 @@ export function SipliLanding() {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
           <Reveal>
             <p className="mx-auto mt-8 max-w-[520px] text-center text-xs leading-relaxed text-muted">
@@ -501,7 +501,7 @@ export function SipliLanding() {
               sports drinks, and more. Caffeine and alcohol are accounted for,
               so a cold brew doesn&apos;t count like water.
             </p>
-            <motion.ul
+            <m.ul
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
@@ -522,16 +522,16 @@ export function SipliLanding() {
                 { name: "Sports Drink", pct: "80%" },
                 { name: "+ 25 more", pct: "" },
               ].map((b) => (
-                <motion.li
+                <m.li
                   key={b.name}
                   variants={staggerItem}
                   className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface/50 px-3 py-1.5 text-xs font-medium text-ink-2 transition-colors hover:border-line-2"
                 >
                   {b.name}
                   {b.pct && <span className="font-bold text-signal">{b.pct}</span>}
-                </motion.li>
+                </m.li>
               ))}
-            </motion.ul>
+            </m.ul>
           </Reveal>
 
           <Reveal delay={0.08} className="flex justify-center lg:justify-end">
@@ -590,7 +590,7 @@ export function SipliLanding() {
             </div>
           </Reveal>
 
-          <motion.ul
+          <m.ul
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -605,16 +605,16 @@ export function SipliLanding() {
               "Beverage breakdown chart",
               "AI coaching tips",
             ].map((feat) => (
-              <motion.li
+              <m.li
                 key={feat}
                 variants={staggerItem}
                 className="flex items-center gap-2.5 rounded-[var(--r-sm)] border border-line bg-surface/50 p-3.5"
               >
                 <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-signal" aria-hidden="true" />
                 <span className="text-xs text-ink-2">{feat}</span>
-              </motion.li>
+              </m.li>
             ))}
-          </motion.ul>
+          </m.ul>
         </div>
       </section>
 
@@ -694,14 +694,14 @@ export function SipliLanding() {
             </h2>
           </Reveal>
 
-          <motion.div
+          <m.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-8% 0px" }}
             className="flex items-end justify-center gap-4 md:gap-8"
           >
-            <motion.div
+            <m.div
               variants={staggerItem}
               className="mb-10 flex-shrink-0"
               style={{ width: "clamp(120px, 14vw, 180px)" }}
@@ -715,8 +715,8 @@ export function SipliLanding() {
                 className="h-auto w-full rounded-[var(--r-lg)]"
                 style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
               />
-            </motion.div>
-            <motion.div
+            </m.div>
+            <m.div
               variants={staggerItem}
               className="relative flex-shrink-0"
               style={{ width: "clamp(150px, 18vw, 230px)" }}
@@ -739,8 +739,8 @@ export function SipliLanding() {
                 className="relative h-auto w-full rounded-[var(--r-lg)]"
                 style={{ filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.7))" }}
               />
-            </motion.div>
-            <motion.div
+            </m.div>
+            <m.div
               variants={staggerItem}
               className="mb-10 flex-shrink-0"
               style={{ width: "clamp(120px, 14vw, 180px)" }}
@@ -754,8 +754,8 @@ export function SipliLanding() {
                 className="h-auto w-full rounded-[var(--r-lg)]"
                 style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
               />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </section>
 
@@ -772,7 +772,7 @@ export function SipliLanding() {
             </p>
           </Reveal>
 
-          <motion.div
+          <m.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -813,7 +813,7 @@ export function SipliLanding() {
             ].map((item) => {
               const Icon = item.icon;
               return (
-                <motion.div key={item.title} variants={staggerItem}>
+                <m.div key={item.title} variants={staggerItem}>
                   <SpotlightCard glow="var(--signal-faint)" className="h-full">
                     <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-line-2 bg-white/[0.04] text-signal">
                       <Icon className="h-5 w-5" aria-hidden="true" />
@@ -825,10 +825,10 @@ export function SipliLanding() {
                       {item.desc}
                     </p>
                   </SpotlightCard>
-                </motion.div>
+                </m.div>
               );
             })}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 

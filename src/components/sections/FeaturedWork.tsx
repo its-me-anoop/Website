@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
@@ -94,14 +94,14 @@ export function FeaturedWork() {
           lede="A short catalogue of client products and original apps. Every line of code shipped under the Flutterly name passes through one engineer’s keyboard."
         />
 
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-8% 0px" }}
         >
           {/* Featured */}
-          <motion.div variants={staggerItem} className="mb-5">
+          <m.div variants={staggerItem} className="mb-5">
             <Link href={featured.href} className="group block" aria-label={`${featured.title} case study`}>
               <SpotlightCard
                 glow={featured.glow}
@@ -112,7 +112,7 @@ export function FeaturedWork() {
                 {({ px, py }) => (
                   <>
                     <div className="absolute inset-0" style={{ background: featured.bg }} />
-                    <motion.div
+                    <m.div
                       aria-hidden="true"
                       className="pointer-events-none absolute -bottom-12 -right-6 h-[88%] w-[44%] overflow-hidden rounded-[40px] border border-line-2 shadow-2xl md:-bottom-16 md:-right-10 md:h-[110%] md:w-[38%]"
                       style={{ x: px, y: py, rotate: 4 }}
@@ -124,7 +124,7 @@ export function FeaturedWork() {
                         sizes="(max-width: 768px) 100vw, 600px"
                         className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       />
-                    </motion.div>
+                    </m.div>
 
                     <div className="relative z-10 flex h-full flex-col justify-between p-8 md:p-12">
                       <div className="flex flex-wrap items-center gap-2.5">
@@ -158,19 +158,19 @@ export function FeaturedWork() {
                 )}
               </SpotlightCard>
             </Link>
-          </motion.div>
+          </m.div>
 
           {/* Grid */}
           <div className="grid gap-4 md:grid-cols-2 md:gap-5">
             {rest.map((p) => (
-              <motion.div key={p.title} variants={staggerItem}>
+              <m.div key={p.title} variants={staggerItem}>
                 <Link href={p.href} className="group block" aria-label={`${p.title} case`}>
                   <SpotlightCard glow={p.glow} tilt={4} parallax={10} className="h-[280px] overflow-hidden p-0">
                     {({ px, py }) => (
                       <>
                         <div className="absolute inset-0" style={{ background: p.bg }} />
                         {p.image && (
-                          <motion.div
+                          <m.div
                             aria-hidden="true"
                             className="pointer-events-none absolute -right-4 top-6 w-[110px] md:top-10 md:w-[140px]"
                             style={{ x: px, y: py, rotate: 6 }}
@@ -183,7 +183,7 @@ export function FeaturedWork() {
                               sizes="140px"
                               className="w-full opacity-80 transition-all duration-500 group-hover:scale-105 group-hover:opacity-100"
                             />
-                          </motion.div>
+                          </m.div>
                         )}
 
                         <div className="relative z-10 flex h-full flex-col justify-between p-6 md:p-7">
@@ -216,10 +216,10 @@ export function FeaturedWork() {
                     )}
                   </SpotlightCard>
                 </Link>
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
         <p className="mt-10 text-[13px] text-muted">
           A few clients we work with remain under NDA. Happy to walk you through

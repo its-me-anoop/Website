@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Marquee } from "@/components/ui/Marquee";
 
 const tech = [
@@ -43,7 +43,7 @@ export function Stack() {
       className="relative border-t border-line py-20"
     >
       <div className="mx-auto w-full max-w-[1280px] px-[var(--gutter)]">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10% 0px" }}
@@ -57,7 +57,7 @@ export function Stack() {
           <h2 className="font-display text-[clamp(22px,3vw,30px)] font-semibold tracking-tight text-ink">
             Modern tools, pragmatically picked.
           </h2>
-        </motion.div>
+        </m.div>
       </div>
 
       <div className="space-y-3">

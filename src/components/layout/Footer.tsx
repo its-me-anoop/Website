@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { site } from "@/lib/site";
 
@@ -51,7 +51,7 @@ export function Footer() {
       <div className="relative mx-auto w-full max-w-[1280px] px-[var(--gutter)] py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-[1.5fr_repeat(3,1fr)] md:gap-10">
           {/* Brand */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -87,11 +87,11 @@ export function Footer() {
                 <Linkedin className="h-4 w-4" aria-hidden="true" />
               </SocialButton>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Link columns */}
           {cols.map((col, i) => (
-            <motion.div
+            <m.div
               key={col.heading}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ export function Footer() {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 

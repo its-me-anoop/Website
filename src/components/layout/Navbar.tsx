@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   AnimatePresence,
-  motion,
+  m,
   useMotionValueEvent,
   useScroll,
   useReducedMotion,
@@ -77,13 +77,13 @@ export function Navbar() {
   return (
     <>
       {/* Scroll progress hairline */}
-      <motion.div
+      <m.div
         aria-hidden="true"
         className="fixed inset-x-0 top-0 z-[110] h-[2px] origin-left bg-signal"
         style={{ scaleX: progress }}
       />
 
-      <motion.header
+      <m.header
         className="fixed inset-x-0 top-0 z-[100] p-3 md:p-4"
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export function Navbar() {
             className="group flex items-center gap-2.5 font-display font-semibold text-ink"
             aria-label="Flutterly home"
           >
-            <motion.span
+            <m.span
               whileHover={{ rotate: -8, scale: 1.05 }}
               whileTap={{ scale: 0.94 }}
               transition={{ type: "spring", stiffness: 400, damping: 18 }}
@@ -117,7 +117,7 @@ export function Navbar() {
                 className="h-4 w-4 object-contain brightness-0"
                 priority
               />
-            </motion.span>
+            </m.span>
             <span className="tracking-tight">Flutterly</span>
           </Link>
 
@@ -141,7 +141,7 @@ export function Navbar() {
                     (reduce ? (
                       <span className="absolute inset-0 -z-10 rounded-full border border-line-2 bg-white/[0.05]" />
                     ) : (
-                      <motion.span
+                      <m.span
                         layoutId="active-nav-pill"
                         className="absolute inset-0 -z-10 rounded-full border border-line-2 bg-white/[0.05]"
                         transition={{ type: "spring", stiffness: 400, damping: 32 }}
@@ -163,7 +163,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile toggle */}
-          <motion.button
+          <m.button
             type="button"
             onClick={() => setMenuOpen((o) => !o)}
             className="flex h-9 w-9 items-center justify-center rounded-full border border-line-2 bg-white/[0.03] text-ink-2 transition-colors duration-300 hover:text-ink md:hidden"
@@ -173,7 +173,7 @@ export function Navbar() {
           >
             <AnimatePresence mode="wait" initial={false}>
               {menuOpen ? (
-                <motion.span
+                <m.span
                   key="x"
                   initial={{ opacity: 0, rotate: -90 }}
                   animate={{ opacity: 1, rotate: 0 }}
@@ -181,9 +181,9 @@ export function Navbar() {
                   transition={{ duration: 0.2 }}
                 >
                   <X size={18} aria-hidden="true" />
-                </motion.span>
+                </m.span>
               ) : (
-                <motion.span
+                <m.span
                   key="m"
                   initial={{ opacity: 0, rotate: 90 }}
                   animate={{ opacity: 1, rotate: 0 }}
@@ -191,17 +191,17 @@ export function Navbar() {
                   transition={{ duration: 0.2 }}
                 >
                   <Menu size={18} aria-hidden="true" />
-                </motion.span>
+                </m.span>
               )}
             </AnimatePresence>
-          </motion.button>
+          </m.button>
         </div>
-      </motion.header>
+      </m.header>
 
       {/* Mobile sheet */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -12, scale: 0.98 }}
@@ -210,7 +210,7 @@ export function Navbar() {
           >
             <nav className="grid gap-1" aria-label="Mobile primary">
               {navItems.map((item, i) => (
-                <motion.div
+                <m.div
                   key={item.name}
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -223,7 +223,7 @@ export function Navbar() {
                   >
                     {item.name}
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
               <hr className="my-2 border-line" />
               <Link
@@ -236,7 +236,7 @@ export function Navbar() {
                 </Button>
               </Link>
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

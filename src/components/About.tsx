@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { staggerContainer, staggerItem } from "@/components/ui/Reveal";
 
@@ -38,7 +38,7 @@ export default function About() {
           {/* Story */}
           <div className="flex h-full flex-col justify-between">
             <div>
-              <motion.blockquote
+              <m.blockquote
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-10% 0px" }}
@@ -56,9 +56,9 @@ export default function About() {
                   people who didn&rsquo;t care about it as much as I did. So I stopped
                   handing it off.
                 </p>
-              </motion.blockquote>
+              </m.blockquote>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-10% 0px" }}
@@ -75,35 +75,35 @@ export default function About() {
                   users secretly hate, and companies who want a partner — not a vendor —
                   for the long run.
                 </p>
-              </motion.div>
+              </m.div>
             </div>
 
-            <motion.div
+            <m.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-10% 0px" }}
               className="mt-12 grid grid-cols-2 gap-5 border-t border-line pt-8 md:grid-cols-4"
             >
-              {meta.map((m) => (
-                <motion.div
-                  key={m.k}
+              {meta.map((item) => (
+                <m.div
+                  key={item.k}
                   variants={staggerItem}
                   className="group flex flex-col gap-1.5 transition-transform duration-300 hover:-translate-y-0.5"
                 >
                   <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted transition-colors group-hover:text-ink-3">
-                    {m.k}
+                    {item.k}
                   </span>
                   <span className="font-display text-[16px] font-semibold tracking-tight text-ink-2 transition-colors group-hover:text-ink">
-                    {m.v}
+                    {item.v}
                   </span>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Portrait */}
-          <motion.figure
+          <m.figure
             className="group relative m-0 cursor-default overflow-hidden rounded-[var(--r-xl)] border border-line shadow-2xl"
             style={{ aspectRatio: "4/5" }}
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
@@ -132,7 +132,7 @@ export default function About() {
                 Anoop Jose
               </div>
             </figcaption>
-          </motion.figure>
+          </m.figure>
         </div>
       </div>
     </section>

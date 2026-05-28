@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
@@ -254,7 +254,7 @@ export function ArtlingLanding() {
           </Link>
 
           <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-            <motion.div
+            <m.div
               initial="hidden"
               animate="visible"
               variants={
@@ -263,33 +263,33 @@ export function ArtlingLanding() {
                   : { hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } } }
               }
             >
-              <motion.div
+              <m.div
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               >
                 <Eyebrow>
                   <Sparkles className="h-3 w-3" aria-hidden="true" />
                   Art archive for busy families
                 </Eyebrow>
-              </motion.div>
+              </m.div>
 
-              <motion.h1
+              <m.h1
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease } } }}
                 className="mt-7 max-w-[16ch] text-[clamp(40px,6vw,76px)] font-semibold leading-[0.98] tracking-[-0.04em] text-ink"
               >
                 Turn fridge masterpieces into a{" "}
                 <span className="text-signal">living family gallery.</span>
-              </motion.h1>
+              </m.h1>
 
-              <motion.p
+              <m.p
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } } }}
                 className="mt-6 max-w-[560px] text-[16px] leading-[1.7] text-ink-3 md:text-[18px]"
               >
                 Artling helps parents capture artwork fast, keep the story around
                 each piece, and revisit a child’s creative growth through
                 timelines, milestones, sharing, and AI-assisted captions.
-              </motion.p>
+              </m.p>
 
-              <motion.div
+              <m.div
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } } }}
                 className="mt-9 flex flex-wrap gap-3"
               >
@@ -307,9 +307,9 @@ export function ArtlingLanding() {
                     Read Privacy Policy
                   </Button>
                 </Link>
-              </motion.div>
+              </m.div>
 
-              <motion.ul
+              <m.ul
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } } }}
                 className="mt-10 flex flex-wrap gap-2"
               >
@@ -323,10 +323,10 @@ export function ArtlingLanding() {
                     </li>
                   )
                 )}
-              </motion.ul>
-            </motion.div>
+              </m.ul>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={reduce ? false : { opacity: 0, y: 34 }}
               animate={reduce ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.12, ease }}
@@ -358,7 +358,7 @@ export function ArtlingLanding() {
                 </PhoneFrame>
               </div>
 
-              <motion.div
+              <m.div
                 animate={reduce ? undefined : { y: [0, -8, 0] }}
                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                 className="pointer-events-none absolute -bottom-8 right-6 z-20 w-[152px] sm:w-[172px]"
@@ -374,8 +374,8 @@ export function ArtlingLanding() {
                   className="h-auto w-full drop-shadow-[0_26px_40px_rgba(0,0,0,0.4)]"
                   priority
                 />
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </div>
       </header>
@@ -402,7 +402,7 @@ export function ArtlingLanding() {
             </p>
           </Reveal>
 
-          <motion.div
+          <m.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -412,7 +412,7 @@ export function ArtlingLanding() {
             {pillars.map((pillar) => {
               const Icon = pillar.icon;
               return (
-                <motion.div key={pillar.title} variants={staggerItem}>
+                <m.div key={pillar.title} variants={staggerItem}>
                   <SpotlightCard glow="var(--signal-faint)" className="h-full">
                     <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-line-2 bg-white/[0.04] text-signal">
                       <Icon className="h-6 w-6" aria-hidden="true" />
@@ -424,10 +424,10 @@ export function ArtlingLanding() {
                       {pillar.description}
                     </p>
                   </SpotlightCard>
-                </motion.div>
+                </m.div>
               );
             })}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -461,7 +461,7 @@ export function ArtlingLanding() {
             </ul>
           </Reveal>
 
-          <motion.div
+          <m.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -471,7 +471,7 @@ export function ArtlingLanding() {
             {featureCards.map((card) => {
               const Icon = card.icon;
               return (
-                <motion.div
+                <m.div
                   key={card.title}
                   variants={staggerItem}
                   className="rounded-[var(--r-lg)] border border-line bg-surface/50 p-6 backdrop-blur-sm transition-colors hover:border-line-2"
@@ -487,10 +487,10 @@ export function ArtlingLanding() {
                   <p className="mt-4 text-sm leading-relaxed text-ink-3">
                     {card.description}
                   </p>
-                </motion.div>
+                </m.div>
               );
             })}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 

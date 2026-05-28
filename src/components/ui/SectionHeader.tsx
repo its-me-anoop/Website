@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface SectionHeaderProps {
@@ -55,7 +55,7 @@ export function SectionHeader({
       )}
     >
       <div>
-        <motion.span
+        <m.span
           {...reveal(0)}
           className="inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.02] px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-ink-3 backdrop-blur"
         >
@@ -64,17 +64,17 @@ export function SectionHeader({
             style={{ background: dot }}
           />
           {eyebrow}
-        </motion.span>
-        <motion.h2
+        </m.span>
+        <m.h2
           id={headingId}
           {...reveal(0.08)}
           className="mt-5 text-[clamp(34px,5vw,60px)] font-semibold leading-[1.02] tracking-[-0.03em] text-ink [&_em]:not-italic [&_em]:text-signal"
         >
           {title}
-        </motion.h2>
+        </m.h2>
       </div>
       {lede ? (
-        <motion.div
+        <m.div
           {...reveal(0.16)}
           className={cn(
             "text-[15.5px] leading-[1.7] text-ink-3",
@@ -82,7 +82,7 @@ export function SectionHeader({
           )}
         >
           {lede}
-        </motion.div>
+        </m.div>
       ) : null}
     </div>
   );

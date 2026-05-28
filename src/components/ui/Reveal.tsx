@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { m, useReducedMotion, type Variants } from "framer-motion";
 
 type Direction = "up" | "down" | "left" | "right" | "none";
 
@@ -22,10 +22,10 @@ interface RevealProps {
 
 /** Fixed map so motion props stay correctly typed (dynamic indexing widens to never). */
 const motionTags = {
-  div: motion.div,
-  li: motion.li,
-  span: motion.span,
-  section: motion.section,
+  div: m.div,
+  li: m.li,
+  span: m.span,
+  section: m.section,
 } as const;
 
 const offset = (d: Direction, dist: number) => {
