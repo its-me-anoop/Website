@@ -24,6 +24,18 @@ export function ShaderBackground() {
 
   useEffect(() => {
     if (reduce) return;
+    // Skip the animated WebGL layer on touch / coarse-pointer devices
+    // (phones, most tablets). A fixed, fullscreen canvas redrawing at 60fps
+    // forces the compositor to re-composite it on every scroll frame, which
+    // drops frames badly on iOS Safari. These devices keep the static CSS
+    // gradient field — visually close, and scroll stays smooth.
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      !window.matchMedia("(pointer: fine)").matches
+    ) {
+      return;
+    }
     // Defer mount until idle so it never competes with first paint.
     let ok = false;
     try {

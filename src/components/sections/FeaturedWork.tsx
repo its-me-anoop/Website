@@ -16,7 +16,7 @@ const projects = [
     subtitle: "AI-powered hydration on iPhone and Apple Watch.",
     description:
       "On-device intelligence, predictive coaching, and a SwiftUI architecture tuned for 120hz scrolling.",
-    image: "/images/sipli/iphone/01-hero-1320x2868.png",
+    image: "/images/sipli/iphone/01-hero-1320x2868.jpg",
     year: "2026",
     badge: "Live",
     bg: "linear-gradient(165deg,#0a1226 0%,#100a26 100%)",

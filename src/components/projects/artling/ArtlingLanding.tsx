@@ -368,6 +368,7 @@ export function ArtlingLanding() {
                   alt="Artling fox mascot"
                   width={806}
                   height={1129}
+                  sizes="(min-width: 640px) 172px, 152px"
                   className="h-auto w-full drop-shadow-[0_26px_40px_rgba(0,0,0,0.4)]"
                   priority
                 />
