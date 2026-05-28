@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Flutterly
 
-## Getting Started
+The marketing + portfolio website for **Flutterly Ltd** — a UK app & web
+development studio based in Reading. Designed and engineered around the
+["Obsidian Studio" design system](./docs/DESIGN-SYSTEM.md): a refined dark
+theme with generous whitespace, a single citron accent, framer-motion
+choreography, and a WebGL shader background.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, Turbopack) + **React 19**
+- **Tailwind CSS v4** (token-driven `@theme`)
+- **Framer Motion** for animation + route transitions
+- **three.js / React Three Fiber** for the shader field
+- **Vitest** + Testing Library for tests
+- **Outfit** (bundled local) display font + system font stacks (no build-time
+  webfont fetch)
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Development server |
+| `npm run build` | Production build (typechecks too) |
+| `npm run start` | Serve the production build |
+| `npm run lint` | ESLint |
+| `npx vitest run` | Run the test suite |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure & design system
 
-## Learn More
+See [`docs/index.md`](./docs/index.md) for the architecture overview and
+[`docs/DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md) for tokens, primitives,
+motion, and accessibility guidelines.
 
-To learn more about Next.js, take a look at the following resources:
+## Highlights
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Design system** in `src/app/globals.css` mapped to Tailwind utilities.
+- **Reusable primitives** in `src/components/ui/` (`Button`, `SectionHeader`,
+  `SpotlightCard`, `Reveal`, `Marquee`, `PhoneFrame`).
+- **Performant WebGL background** that lazy-loads, falls back to CSS, and
+  respects `prefers-reduced-motion`.
+- **SEO**: metadata + JSON-LD structured data, sitemap, robots, semantic HTML,
+  and an accessible, reduced-motion-aware UI.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2026 Flutterly Ltd.
