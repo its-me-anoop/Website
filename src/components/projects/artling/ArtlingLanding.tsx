@@ -228,7 +228,7 @@ export function ArtlingLanding() {
   const reduce = useReducedMotion();
 
   return (
-    <main className="artling-theme min-h-screen overflow-x-hidden bg-background text-foreground">
+    <main id="main" className="artling-theme min-h-screen overflow-x-hidden bg-background text-foreground">
       <Navbar />
 
       {/* ── HERO ── */}

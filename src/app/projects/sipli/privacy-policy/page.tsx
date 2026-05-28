@@ -56,7 +56,7 @@ function Bullet({ bold, children }: { bold?: string; children?: ReactNode }) {
 
 export default function SipliPrivacyPolicy() {
   return (
-    <main className="sipli-theme min-h-screen bg-background text-foreground">
+    <main id="main" className="sipli-theme min-h-screen bg-background text-foreground">
       <Navbar />
 
       <header className="relative overflow-hidden border-b border-line px-[var(--gutter)] pb-16 pt-36 md:pt-44">

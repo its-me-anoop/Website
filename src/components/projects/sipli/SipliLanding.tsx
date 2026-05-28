@@ -156,7 +156,7 @@ export function SipliLanding() {
       };
 
   return (
-    <main className="sipli-theme min-h-screen overflow-x-hidden bg-background text-foreground">
+    <main id="main" className="sipli-theme min-h-screen overflow-x-hidden bg-background text-foreground">
       <Navbar />
 
       {/* ── HERO ── */}
