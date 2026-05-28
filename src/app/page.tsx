@@ -9,7 +9,7 @@ import { Stack } from "@/components/sections/Stack";
 import { OpenSource } from "@/components/sections/OpenSource";
 import { Contact } from "@/components/sections/Contact";
 import About from "@/components/About";
-import { SpaceMeshBackground } from "@/components/visual/SpaceMeshBackground";
+import { ShaderBackground } from "@/components/visual/ShaderBackground";
 
 export const metadata: Metadata = {
   title: "App & Web Development Studio",
@@ -27,13 +27,9 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <SpaceMeshBackground />
+      <ShaderBackground />
       <Navbar />
-      <main
-        id="main"
-        className="relative isolate min-h-screen text-foreground"
-        role="main"
-      >
+      <main id="main" className="relative isolate text-ink" role="main">
         <Hero />
         <Services />
         <FeaturedWork />

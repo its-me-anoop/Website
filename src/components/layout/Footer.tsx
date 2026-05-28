@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
+import { site } from "@/lib/site";
 
 const cols = [
   {
@@ -27,55 +27,48 @@ const cols = [
   {
     heading: "Connect",
     links: [
-      { href: "mailto:anoop@flutterly.co.uk", label: "Email" },
-      { href: "https://github.com/its-me-anoop", label: "GitHub", external: true },
-      {
-        href: "https://www.linkedin.com/in/anoop-jose-0b308a296/",
-        label: "LinkedIn",
-        external: true,
-      },
+      { href: `mailto:${site.email}`, label: "Email" },
+      { href: site.social.github, label: "GitHub", external: true },
+      { href: site.social.linkedin, label: "LinkedIn", external: true },
     ],
   },
 ];
 
 export function Footer() {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
-
   return (
     <footer
-      ref={ref}
-      className="relative overflow-hidden border-t border-white/[0.06] bg-[#06070d]"
+      className="relative overflow-hidden border-t border-line bg-obsidian"
       aria-label="Footer"
     >
-      {/* Soft bottom glow */}
+      {/* Oversized wordmark watermark */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 -top-16 h-32"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(99,102,241,0.07) 0%, transparent 100%)",
-        }}
-      />
+        className="pointer-events-none absolute inset-x-0 -bottom-6 select-none text-center font-display text-[22vw] font-semibold leading-none tracking-[-0.05em] text-white/[0.02] md:-bottom-10"
+      >
+        Flutterly
+      </div>
 
-      <div className="relative mx-auto w-full max-w-[1240px] px-5 py-16 md:px-7">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_repeat(3,1fr)] md:gap-10">
+      <div className="relative mx-auto w-full max-w-[1280px] px-[var(--gutter)] py-16 md:py-20">
+        <div className="grid gap-12 md:grid-cols-[1.5fr_repeat(3,1fr)] md:gap-10">
           {/* Brand */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-xs"
           >
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <Image
-                src="/flutterly-logo.png"
-                alt=""
-                width={22}
-                height={22}
-                className="h-5 w-5 object-contain invert brightness-0"
-              />
-              <span className="font-display text-[16px] font-semibold tracking-tight text-white">
+              <span className="grid h-7 w-7 place-items-center rounded-[9px] bg-signal">
+                <Image
+                  src="/flutterly-logo.png"
+                  alt=""
+                  width={18}
+                  height={18}
+                  className="h-4 w-4 object-contain brightness-0"
+                />
+              </span>
+              <span className="font-display text-[16px] font-semibold tracking-tight text-ink">
                 Flutterly
               </span>
             </Link>
@@ -84,36 +77,26 @@ export function Footer() {
               Built to last, shipped with care.
             </p>
             <div className="mt-5 flex items-center gap-2">
-              <SocialButton
-                href="mailto:anoop@flutterly.co.uk"
-                label="Email"
-              >
+              <SocialButton href={`mailto:${site.email}`} label="Email">
                 <Mail className="h-4 w-4" aria-hidden="true" />
               </SocialButton>
-              <SocialButton
-                href="https://github.com/its-me-anoop"
-                label="GitHub"
-                external
-              >
+              <SocialButton href={site.social.github} label="GitHub" external>
                 <Github className="h-4 w-4" aria-hidden="true" />
               </SocialButton>
-              <SocialButton
-                href="https://www.linkedin.com/in/anoop-jose-0b308a296/"
-                label="LinkedIn"
-                external
-              >
+              <SocialButton href={site.social.linkedin} label="LinkedIn" external>
                 <Linkedin className="h-4 w-4" aria-hidden="true" />
               </SocialButton>
             </div>
           </motion.div>
 
-          {/* Cols */}
+          {/* Link columns */}
           {cols.map((col, i) => (
             <motion.div
               key={col.heading}
               initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.08 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
               <h3 className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-muted">
                 {col.heading}
@@ -125,9 +108,9 @@ export function Footer() {
                       href={l.href}
                       target={"external" in l && l.external ? "_blank" : undefined}
                       rel={"external" in l && l.external ? "noopener noreferrer" : undefined}
-                      className="group inline-flex items-center gap-1.5 text-[13.5px] font-medium tracking-tight text-ink-3 transition-colors duration-300 hover:text-white"
+                      className="group inline-flex items-center gap-1.5 text-[13.5px] font-medium text-ink-3 transition-colors duration-300 hover:text-ink"
                     >
-                      <span className="h-px w-2 bg-muted/40 transition-all duration-300 group-hover:w-4 group-hover:bg-brand" />
+                      <span className="h-px w-2 bg-muted/50 transition-all duration-300 group-hover:w-4 group-hover:bg-signal" />
                       {l.label}
                     </Link>
                   </li>
@@ -138,22 +121,17 @@ export function Footer() {
         </div>
 
         {/* Bottom row */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-12 flex flex-col items-start gap-3 border-t border-white/[0.06] pt-6 md:flex-row md:items-center md:justify-between"
-        >
+        <div className="mt-14 flex flex-col items-start gap-3 border-t border-line pt-6 md:flex-row md:items-center md:justify-between">
           <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">
             © 2026 Flutterly Ltd · Reading, UK
           </span>
           <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">
             Made by{" "}
-            <span className="font-sans tracking-tight text-ink-3 normal-case">
+            <span className="font-sans normal-case tracking-tight text-ink-3">
               Anoop Jose
             </span>
           </span>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );
@@ -176,7 +154,7 @@ function SocialButton({
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
       aria-label={label}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.06] bg-white/[0.03] text-ink-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand/40 hover:bg-brand/10 hover:text-white"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line bg-white/[0.03] text-ink-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:bg-signal/10 hover:text-ink"
     >
       {children}
     </Link>

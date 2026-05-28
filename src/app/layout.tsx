@@ -1,36 +1,28 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { site } from "@/lib/site";
 
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
+/* ── Fonts ───────────────────────────────────────────────────────────
+   The locally-bundled Outfit variable font is the redesign's display +
+   text face. Bundling it locally keeps the build self-contained (no
+   build-time webfont fetch) and removes a render-blocking network hop.
+   Mono falls back to the platform monospace stack (see globals.css). */
+const outfit = localFont({
+  variable: "--font-outfit",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  src: "../fonts/Outfit-VariableFont_wght.ttf",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600"],
-});
-
-const siteUrl = "https://flutterly.uk";
-const siteName = "Flutterly";
-const siteTagline = "App & Web Development Studio";
-const siteDescription =
-  "Flutterly is a UK product studio that designs and engineers fast, polished web and mobile apps. Next.js, React, SwiftUI and Flutter — built with care, shipped to last.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(site.url),
   title: {
-    default: `${siteName} — ${siteTagline}`,
-    template: `%s — ${siteName}`,
+    default: `${site.name} — ${site.tagline}`,
+    template: `%s — ${site.name}`,
   },
-  description: siteDescription,
-  applicationName: siteName,
+  description: site.description,
+  applicationName: site.name,
   category: "technology",
   keywords: [
     "app development studio",
@@ -47,31 +39,31 @@ export const metadata: Metadata = {
     "Reading UK developers",
     "enterprise web applications",
   ],
-  authors: [{ name: "Flutterly Ltd", url: siteUrl }],
-  creator: "Flutterly Ltd",
-  publisher: "Flutterly Ltd",
+  authors: [{ name: site.legalName, url: site.url }],
+  creator: site.legalName,
+  publisher: site.legalName,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    url: siteUrl,
-    siteName,
-    locale: "en_GB",
-    title: `${siteName} — ${siteTagline}`,
-    description: siteDescription,
+    url: site.url,
+    siteName: site.name,
+    locale: site.locale,
+    title: `${site.name} — ${site.tagline}`,
+    description: site.description,
     images: [
       {
-        url: "/flutterly-title.png",
+        url: site.ogImage,
         width: 1200,
         height: 630,
-        alt: `${siteName} — ${siteTagline}`,
+        alt: `${site.name} — ${site.tagline}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} — ${siteTagline}`,
-    description: siteDescription,
-    images: ["/flutterly-title.png"],
+    title: `${site.name} — ${site.tagline}`,
+    description: site.description,
+    images: [site.ogImage],
   },
   robots: {
     index: true,
@@ -92,51 +84,42 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#06070D" },
-    { media: "(prefers-color-scheme: light)", color: "#06070D" },
-  ],
+  themeColor: "#0a0a0c",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };
 
+/** Organisation / WebSite / ProfessionalService structured data for rich results. */
 function JsonLd() {
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${siteUrl}#organization`,
-    name: "Flutterly Ltd",
-    alternateName: "Flutterly",
-    url: siteUrl,
+    "@id": `${site.url}#organization`,
+    name: site.legalName,
+    alternateName: site.name,
+    url: site.url,
     logo: {
       "@type": "ImageObject",
-      url: `${siteUrl}/flutterly-title.png`,
+      url: `${site.url}${site.ogImage}`,
       width: 1200,
       height: 630,
     },
-    description: siteDescription,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Flat 21, 3 Erleigh Road",
-      addressLocality: "Reading",
-      addressRegion: "Berkshire",
-      postalCode: "RG1 5LR",
-      addressCountry: "GB",
-    },
+    description: site.description,
+    address: { "@type": "PostalAddress", ...site.address },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+44-7780-580534",
+      telephone: site.phone,
       contactType: "customer service",
-      email: "anoop@flutterly.co.uk",
+      email: site.email,
       availableLanguage: ["English"],
     },
     founder: {
       "@type": "Person",
-      name: "Anoop Jose",
+      name: site.founder,
       jobTitle: "Founder · Lead Engineer",
     },
-    sameAs: ["https://www.linkedin.com/in/anoop-jose-0b308a296/"],
+    sameAs: [site.social.linkedin, site.social.github],
     knowsAbout: [
       "Web Development",
       "Mobile App Development",
@@ -173,8 +156,7 @@ function JsonLd() {
         itemOffered: {
           "@type": "Service",
           name: "Product Design & Strategy",
-          description:
-            "UI/UX design, design systems and product strategy.",
+          description: "UI/UX design, design systems and product strategy.",
         },
       },
     ],
@@ -183,31 +165,24 @@ function JsonLd() {
   const website = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": `${siteUrl}#website`,
-    url: siteUrl,
-    name: siteName,
-    description: siteDescription,
-    publisher: { "@id": `${siteUrl}#organization` },
+    "@id": `${site.url}#website`,
+    url: site.url,
+    name: site.name,
+    description: site.description,
+    publisher: { "@id": `${site.url}#organization` },
     inLanguage: "en-GB",
   };
 
   const professionalService = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": `${siteUrl}#service`,
+    "@id": `${site.url}#service`,
     name: "Flutterly — App & Web Development",
-    image: `${siteUrl}/flutterly-title.png`,
-    url: siteUrl,
-    telephone: "+44-7780-580534",
+    image: `${site.url}${site.ogImage}`,
+    url: site.url,
+    telephone: site.phone,
     priceRange: "££££",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Flat 21, 3 Erleigh Road",
-      addressLocality: "Reading",
-      addressRegion: "Berkshire",
-      postalCode: "RG1 5LR",
-      addressCountry: "GB",
-    },
+    address: { "@type": "PostalAddress", ...site.address },
     areaServed: { "@type": "Country", name: "United Kingdom" },
     serviceType: [
       "Web Development",
@@ -241,19 +216,16 @@ export default function RootLayout({
     <html lang="en-GB" suppressHydrationWarning>
       <head>
         <JsonLd />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       </head>
       <body
         className={cn(
-          geist.variable,
-          geistMono.variable,
-          "antialiased bg-background text-foreground font-sans min-h-screen"
+          outfit.variable,
+          "antialiased bg-obsidian text-ink font-sans min-h-screen"
         )}
       >
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-brand focus:px-4 focus:py-2 focus:text-white focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-signal focus:px-4 focus:py-2 focus:text-signal-ink focus:shadow-lg"
         >
           Skip to main content
         </a>
