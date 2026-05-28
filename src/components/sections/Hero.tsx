@@ -142,7 +142,7 @@ export function Hero() {
           >
             <m.div
               aria-hidden="true"
-              className="pointer-events-none absolute -inset-16 -z-10 blur-3xl"
+              className="pointer-events-none absolute -inset-16 -z-10"
               animate={{
                 opacity: 0.6,
                 background:
