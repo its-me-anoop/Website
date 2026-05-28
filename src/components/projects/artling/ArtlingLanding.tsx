@@ -366,9 +366,11 @@ export function ArtlingLanding() {
                 <Image
                   src="/projects/artling/fox-painter.png"
                   alt="Artling fox mascot"
-                  width={806}
-                  height={1129}
+                  width={600}
+                  height={840}
                   sizes="(min-width: 640px) 172px, 152px"
+                  placeholder="blur"
+                  blurDataURL="data:image/webp;base64,UklGRiYCAABXRUJQVlA4WAoAAAAQAAAADwAAFQAAQUxQSAgBAAABkGzbtmk78+DZ9ntV/YBfybbtmm3UzDi1tBTT8glOfsFGyebZe83g3H+IiAmwLtXAxv+GjdpGeD/8XQELhmWa6OIqgl/zZze8DMDYFY4j9hu1dCB2t3SXPziLlB9U/Lh2k1cc/ZuTiPpMEU1RoumwHT4PqSlKUyhkPnCBDt017/kD1RQPDpdgIeI1xdM6LGxQ0134td28zN/igQ5/ZpXeoVYuovj+8Dz81n9QXHg7bnYtOtNMPqtJzZcVyN5EEx+W1pMifDecfTEFvdSiSFJE8xqMAiolpJDNnacigOBnVEJRVNkN8TCAVSotFL5KTYUFwPuMCL/1P3ngDwMADCOj6Mp375HXqy5WUDgg+AAAAJAFAJ0BKhAAFgA+7WKpTamlo6IwCAEwHYlsAJ0ygxg9gJkr5QAqQPbi9gFBi9x9qHo9No/QAP6DmOe/2l5x2CqhFR1Et50jQO8SE2rXx4Mq9OKMEePnrqRhLJAU6ic/dQoXNIFt5EpP2P0h+jwsRUJh0pPxBraY+BK2m1XVq8+Sw8tRm50/I2n1AFbwJaxsNC3ba8r6VDbFFCWbkygXavlfpImJ0nVc7SvMH8/JNW9X/+3OFo/aKJVyWks4n/BrtGkz/U/ufE/SRcVXQ2PFma5E5TQPIsiqhzPGGrrMEOzBSdwpOMqkJOPONb/IEBMPDZTCSl8+gAAA"
                   className="h-auto w-full drop-shadow-[0_26px_40px_rgba(0,0,0,0.4)]"
                   priority
                 />

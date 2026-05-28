@@ -94,16 +94,23 @@ function CheckItem({ children }: { children: React.ReactNode }) {
   );
 }
 
+/* Tiny inline preview for the above-the-fold hero, so the phone never shows
+   as a blank box while its optimised variant is fetched/transcoded. */
+const HERO_BLUR =
+  "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAACQBACdASoQACMAPu1qrFCppaQiqqgBMB2JQBOmW+BF8Zr9laJJxwweJYZVL2wA/ujhUxq05NcSWVaqPTwO+LG4myn+SkyODhkLRE1Run48MRo4RYqqIu3KljohTbTHtpBa1AFDXYsA0OyGJ1UPu53rMNS4Gxo6rWDFcTlKLeayX9Sl2GAAAA==";
+
 /** A phone screenshot with a soft signal halo behind it. */
 function PhoneShot({
   src,
   alt,
   priority = false,
+  blurDataURL,
   className = "",
 }: {
   src: string;
   alt: string;
   priority?: boolean;
+  blurDataURL?: string;
   className?: string;
 }) {
   return (
@@ -124,6 +131,8 @@ function PhoneShot({
         height={2868}
         priority={priority}
         sizes="(min-width: 768px) 290px, 260px"
+        placeholder={blurDataURL ? "blur" : "empty"}
+        blurDataURL={blurDataURL}
         className="relative h-auto w-full rounded-[var(--r-xl)]"
         style={{ filter: "drop-shadow(0 32px 64px rgba(0,0,0,0.7))" }}
       />
@@ -247,6 +256,7 @@ export function SipliLanding() {
                 src="/images/sipli/iphone/01-hero-1320x2868.jpg"
                 alt="Sipli app — home screen"
                 priority
+                blurDataURL={HERO_BLUR}
               />
             </motion.div>
           </div>
@@ -569,10 +579,10 @@ export function SipliLanding() {
                 aria-hidden="true"
               />
               <Image
-                src="/images/sipli/ipad/02-ipad-insights-1668x2388.png"
+                src="/images/sipli/ipad/02-ipad-insights.jpg"
                 alt="Sipli insights on iPad"
-                width={1668}
-                height={2388}
+                width={1336}
+                height={1781}
                 sizes="(max-width: 680px) 100vw, 620px"
                 className="relative h-auto w-full rounded-[var(--r-xl)]"
                 style={{ filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.7))" }}
