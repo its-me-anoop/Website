@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Unit tests
+        run: npx vitest run
+
+      - name: Build
+        run: npm run build
+
+      - name: Install Chromium for browser workflow
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser workflow (all routes, a11y anchors, interactions)
+        run: |
+          PORT=3100 npm start &
+          SERVER_PID=$!
+          # Wait for the server to accept connections (up to ~30s).
+          for i in $(seq 1 30); do
+            if curl -sf -o /dev/null http://localhost:3100/; then break; fi
+            sleep 1
+          done
+          BASE_URL=http://localhost:3100 npm run test:browser
+          status=$?
+          kill $SERVER_PID 2>/dev/null || true
+          exit $status
