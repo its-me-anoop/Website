@@ -105,10 +105,10 @@ export function Hero() {
         <LiquidGlass
           className="mt-5 w-full py-3"
           radius="var(--r-xl)"
-          shape={{ width: 220, height: 132, radius: 60, depth: 32, curvature: 1.5 }}
-          optics={{ scale: 52, chroma: 0.26 }}
-          highlight={0.5}
-          smoothing={0.14}
+          shape={{ width: 300, height: 176, radius: 88, depth: 11, curvature: 2.8 }}
+          optics={{ scale: 16, chroma: 0.04 }}
+          highlight={0.42}
+          smoothing={0.1}
         >
           <motion.h1
             {...enter({
