@@ -24,16 +24,16 @@ function PolicySection({
   children: ReactNode;
 }) {
   return (
-    <section className="border-b border-line px-[var(--gutter)] py-14 last:border-b-0 md:py-16">
-      <div className="mx-auto grid max-w-[920px] gap-x-12 gap-y-4 md:grid-cols-[auto_1fr] md:items-start">
-        <p className="font-mono text-[12px] font-medium uppercase tracking-[0.18em] text-signal md:pt-1">
+    <section className="border-b border-line px-[var(--gutter)] py-14 last:border-b-0 md:py-20">
+      <div className="mx-auto grid max-w-[920px] gap-x-14 gap-y-4 md:grid-cols-[64px_1fr] md:items-start">
+        <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-accent md:pt-1.5">
           {label}
         </p>
         <div>
-          <h2 className="mb-5 font-display text-xl font-semibold tracking-tight text-ink md:text-2xl">
+          <h2 className="mb-5 font-display text-xl font-semibold tracking-[-0.02em] text-ink md:text-2xl">
             {title}
           </h2>
-          <div className="space-y-4 text-[15.5px] leading-[1.75] text-ink-2">
+          <div className="max-w-[640px] space-y-4 text-[15.5px] leading-[1.75] text-ink-2">
             {children}
           </div>
         </div>
@@ -45,7 +45,7 @@ function PolicySection({
 function Bullet({ bold, children }: { bold?: string; children?: ReactNode }) {
   return (
     <li className="flex items-start gap-3">
-      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-signal" aria-hidden="true" />
+      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
       <span>
         {bold ? <strong className="text-ink">{bold} </strong> : null}
         {children}
@@ -56,24 +56,24 @@ function Bullet({ bold, children }: { bold?: string; children?: ReactNode }) {
 
 export default function SipliPrivacyPolicy() {
   return (
-    <main className="sipli-theme min-h-screen bg-background text-foreground">
+    <main className="sipli-theme min-h-screen bg-background text-ink">
       <Navbar />
 
-      <header className="relative overflow-hidden border-b border-line px-[var(--gutter)] pb-16 pt-36 md:pt-44">
+      <header className="relative overflow-hidden border-b border-line px-[var(--gutter)] pb-20 pt-36 md:pt-48">
         <div
-          className="pointer-events-none absolute right-[-10%] top-0 h-[400px] w-[400px] rounded-full"
-          style={{ background: "var(--signal-glow)", filter: "blur(130px)" }}
+          className="pointer-events-none absolute right-[-10%] top-[-20%] h-[420px] w-[620px] rounded-full"
+          style={{ background: "var(--accent-soft)", filter: "blur(110px)" }}
           aria-hidden="true"
         />
         <div className="relative mx-auto max-w-[920px]">
-          <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-ink-3 backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true" />
+          <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
             Legal
           </span>
-          <h1 className="mt-5 text-[clamp(32px,5vw,52px)] font-semibold tracking-[-0.03em] text-ink">
+          <h1 className="mt-6 text-[clamp(36px,5.5vw,64px)] font-semibold leading-[1.02] tracking-[-0.03em] text-ink">
             Sipli — Privacy Policy
           </h1>
-          <p className="mt-4 text-[15px] text-ink-3">
+          <p className="mt-5 text-[15px] text-ink-3">
             Effective: {effectiveDate}
           </p>
         </div>
@@ -225,13 +225,13 @@ export default function SipliPrivacyPolicy() {
           contact us at{" "}
           <a
             href="mailto:anoop@flutterly.co.uk"
-            className="text-signal underline-offset-4 hover:underline"
+            className="font-medium text-accent underline-offset-4 hover:underline"
           >
             anoop@flutterly.co.uk
           </a>
           .
         </p>
-        <div className="mt-6 rounded-[var(--r-md)] border border-line bg-surface/50 p-5">
+        <div className="mt-6 rounded-[var(--r-md)] border border-line bg-surface p-5 shadow-[var(--shadow-sm)]">
           <p className="text-sm font-medium text-ink">Flutterly Ltd</p>
           <p className="mt-1 text-sm text-ink-3">
             Flat 21, 3 Erleigh Road, Reading, Berkshire RG1 5LR, United Kingdom

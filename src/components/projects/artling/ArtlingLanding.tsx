@@ -26,7 +26,8 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
-import { LiftCard as SpotlightCard } from "@/components/ui/LiftCard";
+import { LiftCard } from "@/components/ui/LiftCard";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -124,8 +125,8 @@ const privacyPoints: { icon: LucideIcon; label: string; copy: string }[] = [
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-ink-3 backdrop-blur">
-      <span className="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true" />
+    <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
       {children}
     </span>
   );
@@ -228,26 +229,21 @@ export function ArtlingLanding() {
   const reduce = useReducedMotion();
 
   return (
-    <main className="artling-theme min-h-screen overflow-x-hidden bg-background text-foreground">
+    <main className="artling-theme min-h-screen overflow-x-hidden bg-background text-ink">
       <Navbar />
 
       {/* ── HERO ── */}
-      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-20 pt-36 md:pt-40">
+      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-24 pt-36 md:pt-44">
         <div
-          className="pointer-events-none absolute right-[-8%] top-[6%] h-[600px] w-[600px] rounded-full"
-          style={{ background: "var(--signal-glow)", filter: "blur(140px)" }}
-          aria-hidden="true"
-        />
-        <div
-          className="pointer-events-none absolute bottom-[-6%] left-[-6%] h-[420px] w-[420px] rounded-full"
-          style={{ background: "var(--signal-faint)", filter: "blur(110px)" }}
+          className="pointer-events-none absolute right-[-10%] top-[-6%] h-[520px] w-[520px] rounded-full"
+          style={{ background: "var(--accent-soft)", filter: "blur(110px)" }}
           aria-hidden="true"
         />
 
-        <div className="relative mx-auto w-full max-w-[1280px]">
+        <div className="relative mx-auto w-full max-w-[1200px]">
           <Link
             href="/"
-            className="group mb-12 inline-flex min-h-[44px] items-center gap-2 text-sm text-ink-3 transition-colors hover:text-signal"
+            className="group mb-12 inline-flex min-h-[44px] items-center gap-2 text-sm text-ink-3 transition-colors hover:text-accent"
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
             Back to Home
@@ -267,17 +263,29 @@ export function ArtlingLanding() {
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               >
                 <Eyebrow>
-                  <Sparkles className="h-3 w-3" aria-hidden="true" />
+                  <Sparkles className="h-3 w-3 text-accent" aria-hidden="true" />
                   Art archive for busy families
                 </Eyebrow>
               </motion.div>
 
               <motion.h1
-                variants={reduce ? undefined : { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease } } }}
-                className="mt-7 max-w-[16ch] text-[clamp(40px,6vw,76px)] font-semibold leading-[0.98] tracking-[-0.04em] text-ink"
+                variants={
+                  reduce
+                    ? undefined
+                    : {
+                        hidden: { opacity: 0, y: 24, filter: "blur(10px)" },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                          filter: "blur(0px)",
+                          transition: { duration: 0.9, ease },
+                        },
+                      }
+                }
+                className="mt-7 max-w-[16ch] text-[clamp(40px,6vw,76px)] font-semibold leading-[1.0] tracking-[-0.035em] text-ink"
               >
                 Turn fridge masterpieces into a{" "}
-                <span className="text-signal">living family gallery.</span>
+                <span className="text-accent">living family gallery.</span>
               </motion.h1>
 
               <motion.p
@@ -317,7 +325,7 @@ export function ArtlingLanding() {
                   (item) => (
                     <li
                       key={item}
-                      className="rounded-full border border-line bg-white/[0.03] px-4 py-2 text-sm text-ink-2"
+                      className="rounded-full border border-line bg-surface px-4 py-2 text-sm text-ink-2 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
                     >
                       {item}
                     </li>
@@ -332,8 +340,8 @@ export function ArtlingLanding() {
               transition={{ duration: 0.8, delay: 0.12, ease }}
               className="relative mx-auto w-full max-w-[600px]"
             >
-              <div className="absolute -left-2 top-12 hidden max-w-[180px] rounded-[var(--r-lg)] border border-line bg-surface/70 p-4 shadow-[var(--shadow)] backdrop-blur-md lg:block">
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-signal">
+              <div className="absolute -left-2 top-12 hidden max-w-[180px] rounded-[var(--r-lg)] border border-line bg-surface p-4 shadow-[var(--shadow)] lg:block">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
                   Memory-rich
                 </p>
                 <p className="mt-3 text-sm leading-6 text-ink-2">
@@ -342,8 +350,8 @@ export function ArtlingLanding() {
                 </p>
               </div>
 
-              <div className="absolute -right-1 bottom-16 hidden max-w-[190px] rounded-[var(--r-lg)] border border-line bg-surface/70 p-4 shadow-[var(--shadow)] backdrop-blur-md lg:block">
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-signal">
+              <div className="absolute -right-1 bottom-16 hidden max-w-[190px] rounded-[var(--r-lg)] border border-line bg-surface p-4 shadow-[var(--shadow)] lg:block">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
                   Family-ready
                 </p>
                 <p className="mt-3 text-sm leading-6 text-ink-2">
@@ -368,7 +376,7 @@ export function ArtlingLanding() {
                   alt="Artling fox mascot"
                   width={806}
                   height={1129}
-                  className="h-auto w-full drop-shadow-[0_26px_40px_rgba(0,0,0,0.4)]"
+                  className="h-auto w-full drop-shadow-[0_22px_36px_rgba(43,26,16,0.3)]"
                   priority
                 />
               </motion.div>
@@ -380,38 +388,35 @@ export function ArtlingLanding() {
       {/* ── PROMISE / PILLARS ── */}
       <section
         id="features"
-        className="border-t border-line px-[var(--gutter)] py-[var(--space-section)]"
+        className="bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]"
+        aria-labelledby="promise-heading"
       >
-        <div className="mx-auto w-full max-w-[1280px]">
-          <Reveal className="max-w-[760px]">
-            <div className="mb-5">
-              <Eyebrow>The Promise</Eyebrow>
-            </div>
-            <h2 className="text-[clamp(32px,4.5vw,52px)] font-semibold leading-[1.04] tracking-[-0.03em] text-ink">
-              Built for the messy, magical{" "}
-              <span className="text-signal">middle of family life.</span>
-            </h2>
-            <p className="mt-5 max-w-[640px] text-[15.5px] leading-[1.7] text-ink-3">
-              Artling is less about storing files and more about preserving
-              context. It gives busy parents one place to collect artwork, track
-              growth over time, and turn everyday creations into memories that
-              stay easy to revisit.
-            </p>
-          </Reveal>
+        <div className="mx-auto w-full max-w-[1200px]">
+          <SectionHeader
+            eyebrow="The Promise"
+            headingId="promise-heading"
+            title={
+              <>
+                Built for the messy, magical{" "}
+                <em>middle of family life.</em>
+              </>
+            }
+            lede="Artling is less about storing files and more about preserving context. It gives busy parents one place to collect artwork, track growth over time, and turn everyday creations into memories that stay easy to revisit."
+          />
 
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-8% 0px" }}
-            className="mt-12 grid gap-5 lg:grid-cols-3"
+            className="grid gap-5 lg:grid-cols-3"
           >
             {pillars.map((pillar) => {
               const Icon = pillar.icon;
               return (
                 <motion.div key={pillar.title} variants={staggerItem}>
-                  <SpotlightCard className="h-full">
-                    <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-line-2 bg-white/[0.04] text-signal">
+                  <LiftCard className="h-full p-7">
+                    <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-soft text-accent">
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
                     <h3 className="mt-6 font-display text-xl font-semibold tracking-tight text-ink">
@@ -420,7 +425,7 @@ export function ArtlingLanding() {
                     <p className="mt-3 text-sm leading-relaxed text-ink-3">
                       {pillar.description}
                     </p>
-                  </SpotlightCard>
+                  </LiftCard>
                 </motion.div>
               );
             })}
@@ -429,15 +434,21 @@ export function ArtlingLanding() {
       </section>
 
       {/* ── WHAT'S INSIDE ── */}
-      <section className="border-t border-line px-[var(--gutter)] py-[var(--space-section)]">
-        <div className="mx-auto grid w-full max-w-[1280px] gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+      <section
+        className="px-[var(--gutter)] py-[var(--space-section)]"
+        aria-labelledby="inside-heading"
+      >
+        <div className="mx-auto grid w-full max-w-[1200px] gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <Reveal>
             <div className="mb-5">
               <Eyebrow>What’s Inside</Eyebrow>
             </div>
-            <h2 className="text-[clamp(30px,4vw,48px)] font-semibold leading-[1.04] tracking-[-0.03em] text-ink">
+            <h2
+              id="inside-heading"
+              className="text-[clamp(30px,4vw,48px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink"
+            >
               A family archive that stays calm,{" "}
-              <span className="text-signal">even as it grows.</span>
+              <span className="text-accent">even as it grows.</span>
             </h2>
             <p className="mt-5 max-w-[560px] text-[15.5px] leading-[1.7] text-ink-3">
               The product combines capture, organisation, memory resurfacing, and
@@ -449,9 +460,9 @@ export function ArtlingLanding() {
               {trustPoints.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-3 rounded-[var(--r-md)] border border-line bg-surface/50 px-4 py-3 text-sm text-ink-2"
+                  className="flex items-start gap-3 rounded-[var(--r-md)] border border-line bg-surface px-4 py-3 text-sm text-ink-2 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
                 >
-                  <Shield className="mt-0.5 h-4 w-4 shrink-0 text-signal" aria-hidden="true" />
+                  <Shield className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -471,10 +482,10 @@ export function ArtlingLanding() {
                 <motion.div
                   key={card.title}
                   variants={staggerItem}
-                  className="rounded-[var(--r-lg)] border border-line bg-surface/50 p-6 backdrop-blur-sm transition-colors hover:border-line-2"
+                  className="rounded-[var(--r-lg)] border border-line bg-surface p-6 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow)]"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-[16px] border border-line-2 bg-white/[0.04] text-signal">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-[16px] bg-accent-soft text-accent">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <h3 className="font-display text-lg font-semibold tracking-tight text-ink">
@@ -492,21 +503,27 @@ export function ArtlingLanding() {
       </section>
 
       {/* ── WHY IT LANDS + PRIVACY ── */}
-      <section className="border-t border-line px-[var(--gutter)] py-[var(--space-section)]">
-        <div className="mx-auto grid w-full max-w-[1280px] gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <Reveal blur className="relative overflow-hidden rounded-[var(--r-xl)] border border-line bg-surface/60 p-8 backdrop-blur-xl md:p-10">
+      <section
+        className="bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]"
+        aria-labelledby="why-heading"
+      >
+        <div className="mx-auto grid w-full max-w-[1200px] gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+          <Reveal blur className="relative overflow-hidden rounded-[var(--r-xl)] border border-line bg-surface p-8 shadow-[var(--shadow-sm)] md:p-10">
             <div
               className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full"
-              style={{ background: "var(--signal-glow)", filter: "blur(60px)" }}
+              style={{ background: "var(--accent-soft)", filter: "blur(50px)" }}
               aria-hidden="true"
             />
             <div className="relative">
               <div className="mb-4">
                 <Eyebrow>Why It Lands</Eyebrow>
               </div>
-              <h2 className="max-w-[540px] text-[clamp(26px,3.4vw,40px)] font-semibold leading-[1.06] tracking-[-0.03em] text-ink">
+              <h2
+                id="why-heading"
+                className="max-w-[540px] text-[clamp(26px,3.4vw,40px)] font-semibold leading-[1.06] tracking-[-0.03em] text-ink"
+              >
                 Artling feels less like storage and more like a{" "}
-                <span className="text-signal">gentle family ritual.</span>
+                <span className="text-accent">gentle family ritual.</span>
               </h2>
               <p className="mt-5 max-w-[520px] text-[15px] leading-[1.7] text-ink-3">
                 The experience is intentionally warm, tactile, and low-friction.
@@ -519,7 +536,7 @@ export function ArtlingLanding() {
                 {reasons.map((item) => (
                   <li
                     key={item}
-                    className="rounded-[var(--r-md)] border border-line bg-white/[0.03] px-4 py-4 text-sm text-ink-2"
+                    className="rounded-[var(--r-md)] bg-surface-2 px-4 py-4 text-sm text-ink-2"
                   >
                     {item}
                   </li>
@@ -528,13 +545,13 @@ export function ArtlingLanding() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08} className="rounded-[var(--r-xl)] border border-line bg-surface/50 p-8 backdrop-blur-sm md:p-10">
+          <Reveal delay={0.08} className="rounded-[var(--r-xl)] border border-line bg-surface p-8 shadow-[var(--shadow-sm)] md:p-10">
             <div className="mb-4">
               <Eyebrow>Privacy</Eyebrow>
             </div>
             <h2 className="text-[clamp(26px,3.4vw,40px)] font-semibold leading-[1.06] tracking-[-0.03em] text-ink">
               Clear data practices,{" "}
-              <span className="text-signal">not vague reassurance.</span>
+              <span className="text-accent">not vague reassurance.</span>
             </h2>
             <p className="mt-5 text-[15px] leading-[1.7] text-ink-3">
               Artling stores its core library on device and uses cloud services
@@ -550,9 +567,9 @@ export function ArtlingLanding() {
                 return (
                   <div
                     key={item.label}
-                    className="flex items-start gap-4 rounded-[var(--r-md)] border border-line bg-white/[0.03] px-4 py-4"
+                    className="flex items-start gap-4 rounded-[var(--r-md)] bg-surface-2 px-4 py-4"
                   >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[16px] border border-line-2 bg-white/[0.04] text-signal">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[16px] bg-surface text-accent shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <div>
@@ -583,45 +600,50 @@ export function ArtlingLanding() {
         </div>
       </section>
 
-      {/* ── FINAL CTA ── */}
-      <section className="relative overflow-hidden border-t border-line px-[var(--gutter)] py-[var(--space-section)]">
+      {/* ── FINAL CTA · dark contrast band ── */}
+      <section
+        className="relative overflow-hidden bg-night px-[var(--gutter)] py-[var(--space-section)] text-night-ink"
+        aria-labelledby="project-cta-heading"
+      >
         <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{ background: "var(--signal-glow)", filter: "blur(150px)" }}
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[460px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{ background: "rgba(255,149,0,0.1)", filter: "blur(130px)" }}
           aria-hidden="true"
         />
-        <Reveal className="relative mx-auto w-full max-w-[1280px]">
-          <div className="rounded-[var(--r-xl)] border border-line bg-surface/60 p-8 backdrop-blur-xl md:p-12">
-            <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div>
-                <div className="mb-4">
-                  <Eyebrow>Project Page</Eyebrow>
-                </div>
-                <h2 className="max-w-[660px] text-[clamp(28px,4vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink">
-                  Artling is ready for a public-facing home that feels as{" "}
-                  <span className="text-signal">thoughtful as the app.</span>
-                </h2>
-                <p className="mt-5 max-w-[660px] text-[15.5px] leading-[1.7] text-ink-3">
-                  Need the App Store listing, screenshots, or launch assets
-                  carried through in the same visual direction? The page
-                  structure is now in place to extend cleanly.
-                </p>
-              </div>
+        <Reveal className="relative mx-auto w-full max-w-[1200px]">
+          <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <span className="mb-5 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-white/50">
+                <span className="h-1.5 w-1.5 rounded-full bg-orange" aria-hidden="true" />
+                Project Page
+              </span>
+              <h2
+                id="project-cta-heading"
+                className="max-w-[660px] text-[clamp(28px,4vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-white"
+              >
+                Artling is ready for a public-facing home that feels as{" "}
+                <span className="text-orange">thoughtful as the app.</span>
+              </h2>
+              <p className="mt-5 max-w-[660px] text-[15.5px] leading-[1.7] text-white/60">
+                Need the App Store listing, screenshots, or launch assets
+                carried through in the same visual direction? The page
+                structure is now in place to extend cleanly.
+              </p>
+            </div>
 
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/projects/artling/privacy-policy"
-                  aria-label="Privacy policy"
-                >
-                  <Button variant="outline">Privacy Policy</Button>
-                </Link>
-                <Link
-                  href="mailto:anoop@flutterly.co.uk"
-                  aria-label="Enquire about the app"
-                >
-                  <Button variant="primary">Enquire About the App</Button>
-                </Link>
-              </div>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/projects/artling/privacy-policy"
+                aria-label="Privacy policy"
+              >
+                <Button variant="outline">Privacy Policy</Button>
+              </Link>
+              <Link
+                href="mailto:anoop@flutterly.co.uk"
+                aria-label="Enquire about the app"
+              >
+                <Button variant="primary">Enquire About the App</Button>
+              </Link>
             </div>
           </div>
         </Reveal>
