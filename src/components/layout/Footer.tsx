@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+import { m as motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { site } from "@/lib/site";
 
@@ -35,6 +36,12 @@ const cols = [
 
 /** Footer — quiet grey band with link columns and legal line. */
 export function Footer() {
+  const pathname = usePathname();
+  // In-page section anchors only exist on the homepage; from any other route
+  // point them at the homepage (`/#section`) so they navigate then scroll.
+  const hrefFor = (href: string) =>
+    href.startsWith("#") && pathname !== "/" ? `/${href}` : href;
+
   return (
     <footer className="relative bg-canvas-2" aria-label="Footer">
       <div className="mx-auto w-full max-w-[1200px] px-[var(--gutter)] py-16 md:py-20">
@@ -86,7 +93,7 @@ export function Footer() {
                 {col.links.map((l) => (
                   <li key={l.label}>
                     <Link
-                      href={l.href}
+                      href={hrefFor(l.href)}
                       target={"external" in l && l.external ? "_blank" : undefined}
                       rel={"external" in l && l.external ? "noopener noreferrer" : undefined}
                       className="text-[14px] font-medium text-ink-3 transition-colors duration-300 hover:text-ink"

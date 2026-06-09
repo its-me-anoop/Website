@@ -56,7 +56,7 @@ function Bullet({ bold, children }: { bold?: string; children?: ReactNode }) {
 
 export default function ArtlingPrivacyPolicyPage() {
   return (
-    <main className="artling-theme min-h-screen bg-background text-ink">
+    <main id="main" className="artling-theme min-h-screen bg-background text-ink">
       <Navbar />
 
       <header className="relative overflow-hidden border-b border-line px-[var(--gutter)] pb-20 pt-36 md:pt-48">

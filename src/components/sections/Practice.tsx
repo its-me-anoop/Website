@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Compass, PenTool, Code2, Rocket, LifeBuoy } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 

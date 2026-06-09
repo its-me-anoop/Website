@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m as motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
@@ -229,7 +229,7 @@ export function ArtlingLanding() {
   const reduce = useReducedMotion();
 
   return (
-    <main className="artling-theme min-h-screen overflow-x-hidden bg-background text-ink">
+    <main id="main" className="artling-theme min-h-screen overflow-x-hidden bg-background text-ink">
       <Navbar />
 
       {/* ── HERO ── */}

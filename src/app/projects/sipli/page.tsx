@@ -8,7 +8,7 @@ const description =
 
 const appStoreUrl =
   "https://apps.apple.com/us/app/sipli-water-tracker/id6758851574";
-const heroImage = "/images/sipli/iphone/01-hero-1320x2868.png";
+const heroImage = "/images/sipli/iphone/01-hero-1320x2868.jpg";
 
 export const metadata: Metadata = {
   title,

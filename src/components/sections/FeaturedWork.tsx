@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { LiftCard } from "@/components/ui/LiftCard";
@@ -16,7 +16,7 @@ const projects = [
     subtitle: "AI-powered hydration on iPhone and Apple Watch.",
     description:
       "On-device intelligence, predictive coaching, and a SwiftUI architecture tuned for 120hz scrolling.",
-    image: "/images/sipli/iphone/01-hero-1320x2868.png",
+    image: "/images/sipli/iphone/01-hero-1320x2868.jpg",
     year: "2026",
     badge: "Live",
     bg: "linear-gradient(165deg,#e9f3fd 0%,#eceefe 100%)",

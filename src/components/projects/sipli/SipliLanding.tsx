@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  motion,
+  m as motion,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -158,7 +158,7 @@ export function SipliLanding() {
   const phoneY = useTransform(scrollYProgress, [0, 1], [36, 0]);
 
   return (
-    <main className="sipli-theme min-h-screen overflow-x-hidden bg-background text-ink">
+    <main id="main" className="sipli-theme min-h-screen overflow-x-hidden bg-background text-ink">
       <Navbar />
 
       {/* ── HERO ── */}
@@ -252,7 +252,7 @@ export function SipliLanding() {
             className="mt-16 flex justify-center md:mt-20"
           >
             <PhoneShot
-              src="/images/sipli/iphone/01-hero-1320x2868.png"
+              src="/images/sipli/iphone/01-hero-1320x2868.jpg"
               alt="Sipli app — home screen"
               priority
               className="md:w-[320px]"
@@ -464,7 +464,7 @@ export function SipliLanding() {
         <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <Reveal className="order-2 flex justify-center lg:order-1 lg:justify-start">
             <PhoneShot
-              src="/images/sipli/iphone/02-coach-1320x2868.png"
+              src="/images/sipli/iphone/02-coach-1320x2868.jpg"
               alt="Sipli AI Coach screen"
             />
           </Reveal>
@@ -556,7 +556,7 @@ export function SipliLanding() {
 
           <Reveal delay={0.08} className="flex justify-center lg:justify-end">
             <PhoneShot
-              src="/images/sipli/iphone/03-beverages-1320x2868.png"
+              src="/images/sipli/iphone/03-beverages-1320x2868.jpg"
               alt="Sipli beverages screen"
             />
           </Reveal>
@@ -593,7 +593,7 @@ export function SipliLanding() {
                 aria-hidden="true"
               />
               <Image
-                src="/images/sipli/ipad/02-ipad-insights-1668x2388.png"
+                src="/images/sipli/ipad/02-ipad-insights.jpg"
                 alt="Sipli insights on iPad"
                 width={1668}
                 height={2388}
@@ -738,7 +738,7 @@ export function SipliLanding() {
               style={{ width: "clamp(120px, 14vw, 180px)" }}
             >
               <Image
-                src="/images/sipli/iphone/04-insights-1320x2868.png"
+                src="/images/sipli/iphone/04-insights-1320x2868.jpg"
                 alt="Sipli insights"
                 width={1320}
                 height={2868}
@@ -761,7 +761,7 @@ export function SipliLanding() {
                 aria-hidden="true"
               />
               <Image
-                src="/images/sipli/iphone/01-hero-1320x2868.png"
+                src="/images/sipli/iphone/01-hero-1320x2868.jpg"
                 alt="Sipli home"
                 width={1320}
                 height={2868}

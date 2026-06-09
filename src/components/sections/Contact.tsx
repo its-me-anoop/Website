@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ArrowUpRight, Mail, MapPin, Phone, Clock } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { staggerContainer, staggerItem } from "@/components/ui/Reveal";

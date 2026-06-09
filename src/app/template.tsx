@@ -1,24 +1,38 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { LazyMotion, m, useReducedMotion } from "framer-motion";
+
+/**
+ * Loads the Framer Motion feature set as a separate async chunk (see
+ * `@/lib/motion-features`) so it stays off the initial bundle.
+ */
+const loadFeatures = () =>
+  import("@/lib/motion-features").then((mod) => mod.default);
 
 /**
  * Route transition wrapper. `template.tsx` re-mounts on every navigation, so a
  * plain enter animation gives each page a soft blur-and-rise reveal. Disabled
  * for reduced-motion users, who get the content immediately.
+ *
+ * This is also the single `LazyMotion` provider for the app: every page (and
+ * its `m` components) renders inside it.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
   const reduce = useReducedMotion();
 
-  if (reduce) return <>{children}</>;
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-    >
-      {children}
-    </motion.div>
+    <LazyMotion features={loadFeatures} strict>
+      {reduce ? (
+        children
+      ) : (
+        <m.div
+          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {children}
+        </m.div>
+      )}
+    </LazyMotion>
   );
 }

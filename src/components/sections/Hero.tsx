@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
-  motion,
+  m as motion,
   AnimatePresence,
   useReducedMotion,
   useScroll,
@@ -59,6 +59,11 @@ export function Hero() {
     return () => clearInterval(id);
   }, [reduce]);
 
+  // Entrance animations render statically for reduced-motion users — Framer
+  // ignores the CSS reduced-motion overrides, so we must gate in JS.
+  const enter = <T extends object>(props: T): T | Record<string, never> =>
+    reduce ? {} : props;
+
   return (
     <header
       id="top"
@@ -67,9 +72,11 @@ export function Hero() {
       <div className="mx-auto flex w-full max-w-[1000px] flex-col items-center text-center">
         {/* Availability */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease }}
+          {...enter({
+            initial: { opacity: 0, y: 10 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.6, ease },
+          })}
           className="mb-7 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
         >
           <span className="relative flex h-1.5 w-1.5">
@@ -83,9 +90,11 @@ export function Hero() {
 
         {/* Name */}
         <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.05, ease }}
+          {...enter({
+            initial: { opacity: 0, y: 14 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.7, delay: 0.05, ease },
+          })}
           className="text-[15px] font-semibold uppercase tracking-[0.18em] text-muted"
         >
           Anoop Jose · Developer &amp; Designer
@@ -93,9 +102,11 @@ export function Hero() {
 
         {/* Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 26, filter: "blur(12px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1, delay: 0.12, ease }}
+          {...enter({
+            initial: { opacity: 0, y: 26, filter: "blur(12px)" },
+            animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+            transition: { duration: 1, delay: 0.12, ease },
+          })}
           className="mt-5 max-w-[16ch] text-[clamp(44px,8vw,108px)] font-semibold leading-[1.0] tracking-[-0.035em] text-ink"
         >
           I build apps people{" "}
@@ -104,9 +115,11 @@ export function Hero() {
 
         {/* Subhead */}
         <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease }}
+          {...enter({
+            initial: { opacity: 0, y: 18 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.8, delay: 0.3, ease },
+          })}
           className="mt-7 max-w-[620px] text-[17px] leading-[1.65] text-ink-3 md:text-[19px]"
         >
           Developer and designer crafting fast, beautiful web and mobile apps
@@ -116,9 +129,11 @@ export function Hero() {
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.46, ease }}
+          {...enter({
+            initial: { opacity: 0, y: 14 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.7, delay: 0.46, ease },
+          })}
           className="mt-9 flex flex-wrap items-center justify-center gap-3"
         >
           <Link href="#work" aria-label="See my work">
@@ -136,17 +151,21 @@ export function Hero() {
 
         {/* Trust stats */}
         <motion.dl
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.62, ease }}
+          {...enter({
+            initial: { opacity: 0, y: 14 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.8, delay: 0.62, ease },
+          })}
           className="mt-14 grid w-full max-w-xl grid-cols-4 gap-4 border-t border-line pt-8"
         >
           {stats.map((s, i) => (
             <motion.div
               key={s.label}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.72 + i * 0.06, duration: 0.5 }}
+              {...enter({
+                initial: { opacity: 0, y: 8 },
+                animate: { opacity: 1, y: 0 },
+                transition: { delay: 0.72 + i * 0.06, duration: 0.5 },
+              })}
               className="flex flex-col items-center"
             >
               <dd className="font-display text-[22px] font-semibold text-ink">
@@ -228,10 +247,12 @@ export function Hero() {
 
         {/* Tab switcher */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2, ease }}
+          {...enter({
+            initial: { opacity: 0, y: 16 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true },
+            transition: { duration: 0.7, delay: 0.2, ease },
+          })}
           className="mt-9 flex items-center gap-1 rounded-full border border-line bg-surface p-1 shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
           role="tablist"
           aria-label="Live demo screens"
