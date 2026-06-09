@@ -12,6 +12,7 @@ import {
 import { ArrowRight, Code2, Smartphone, Layers, Zap, Sparkles } from "lucide-react";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { Button } from "@/components/ui/Button";
+import { LiquidGlass } from "@/components/ui/LiquidGlass";
 
 const stats = [
   { value: "12+", label: "Apps shipped" },
@@ -100,18 +101,27 @@ export function Hero() {
           Anoop Jose · Developer &amp; Designer
         </motion.p>
 
-        {/* Headline */}
-        <motion.h1
-          {...enter({
-            initial: { opacity: 0, y: 26, filter: "blur(12px)" },
-            animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-            transition: { duration: 1, delay: 0.12, ease },
-          })}
-          className="mt-5 max-w-[16ch] text-[clamp(44px,8vw,108px)] font-semibold leading-[1.0] tracking-[-0.035em] text-ink"
+        {/* Headline — refracted through a draggable, gently drifting glass lens */}
+        <LiquidGlass
+          className="mt-5 w-full py-3"
+          radius="var(--r-xl)"
+          shape={{ width: 220, height: 132, radius: 60, depth: 32, curvature: 1.5 }}
+          optics={{ scale: 52, chroma: 0.26 }}
+          highlight={0.5}
+          smoothing={0.14}
         >
-          I build apps people{" "}
-          <span className="text-accent-gradient">love opening.</span>
-        </motion.h1>
+          <motion.h1
+            {...enter({
+              initial: { opacity: 0, y: 26, filter: "blur(12px)" },
+              animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+              transition: { duration: 1, delay: 0.12, ease },
+            })}
+            className="mx-auto max-w-[16ch] text-[clamp(44px,8vw,108px)] font-semibold leading-[1.0] tracking-[-0.035em] text-ink"
+          >
+            I build apps people{" "}
+            <span className="text-accent-gradient">love opening.</span>
+          </motion.h1>
+        </LiquidGlass>
 
         {/* Subhead */}
         <motion.p

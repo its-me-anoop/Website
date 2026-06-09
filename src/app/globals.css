@@ -312,6 +312,48 @@ p {
   animation: float-y 6s var(--ease-in-out) infinite;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Liquid Glass (see lib/liquid-glass.ts + components/ui/LiquidGlass.tsx)
+   The engine bends `.lg-content`'s pixels; `.lg-lens` is the specular shell
+   (rim + sheen) tuned to read on the light Porcelain surfaces.
+   ───────────────────────────────────────────────────────────── */
+.lg-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.lg-content {
+  position: relative;
+}
+.lg-lens {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+  --hl: 0.6;
+  background: radial-gradient(
+    130% 130% at 30% 18%,
+    rgba(255, 255, 255, calc(0.5 * var(--hl))),
+    transparent 46%
+  );
+  box-shadow:
+    inset 1.5px 1.5px 1px -1px rgba(255, 255, 255, calc(0.95 * var(--hl))),
+    inset -1px -1.5px 1px -1px rgba(255, 255, 255, calc(0.55 * var(--hl))),
+    inset 0 0 0 1px rgba(255, 255, 255, calc(0.28 * var(--hl))),
+    0 14px 30px -10px rgba(10, 12, 24, 0.28);
+}
+.lg-lens.draggable {
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+}
+.lg-lens.draggable:active {
+  cursor: grabbing;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
