@@ -1,29 +1,32 @@
-# Flutterly Design System — "Obsidian Studio"
+# Design System — "Porcelain"
 
-This document describes the redesigned visual language of the Flutterly site:
-its tokens, primitives, motion, and accessibility rules. It is the reference
-for building any new page or component so the experience stays coherent.
+The visual language of anoopjose / flutterly.uk: a **light, Apple-inspired,
+whitespace-first** system for a developer portfolio. This is the reference for
+building any new page or component so the experience stays coherent.
 
-> TL;DR — a refined, architectural **dark** theme. A disciplined neutral ramp,
-> one citron **Signal** accent, generous negative space, and a WebGL shader
-> field that carries the colour interest so surfaces stay calm.
+> TL;DR — white canvas with `#f5f5f7` bands, a disciplined ink ramp, hairline
+> rules, **one** Apple-blue accent, soft diffuse shadows, SF-style system
+> typography, and calm scroll-driven motion. Whitespace is the main design
+> material; colour is the garnish.
 
 ---
 
 ## 1. Principles
 
 1. **Whitespace first.** Sections breathe with `--space-section`
-   (`clamp(5rem, 11vw, 11rem)`) vertical padding. Content is capped at
-   `--measure` (1280px). Let the layout rest.
-2. **One accent, used sparingly.** Citron `--signal` marks the single most
-   important action or word in a view. Everything else is the neutral ramp.
-3. **Colour lives in the background.** The animated shader field (and the CSS
-   fallback) provides hue; foreground surfaces are near-monochrome with
-   hairline borders.
-4. **Motion is a finish, not a feature.** Entrances are soft (blur + rise),
-   easing is expo/quint. Every animation has a `prefers-reduced-motion` path.
-5. **Type does the heavy lifting.** Outfit (display) at large sizes with tight
-   tracking; system sans for body.
+   (`clamp(6rem, 13vw, 13rem)`) vertical padding and content capped at
+   `--measure` (1200px). When in doubt, remove an element rather than add one.
+2. **One accent.** Apple blue `--accent` marks the single most important
+   action or word in a view. Supporting hues (indigo/teal/orange/pink/green)
+   only tint data and product tiles.
+3. **Bands, not borders.** Sections alternate `bg-canvas` (white) and
+   `bg-canvas-2` (#f5f5f7) instead of stacking hairline dividers. One
+   full-bleed black `bg-night` band (the contact finale) supplies drama.
+4. **Motion is a finish, not a feature.** Blur-in entrances, scroll-scrubbed
+   product imagery, calm springs. Every animation has a
+   `prefers-reduced-motion` path.
+5. **Type does the heavy lifting.** The native SF-style system stack at large
+   sizes with tight tracking — zero webfont payload, instant render.
 
 ---
 
@@ -33,73 +36,73 @@ All tokens live in `src/app/globals.css` under `:root` and are exposed to
 Tailwind v4 via the `@theme inline` block. Use the Tailwind utility, not the
 raw variable, in components.
 
-### Surfaces (obsidian ramp)
+### Canvases & surfaces
 
 | Token | Value | Utility | Use |
 |---|---|---|---|
-| `--obsidian` | `#0a0a0c` | `bg-obsidian` | Page canvas |
-| `--obsidian-2` | `#0d0d11` | `bg-obsidian-2` | Raised canvas |
-| `--surface` | `#141418` | `bg-surface` | Cards |
-| `--surface-2` | `#1b1b21` | `bg-surface-2` | Nested cards / inputs |
-| `--surface-3` | `#232329` | `bg-surface-3` | Hover |
+| `--canvas` | `#ffffff` | `bg-canvas` | Page / white bands |
+| `--canvas-2` | `#f5f5f7` | `bg-canvas-2` | Alternating grey bands |
+| `--surface` | `#ffffff` | `bg-surface` | Cards |
+| `--surface-2` | `#f5f5f7` | `bg-surface-2` | Nested chips / inputs |
+| `--night` | `#000000` | `bg-night` | Full-bleed dark finale |
+| `--night-ink` | `#f5f5f7` | `text-night-ink` | Text on night |
 
 ### Ink (text ramp)
 
 | Token | Utility | Use |
 |---|---|---|
-| `--ink` `#f5f5f6` | `text-ink` | Primary text |
-| `--ink-2` `#cbcbd2` | `text-ink-2` | Secondary |
-| `--ink-3` `#9a9aa4` | `text-ink-3` | Tertiary / body on dark |
-| `--muted` `#71717a` | `text-muted` | Captions / labels |
-| `--faint` `#34343c` | `text-faint` | Disabled |
+| `--ink` `#1d1d1f` | `text-ink` | Primary text / headings |
+| `--ink-2` `#424245` | `text-ink-2` | Secondary |
+| `--ink-3` `#6e6e73` | `text-ink-3` | Body on light |
+| `--muted` `#86868b` | `text-muted` | Captions / labels |
+| `--faint` `#d2d2d7` | `text-faint` | Disabled / hairline fills |
 
 ### Hairlines
 
 `--line` / `--line-2` / `--line-3` → `border-line`, `border-line-2`,
-`border-line-3` (white at 7% / 11% / 16%). Default card edge is `border-line`.
+`border-line-3` (black at 8% / 12% / 18%). Default card edge is `border-line`.
 
-### Signal (citron accent)
+### Accent
 
 | Token | Utility | Use |
 |---|---|---|
-| `--signal` `#d4f24c` | `bg-signal` / `text-signal` | Primary CTA, emphasis |
-| `--signal-soft` | `bg-signal-soft` | Hover of a signal fill |
-| `--signal-deep` | `bg-signal-deep` | Pressed / dense |
-| `--signal-ink` `#10120a` | `text-signal-ink` | Text **on** a signal fill |
+| `--accent` `#0071e3` | `bg-accent` / `text-accent` | Primary CTA, emphasis word |
+| `--accent-hover` | `bg-accent-hover` | Hover of an accent fill |
+| `--accent-ink` `#ffffff` | `text-accent-ink` | Text **on** an accent fill |
+| `--accent-soft` | `bg-accent-soft` | Tinted ghost-hover wash |
 
-### Supporting hues (sparingly, for data/section accents)
+### Supporting hues
 
-`--azure` (links/cool), `--aqua` (positive/data), `--coral` (warm/alert),
-`--plum` → `text-azure`, `text-aqua`, `text-coral`, `text-plum`.
+`--indigo #5e5ce6`, `--teal #30b0c7`, `--orange #ff9500`, `--pink #ff375f`,
+`--green #34c759` → `text-teal`, `bg-orange`, … Use for data viz, status dots,
+and per-project tile tints — never for CTAs.
 
 ### Radii, elevation, spacing, motion
 
-- Radii: `--r-xs…--r-xl` → `rounded-xs…rounded-xl`, plus `rounded-[var(--r-lg)]`.
-- Shadows: `--shadow`, `--shadow-lg`, `--shadow-signal`.
+- Radii: `--r-xs…--r-xl` (8→32px) via `rounded-[var(--r-lg)]` etc.
+- Shadows: diffuse and soft — `--shadow-sm`, `--shadow`, `--shadow-lg`,
+  `--shadow-accent`. Never harsh.
 - Spacing: `--space-section`, `--gutter`, `--measure`.
 - Easing: `--ease-out-expo`, `--ease-out-quint`, `--ease-in-out`,
   `--ease-spring`. In framer-motion use the cubic array `[0.16, 1, 0.3, 1]`.
 
 ### Product themes
 
-`.sipli-theme` (aqua / deep navy) and `.artling-theme` (warm orange) re-map the
-semantic tokens. Wrap a case-study page root in the matching class and the same
-token utilities render in that product's palette.
+`.sipli-theme` (aqua on pale blue) and `.artling-theme` (orange on warm cream)
+re-map the semantic tokens for the case-study pages. Wrap the page root in the
+class and the same token utilities render in that product's palette.
 
 ---
 
 ## 3. Typography
 
-- **Display** (`font-display`): Outfit variable font, bundled locally at
-  `src/fonts/Outfit-VariableFont_wght.ttf`. Used for all headings; tight
-  tracking (`-0.025em`), weight 600.
-- **Body** (`font-sans`): platform system sans stack (no webfont fetch).
-- **Mono** (`font-mono`): platform monospace — used for eyebrows, labels,
-  metadata, code-like accents.
-
-Headings use `text-wrap: balance`; paragraphs use `text-wrap: pretty`.
-Display sizes are fluid: `text-[clamp(34px,5vw,60px)]` for section titles,
-larger for the hero and contact finale.
+- **All text** uses the native system stack (`-apple-system, BlinkMacSystemFont,
+  "SF Pro Display/Text", Segoe UI, Inter, …`) — the most Apple-feeling result
+  on Apple hardware and zero font payload everywhere.
+- Headings: weight 600, tracking `-0.028em`, `text-wrap: balance`.
+- Display sizes are fluid: `text-[clamp(34px,5vw,64px)]` for section titles;
+  up to `clamp(44px,8vw,108px)` for the hero and finale.
+- `font-mono` (SF Mono stack) is reserved for eyebrows, labels and metadata.
 
 ---
 
@@ -107,54 +110,43 @@ larger for the hero and contact finale.
 
 | Component | Purpose | Notes |
 |---|---|---|
-| `Button` | CTA / actions | `variant`: `signal \| solid \| outline \| ghost`; `size`: `sm \| md \| lg`; optional `magnetic` cursor attraction. |
-| `SectionHeader` | Section intro | `eyebrow`, `title` (JSX; wrap an emphasis word in `<em>` to tint it signal), `lede`, `headingId`, `dot`, `align`. |
-| `SpotlightCard` | Surface card | Cursor spotlight + spring tilt + parallax. Children may be a render-prop receiving `{ px, py }` motion values for floating art. |
+| `Button` | CTA / actions | `variant`: `primary \| dark \| outline \| ghost`; `size`: `sm \| md \| lg`. Calm spring tap + 1px hover lift. |
+| `SectionHeader` | Section intro | `eyebrow`, `title` (wrap a word in `<em>` for accent tint), `lede`, `headingId`, `dot`, `align`. |
+| `LiftCard` | Surface card | White, hairline edge, soft shadow lift on hover, whisper of 3D tilt; render-prop `{ px, py }` motion values for parallax art. |
 | `Reveal` | Scroll entrance | `direction`, `delay`, `blur`, `as`. Plus `staggerContainer` / `staggerItem` variants for lists. |
 | `Marquee` | Infinite ticker | Duplicates children for a seamless loop; `duration`, `reverse`. |
-| `PhoneFrame` | Device bezel | CSS-only 9:19.5 phone for framing product UI. |
+| `PhoneFrame` | Device bezel | CSS-only 9:19.5 phone for product demos. |
 
 All interactive primitives honour `prefers-reduced-motion`.
 
 ---
 
-## 5. Visual background (`src/components/visual/`)
+## 5. Motion & transitions
 
-- `ShaderField.tsx` — a fullscreen React-Three-Fiber `<Canvas>` rendering a
-  domain-warped fractal-noise ("fbm") aurora tinted with the palette. Cheap:
-  one plane, ~5 octaves, `dpr` capped at 1.5, `low-power` GL.
-- `ShaderBackground.tsx` — the component you actually mount. It always paints a
-  static CSS gradient + dot-grid (instant first paint / fallback), then lazily
-  layers `ShaderField` on idle **only** when WebGL is available and the user
-  has not requested reduced motion. A legibility scrim guarantees text contrast.
-
-Mount once per page, behind everything (`-z-10`, `fixed inset-0`).
-
----
-
-## 6. Motion & transitions
-
-- **Route transitions:** `src/app/template.tsx` re-mounts on navigation and
-  gives each page a blur-and-rise entrance (skipped for reduced motion).
+- **Route transitions:** `src/app/template.tsx` re-mounts per navigation and
+  gives each page a soft blur-and-rise entrance.
+- **Scroll-scrub:** the hero phone uses `useScroll` + `useTransform` to scale
+  from 92% → 100% and settle as it enters the viewport — the signature
+  Apple-product-page move. Reuse this pattern for large imagery.
 - **Section entrances:** `Reveal` / `whileInView` with `once: true` and a
-  `-12% 0px` margin so content animates just before it scrolls into view.
-- **Micro-interactions:** spring physics for taps/hover, `layoutId` shared
-  elements for the nav pill and hero tab pill.
+  `-12% 0px` margin.
+- **Micro-interactions:** spring physics for taps, `layoutId` shared elements
+  for the nav underline and hero tab pill.
 
 ---
 
-## 7. Accessibility checklist
+## 6. Accessibility checklist
 
 - One `<h1>` per page; sections labelled via `aria-labelledby` → `headingId`.
-- Decorative layers are `aria-hidden`; the shader canvas is `aria-hidden`.
-- Focus-visible rings use the signal colour at a 3px offset.
+- Decorative layers are `aria-hidden`.
+- Focus-visible rings use the accent at a 3px offset.
 - Skip-to-content link in the root layout.
 - All motion has a reduced-motion fallback.
-- Colour pairings meet WCAG AA: ink on obsidian, and `signal-ink` on `signal`.
+- Colour pairings meet WCAG AA: ink on white, white on accent, white on night.
 
 ---
 
-## 8. Adding a new section (recipe)
+## 7. Adding a new section (recipe)
 
 ```tsx
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -164,10 +156,10 @@ export function Example() {
   return (
     <section
       id="example"
-      className="relative border-t border-line px-[var(--gutter)] py-[var(--space-section)]"
+      className="relative bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]"
       aria-labelledby="example-heading"
     >
-      <div className="mx-auto w-full max-w-[1280px]">
+      <div className="mx-auto w-full max-w-[1200px]">
         <SectionHeader
           eyebrow="Label"
           headingId="example-heading"

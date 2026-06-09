@@ -1,12 +1,12 @@
-# Flutterly — Documentation
+# Documentation
 
-The marketing + portfolio site for Flutterly Ltd, a UK app & web development
-studio. Built with Next.js 16 (App Router), React 19, Tailwind CSS v4,
-Framer Motion, and a WebGL shader background (three.js / React Three Fiber).
+The portfolio site of Anoop Jose — developer & designer, founder of Flutterly
+Ltd. Built with Next.js 16 (App Router), React 19, Tailwind CSS v4 and
+Framer Motion, in an Apple-inspired light design language.
 
 ## Contents
 
-- [Design System — "Obsidian Studio"](./DESIGN-SYSTEM.md) — tokens, primitives,
+- [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — tokens, primitives,
   motion, and accessibility rules. Start here before building UI.
 
 ## Architecture at a glance
@@ -14,7 +14,7 @@ Framer Motion, and a WebGL shader background (three.js / React Three Fiber).
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # Root layout: metadata, JSON-LD, fonts
+│   ├── layout.tsx          # Root layout: metadata, JSON-LD, skip link
 │   ├── template.tsx        # Route transition wrapper
 │   ├── page.tsx            # Homepage composition
 │   ├── globals.css         # Design tokens + Tailwind theme + utilities
@@ -22,15 +22,13 @@ src/
 │   ├── robots.ts           # SEO robots
 │   └── projects/           # Case-study subpages (sipli, artling)
 ├── components/
-│   ├── ui/                 # Design-system primitives (Button, Reveal, …)
+│   ├── ui/                 # Design-system primitives (Button, LiftCard, …)
 │   ├── layout/             # Navbar, Footer
-│   ├── sections/           # Homepage sections (Hero, Services, …)
-│   ├── visual/             # ShaderBackground + ShaderField (WebGL)
+│   ├── sections/           # Homepage sections (Hero, FeaturedWork, …)
 │   └── projects/           # Per-product landing UIs
-├── lib/
-│   ├── site.ts             # Single source of truth for SEO/site constants
-│   └── utils.ts            # cn() class merger
-└── fonts/                  # Bundled Outfit display font
+└── lib/
+    ├── site.ts             # Single source of truth for SEO/site constants
+    └── utils.ts            # cn() class merger
 ```
 
 ## Commands
@@ -46,7 +44,8 @@ src/
 ## SEO
 
 - Per-route `metadata` (title template, description, canonical, OpenGraph,
-  Twitter) plus Organization / WebSite / ProfessionalService JSON-LD in the
-  root layout, with `SoftwareApplication` JSON-LD on product pages.
+  Twitter) plus Person / Organization / WebSite JSON-LD in the root layout,
+  with `SoftwareApplication` JSON-LD on product pages.
 - `sitemap.ts` and `robots.ts` generate `/sitemap.xml` and `/robots.txt`.
 - Shared constants come from `src/lib/site.ts` so details never drift.
+- System font stacks → zero font payload, no render-blocking webfont fetch.

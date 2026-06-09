@@ -1,20 +1,19 @@
-# Flutterly
+# Anoop Jose — Developer Portfolio
 
-The marketing + portfolio website for **Flutterly Ltd** — a UK app & web
-development studio based in Reading. Designed and engineered around the
-["Obsidian Studio" design system](./docs/DESIGN-SYSTEM.md): a refined dark
-theme with generous whitespace, a single citron accent, framer-motion
-choreography, and a WebGL shader background.
+The portfolio site of **Anoop Jose**, developer & designer and founder of
+Flutterly Ltd (Reading, UK). Designed around the
+["Porcelain" design system](./docs/DESIGN-SYSTEM.md): a light, Apple-inspired
+language built on generous whitespace, a single blue accent, SF-style system
+typography, and calm scroll-driven motion.
 
 ## Stack
 
 - **Next.js 16** (App Router, Turbopack) + **React 19**
 - **Tailwind CSS v4** (token-driven `@theme`)
-- **Framer Motion** for animation + route transitions
-- **three.js / React Three Fiber** for the shader field
+- **Framer Motion** — scroll-scrub, blur-in reveals, spring micro-interactions
 - **Vitest** + Testing Library for tests
-- **Outfit** (bundled local) display font + system font stacks (no build-time
-  webfont fetch)
+- **System font stacks** — zero font payload, native SF rendering on Apple
+  devices
 
 ## Getting started
 
@@ -41,12 +40,13 @@ motion, and accessibility guidelines.
 
 ## Highlights
 
-- **Design system** in `src/app/globals.css` mapped to Tailwind utilities.
+- **Whitespace-first layout** — alternating white/`#f5f5f7` bands, one black
+  contrast finale, content capped at 1200px.
+- **Apple-style motion** — a scroll-scrubbed iPhone demo in the hero, blur-in
+  headlines, frosted navigation, shared-element transitions.
 - **Reusable primitives** in `src/components/ui/` (`Button`, `SectionHeader`,
-  `SpotlightCard`, `Reveal`, `Marquee`, `PhoneFrame`).
-- **Performant WebGL background** that lazy-loads, falls back to CSS, and
-  respects `prefers-reduced-motion`.
-- **SEO**: metadata + JSON-LD structured data, sitemap, robots, semantic HTML,
-  and an accessible, reduced-motion-aware UI.
+  `LiftCard`, `Reveal`, `Marquee`, `PhoneFrame`).
+- **SEO** — metadata + Person/Organization JSON-LD, sitemap, robots, semantic
+  HTML, and a fully reduced-motion-aware, accessible UI.
 
 © 2026 Flutterly Ltd.
