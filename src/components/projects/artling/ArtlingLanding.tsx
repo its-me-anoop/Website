@@ -26,7 +26,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { LiftCard as SpotlightCard } from "@/components/ui/LiftCard";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -294,7 +294,7 @@ export function ArtlingLanding() {
                 className="mt-9 flex flex-wrap gap-3"
               >
                 <Link href="#features" aria-label="Explore features">
-                  <Button variant="signal" size="lg" className="group">
+                  <Button variant="primary" size="lg" className="group">
                     Explore Features
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Button>
@@ -410,7 +410,7 @@ export function ArtlingLanding() {
               const Icon = pillar.icon;
               return (
                 <motion.div key={pillar.title} variants={staggerItem}>
-                  <SpotlightCard glow="var(--signal-faint)" className="h-full">
+                  <SpotlightCard className="h-full">
                     <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-line-2 bg-white/[0.04] text-signal">
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
@@ -619,7 +619,7 @@ export function ArtlingLanding() {
                   href="mailto:anoop@flutterly.co.uk"
                   aria-label="Enquire about the app"
                 >
-                  <Button variant="signal">Enquire About the App</Button>
+                  <Button variant="primary">Enquire About the App</Button>
                 </Link>
               </div>
             </div>

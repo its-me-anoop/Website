@@ -55,7 +55,7 @@ const repos = [
   {
     name: "nextjs-seo-kit",
     slash: "flutterly/",
-    desc: "Structured-data helpers we use on every site.",
+    desc: "Structured-data helpers I use on every site.",
     lang: "TypeScript",
     langClass: "bg-[#3178c6]",
     stars: 289,
@@ -118,29 +118,29 @@ function Heatmap() {
   const bg = (level: string) => {
     switch (level) {
       case "l4":
-        return "bg-signal shadow-[0_0_10px_var(--signal-glow)]";
+        return "bg-accent";
       case "l3":
-        return "bg-signal/70";
+        return "bg-accent/70";
       case "l2":
-        return "bg-signal/40";
+        return "bg-accent/40";
       case "l1":
-        return "bg-signal/20";
+        return "bg-accent/20";
       default:
-        return "bg-white/[0.04]";
+        return "bg-black/[0.05]";
     }
   };
 
   return (
     <div
       ref={ref}
-      className="relative overflow-hidden rounded-[var(--r-xl)] border border-line bg-white/[0.02] p-6 backdrop-blur-md transition-colors duration-500 hover:border-line-2"
+      className="relative overflow-hidden rounded-[var(--r-xl)] border border-line bg-surface p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
     >
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <Link
           href="https://github.com/its-me-anoop"
           target="_blank"
           rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3 py-1.5 text-[11.5px] font-semibold text-ink-2 transition-colors hover:border-line-2 hover:text-ink"
+          className="group inline-flex items-center gap-2 rounded-full border border-line bg-surface-2 px-3 py-1.5 text-[12px] font-semibold text-ink-2 transition-colors hover:border-line-2 hover:text-ink"
         >
           <Github className="h-3.5 w-3.5" aria-hidden="true" />
           @its-me-anoop
@@ -194,21 +194,22 @@ function Heatmap() {
   );
 }
 
+/** Open source — contribution heatmap and a shortlist of public repos. */
 export function OpenSource() {
   return (
     <section
       id="oss"
-      className="relative border-t border-line px-[var(--gutter)] py-[var(--space-section)]"
+      className="relative bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]"
       aria-labelledby="oss-heading"
     >
-      <div className="mx-auto w-full max-w-[1280px]">
+      <div className="mx-auto w-full max-w-[1200px]">
         <SectionHeader
           eyebrow="Open source"
           headingId="oss-heading"
-          dot="var(--aqua)"
+          dot="var(--green)"
           title={
             <>
-              We ship in
+              I ship in
               <br />
               <em>public, too.</em>
             </>
@@ -233,7 +234,7 @@ export function OpenSource() {
                   href={`https://github.com/its-me-anoop/${r.name}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group grid grid-cols-[1fr_auto] items-center gap-4 rounded-2xl border border-line bg-white/[0.02] px-5 py-4 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-line-2 hover:bg-white/[0.04]"
+                  className="group grid grid-cols-[1fr_auto] items-center gap-4 rounded-2xl border border-line bg-surface px-5 py-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:border-line-2 hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
                 >
                   <div>
                     <div className="font-mono text-[13px] font-semibold text-ink-2 transition-colors duration-300 group-hover:text-ink">

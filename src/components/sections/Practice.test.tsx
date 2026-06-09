@@ -7,7 +7,7 @@ describe("Practice (Process) Section", () => {
   it("renders the heading and overview", () => {
     render(<Practice />);
 
-    expect(screen.getByText("How we work")).toBeInTheDocument();
+    expect(screen.getByText("How I work")).toBeInTheDocument();
     expect(screen.getByText(/A clear path/)).toBeInTheDocument();
     expect(screen.getByText(/launch in 9 weeks/)).toBeInTheDocument();
   });

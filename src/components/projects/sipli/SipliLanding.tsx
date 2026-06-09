@@ -24,7 +24,7 @@ import {
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { LiftCard as SpotlightCard } from "@/components/ui/LiftCard";
 
 const APP_STORE_URL =
   "https://apps.apple.com/us/app/sipli-water-tracker/id6758851574";
@@ -799,7 +799,7 @@ export function SipliLanding() {
               const Icon = item.icon;
               return (
                 <motion.div key={item.title} variants={staggerItem}>
-                  <SpotlightCard glow="var(--signal-faint)" className="h-full">
+                  <SpotlightCard className="h-full">
                     <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-line-2 bg-white/[0.04] text-signal">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>

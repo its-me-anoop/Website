@@ -22,7 +22,7 @@ describe("OpenSource Section", () => {
     render(<OpenSource />);
 
     expect(screen.getByText("Open source")).toBeInTheDocument();
-    expect(screen.getByText("We ship in")).toBeInTheDocument();
+    expect(screen.getByText("I ship in")).toBeInTheDocument();
     expect(screen.getByText(/public, too/)).toBeInTheDocument();
     expect(
       screen.getByText(

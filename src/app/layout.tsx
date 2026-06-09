@@ -1,19 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
 
-/* ── Fonts ───────────────────────────────────────────────────────────
-   The locally-bundled Outfit variable font is the redesign's display +
-   text face. Bundling it locally keeps the build self-contained (no
-   build-time webfont fetch) and removes a render-blocking network hop.
-   Mono falls back to the platform monospace stack (see globals.css). */
-const outfit = localFont({
-  variable: "--font-outfit",
-  display: "swap",
-  src: "../fonts/Outfit-VariableFont_wght.ttf",
-});
+/* Typography is the native SF-style system stack (see globals.css) —
+   zero font payload, instant render, and the most Apple-feeling result
+   on Apple devices. */
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -25,22 +16,22 @@ export const metadata: Metadata = {
   applicationName: site.name,
   category: "technology",
   keywords: [
-    "app development studio",
-    "web development agency",
-    "mobile app developers UK",
-    "Next.js development",
-    "React development",
-    "SwiftUI development",
-    "Flutter development",
+    "developer portfolio",
+    "app developer UK",
+    "web developer UK",
+    "Next.js developer",
+    "React developer",
+    "SwiftUI developer",
+    "Flutter developer",
     "iOS development",
-    "Android development",
-    "product engineering studio",
-    "UK software studio",
-    "Reading UK developers",
-    "enterprise web applications",
+    "product engineer",
+    "UI engineer",
+    "Reading UK developer",
+    "Flutterly",
+    "Anoop Jose",
   ],
-  authors: [{ name: site.legalName, url: site.url }],
-  creator: site.legalName,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
   publisher: site.legalName,
   alternates: { canonical: "/" },
   openGraph: {
@@ -84,42 +75,27 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0c",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
 
-/** Organisation / WebSite / ProfessionalService structured data for rich results. */
+/** Person / Organization / WebSite structured data for rich results. */
 function JsonLd() {
-  const organization = {
+  const person = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": `${site.url}#organization`,
-    name: site.legalName,
-    alternateName: site.name,
+    "@type": "Person",
+    "@id": `${site.url}#person`,
+    name: site.name,
+    jobTitle: "Developer & Designer",
     url: site.url,
-    logo: {
-      "@type": "ImageObject",
-      url: `${site.url}${site.ogImage}`,
-      width: 1200,
-      height: 630,
-    },
-    description: site.description,
+    email: site.email,
+    telephone: site.phone,
+    image: `${site.url}${site.ogImage}`,
     address: { "@type": "PostalAddress", ...site.address },
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: site.phone,
-      contactType: "customer service",
-      email: site.email,
-      availableLanguage: ["English"],
-    },
-    founder: {
-      "@type": "Person",
-      name: site.founder,
-      jobTitle: "Founder · Lead Engineer",
-    },
-    sameAs: [site.social.linkedin, site.social.github],
+    sameAs: [site.social.github, site.social.linkedin],
+    worksFor: { "@id": `${site.url}#organization` },
     knowsAbout: [
       "Web Development",
       "Mobile App Development",
@@ -128,9 +104,36 @@ function JsonLd() {
       "Flutter",
       "SwiftUI",
       "TypeScript",
-      "Enterprise Solutions",
       "UI/UX Design",
+      "Design Systems",
     ],
+  };
+
+  const organization = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${site.url}#organization`,
+    name: site.legalName,
+    alternateName: site.studio,
+    url: site.url,
+    logo: {
+      "@type": "ImageObject",
+      url: `${site.url}${site.ogImage}`,
+      width: 1200,
+      height: 630,
+    },
+    description:
+      "Flutterly is a UK product studio designing and engineering fast, polished web and mobile apps.",
+    address: { "@type": "PostalAddress", ...site.address },
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: site.phone,
+      contactType: "customer service",
+      email: site.email,
+      availableLanguage: ["English"],
+    },
+    founder: { "@id": `${site.url}#person` },
+    sameAs: [site.social.linkedin, site.social.github],
     areaServed: { "@type": "Country", name: "United Kingdom" },
     makesOffer: [
       {
@@ -167,32 +170,18 @@ function JsonLd() {
     "@type": "WebSite",
     "@id": `${site.url}#website`,
     url: site.url,
-    name: site.name,
+    name: `${site.name} — ${site.tagline}`,
     description: site.description,
-    publisher: { "@id": `${site.url}#organization` },
+    publisher: { "@id": `${site.url}#person` },
     inLanguage: "en-GB",
-  };
-
-  const professionalService = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "@id": `${site.url}#service`,
-    name: "Flutterly — App & Web Development",
-    image: `${site.url}${site.ogImage}`,
-    url: site.url,
-    telephone: site.phone,
-    priceRange: "££££",
-    address: { "@type": "PostalAddress", ...site.address },
-    areaServed: { "@type": "Country", name: "United Kingdom" },
-    serviceType: [
-      "Web Development",
-      "Mobile App Development",
-      "Product Engineering",
-    ],
   };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
@@ -200,10 +189,6 @@ function JsonLd() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalService) }}
       />
     </>
   );
@@ -217,15 +202,10 @@ export default function RootLayout({
       <head>
         <JsonLd />
       </head>
-      <body
-        className={cn(
-          outfit.variable,
-          "antialiased bg-obsidian text-ink font-sans min-h-screen"
-        )}
-      >
+      <body className="antialiased bg-canvas text-ink font-sans min-h-screen">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-signal focus:px-4 focus:py-2 focus:text-signal-ink focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-ink focus:shadow-lg"
         >
           Skip to main content
         </a>

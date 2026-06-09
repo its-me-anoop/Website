@@ -16,9 +16,9 @@ describe("Button component", () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it("applies the signal variant by default", () => {
+  it("applies the primary (accent) variant by default", () => {
     render(<Button>Primary</Button>);
-    expect(screen.getByRole("button").className).toContain("bg-signal");
+    expect(screen.getByRole("button").className).toContain("bg-accent");
   });
 
   it("applies the outline variant when requested", () => {

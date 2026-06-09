@@ -5,11 +5,13 @@
  */
 export const site = {
   url: "https://flutterly.uk",
-  name: "Flutterly",
+  name: "Anoop Jose",
   legalName: "Flutterly Ltd",
-  tagline: "App & Web Development Studio",
+  studio: "Flutterly",
+  tagline: "App & Web Developer",
+  role: "Developer & Designer · Founder of Flutterly",
   description:
-    "Flutterly is a UK product studio that designs and engineers fast, polished web and mobile apps. Next.js, React, SwiftUI and Flutter — built with care, shipped to last.",
+    "Anoop Jose is a UK-based developer and designer crafting fast, polished web and mobile apps with Next.js, React, SwiftUI and Flutter — founder of Flutterly, a product studio in Reading.",
   email: "anoop@flutterly.co.uk",
   phone: "+44-7780-580534",
   phoneDisplay: "+44 7780 580 534",

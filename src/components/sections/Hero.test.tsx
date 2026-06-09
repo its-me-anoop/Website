@@ -7,18 +7,23 @@ describe("Hero section", () => {
   it("renders the headline and subhead", () => {
     render(<Hero />);
     expect(screen.getByText(/love opening/)).toBeInTheDocument();
-    expect(screen.getByText(/boutique product studio/)).toBeInTheDocument();
+    expect(screen.getByText(/Developer and designer crafting/)).toBeInTheDocument();
+  });
+
+  it("introduces Anoop by name", () => {
+    render(<Hero />);
+    expect(screen.getByText(/Anoop Jose/)).toBeInTheDocument();
   });
 
   it("renders the primary and secondary CTAs", () => {
     render(<Hero />);
-    expect(
-      screen.getByRole("link", { name: /start a project/i })
-    ).toHaveAttribute("href", "#brief");
-    expect(screen.getByRole("link", { name: /see our work/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /see my work/i })).toHaveAttribute(
       "href",
       "#work"
     );
+    expect(
+      screen.getByRole("link", { name: /start a project/i })
+    ).toHaveAttribute("href", "#brief");
   });
 
   it("renders the live demo tabs", () => {

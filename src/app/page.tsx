@@ -9,17 +9,16 @@ import { Stack } from "@/components/sections/Stack";
 import { OpenSource } from "@/components/sections/OpenSource";
 import { Contact } from "@/components/sections/Contact";
 import About from "@/components/About";
-import { ShaderBackground } from "@/components/visual/ShaderBackground";
 
 export const metadata: Metadata = {
-  title: "App & Web Development Studio",
+  title: "App & Web Developer",
   description:
-    "Flutterly is a UK product studio designing and engineering fast, polished web and mobile apps. Next.js, React, SwiftUI and Flutter — built with care, shipped to last.",
+    "Anoop Jose is a UK-based developer and designer crafting fast, polished web and mobile apps with Next.js, React, SwiftUI and Flutter — founder of Flutterly.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Flutterly — App & Web Development Studio",
+    title: "Anoop Jose — App & Web Developer",
     description:
-      "We design and engineer web and mobile apps that feel considered, fast, and alive. Based in Reading, UK.",
+      "I design and build web and mobile apps that feel considered, fast, and alive. Based in Reading, UK.",
     type: "website",
   },
 };
@@ -27,12 +26,11 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <ShaderBackground />
       <Navbar />
       <main id="main" className="relative isolate text-ink" role="main">
         <Hero />
-        <Services />
         <FeaturedWork />
+        <Services />
         <Practice />
         <Stack />
         <OpenSource />

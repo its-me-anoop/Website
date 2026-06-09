@@ -10,7 +10,7 @@ describe("Footer Component", () => {
     // The brand logo/name appears in the header
     expect(screen.getAllByText(/Flutterly/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/2026/)).toBeInTheDocument();
-    expect(screen.getByText(/Anoop Jose/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Anoop Jose/).length).toBeGreaterThan(0);
   });
 
   it("renders the link columns", () => {

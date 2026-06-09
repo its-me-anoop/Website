@@ -6,7 +6,7 @@ import { Services } from "./Services";
 describe("Services section", () => {
   it("renders the section header", () => {
     render(<Services />);
-    expect(screen.getByText("What we build")).toBeInTheDocument();
+    expect(screen.getByText("What I do")).toBeInTheDocument();
     expect(screen.getByText(/engineering & design/)).toBeInTheDocument();
   });
 

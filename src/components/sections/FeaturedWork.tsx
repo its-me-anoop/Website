@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { LiftCard } from "@/components/ui/LiftCard";
 import { staggerContainer, staggerItem } from "@/components/ui/Reveal";
 
 const projects = [
@@ -19,8 +19,8 @@ const projects = [
     image: "/images/sipli/iphone/01-hero-1320x2868.png",
     year: "2026",
     badge: "Live",
-    bg: "linear-gradient(165deg,#0a1226 0%,#100a26 100%)",
-    glow: "rgba(124,155,255,0.16)",
+    bg: "linear-gradient(165deg,#e9f3fd 0%,#eceefe 100%)",
+    tint: "#0071e3",
   },
   {
     href: "/projects/artling",
@@ -32,8 +32,8 @@ const projects = [
     image: "/projects/artling/fox-painter.png",
     year: "2025",
     badge: "Shipped",
-    bg: "linear-gradient(165deg,#221406 0%,#2c1216 100%)",
-    glow: "rgba(255,138,115,0.16)",
+    bg: "linear-gradient(165deg,#fdf2e3 0%,#fdeae2 100%)",
+    tint: "#e07a1f",
   },
   {
     href: "#brief",
@@ -43,8 +43,8 @@ const projects = [
     description: "Editorial typography, fluid animations, and a custom booking flow.",
     year: "2024",
     badge: "Case",
-    bg: "linear-gradient(165deg,#06231a 0%,#0a261c 100%)",
-    glow: "rgba(88,224,199,0.16)",
+    bg: "linear-gradient(165deg,#e8f7ef 0%,#ecfaf1 100%)",
+    tint: "#34c759",
   },
   {
     href: "#brief",
@@ -54,8 +54,8 @@ const projects = [
     description: "Headless commerce on Next.js, Stripe-checkout, Shopify integration.",
     year: "2024",
     badge: "Case",
-    bg: "linear-gradient(165deg,#0c1622 0%,#0e1226 100%)",
-    glow: "rgba(124,155,255,0.16)",
+    bg: "linear-gradient(165deg,#edf3fa 0%,#eef0fc 100%)",
+    tint: "#5e5ce6",
   },
   {
     href: "#brief",
@@ -65,33 +65,37 @@ const projects = [
     description: "Real-time inventory, multi-property bookings, and a calm operator UI.",
     year: "2024",
     badge: "Case",
-    bg: "linear-gradient(165deg,#0a111e 0%,#160a26 100%)",
-    glow: "rgba(181,140,255,0.16)",
+    bg: "linear-gradient(165deg,#f0eefb 0%,#f5ecf8 100%)",
+    tint: "#af52de",
   },
 ];
 
+/**
+ * Selected work — an Apple-style grid of pastel product tiles. The featured
+ * Sipli tile is full-width with a parallaxed device screenshot; the rest sit
+ * in a two-up grid. Each tile lifts softly and tilts toward the cursor.
+ */
 export function FeaturedWork() {
   const [featured, ...rest] = projects;
 
   return (
     <section
       id="work"
-      className="relative border-t border-line px-[var(--gutter)] py-[var(--space-section)]"
+      className="relative bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]"
       aria-labelledby="work-heading"
     >
-      <div className="mx-auto w-full max-w-[1280px]">
+      <div className="mx-auto w-full max-w-[1200px]">
         <SectionHeader
           eyebrow="Selected work"
           headingId="work-heading"
-          dot="var(--azure)"
           title={
             <>
               Recent projects,
               <br />
-              <span className="text-fade">built to last.</span>
+              <em>built to last.</em>
             </>
           }
-          lede="A short catalogue of client products and original apps. Every line of code shipped under the Flutterly name passes through one engineer’s keyboard."
+          lede="A short catalogue of client products and original apps. Every line of code shipped here passes through my keyboard."
         />
 
         <motion.div
@@ -103,52 +107,50 @@ export function FeaturedWork() {
           {/* Featured */}
           <motion.div variants={staggerItem} className="mb-5">
             <Link href={featured.href} className="group block" aria-label={`${featured.title} case study`}>
-              <SpotlightCard
-                glow={featured.glow}
-                tilt={3}
-                parallax={14}
-                className="h-[440px] w-full overflow-hidden p-0 md:h-[520px]"
-              >
+              <LiftCard tilt={1.5} parallax={14} className="h-[460px] w-full overflow-hidden border-transparent p-0 md:h-[540px]">
                 {({ px, py }) => (
                   <>
                     <div className="absolute inset-0" style={{ background: featured.bg }} />
                     <motion.div
                       aria-hidden="true"
-                      className="pointer-events-none absolute -bottom-12 -right-6 h-[88%] w-[44%] overflow-hidden rounded-[40px] border border-line-2 shadow-2xl md:-bottom-16 md:-right-10 md:h-[110%] md:w-[38%]"
-                      style={{ x: px, y: py, rotate: 4 }}
+                      className="pointer-events-none absolute -bottom-10 right-[6%] hidden h-[105%] w-[34%] overflow-hidden rounded-[44px] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.35)] md:block"
+                      style={{ x: px, y: py, rotate: 3 }}
                     >
                       <Image
                         src={featured.image!}
                         alt={`${featured.title} screenshot`}
                         fill
-                        sizes="(max-width: 768px) 100vw, 600px"
-                        className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 0px, 420px"
+                        className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
                       />
                     </motion.div>
 
                     <div className="relative z-10 flex h-full flex-col justify-between p-8 md:p-12">
                       <div className="flex flex-wrap items-center gap-2.5">
-                        <span className="rounded-full border border-line-2 bg-white/[0.05] px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-2 backdrop-blur">
+                        <span className="rounded-full bg-white/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-2 backdrop-blur">
                           {featured.tag}
                         </span>
                         <span className="font-mono text-[11px] text-ink-3">{featured.year}</span>
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-signal px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-signal-ink">
-                          <span className="h-1.5 w-1.5 rounded-full bg-signal-ink/70 animate-pulse" />
+                        <span
+                          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white"
+                          style={{ background: featured.tint }}
+                        >
+                          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white/80" />
                           {featured.badge}
                         </span>
                       </div>
 
-                      <div className="max-w-[58%]">
-                        <h3 className="font-display text-[36px] font-semibold tracking-tight text-ink md:text-[56px]">
+                      <div className="max-w-[60%]">
+                        <h3 className="font-display text-[38px] font-semibold tracking-tight text-ink md:text-[60px]">
                           {featured.title}
                         </h3>
-                        <p className="mt-3 max-w-md text-[15px] leading-[1.55] text-ink-2 md:text-[17px]">
+                        <p className="mt-3 max-w-md text-[16px] leading-[1.55] text-ink-2 md:text-[18px]">
                           {featured.subtitle}
                         </p>
-                        <p className="mt-3 max-w-md text-[13px] leading-[1.6] text-ink-3">
+                        <p className="mt-3 max-w-md text-[13.5px] leading-[1.6] text-ink-3">
                           {featured.description}
                         </p>
-                        <span className="mt-7 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-[12px] font-bold text-obsidian transition-transform duration-300 group-hover:translate-x-1">
+                        <span className="mt-7 inline-flex items-center gap-2 rounded-full bg-ink px-4.5 py-2.5 text-[13px] font-semibold text-white transition-transform duration-300 group-hover:translate-x-1">
                           View case study
                           <ArrowUpRight className="h-3.5 w-3.5" />
                         </span>
@@ -156,23 +158,23 @@ export function FeaturedWork() {
                     </div>
                   </>
                 )}
-              </SpotlightCard>
+              </LiftCard>
             </Link>
           </motion.div>
 
           {/* Grid */}
-          <div className="grid gap-4 md:grid-cols-2 md:gap-5">
+          <div className="grid gap-5 md:grid-cols-2">
             {rest.map((p) => (
               <motion.div key={p.title} variants={staggerItem}>
                 <Link href={p.href} className="group block" aria-label={`${p.title} case`}>
-                  <SpotlightCard glow={p.glow} tilt={4} parallax={10} className="h-[280px] overflow-hidden p-0">
+                  <LiftCard tilt={2} parallax={10} className="h-[300px] overflow-hidden border-transparent p-0">
                     {({ px, py }) => (
                       <>
                         <div className="absolute inset-0" style={{ background: p.bg }} />
                         {p.image && (
                           <motion.div
                             aria-hidden="true"
-                            className="pointer-events-none absolute -right-4 top-6 w-[110px] md:top-10 md:w-[140px]"
+                            className="pointer-events-none absolute -right-3 top-8 w-[110px] md:w-[140px]"
                             style={{ x: px, y: py, rotate: 6 }}
                           >
                             <Image
@@ -181,48 +183,51 @@ export function FeaturedWork() {
                               width={140}
                               height={196}
                               sizes="140px"
-                              className="w-full opacity-80 transition-all duration-500 group-hover:scale-105 group-hover:opacity-100"
+                              className="w-full opacity-90 drop-shadow-xl transition-all duration-500 group-hover:scale-105 group-hover:opacity-100"
                             />
                           </motion.div>
                         )}
 
-                        <div className="relative z-10 flex h-full flex-col justify-between p-6 md:p-7">
+                        <div className="relative z-10 flex h-full flex-col justify-between p-6 md:p-8">
                           <div className="flex items-center gap-2">
-                            <span className="rounded-full border border-line-2 bg-white/[0.05] px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-2 backdrop-blur">
+                            <span className="rounded-full bg-white/70 px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink-2 backdrop-blur">
                               {p.tag}
                             </span>
                             <span className="font-mono text-[11px] text-ink-3">{p.year}</span>
                           </div>
 
-                          <div className="max-w-[68%]">
-                            <h3 className="font-display text-[26px] font-semibold tracking-tight text-ink md:text-[30px]">
+                          <div className="max-w-[70%]">
+                            <h3 className="font-display text-[27px] font-semibold tracking-tight text-ink md:text-[31px]">
                               {p.title}
                             </h3>
-                            <p className="mt-2 text-[13.5px] leading-[1.55] text-ink-3 transition-colors duration-300 group-hover:text-ink-2">
+                            <p className="mt-2 text-[14px] leading-[1.55] text-ink-3 transition-colors duration-300 group-hover:text-ink-2">
                               {p.subtitle}
                             </p>
                           </div>
 
                           <div className="flex items-center justify-between">
-                            <span className="inline-flex items-center rounded-full border border-line-2 bg-white/[0.04] px-2.5 py-1 font-mono text-[9.5px] font-bold uppercase tracking-[0.14em] text-ink-2">
+                            <span
+                              className="inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white"
+                              style={{ background: p.tint }}
+                            >
                               {p.badge}
                             </span>
-                            <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line-2 bg-white/[0.03] text-ink-3 transition-all duration-300 group-hover:border-signal group-hover:bg-signal group-hover:text-signal-ink">
+                            <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-ink-3 shadow-sm backdrop-blur transition-all duration-300 group-hover:bg-ink group-hover:text-white">
                               <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
                             </span>
                           </div>
                         </div>
                       </>
                     )}
-                  </SpotlightCard>
+                  </LiftCard>
                 </Link>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        <p className="mt-10 text-[13px] text-muted">
-          A few clients we work with remain under NDA. Happy to walk you through
+        <p className="mt-10 text-[13.5px] text-muted">
+          A few clients I work with remain under NDA. Happy to walk you through
           them on a brief.
         </p>
       </div>

@@ -8,9 +8,9 @@ vi.mock("next/navigation", () => ({
 }));
 
 describe("Navbar component", () => {
-  it("renders the studio brand text", () => {
+  it("renders the personal brand text", () => {
     render(<Navbar />);
-    expect(screen.getByText("Flutterly")).toBeInTheDocument();
+    expect(screen.getByText("Anoop Jose")).toBeInTheDocument();
   });
 
   it("renders primary navigation items", () => {
@@ -18,7 +18,7 @@ describe("Navbar component", () => {
     expect(screen.getAllByRole("link", { name: "Services" })[0]).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: "Work" })[0]).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: "Process" })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "Studio" })[0]).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: "About" })[0]).toBeInTheDocument();
   });
 
   it("opens mobile menu when toggle button is clicked", () => {

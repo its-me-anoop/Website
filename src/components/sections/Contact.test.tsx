@@ -11,7 +11,7 @@ describe("Contact Section", () => {
     expect(screen.getByText(/Let.?s build/)).toBeInTheDocument();
     expect(
       screen.getByText(
-        /We only take a handful of projects a year/
+        /only take a handful of projects a year/
       )
     ).toBeInTheDocument();
   });

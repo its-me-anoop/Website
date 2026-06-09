@@ -7,7 +7,7 @@ describe("About Section", () => {
   it("renders the studio heading and quote", () => {
     render(<About />);
 
-    expect(screen.getByText("The studio")).toBeInTheDocument();
+    expect(screen.getByText("About")).toBeInTheDocument();
     expect(screen.getByText(/One engineer/)).toBeInTheDocument();
     expect(screen.getByText(/I started Flutterly because/)).toBeInTheDocument();
   });
