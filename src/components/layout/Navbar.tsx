@@ -10,8 +10,7 @@ import {
   useScroll,
   useReducedMotion,
 } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -22,12 +21,12 @@ const navItems = [
 ];
 
 /** Section ids observed to drive the active-link state. */
-const sectionIds = ["work", "services", "practice", "oss", "studio"];
+const sectionIds = ["work", "services", "practice", "studio"];
 
 /**
- * Apple-style fixed navigation: a slim frosted bar with a hairline that
- * appears on scroll, quiet text links with an active state, and an
- * accessible mobile sheet (Esc to close).
+ * Noir chrome: a slim fixed bar — wordmark left, quiet uppercase links and a
+ * bracketed "Let's talk" CTA right — that gains a frosted backdrop on scroll.
+ * Mobile gets a full-height curtain menu with oversized links.
  */
 export function Navbar() {
   const pathname = usePathname();
@@ -38,7 +37,7 @@ export function Navbar() {
   const reduce = useReducedMotion();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 8);
+    setScrolled(latest > 10);
     if (latest < 120) setActiveSection("");
   });
 
@@ -63,6 +62,14 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // Lock page scroll behind the full-screen menu.
+  useEffect(() => {
+    document.documentElement.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   const hrefFor = (href: string) => (pathname === "/" ? href : `/${href}`);
 
   return (
@@ -70,51 +77,46 @@ export function Navbar() {
       <motion.header
         className={cn(
           "fixed inset-x-0 top-0 z-[100] transition-[background-color,box-shadow] duration-500",
-          scrolled || menuOpen
-            ? "frosted shadow-[0_1px_0_var(--line)]"
-            : "bg-transparent"
+          scrolled && !menuOpen ? "frosted shadow-[0_1px_0_var(--line)]" : "bg-transparent"
         )}
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
       >
-        <div className="mx-auto flex h-13 w-full max-w-[1200px] items-center justify-between px-[var(--gutter)] py-2.5">
-          {/* Brand */}
+        <div className="mx-auto flex h-16 w-full max-w-[1320px] items-center justify-between px-[var(--gutter)]">
+          {/* Wordmark */}
           <Link
             href="/"
-            className="font-display text-[15px] font-semibold tracking-tight text-ink"
+            className="font-display text-[15px] font-semibold uppercase tracking-[0.08em] text-ink"
             aria-label="Anoop Jose — home"
           >
-            Anoop Jose
+            Anoop Jose<span className="text-accent">©</span>
           </Link>
 
           {/* Desktop nav */}
           <nav
-            className="hidden items-center gap-7 text-[13px] font-medium text-ink-3 md:flex"
+            className="hidden items-center gap-8 font-mono text-[11.5px] font-medium uppercase tracking-[0.18em] text-ink-3 md:flex"
             aria-label="Primary"
           >
-            {navItems.map((item) => {
+            {navItems.map((item, i) => {
               const active = activeSection === item.href.slice(1);
               return (
                 <Link
                   key={item.name}
                   href={hrefFor(item.href)}
                   className={cn(
-                    "relative py-1 transition-colors duration-300",
+                    "group relative py-1 transition-colors duration-300",
                     active ? "text-ink" : "hover:text-ink"
                   )}
                 >
+                  <span className="mr-1.5 text-[9px] text-muted">0{i + 1}</span>
                   {item.name}
-                  {active &&
-                    (reduce ? (
-                      <span className="absolute -bottom-0.5 left-0 right-0 h-px bg-ink" />
-                    ) : (
-                      <motion.span
-                        layoutId="active-nav-underline"
-                        className="absolute -bottom-0.5 left-0 right-0 h-px bg-ink"
-                        transition={{ type: "spring", stiffness: 400, damping: 34 }}
-                      />
-                    ))}
+                  <span
+                    className={cn(
+                      "absolute -bottom-0.5 left-0 h-px bg-accent transition-all duration-300",
+                      active ? "w-full" : "w-0 group-hover:w-full"
+                    )}
+                  />
                 </Link>
               );
             })}
@@ -122,10 +124,14 @@ export function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <Link href={pathname === "/" ? "#brief" : "/#brief"}>
-              <Button variant="primary" size="sm">
-                Get in touch
-              </Button>
+            <Link
+              href={pathname === "/" ? "#brief" : "/#brief"}
+              className="group inline-flex items-center gap-1.5 font-mono text-[11.5px] font-medium uppercase tracking-[0.18em] text-ink transition-colors duration-300 hover:text-accent"
+            >
+              <span className="text-muted transition-colors duration-300 group-hover:text-accent">[</span>
+              Let&rsquo;s talk
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <span className="text-muted transition-colors duration-300 group-hover:text-accent">]</span>
             </Link>
           </div>
 
@@ -133,7 +139,7 @@ export function Navbar() {
           <motion.button
             type="button"
             onClick={() => setMenuOpen((o) => !o)}
-            className="flex h-9 w-9 items-center justify-center rounded-full text-ink transition-colors duration-300 hover:bg-black/[0.04] md:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-line-2 text-ink transition-colors duration-300 hover:border-line-3 md:hidden"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             whileTap={{ scale: 0.94 }}
@@ -165,43 +171,52 @@ export function Navbar() {
         </div>
       </motion.header>
 
-      {/* Mobile sheet */}
+      {/* Mobile curtain menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="frosted fixed inset-x-0 top-[52px] z-[99] border-b border-line p-5 md:hidden"
+            initial={reduce ? { opacity: 0 } : { y: "-100%" }}
+            animate={reduce ? { opacity: 1 } : { y: 0 }}
+            exit={reduce ? { opacity: 0 } : { y: "-100%" }}
+            transition={{ duration: 0.55, ease: [0.83, 0, 0.17, 1] }}
+            className="fixed inset-0 z-[99] flex flex-col justify-end bg-night px-[var(--gutter)] pb-12 pt-24 md:hidden"
           >
-            <nav className="grid gap-1" aria-label="Mobile primary">
+            <nav className="grid gap-2" aria-label="Mobile primary">
               {navItems.map((item, i) => (
                 <motion.div
                   key={item.name}
-                  initial={{ opacity: 0, x: -14 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05, duration: 0.3 }}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 + i * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden border-b border-white/10"
                 >
                   <Link
                     href={hrefFor(item.href)}
                     onClick={() => setMenuOpen(false)}
-                    className="block rounded-xl px-3 py-3 text-[17px] font-medium text-ink-2 transition-colors duration-300 hover:bg-black/[0.04] hover:text-ink"
+                    className="group flex items-baseline justify-between py-4 font-display text-[clamp(34px,9vw,52px)] font-semibold uppercase leading-none tracking-[-0.02em] text-night-ink transition-colors duration-300 hover:text-accent"
                   >
                     {item.name}
+                    <span className="font-mono text-[11px] tracking-[0.2em] text-white/40">
+                      0{i + 1}
+                    </span>
                   </Link>
                 </motion.div>
               ))}
-              <hr className="my-2 border-line" />
-              <Link
-                href={pathname === "/" ? "#brief" : "/#brief"}
-                onClick={() => setMenuOpen(false)}
-                className="block"
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45, duration: 0.5 }}
+                className="mt-8"
               >
-                <Button variant="primary" size="md" className="w-full">
-                  Get in touch
-                </Button>
-              </Link>
+                <Link
+                  href={pathname === "/" ? "#brief" : "/#brief"}
+                  onClick={() => setMenuOpen(false)}
+                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-accent-ink"
+                >
+                  Let&rsquo;s talk
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </motion.div>
             </nav>
           </motion.div>
         )}

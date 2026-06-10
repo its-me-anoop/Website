@@ -2,9 +2,11 @@
 
 The portfolio site of **Anoop Jose**, developer & designer and founder of
 Flutterly Ltd (Reading, UK). Designed around the
-["Porcelain" design system](./docs/DESIGN-SYSTEM.md): a light, Apple-inspired
-language built on generous whitespace, a single blue accent, SF-style system
-typography, and calm scroll-driven motion.
+["Noir" design system](./docs/DESIGN-SYSTEM.md): a cinematic, awwwards-style
+dark language — oversized Outfit display type with outline-stroke moments,
+one vermilion accent, film grain, marquee strips, a preloader, and
+scroll-choreographed sections (inspired by the landing-page work showcased
+on lafys.com).
 
 ## Stack
 
@@ -12,8 +14,7 @@ typography, and calm scroll-driven motion.
 - **Tailwind CSS v4** (token-driven `@theme`)
 - **Framer Motion** — scroll-scrub, blur-in reveals, spring micro-interactions
 - **Vitest** + Testing Library for tests
-- **System font stacks** — zero font payload, native SF rendering on Apple
-  devices
+- **Outfit** (bundled local) display face + system body stack
 
 ## Getting started
 
@@ -40,12 +41,13 @@ motion, and accessibility guidelines.
 
 ## Highlights
 
-- **Whitespace-first layout** — alternating white/`#f5f5f7` bands, one black
-  contrast finale, content capped at 1200px.
-- **Apple-style motion** — a scroll-scrubbed iPhone demo in the hero, blur-in
-  headlines, frosted navigation, shared-element transitions.
-- **Reusable primitives** in `src/components/ui/` (`Button`, `SectionHeader`,
-  `LiftCard`, `Reveal`, `Marquee`, `PhoneFrame`).
+- **Type-led layout** — solid + hollow display pairs, numbered index rows,
+  mono meta labels, content capped at 1320px.
+- **Scroll choreography** — preloader curtain, mask line-reveals, sticky
+  stacked process cards, hover-preview work index, double marquee strips,
+  and a cross-browser liquid-glass lens over the hero.
+- **Reusable primitives** in `src/components/ui/` (`RevealText`, `Preloader`,
+  `Marquee`, `Button`, `LiquidGlass`).
 - **SEO** — metadata + Person/Organization JSON-LD, sitemap, robots, semantic
   HTML, and a fully reduced-motion-aware, accessible UI.
 

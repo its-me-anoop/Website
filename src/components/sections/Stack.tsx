@@ -1,6 +1,5 @@
 "use client";
 
-import { m as motion } from "framer-motion";
 import { Marquee } from "@/components/ui/Marquee";
 
 const tech = [
@@ -19,57 +18,40 @@ const tech = [
   "AWS",
   "Vercel",
   "Figma",
-  "Storybook",
-  "Stripe",
-  "Sentry",
 ];
 
-function TechBadge({ name }: { name: string }) {
-  return (
-    <div className="group inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-line bg-surface px-4 py-2 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300 hover:border-line-2 hover:shadow-[0_6px_18px_rgba(0,0,0,0.08)]">
-      <span className="h-1.5 w-1.5 rounded-full bg-accent opacity-70 transition-opacity group-hover:opacity-100" />
-      <span className="font-display text-[14px] font-semibold tracking-tight text-ink-2 transition-colors group-hover:text-ink">
-        {name}
-      </span>
-    </div>
-  );
-}
-
-/** Toolbox marquee — two counter-scrolling rows of technology badges. */
+/**
+ * Full-bleed divider strip: an oversized availability marquee in vermilion
+ * over a counter-scrolling toolbox ticker — the Noir section transition.
+ */
 export function Stack() {
   return (
-    <section
-      id="stack"
-      aria-label="Technologies I work with"
-      className="relative bg-canvas py-24"
-    >
-      <div className="mx-auto w-full max-w-[1200px] px-[var(--gutter)]">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10% 0px" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-10 flex flex-col items-center gap-3 text-center"
-        >
-          <span className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-muted">
-            <span className="h-1.5 w-1.5 rounded-full bg-teal" />
-            My toolbox
+    <section id="stack" aria-label="Technologies I work with" className="relative border-y border-line bg-canvas py-10 md:py-14">
+      <Marquee duration={30} className="select-none">
+        {["Available for freelance", "Web", "Mobile", "Design"].map((t, i) => (
+          <span key={i} className="flex items-center gap-6 pr-6">
+            <span
+              className={`font-display text-[clamp(36px,6vw,84px)] font-semibold uppercase leading-none tracking-[-0.02em] ${
+                i === 0 ? "text-accent" : "text-stroke"
+              }`}
+            >
+              {t}
+            </span>
+            <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-accent" />
           </span>
-          <h2 className="font-display text-[clamp(24px,3vw,34px)] font-semibold tracking-tight text-ink">
-            Modern tools, pragmatically picked.
-          </h2>
-        </motion.div>
-      </div>
+        ))}
+      </Marquee>
 
-      <div className="space-y-3">
-        <Marquee duration={52}>
+      <div className="mt-8">
+        <Marquee duration={56} reverse>
           {tech.map((t) => (
-            <TechBadge key={t} name={t} />
-          ))}
-        </Marquee>
-        <Marquee duration={60} reverse>
-          {tech.slice().reverse().map((t) => (
-            <TechBadge key={`r-${t}`} name={t} />
+            <span
+              key={t}
+              className="flex items-center gap-3 whitespace-nowrap pr-3 font-mono text-[12px] uppercase tracking-[0.22em] text-ink-3"
+            >
+              {t}
+              <span aria-hidden="true" className="text-muted">/</span>
+            </span>
           ))}
         </Marquee>
       </div>

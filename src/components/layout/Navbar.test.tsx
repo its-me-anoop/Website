@@ -8,22 +8,29 @@ vi.mock("next/navigation", () => ({
 }));
 
 describe("Navbar component", () => {
-  it("renders the personal brand text", () => {
+  it("renders the personal wordmark", () => {
     render(<Navbar />);
-    expect(screen.getByText("Anoop Jose")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /anoop jose — home/i })).toBeInTheDocument();
   });
 
   it("renders primary navigation items", () => {
     render(<Navbar />);
-    expect(screen.getAllByRole("link", { name: "Services" })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "Work" })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "Process" })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "About" })[0]).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /Work/ })[0]).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /Services/ })[0]).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /Process/ })[0]).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /About/ })[0]).toBeInTheDocument();
   });
 
-  it("opens mobile menu when toggle button is clicked", () => {
+  it("renders the Let's talk CTA pointing at the brief", () => {
     render(<Navbar />);
+    expect(screen.getAllByRole("link", { name: /let.?s talk/i })[0]).toHaveAttribute(
+      "href",
+      "#brief"
+    );
+  });
 
+  it("opens the mobile curtain menu when the toggle is clicked", () => {
+    render(<Navbar />);
     const menuBtn = screen.getByLabelText(/Open menu|Close menu/);
     expect(screen.queryByLabelText("Mobile primary")).not.toBeInTheDocument();
 

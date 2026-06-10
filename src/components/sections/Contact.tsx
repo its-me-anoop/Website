@@ -1,129 +1,114 @@
 "use client";
 
 import Link from "next/link";
-import { m as motion } from "framer-motion";
-import { ArrowUpRight, Mail, MapPin, Phone, Clock } from "lucide-react";
-import { Button } from "@/components/ui/Button";
-import { staggerContainer, staggerItem } from "@/components/ui/Reveal";
+import { m as motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { RevealText } from "@/components/ui/RevealText";
+import { Marquee } from "@/components/ui/Marquee";
 import { site } from "@/lib/site";
 
 const details = [
-  { icon: Mail, k: "Email", v: site.email, href: `mailto:${site.email}` },
-  { icon: Phone, k: "Phone", v: site.phoneDisplay, href: "tel:+447780580534" },
-  { icon: MapPin, k: "Office", v: "Reading, UK" },
-  { icon: Clock, k: "Reply", v: "Within 48 hours" },
+  { k: "Email", v: site.email, href: `mailto:${site.email}` },
+  { k: "Phone", v: site.phoneDisplay, href: "tel:+447780580534" },
+  { k: "GitHub", v: "@its-me-anoop", href: site.social.github, external: true },
+  { k: "LinkedIn", v: "Anoop Jose", href: site.social.linkedin, external: true },
 ];
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
 /**
- * Contact finale — a full-bleed black band (Apple "pro" contrast moment)
- * with an oversized invitation, a direct email link, and detail cards.
+ * Contact finale — the oversized Noir sign-off: a marquee invitation, a
+ * giant stroke-outline call to action that fills on hover, and a rail of
+ * direct contact channels.
  */
 export function Contact() {
+  const reduce = useReducedMotion();
+
   return (
     <section
       id="brief"
-      className="relative overflow-hidden bg-night px-[var(--gutter)] pb-28 pt-32 text-night-ink md:pt-40"
+      className="grain relative overflow-hidden bg-night pb-20 pt-24 text-night-ink md:pt-32"
       aria-labelledby="contact-heading"
     >
-      <div className="mx-auto w-full max-w-[1200px]">
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
+      {/* Invitation marquee */}
+      <Marquee duration={26} className="select-none border-b border-white/10 pb-10">
+        {["Got a project in mind?", "Let's talk", "Got a project in mind?", "Let's talk"].map(
+          (t, i) => (
+            <span key={i} className="flex items-center gap-6 pr-6">
+              <span
+                className={`font-display text-[clamp(20px,2.6vw,34px)] font-medium uppercase tracking-[-0.01em] ${
+                  i % 2 ? "text-accent" : "text-white/60"
+                }`}
+              >
+                {t}
+              </span>
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
+            </span>
+          )
+        )}
+      </Marquee>
+
+      <div className="mx-auto w-full max-w-[1320px] px-[var(--gutter)]">
+        {/* Giant CTA */}
+        <h2 id="contact-heading" className="mt-14 md:mt-20">
+          <Link
+            href={`mailto:${site.email}`}
+            className="group block font-display font-semibold uppercase leading-[0.9] tracking-[-0.03em]"
+            aria-label={`Start a project — email ${site.email}`}
+          >
+            <RevealText className="text-[clamp(52px,11vw,160px)] text-night-ink">
+              Let&rsquo;s work
+            </RevealText>
+            <RevealText delay={0.08} className="text-[clamp(52px,11vw,160px)]">
+              <span className="text-stroke transition-all duration-500 group-hover:text-accent group-hover:[-webkit-text-stroke:1.5px_var(--accent)]">
+                Together
+              </span>
+              <ArrowUpRight
+                aria-hidden="true"
+                className="ml-3 inline-block h-[0.55em] w-[0.55em] align-baseline text-accent transition-transform duration-500 group-hover:-translate-y-2 group-hover:translate-x-2"
+              />
+            </RevealText>
+          </Link>
+        </h2>
+
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-white/50"
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-10 max-w-[460px] text-[15px] leading-[1.75] text-white/55"
         >
-          <span className="h-1.5 w-1.5 animate-pulse-ring rounded-full bg-accent" />
-          Get in touch
-        </motion.span>
+          I only take a handful of projects a year, so not every fit is the
+          right fit. Write anyway — if I can&rsquo;t help, I&rsquo;ll usually
+          know someone who can.
+        </motion.p>
 
-        <motion.h2
-          id="contact-heading"
-          initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.1, ease }}
-          className="mt-6 font-display text-[clamp(48px,9vw,120px)] font-semibold leading-[0.95] tracking-[-0.04em] text-white"
-        >
-          Let&rsquo;s build
-          <br />
-          something <span className="text-accent-gradient">great.</span>
-        </motion.h2>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3, ease }}
-          className="mt-12 grid items-start gap-10 md:grid-cols-2 md:gap-16"
-        >
-          <p className="max-w-[440px] text-[16.5px] leading-[1.7] text-white/60">
-            I only take a handful of projects a year, so not every fit is the right
-            fit. Write anyway — if I can&rsquo;t help, I&rsquo;ll usually know someone
-            who can.
-          </p>
-
-          <div className="flex flex-col items-start gap-5">
-            <Link
-              href={`mailto:${site.email}`}
-              className="group inline-flex items-center gap-3 border-b border-white/20 pb-2 font-display text-[clamp(22px,3vw,36px)] font-semibold tracking-tight text-white transition-colors duration-300 hover:border-accent hover:text-accent"
-              aria-label={`Email ${site.email}`}
+        {/* Channels */}
+        <ul className="mt-16 grid gap-px overflow-hidden rounded-[var(--r-md)] border border-white/10 bg-white/10 md:grid-cols-4">
+          {details.map((d, i) => (
+            <motion.li
+              key={d.k}
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.07 }}
+              className="bg-night"
             >
-              {site.email}
-              <ArrowUpRight className="h-6 w-6 text-white/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
-            </Link>
-
-            <Link href={`mailto:${site.email}`} aria-label="Start a project brief">
-              <Button variant="primary" size="lg" className="group">
-                Start a project
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Button>
-            </Link>
-          </div>
-        </motion.div>
-
-        {/* Details */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-8% 0px" }}
-          className="mt-24 grid gap-4 border-t border-white/10 pt-10 md:grid-cols-4"
-        >
-          {details.map((d) => {
-            const Icon = d.icon;
-            const inner = (
-              <>
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.06] text-accent transition-colors duration-300 group-hover:bg-accent/15">
-                  <Icon className="h-4 w-4" aria-hidden="true" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
-                    {d.k}
-                  </span>
-                  <span className="mt-0.5 font-display text-[15px] font-semibold tracking-tight text-white/85 transition-colors duration-300 group-hover:text-white">
-                    {d.v}
-                  </span>
-                </div>
-              </>
-            );
-            const cls =
-              "group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.06]";
-            return (
-              <motion.div key={d.k} variants={staggerItem}>
-                {d.href ? (
-                  <Link href={d.href} className={cls}>
-                    {inner}
-                  </Link>
-                ) : (
-                  <div className={cls}>{inner}</div>
-                )}
-              </motion.div>
-            );
-          })}
-        </motion.div>
+              <Link
+                href={d.href}
+                target={d.external ? "_blank" : undefined}
+                rel={d.external ? "noopener noreferrer" : undefined}
+                className="group flex h-full flex-col gap-6 p-5 transition-colors duration-300 hover:bg-white/[0.04] md:p-6"
+              >
+                <span className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-white/40">
+                  {d.k}
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
+                </span>
+                <span className="font-display text-[15px] font-medium tracking-tight text-white/85 transition-colors duration-300 group-hover:text-white">
+                  {d.v}
+                </span>
+              </Link>
+            </motion.li>
+          ))}
+        </ul>
       </div>
     </section>
   );

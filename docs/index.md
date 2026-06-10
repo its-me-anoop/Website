@@ -2,11 +2,11 @@
 
 The portfolio site of Anoop Jose — developer & designer, founder of Flutterly
 Ltd. Built with Next.js 16 (App Router), React 19, Tailwind CSS v4 and
-Framer Motion, in an Apple-inspired light design language.
+Framer Motion, in the cinematic dark "Noir" design language.
 
 ## Contents
 
-- [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — tokens, primitives,
+- [Design System — "Noir"](./DESIGN-SYSTEM.md) — tokens, primitives,
   motion, and accessibility rules. Start here before building UI.
 
 ## Architecture at a glance
@@ -48,4 +48,4 @@ src/
   with `SoftwareApplication` JSON-LD on product pages.
 - `sitemap.ts` and `robots.ts` generate `/sitemap.xml` and `/robots.txt`.
 - Shared constants come from `src/lib/site.ts` so details never drift.
-- System font stacks → zero font payload, no render-blocking webfont fetch.
+- Bundled local Outfit display font + system body stack — no webfont fetch.

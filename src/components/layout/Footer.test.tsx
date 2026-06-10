@@ -1,24 +1,28 @@
 import React from "react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Footer } from "./Footer";
 
-describe("Footer Component", () => {
-  it("renders the brand and copyright info", () => {
-    render(<Footer />);
+vi.mock("next/navigation", () => ({
+  usePathname: () => "/",
+}));
 
-    // The brand logo/name appears in the header
-    expect(screen.getAllByText(/Flutterly/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/2026/)).toBeInTheDocument();
-    expect(screen.getAllByText(/Anoop Jose/).length).toBeGreaterThan(0);
+describe("Footer Component", () => {
+  it("renders the legal line and credits", () => {
+    render(<Footer />);
+    expect(screen.getByText(/2026 Flutterly Ltd/)).toBeInTheDocument();
+    expect(screen.getByText(/Anoop Jose/)).toBeInTheDocument();
   });
 
-  it("renders the link columns", () => {
+  it("renders the footer link rail", () => {
     render(<Footer />);
-
-    expect(screen.getByRole("link", { name: /Services/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Work$/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Services/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Process/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /About/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Sipli/i })).toHaveAttribute(
+      "href",
+      "/projects/sipli"
+    );
   });
 });
