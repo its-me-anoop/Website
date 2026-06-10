@@ -4,32 +4,27 @@ import { render, screen } from "@testing-library/react";
 import { Practice } from "./Practice";
 
 describe("Practice (Process) Section", () => {
-  it("renders the heading and overview", () => {
+  it("renders the label and section heading", () => {
     render(<Practice />);
-
-    expect(screen.getByText("How I work")).toBeInTheDocument();
-    expect(screen.getByText(/A clear path/)).toBeInTheDocument();
-    expect(screen.getByText(/launch in 9 weeks/)).toBeInTheDocument();
+    expect(screen.getByText("How it works")).toBeInTheDocument();
+    const h2 = screen.getByRole("heading", { level: 2 });
+    expect(h2).toHaveTextContent(/clear path/i);
+    expect(h2).toHaveTextContent(/9 weeks/);
   });
 
   it("renders all 5 process steps", () => {
     render(<Practice />);
-
-    // Each step title is unique
-    expect(screen.getAllByText("Discover").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Design").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Build").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Launch").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Support").length).toBeGreaterThan(0);
+    expect(screen.getByText("Discover")).toBeInTheDocument();
+    expect(screen.getByText("Design")).toBeInTheDocument();
+    expect(screen.getByText("Build")).toBeInTheDocument();
+    expect(screen.getByText("Launch")).toBeInTheDocument();
+    expect(screen.getByText("Support")).toBeInTheDocument();
   });
 
-  it("renders the stack section", () => {
+  it("labels the steps with durations", () => {
     render(<Practice />);
-
-    expect(screen.getByText("Tools on the bench")).toBeInTheDocument();
-    expect(screen.getByText("Frontend")).toBeInTheDocument();
-    expect(screen.getByText("Mobile")).toBeInTheDocument();
-    expect(screen.getByText("Backend")).toBeInTheDocument();
-    expect(screen.getByText("Tooling")).toBeInTheDocument();
+    expect(screen.getByText("Week 1")).toBeInTheDocument();
+    expect(screen.getByText("Week 4–8")).toBeInTheDocument();
+    expect(screen.getByText("Ongoing")).toBeInTheDocument();
   });
 });

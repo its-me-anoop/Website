@@ -19,16 +19,16 @@ const sizes: Record<NonNullable<ButtonProps["size"]>, string> = {
 
 const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
   primary:
-    "bg-accent text-accent-ink shadow-[0_8px_24px_-8px_rgba(0,113,227,0.5)] hover:bg-accent-hover",
-  dark: "bg-ink text-white hover:bg-black",
+    "bg-accent text-accent-ink shadow-[0_10px_28px_-10px_rgba(255,92,40,0.55)] hover:bg-accent-hover",
+  dark: "bg-ink text-canvas hover:bg-white",
   outline:
-    "border border-line-2 bg-surface text-ink hover:border-line-3 hover:bg-surface-2",
+    "border border-line-2 bg-transparent text-ink hover:border-line-3 hover:bg-white/[0.04]",
   ghost: "text-accent hover:bg-accent-soft",
 };
 
 /**
- * Primary interaction primitive: a calm, Apple-style pill button with
- * spring tap feedback and a soft hover lift. Reduced-motion aware.
+ * Primary interaction primitive: a pill button with spring tap feedback
+ * and a soft hover lift, in the Noir vermilion. Reduced-motion aware.
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", children, ...props }, ref) => {

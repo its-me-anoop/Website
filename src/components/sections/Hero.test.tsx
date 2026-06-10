@@ -4,40 +4,39 @@ import { render, screen } from "@testing-library/react";
 import { Hero } from "./Hero";
 
 describe("Hero section", () => {
-  it("renders the headline and subhead", () => {
+  it("renders the display headline", () => {
     render(<Hero />);
-    expect(screen.getByText(/love opening/)).toBeInTheDocument();
-    expect(screen.getByText(/Developer and designer crafting/)).toBeInTheDocument();
+    const h1 = screen.getByRole("heading", { level: 1 });
+    expect(h1).toHaveTextContent(/Apps people love opening/);
+    expect(h1).toHaveTextContent(/end to end/i);
   });
 
-  it("introduces Anoop by name", () => {
+  it("shows the Flutterly studio label", () => {
     render(<Hero />);
-    expect(screen.getByText(/Anoop Jose/)).toBeInTheDocument();
+    expect(screen.getByText(/Flutterly — Product studio/i)).toBeInTheDocument();
+  });
+
+  it("does not show the old availability line", () => {
+    render(<Hero />);
+    expect(screen.queryByText(/Open for briefs/i)).not.toBeInTheDocument();
   });
 
   it("renders the primary and secondary CTAs", () => {
     render(<Hero />);
+    expect(screen.getByRole("link", { name: /start a project/i })).toHaveAttribute(
+      "href",
+      "#brief"
+    );
     expect(screen.getByRole("link", { name: /see my work/i })).toHaveAttribute(
       "href",
       "#work"
     );
-    expect(
-      screen.getByRole("link", { name: /start a project/i })
-    ).toHaveAttribute("href", "#brief");
   });
 
-  it("renders the live demo tabs", () => {
+  it("renders the live dashboard metrics", () => {
     render(<Hero />);
-    const tablist = screen.getByRole("tablist", { name: /live demo screens/i });
-    expect(tablist).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: /hydration/i })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: /insights/i })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: /coach/i })).toBeInTheDocument();
-  });
-
-  it("renders the trust stats", () => {
-    render(<Hero />);
-    expect(screen.getByText("Apps shipped")).toBeInTheDocument();
     expect(screen.getByText("Lighthouse")).toBeInTheDocument();
+    expect(screen.getByText("Apps shipped")).toBeInTheDocument();
+    expect(screen.getByText(/studio metrics/i)).toBeInTheDocument();
   });
 });

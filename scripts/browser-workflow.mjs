@@ -97,17 +97,29 @@ const ctx = await browser.newContext({ ...devices["iPhone 13"] });
 {
   const page = await ctx.newPage();
   await page.goto(BASE + "/", { waitUntil: "networkidle" });
+  // Wait out the once-per-session preloader curtain before interacting.
+  await page.waitForTimeout(1600);
   await page.getByRole("button", { name: /open menu/i }).click();
-  await page.waitForTimeout(400);
+  await page.waitForTimeout(700);
   if (!(await page.getByRole("navigation", { name: /mobile/i }).isVisible().catch(() => false)))
     note("home", "mobile nav menu did not open");
-  for (const t of ["Insights", "Coach", "Hydration"]) {
-    const tab = page.getByRole("tab", { name: new RegExp(t, "i") }).first();
-    if (await tab.count()) {
-      await tab.click();
-      await page.waitForTimeout(300);
-      if ((await tab.getAttribute("aria-selected")) !== "true") note("home", `hero tab ${t} did not activate`);
-    } else note("home", `hero tab ${t} missing`);
+  await page.getByRole("button", { name: /close menu/i }).click();
+  await page.waitForTimeout(700);
+
+  // Services accordion: second row should expand on tap and collapse the first.
+  {
+    const rows = page.locator('#services button[aria-expanded]');
+    const count = await rows.count();
+    if (count < 4) note("home", `expected 4 service rows, found ${count}`);
+    else {
+      await rows.nth(1).scrollIntoViewIfNeeded();
+      await rows.nth(1).click();
+      await page.waitForTimeout(500);
+      if ((await rows.nth(1).getAttribute("aria-expanded")) !== "true")
+        note("home", "service row 2 did not expand");
+      if ((await rows.nth(0).getAttribute("aria-expanded")) !== "false")
+        note("home", "service row 1 did not collapse");
+    }
   }
   await page.close();
 

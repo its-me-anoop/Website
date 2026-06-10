@@ -1,234 +1,181 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { m as motion } from "framer-motion";
+import { m as motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { LiftCard } from "@/components/ui/LiftCard";
-import { staggerContainer, staggerItem } from "@/components/ui/Reveal";
 
 const projects = [
   {
+    n: "001",
     href: "/projects/sipli",
-    tag: "iOS · watchOS",
     title: "Sipli",
-    subtitle: "AI-powered hydration on iPhone and Apple Watch.",
-    description:
-      "On-device intelligence, predictive coaching, and a SwiftUI architecture tuned for 120hz scrolling.",
-    image: "/images/sipli/iphone/01-hero-1320x2868.jpg",
+    tags: "iOS · watchOS · AI",
     year: "2026",
-    badge: "Live",
-    bg: "linear-gradient(165deg,#e9f3fd 0%,#eceefe 100%)",
-    tint: "#0071e3",
+    image: "/images/sipli/iphone/01-hero-1320x2868.jpg",
+    tint: "#0e8aa3",
   },
   {
+    n: "002",
     href: "/projects/artling",
-    tag: "iOS",
     title: "Artling",
-    subtitle: "A visual archive for children’s milestones.",
-    description:
-      "Beautifully animated, privacy-first archive. iCloud sync, Live Activities, and a calming illustrated identity.",
-    image: "/projects/artling/fox-painter.png",
+    tags: "iOS · Family",
     year: "2025",
-    badge: "Shipped",
-    bg: "linear-gradient(165deg,#fdf2e3 0%,#fdeae2 100%)",
+    image: "/projects/artling/fox-painter.png",
     tint: "#e07a1f",
   },
   {
+    n: "003",
     href: "#brief",
-    tag: "Brand · Web",
     title: "Greenmead",
-    subtitle: "Brand and marketing site for a wellness practice.",
-    description: "Editorial typography, fluid animations, and a custom booking flow.",
+    tags: "Brand · Web",
     year: "2024",
-    badge: "Case",
-    bg: "linear-gradient(165deg,#e8f7ef 0%,#ecfaf1 100%)",
-    tint: "#34c759",
+    image: "/project-greenmead.png",
+    tint: "#3fd4c0",
   },
   {
+    n: "004",
     href: "#brief",
-    tag: "Commerce",
     title: "JJ Paper",
-    subtitle: "A custom paper-goods storefront with print-on-demand pipeline.",
-    description: "Headless commerce on Next.js, Stripe-checkout, Shopify integration.",
+    tags: "Commerce",
     year: "2024",
-    badge: "Case",
-    bg: "linear-gradient(165deg,#edf3fa 0%,#eef0fc 100%)",
-    tint: "#5e5ce6",
+    image: "/project-jjpaper.png",
+    tint: "#7b78ff",
   },
   {
+    n: "005",
     href: "#brief",
-    tag: "Hospitality",
     title: "Sandbourne",
-    subtitle: "A high-throughput reservations engine for boutique hotels.",
-    description: "Real-time inventory, multi-property bookings, and a calm operator UI.",
+    tags: "Hospitality",
     year: "2024",
-    badge: "Case",
-    bg: "linear-gradient(165deg,#f0eefb 0%,#f5ecf8 100%)",
-    tint: "#af52de",
+    image: "/project-sandbourne.png",
+    tint: "#ff5c8a",
   },
 ];
 
 /**
- * Selected work — an Apple-style grid of pastel product tiles. The featured
- * Sipli tile is full-width with a parallaxed device screenshot; the rest sit
- * in a two-up grid. Each tile lifts softly and tilts toward the cursor.
+ * Selected work as an index: numbered rows with oversized titles. Hovering a
+ * row reveals a floating preview image that trails the row, while the row
+ * itself shifts and tints — the classic awwwards portfolio list.
  */
 export function FeaturedWork() {
-  const [featured, ...rest] = projects;
+  const [active, setActive] = useState<number | null>(null);
+  const reduce = useReducedMotion();
 
   return (
     <section
       id="work"
-      className="relative bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]"
+      className="relative bg-canvas px-[var(--gutter)] py-[var(--space-section)]"
       aria-labelledby="work-heading"
     >
-      <div className="mx-auto w-full max-w-[1200px]">
-        <SectionHeader
-          eyebrow="Selected work"
-          headingId="work-heading"
-          title={
-            <>
-              Recent projects,
-              <br />
-              <em>built to last.</em>
-            </>
-          }
-          lede="A short catalogue of client products and original apps. Every line of code shipped here passes through my keyboard."
-        />
-
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-8% 0px" }}
-        >
-          {/* Featured */}
-          <motion.div variants={staggerItem} className="mb-5">
-            <Link href={featured.href} className="group block" aria-label={`${featured.title} case study`}>
-              <LiftCard tilt={1.5} parallax={14} className="h-[460px] w-full overflow-hidden border-transparent p-0 md:h-[540px]">
-                {({ px, py }) => (
-                  <>
-                    <div className="absolute inset-0" style={{ background: featured.bg }} />
-                    <motion.div
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -bottom-10 right-[6%] hidden h-[105%] w-[34%] overflow-hidden rounded-[44px] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.35)] md:block"
-                      style={{ x: px, y: py, rotate: 3 }}
-                    >
-                      <Image
-                        src={featured.image!}
-                        alt={`${featured.title} screenshot`}
-                        fill
-                        sizes="(max-width: 768px) 0px, 420px"
-                        className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
-                      />
-                    </motion.div>
-
-                    <div className="relative z-10 flex h-full flex-col justify-between p-8 md:p-12">
-                      <div className="flex flex-wrap items-center gap-2.5">
-                        <span className="rounded-full bg-white/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-2 backdrop-blur">
-                          {featured.tag}
-                        </span>
-                        <span className="font-mono text-[11px] text-ink-3">{featured.year}</span>
-                        <span
-                          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white"
-                          style={{ background: featured.tint }}
-                        >
-                          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white/80" />
-                          {featured.badge}
-                        </span>
-                      </div>
-
-                      <div className="max-w-[60%]">
-                        <h3 className="font-display text-[38px] font-semibold tracking-tight text-ink md:text-[60px]">
-                          {featured.title}
-                        </h3>
-                        <p className="mt-3 max-w-md text-[16px] leading-[1.55] text-ink-2 md:text-[18px]">
-                          {featured.subtitle}
-                        </p>
-                        <p className="mt-3 max-w-md text-[13.5px] leading-[1.6] text-ink-3">
-                          {featured.description}
-                        </p>
-                        <span className="mt-7 inline-flex items-center gap-2 rounded-full bg-ink px-4.5 py-2.5 text-[13px] font-semibold text-white transition-transform duration-300 group-hover:translate-x-1">
-                          View case study
-                          <ArrowUpRight className="h-3.5 w-3.5" />
-                        </span>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </LiftCard>
-            </Link>
-          </motion.div>
-
-          {/* Grid */}
-          <div className="grid gap-5 md:grid-cols-2">
-            {rest.map((p) => (
-              <motion.div key={p.title} variants={staggerItem}>
-                <Link href={p.href} className="group block" aria-label={`${p.title} case`}>
-                  <LiftCard tilt={2} parallax={10} className="h-[300px] overflow-hidden border-transparent p-0">
-                    {({ px, py }) => (
-                      <>
-                        <div className="absolute inset-0" style={{ background: p.bg }} />
-                        {p.image && (
-                          <motion.div
-                            aria-hidden="true"
-                            className="pointer-events-none absolute -right-3 top-8 w-[110px] md:w-[140px]"
-                            style={{ x: px, y: py, rotate: 6 }}
-                          >
-                            <Image
-                              src={p.image}
-                              alt=""
-                              width={140}
-                              height={196}
-                              sizes="140px"
-                              className="w-full opacity-90 drop-shadow-xl transition-all duration-500 group-hover:scale-105 group-hover:opacity-100"
-                            />
-                          </motion.div>
-                        )}
-
-                        <div className="relative z-10 flex h-full flex-col justify-between p-6 md:p-8">
-                          <div className="flex items-center gap-2">
-                            <span className="rounded-full bg-white/70 px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink-2 backdrop-blur">
-                              {p.tag}
-                            </span>
-                            <span className="font-mono text-[11px] text-ink-3">{p.year}</span>
-                          </div>
-
-                          <div className="max-w-[70%]">
-                            <h3 className="font-display text-[27px] font-semibold tracking-tight text-ink md:text-[31px]">
-                              {p.title}
-                            </h3>
-                            <p className="mt-2 text-[14px] leading-[1.55] text-ink-3 transition-colors duration-300 group-hover:text-ink-2">
-                              {p.subtitle}
-                            </p>
-                          </div>
-
-                          <div className="flex items-center justify-between">
-                            <span
-                              className="inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white"
-                              style={{ background: p.tint }}
-                            >
-                              {p.badge}
-                            </span>
-                            <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-ink-3 shadow-sm backdrop-blur transition-all duration-300 group-hover:bg-ink group-hover:text-white">
-                              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
-                            </span>
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </LiftCard>
-                </Link>
-              </motion.div>
-            ))}
+      <div className="mx-auto w-full max-w-[1320px]">
+        {/* Head */}
+        <div className="mb-14 flex items-end justify-between gap-6 md:mb-18">
+          <div>
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-accent">
+              Selected work ({projects.length})
+            </p>
+            <h2
+              id="work-heading"
+              className="mt-5 font-display text-[clamp(30px,4.4vw,52px)] font-semibold leading-[1.06] tracking-[-0.02em] text-ink"
+            >
+              Products we&rsquo;re proud to sign.
+            </h2>
           </div>
-        </motion.div>
+          <p className="hidden max-w-[300px] pb-2 text-[14px] leading-[1.7] text-ink-3 md:block">
+            Client products and original apps, 2024 — today. Every line of code
+            passes through one keyboard.
+          </p>
+        </div>
 
-        <p className="mt-10 text-[13.5px] text-muted">
-          A few clients I work with remain under NDA. Happy to walk you through
-          them on a brief.
+        {/* Index */}
+        <ul className="relative border-t border-line" onMouseLeave={() => setActive(null)}>
+          {projects.map((p, i) => {
+            return (
+              <motion.li
+                key={p.n}
+                initial={reduce ? false : { opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-8% 0px" }}
+                transition={{ duration: 0.6, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                className="border-b border-line"
+              >
+                <Link
+                  href={p.href}
+                  onMouseEnter={() => setActive(i)}
+                  onFocus={() => setActive(i)}
+                  className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 py-6 md:grid-cols-[70px_1fr_auto_90px_auto] md:gap-8 md:py-8"
+                  aria-label={`${p.title} — ${p.tags}`}
+                >
+                  <span className="font-mono text-[11px] tracking-[0.2em] text-muted transition-colors duration-300 group-hover:text-accent">
+                    {p.n}
+                  </span>
+                  <span
+                    className="font-display text-[clamp(26px,4.2vw,54px)] font-semibold leading-none tracking-[-0.02em] text-ink transition-all duration-400 group-hover:translate-x-3 group-hover:text-accent md:group-hover:translate-x-6"
+                  >
+                    {p.title}
+                  </span>
+                  <span className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-ink-3 md:block">
+                    {p.tags}
+                  </span>
+                  <span className="hidden font-mono text-[11px] tracking-[0.16em] text-muted md:block">
+                    {p.year}
+                  </span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-line-2 text-ink-3 transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-ink">
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
+                  </span>
+                </Link>
+              </motion.li>
+            );
+          })}
+
+          {/* Floating preview that tracks the hovered row (desktop only) */}
+          {!reduce && (
+            <div className="pointer-events-none absolute inset-y-0 right-[14%] z-10 hidden w-[190px] lg:block" aria-hidden="true">
+              <AnimatePresence>
+                {active !== null && (
+                  <motion.div
+                    key="preview"
+                    initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      rotate: 3,
+                      top: `${((active + 0.5) / projects.length) * 100}%`,
+                    }}
+                    exit={{ opacity: 0, scale: 0.92 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute h-[240px] w-[190px] -translate-y-1/2 overflow-hidden rounded-[var(--r-md)] shadow-[0_30px_70px_-20px_rgba(0,0,0,0.8)]"
+                    style={{ background: projects[active].tint }}
+                  >
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={active}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="absolute inset-0"
+                      >
+                        <Image
+                          src={projects[active].image}
+                          alt=""
+                          fill
+                          sizes="190px"
+                          className="object-cover object-top opacity-95"
+                        />
+                      </motion.div>
+                    </AnimatePresence>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
+        </ul>
+
+        <p className="mt-8 text-[13px] text-muted">
+          + a few under NDA — happy to walk you through them on a brief.
         </p>
       </div>
     </section>

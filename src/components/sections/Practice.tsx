@@ -1,8 +1,7 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as motion, useReducedMotion } from "framer-motion";
 import { Compass, PenTool, Code2, Rocket, LifeBuoy } from "lucide-react";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 
 const steps = [
   {
@@ -10,172 +9,121 @@ const steps = [
     n: "01",
     title: "Discover",
     duration: "Week 1",
-    body:
-      "I start with the people who’ll use what we build. Workshops, prototypes, and a one-page brief that survives contact with reality.",
+    body: "It starts with the people who'll use what we build. Workshops, prototypes, and a one-page brief that survives contact with reality.",
   },
   {
     icon: PenTool,
     n: "02",
     title: "Design",
     duration: "Week 2–3",
-    body:
-      "Figma sketches, then code-as-design. Real components, real data, on a real device — long before launch.",
+    body: "Figma sketches, then code-as-design. Real components, real data, on a real device — long before launch.",
   },
   {
     icon: Code2,
     n: "03",
     title: "Build",
     duration: "Week 4–8",
-    body:
-      "Weekly demoable progress. Type-safe, tested, and reviewed every Friday. You see it grow — no big-bang reveals.",
+    body: "Weekly demoable progress. Type-safe, tested, and reviewed every Friday. You see it grow — no big-bang reveals.",
   },
   {
     icon: Rocket,
     n: "04",
     title: "Launch",
     duration: "Week 9",
-    body:
-      "App Store submission, monitoring, analytics, and a launch plan. I sweat the dotted i’s and the press kit alike.",
+    body: "App Store submission, monitoring, analytics, and a launch plan. The dotted i's and the press kit get equal sweat.",
   },
   {
     icon: LifeBuoy,
     n: "05",
     title: "Support",
     duration: "Ongoing",
-    body:
-      "I keep shipping after launch. SLAs, version-1.1 work, and on-call response when production hiccups.",
+    body: "Shipping continues after launch. SLAs, version-1.1 work, and on-call response when production hiccups.",
   },
 ];
 
-const stack = [
-  { k: "Frontend", v: "Next.js · React · TypeScript · Tailwind · Framer Motion" },
-  { k: "Mobile", v: "Swift · SwiftUI · Flutter · React Native" },
-  { k: "Backend", v: "Node · Postgres · GraphQL · Supabase · AWS" },
-  { k: "Tooling", v: "Figma · Linear · GitHub · Vercel · Sentry" },
-];
-
 /**
- * How I work — an alternating five-step timeline on the grey band, followed
- * by a plain-spoken stack table. Steps rise in as they enter the viewport.
+ * How it works — a Lumio-style step grid: small caps label, sentence-case
+ * heading, then five surface cards with teal icon tiles, step numbers and
+ * duration chips, staggering in on scroll.
  */
 export function Practice() {
+  const reduce = useReducedMotion();
+
   return (
     <section
       id="practice"
-      className="relative bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]"
+      className="relative bg-canvas px-[var(--gutter)] py-[var(--space-section)]"
       aria-labelledby="process-heading"
     >
-      <div className="mx-auto w-full max-w-[1200px]">
-        <SectionHeader
-          eyebrow="How I work"
-          headingId="process-heading"
-          dot="var(--teal)"
-          title={
-            <>
-              A clear path,
-              <br />
-              <em>launch in 9 weeks.</em>
-            </>
-          }
-          lede="A pragmatic, transparent process built around weekly shippable progress. No black-boxes, no vague status updates — just real software you can click on, every Friday."
-        />
+      <div className="mx-auto w-full max-w-[1320px]">
+        <div className="mb-14 max-w-2xl md:mb-18">
+          <p className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-accent">
+            How it works
+          </p>
+          <h2
+            id="process-heading"
+            className="mt-5 font-display text-[clamp(30px,4.4vw,52px)] font-semibold leading-[1.06] tracking-[-0.02em] text-ink"
+          >
+            A clear path — launch in 9 weeks.
+          </h2>
+          <p className="mt-5 max-w-[520px] text-[15.5px] leading-[1.7] text-ink-3">
+            A pragmatic, transparent process built around weekly shippable
+            progress. Real, clickable software every Friday — no black boxes,
+            no vague status updates.
+          </p>
+        </div>
 
-        {/* Timeline */}
-        <ol aria-label="My 5-step process" className="relative">
-          <div
-            aria-hidden="true"
-            className="absolute left-[28px] bottom-2 top-2 w-px bg-line-2 md:left-1/2 md:-translate-x-1/2"
-          />
+        <ol aria-label="The 5-step process" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {steps.map((step, i) => {
             const Icon = step.icon;
-            const isLeft = i % 2 === 0;
             return (
               <motion.li
                 key={step.n}
-                initial={{ opacity: 0, y: 30 }}
+                initial={reduce ? false : { opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-10% 0px" }}
-                transition={{ duration: 0.7, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                className="relative grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-12"
-                style={{ paddingBottom: i === steps.length - 1 ? 0 : 40 }}
+                transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative flex min-h-[230px] flex-col rounded-[var(--r-lg)] border border-line bg-surface p-6 transition-colors duration-400 hover:border-line-2 md:p-7"
               >
-                {/* Mobile node */}
-                <div className="relative flex items-start gap-5 md:hidden">
-                  <span className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-line bg-surface text-accent shadow-sm">
+                <div className="flex items-start justify-between">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-[var(--r-sm)] bg-accent-soft text-accent transition-transform duration-400 group-hover:scale-105">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
-                  <StepCard step={step} />
-                </div>
-
-                {/* Desktop alternating */}
-                <div className={`hidden md:block ${isLeft ? "md:order-1 md:pr-12 md:text-right" : "md:order-2 md:pl-12"}`}>
-                  <StepCard step={step} alignRight={isLeft} />
-                </div>
-                <div className={`hidden md:flex md:items-center md:justify-center ${isLeft ? "md:order-2" : "md:order-1"}`}>
-                  <span className="relative z-10 flex h-20 w-20 items-center justify-center rounded-3xl border border-line bg-surface text-accent shadow-[0_8px_30px_rgba(0,0,0,0.07)]">
-                    <Icon className="h-7 w-7" aria-hidden="true" />
+                  <span className="font-mono text-[11px] tracking-[0.2em] text-muted">
+                    {step.n}
                   </span>
                 </div>
+                <h3 className="mt-6 font-display text-[21px] font-semibold tracking-tight text-ink">
+                  {step.title}
+                </h3>
+                <p className="mt-2.5 flex-1 text-[14px] leading-[1.65] text-ink-3">
+                  {step.body}
+                </p>
+                <span className="mt-5 inline-flex w-fit items-center rounded-full border border-line px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                  {step.duration}
+                </span>
               </motion.li>
             );
           })}
-        </ol>
 
-        {/* Tech stack */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10% 0px" }}
-          transition={{ duration: 0.8 }}
-          className="mt-24 rounded-[var(--r-xl)] border border-line bg-surface p-7 shadow-[0_1px_3px_rgba(0,0,0,0.04)] md:p-10"
-        >
-          <div className="mb-7 flex items-center justify-between gap-3">
-            <h3 className="font-display text-[22px] font-semibold tracking-tight text-ink md:text-[26px]">
-              Tools on the bench
-            </h3>
-            <span className="rounded-full bg-surface-2 px-3 py-1 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted">
-              The stack
+          {/* Filler tile keeps the 3-col grid balanced and sells the promise */}
+          <motion.li
+            initial={reduce ? false : { opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10% 0px" }}
+            transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            aria-hidden="true"
+            className="hidden min-h-[230px] flex-col justify-between rounded-[var(--r-lg)] border border-accent/25 bg-accent-soft p-7 lg:flex"
+          >
+            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
+              Every Friday
             </span>
-          </div>
-          <ul className="divide-y divide-line">
-            {stack.map((s) => (
-              <li
-                key={s.k}
-                className="group flex flex-col gap-2 py-4 md:grid md:grid-cols-[140px_1fr] md:items-center md:gap-8"
-              >
-                <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted transition-colors group-hover:text-ink-3">
-                  {s.k}
-                </span>
-                <span className="font-display text-[15.5px] font-semibold tracking-tight text-ink-2 transition-colors group-hover:text-ink">
-                  {s.v}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
+            <p className="font-display text-[24px] font-semibold leading-[1.25] tracking-tight text-ink">
+              Software you can click on — not a status update.
+            </p>
+          </motion.li>
+        </ol>
       </div>
     </section>
-  );
-}
-
-function StepCard({
-  step,
-  alignRight = false,
-}: {
-  step: (typeof steps)[number];
-  alignRight?: boolean;
-}) {
-  return (
-    <div className={alignRight ? "md:ml-auto md:max-w-[420px]" : "md:max-w-[420px]"}>
-      <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em]">
-        <span className="text-muted">Step {step.n}</span>
-        <span className="h-1 w-1 rounded-full bg-faint" />
-        <span className="rounded-full bg-black/[0.04] px-2 py-0.5 text-ink-3">{step.duration}</span>
-      </div>
-      <h3 className="mt-3 font-display text-[26px] font-semibold tracking-tight text-ink md:text-[30px]">
-        {step.title}
-      </h3>
-      <p className="mt-3 text-[15px] leading-[1.65] text-ink-3">{step.body}</p>
-    </div>
   );
 }

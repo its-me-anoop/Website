@@ -4,38 +4,29 @@ import { render, screen } from "@testing-library/react";
 import { Contact } from "./Contact";
 
 describe("Contact Section", () => {
-  it("renders the heading and copy", () => {
+  it("renders the giant call to action as a mail link", () => {
     render(<Contact />);
+    const cta = screen.getByRole("link", { name: /start a project/i });
+    expect(cta).toHaveAttribute("href", "mailto:anoop@flutterly.co.uk");
+    expect(cta).toHaveTextContent(/Let.?s work/i);
+    expect(cta).toHaveTextContent(/Together/i);
+  });
 
-    expect(screen.getByText("Get in touch")).toBeInTheDocument();
-    expect(screen.getByText(/Let.?s build/)).toBeInTheDocument();
+  it("renders the qualifying copy", () => {
+    render(<Contact />);
     expect(
-      screen.getByText(
-        /only take a handful of projects a year/
-      )
+      screen.getByText(/only take a handful of projects a year/)
     ).toBeInTheDocument();
   });
 
-  it("renders an email link as call-to-action", () => {
+  it("renders the contact channels", () => {
     render(<Contact />);
-
-    const emailLinks = screen.getAllByRole("link", { name: /anoop@flutterly\.co\.uk/i });
-    expect(emailLinks.length).toBeGreaterThan(0);
-    expect(emailLinks[0]).toHaveAttribute("href", "mailto:anoop@flutterly.co.uk");
-  });
-
-  it("renders the contact details", () => {
-    render(<Contact />);
-
     expect(screen.getByText("Email")).toBeInTheDocument();
     expect(screen.getByText("Phone")).toBeInTheDocument();
-    expect(screen.getByText("Office")).toBeInTheDocument();
-    expect(screen.getByText("Reply")).toBeInTheDocument();
+    expect(screen.getByText("GitHub")).toBeInTheDocument();
+    expect(screen.getByText("LinkedIn")).toBeInTheDocument();
 
-    const phoneLink = screen.getByRole("link", { name: /\+44 7780 580 534/ });
-    expect(phoneLink).toHaveAttribute("href", "tel:+447780580534");
-
-    expect(screen.getByText("Reading, UK")).toBeInTheDocument();
-    expect(screen.getByText(/Within 48 hours/)).toBeInTheDocument();
+    const phone = screen.getByRole("link", { name: /\+44 7780 580 534/ });
+    expect(phone).toHaveAttribute("href", "tel:+447780580534");
   });
 });

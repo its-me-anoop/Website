@@ -1,174 +1,137 @@
-# Design System — "Porcelain"
+# Design System — "Lumen"
 
-The visual language of anoopjose / flutterly.uk: a **light, Apple-inspired,
-whitespace-first** system for a developer portfolio. This is the reference for
-building any new page or component so the experience stays coherent.
+The visual language of flutterly.uk: a **refined dark SaaS-studio** look
+inspired by Lumio (lumio.apollostudio.design): composed sentence-case display
+type, small all-caps mono labels, one calm **teal accent**, and a live
+animated dashboard as the hero centrepiece.
 
-> TL;DR — white canvas with `#f5f5f7` bands, a disciplined ink ramp, hairline
-> rules, **one** Apple-blue accent, soft diffuse shadows, SF-style system
-> typography, and calm scroll-driven motion. Whitespace is the main design
-> material; colour is the garnish.
+> TL;DR — near-black canvas, warm bone ink, teal `#2fd6c3`, sentence-case
+> Outfit display + mono caps labels, generous air, and product-credible
+> motion (counters, chart draws, calm reveals).
 
 ---
 
 ## 1. Principles
 
-1. **Whitespace first.** Sections breathe with `--space-section`
-   (`clamp(6rem, 13vw, 13rem)`) vertical padding and content capped at
-   `--measure` (1200px). When in doubt, remove an element rather than add one.
-2. **One accent.** Apple blue `--accent` marks the single most important
-   action or word in a view. Supporting hues (indigo/teal/orange/pink/green)
-   only tint data and product tiles.
-3. **Bands, not borders.** Sections alternate `bg-canvas` (white) and
-   `bg-canvas-2` (#f5f5f7) instead of stacking hairline dividers. One
-   full-bleed black `bg-night` band (the contact finale) supplies drama.
-4. **Motion is a finish, not a feature.** Blur-in entrances, scroll-scrubbed
-   product imagery, calm springs. Every animation has a
-   `prefers-reduced-motion` path.
-5. **Type does the heavy lifting.** The native SF-style system stack at large
-   sizes with tight tracking — zero webfont payload, instant render.
+1. **Composed, not shouty.** Sentence-case display lines with small
+   all-caps mono labels above them; UI chrome stays tiny and tracked-out.
+2. **One accent.** Teal `--accent` marks labels, the active row, the hover state. Everything else is the bone-on-noir ramp.
+3. **Product-credible motion.** Counters count, the velocity chart draws
+   itself, reveals are calm. Every move has a `prefers-reduced-motion`
+   fallback.
+4. **Texture over decoration.** Soft teal glows, hairlines and surface
+   panels give depth without imagery.
+5. **The index, not the gallery.** Work is a numbered list with hover
+   previews — content first, chrome last.
 
 ---
 
 ## 2. Tokens
 
-All tokens live in `src/app/globals.css` under `:root` and are exposed to
-Tailwind v4 via the `@theme inline` block. Use the Tailwind utility, not the
-raw variable, in components.
+All tokens live in `src/app/globals.css` under `:root`, exposed to Tailwind
+v4 via `@theme inline`. Use the utility, not the raw variable.
 
-### Canvases & surfaces
+### Canvases
 
 | Token | Value | Utility | Use |
 |---|---|---|---|
-| `--canvas` | `#ffffff` | `bg-canvas` | Page / white bands |
-| `--canvas-2` | `#f5f5f7` | `bg-canvas-2` | Alternating grey bands |
-| `--surface` | `#ffffff` | `bg-surface` | Cards |
-| `--surface-2` | `#f5f5f7` | `bg-surface-2` | Nested chips / inputs |
-| `--night` | `#000000` | `bg-night` | Full-bleed dark finale |
-| `--night-ink` | `#f5f5f7` | `text-night-ink` | Text on night |
+| `--canvas` | `#0a0b0d` | `bg-canvas` | Page |
+| `--canvas-2` | `#0f1114` | `bg-canvas-2` | Alternating bands |
+| `--surface` | `#14161a` | `bg-surface` | Cards |
+| `--surface-2` | `#1a1d22` | `bg-surface-2` | Nested chips |
+| `--night` | `#000000` | `bg-night` | Contact finale / curtain |
+| `--night-ink` | `#f4f2ec` | `text-night-ink` | Text on night |
 
-### Ink (text ramp)
+### Ink (warm bone ramp)
 
-| Token | Utility | Use |
-|---|---|---|
-| `--ink` `#1d1d1f` | `text-ink` | Primary text / headings |
-| `--ink-2` `#424245` | `text-ink-2` | Secondary |
-| `--ink-3` `#6e6e73` | `text-ink-3` | Body on light |
-| `--muted` `#86868b` | `text-muted` | Captions / labels |
-| `--faint` `#d2d2d7` | `text-faint` | Disabled / hairline fills |
+`--ink #f4f2ec` → `text-ink` (primary) · `--ink-2 #cfcdc5` · `--ink-3 #9c9a92`
+(body) · `--muted #6f6e68` (labels) · `--faint #33323a` (disabled).
 
 ### Hairlines
 
-`--line` / `--line-2` / `--line-3` → `border-line`, `border-line-2`,
-`border-line-3` (black at 8% / 12% / 18%). Default card edge is `border-line`.
+`--line` / `--line-2` / `--line-3` → `border-line(-2/-3)` — bone at
+8% / 14% / 22%.
 
 ### Accent
 
 | Token | Utility | Use |
 |---|---|---|
-| `--accent` `#0071e3` | `bg-accent` / `text-accent` | Primary CTA, emphasis word |
-| `--accent-hover` | `bg-accent-hover` | Hover of an accent fill |
-| `--accent-ink` `#ffffff` | `text-accent-ink` | Text **on** an accent fill |
-| `--accent-soft` | `bg-accent-soft` | Tinted ghost-hover wash |
+| `--accent` `#2fd6c3` | `bg-accent` / `text-accent` | Active word, hover, CTA |
+| `--accent-ink` `#04231f` | `text-accent-ink` | Text **on** an accent fill |
+| `--accent-soft` | `bg-accent-soft` | Tinted ghost wash |
 
-### Supporting hues
-
-`--indigo #5e5ce6`, `--teal #30b0c7`, `--orange #ff9500`, `--pink #ff375f`,
-`--green #34c759` → `text-teal`, `bg-orange`, … Use for data viz, status dots,
-and per-project tile tints — never for CTAs.
-
-### Radii, elevation, spacing, motion
-
-- Radii: `--r-xs…--r-xl` (8→32px) via `rounded-[var(--r-lg)]` etc.
-- Shadows: diffuse and soft — `--shadow-sm`, `--shadow`, `--shadow-lg`,
-  `--shadow-accent`. Never harsh.
-- Spacing: `--space-section`, `--gutter`, `--measure`.
-- Easing: `--ease-out-expo`, `--ease-out-quint`, `--ease-in-out`,
-  `--ease-spring`. In framer-motion use the cubic array `[0.16, 1, 0.3, 1]`.
+Supporting hues (`indigo/teal/orange/pink/green`) tint project previews only.
 
 ### Product themes
 
-`.sipli-theme` (aqua on pale blue) and `.artling-theme` (orange on warm cream)
-re-map the semantic tokens for the case-study pages. Wrap the page root in the
-class and the same token utilities render in that product's palette.
+`.sipli-theme` (light aqua) and `.artling-theme` (warm cream) re-map the
+semantic tokens for the case-study subpages, which keep their own light
+product identities (`color-scheme: light`).
+
+### Radii, spacing, motion
+
+Radii 6→30px (`rounded-[var(--r-lg)]`…); section rhythm
+`--space-section: clamp(6rem, 12vw, 12rem)`; measure 1320px; easing
+`--ease-out-expo` etc. — in framer use `[0.16, 1, 0.3, 1]`.
 
 ---
 
 ## 3. Typography
 
-- **All text** uses the native system stack (`-apple-system, BlinkMacSystemFont,
-  "SF Pro Display/Text", Segoe UI, Inter, …`) — the most Apple-feeling result
-  on Apple hardware and zero font payload everywhere.
-- Headings: weight 600, tracking `-0.028em`, `text-wrap: balance`.
-- Display sizes are fluid: `text-[clamp(34px,5vw,64px)]` for section titles;
-  up to `clamp(44px,8vw,108px)` for the hero and finale.
-- `font-mono` (SF Mono stack) is reserved for eyebrows, labels and metadata.
+- **Display**: locally-bundled **Outfit** variable (`font-display`) —
+  sentence case at `clamp(30px,4.4vw,52px)` for section heads, up to
+  `clamp(40px,6.5vw,84px)` in the hero.
+- **Body** (`font-sans`): system stack, 15px, relaxed 1.7 leading.
+- **Mono** (`font-mono`): labels and meta — small caps, tracked `0.16em–0.28em`.
 
 ---
 
 ## 4. Primitives (`src/components/ui/`)
 
-| Component | Purpose | Notes |
-|---|---|---|
-| `Button` | CTA / actions | `variant`: `primary \| dark \| outline \| ghost`; `size`: `sm \| md \| lg`. Calm spring tap + 1px hover lift. |
-| `SectionHeader` | Section intro | `eyebrow`, `title` (wrap a word in `<em>` for accent tint), `lede`, `headingId`, `dot`, `align`. |
-| `LiftCard` | Surface card | White, hairline edge, soft shadow lift on hover, whisper of 3D tilt; render-prop `{ px, py }` motion values for parallax art. |
-| `Reveal` | Scroll entrance | `direction`, `delay`, `blur`, `as`. Plus `staggerContainer` / `staggerItem` variants for lists. |
-| `Marquee` | Infinite ticker | Duplicates children for a seamless loop; `duration`, `reverse`. |
-| `PhoneFrame` | Device bezel | CSS-only 9:19.5 phone for product demos. |
-
-All interactive primitives honour `prefers-reduced-motion`.
+| Component | Purpose |
+|---|---|
+| `RevealText` | Mask line-reveal for display type. **The mask is the observed element** (a clipped child never intersects); variants propagate to the line. `onMount` for the hero. |
+| `Preloader` | 0→100 counter on a black curtain; once per session, ~1.2s, skipped under reduced motion. |
+| `Marquee` | Seamless ticker (duplicated children); `duration`, `reverse`. |
+| `Button` | Pill CTA — `primary` (teal) / `dark` / `outline` / `ghost`. |
+| `LiquidGlass` | Cross-browser `feDisplacementMap` refraction lens (see `lib/liquid-glass.ts`); available, currently unused. |
+| `LiftCard`, `SectionHeader`, `PhoneFrame` | Retained for the case-study subpages. |
 
 ---
 
-## 5. Motion & transitions
+## 5. Section patterns
 
-- **Route transitions:** `src/app/template.tsx` re-mounts per navigation and
-  gives each page a soft blur-and-rise entrance.
-- **Scroll-scrub:** the hero phone uses `useScroll` + `useTransform` to scale
-  from 92% → 100% and settle as it enters the viewport — the signature
-  Apple-product-page move. Reuse this pattern for large imagery.
-- **Section entrances:** `Reveal` / `whileInView` with `once: true` and a
-  `-12% 0px` margin.
-- **Micro-interactions:** spring physics for taps, `layoutId` shared elements
-  for the nav underline and hero tab pill.
+- **Hero** — caps label, sentence-case display, support line, paired CTAs,
+  then the `DashboardPreview` centrepiece: window chrome, count-up metrics,
+  a self-drawing velocity chart with scan-line, sparkbars, cursor tilt.
+- **Strip** (`Stack`) — quiet logo band: caps label + slow toolbox marquee.
+- **Work index** (`FeaturedWork`) — numbered rows; hover tints the row teal
+  and floats a preview card that tracks the row.
+- **Services** — numbered accordion rows (`aria-expanded`), one open at a
+  time, + icon rotates to ×.
+- **Process** (`Practice`) — Lumio-style step grid: teal icon tiles, step
+  numbers, duration chips, and an accent promise tile.
+- **About** — editorial split: statement quote, story, meta `dl`, portrait
+  with clip-path unmask.
+- **Contact finale** — caps invitation label, giant gradient CTA, channel
+  rail. Slim legal footer.
 
 ---
 
 ## 6. Accessibility checklist
 
-- One `<h1>` per page; sections labelled via `aria-labelledby` → `headingId`.
-- Decorative layers are `aria-hidden`.
-- Focus-visible rings use the accent at a 3px offset.
-- Skip-to-content link in the root layout.
-- All motion has a reduced-motion fallback.
-- Colour pairings meet WCAG AA: ink on white, white on accent, white on night.
+- One `<h1>` per page; sections labelled via `aria-labelledby`.
+- All motion gated by `useReducedMotion` (static render) — including the
+  preloader, marquee (CSS-paused), counters, chart draw and reveals.
+- Decorative chart/sparkline layers are `aria-hidden`.
+- Focus-visible rings in accent at 3px offset; skip-link to `#main` on every
+  page.
+- Contrast: bone on noir ≥ AA; `accent-ink` on accent ≥ AA.
 
 ---
 
-## 7. Adding a new section (recipe)
+## 7. Verification
 
-```tsx
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Reveal } from "@/components/ui/Reveal";
-
-export function Example() {
-  return (
-    <section
-      id="example"
-      className="relative bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]"
-      aria-labelledby="example-heading"
-    >
-      <div className="mx-auto w-full max-w-[1200px]">
-        <SectionHeader
-          eyebrow="Label"
-          headingId="example-heading"
-          title={<>A clear headline, <em>with emphasis.</em></>}
-          lede="One supporting sentence."
-        />
-        <Reveal>{/* content */}</Reveal>
-      </div>
-    </section>
-  );
-}
-```
+`npm run lint` · `npx tsc --noEmit` · `npx vitest run` ·
+`npm run build` · `npm run test:browser` (Playwright audit: routes ×
+viewports, anchors, h1/#main, menu + accordion interactions, reduced motion).

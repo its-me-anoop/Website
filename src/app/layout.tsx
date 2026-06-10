@@ -1,10 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import { site } from "@/lib/site";
 
-/* Typography is the native SF-style system stack (see globals.css) —
-   zero font payload, instant render, and the most Apple-feeling result
-   on Apple devices. */
+/* The locally-bundled Outfit variable font drives the oversized Noir
+   display type; body copy stays on the system stack (zero extra payload,
+   instant render). */
+const outfit = localFont({
+  variable: "--font-outfit",
+  display: "swap",
+  src: "../fonts/Outfit-VariableFont_wght.ttf",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -75,8 +81,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
-  colorScheme: "light",
+  themeColor: "#0b0b0e",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -87,7 +93,7 @@ function JsonLd() {
     "@context": "https://schema.org",
     "@type": "Person",
     "@id": `${site.url}#person`,
-    name: site.name,
+    name: site.founder,
     jobTitle: "Developer & Designer",
     url: site.url,
     email: site.email,
@@ -202,7 +208,7 @@ export default function RootLayout({
       <head>
         <JsonLd />
       </head>
-      <body className="antialiased bg-canvas text-ink font-sans min-h-screen">
+      <body className={`${outfit.variable} antialiased bg-canvas text-ink font-sans min-h-screen`}>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-ink focus:shadow-lg"
