@@ -87,18 +87,18 @@ export function Navbar() {
           {/* Wordmark */}
           <Link
             href="/"
-            className="font-display text-[15px] font-semibold uppercase tracking-[0.08em] text-ink"
-            aria-label="Anoop Jose — home"
+            className="font-display text-[17px] font-semibold tracking-tight text-ink"
+            aria-label="Flutterly — home"
           >
-            Anoop Jose<span className="text-accent">©</span>
+            Flutterly<span className="text-accent">.</span>
           </Link>
 
           {/* Desktop nav */}
           <nav
-            className="hidden items-center gap-8 font-mono text-[11.5px] font-medium uppercase tracking-[0.18em] text-ink-3 md:flex"
+            className="hidden items-center gap-8 text-[13.5px] font-medium text-ink-3 md:flex"
             aria-label="Primary"
           >
-            {navItems.map((item, i) => {
+            {navItems.map((item) => {
               const active = activeSection === item.href.slice(1);
               return (
                 <Link
@@ -109,7 +109,6 @@ export function Navbar() {
                     active ? "text-ink" : "hover:text-ink"
                   )}
                 >
-                  <span className="mr-1.5 text-[9px] text-muted">0{i + 1}</span>
                   {item.name}
                   <span
                     className={cn(
@@ -126,12 +125,10 @@ export function Navbar() {
           <div className="hidden md:block">
             <Link
               href={pathname === "/" ? "#brief" : "/#brief"}
-              className="group inline-flex items-center gap-1.5 font-mono text-[11.5px] font-medium uppercase tracking-[0.18em] text-ink transition-colors duration-300 hover:text-accent"
+              className="group inline-flex h-9 items-center gap-1.5 rounded-full bg-accent px-4 text-[12.5px] font-semibold text-accent-ink transition-colors duration-300 hover:bg-accent-hover"
             >
-              <span className="text-muted transition-colors duration-300 group-hover:text-accent">[</span>
-              Let&rsquo;s talk
+              Start a project
               <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              <span className="text-muted transition-colors duration-300 group-hover:text-accent">]</span>
             </Link>
           </div>
 
@@ -193,7 +190,7 @@ export function Navbar() {
                   <Link
                     href={hrefFor(item.href)}
                     onClick={() => setMenuOpen(false)}
-                    className="group flex items-baseline justify-between py-4 font-display text-[clamp(34px,9vw,52px)] font-semibold uppercase leading-none tracking-[-0.02em] text-night-ink transition-colors duration-300 hover:text-accent"
+                    className="group flex items-baseline justify-between py-4 font-display text-[clamp(32px,8.5vw,48px)] font-semibold leading-none tracking-[-0.02em] text-night-ink transition-colors duration-300 hover:text-accent"
                   >
                     {item.name}
                     <span className="font-mono text-[11px] tracking-[0.2em] text-white/40">
@@ -211,9 +208,9 @@ export function Navbar() {
                 <Link
                   href={pathname === "/" ? "#brief" : "/#brief"}
                   onClick={() => setMenuOpen(false)}
-                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-accent-ink"
+                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-[14px] font-semibold text-accent-ink"
                 >
-                  Let&rsquo;s talk
+                  Start a project
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </motion.div>

@@ -1,12 +1,11 @@
-# Anoop Jose — Developer Portfolio
+# Flutterly — Product Studio
 
-The portfolio site of **Anoop Jose**, developer & designer and founder of
-Flutterly Ltd (Reading, UK). Designed around the
-["Noir" design system](./docs/DESIGN-SYSTEM.md): a cinematic, awwwards-style
-dark language — oversized Outfit display type with outline-stroke moments,
-one vermilion accent, film grain, marquee strips, a preloader, and
-scroll-choreographed sections (inspired by the landing-page work showcased
-on lafys.com).
+The site of **Flutterly**, the product studio of Anoop Jose (Reading, UK).
+Designed around the ["Lumen" design system](./docs/DESIGN-SYSTEM.md): a
+refined dark SaaS-studio language inspired by Lumio
+(lumio.apollostudio.design) — sentence-case Outfit display type, small
+all-caps mono labels, one calm teal accent, and a live animated studio
+dashboard as the hero centrepiece.
 
 ## Stack
 

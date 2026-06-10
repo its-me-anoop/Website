@@ -4,7 +4,6 @@ import Link from "next/link";
 import { m as motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { RevealText } from "@/components/ui/RevealText";
-import { Marquee } from "@/components/ui/Marquee";
 import { site } from "@/lib/site";
 
 const details = [
@@ -28,38 +27,24 @@ export function Contact() {
       className="grain relative overflow-hidden bg-night pb-20 pt-24 text-night-ink md:pt-32"
       aria-labelledby="contact-heading"
     >
-      {/* Invitation marquee */}
-      <Marquee duration={26} className="select-none border-b border-white/10 pb-10">
-        {["Got a project in mind?", "Let's talk", "Got a project in mind?", "Let's talk"].map(
-          (t, i) => (
-            <span key={i} className="flex items-center gap-6 pr-6">
-              <span
-                className={`font-display text-[clamp(20px,2.6vw,34px)] font-medium uppercase tracking-[-0.01em] ${
-                  i % 2 ? "text-accent" : "text-white/60"
-                }`}
-              >
-                {t}
-              </span>
-              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
-            </span>
-          )
-        )}
-      </Marquee>
-
       <div className="mx-auto w-full max-w-[1320px] px-[var(--gutter)]">
+        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-accent">
+          Got a project in mind?
+        </p>
+
         {/* Giant CTA */}
-        <h2 id="contact-heading" className="mt-14 md:mt-20">
+        <h2 id="contact-heading" className="mt-8 md:mt-10">
           <Link
             href={`mailto:${site.email}`}
-            className="group block font-display font-semibold uppercase leading-[0.9] tracking-[-0.03em]"
+            className="group block font-display font-semibold leading-[0.98] tracking-[-0.03em]"
             aria-label={`Start a project — email ${site.email}`}
           >
-            <RevealText className="text-[clamp(52px,11vw,160px)] text-night-ink">
+            <RevealText className="text-[clamp(44px,8vw,116px)] text-night-ink">
               Let&rsquo;s work
             </RevealText>
-            <RevealText delay={0.08} className="text-[clamp(52px,11vw,160px)]">
-              <span className="text-stroke transition-all duration-500 group-hover:text-accent group-hover:[-webkit-text-stroke:1.5px_var(--accent)]">
-                Together
+            <RevealText delay={0.08} className="text-[clamp(44px,8vw,116px)]">
+              <span className="text-accent-gradient transition-opacity duration-500 group-hover:opacity-80">
+                together.
               </span>
               <ArrowUpRight
                 aria-hidden="true"

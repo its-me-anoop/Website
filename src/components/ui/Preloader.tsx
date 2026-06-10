@@ -52,7 +52,7 @@ export function Preloader() {
           transition={{ duration: 0.7, ease: [0.83, 0, 0.17, 1] }}
         >
           <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-night-ink/50">
-            Anoop Jose · Portfolio
+            Flutterly · Product studio
           </span>
           <span className="font-display text-[clamp(64px,12vw,140px)] font-semibold leading-none tracking-[-0.04em] text-night-ink tabular-nums">
             {count}

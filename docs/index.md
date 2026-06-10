@@ -1,12 +1,11 @@
 # Documentation
 
-The portfolio site of Anoop Jose — developer & designer, founder of Flutterly
-Ltd. Built with Next.js 16 (App Router), React 19, Tailwind CSS v4 and
-Framer Motion, in the cinematic dark "Noir" design language.
+The site of Flutterly — the product studio of Anoop Jose. Built with Next.js 16 (App Router), React 19, Tailwind CSS v4 and
+Framer Motion, in the refined dark "Lumen" design language.
 
 ## Contents
 
-- [Design System — "Noir"](./DESIGN-SYSTEM.md) — tokens, primitives,
+- [Design System — "Lumen"](./DESIGN-SYSTEM.md) — tokens, primitives,
   motion, and accessibility rules. Start here before building UI.
 
 ## Architecture at a glance

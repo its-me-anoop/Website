@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════
-   Anoop Jose · Design System — "Noir"
+   Anoop Jose · Design System — "Lumen"
    ───────────────────────────────────────────────────────────────────
-   A cinematic, awwwards-style language built from the ground up:
-   near-black canvas, warm bone ink, one vermilion accent, oversized
-   uppercase display type (Outfit) with outline-stroke moments, film
-   grain, marquee strips, and scroll-choreographed sections.
+   A refined dark SaaS-studio language inspired by Lumio
+   (lumio.apollostudio.design): near-black canvas, warm bone ink, one
+   calm teal accent, sentence-case Outfit display type with small
+   all-caps mono labels, a live dashboard hero, and composed scroll
+   choreography with generous air.
 
    Layers:
      1. :root  — raw design tokens (single source of truth)
@@ -19,12 +20,12 @@
 
 :root {
   /* ── Canvases · noir ramp ─────────────────────────────────── */
-  --canvas: #0b0b0e; /* page */
-  --canvas-2: #101015; /* alternating bands */
+  --canvas: #0a0b0d; /* page */
+  --canvas-2: #0f1114; /* alternating bands */
   --canvas-3: #0e0e12; /* barely-raised band */
-  --surface: #15151b; /* cards */
-  --surface-2: #1b1b22; /* nested cards / inputs */
-  --surface-3: #23232b; /* pressed / hover */
+  --surface: #14161a; /* cards */
+  --surface-2: #1a1d22; /* nested cards / inputs */
+  --surface-3: #22262c; /* pressed / hover */
   --night: #000000; /* absolute-black moments */
   --night-2: #131318; /* cards on night */
   --night-ink: #f4f2ec; /* text on night */
@@ -42,12 +43,12 @@
   --line-2: rgba(244, 242, 236, 0.14);
   --line-3: rgba(244, 242, 236, 0.22);
 
-  /* ── Accent · vermilion signal ────────────────────────────── */
-  --accent: #ff5c28;
-  --accent-hover: #ff7245;
-  --accent-deep: #e04a18;
-  --accent-ink: #140a05; /* text on an accent fill */
-  --accent-soft: rgba(255, 92, 40, 0.12);
+  /* ── Accent · Lumio teal ──────────────────────────────────── */
+  --accent: #2fd6c3;
+  --accent-hover: #4ae0cf;
+  --accent-deep: #17b3a2;
+  --accent-ink: #04231f; /* text on an accent fill */
+  --accent-soft: rgba(47, 214, 195, 0.12);
 
   /* ── Supporting hues (data tints, sparingly) ──────────────── */
   --indigo: #7b78ff;
@@ -68,7 +69,7 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
   --shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 34px 90px -20px rgba(0, 0, 0, 0.75);
-  --shadow-accent: 0 12px 36px -10px rgba(255, 92, 40, 0.5);
+  --shadow-accent: 0 12px 36px -10px rgba(47, 214, 195, 0.45);
 
   /* ── Spacing rhythm ───────────────────────────────────────── */
   --space-section: clamp(6rem, 12vw, 12rem);
@@ -261,7 +262,7 @@ p {
 
 /* Accent-tinted gradient for one emphasis word. */
 .text-accent-gradient {
-  background: linear-gradient(100deg, var(--accent) 0%, var(--orange) 100%);
+  background: linear-gradient(100deg, var(--accent) 0%, var(--indigo) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -362,7 +363,7 @@ p {
 }
 
 @keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(255, 92, 40, 0.4); }
+  0% { box-shadow: 0 0 0 0 rgba(47, 214, 195, 0.4); }
   70% { box-shadow: 0 0 0 9px transparent; }
   100% { box-shadow: 0 0 0 0 transparent; }
 }

@@ -4,11 +4,11 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { Services } from "./Services";
 
 describe("Services section", () => {
-  it("renders the section heading", () => {
+  it("renders the label and section heading", () => {
     render(<Services />);
+    expect(screen.getByText("What I do")).toBeInTheDocument();
     const h2 = screen.getByRole("heading", { level: 2 });
-    expect(h2).toHaveTextContent(/What/i);
-    expect(h2).toHaveTextContent(/I do/i);
+    expect(h2).toHaveTextContent(/engineering & design/i);
   });
 
   it("renders all four service rows", () => {

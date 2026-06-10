@@ -4,11 +4,12 @@ import { render, screen } from "@testing-library/react";
 import { Practice } from "./Practice";
 
 describe("Practice (Process) Section", () => {
-  it("renders the section heading", () => {
+  it("renders the label and section heading", () => {
     render(<Practice />);
+    expect(screen.getByText("How it works")).toBeInTheDocument();
     const h2 = screen.getByRole("heading", { level: 2 });
-    expect(h2).toHaveTextContent(/How/i);
-    expect(h2).toHaveTextContent(/I work/i);
+    expect(h2).toHaveTextContent(/clear path/i);
+    expect(h2).toHaveTextContent(/9 weeks/);
   });
 
   it("renders all 5 process steps", () => {

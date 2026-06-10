@@ -93,7 +93,7 @@ function JsonLd() {
     "@context": "https://schema.org",
     "@type": "Person",
     "@id": `${site.url}#person`,
-    name: site.name,
+    name: site.founder,
     jobTitle: "Developer & Designer",
     url: site.url,
     email: site.email,

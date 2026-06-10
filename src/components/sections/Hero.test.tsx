@@ -7,37 +7,36 @@ describe("Hero section", () => {
   it("renders the display headline", () => {
     render(<Hero />);
     const h1 = screen.getByRole("heading", { level: 1 });
-    expect(h1).toHaveTextContent(/Developer/i);
-    expect(h1).toHaveTextContent(/Designer/i);
+    expect(h1).toHaveTextContent(/Apps people love opening/);
+    expect(h1).toHaveTextContent(/end to end/i);
   });
 
-  it("introduces Anoop and Flutterly in the intro copy", () => {
+  it("shows the Flutterly studio label", () => {
     render(<Hero />);
-    expect(screen.getByText(/I.?m Anoop Jose/)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /flutterly/i })).toHaveAttribute(
+    expect(screen.getByText(/Flutterly — Product studio/i)).toBeInTheDocument();
+  });
+
+  it("does not show the old availability line", () => {
+    render(<Hero />);
+    expect(screen.queryByText(/Open for briefs/i)).not.toBeInTheDocument();
+  });
+
+  it("renders the primary and secondary CTAs", () => {
+    render(<Hero />);
+    expect(screen.getByRole("link", { name: /start a project/i })).toHaveAttribute(
       "href",
-      "#studio"
+      "#brief"
     );
-  });
-
-  it("shows the availability meta row", () => {
-    render(<Hero />);
-    expect(screen.getByText(/Open for briefs/i)).toBeInTheDocument();
-    expect(screen.getByText(/Reading, UK/)).toBeInTheDocument();
-  });
-
-  it("renders the trust stats", () => {
-    render(<Hero />);
-    expect(screen.getByText("Apps shipped")).toBeInTheDocument();
-    expect(screen.getByText("Experience")).toBeInTheDocument();
-    expect(screen.getByText("Reply time")).toBeInTheDocument();
-  });
-
-  it("links to the selected work index", () => {
-    render(<Hero />);
     expect(screen.getByRole("link", { name: /see my work/i })).toHaveAttribute(
       "href",
       "#work"
     );
+  });
+
+  it("renders the live dashboard metrics", () => {
+    render(<Hero />);
+    expect(screen.getByText("Lighthouse")).toBeInTheDocument();
+    expect(screen.getByText("Apps shipped")).toBeInTheDocument();
+    expect(screen.getByText(/studio metrics/i)).toBeInTheDocument();
   });
 });

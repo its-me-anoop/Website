@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { m as motion, useReducedMotion } from "framer-motion";
-import { RevealText } from "@/components/ui/RevealText";
 
 const meta = [
   { k: "Founded", v: "2024" },
@@ -26,15 +25,15 @@ export default function About() {
       aria-labelledby="studio-heading"
     >
       <div className="mx-auto w-full max-w-[1320px]">
-        <div className="mb-14 md:mb-20">
+        <div className="mb-14 md:mb-18">
+          <p className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-accent">
+            How we think
+          </p>
           <h2
             id="studio-heading"
-            className="font-display font-semibold uppercase leading-[0.92] tracking-[-0.025em]"
+            className="mt-5 font-display text-[clamp(30px,4.4vw,52px)] font-semibold leading-[1.06] tracking-[-0.02em] text-ink"
           >
-            <RevealText className="text-[clamp(40px,7vw,96px)] text-ink">About</RevealText>
-            <RevealText delay={0.08} className="text-[clamp(40px,7vw,96px)]">
-              <span className="text-stroke">the studio</span>
-            </RevealText>
+            About the studio.
           </h2>
         </div>
 

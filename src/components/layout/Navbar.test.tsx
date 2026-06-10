@@ -8,9 +8,9 @@ vi.mock("next/navigation", () => ({
 }));
 
 describe("Navbar component", () => {
-  it("renders the personal wordmark", () => {
+  it("renders the Flutterly wordmark", () => {
     render(<Navbar />);
-    expect(screen.getByRole("link", { name: /anoop jose — home/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /flutterly — home/i })).toBeInTheDocument();
   });
 
   it("renders primary navigation items", () => {
@@ -21,12 +21,11 @@ describe("Navbar component", () => {
     expect(screen.getAllByRole("link", { name: /About/ })[0]).toBeInTheDocument();
   });
 
-  it("renders the Let's talk CTA pointing at the brief", () => {
+  it("renders the Start a project CTA pointing at the brief", () => {
     render(<Navbar />);
-    expect(screen.getAllByRole("link", { name: /let.?s talk/i })[0]).toHaveAttribute(
-      "href",
-      "#brief"
-    );
+    expect(
+      screen.getAllByRole("link", { name: /start a project/i })[0]
+    ).toHaveAttribute("href", "#brief");
   });
 
   it("opens the mobile curtain menu when the toggle is clicked", () => {

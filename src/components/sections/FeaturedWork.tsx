@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { m as motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { RevealText } from "@/components/ui/RevealText";
 
 const projects = [
   {
@@ -72,25 +71,21 @@ export function FeaturedWork() {
     >
       <div className="mx-auto w-full max-w-[1320px]">
         {/* Head */}
-        <div className="mb-14 flex items-end justify-between gap-6 md:mb-20">
-          <h2
-            id="work-heading"
-            className="font-display font-semibold uppercase leading-[0.92] tracking-[-0.025em]"
-          >
-            <RevealText className="text-[clamp(40px,7vw,96px)] text-ink">
-              Selected
-            </RevealText>
-            <RevealText delay={0.08} className="text-[clamp(40px,7vw,96px)]">
-              <span className="text-stroke">Work</span>
-              <span className="align-top font-mono text-[clamp(12px,1.4vw,16px)] tracking-[0.2em] text-accent">
-                {" "}
-                ({projects.length})
-              </span>
-            </RevealText>
-          </h2>
+        <div className="mb-14 flex items-end justify-between gap-6 md:mb-18">
+          <div>
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-accent">
+              Selected work ({projects.length})
+            </p>
+            <h2
+              id="work-heading"
+              className="mt-5 font-display text-[clamp(30px,4.4vw,52px)] font-semibold leading-[1.06] tracking-[-0.02em] text-ink"
+            >
+              Products we&rsquo;re proud to sign.
+            </h2>
+          </div>
           <p className="hidden max-w-[300px] pb-2 text-[14px] leading-[1.7] text-ink-3 md:block">
             Client products and original apps, 2024 — today. Every line of code
-            here passes through my keyboard.
+            passes through one keyboard.
           </p>
         </div>
 
@@ -117,7 +112,7 @@ export function FeaturedWork() {
                     {p.n}
                   </span>
                   <span
-                    className="font-display text-[clamp(28px,5vw,64px)] font-semibold uppercase leading-none tracking-[-0.02em] text-ink transition-all duration-400 group-hover:translate-x-3 group-hover:text-accent md:group-hover:translate-x-6"
+                    className="font-display text-[clamp(26px,4.2vw,54px)] font-semibold leading-none tracking-[-0.02em] text-ink transition-all duration-400 group-hover:translate-x-3 group-hover:text-accent md:group-hover:translate-x-6"
                   >
                     {p.title}
                   </span>
@@ -179,8 +174,8 @@ export function FeaturedWork() {
           )}
         </ul>
 
-        <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-          + a few under NDA — happy to walk you through them on a brief
+        <p className="mt-8 text-[13px] text-muted">
+          + a few under NDA — happy to walk you through them on a brief.
         </p>
       </div>
     </section>

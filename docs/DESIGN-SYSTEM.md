@@ -1,28 +1,26 @@
-# Design System — "Noir"
+# Design System — "Lumen"
 
-The visual language of anoopjose / flutterly.uk: a **cinematic, awwwards-style
-dark portfolio** built from the ground up, inspired by the contemporary
-landing-page work showcased on lafys.com (loaders, scroll choreography,
-marquees, liquid glass, oversized display type).
+The visual language of flutterly.uk: a **refined dark SaaS-studio** look
+inspired by Lumio (lumio.apollostudio.design): composed sentence-case display
+type, small all-caps mono labels, one calm **teal accent**, and a live
+animated dashboard as the hero centrepiece.
 
-> TL;DR — near-black canvas, warm bone ink, **one vermilion accent**,
-> uppercase Outfit display with outline-stroke moments, film grain, marquee
-> strips, and scroll-driven sections. Type *is* the layout.
+> TL;DR — near-black canvas, warm bone ink, teal `#2fd6c3`, sentence-case
+> Outfit display + mono caps labels, generous air, and product-credible
+> motion (counters, chart draws, calm reveals).
 
 ---
 
 ## 1. Principles
 
-1. **Type is the interface.** Oversized uppercase display lines (solid +
-   `.text-stroke` hollow pairs) carry every section; UI chrome stays mono,
-   tiny, and tracked-out.
-2. **One accent.** Vermilion `--accent` marks the live word, the active row,
-   the hover state. Everything else is the bone-on-noir ramp.
-3. **Choreograph the scroll.** Lines rise out of masks (`RevealText`),
-   process cards stack (`Practice`), the hero parallaxes away, marquees never
-   stop. Every move has a `prefers-reduced-motion` fallback.
-4. **Texture over decoration.** Film grain (`.grain`), hairlines, and the
-   liquid-glass lens give depth without imagery.
+1. **Composed, not shouty.** Sentence-case display lines with small
+   all-caps mono labels above them; UI chrome stays tiny and tracked-out.
+2. **One accent.** Teal `--accent` marks labels, the active row, the hover state. Everything else is the bone-on-noir ramp.
+3. **Product-credible motion.** Counters count, the velocity chart draws
+   itself, reveals are calm. Every move has a `prefers-reduced-motion`
+   fallback.
+4. **Texture over decoration.** Soft teal glows, hairlines and surface
+   panels give depth without imagery.
 5. **The index, not the gallery.** Work is a numbered list with hover
    previews — content first, chrome last.
 
@@ -37,10 +35,10 @@ v4 via `@theme inline`. Use the utility, not the raw variable.
 
 | Token | Value | Utility | Use |
 |---|---|---|---|
-| `--canvas` | `#0b0b0e` | `bg-canvas` | Page |
-| `--canvas-2` | `#101015` | `bg-canvas-2` | Alternating bands |
-| `--surface` | `#15151b` | `bg-surface` | Cards |
-| `--surface-2` | `#1b1b22` | `bg-surface-2` | Nested chips |
+| `--canvas` | `#0a0b0d` | `bg-canvas` | Page |
+| `--canvas-2` | `#0f1114` | `bg-canvas-2` | Alternating bands |
+| `--surface` | `#14161a` | `bg-surface` | Cards |
+| `--surface-2` | `#1a1d22` | `bg-surface-2` | Nested chips |
 | `--night` | `#000000` | `bg-night` | Contact finale / curtain |
 | `--night-ink` | `#f4f2ec` | `text-night-ink` | Text on night |
 
@@ -58,8 +56,8 @@ v4 via `@theme inline`. Use the utility, not the raw variable.
 
 | Token | Utility | Use |
 |---|---|---|
-| `--accent` `#ff5c28` | `bg-accent` / `text-accent` | Active word, hover, CTA |
-| `--accent-ink` `#140a05` | `text-accent-ink` | Text **on** an accent fill |
+| `--accent` `#2fd6c3` | `bg-accent` / `text-accent` | Active word, hover, CTA |
+| `--accent-ink` `#04231f` | `text-accent-ink` | Text **on** an accent fill |
 | `--accent-soft` | `bg-accent-soft` | Tinted ghost wash |
 
 Supporting hues (`indigo/teal/orange/pink/green`) tint project previews only.
@@ -80,13 +78,11 @@ Radii 6→30px (`rounded-[var(--r-lg)]`…); section rhythm
 
 ## 3. Typography
 
-- **Display**: locally-bundled **Outfit** variable (`font-display`) — used
-  uppercase at `clamp(40px,7vw,96px)` for section heads, up to
-  `clamp(56px,12.5vw,178px)` in the hero. Pair a solid line with a
-  `.text-stroke` hollow line.
+- **Display**: locally-bundled **Outfit** variable (`font-display`) —
+  sentence case at `clamp(30px,4.4vw,52px)` for section heads, up to
+  `clamp(40px,6.5vw,84px)` in the hero.
 - **Body** (`font-sans`): system stack, 15px, relaxed 1.7 leading.
-- **Mono** (`font-mono`): all labels, numbers, meta — uppercase, tracked
-  `0.16em–0.3em`.
+- **Mono** (`font-mono`): labels and meta — small caps, tracked `0.16em–0.28em`.
 
 ---
 
@@ -97,29 +93,28 @@ Radii 6→30px (`rounded-[var(--r-lg)]`…); section rhythm
 | `RevealText` | Mask line-reveal for display type. **The mask is the observed element** (a clipped child never intersects); variants propagate to the line. `onMount` for the hero. |
 | `Preloader` | 0→100 counter on a black curtain; once per session, ~1.2s, skipped under reduced motion. |
 | `Marquee` | Seamless ticker (duplicated children); `duration`, `reverse`. |
-| `Button` | Pill CTA — `primary` (vermilion) / `dark` / `outline` / `ghost`. |
-| `LiquidGlass` | Cross-browser `feDisplacementMap` refraction lens (see `lib/liquid-glass.ts`); drifts over the hero display. |
+| `Button` | Pill CTA — `primary` (teal) / `dark` / `outline` / `ghost`. |
+| `LiquidGlass` | Cross-browser `feDisplacementMap` refraction lens (see `lib/liquid-glass.ts`); available, currently unused. |
 | `LiftCard`, `SectionHeader`, `PhoneFrame` | Retained for the case-study subpages. |
 
 ---
 
 ## 5. Section patterns
 
-- **Hero** — full-svh; meta rows top/bottom, two-line display refracted by the
-  glass lens, scroll cue, stats; the stage fades/parallaxes away on scroll.
-- **Strip** (`Stack`) — full-bleed double marquee: availability line in
-  display type over a counter-scrolling toolbox ticker.
-- **Work index** (`FeaturedWork`) — numbered rows, oversized titles; hover
-  tints the row vermilion and floats a rotated preview card at the row's
-  height.
+- **Hero** — caps label, sentence-case display, support line, paired CTAs,
+  then the `DashboardPreview` centrepiece: window chrome, count-up metrics,
+  a self-drawing velocity chart with scan-line, sparkbars, cursor tilt.
+- **Strip** (`Stack`) — quiet logo band: caps label + slow toolbox marquee.
+- **Work index** (`FeaturedWork`) — numbered rows; hover tints the row teal
+  and floats a preview card that tracks the row.
 - **Services** — numbered accordion rows (`aria-expanded`), one open at a
   time, + icon rotates to ×.
-- **Process** (`Practice`) — sticky-stacked cards: each pins under the header
-  and settles back/dims as the next slides over.
+- **Process** (`Practice`) — Lumio-style step grid: teal icon tiles, step
+  numbers, duration chips, and an accent promise tile.
 - **About** — editorial split: statement quote, story, meta `dl`, portrait
   with clip-path unmask.
-- **Contact finale** — invitation marquee, giant solid/stroke CTA that fills
-  vermilion on hover, channel rail. Slim legal footer.
+- **Contact finale** — caps invitation label, giant gradient CTA, channel
+  rail. Slim legal footer.
 
 ---
 
@@ -127,8 +122,8 @@ Radii 6→30px (`rounded-[var(--r-lg)]`…); section rhythm
 
 - One `<h1>` per page; sections labelled via `aria-labelledby`.
 - All motion gated by `useReducedMotion` (static render) — including the
-  preloader, marquees (CSS-paused), reveals and stacked cards.
-- The glass lens is `aria-hidden` + pointer-only.
+  preloader, marquee (CSS-paused), counters, chart draw and reveals.
+- Decorative chart/sparkline layers are `aria-hidden`.
 - Focus-visible rings in accent at 3px offset; skip-link to `#main` on every
   page.
 - Contrast: bone on noir ≥ AA; `accent-ink` on accent ≥ AA.

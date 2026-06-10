@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
-import { RevealText } from "@/components/ui/RevealText";
 
 const services = [
   {
@@ -46,19 +45,21 @@ export function Services() {
       aria-labelledby="services-heading"
     >
       <div className="mx-auto w-full max-w-[1320px]">
-        <div className="mb-14 flex items-end justify-between gap-6 md:mb-20">
-          <h2
-            id="services-heading"
-            className="font-display font-semibold uppercase leading-[0.92] tracking-[-0.025em]"
-          >
-            <RevealText className="text-[clamp(40px,7vw,96px)] text-ink">What</RevealText>
-            <RevealText delay={0.08} className="text-[clamp(40px,7vw,96px)]">
-              <span className="text-stroke">I do</span>
-            </RevealText>
-          </h2>
+        <div className="mb-14 flex items-end justify-between gap-6 md:mb-18">
+          <div>
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-accent">
+              What I do
+            </p>
+            <h2
+              id="services-heading"
+              className="mt-5 font-display text-[clamp(30px,4.4vw,52px)] font-semibold leading-[1.06] tracking-[-0.02em] text-ink"
+            >
+              End-to-end product engineering &amp; design.
+            </h2>
+          </div>
           <p className="hidden max-w-[300px] pb-2 text-[14px] leading-[1.7] text-ink-3 md:block">
-            End-to-end product engineering and design. Four disciplines, one
-            accountable engineer.
+            Four disciplines, one accountable engineer — from first sketch to
+            App Store.
           </p>
         </div>
 
@@ -78,7 +79,7 @@ export function Services() {
                     {s.n}
                   </span>
                   <span
-                    className={`flex-1 font-display text-[clamp(24px,4vw,52px)] font-semibold uppercase leading-none tracking-[-0.02em] transition-colors duration-300 ${
+                    className={`flex-1 font-display text-[clamp(22px,3.4vw,40px)] font-semibold leading-none tracking-[-0.02em] transition-colors duration-300 ${
                       isOpen ? "text-accent" : "text-ink group-hover:text-ink-2"
                     }`}
                   >
@@ -116,7 +117,7 @@ export function Services() {
                           {s.tech.map((t) => (
                             <li
                               key={t}
-                              className="rounded-full border border-line-2 px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-3"
+                              className="rounded-full border border-line-2 px-3 py-1 font-mono text-[10.5px] tracking-[0.1em] text-ink-3"
                             >
                               {t}
                             </li>
