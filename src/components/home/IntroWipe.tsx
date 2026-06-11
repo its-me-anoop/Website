@@ -41,6 +41,15 @@ export function IntroWipe() {
         aria-hidden
         className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-3.5 bg-obsidian transition-transform duration-1000 ease-[cubic-bezier(.76,0,.24,1)]"
       >
+        {/* plain <img>: the overlay is gone in 1.9s — skip the optimizer */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/flutterly-logo.png"
+          alt=""
+          width={64}
+          height={64}
+          className="[filter:drop-shadow(0_0_28px_rgba(61,242,196,.25))]"
+        />
         <div className="font-syne text-[34px] font-extrabold tracking-[-1px] text-frost">
           Flutterly<span className="text-mint">*</span>
         </div>

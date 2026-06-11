@@ -11,8 +11,9 @@
  *   - reduced-motion render (content must not be stuck hidden)
  *   - the 404 page
  * It also exercises the aurora homepage: the intro wipe must clear, the
- * hero must reveal, all five stacked work cards must render, and the
- * contact CTA must reveal after scrolling to it.
+ * hero must reveal, all five stacked work cards must render, the mobile
+ * glass menu must open and close, and the contact CTA must reveal after
+ * scrolling to it.
  *
  * Usage:
  *   1. npm run build && PORT=3100 npm start   (or any running instance)
@@ -110,17 +111,34 @@ const ctx = await browser.newContext({ ...devices["iPhone 13"] });
   if (!heroShown) note("home", "hero headline did not reveal");
   const cards = await page.locator("[data-stack-card]").count();
   if (cards !== 5) note("home", `expected 5 stacked work cards, found ${cards}`);
+  // mobile menu: opens from the hamburger, closes when a section is picked
+  await page.getByRole("button", { name: /open menu/i }).click();
+  await page.waitForTimeout(300);
+  const menu = page.getByRole("navigation", { name: /mobile/i });
+  if (!(await menu.isVisible().catch(() => false))) {
+    note("home", "mobile nav menu did not open");
+  } else {
+    await menu.locator('a[href="#services"]').click();
+    await page.waitForTimeout(400);
+    if (await menu.isVisible().catch(() => false))
+      note("home", "mobile nav menu did not close after selecting a link");
+  }
   await page.evaluate(() => document.getElementById("contact")?.scrollIntoView());
-  await page.waitForTimeout(1800);
-  const ctaShown = await page.evaluate(() => {
-    const cta = document.querySelector('a[href^="mailto:"]');
-    if (!cta) return false;
-    // walk up through the reveal wrappers — none may still be hidden
-    for (let el = cta; el; el = el.parentElement) {
-      if (getComputedStyle(el).opacity === "0") return false;
-    }
-    return true;
-  });
+  // smooth scroll covers the whole page, then the reveal runs 240ms delay
+  // + 1s transition — poll instead of guessing one fixed wait
+  let ctaShown = false;
+  for (let tries = 0; tries < 20 && !ctaShown; tries++) {
+    await page.waitForTimeout(350);
+    ctaShown = await page.evaluate(() => {
+      const cta = document.querySelector('a[href^="mailto:"]');
+      if (!cta) return false;
+      // walk up through the reveal wrappers — none may still be hidden
+      for (let el = cta; el; el = el.parentElement) {
+        if (getComputedStyle(el).opacity === "0") return false;
+      }
+      return true;
+    });
+  }
   if (!ctaShown) note("home", "contact CTA did not reveal after scroll");
   await page.close();
 

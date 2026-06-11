@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { site } from "@/lib/site";
 import { AuroraBackdrop } from "@/components/home/AuroraBackdrop";
 import { IntroWipe } from "@/components/home/IntroWipe";
 import { ScrollProgress } from "@/components/home/ScrollProgress";
@@ -23,7 +24,25 @@ export const metadata: Metadata = {
     title: "Flutterly — Design-grade engineering",
     description:
       "A one-person product studio in Reading, UK — web, native iOS, and cross-platform apps, designed, built, and shipped by Anoop Jose.",
+    url: site.url,
+    siteName: site.name,
+    locale: site.locale,
     type: "website",
+    images: [
+      {
+        url: site.ogImage,
+        width: 1200,
+        height: 630,
+        alt: "Flutterly — Design-grade engineering. Product studio, Reading, UK.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Flutterly — Design-grade engineering",
+    description:
+      "A one-person product studio in Reading, UK — web, native iOS, and cross-platform apps by Anoop Jose.",
+    images: [site.ogImage],
   },
 };
 

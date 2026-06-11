@@ -116,7 +116,7 @@ function JsonLd() {
     url: site.url,
     email: site.email,
     telephone: site.phone,
-    image: `${site.url}${site.ogImage}`,
+    image: `${site.url}/anoop-jose.jpg`,
     address: { "@type": "PostalAddress", ...site.address },
     sameAs: [site.social.github, site.social.linkedin],
     worksFor: { "@id": `${site.url}#organization` },
@@ -142,9 +142,9 @@ function JsonLd() {
     url: site.url,
     logo: {
       "@type": "ImageObject",
-      url: `${site.url}${site.ogImage}`,
-      width: 1200,
-      height: 630,
+      url: `${site.url}${site.logo}`,
+      width: 900,
+      height: 900,
     },
     description:
       "Flutterly is a UK product studio designing and engineering fast, polished web and mobile apps.",
