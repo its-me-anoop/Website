@@ -10,7 +10,9 @@
  *   - in-page anchors whose target id is missing (incl. the #main skip link)
  *   - reduced-motion render (content must not be stuck hidden)
  *   - the 404 page
- * It also exercises the mobile nav menu and the homepage hero tabs.
+ * It also exercises the aurora homepage: the intro wipe must clear, the
+ * hero must reveal, all five stacked work cards must render, and the
+ * contact CTA must reveal after scrolling to it.
  *
  * Usage:
  *   1. npm run build && PORT=3100 npm start   (or any running instance)
@@ -97,18 +99,29 @@ const ctx = await browser.newContext({ ...devices["iPhone 13"] });
 {
   const page = await ctx.newPage();
   await page.goto(BASE + "/", { waitUntil: "networkidle" });
-  await page.getByRole("button", { name: /open menu/i }).click();
-  await page.waitForTimeout(400);
-  if (!(await page.getByRole("navigation", { name: /mobile/i }).isVisible().catch(() => false)))
-    note("home", "mobile nav menu did not open");
-  for (const t of ["Insights", "Coach", "Hydration"]) {
-    const tab = page.getByRole("tab", { name: new RegExp(t, "i") }).first();
-    if (await tab.count()) {
-      await tab.click();
-      await page.waitForTimeout(300);
-      if ((await tab.getAttribute("aria-selected")) !== "true") note("home", `hero tab ${t} did not activate`);
-    } else note("home", `hero tab ${t} missing`);
-  }
+  // Intro wipe holds 850ms, slides 1s, unmounts at 1.9s.
+  await page.waitForTimeout(2400);
+  if (await page.locator("[data-intro-wipe]").count())
+    note("home", "intro wipe still mounted after 2.4s");
+  const heroShown = await page.evaluate(() => {
+    const word = document.querySelector("h1 > span");
+    return word && getComputedStyle(word).opacity === "1";
+  });
+  if (!heroShown) note("home", "hero headline did not reveal");
+  const cards = await page.locator("[data-stack-card]").count();
+  if (cards !== 5) note("home", `expected 5 stacked work cards, found ${cards}`);
+  await page.evaluate(() => document.getElementById("contact")?.scrollIntoView());
+  await page.waitForTimeout(1800);
+  const ctaShown = await page.evaluate(() => {
+    const cta = document.querySelector('a[href^="mailto:"]');
+    if (!cta) return false;
+    // walk up through the reveal wrappers — none may still be hidden
+    for (let el = cta; el; el = el.parentElement) {
+      if (getComputedStyle(el).opacity === "0") return false;
+    }
+    return true;
+  });
+  if (!ctaShown) note("home", "contact CTA did not reveal after scroll");
   await page.close();
 
   const p404 = await ctx.newPage();
@@ -125,7 +138,11 @@ for (const r of ["/", "/projects/sipli", "/projects/artling"]) {
   await page.waitForTimeout(500);
   const ok = await page.evaluate(() => {
     const h1 = document.querySelector("h1");
-    return h1 && getComputedStyle(h1).opacity === "1";
+    if (!h1 || getComputedStyle(h1).opacity !== "1") return false;
+    // reveal wrappers inside the heading must not be stuck hidden either
+    return [...h1.querySelectorAll("span")].every(
+      (s) => getComputedStyle(s).opacity === "1"
+    );
   });
   if (!ok) note(`reduced-motion ${r}`, "h1 not visible (stuck hidden)");
   await page.close();

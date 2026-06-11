@@ -1,43 +1,59 @@
-import type { Metadata } from "next";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { Hero } from "@/components/sections/Hero";
-import { Services } from "@/components/sections/Services";
-import { FeaturedWork } from "@/components/sections/FeaturedWork";
-import { Practice } from "@/components/sections/Practice";
-import { Stack } from "@/components/sections/Stack";
-import { OpenSource } from "@/components/sections/OpenSource";
-import { Contact } from "@/components/sections/Contact";
-import About from "@/components/About";
+import type { Metadata, Viewport } from "next";
+import { AuroraBackdrop } from "@/components/home/AuroraBackdrop";
+import { IntroWipe } from "@/components/home/IntroWipe";
+import { ScrollProgress } from "@/components/home/ScrollProgress";
+import { GlassNav } from "@/components/home/GlassNav";
+import { Hero } from "@/components/home/Hero";
+import { MarqueeBand } from "@/components/home/MarqueeBand";
+import { WorkStack } from "@/components/home/WorkStack";
+import { Services } from "@/components/home/Services";
+import { Process } from "@/components/home/Process";
+import { StackMarquees } from "@/components/home/StackMarquees";
+import { OpenSource } from "@/components/home/OpenSource";
+import { About } from "@/components/home/About";
+import { Contact } from "@/components/home/Contact";
+import { HomeFooter } from "@/components/home/HomeFooter";
 
 export const metadata: Metadata = {
-  title: "App & Web Developer",
+  title: "Design-grade engineering",
   description:
-    "Anoop Jose is a UK-based developer and designer crafting fast, polished web and mobile apps with Next.js, React, SwiftUI and Flutter — founder of Flutterly.",
+    "Flutterly is a one-person product studio in Reading, UK. Web in Next.js and React, native iOS in SwiftUI, cross-platform in Flutter — designed, built, and shipped by Anoop Jose.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Anoop Jose — App & Web Developer",
+    title: "Flutterly — Design-grade engineering",
     description:
-      "I design and build web and mobile apps that feel considered, fast, and alive. Based in Reading, UK.",
+      "A one-person product studio in Reading, UK — web, native iOS, and cross-platform apps, designed, built, and shipped by Anoop Jose.",
     type: "website",
   },
 };
 
+/* The aurora homepage is a dark route on an otherwise light site. */
+export const viewport: Viewport = {
+  themeColor: "#05060A",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main id="main" className="relative isolate text-ink" role="main">
+    <div className="aurora-root relative min-h-screen bg-obsidian font-grotesk text-frost">
+      <AuroraBackdrop />
+      <IntroWipe />
+      <ScrollProgress />
+      <GlassNav />
+      <main id="main" role="main" className="relative">
         <Hero />
-        <FeaturedWork />
+        <MarqueeBand />
+        <WorkStack />
         <Services />
-        <Practice />
-        <Stack />
+        <Process />
+        <StackMarquees />
         <OpenSource />
         <About />
         <Contact />
       </main>
-      <Footer />
-    </>
+      <HomeFooter />
+    </div>
   );
 }

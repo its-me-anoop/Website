@@ -86,6 +86,18 @@
   --foreground: var(--ink);
   --signal: var(--accent);
   --signal-ink: var(--accent-ink);
+
+  /* ── "Aurora" homepage palette ────────────────────────────────
+     The home route runs its own dark design language: obsidian
+     canvas under a WebGL aurora, frost ink, and five neon accents.
+     Case-study pages stay on the Porcelain ramp above. */
+  --obsidian: #05060a;
+  --frost: #eceef8;
+  --mint: #3df2c4;
+  --iris: #8b7cff;
+  --candy: #ff6fcb;
+  --amber: #ffb45c;
+  --lime: #7ce38b;
 }
 
 /* Sipli case study: light aqua product palette */
@@ -162,6 +174,14 @@
   --color-pink: var(--pink);
   --color-green: var(--green);
 
+  --color-obsidian: var(--obsidian);
+  --color-frost: var(--frost);
+  --color-mint: var(--mint);
+  --color-iris: var(--iris);
+  --color-candy: var(--candy);
+  --color-amber: var(--amber);
+  --color-lime: var(--lime);
+
   /* Semantic + legacy aliases */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -178,6 +198,11 @@
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Inter, "Helvetica Neue", sans-serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Aurora type system (self-hosted via next/font, see layout.tsx) */
+  --font-syne: var(--font-syne-v), "Syne", var(--font-display);
+  --font-grotesk: var(--font-grotesk-v), "Space Grotesk", var(--font-sans);
+  --font-jb: var(--font-jb-v), "JetBrains Mono", var(--font-mono);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -310,6 +335,75 @@ p {
 }
 .animate-float {
   animation: float-y 6s var(--ease-in-out) infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Aurora — homepage design language
+   Obsidian canvas, WebGL aurora, glass surfaces, Syne display
+   type with outlined-stroke headline lines. Scoped to the home
+   route via `.aurora-root` so Porcelain pages are untouched.
+   ───────────────────────────────────────────────────────────── */
+
+/* Dark chrome (overscroll, scrollbars, form controls) only while
+   an aurora page is mounted. */
+html:has(.aurora-root) {
+  background: var(--obsidian);
+  color-scheme: dark;
+}
+html:has(.aurora-root)::-webkit-scrollbar-track {
+  background: var(--obsidian);
+}
+html:has(.aurora-root)::-webkit-scrollbar-thumb {
+  background: #262a3a;
+  border-color: var(--obsidian);
+}
+html:has(.aurora-root)::-webkit-scrollbar-thumb:hover {
+  background: #3a3f55;
+}
+
+.aurora-root ::selection {
+  background: rgba(61, 242, 196, 0.35);
+  color: var(--frost);
+}
+.aurora-root :focus-visible {
+  outline-color: var(--mint);
+}
+
+/* Outlined display lines — the signature headline treatment. */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(236, 238, 248, 0.65);
+}
+.text-outline-hero {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(236, 238, 248, 0.75);
+}
+
+@keyframes au-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes au-marquee-rev {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@keyframes au-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-14px) rotate(2deg); }
+}
+@keyframes au-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@keyframes au-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes au-scrollline {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
 @media (prefers-reduced-motion: reduce) {
