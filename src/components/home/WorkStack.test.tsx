@@ -33,11 +33,18 @@ describe("WorkStack", () => {
     ]);
   });
 
-  it("points client work at the contact section", () => {
+  it("links client work to the live sites in a new tab", () => {
     render(<WorkStack />);
-    const asks = screen.getAllByRole("link", { name: /ask about it/i });
-    expect(asks).toHaveLength(3);
-    asks.forEach((a) => expect(a).toHaveAttribute("href", "#contact"));
+    const visits = screen.getAllByRole("link", { name: /visit the site/i });
+    expect(visits.map((a) => a.getAttribute("href"))).toEqual([
+      "https://www.greenmead.co.uk/",
+      "https://www.jjpaperessential.com/",
+      "https://sandbournecare.co.uk/",
+    ]);
+    visits.forEach((a) => {
+      expect(a).toHaveAttribute("target", "_blank");
+      expect(a).toHaveAttribute("rel", "noopener noreferrer");
+    });
   });
 
   it("renders Sipli's live badge and capability chips", () => {
