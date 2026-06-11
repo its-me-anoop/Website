@@ -1,8 +1,9 @@
 # Design System — "Porcelain"
 
-The visual language of anoopjose / flutterly.uk: a **light, Apple-inspired,
-whitespace-first** system for a developer portfolio. This is the reference for
-building any new page or component so the experience stays coherent.
+The visual language of the **case-study pages** (`/projects/*`): a
+**light, Apple-inspired, whitespace-first** system. This is the
+reference for building product sub-pages so they stay coherent. The
+homepage runs its own dark language — see ["Aurora"](./AURORA.md).
 
 > TL;DR — white canvas with `#f5f5f7` bands, a disciplined ink ramp, hairline
 > rules, **one** Apple-blue accent, soft diffuse shadows, SF-style system

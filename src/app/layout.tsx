@@ -1,10 +1,34 @@
 import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import { site } from "@/lib/site";
 
-/* Typography is the native SF-style system stack (see globals.css) —
-   zero font payload, instant render, and the most Apple-feeling result
-   on Apple devices. */
+/* Porcelain pages render on the native SF-style system stack (see
+   globals.css). The Aurora homepage adds its own trio — Syne display,
+   Space Grotesk body, JetBrains Mono micro-labels — self-hosted as
+   latin variable woff2 subsets (~97KB total) so builds never depend
+   on the Google Fonts CDN. */
+
+const syne = localFont({
+  src: "../fonts/syne-latin-var.woff2",
+  weight: "400 800",
+  variable: "--font-syne-v",
+  display: "swap",
+});
+
+const grotesk = localFont({
+  src: "../fonts/space-grotesk-latin-var.woff2",
+  weight: "300 700",
+  variable: "--font-grotesk-v",
+  display: "swap",
+});
+
+const jbMono = localFont({
+  src: "../fonts/jetbrains-mono-latin-var.woff2",
+  weight: "100 800",
+  variable: "--font-jb-v",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -198,7 +222,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-GB" suppressHydrationWarning>
+    <html
+      lang="en-GB"
+      suppressHydrationWarning
+      className={`${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
+    >
       <head>
         <JsonLd />
       </head>
