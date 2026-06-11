@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { site } from "@/lib/site";
 
 export function HomeFooter() {
@@ -5,8 +6,11 @@ export function HomeFooter() {
     <footer className="relative z-[1] border-t border-white/[.09] bg-[rgba(7,8,13,.6)] px-6 py-10 backdrop-blur-[16px] md:px-12">
       <div className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-6">
         <div className="flex flex-wrap items-center gap-[18px]">
-          <span className="font-syne text-[17px] font-extrabold text-frost">
-            Flutterly<span className="text-mint">*</span>
+          <span className="inline-flex items-center gap-2 font-syne text-[17px] font-extrabold text-frost">
+            <Image src="/flutterly-logo.png" alt="" width={22} height={22} />
+            <span>
+              Flutterly<span className="text-mint">*</span>
+            </span>
           </span>
           <span className="font-jb text-[10px] uppercase tracking-[0.18em] text-frost/[.38]">
             © {new Date().getFullYear()} {site.legalName} — Reading, UK

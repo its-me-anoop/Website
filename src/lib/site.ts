@@ -29,7 +29,8 @@ export const site = {
     githubHandle: "its-me-anoop",
     linkedin: "https://www.linkedin.com/in/anoop-jose-0b308a296/",
   },
-  ogImage: "/flutterly-title.png",
+  ogImage: "/og-image.png",
+  logo: "/flutterly-logo.png",
 } as const;
 
 export type Site = typeof site;
