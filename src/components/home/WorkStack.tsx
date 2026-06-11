@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  ConciergeBell,
+  HeartHandshake,
+  House,
   Images,
-  Leaf,
   Package,
   type LucideIcon,
 } from "lucide-react";
@@ -64,24 +64,24 @@ const PROJECTS: Project[] = [
   {
     name: "Greenmead",
     index: "03",
-    meta: "Brand · Web — 2024",
+    meta: "Housing · Web — 2024",
     description:
-      "Brand and marketing site for a wellness practice — calm pages that load like they mean it. Edge-rendered Next.js, 100/100 Lighthouse.",
-    cta: { label: "Ask about it", href: "#contact" },
+      "The web home of Greenmead Housing, a community interest company providing safe, empowering homes for adults with learning disabilities and mental health needs — calm, accessible, person-centred.",
+    cta: { label: "Visit the site", href: "https://www.greenmead.co.uk/" },
     accent: "#7CE38B",
     accentRgb: "124,227,139",
     cardBg: "rgba(10,14,16,.72)",
     top: "17vh",
     minH: "lg:min-h-[58vh]",
-    icon: Leaf,
+    icon: House,
   },
   {
     name: "JJ Paper",
     index: "04",
-    meta: "Commerce — 2024",
+    meta: "B2B · Web — 2024",
     description:
-      "A custom paper-goods storefront with a print-on-demand pipeline running quietly behind it — Stripe in front, presses out back.",
-    cta: { label: "Ask about it", href: "#contact" },
+      "The site of JJ Paper Essentials, a Fareham importer bringing sugarcane-waste paper products from certified Indian makers to UK businesses — 100% biodegradable, over a thousand tonnes a year.",
+    cta: { label: "Visit the site", href: "https://www.jjpaperessential.com/" },
     accent: "#FFB45C",
     accentRgb: "255,180,92",
     cardBg: "rgba(16,13,10,.72)",
@@ -92,16 +92,16 @@ const PROJECTS: Project[] = [
   {
     name: "Sandbourne",
     index: "05",
-    meta: "Hospitality — 2024",
+    meta: "Care · Web — 2024",
     description:
-      "A reservations engine for boutique hotels, built for the Saturday-night rush — real-time availability without the double-bookings.",
-    cta: { label: "Ask about it", href: "#contact" },
+      "The web presence of Sandbourne Care, a Bournemouth provider of residential, supported living, and respite care — with specialist autism, physical disability, and learning disability support.",
+    cta: { label: "Visit the site", href: "https://sandbournecare.co.uk/" },
     accent: "#8B7CFF",
     accentRgb: "139,124,255",
     cardBg: "rgba(12,11,20,.72)",
     top: "21vh",
     minH: "lg:min-h-[50vh]",
-    icon: ConciergeBell,
+    icon: HeartHandshake,
   },
 ];
 
@@ -114,12 +114,21 @@ function CardCta({ project }: { project: Project }) {
       {project.cta.label} <ArrowRight size={16} aria-hidden />
     </>
   );
-  return project.cta.internal ? (
-    <Link href={project.cta.href} className={className} style={style}>
-      {label}
-    </Link>
-  ) : (
-    <a href={project.cta.href} className={className} style={style}>
+  if (project.cta.internal) {
+    return (
+      <Link href={project.cta.href} className={className} style={style}>
+        {label}
+      </Link>
+    );
+  }
+  const external = project.cta.href.startsWith("http");
+  return (
+    <a
+      href={project.cta.href}
+      className={className}
+      style={style}
+      {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+    >
       {label}
     </a>
   );
