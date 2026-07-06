@@ -1,689 +1,945 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
-  ArrowLeft,
-  ArrowRight,
-  BellDot,
-  Camera,
-  Clock3,
-  Cloud,
-  FileText,
-  Mic,
-  Search,
-  Shield,
-  Share2,
-  Sparkles,
-  Star,
-  Tags,
-  WandSparkles,
+    ArrowLeft,
+    ArrowUpRight,
+    Camera,
+    Clock3,
+    Cloud,
+    FileText,
+    Mic,
+    Search,
+    Share2,
+    Sparkles,
+    Star,
+    Tags,
+    WandSparkles,
 } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Iphone17ProFrame } from "@/components/ui/Iphone17ProFrame";
+import { Reveal, MaskedLines } from "@/components/motion/Reveal";
 
-const ease: [number, number, number, number] = [0.25, 0.1, 0.25, 1.0];
+const ink = "#2F211D";
+const inkSoft = "#715B51";
+const inkTertiary = "#9C6A55";
+const paper = "#FFF7F1";
+const paperCream = "#FFFDF9";
+const paperSand = "#FFF5EC";
+const border = "#EFDDD1";
+const accent = "#F2784B";
+const green = "#76B699";
+const blue = "#6FAFD1";
 
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease },
-  },
-};
-
-const stagger: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.08 },
-  },
-};
-
-const pillars = [
-  {
-    icon: Camera,
-    title: "Capture in the moment",
-    description:
-      "Save drawings from the camera, photo library, or document scanner before they disappear into a cabinet.",
-    accent: "#F2784B",
-    glow: "rgba(242,120,75,0.18)",
-  },
-  {
-    icon: Mic,
-    title: "Keep the story attached",
-    description:
-      "Add dates, tags, favourites, and voice notes so every piece carries the memory around it, not just the image.",
-    accent: "#76B699",
-    glow: "rgba(118,182,153,0.18)",
-  },
-  {
-    icon: Clock3,
-    title: "Relive the years beautifully",
-    description:
-      "Browse a living timeline, celebrate milestones, and surface \"On This Day\" moments without extra work.",
-    accent: "#6FAFD1",
-    glow: "rgba(111,175,209,0.18)",
-  },
+const chapters: {
+    no: string;
+    eyebrow: string;
+    title: string;
+    body: string;
+    icon: LucideIcon;
+    accent: string;
+}[] = [
+    {
+        no: "01",
+        eyebrow: "Capture",
+        title: "Save the piece before it disappears into a drawer.",
+        body: "Camera, photo library, document scanner — three taps and it is filed with the child, the date, and the story. Artling is designed for the moment right after a drawing is finished, when everything else is happening too.",
+        icon: Camera,
+        accent,
+    },
+    {
+        no: "02",
+        eyebrow: "Story",
+        title: "The picture, plus the voice that explains why it mattered.",
+        body: "Voice notes, dates, tags, and favourites live next to the artwork itself. Years later, you get the tiger AND the fact she called it Reginald.",
+        icon: Mic,
+        accent: green,
+    },
+    {
+        no: "03",
+        eyebrow: "Timeline",
+        title: "Watch a childhood unfold without a shoebox in the loft.",
+        body: "Browse a living timeline, celebrate milestones, and let On This Day surface the piece from two years ago without a single reminder to set.",
+        icon: Clock3,
+        accent: blue,
+    },
 ];
 
 const featureCards = [
-  {
-    icon: Share2,
-    title: "Family sharing",
-    description:
-      "Invite another parent or guardian into a shared profile without turning the archive into a group chat.",
-  },
-  {
-    icon: Sparkles,
-    title: "AI captions",
-    description:
-      "Generate warm titles and captions from the artwork itself when you want help labeling a busy week.",
-  },
-  {
-    icon: Search,
-    title: "Search and filter",
-    description:
-      "Jump back to animals, school projects, favourite pieces, or a specific child in seconds.",
-  },
-  {
-    icon: Star,
-    title: "Milestones and memories",
-    description:
-      "Track creative streaks, badge-worthy moments, and anniversary resurfacing without building another routine.",
-  },
-  {
-    icon: FileText,
-    title: "Export-ready keepsakes",
-    description:
-      "Turn a child’s growing gallery into a polished PDF portfolio when you want something tangible to share.",
-  },
-  {
-    icon: BellDot,
-    title: "Gentle reminders",
-    description:
-      "Use local reminders to revisit old work or nudge yourself when the archive has been quiet for a while.",
-  },
+    {
+        icon: Share2,
+        title: "Family sharing",
+        description:
+            "Invite another parent or guardian into a shared profile without turning the archive into a group chat.",
+    },
+    {
+        icon: Sparkles,
+        title: "AI captions",
+        description:
+            "Generate warm titles and captions from the artwork itself when you want help labeling a busy week.",
+    },
+    {
+        icon: Search,
+        title: "Search & filter",
+        description:
+            "Jump back to animals, school projects, favourite pieces, or a specific child in seconds.",
+    },
+    {
+        icon: Star,
+        title: "Milestones",
+        description:
+            "Track creative streaks, badge-worthy moments, and anniversary resurfacing without another routine.",
+    },
+    {
+        icon: FileText,
+        title: "PDF portfolios",
+        description:
+            "Turn a growing gallery into a polished PDF keepsake — school folder, gift, or grandparent parcel.",
+    },
+    {
+        icon: Cloud,
+        title: "Local-first",
+        description:
+            "Core library stays on device. Cloud only when sync, sharing, or AI actively require it.",
+    },
 ];
 
-const trustPoints = [
-  "SwiftUI experience built for iPhone and iPad",
-  "Core library stored locally with cloud support for synced families",
-  "No advertising SDKs or noisy growth loops",
-  "Clear in-app account deletion and privacy access",
+const stack = [
+    { label: "Platforms", items: "iOS · iPadOS" },
+    { label: "Language", items: "Swift · SwiftUI" },
+    { label: "Auth", items: "Sign in with Apple · Firebase" },
+    { label: "Data", items: "Core Data · CloudKit · Firebase" },
+    { label: "AI", items: "Firebase AI · Google AI (captions)" },
+    { label: "Purchases", items: "StoreKit 2 · in-app family plan" },
 ];
 
-function SectionHeading({
-  eyebrow,
-  title,
-  description,
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="max-w-[760px]">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#9C6A55]">
-        {eyebrow}
-      </p>
-      <h2 className="mt-4 text-[clamp(2rem,4vw,3.5rem)] font-display font-medium leading-[1.05] tracking-[-0.03em] text-[#2F211D]">
-        {title}
-      </h2>
-      <p className="mt-5 max-w-[640px] text-[15px] leading-7 text-[#715B51] md:text-[17px]">
-        {description}
-      </p>
-    </div>
-  );
-}
+const ticker = [
+    "For families with fridge doors",
+    "Capture · Story · Timeline",
+    "Available on the App Store",
+    "iPhone & iPad",
+    "AI-assisted captions",
+    "PDF export",
+    "Family sharing",
+    "Made in Reading, UK",
+];
 
-function PillarCard({
-  icon: Icon,
-  title,
-  description,
-  accent,
-  glow,
-}: {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  accent: string;
-  glow: string;
-}) {
-  return (
-    <motion.article
-      variants={fadeInUp}
-      whileHover={{ y: -6, transition: { duration: 0.18, ease } }}
-      className="relative overflow-hidden rounded-[32px] border border-white/70 bg-white/72 p-7 shadow-[0_24px_80px_rgba(69,40,28,0.08)] backdrop-blur-sm"
-    >
-      <div
-        className="absolute -right-10 -top-10 h-32 w-32 rounded-full blur-3xl"
-        style={{ background: glow }}
-        aria-hidden="true"
-      />
-      <div
-        className="flex h-14 w-14 items-center justify-center rounded-[18px]"
-        style={{ backgroundColor: `${accent}18` }}
-      >
-        <Icon className="h-6 w-6" style={{ color: accent }} />
-      </div>
-      <h3 className="mt-6 text-xl font-display font-semibold tracking-tight text-[#2F211D]">
-        {title}
-      </h3>
-      <p className="mt-3 text-sm leading-7 text-[#715B51]">{description}</p>
-    </motion.article>
-  );
-}
+export function ArtlingLanding() {
+    const heroRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress: heroProgress } = useScroll({
+        target: heroRef,
+        offset: ["start start", "end start"],
+    });
+    const foxY = useSpring(useTransform(heroProgress, [0, 1], [0, -80]), {
+        stiffness: 120,
+        damping: 22,
+    });
+    const phoneY = useSpring(useTransform(heroProgress, [0, 1], [0, -120]), {
+        stiffness: 120,
+        damping: 22,
+    });
 
-function FeatureCard({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-}) {
-  return (
-    <motion.article
-      variants={fadeInUp}
-      className="rounded-[28px] border border-[#EBD9CF] bg-[#FFFDF9] p-6 shadow-[0_18px_60px_rgba(92,63,51,0.06)]"
-    >
-      <div className="flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-[16px] bg-[#FCE6D8] text-[#F2784B]">
-          <Icon className="h-5 w-5" />
-        </div>
-        <h3 className="text-lg font-display font-semibold tracking-tight text-[#2F211D]">
-          {title}
-        </h3>
-      </div>
-      <p className="mt-4 text-sm leading-7 text-[#715B51]">{description}</p>
-    </motion.article>
-  );
+    return (
+        <main
+            style={{ background: paper, color: ink }}
+            className="min-h-screen overflow-x-hidden"
+        >
+            <Navbar />
+
+            {/* ── HERO ─────────────────────────────────────── */}
+            <section
+                ref={heroRef}
+                className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 sm:pt-32 md:px-10 md:pt-36 md:pb-24"
+                style={{
+                    background: `linear-gradient(180deg, ${paperCream} 0%, ${paperSand} 60%, ${paper} 100%)`,
+                }}
+                aria-label="Artling — an iOS art archive for families"
+            >
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 opacity-90"
+                    style={{
+                        background:
+                            "radial-gradient(circle at 12% 12%, rgba(242,120,75,0.18), transparent 32%), radial-gradient(circle at 82% 20%, rgba(118,182,153,0.14), transparent 30%), radial-gradient(circle at 76% 78%, rgba(111,175,209,0.16), transparent 34%)",
+                    }}
+                />
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-full max-w-[1200px] -translate-x-1/2 opacity-[0.08] md:block"
+                    style={{
+                        backgroundImage: `linear-gradient(90deg, ${inkTertiary}55 1px, transparent 1px)`,
+                        backgroundSize: "calc(100% / 12) 100%",
+                    }}
+                />
+
+                <div className="relative mx-auto max-w-[1200px]">
+                    <Reveal y={0} duration={0.4} className="mb-8 sm:mb-10">
+                        <Link
+                            href="/#work"
+                            style={{ color: inkTertiary }}
+                            className="group inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] transition-colors hover:text-[color:var(--accent)] sm:text-[11px]"
+                        >
+                            <ArrowLeft
+                                size={14}
+                                className="transition-transform group-hover:-translate-x-0.5"
+                            />
+                            Back to the ledger
+                        </Link>
+                    </Reveal>
+
+                    <div
+                        className="grid grid-cols-2 gap-4 border-b pb-4 font-mono text-[10px] uppercase tracking-[0.22em] sm:grid-cols-4 sm:text-[11px]"
+                        style={{ borderColor: border, color: inkTertiary }}
+                    >
+                        {[
+                            { label: "Project", value: "Artling" },
+                            { label: "Year", value: "2025 — ongoing" },
+                            { label: "Platforms", value: "iOS · iPadOS" },
+                            {
+                                label: "Status",
+                                value: (
+                                    <span
+                                        className="inline-flex items-center gap-2"
+                                        style={{ color: ink }}
+                                    >
+                                        <span className="relative flex h-1.5 w-1.5">
+                                            <span
+                                                className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60"
+                                                style={{ background: accent }}
+                                            />
+                                            <span
+                                                className="relative inline-flex h-1.5 w-1.5 rounded-full"
+                                                style={{ background: accent }}
+                                            />
+                                        </span>
+                                        Live on App Store
+                                    </span>
+                                ),
+                            },
+                        ].map((c) => (
+                            <div key={c.label} className="flex flex-col gap-1">
+                                <span>{c.label}</span>
+                                <span style={{ color: inkSoft }}>{c.value}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-16 grid grid-cols-1 items-center gap-12 md:mt-20 lg:grid-cols-12 lg:gap-16">
+                        <div className="lg:col-span-7">
+                            <p
+                                className="mb-4 font-mono text-[11px] uppercase tracking-[0.28em]"
+                                style={{ color: accent }}
+                            >
+                                № 01 · The Project
+                            </p>
+                            <h1
+                                className="font-display text-[clamp(2.75rem,7.5vw,6.5rem)] font-light leading-[0.96] tracking-[-0.045em]"
+                                style={{ color: ink }}
+                            >
+                                <span className="block">
+                                    <MaskedLines text="Artling." />
+                                </span>
+                                <span className="block italic" style={{ color: inkSoft }}>
+                                    <MaskedLines
+                                        text="A living family gallery"
+                                        delay={0.15}
+                                    />
+                                </span>
+                                <span className="block">
+                                    <MaskedLines
+                                        text="for the fridge-door years."
+                                        delay={0.3}
+                                    />
+                                </span>
+                            </h1>
+
+                            <Reveal delay={0.55} className="mt-8 max-w-xl">
+                                <p
+                                    className="text-pretty text-[17px] leading-[1.55] sm:text-lg"
+                                    style={{ color: inkSoft }}
+                                >
+                                    Artling helps parents capture children&rsquo;s
+                                    artwork the moment it&rsquo;s finished, keep the
+                                    story alongside each piece, and revisit a
+                                    childhood through timelines, milestones, sharing,
+                                    and AI-assisted captions. Made by Flutterly.
+                                </p>
+                            </Reveal>
+
+                            <Reveal
+                                delay={0.7}
+                                className="mt-10 flex flex-wrap items-center gap-4"
+                            >
+                                <Link
+                                    href="https://apps.apple.com/us/app/artling"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group inline-flex items-center gap-3 rounded-full px-7 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white transition-all hover:-translate-y-0.5"
+                                    style={{
+                                        background: accent,
+                                        boxShadow: "0 10px 30px rgba(242,120,75,0.35)",
+                                    }}
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        className="h-4 w-4"
+                                        aria-hidden
+                                    >
+                                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                    </svg>
+                                    <span>Get on the App Store</span>
+                                    <ArrowUpRight
+                                        size={14}
+                                        className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                                    />
+                                </Link>
+                                <Link
+                                    href="#chapters"
+                                    className="group inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] transition-colors"
+                                    style={{ color: inkSoft }}
+                                >
+                                    <span
+                                        className="border-b pb-1 group-hover:border-current"
+                                        style={{ borderColor: border }}
+                                    >
+                                        Read the notes
+                                    </span>
+                                </Link>
+                            </Reveal>
+                        </div>
+
+                        <div className="lg:col-span-5">
+                            <motion.div
+                                style={{ y: phoneY }}
+                                className="relative mx-auto max-w-[380px]"
+                            >
+                                <div className="animate-mask-reveal relative">
+                                    <Iphone17ProFrame>
+                                        <ArtlingPhoneMockup />
+                                    </Iphone17ProFrame>
+                                </div>
+
+                                <motion.div
+                                    style={{ y: foxY }}
+                                    animate={{ rotate: [0, -2, 0, 2, 0] }}
+                                    transition={{
+                                        duration: 8,
+                                        repeat: Infinity,
+                                        ease: "easeInOut",
+                                    }}
+                                    className="pointer-events-none absolute -bottom-4 -right-6 z-20 w-[140px] sm:w-[170px] md:w-[190px]"
+                                >
+                                    <Image
+                                        src="/projects/artling/fox-painter.png"
+                                        alt="Artling fox mascot"
+                                        width={806}
+                                        height={1129}
+                                        priority
+                                        className="h-auto w-full drop-shadow-[0_26px_40px_rgba(0,0,0,0.24)]"
+                                    />
+                                </motion.div>
+                            </motion.div>
+                        </div>
+                    </div>
+
+                    <div
+                        className="mt-24 flex items-center justify-between border-t pt-5 font-mono text-[10px] uppercase tracking-[0.22em] sm:text-[11px]"
+                        style={{ borderColor: border, color: inkTertiary }}
+                    >
+                        <p>Signed, Flutterly · 2025</p>
+                        <p className="hidden sm:block">
+                            Editorial № 02 · Artling dossier
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* ── TICKER ─────────────────────────────────────── */}
+            <section
+                aria-hidden
+                className="relative overflow-hidden border-y py-6"
+                style={{
+                    background: ink,
+                    color: paperCream,
+                    borderColor: "#3D2A25",
+                }}
+            >
+                <div className="flex w-max animate-marquee whitespace-nowrap">
+                    {[...ticker, ...ticker].map((item, i) => (
+                        <span
+                            key={i}
+                            className="mx-8 inline-flex items-center gap-8 font-display text-2xl italic sm:text-3xl"
+                            style={{ color: "#F4D7C8" }}
+                        >
+                            {item}
+                            <span
+                                aria-hidden
+                                className="h-1.5 w-1.5 rounded-full"
+                                style={{ background: accent }}
+                            />
+                        </span>
+                    ))}
+                </div>
+            </section>
+
+            {/* ── CHAPTERS (Three pillars) ─────────────────────────────────────── */}
+            <section
+                id="chapters"
+                aria-labelledby="chapters-heading"
+                className="relative px-4 py-24 sm:px-6 sm:py-32 md:px-10 md:py-40"
+                style={{ background: paper }}
+            >
+                <div className="mx-auto max-w-[1200px]">
+                    <Reveal
+                        className="mb-16 grid grid-cols-1 items-end gap-6 border-b pb-8 sm:mb-20 md:grid-cols-12"
+                        style={{ borderColor: border }}
+                    >
+                        <div className="md:col-span-7">
+                            <p
+                                className="mb-3 font-mono text-[11px] uppercase tracking-[0.28em]"
+                                style={{ color: accent }}
+                            >
+                                № 02 · The three parts
+                            </p>
+                            <h2
+                                id="chapters-heading"
+                                className="font-display text-4xl font-light leading-[0.95] tracking-[-0.02em] sm:text-5xl md:text-6xl"
+                                style={{ color: ink }}
+                            >
+                                Capture. Story.
+                                <br />
+                                <span className="italic" style={{ color: inkSoft }}>
+                                    Timeline.
+                                </span>
+                            </h2>
+                        </div>
+                        <div className="md:col-span-5">
+                            <p
+                                className="text-pretty text-[15px] leading-relaxed"
+                                style={{ color: inkSoft }}
+                            >
+                                Artling is deliberately structured around three actions
+                                you already take with your children&rsquo;s art — take
+                                a picture, tell the story, look back later. Everything
+                                else in the app supports one of those three.
+                            </p>
+                        </div>
+                    </Reveal>
+
+                    <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+                        {chapters.map((chapter, i) => (
+                            <Reveal
+                                key={chapter.no}
+                                delay={i * 0.1}
+                                as="article"
+                                className="group relative flex flex-col overflow-hidden rounded-[32px] border p-8 backdrop-blur-sm transition-transform duration-500 hover:-translate-y-2"
+                                style={{
+                                    background: "rgba(255,255,255,0.72)",
+                                    borderColor: "rgba(255,255,255,0.9)",
+                                    boxShadow: "0 24px 80px rgba(69,40,28,0.08)",
+                                }}
+                            >
+                                <div
+                                    aria-hidden
+                                    className="absolute -right-10 -top-10 h-40 w-40 rounded-full blur-3xl"
+                                    style={{ background: `${chapter.accent}22` }}
+                                />
+                                <p
+                                    className="relative mb-6 font-mono text-[10px] uppercase tracking-[0.28em]"
+                                    style={{ color: chapter.accent }}
+                                >
+                                    № {chapter.no} · {chapter.eyebrow}
+                                </p>
+                                <div
+                                    className="relative mb-6 flex h-14 w-14 items-center justify-center rounded-2xl"
+                                    style={{ background: `${chapter.accent}18` }}
+                                >
+                                    <chapter.icon
+                                        size={26}
+                                        strokeWidth={1.5}
+                                        style={{ color: chapter.accent }}
+                                    />
+                                </div>
+                                <h3
+                                    className="relative font-display text-2xl font-medium leading-tight tracking-tight sm:text-[1.65rem]"
+                                    style={{ color: ink }}
+                                >
+                                    {chapter.title}
+                                </h3>
+                                <p
+                                    className="relative mt-4 text-[15px] leading-relaxed"
+                                    style={{ color: inkSoft }}
+                                >
+                                    {chapter.body}
+                                </p>
+                            </Reveal>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ── PULL QUOTE ─────────────────────────────────────── */}
+            <section
+                className="relative overflow-hidden border-y px-4 py-24 sm:px-6 sm:py-32 md:px-10"
+                style={{ background: paperCream, borderColor: border }}
+            >
+                <div className="mx-auto max-w-4xl text-center">
+                    <Reveal>
+                        <span
+                            aria-hidden
+                            className="mb-4 block font-display text-[10rem] leading-none opacity-30"
+                            style={{ color: accent }}
+                        >
+                            &ldquo;
+                        </span>
+                        <p
+                            className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-light italic leading-[1.25] tracking-[-0.015em]"
+                            style={{ color: ink }}
+                        >
+                            The best archive is the one you actually keep up with.
+                            Artling turns twenty seconds after art class into a
+                            memory that stays with the family forever.
+                        </p>
+                        <p
+                            className="mt-8 font-mono text-[11px] uppercase tracking-[0.22em]"
+                            style={{ color: inkTertiary }}
+                        >
+                            — Notes from the design studio
+                        </p>
+                    </Reveal>
+                </div>
+            </section>
+
+            {/* ── FEATURE GRID ─────────────────────────────────────── */}
+            <section
+                aria-labelledby="features-heading"
+                className="relative px-4 py-24 sm:px-6 sm:py-32 md:px-10 md:py-36"
+                style={{ background: paper }}
+            >
+                <div className="mx-auto max-w-[1200px]">
+                    <Reveal
+                        className="mb-14 grid grid-cols-1 items-end gap-6 border-b pb-8 md:grid-cols-12"
+                        style={{ borderColor: border }}
+                    >
+                        <div className="md:col-span-7">
+                            <p
+                                className="mb-3 font-mono text-[11px] uppercase tracking-[0.28em]"
+                                style={{ color: accent }}
+                            >
+                                № 03 · Inside the app
+                            </p>
+                            <h2
+                                id="features-heading"
+                                className="font-display text-4xl font-light leading-[0.95] tracking-[-0.02em] sm:text-5xl md:text-6xl"
+                                style={{ color: ink }}
+                            >
+                                Six ways{" "}
+                                <span className="italic" style={{ color: inkSoft }}>
+                                    it earns its place
+                                </span>
+                                <br />
+                                on the home screen.
+                            </h2>
+                        </div>
+                        <div className="md:col-span-5">
+                            <p
+                                className="text-pretty text-[15px] leading-relaxed"
+                                style={{ color: inkSoft }}
+                            >
+                                Capture, organisation, memory resurfacing, and sharing
+                                — in one calm workflow, so nothing needs to move
+                                between photo albums, notes apps, or shoeboxes.
+                            </p>
+                        </div>
+                    </Reveal>
+
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        {featureCards.map((card, i) => (
+                            <Reveal
+                                key={card.title}
+                                delay={i * 0.06}
+                                as="article"
+                                className="group rounded-[24px] border p-6 transition-transform duration-500 hover:-translate-y-1"
+                                style={{
+                                    background: paperCream,
+                                    borderColor: border,
+                                    boxShadow: "0 18px 40px rgba(92,63,51,0.05)",
+                                }}
+                            >
+                                <div
+                                    className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl"
+                                    style={{
+                                        background: "#FCE6D8",
+                                        color: accent,
+                                    }}
+                                >
+                                    <card.icon size={20} strokeWidth={1.5} />
+                                </div>
+                                <h3
+                                    className="font-display text-xl font-medium tracking-tight"
+                                    style={{ color: ink }}
+                                >
+                                    {card.title}
+                                </h3>
+                                <p
+                                    className="mt-3 text-[14px] leading-relaxed"
+                                    style={{ color: inkSoft }}
+                                >
+                                    {card.description}
+                                </p>
+                            </Reveal>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ── STACK ─────────────────────────────────────── */}
+            <section
+                aria-labelledby="stack-heading"
+                className="relative border-t px-4 py-24 sm:px-6 sm:py-32 md:px-10"
+                style={{ background: paperSand, borderColor: border }}
+            >
+                <div className="mx-auto max-w-[1200px]">
+                    <Reveal
+                        className="mb-12 border-b pb-8 sm:mb-16"
+                        style={{ borderColor: border }}
+                    >
+                        <p
+                            className="mb-3 font-mono text-[11px] uppercase tracking-[0.28em]"
+                            style={{ color: accent }}
+                        >
+                            № 04 · The stack
+                        </p>
+                        <h2
+                            id="stack-heading"
+                            className="max-w-3xl font-display text-4xl font-light leading-[0.95] tracking-[-0.02em] sm:text-5xl md:text-6xl"
+                            style={{ color: ink }}
+                        >
+                            What Artling is{" "}
+                            <span className="italic" style={{ color: inkSoft }}>
+                                built from.
+                            </span>
+                        </h2>
+                    </Reveal>
+
+                    <dl className="grid grid-cols-1 gap-y-0 sm:grid-cols-2 md:grid-cols-3">
+                        {stack.map((row, i) => (
+                            <Reveal
+                                key={row.label}
+                                delay={i * 0.05}
+                                as="div"
+                                className="flex flex-col gap-3 border-b py-6 sm:py-8"
+                                style={{ borderColor: border }}
+                            >
+                                <dt
+                                    className="font-mono text-[10px] uppercase tracking-[0.22em]"
+                                    style={{ color: accent }}
+                                >
+                                    {row.label}
+                                </dt>
+                                <dd
+                                    className="font-display text-lg leading-snug sm:text-xl"
+                                    style={{ color: ink }}
+                                >
+                                    {row.items}
+                                </dd>
+                            </Reveal>
+                        ))}
+                    </dl>
+                </div>
+            </section>
+
+            {/* ── PRIVACY LINK ─────────────────────────────────────── */}
+            <section
+                className="relative border-t px-4 py-24 sm:px-6 sm:py-32 md:px-10"
+                style={{ background: paper, borderColor: border }}
+            >
+                <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-12">
+                    <Reveal className="lg:col-span-7">
+                        <p
+                            className="mb-3 font-mono text-[11px] uppercase tracking-[0.28em]"
+                            style={{ color: accent }}
+                        >
+                            № 05 · Privacy
+                        </p>
+                        <h2
+                            className="font-display text-4xl font-light leading-[0.95] tracking-[-0.02em] sm:text-5xl md:text-[3.25rem]"
+                            style={{ color: ink }}
+                        >
+                            Clear practices,{" "}
+                            <span className="italic" style={{ color: inkSoft }}>
+                                not vague reassurance.
+                            </span>
+                        </h2>
+                        <p
+                            className="mt-6 max-w-lg text-[15px] leading-relaxed sm:text-base"
+                            style={{ color: inkSoft }}
+                        >
+                            Artling stores its core library on device and uses cloud
+                            services only when sync, sharing, or AI captions require
+                            them. The privacy policy documents Firebase auth, Sign in
+                            with Apple, StoreKit purchases, notifications, and AI
+                            processing plainly.
+                        </p>
+                        <div className="mt-8">
+                            <Link
+                                href="/projects/artling/privacy-policy"
+                                className="group inline-flex items-center gap-3 rounded-full px-6 py-3.5 text-xs font-bold uppercase tracking-[0.22em] text-white transition-all hover:-translate-y-0.5"
+                                style={{ background: ink }}
+                            >
+                                Read the privacy policy
+                                <ArrowUpRight
+                                    size={14}
+                                    className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                                />
+                            </Link>
+                        </div>
+                    </Reveal>
+
+                    <Reveal delay={0.1} className="lg:col-span-5">
+                        <ul className="space-y-3">
+                            {[
+                                {
+                                    icon: Cloud,
+                                    label: "Cloud-ready",
+                                    body: "Profiles, sync, and premium cloud content use Firebase.",
+                                },
+                                {
+                                    icon: WandSparkles,
+                                    label: "AI explained",
+                                    body: "Caption generation runs via Firebase AI / Google AI when used.",
+                                },
+                                {
+                                    icon: Tags,
+                                    label: "Family controls",
+                                    body: "Permissions, notifications, sharing, and deletion are documented plainly.",
+                                },
+                            ].map((row) => (
+                                <li
+                                    key={row.label}
+                                    className="flex items-start gap-4 rounded-[22px] border p-4"
+                                    style={{
+                                        background: paperCream,
+                                        borderColor: border,
+                                    }}
+                                >
+                                    <div
+                                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"
+                                        style={{ background: "#FCE6D8", color: accent }}
+                                    >
+                                        <row.icon size={18} strokeWidth={1.5} />
+                                    </div>
+                                    <div>
+                                        <p
+                                            className="text-sm font-semibold"
+                                            style={{ color: ink }}
+                                        >
+                                            {row.label}
+                                        </p>
+                                        <p
+                                            className="mt-1 text-sm leading-6"
+                                            style={{ color: inkSoft }}
+                                        >
+                                            {row.body}
+                                        </p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </Reveal>
+                </div>
+            </section>
+
+            {/* ── FINAL CTA ─────────────────────────────────────── */}
+            <section
+                className="relative overflow-hidden px-4 py-32 text-center sm:px-6 md:px-10 md:py-40"
+                style={{
+                    background:
+                        "linear-gradient(135deg, #F2784B 0%, #D96C43 42%, #B75734 100%)",
+                    color: "#FFF8F1",
+                }}
+            >
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 opacity-40"
+                    style={{
+                        backgroundImage:
+                            "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.25), transparent 40%), radial-gradient(circle at 78% 74%, rgba(0,0,0,0.28), transparent 42%)",
+                    }}
+                />
+                <div className="relative mx-auto max-w-3xl">
+                    <Reveal>
+                        <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.28em] text-white/70">
+                            Signed
+                        </p>
+                        <h2 className="font-display text-[clamp(2.5rem,7vw,5.75rem)] font-light leading-[0.95] tracking-[-0.03em] text-white">
+                            Save the drawing.{" "}
+                            <span className="italic text-white/80">
+                                Keep the story.
+                            </span>
+                        </h2>
+                        <p className="mx-auto mt-8 max-w-md text-[15px] leading-relaxed text-white/85">
+                            Free to download. iPhone and iPad. Made in Reading, UK for
+                            families with fridge doors covered in art.
+                        </p>
+                        <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                            <Link
+                                href="https://apps.apple.com/us/app/artling"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group inline-flex items-center gap-3 rounded-full bg-white px-8 py-5 text-xs font-bold uppercase tracking-[0.22em] transition-transform hover:-translate-y-0.5"
+                                style={{ color: "#B75734" }}
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    className="h-5 w-5"
+                                    aria-hidden
+                                >
+                                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                </svg>
+                                Download Artling
+                                <ArrowUpRight
+                                    size={16}
+                                    className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                                />
+                            </Link>
+                            <Link
+                                href="/#work"
+                                className="group inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-white/85 transition-colors hover:text-white"
+                            >
+                                <span className="border-b border-white/30 pb-1 group-hover:border-white">
+                                    ← Back to the ledger
+                                </span>
+                            </Link>
+                        </div>
+                    </Reveal>
+                </div>
+            </section>
+
+            <Footer />
+        </main>
+    );
 }
 
 function ArtlingPhoneMockup() {
-  const galleryCards = [
-    {
-      title: "Rainbow House",
-      meta: "Saved today",
-      palette: "from-[#FFE8D8] via-[#FFF4EA] to-[#FFD5BE]",
-      rotation: "-rotate-[2deg]",
-    },
-    {
-      title: "Tiger Parade",
-      meta: "Shared with Dad",
-      palette: "from-[#FFEED9] via-[#FFF8EE] to-[#E4F3EA]",
-      rotation: "rotate-[2deg]",
-    },
-    {
-      title: "Rocket Garden",
-      meta: "Favourite",
-      palette: "from-[#EAF6FF] via-[#FFF7F1] to-[#FFDCCE]",
-      rotation: "rotate-[-1.5deg]",
-    },
-    {
-      title: "Ocean Parade",
-      meta: "2 years ago",
-      palette: "from-[#E7F4FF] via-[#FFF7F1] to-[#FDE6D6]",
-      rotation: "rotate-[1.5deg]",
-    },
-  ];
+    const galleryCards = [
+        {
+            title: "Rainbow House",
+            meta: "Saved today",
+            palette: "from-[#FFE8D8] via-[#FFF4EA] to-[#FFD5BE]",
+            rotation: "-rotate-[2deg]",
+        },
+        {
+            title: "Tiger Parade",
+            meta: "Shared with Dad",
+            palette: "from-[#FFEED9] via-[#FFF8EE] to-[#E4F3EA]",
+            rotation: "rotate-[2deg]",
+        },
+        {
+            title: "Rocket Garden",
+            meta: "Favourite",
+            palette: "from-[#EAF6FF] via-[#FFF7F1] to-[#FFDCCE]",
+            rotation: "rotate-[-1.5deg]",
+        },
+        {
+            title: "Ocean Parade",
+            meta: "2 years ago",
+            palette: "from-[#E7F4FF] via-[#FFF7F1] to-[#FDE6D6]",
+            rotation: "rotate-[1.5deg]",
+        },
+    ];
 
-  return (
-    <div className="relative h-full w-full overflow-hidden rounded-[44px] bg-[linear-gradient(180deg,#FFF8F0_0%,#FFF1E7_46%,#FFEBDD_100%)] px-5 pb-5 pt-6 text-[#2F211D]">
-      <div className="absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_top,rgba(242,120,75,0.18),transparent_70%)]" />
-      <div className="absolute -right-10 top-24 h-32 w-32 rounded-full bg-[#F7C7A8]/40 blur-3xl" />
-      <div className="absolute -left-8 bottom-32 h-28 w-28 rounded-full bg-[#A8D1B6]/35 blur-3xl" />
-
-      <div className="relative flex items-center justify-between pt-9">
-        <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#A46B53]">
-            Artling
-          </p>
-          <h3 className="mt-1 text-[26px] font-semibold tracking-[-0.03em]">
-            Gallery
-          </h3>
-        </div>
-        <div className="rounded-full border border-[#ECD9CF] bg-white/80 px-3 py-2 text-[10px] font-semibold text-[#6E574D] shadow-sm">
-          2 children
-        </div>
-      </div>
-
-      <div className="relative mt-4 flex gap-2 overflow-hidden">
-        {["All", "Maya", "Noah", "Add"].map((chip, index) => (
-          <span
-            key={chip}
-            className={`rounded-full px-3 py-2 text-[10px] font-semibold shadow-sm ${
-              index === 0
-                ? "bg-[#F2784B] text-white"
-                : "border border-[#ECD9CF] bg-white/75 text-[#6E574D]"
-            }`}
-          >
-            {chip}
-          </span>
-        ))}
-      </div>
-
-      <div className="relative mt-4 grid grid-cols-2 gap-3">
-        {galleryCards.map((card) => (
-          <div
-            key={card.title}
-            className={`rounded-[24px] border border-white/80 bg-gradient-to-br ${card.palette} p-3 shadow-[0_12px_28px_rgba(96,67,54,0.10)] ${card.rotation}`}
-          >
-            <div className="rounded-[18px] bg-white/70 p-2">
-              <div className="aspect-[0.95/1] rounded-[14px] bg-[radial-gradient(circle_at_30%_25%,rgba(242,120,75,0.28),transparent_34%),radial-gradient(circle_at_72%_32%,rgba(111,175,209,0.22),transparent_32%),radial-gradient(circle_at_54%_72%,rgba(118,182,153,0.22),transparent_28%),linear-gradient(180deg,#FFF8F1_0%,#FBE6D8_100%)]" />
-            </div>
-            <p className="mt-3 text-[11px] font-semibold text-[#35251E]">
-              {card.title}
-            </p>
-            <p className="mt-1 text-[10px] text-[#7F665C]">{card.meta}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="relative mt-4 rounded-[24px] border border-[#ECD9CF] bg-white/85 p-4 shadow-[0_18px_34px_rgba(96,67,54,0.08)]">
-        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#A46B53]">
-          <Clock3 className="h-4 w-4 text-[#F2784B]" />
-          On This Day
-        </div>
-        <p className="mt-2 text-sm font-semibold leading-6 text-[#2F211D]">
-          Maya made “Ocean Parade” two years ago. Artling keeps the memory right next to the art.
-        </p>
-      </div>
-
-      <div className="absolute bottom-4 left-4 right-4 rounded-[26px] bg-[#2F211D] px-5 py-4 text-white shadow-[0_20px_44px_rgba(47,33,29,0.28)]">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
-              Quick capture
-            </p>
-            <p className="mt-1 text-sm font-semibold">
-              Camera, gallery, or scanner
-            </p>
-          </div>
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#F2784B] shadow-[0_10px_24px_rgba(242,120,75,0.35)]">
-            <Camera className="h-5 w-5" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function ArtlingLanding() {
-  return (
-    <main className="min-h-screen bg-[#FFF7F1] text-[#2F211D]">
-      <Navbar />
-
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#2A1A17_0%,#3A251F_48%,#4B3229_100%)] px-6 pb-20 pt-28 md:px-14 md:pb-28 md:pt-36">
+    return (
         <div
-          className="absolute inset-0 opacity-80"
-          style={{
-            background:
-              "radial-gradient(circle at 15% 12%, rgba(242,120,75,0.22), transparent 28%), radial-gradient(circle at 82% 18%, rgba(118,182,153,0.16), transparent 24%), radial-gradient(circle at 72% 72%, rgba(111,175,209,0.18), transparent 30%)",
-          }}
-        />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent,rgba(255,247,241,0.12))]" />
-
-        <div className="relative mx-auto max-w-[1220px]">
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.45, ease }}
-            className="mb-10"
-          >
-            <Link
-              href="/"
-              className="inline-flex min-h-[44px] items-center gap-2 text-sm text-[#DDBAA7] transition-colors hover:text-white"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back to Home
-            </Link>
-          </motion.div>
-
-          <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
-            <motion.div initial="hidden" animate="visible" variants={stagger}>
-              <motion.div variants={fadeInUp}>
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FFD6BF] backdrop-blur-sm">
-                  <Sparkles className="h-4 w-4 text-[#F9B085]" />
-                  Art archive for busy families
-                </span>
-              </motion.div>
-
-              <motion.h1
-                variants={fadeInUp}
-                className="mt-7 max-w-[720px] text-[clamp(2.9rem,6vw,5.6rem)] font-display font-medium leading-[0.98] tracking-[-0.05em] text-white"
-              >
-                Turn fridge masterpieces into a living family gallery.
-              </motion.h1>
-
-              <motion.p
-                variants={fadeInUp}
-                className="mt-6 max-w-[620px] text-[16px] leading-8 text-[#F4D7C8] md:text-[19px]"
-              >
-                Artling helps parents capture artwork fast, keep the story around each piece,
-                and revisit a child’s creative growth through timelines, milestones, sharing, and
-                AI-assisted captions.
-              </motion.p>
-
-              <motion.div
-                variants={fadeInUp}
-                className="mt-9 flex flex-wrap gap-4"
-              >
-                <Link
-                  href="#features"
-                  className="inline-flex min-h-[50px] items-center gap-2 rounded-full bg-[#F2784B] px-7 py-3.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
-                >
-                  Explore Features
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href="/projects/artling/privacy-policy"
-                  className="inline-flex min-h-[50px] items-center gap-2 rounded-full border border-white/20 bg-white/8 px-7 py-3.5 text-sm font-semibold text-white/90 backdrop-blur-sm transition-colors hover:bg-white/12"
-                >
-                  Read Privacy Policy
-                </Link>
-              </motion.div>
-
-              <motion.div
-                variants={fadeInUp}
-                className="mt-10 flex flex-wrap gap-3"
-              >
-                {["Timeline + milestones", "PDF export", "Family sharing", "AI captions"].map(
-                  (item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-white/10 bg-black/10 px-4 py-2 text-sm text-[#F4D7C8]"
-                    >
-                      {item}
-                    </span>
-                  )
-                )}
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 34 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.12, ease }}
-              className="relative mx-auto w-full max-w-[600px]"
-            >
-              <div className="absolute -left-2 top-12 hidden max-w-[180px] rounded-[28px] border border-white/12 bg-white/10 p-4 text-[#FFE3D2] shadow-[0_24px_50px_rgba(0,0,0,0.16)] backdrop-blur-md lg:block">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#FFBD97]">
-                  Memory-rich
-                </p>
-                <p className="mt-3 text-sm leading-6">
-                  Save the picture, the title, the tags, and the voice that explains why it mattered.
-                </p>
-              </div>
-
-              <div className="absolute -right-1 bottom-18 hidden max-w-[190px] rounded-[28px] border border-white/12 bg-[#2F211D]/85 p-4 text-white shadow-[0_28px_60px_rgba(0,0,0,0.22)] lg:block">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#F7B58D]">
-                  Family-ready
-                </p>
-                <p className="mt-3 text-sm leading-6 text-white/80">
-                  Share a child profile, surface anniversaries, and build a keepsake archive that grows with them.
-                </p>
-              </div>
-
-              <div className="relative z-10 mx-auto max-w-[360px]">
-                <Iphone17ProFrame>
-                  <ArtlingPhoneMockup />
-                </Iphone17ProFrame>
-              </div>
-
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                className="pointer-events-none absolute -bottom-8 right-6 z-20 w-[152px] sm:w-[172px]"
-              >
-                <Image
-                  src="/projects/artling/fox-painter.png"
-                  alt="Artling fox mascot"
-                  width={806}
-                  height={1129}
-                  className="h-auto w-full drop-shadow-[0_26px_40px_rgba(0,0,0,0.28)]"
-                  priority
-                />
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="features"
-        className="px-6 py-20 md:px-14 md:py-28"
-      >
-        <div className="mx-auto max-w-[1220px]">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7, ease }}
-          >
-            <SectionHeading
-              eyebrow="The Promise"
-              title="Built for the messy, magical middle of family life."
-              description="Artling is less about storing files and more about preserving context. It gives busy parents one place to collect artwork, track growth over time, and turn everyday creations into memories that stay easy to revisit."
-            />
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            variants={stagger}
-            className="mt-12 grid gap-6 lg:grid-cols-3"
-          >
-            {pillars.map((pillar) => (
-              <PillarCard key={pillar.title} {...pillar} />
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="px-6 pb-20 md:px-14 md:pb-28">
-        <div className="mx-auto max-w-[1220px] rounded-[40px] border border-[#EEDFD6] bg-[linear-gradient(180deg,#FFFDF9_0%,#FFF5EC_100%)] px-6 py-10 shadow-[0_26px_90px_rgba(89,58,45,0.08)] md:px-10 md:py-14">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, ease }}
-            className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start"
-          >
-            <div>
-              <SectionHeading
-                eyebrow="What’s Inside"
-                title="A family archive that stays calm, even as it grows."
-                description="The product combines capture, organisation, memory resurfacing, and sharing in one workflow, so nothing needs to move through separate photo albums, notes apps, or folders."
-              />
-
-              <div className="mt-8 space-y-3">
-                {trustPoints.map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-start gap-3 rounded-[18px] bg-white/75 px-4 py-3 text-sm text-[#5E4A42]"
-                  >
-                    <Shield className="mt-0.5 h-4 w-4 shrink-0 text-[#F2784B]" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={stagger}
-              className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
-            >
-              {featureCards.map((card) => (
-                <FeatureCard key={card.title} {...card} />
-              ))}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="px-6 pb-24 md:px-14 md:pb-32">
-        <div className="mx-auto grid max-w-[1220px] gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.22 }}
-            transition={{ duration: 0.75, ease }}
-            className="relative overflow-hidden rounded-[36px] bg-[#2F211D] p-8 text-white md:p-10"
-          >
-            <div
-              className="absolute inset-0 opacity-70"
-              style={{
+            className="relative h-full w-full overflow-hidden rounded-[44px] px-5 pb-5 pt-6 text-[#2F211D]"
+            style={{
                 background:
-                  "radial-gradient(circle at 10% 20%, rgba(242,120,75,0.24), transparent 22%), radial-gradient(circle at 78% 18%, rgba(111,175,209,0.18), transparent 28%), radial-gradient(circle at 70% 80%, rgba(118,182,153,0.16), transparent 26%)",
-              }}
-            />
-            <div className="relative">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#F7B58D]">
-                Why It Lands
-              </p>
-              <h2 className="mt-4 max-w-[540px] text-3xl font-display font-medium tracking-[-0.03em] text-white md:text-4xl">
-                Artling feels less like storage and more like a gentle family ritual.
-              </h2>
-              <p className="mt-5 max-w-[520px] text-[15px] leading-7 text-white/72">
-                The experience is intentionally warm, tactile, and low-friction. Instead of
-                building another productivity system for parents to maintain, it quietly turns
-                capturing and revisiting artwork into something they will actually keep up with.
-              </p>
+                    "linear-gradient(180deg, #FFF8F0 0%, #FFF1E7 46%, #FFEBDD 100%)",
+            }}
+        >
+            <div className="absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_top,rgba(242,120,75,0.18),transparent_70%)]" />
+            <div className="absolute -right-10 top-24 h-32 w-32 rounded-full bg-[#F7C7A8]/40 blur-3xl" />
+            <div className="absolute -left-8 bottom-32 h-28 w-28 rounded-full bg-[#A8D1B6]/35 blur-3xl" />
 
-              <div className="mt-10 grid gap-3 sm:grid-cols-2">
-                {[
-                  "Capture first, organise later",
-                  "Search by child, tag, or favourite",
-                  "Share a profile without a photo-dump thread",
-                  "Revisit memories through time, not folders",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-[20px] border border-white/10 bg-white/8 px-4 py-4 text-sm text-white/84 backdrop-blur-sm"
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.22 }}
-            transition={{ duration: 0.75, ease, delay: 0.08 }}
-            className="rounded-[36px] border border-[#EEDFD6] bg-[#FFFDF9] p-8 shadow-[0_24px_70px_rgba(90,61,48,0.07)] md:p-10"
-          >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#9C6A55]">
-              Privacy
-            </p>
-            <h2 className="mt-4 text-3xl font-display font-medium tracking-[-0.03em] text-[#2F211D] md:text-4xl">
-              Clear data practices, not vague reassurance.
-            </h2>
-            <p className="mt-5 text-[15px] leading-7 text-[#715B51]">
-              Artling stores its core library on device and uses cloud services where account,
-              sync, AI, or sharing features require them. The public privacy policy reflects the
-              real app architecture, including Firebase authentication, optional Sign in with Apple,
-              StoreKit purchases, notifications, and AI caption processing.
-            </p>
-
-            <div className="mt-8 space-y-3">
-              {[
-                {
-                  icon: Cloud,
-                  label: "Cloud-ready",
-                  copy: "Profiles, sync metadata, and premium cloud content use Firebase services.",
-                },
-                {
-                  icon: WandSparkles,
-                  label: "AI explained",
-                  copy: "Caption generation and validation can process artwork through Firebase AI / Google AI when used.",
-                },
-                {
-                  icon: Tags,
-                  label: "Family controls",
-                  copy: "Permissions, notifications, sharing, and account deletion are all documented plainly.",
-                },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="flex items-start gap-4 rounded-[22px] bg-[#FFF4EA] px-4 py-4"
-                >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[16px] bg-white text-[#F2784B] shadow-sm">
-                    <item.icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#2F211D]">
-                      {item.label}
+            <div className="relative flex items-center justify-between pt-9">
+                <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#A46B53]">
+                        Artling
                     </p>
-                    <p className="mt-1 text-sm leading-6 text-[#715B51]">
-                      {item.copy}
-                    </p>
-                  </div>
+                    <h3 className="mt-1 text-[26px] font-semibold tracking-[-0.03em]">
+                        Gallery
+                    </h3>
                 </div>
-              ))}
+                <div className="rounded-full border border-[#ECD9CF] bg-white/80 px-3 py-2 text-[10px] font-semibold text-[#6E574D] shadow-sm">
+                    2 children
+                </div>
             </div>
 
-            <div className="mt-8">
-              <Link
-                href="/projects/artling/privacy-policy"
-                className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[#2F211D] px-6 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
-              >
-                Read the Artling Privacy Policy
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+            <div className="relative mt-4 flex gap-2 overflow-hidden">
+                {["All", "Maya", "Noah", "Add"].map((chip, index) => (
+                    <span
+                        key={chip}
+                        className={`rounded-full px-3 py-2 text-[10px] font-semibold shadow-sm ${
+                            index === 0
+                                ? "bg-[#F2784B] text-white"
+                                : "border border-[#ECD9CF] bg-white/75 text-[#6E574D]"
+                        }`}
+                    >
+                        {chip}
+                    </span>
+                ))}
             </div>
-          </motion.div>
+
+            <div className="relative mt-4 grid grid-cols-2 gap-3">
+                {galleryCards.map((card) => (
+                    <div
+                        key={card.title}
+                        className={`rounded-[24px] border border-white/80 bg-gradient-to-br ${card.palette} p-3 shadow-[0_12px_28px_rgba(96,67,54,0.10)] ${card.rotation}`}
+                    >
+                        <div className="rounded-[18px] bg-white/70 p-2">
+                            <div className="aspect-[0.95/1] rounded-[14px] bg-[radial-gradient(circle_at_30%_25%,rgba(242,120,75,0.28),transparent_34%),radial-gradient(circle_at_72%_32%,rgba(111,175,209,0.22),transparent_32%),radial-gradient(circle_at_54%_72%,rgba(118,182,153,0.22),transparent_28%),linear-gradient(180deg,#FFF8F1_0%,#FBE6D8_100%)]" />
+                        </div>
+                        <p className="mt-3 text-[11px] font-semibold text-[#35251E]">
+                            {card.title}
+                        </p>
+                        <p className="mt-1 text-[10px] text-[#7F665C]">{card.meta}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div className="relative mt-4 rounded-[24px] border border-[#ECD9CF] bg-white/85 p-4 shadow-[0_18px_34px_rgba(96,67,54,0.08)]">
+                <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#A46B53]">
+                    <Clock3 className="h-4 w-4 text-[#F2784B]" />
+                    On This Day
+                </div>
+                <p className="mt-2 text-sm font-semibold leading-6 text-[#2F211D]">
+                    Maya made &ldquo;Ocean Parade&rdquo; two years ago. Artling keeps
+                    the memory next to the art.
+                </p>
+            </div>
+
+            <div className="absolute bottom-4 left-4 right-4 rounded-[26px] bg-[#2F211D] px-5 py-4 text-white shadow-[0_20px_44px_rgba(47,33,29,0.28)]">
+                <div className="flex items-center justify-between gap-4">
+                    <div>
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
+                            Quick capture
+                        </p>
+                        <p className="mt-1 text-sm font-semibold">
+                            Camera, gallery, or scanner
+                        </p>
+                    </div>
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#F2784B] shadow-[0_10px_24px_rgba(242,120,75,0.35)]">
+                        <Camera className="h-5 w-5" />
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
-
-      <section className="px-6 pb-24 md:px-14 md:pb-32">
-        <div className="mx-auto max-w-[1220px] overflow-hidden rounded-[40px] bg-[linear-gradient(135deg,#F2784B_0%,#D96C43_42%,#B75734_100%)] px-8 py-10 text-white shadow-[0_30px_100px_rgba(183,87,52,0.28)] md:px-12 md:py-14">
-          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70">
-                Project Page
-              </p>
-              <h2 className="mt-4 max-w-[660px] text-3xl font-display font-medium tracking-[-0.03em] md:text-5xl">
-                Artling is ready for a public-facing home that feels as thoughtful as the app.
-              </h2>
-              <p className="mt-5 max-w-[660px] text-[15px] leading-7 text-white/84">
-                Need the App Store listing, screenshots, or launch assets carried through in the
-                same visual direction? The page structure is now in place to extend cleanly.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/projects/artling/privacy-policy"
-                className="inline-flex min-h-[50px] items-center justify-center rounded-full border border-white/25 bg-white/12 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/16"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="mailto:anoop@flutterly.co.uk"
-                className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#B75734] transition-transform hover:-translate-y-0.5"
-              >
-                Enquire About the App
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </main>
-  );
+    );
 }

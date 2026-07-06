@@ -159,3 +159,65 @@ body {
 .animate-subtle-float {
   animation: subtle-float 20s ease-in-out infinite;
 }
+
+/* Editorial marquee — used for tickers on project pages */
+@keyframes marquee-x {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee-x 42s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-slow {
+  animation: marquee-x 80s linear infinite;
+  will-change: transform;
+}
+
+/* Image mask-reveal — used for hero images */
+@keyframes mask-reveal {
+  0% {
+    clip-path: inset(100% 0 0 0);
+    transform: scale(1.08);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: scale(1);
+  }
+}
+
+.animate-mask-reveal {
+  animation: mask-reveal 1.1s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+/* Underline sweep on inline links */
+.link-underline {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  transition: background-size 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  padding-bottom: 2px;
+}
+
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

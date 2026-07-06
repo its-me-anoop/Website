@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
@@ -21,12 +23,12 @@ interface SectionProps {
 
 function PolicySection({ label, title, children }: SectionProps) {
   return (
-    <section className="py-16 md:py-20 px-6 md:px-14 border-b border-border last:border-b-0">
-      <div className="max-w-[820px] mx-auto">
-        <p className="text-[10px] font-medium text-foreground-tertiary uppercase tracking-[0.15em] mb-3">
-          {label}
+    <section className="border-b border-border px-4 py-14 last:border-b-0 sm:px-6 sm:py-16 md:px-10">
+      <div className="mx-auto max-w-[820px]">
+        <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.28em] text-accent">
+          № {label}
         </p>
-        <h2 className="text-xl md:text-2xl font-display font-semibold text-foreground mb-6">
+        <h2 className="mb-6 font-display text-2xl font-light leading-tight tracking-[-0.02em] text-foreground sm:text-3xl md:text-4xl">
           {title}
         </h2>
         <div className="space-y-4 text-[15px] leading-relaxed text-foreground-secondary">
@@ -57,20 +59,57 @@ function Bullet({
 
 export default function SipliPrivacyPolicy() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="sipli-theme min-h-screen bg-background text-foreground">
       <Navbar />
 
-      {/* Hero */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 px-6 md:px-14 bg-background-secondary">
-        <div className="max-w-[820px] mx-auto">
-          <p className="text-[10px] font-medium text-foreground-tertiary uppercase tracking-[0.15em] mb-4">
-            Legal
+      {/* Hero — editorial ledger */}
+      <section className="relative overflow-hidden border-b border-border bg-background-secondary px-4 pt-28 pb-14 sm:px-6 sm:pt-36 sm:pb-16 md:px-10 md:pt-40">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute top-1/2 right-[-10%] h-[400px] w-[400px] -translate-y-1/2 rounded-full"
+          style={{
+            background: "rgba(77,212,232,0.06)",
+            filter: "blur(120px)",
+          }}
+        />
+        <div className="relative mx-auto max-w-[820px]">
+          <Link
+            href="/projects/sipli"
+            className="group mb-8 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-secondary transition-colors hover:text-accent sm:text-[11px]"
+          >
+            <ArrowLeft
+              size={14}
+              className="transition-transform group-hover:-translate-x-0.5"
+            />
+            Back to Sipli
+          </Link>
+          <div className="mb-6 grid grid-cols-2 gap-4 border-b border-border pb-5 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary sm:grid-cols-3 sm:text-[11px]">
+            <div className="flex flex-col gap-1">
+              <span>Document</span>
+              <span className="text-foreground-secondary">Privacy Policy</span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <span>Product</span>
+              <span className="text-foreground-secondary">Sipli · iOS</span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <span>Effective</span>
+              <span className="text-foreground-secondary">{effectiveDate}</span>
+            </div>
+          </div>
+          <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.28em] text-accent">
+            № 00 · Legal
           </p>
-          <h1 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
-            Sipli — Privacy Policy
+          <h1 className="font-display text-4xl font-light leading-[0.98] tracking-[-0.03em] text-foreground sm:text-5xl md:text-6xl">
+            Sipli —{" "}
+            <span className="italic text-foreground-secondary">
+              Privacy Policy
+            </span>
           </h1>
-          <p className="text-foreground-secondary text-[15px]">
-            Effective: {effectiveDate}
+          <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-foreground-secondary">
+            Sipli is designed to keep as much of your data on your device as
+            possible. This document explains, plainly, what is collected, why,
+            and what you can turn off.
           </p>
         </div>
       </section>

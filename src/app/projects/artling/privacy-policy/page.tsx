@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
@@ -24,12 +26,12 @@ function PolicySection({
   children: ReactNode;
 }) {
   return (
-    <section className="border-b border-border px-6 py-16 last:border-b-0 md:px-14 md:py-20">
+    <section className="border-b border-border px-4 py-14 last:border-b-0 sm:px-6 sm:py-16 md:px-10">
       <div className="mx-auto max-w-[820px]">
-        <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.15em] text-foreground-tertiary">
-          {label}
+        <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.28em] text-accent">
+          № {label}
         </p>
-        <h2 className="mb-6 text-xl font-display font-semibold text-foreground md:text-2xl">
+        <h2 className="mb-6 font-display text-2xl font-light leading-tight tracking-[-0.02em] text-foreground sm:text-3xl md:text-4xl">
           {title}
         </h2>
         <div className="space-y-4 text-[15px] leading-relaxed text-foreground-secondary">
@@ -63,16 +65,45 @@ export default function ArtlingPrivacyPolicyPage() {
     <main className="min-h-screen bg-background text-foreground">
       <Navbar />
 
-      <section className="bg-background-secondary px-6 pb-16 pt-32 md:px-14 md:pb-20 md:pt-40">
-        <div className="mx-auto max-w-[820px]">
-          <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.15em] text-foreground-tertiary">
-            Legal
+      <section className="relative overflow-hidden border-b border-border bg-background-secondary px-4 pt-28 pb-14 sm:px-6 sm:pt-36 sm:pb-16 md:px-10 md:pt-40">
+        <div className="relative mx-auto max-w-[820px]">
+          <Link
+            href="/projects/artling"
+            className="group mb-8 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-secondary transition-colors hover:text-accent sm:text-[11px]"
+          >
+            <ArrowLeft
+              size={14}
+              className="transition-transform group-hover:-translate-x-0.5"
+            />
+            Back to Artling
+          </Link>
+          <div className="mb-6 grid grid-cols-2 gap-4 border-b border-border pb-5 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground-tertiary sm:grid-cols-3 sm:text-[11px]">
+            <div className="flex flex-col gap-1">
+              <span>Document</span>
+              <span className="text-foreground-secondary">Privacy Policy</span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <span>Product</span>
+              <span className="text-foreground-secondary">Artling · iOS</span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <span>Effective</span>
+              <span className="text-foreground-secondary">{effectiveDate}</span>
+            </div>
+          </div>
+          <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.28em] text-accent">
+            № 00 · Legal
           </p>
-          <h1 className="mb-4 text-3xl font-display font-semibold text-foreground md:text-4xl">
-            Artling — Privacy Policy
+          <h1 className="font-display text-4xl font-light leading-[0.98] tracking-[-0.03em] text-foreground sm:text-5xl md:text-6xl">
+            Artling —{" "}
+            <span className="italic text-foreground-secondary">
+              Privacy Policy
+            </span>
           </h1>
-          <p className="text-[15px] text-foreground-secondary">
-            Effective: {effectiveDate}
+          <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-foreground-secondary">
+            Artling stores its core library on device and uses cloud services
+            only where sync, sharing, or AI features actively require them. This
+            document explains what runs where — plainly.
           </p>
         </div>
       </section>

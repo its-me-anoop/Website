@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -159,6 +160,7 @@ export default function RootLayout({
         plusJakartaSans.variable,
         "antialiased bg-background text-foreground font-sans min-h-screen"
       )}>
+        <ScrollProgress />
         {children}
       </body>
     </html>
