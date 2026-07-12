@@ -53,6 +53,7 @@ const projects = [
     description:
       "A clear, person-centred website for a housing organisation supporting adults with complex needs.",
     href: "https://www.greenmead.co.uk/",
+    internal: false,
     visual: "greenmead",
     tags: ["Next.js", "Accessibility", "Content design"],
   },
@@ -63,6 +64,7 @@ const projects = [
     description:
       "A commercial site that explains a sustainable paper supply chain without losing speed or credibility.",
     href: "https://www.jjpaperessential.com/",
+    internal: false,
     visual: "jjpaper",
     tags: ["Brand system", "Responsive web", "SEO"],
   },
@@ -73,6 +75,7 @@ const projects = [
     description:
       "A reassuring digital presence for residential, supported-living and respite care services.",
     href: "https://sandbournecare.co.uk/",
+    internal: false,
     visual: "sandbourne",
     tags: ["UX writing", "Responsive web", "Performance"],
   },
@@ -174,8 +177,15 @@ function ProjectVisual({ visual, name }: { visual: string; name: string }) {
     );
   }
 
+  const visualClass =
+    visual === "greenmead"
+      ? styles.greenmeadVisual
+      : visual === "jjpaper"
+        ? styles.jjpaperVisual
+        : styles.sandbourneVisual;
+
   return (
-    <div className={`${styles.projectVisual} ${styles[`${visual}Visual`]}`}>
+    <div className={`${styles.projectVisual} ${visualClass}`}>
       <span className={styles.visualLabel}>{name}</span>
       <span className={styles.projectMonogram}>{name.slice(0, 2)}</span>
       <span className={styles.visualNumber}>
