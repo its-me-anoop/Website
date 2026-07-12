@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { EditorialHome } from "@/components/home/EditorialHome";
+import { EditorialResponsiveFixes } from "@/components/home/EditorialResponsiveFixes";
 
 export const metadata: Metadata = {
   title: "Independent product studio",
@@ -41,5 +42,10 @@ export const viewport: Viewport = {
 };
 
 export default function Home() {
-  return <EditorialHome />;
+  return (
+    <>
+      <EditorialResponsiveFixes />
+      <EditorialHome />
+    </>
+  );
 }
