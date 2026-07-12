@@ -1,29 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { AuroraBackdrop } from "@/components/home/AuroraBackdrop";
-import { IntroWipe } from "@/components/home/IntroWipe";
-import { ScrollProgress } from "@/components/home/ScrollProgress";
-import { GlassNav } from "@/components/home/GlassNav";
-import { Hero } from "@/components/home/Hero";
-import { MarqueeBand } from "@/components/home/MarqueeBand";
-import { WorkStack } from "@/components/home/WorkStack";
-import { Services } from "@/components/home/Services";
-import { Process } from "@/components/home/Process";
-import { StackMarquees } from "@/components/home/StackMarquees";
-import { OpenSource } from "@/components/home/OpenSource";
-import { About } from "@/components/home/About";
-import { Contact } from "@/components/home/Contact";
-import { HomeFooter } from "@/components/home/HomeFooter";
+import { EditorialHome } from "@/components/home/EditorialHome";
 
 export const metadata: Metadata = {
-  title: "Design-grade engineering",
+  title: "Independent product studio",
   description:
-    "Flutterly is a one-person product studio in Reading, UK. Web in Next.js and React, native iOS in SwiftUI, cross-platform in Flutter — designed, built, and shipped by Anoop Jose.",
+    "Flutterly is an independent product studio in Reading, UK, designing and building focused web and mobile products with Next.js, SwiftUI and Flutter.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Flutterly — Design-grade engineering",
+    title: "Flutterly — Independent product studio",
     description:
-      "A one-person product studio in Reading, UK — web, native iOS, and cross-platform apps, designed, built, and shipped by Anoop Jose.",
+      "Senior product thinking, interface design and engineering without agency hand-offs.",
     url: site.url,
     siteName: site.name,
     locale: site.locale,
@@ -33,46 +20,26 @@ export const metadata: Metadata = {
         url: site.ogImage,
         width: 1200,
         height: 630,
-        alt: "Flutterly — Design-grade engineering. Product studio, Reading, UK.",
+        alt: "Flutterly — independent product studio in Reading, UK",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Flutterly — Design-grade engineering",
+    title: "Flutterly — Independent product studio",
     description:
-      "A one-person product studio in Reading, UK — web, native iOS, and cross-platform apps by Anoop Jose.",
+      "Product direction, interface design and engineering by Anoop Jose.",
     images: [site.ogImage],
   },
 };
 
-/* The aurora homepage is a dark route on an otherwise light site. */
 export const viewport: Viewport = {
-  themeColor: "#05060A",
-  colorScheme: "dark",
+  themeColor: "#f3efe7",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function Home() {
-  return (
-    <div className="aurora-root relative min-h-screen bg-obsidian font-grotesk text-frost">
-      <AuroraBackdrop />
-      <IntroWipe />
-      <ScrollProgress />
-      <GlassNav />
-      <main id="main" role="main" className="relative">
-        <Hero />
-        <MarqueeBand />
-        <WorkStack />
-        <Services />
-        <Process />
-        <StackMarquees />
-        <OpenSource />
-        <About />
-        <Contact />
-      </main>
-      <HomeFooter />
-    </div>
-  );
+  return <EditorialHome />;
 }
