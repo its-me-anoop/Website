@@ -5,7 +5,7 @@
  * reports console errors, failed requests, broken images, overflow, missing
  * anchor targets, heading problems, reduced-motion issues and 404 behaviour.
  * It also exercises the redesigned homepage navigation, project grid and
- * contact route.
+ * contact route, and checks that key mobile content stays inside the viewport.
  *
  * Usage:
  *   1. npm run build && PORT=3100 npm start
@@ -111,6 +111,28 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const headlineVisible = await page.locator("h1").isVisible().catch(() => false);
   if (!headlineVisible) note("home", "hero headline is not visible");
 
+  const clippedElements = await page.evaluate(() => {
+    const tolerance = 1;
+    const selectors = "header a, header button, #top h1, #top p, #top a";
+    return [...document.querySelectorAll(selectors)]
+      .filter((element) => {
+        const rect = element.getBoundingClientRect();
+        return (
+          rect.width > 0 &&
+          (rect.left < -tolerance || rect.right > window.innerWidth + tolerance)
+        );
+      })
+      .map((element) => {
+        const rect = element.getBoundingClientRect();
+        const label = element.textContent?.trim().replace(/\s+/g, " ").slice(0, 60);
+        return `${element.tagName.toLowerCase()} "${label}" (${Math.round(
+          rect.left
+        )}..${Math.round(rect.right)} of ${window.innerWidth})`;
+      });
+  });
+  if (clippedElements.length)
+    note("home", `mobile elements outside viewport: ${clippedElements.join(" | ")}`);
+
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 5) note("home", `expected 5 project cards, found ${projects}`);
 
@@ -163,4 +185,6 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log("✓ Browser workflow passed — routes, interactions and accessibility anchors are clean.");
+console.log(
+  "✓ Browser workflow passed — routes, interactions, viewport bounds and accessibility anchors are clean."
+);
