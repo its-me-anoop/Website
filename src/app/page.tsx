@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { EditorialHome } from "@/components/home/EditorialHome";
 import { EditorialResponsiveFixes } from "@/components/home/EditorialResponsiveFixes";
+import { EditorialMotion } from "@/components/home/EditorialMotion";
 
 export const metadata: Metadata = {
   title: "Independent product studio",
@@ -45,6 +46,7 @@ export default function Home() {
   return (
     <>
       <EditorialResponsiveFixes />
+      <EditorialMotion />
       <EditorialHome />
     </>
   );
