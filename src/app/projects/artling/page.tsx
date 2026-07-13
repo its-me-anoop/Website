@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 const title = "Artling";
 const description =
-  "Artling is an iOS app for archiving children's artwork with family sharing, timelines, milestones, PDF exports, and AI-assisted captions.";
+  "Artling is an iOS app for archiving children's artwork with private iCloud sync, timelines, milestones, PDF exports, and on-device AI captions.";
 
 export const metadata: Metadata = {
   title,

@@ -55,9 +55,9 @@ const pillars = [
 const featureCards: { icon: LucideIcon; title: string; description: string }[] = [
   {
     icon: Share2,
-    title: "Family sharing",
+    title: "Share masterpieces",
     description:
-      "Invite another parent or guardian into a shared profile without turning the archive into a group chat.",
+      "Turn any piece into a beautiful branded share card for the family group chat — without opening up your archive.",
   },
   {
     icon: Sparkles,
@@ -93,33 +93,33 @@ const featureCards: { icon: LucideIcon; title: string; description: string }[] =
 
 const trustPoints = [
   "SwiftUI experience built for iPhone and iPad",
-  "Core library stored locally with cloud support for synced families",
+  "Everything stored on device and in your own private iCloud",
   "No advertising SDKs or noisy growth loops",
-  "Clear in-app account deletion and privacy access",
+  "No accounts or sign-in — your data never touches our servers",
 ];
 
 const reasons = [
   "Capture first, organise later",
   "Search by child, tag, or favourite",
-  "Share a profile without a photo-dump thread",
+  "Share a masterpiece without a photo-dump thread",
   "Revisit memories through time, not folders",
 ];
 
 const privacyPoints: { icon: LucideIcon; label: string; copy: string }[] = [
   {
     icon: Cloud,
-    label: "Cloud-ready",
-    copy: "Profiles, sync metadata, and premium cloud content use Firebase services.",
+    label: "Private iCloud sync",
+    copy: "Your library syncs through Apple's CloudKit private database — accessible only to you, never to us.",
   },
   {
     icon: WandSparkles,
     label: "AI explained",
-    copy: "Caption generation and validation can process artwork through Firebase AI / Google AI when used.",
+    copy: "Captions come from Apple Intelligence on device or Apple's Private Cloud Compute — never third-party AI.",
   },
   {
     icon: Tags,
-    label: "Family controls",
-    copy: "Permissions, notifications, sharing, and account deletion are all documented plainly.",
+    label: "Parent controls",
+    copy: "Camera, photos, microphone, and notification permissions are optional and documented plainly.",
   },
 ];
 
@@ -321,7 +321,7 @@ export function ArtlingLanding() {
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } } }}
                 className="mt-10 flex flex-wrap gap-2"
               >
-                {["Timeline + milestones", "PDF export", "Family sharing", "AI captions"].map(
+                {["Timeline + milestones", "PDF export", "iCloud sync", "AI captions"].map(
                   (item) => (
                     <li
                       key={item}
@@ -554,11 +554,11 @@ export function ArtlingLanding() {
               <span className="text-accent">not vague reassurance.</span>
             </h2>
             <p className="mt-5 text-[15px] leading-[1.7] text-ink-3">
-              Artling stores its core library on device and uses cloud services
-              where account, sync, AI, or sharing features require them. The
-              public privacy policy reflects the real app architecture, including
-              Firebase authentication, optional Sign in with Apple, StoreKit
-              purchases, notifications, and AI caption processing.
+              Artling stores its library on device and syncs through your own
+              private iCloud. There are no accounts, no developer servers, and
+              no third-party SDKs. The public privacy policy reflects the real
+              app architecture, including StoreKit purchases, local
+              notifications, and on-device AI caption processing.
             </p>
 
             <div className="mt-8 space-y-3">
