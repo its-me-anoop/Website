@@ -503,6 +503,13 @@ html:has(.atelier-root)::-webkit-scrollbar-thumb:hover {
   animation: at-drift 5.5s var(--ease-in-out) infinite;
 }
 
+/* One visible control pauses every auto-moving band (WCAG 2.2.2). */
+.atelier-root[data-marquees="paused"] .animate-marquee,
+.atelier-root[data-marquees="paused"] .animate-marquee-rev,
+.atelier-root[data-marquees="paused"] .animate-at-drift {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {

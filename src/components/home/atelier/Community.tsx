@@ -15,10 +15,10 @@ function WallRow({
   return (
     <div className="edge-mask overflow-hidden">
       <div
-        className={`${reverse ? "animate-marquee-rev" : "animate-marquee"} flex w-max gap-5 [--marquee-duration:56s]`}
+        className={`${reverse ? "animate-marquee-rev" : "animate-marquee"} flex w-max [--marquee-duration:56s]`}
       >
         {[0, 1].map((copy) => (
-          <div key={copy} aria-hidden={copy === 1} className="flex gap-5">
+          <div key={copy} aria-hidden={copy === 1} className="flex gap-5 pr-5">
             {tiles.map((tile, i) => (
               <div
                 key={`${tile.src}-${i}`}

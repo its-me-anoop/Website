@@ -9,7 +9,7 @@ export function SplitCta() {
   return (
     <section
       id="about"
-      className="mx-auto grid w-full max-w-[1240px] scroll-mt-24 gap-5 px-5 pb-24 sm:px-8 lg:grid-cols-2"
+      className="mx-auto grid w-full max-w-[1240px] gap-5 px-5 pb-24 sm:px-8 lg:grid-cols-2"
     >
       {/* Meet the studio */}
       <Rise>
@@ -22,7 +22,7 @@ export function SplitCta() {
             className="object-cover object-top opacity-80 mix-blend-luminosity"
           />
           <div
-            className="absolute inset-0 bg-gradient-to-t from-[#7c3247] via-[#7c3247]/35 to-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-[#5a2333] via-[#5a2333]/85 via-60% to-transparent"
             aria-hidden
           />
           <div className="absolute inset-x-0 bottom-0 p-8">
@@ -31,9 +31,9 @@ export function SplitCta() {
             </span>
             <h2 className="text-[clamp(1.9rem,3.6vw,2.6rem)] font-medium leading-[1.08] tracking-[-0.03em] text-white">
               Direct collaboration,
-              <span className="block text-white/70">no relay race.</span>
+              <span className="block text-white/85">no relay race.</span>
             </h2>
-            <p className="mt-3 max-w-[380px] text-[14px] leading-relaxed text-white/80">
+            <p className="mt-3 max-w-[380px] text-[14px] leading-relaxed text-white/95">
               You speak to the person doing the work — {site.founder}, founder
               and product engineer. Decisions never disappear between
               departments.

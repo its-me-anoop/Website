@@ -16,7 +16,7 @@ export function Footer() {
   return (
     <footer
       id="contact"
-      className="mx-auto w-full max-w-[1240px] scroll-mt-24 px-5 pb-12 sm:px-8"
+      className="mx-auto w-full max-w-[1240px] px-5 pb-12 sm:px-8"
     >
       <div className="rounded-[36px] bg-at-panel px-7 py-12 sm:px-12 sm:py-16">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,2fr)]">
@@ -63,7 +63,7 @@ export function Footer() {
           >
             {footerColumns.map((column) => (
               <div key={column.title}>
-                <h3 className="text-[12px] font-medium uppercase tracking-[0.22em] text-at-muted">
+                <h3 className="text-[12px] font-medium uppercase tracking-[0.22em] text-at-ink-soft">
                   {column.title}
                 </h3>
                 <ul className="mt-4 space-y-2.5">
@@ -96,8 +96,10 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-at-line pt-7 text-[12.5px] text-at-muted">
-          <span>
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-at-line pt-7 text-[12.5px] text-at-ink-soft">
+          {/* Statically prerendered — the client may hydrate in a later
+              year, which is fine to leave as-is. */}
+          <span suppressHydrationWarning>
             © {new Date().getFullYear()} {site.legalName}. All rights reserved.
           </span>
           <span>

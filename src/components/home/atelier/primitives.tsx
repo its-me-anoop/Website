@@ -16,12 +16,13 @@ export const EASE = [0.16, 1, 0.3, 1] as const;
 
 export type WordSegment = {
   text: string;
-  tone?: "ink" | "muted" | "terracotta" | "violet";
+  tone?: "ink" | "muted" | "soft" | "terracotta" | "violet";
 };
 
 const toneClass: Record<NonNullable<WordSegment["tone"]>, string> = {
   ink: "text-at-ink",
   muted: "text-at-muted",
+  soft: "text-at-ink-soft",
   terracotta: "text-at-terracotta",
   violet: "text-at-violet",
 };

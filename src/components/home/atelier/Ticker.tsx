@@ -20,9 +20,9 @@ export function Ticker() {
       <Rise>
         <div className="relative overflow-hidden rounded-[36px] bg-at-lime px-4 pb-12 pt-14 sm:pb-16 sm:pt-20">
           <div className="edge-mask overflow-hidden">
-            <div className="animate-marquee flex w-max items-center gap-8 [--marquee-duration:44s]">
+            <div className="animate-marquee flex w-max items-center [--marquee-duration:44s]">
               {[0, 1].map((copy) => (
-                <div key={copy} aria-hidden={copy === 1} className="flex items-center gap-8">
+                <div key={copy} aria-hidden={copy === 1} className="flex items-center gap-8 pr-8">
                   {tickerItems.map((item) => (
                     <span
                       key={item}
@@ -38,7 +38,7 @@ export function Ticker() {
               ))}
             </div>
           </div>
-          <p className="mt-3 pl-6 text-[11px] font-medium uppercase tracking-[0.24em] text-at-ink/50">
+          <p className="mt-3 pl-6 text-[11px] font-medium uppercase tracking-[0.24em] text-at-ink-soft">
             2026 · Reading, UK
           </p>
 

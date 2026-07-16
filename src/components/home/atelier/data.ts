@@ -114,7 +114,6 @@ export const trustedBy = [
   "Sandbourne Care",
   "Sipli",
   "Artling",
-  "Little Artist",
 ] as const;
 
 /** Services — rendered as the editorial story cards. */
@@ -123,7 +122,7 @@ export const services = [
     number: "01",
     title: "Product direction",
     copy: "Turn an early idea, tangled feature list or existing product into a focused plan people can understand and use.",
-    cta: { label: "How I work?", href: "#process" },
+    cta: { label: "How I work", href: "#process" },
     variant: "fan",
   },
   {
