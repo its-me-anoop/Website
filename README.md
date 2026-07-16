@@ -2,18 +2,18 @@
 
 The site of **Flutterly Ltd**, the one-person product studio of
 **Anoop Jose** (Reading, UK). The homepage runs the
-["Aurora" design language](./docs/AURORA.md) — obsidian black under a
-WebGL aurora shader, glass surfaces, Syne display type with
-outlined-stroke headlines, and scroll-driven choreography. Case-study
-pages (`/projects/*`) keep the light
+["Atelier" design language](./docs/ATELIER.md) — a warm cream gallery
+with oversized Space Grotesk type revealed word by word, fanned
+project cards with `@handle` chips, folder-tab browsing, marquee bands
+and pill chrome. Case-study pages (`/projects/*`) keep the light
 ["Porcelain" system](./docs/DESIGN-SYSTEM.md).
 
 ## Stack
 
 - **Next.js 16** (App Router, Turbopack) + **React 19**
 - **Tailwind CSS v4** (token-driven `@theme`)
-- **Hand-rolled motion** on the homepage (WebGL shader, scroll reveals,
-  sticky stacking) + **Framer Motion** on case-study pages
+- **Framer Motion** everywhere (single `LazyMotion` provider, `m`
+  components, reduced-motion aware)
 - **Vitest** + Testing Library for tests, **Playwright** for the
   browser workflow
 - **Self-hosted fonts** — Syne, Space Grotesk, and JetBrains Mono as
@@ -41,20 +41,25 @@ npm run dev      # http://localhost:3000
 ## Project structure & design system
 
 See [`docs/index.md`](./docs/index.md) for the architecture overview,
-[`docs/AURORA.md`](./docs/AURORA.md) for the homepage language, and
+[`docs/ATELIER.md`](./docs/ATELIER.md) for the homepage language, and
 [`docs/DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md) for the Porcelain
 tokens used by the case-study pages.
 
 ## Highlights
 
-- **WebGL aurora hero** — a domain-warped fbm shader, mouse-reactive
-  and dimming as you scroll, under film grain and a top-light vignette.
-- **Scroll choreography** — intro wipe, blur-rise reveals,
-  sticky-stacking work cards that scale and dim as the next slides
-  over, a self-drawing process line, dual-direction stack marquees,
-  3D-tilt service cards, and a magnetic email CTA.
-- **Glass everywhere** — floating capsule nav, frosted project cards
-  and chips, all real `backdrop-blur` with inner highlights.
+- **Staggered word reveals** — headlines rise out of clipped line
+  boxes word by word as they scroll into view, with tinted segments
+  (terracotta, violet, ghost-muted).
+- **Fanned art decks** — the hero spreads five project cards into a
+  fan; the statement cluster fans open scroll-linked; `@handle`
+  speech-bubble chips drift above both.
+- **Gallery furniture** — a featured-work carousel, a folder-tab work
+  browser, drifting community walls, a lime ticker band and marquee
+  wordmarks on a warm cream canvas.
+- **Liquid Glass chrome** — buttons, pills and the menu wear
+  Apple-style liquid glass: saturated backdrop blur with a specular
+  rim, falling back to solid fills under
+  `prefers-reduced-transparency`.
 - **SEO** — metadata + Person/Organization JSON-LD, sitemap, robots,
   semantic HTML, and a fully reduced-motion-aware, accessible UI.
 

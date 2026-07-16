@@ -4,8 +4,8 @@ import "./globals.css";
 import { site } from "@/lib/site";
 
 /* Porcelain pages render on the native SF-style system stack (see
-   globals.css). The Aurora homepage adds its own trio — Syne display,
-   Space Grotesk body, JetBrains Mono micro-labels — self-hosted as
+   globals.css). The Atelier homepage sets Space Grotesk; Syne and
+   JetBrains Mono stay available to sub-pages — all self-hosted as
    latin variable woff2 subsets (~97KB total) so builds never depend
    on the Google Fonts CDN. */
 

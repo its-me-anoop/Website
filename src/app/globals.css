@@ -87,17 +87,29 @@
   --signal: var(--accent);
   --signal-ink: var(--accent-ink);
 
-  /* ── "Aurora" homepage palette ────────────────────────────────
-     The home route runs its own dark design language: obsidian
-     canvas under a WebGL aurora, frost ink, and five neon accents.
-     Case-study pages stay on the Porcelain ramp above. */
-  --obsidian: #05060a;
-  --frost: #eceef8;
-  --mint: #3df2c4;
-  --iris: #8b7cff;
-  --candy: #ff6fcb;
-  --amber: #ffb45c;
-  --lime: #7ce38b;
+  /* ── "Atelier" homepage palette ───────────────────────────────
+     The home route runs a warm gallery language: cream canvas,
+     charcoal ink, terracotta / violet / lime accents, pill chrome
+     and oversized editorial type. Case-study pages stay on the
+     Porcelain ramp above. */
+  --at-canvas: #f1efeb; /* warm cream page */
+  --at-panel: #f8f7f4; /* raised cards on canvas */
+  --at-surface: #ffffff; /* white pills / tiles */
+  --at-ink: #22211f; /* near-black text */
+  --at-ink-soft: #55534d; /* secondary text */
+  --at-muted: #a3a099; /* tertiary / ghost words */
+  --at-line: rgba(34, 33, 31, 0.08);
+  --at-line-2: rgba(34, 33, 31, 0.14);
+  --at-dark: #262523; /* dark pills, chips, folder tab */
+  --at-dark-ink: #f4f3f0; /* text on dark */
+  --at-terracotta: #b65437; /* headline + chip accent */
+  --at-terracotta-soft: #d9997f;
+  --at-violet: #6a58e0; /* feature cards, View All pill */
+  --at-violet-soft: #a695f2;
+  --at-lime: #e7ecb4; /* ticker band */
+  --at-sun: #dc9552; /* warm carousel panel */
+  --at-pink: #c96f88; /* split CTA card */
+  --at-sky: #dbe7ee; /* app tile tint */
 }
 
 /* Sipli case study: light aqua product palette */
@@ -174,13 +186,24 @@
   --color-pink: var(--pink);
   --color-green: var(--green);
 
-  --color-obsidian: var(--obsidian);
-  --color-frost: var(--frost);
-  --color-mint: var(--mint);
-  --color-iris: var(--iris);
-  --color-candy: var(--candy);
-  --color-amber: var(--amber);
-  --color-lime: var(--lime);
+  --color-at-canvas: var(--at-canvas);
+  --color-at-panel: var(--at-panel);
+  --color-at-surface: var(--at-surface);
+  --color-at-ink: var(--at-ink);
+  --color-at-ink-soft: var(--at-ink-soft);
+  --color-at-muted: var(--at-muted);
+  --color-at-line: var(--at-line);
+  --color-at-line-2: var(--at-line-2);
+  --color-at-dark: var(--at-dark);
+  --color-at-dark-ink: var(--at-dark-ink);
+  --color-at-terracotta: var(--at-terracotta);
+  --color-at-terracotta-soft: var(--at-terracotta-soft);
+  --color-at-violet: var(--at-violet);
+  --color-at-violet-soft: var(--at-violet-soft);
+  --color-at-lime: var(--at-lime);
+  --color-at-sun: var(--at-sun);
+  --color-at-pink: var(--at-pink);
+  --color-at-sky: var(--at-sky);
 
   /* Semantic + legacy aliases */
   --color-background: var(--background);
@@ -199,7 +222,7 @@
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Inter, "Helvetica Neue", sans-serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Aurora type system (self-hosted via next/font, see layout.tsx) */
+  /* Display type system (self-hosted via next/font, see layout.tsx) */
   --font-syne: var(--font-syne-v), "Syne", var(--font-display);
   --font-grotesk: var(--font-grotesk-v), "Space Grotesk", var(--font-sans);
   --font-jb: var(--font-jb-v), "JetBrains Mono", var(--font-mono);
@@ -338,72 +361,146 @@ p {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Aurora — homepage design language
-   Obsidian canvas, WebGL aurora, glass surfaces, Syne display
-   type with outlined-stroke headline lines. Scoped to the home
-   route via `.aurora-root` so Porcelain pages are untouched.
+   Atelier — homepage design language
+   Warm cream canvas, charcoal editorial grotesque type, pill
+   chrome, floating art cards with @handle chips, marquee bands.
+   Scoped to the home route via `.atelier-root` so Porcelain
+   pages are untouched.
    ───────────────────────────────────────────────────────────── */
 
-/* Dark chrome (overscroll, scrollbars, form controls) only while
-   an aurora page is mounted. */
-html:has(.aurora-root) {
-  background: var(--obsidian);
-  color-scheme: dark;
+/* Cream chrome (overscroll, scrollbars) only while the Atelier
+   homepage is mounted. */
+html:has(.atelier-root) {
+  background: var(--at-canvas);
 }
-html:has(.aurora-root)::-webkit-scrollbar-track {
-  background: var(--obsidian);
+html:has(.atelier-root)::-webkit-scrollbar-track {
+  background: var(--at-canvas);
 }
-html:has(.aurora-root)::-webkit-scrollbar-thumb {
-  background: #262a3a;
-  border-color: var(--obsidian);
+html:has(.atelier-root)::-webkit-scrollbar-thumb {
+  background: #d4d1ca;
+  border-color: var(--at-canvas);
 }
-html:has(.aurora-root)::-webkit-scrollbar-thumb:hover {
-  background: #3a3f55;
-}
-
-.aurora-root ::selection {
-  background: rgba(61, 242, 196, 0.35);
-  color: var(--frost);
-}
-.aurora-root :focus-visible {
-  outline-color: var(--mint);
+html:has(.atelier-root)::-webkit-scrollbar-thumb:hover {
+  background: var(--at-muted);
 }
 
-/* Outlined display lines — the signature headline treatment. */
-.text-outline {
-  color: transparent;
-  -webkit-text-stroke: 1.2px rgba(236, 238, 248, 0.65);
+.atelier-root {
+  font-family: var(--font-grotesk);
+  letter-spacing: -0.01em;
 }
-.text-outline-hero {
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(236, 238, 248, 0.75);
+.atelier-root ::selection {
+  background: var(--at-terracotta);
+  color: #fff;
+}
+.atelier-root :focus-visible {
+  outline-color: var(--at-terracotta);
 }
 
-@keyframes au-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+/* ── Liquid Glass chrome ──────────────────────────────────────
+   Apple-style liquid glass for buttons, pills and the menu:
+   saturated backdrop blur, a specular top rim, an inner hairline
+   and soft depth. Three finishes — light (dark ink), dark (light
+   ink) and clear (over imagery, white ink) — plus a violet tint. */
+.liquid,
+.liquid-dark,
+.liquid-clear,
+.liquid-violet {
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
 }
-@keyframes au-marquee-rev {
+.liquid {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.62),
+    rgba(255, 255, 255, 0.26)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+    0 10px 28px -14px rgba(34, 33, 31, 0.35);
+  color: var(--at-ink);
+}
+.liquid-dark {
+  background: linear-gradient(
+    135deg,
+    rgba(38, 37, 35, 0.85),
+    rgba(38, 37, 35, 0.64)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 12px 30px -14px rgba(34, 33, 31, 0.55);
+  color: var(--at-dark-ink);
+}
+.liquid-clear {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+    0 10px 26px -14px rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+}
+.liquid-violet {
+  background: linear-gradient(
+    135deg,
+    rgba(106, 88, 224, 0.88),
+    rgba(106, 88, 224, 0.64)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 12px 30px -14px rgba(106, 88, 224, 0.5);
+  color: #ffffff;
+}
+
+/* Solid fallbacks when the user asks for less transparency. */
+@media (prefers-reduced-transparency: reduce) {
+  .liquid,
+  .liquid-dark,
+  .liquid-clear,
+  .liquid-violet {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .liquid { background: var(--at-surface); }
+  .liquid-dark { background: var(--at-dark); }
+  .liquid-clear { background: rgba(0, 0, 0, 0.55); }
+  .liquid-violet { background: var(--at-violet); }
+}
+
+/* Speech-bubble tail for @handle chips. */
+.at-chip-tail::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  background: inherit;
+  clip-path: polygon(0 0, 100% 0, 20% 100%);
+}
+
+/* Reverse-direction marquee (pairs with .animate-marquee). */
+@keyframes marquee-rev {
   from { transform: translateX(-50%); }
   to { transform: translateX(0); }
 }
-@keyframes au-float {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-14px) rotate(2deg); }
+.animate-marquee-rev {
+  animation: marquee-rev var(--marquee-duration, 48s) linear infinite;
 }
-@keyframes au-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
+
+/* Gentle idle float for fanned cards / chips. */
+@keyframes at-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
 }
-@keyframes au-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-@keyframes au-scrollline {
-  0% { transform: scaleY(0); transform-origin: top; }
-  45% { transform: scaleY(1); transform-origin: top; }
-  55% { transform: scaleY(1); transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
+.animate-at-drift {
+  animation: at-drift 5.5s var(--ease-in-out) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
