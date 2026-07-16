@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { EditorialHome } from "@/components/home/EditorialHome";
-import { EditorialResponsiveFixes } from "@/components/home/EditorialResponsiveFixes";
-import { EditorialMotion } from "@/components/home/EditorialMotion";
+import { AtelierHome } from "@/components/home/atelier/AtelierHome";
 
 export const metadata: Metadata = {
   title: "Independent product studio",
@@ -36,18 +34,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f3efe7",
+  themeColor: "#f1efeb",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function Home() {
-  return (
-    <>
-      <EditorialResponsiveFixes />
-      <EditorialMotion />
-      <EditorialHome />
-    </>
-  );
+  return <AtelierHome />;
 }

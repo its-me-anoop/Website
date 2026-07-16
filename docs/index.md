@@ -2,14 +2,14 @@
 
 The site of Flutterly Ltd — the product studio of Anoop Jose. Built
 with Next.js 16 (App Router), React 19 and Tailwind CSS v4. The
-homepage runs the dark "Aurora" language (WebGL aurora, glass, scroll
-choreography); case-study pages run the light "Porcelain" system with
-Framer Motion.
+homepage runs the warm "Atelier" language (cream gallery, staggered
+word reveals, fanned cards, pill chrome); case-study pages run the
+light "Porcelain" system with Framer Motion.
 
 ## Contents
 
-- [Design Language — "Aurora"](./AURORA.md) — homepage tokens, the
-  shader backdrop, and the motion system.
+- [Design Language — "Atelier"](./ATELIER.md) — homepage tokens,
+  signature moves, and the motion system.
 - [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — tokens,
   primitives, motion, and accessibility rules for case-study pages.
 
@@ -20,13 +20,13 @@ src/
 ├── app/
 │   ├── layout.tsx          # Root layout: fonts, metadata, JSON-LD, skip link
 │   ├── template.tsx        # Route transition wrapper
-│   ├── page.tsx            # Aurora homepage composition
+│   ├── page.tsx            # Atelier homepage composition
 │   ├── globals.css         # Design tokens + Tailwind theme + utilities
 │   ├── sitemap.ts          # SEO sitemap
 │   ├── robots.ts           # SEO robots
 │   └── projects/           # Case-study subpages (sipli, artling)
 ├── components/
-│   ├── home/               # Aurora homepage (backdrop, nav, sections, motion)
+│   ├── home/atelier/       # Atelier homepage (nav, sections, primitives, data)
 │   ├── ui/                 # Porcelain primitives (Button, LiftCard, …)
 │   ├── layout/             # Porcelain Navbar/Footer (case-study pages)
 │   └── projects/           # Per-product landing UIs
