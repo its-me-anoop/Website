@@ -59,7 +59,7 @@ export function Vision() {
         <Rise delay={0.25}>
           <a
             href="#about"
-            className="mt-6 inline-flex rounded-full px-4 py-2 text-[13.5px] font-medium text-at-ink-soft shadow-[0_1px_0_var(--at-line-2)] transition-colors hover:text-at-ink"
+            className="liquid mt-6 inline-flex rounded-full px-4 py-2 text-[13.5px] font-medium transition-transform duration-300 hover:-translate-y-0.5"
           >
             Read more
           </a>
@@ -110,7 +110,7 @@ export function Vision() {
           </div>
           <a
             href={`mailto:${site.email}`}
-            className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-at-surface px-4 py-2 text-[13px] font-medium text-at-ink shadow-[0_1px_0_var(--at-line-2)] transition-transform duration-300 hover:-translate-y-0.5"
+            className="liquid mb-2 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-medium transition-transform duration-300 hover:-translate-y-0.5"
           >
             <Plus size={14} aria-hidden /> Start yours
           </a>

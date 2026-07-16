@@ -69,6 +69,7 @@ export function WorkCarousel() {
                 <Tag
                   key={project.name}
                   href={project.href}
+                  data-project-card
                   {...(project.internal
                     ? {}
                     : { target: "_blank", rel: "noopener noreferrer" })}
@@ -85,7 +86,7 @@ export function WorkCarousel() {
                       sizes="270px"
                       className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
                     />
-                    <span className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/85 text-at-ink opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
+                    <span className="liquid absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       <ArrowUpRight size={15} aria-hidden />
                     </span>
                   </div>

@@ -38,6 +38,12 @@ weight 500 for display sizes with `-0.035em` tracking.
 
 ## 2. Signature moves
 
+- **Liquid Glass chrome** — every button, pill and the menu use
+  Apple-style liquid glass (`.liquid`, `.liquid-dark`,
+  `.liquid-clear` over imagery, `.liquid-violet`): saturated
+  `backdrop-blur`, a specular top rim, an inner hairline and soft
+  depth. `prefers-reduced-transparency` swaps in solid fills.
+
 - **RevealWords** (`primitives.tsx`) — headlines split into words that
   rise out of clipped line boxes with a per-word stagger. The observed
   element is the *heading itself*, which propagates a `visible` variant

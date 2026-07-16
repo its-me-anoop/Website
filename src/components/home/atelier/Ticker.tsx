@@ -46,7 +46,7 @@ export function Ticker() {
             {chips.map((Icon, i) => (
               <span
                 key={i}
-                className="flex h-14 w-14 items-center justify-center rounded-full bg-at-canvas/90 text-at-ink shadow-[0_10px_20px_-12px_rgba(34,33,31,0.4)] sm:h-16 sm:w-16"
+                className="liquid flex h-14 w-14 items-center justify-center rounded-full sm:h-16 sm:w-16"
                 style={{ transform: `translateY(${(i % 3) * 6 - 6}px)` }}
               >
                 <Icon size={24} strokeWidth={1.4} />

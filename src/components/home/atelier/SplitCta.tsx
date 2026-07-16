@@ -40,7 +40,7 @@ export function SplitCta() {
             </p>
             <a
               href={`mailto:${site.email}`}
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[13.5px] font-medium text-at-ink transition-transform duration-300 hover:-translate-y-0.5"
+              className="liquid-clear mt-6 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13.5px] font-medium transition-transform duration-300 hover:-translate-y-0.5"
             >
               Let&apos;s meet
             </a>
@@ -76,7 +76,7 @@ export function SplitCta() {
               href={site.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-at-dark px-5 py-2.5 text-[13.5px] font-medium text-at-dark-ink transition-transform duration-300 hover:-translate-y-0.5"
+              className="liquid-dark mt-6 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13.5px] font-medium transition-transform duration-300 hover:-translate-y-0.5"
             >
               Browse GitHub <ArrowUpRight size={14} aria-hidden />
             </a>

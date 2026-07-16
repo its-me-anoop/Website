@@ -67,28 +67,30 @@ export function Hero() {
           </m.div>
         </div>
 
-        {/* Fanned deck of project cards */}
+        {/* Fanned deck of project cards. Card widths are percentages of
+            the container so the deck can never stretch the hero column
+            past the viewport on small screens. */}
         <div
-          className="relative mx-auto flex h-[300px] w-full max-w-[560px] items-end justify-center sm:h-[360px] lg:h-auto"
+          className="relative mx-auto w-full min-w-0 max-w-[560px] pt-16 lg:self-end"
           role="img"
           aria-label="A fanned stack of Flutterly project artwork: Sipli, Artling, Greenmead, JJ Paper and Sandbourne"
         >
           <HandleChip
             handle="@sipli"
             tone="terracotta"
-            className="animate-at-drift absolute left-[4%] top-[6%] z-20"
+            className="animate-at-drift absolute left-[4%] top-0 z-20"
           />
           <HandleChip
             handle="@artling"
             tone="dark"
-            className="animate-at-drift absolute right-[6%] top-[16%] z-20 rotate-[5deg] [animation-delay:1.4s]"
+            className="animate-at-drift absolute right-[6%] top-[12%] z-20 rotate-[5deg] [animation-delay:1.4s]"
           />
 
-          <div className="flex items-end">
+          <div className="flex items-end justify-center pb-8">
             {projects.map((project, i) => (
               <m.div
                 key={project.name}
-                className="relative -ml-14 h-[210px] w-[150px] shrink-0 overflow-hidden rounded-3xl shadow-[0_30px_60px_-24px_rgba(34,33,31,0.4)] first:ml-0 sm:-ml-16 sm:h-[260px] sm:w-[185px]"
+                className="relative -ml-[11%] aspect-[5/7] w-[28%] shrink-0 overflow-hidden rounded-2xl shadow-[0_30px_60px_-24px_rgba(34,33,31,0.4)] first:ml-0 sm:rounded-3xl"
                 style={{ backgroundColor: project.tint, zIndex: 10 - Math.abs(i - 2) }}
                 initial={
                   reduce
@@ -102,7 +104,7 @@ export function Hero() {
                   src={project.image}
                   alt=""
                   fill
-                  sizes="185px"
+                  sizes="(max-width: 640px) 28vw, 160px"
                   className="object-cover"
                   priority={i < 3}
                 />

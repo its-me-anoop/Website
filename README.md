@@ -55,7 +55,11 @@ tokens used by the case-study pages.
   speech-bubble chips drift above both.
 - **Gallery furniture** — a featured-work carousel, a folder-tab work
   browser, drifting community walls, a lime ticker band and marquee
-  wordmarks, all in pill chrome on a warm cream canvas.
+  wordmarks on a warm cream canvas.
+- **Liquid Glass chrome** — buttons, pills and the menu wear
+  Apple-style liquid glass: saturated backdrop blur with a specular
+  rim, falling back to solid fills under
+  `prefers-reduced-transparency`.
 - **SEO** — metadata + Person/Organization JSON-LD, sitemap, robots,
   semantic HTML, and a fully reduced-motion-aware, accessible UI.
 

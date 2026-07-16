@@ -48,7 +48,7 @@ export function Footer() {
                   href={href}
                   aria-label={label}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-at-surface text-at-ink shadow-[0_1px_0_var(--at-line-2)] transition-transform duration-300 hover:-translate-y-0.5"
+                  className="liquid flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-300 hover:-translate-y-0.5"
                 >
                   <Icon size={16} aria-hidden />
                 </a>

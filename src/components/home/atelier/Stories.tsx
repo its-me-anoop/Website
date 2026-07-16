@@ -72,7 +72,7 @@ function VioletCard() {
       <p className="mt-2.5 text-[14px] leading-relaxed text-white/75">{service.copy}</p>
       <a
         href={service.cta.href}
-        className="mt-5 inline-flex rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-at-ink transition-transform duration-300 hover:-translate-y-0.5"
+        className="liquid-dark mt-5 inline-flex rounded-full px-5 py-2.5 text-[13px] font-medium transition-transform duration-300 hover:-translate-y-0.5"
       >
         {service.cta.label}
       </a>

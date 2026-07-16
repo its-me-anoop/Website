@@ -198,10 +198,9 @@ export function HandleChip({
    ───────────────────────────────────────────────────────────── */
 
 const pillTone = {
-  dark: "bg-at-dark text-at-dark-ink hover:bg-black",
-  light:
-    "bg-at-surface text-at-ink shadow-[0_1px_0_var(--at-line-2)] hover:bg-white",
-  violet: "bg-at-violet text-white hover:bg-[#5b49d3]",
+  dark: "liquid-dark",
+  light: "liquid",
+  violet: "liquid-violet",
   ghost: "bg-transparent text-at-ink-soft hover:text-at-ink",
 } as const;
 
@@ -223,7 +222,7 @@ export function Pill({
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={cn(
-        "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-medium transition-[background-color,color,transform] duration-300 hover:-translate-y-0.5",
+        "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-medium transition-[filter,color,transform] duration-300 hover:-translate-y-0.5 hover:brightness-105",
         pillTone[tone],
         className
       )}
@@ -254,7 +253,7 @@ export function ArrowButton({
       aria-label={label}
       disabled={disabled}
       className={cn(
-        "flex h-11 w-11 items-center justify-center rounded-full bg-at-surface text-at-ink shadow-[0_1px_0_var(--at-line-2)] transition-[background-color,opacity,transform] duration-300 hover:-translate-y-0.5 hover:bg-white disabled:cursor-default disabled:opacity-35 disabled:hover:translate-y-0",
+        "liquid flex h-11 w-11 items-center justify-center rounded-full transition-[filter,opacity,transform] duration-300 hover:-translate-y-0.5 hover:brightness-105 disabled:cursor-default disabled:opacity-35 disabled:hover:translate-y-0",
         className
       )}
     >

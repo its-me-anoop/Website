@@ -57,7 +57,7 @@ export function Showcase() {
               exit={reduce ? { opacity: 0 } : { x: direction * -80, opacity: 0 }}
               transition={{ duration: 0.6, ease: EASE }}
             >
-              <div className="absolute left-6 top-6 z-10 rounded-full bg-white/85 px-4 py-1.5 text-[12.5px] font-medium text-at-ink backdrop-blur">
+              <div className="liquid absolute left-6 top-6 z-10 rounded-full px-4 py-1.5 text-[12.5px] font-medium">
                 {slide.eyebrow}
               </div>
 
@@ -79,7 +79,7 @@ export function Showcase() {
                   {...(slide.project.internal
                     ? {}
                     : { target: "_blank", rel: "noopener noreferrer" })}
-                  className="rounded-full bg-white/90 px-5 py-2.5 text-[13.5px] font-medium text-at-ink backdrop-blur transition-transform duration-300 hover:-translate-y-0.5"
+                  className="liquid rounded-full px-5 py-2.5 text-[13.5px] font-medium transition-transform duration-300 hover:-translate-y-0.5"
                 >
                   {slide.cta}
                 </CtaTag>
