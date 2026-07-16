@@ -19,17 +19,17 @@ export function Trusted() {
       </Rise>
 
       <Rise delay={0.25} className="edge-mask mt-12 overflow-hidden">
-        <div className="animate-marquee flex w-max items-center gap-14 [--marquee-duration:38s]">
+        <div className="animate-marquee flex w-max items-center [--marquee-duration:38s]">
           {[0, 1].map((copy) => (
             <div
               key={copy}
               aria-hidden={copy === 1}
-              className="flex items-center gap-14"
+              className="flex items-center gap-14 pr-14"
             >
               {trustedBy.map((name) => (
                 <span
                   key={name}
-                  className="flex items-center gap-14 whitespace-nowrap text-[19px] font-medium tracking-tight text-at-muted"
+                  className="flex items-center gap-14 whitespace-nowrap text-[19px] font-medium tracking-tight text-at-ink-soft"
                 >
                   {name}
                   <span className="h-1.5 w-1.5 rounded-full bg-at-line-2" aria-hidden />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { m, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { HandleChip, RevealWords } from "./primitives";
@@ -22,15 +22,31 @@ const pose = [
   { rotate: 16, x: 150, y: 18 },
 ] as const;
 
+/* Full ±150px offsets clip on narrow phones; scale the fan down
+   below the sm breakpoint. SSR snapshot assumes compact. */
+function useFanSpread() {
+  return useSyncExternalStore(
+    (cb) => {
+      const q = window.matchMedia("(min-width: 640px)");
+      q.addEventListener("change", cb);
+      return () => q.removeEventListener("change", cb);
+    },
+    () => (window.matchMedia("(min-width: 640px)").matches ? 1 : 0.55),
+    () => 0.55
+  );
+}
+
 function ClusterCard({
   index,
+  spread,
   progress,
 }: {
   index: number;
+  spread: number;
   progress: ReturnType<typeof useScroll>["scrollYProgress"];
 }) {
   const rotate = useTransform(progress, [0, 1], [0, pose[index].rotate]);
-  const x = useTransform(progress, [0, 1], [0, pose[index].x]);
+  const x = useTransform(progress, [0, 1], [0, pose[index].x * spread]);
   const y = useTransform(progress, [0, 1], [0, pose[index].y]);
   const art = clusterArt[index];
 
@@ -47,6 +63,7 @@ function ClusterCard({
 export function Statement() {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  const spread = useFanSpread();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 95%", "center 60%"],
@@ -72,11 +89,15 @@ export function Statement() {
         />
         {clusterArt.map((_, i) =>
           reduce ? (
+            /* The Tailwind -translate-x-1/2 class supplies the -50%
+               centering via the `translate` property, which composes
+               with this transform — so the inline value must not
+               repeat it. */
             <div
               key={i}
               className="absolute left-1/2 top-0 h-[150px] w-[112px] -translate-x-1/2 overflow-hidden rounded-2xl bg-at-surface shadow-[0_24px_48px_-20px_rgba(34,33,31,0.45)] sm:h-[186px] sm:w-[140px]"
               style={{
-                transform: `translateX(calc(-50% + ${pose[i].x}px)) translateY(${pose[i].y}px) rotate(${pose[i].rotate}deg)`,
+                transform: `translateX(${pose[i].x * spread}px) translateY(${pose[i].y}px) rotate(${pose[i].rotate}deg)`,
                 zIndex: 10 - Math.abs(i - 2),
               }}
             >
@@ -89,7 +110,7 @@ export function Statement() {
               />
             </div>
           ) : (
-            <ClusterCard key={i} index={i} progress={scrollYProgress} />
+            <ClusterCard key={i} index={i} spread={spread} progress={scrollYProgress} />
           )
         )}
       </div>
@@ -101,7 +122,7 @@ export function Statement() {
         segments={[
           { text: "Whether you're launching a first product" },
           { text: "/ or refining one in flight —" },
-          { text: "Flutterly connects strategy, design & code.", tone: "muted" },
+          { text: "Flutterly connects strategy, design & code.", tone: "soft" },
         ]}
       />
     </section>

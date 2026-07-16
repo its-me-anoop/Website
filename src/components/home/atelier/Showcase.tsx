@@ -14,6 +14,16 @@ import {
   Rise,
 } from "./primitives";
 
+/* Variant functions re-resolve with the presence context's fresh
+   `custom` when a slide exits, so reversing direction animates the
+   outgoing slide to the correct side (a plain exit object would replay
+   the direction captured at the slide's last render). */
+const slideVariants = {
+  enter: (dir: number) => ({ x: dir * 80, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (dir: number) => ({ x: dir * -80, opacity: 0 }),
+};
+
 export function Showcase() {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -28,7 +38,7 @@ export function Showcase() {
   const CtaTag = slide.project.internal ? Link : "a";
 
   return (
-    <section id="featured" className="mx-auto w-full max-w-[1240px] scroll-mt-24 px-5 py-14 sm:px-8">
+    <section id="featured" className="mx-auto w-full max-w-[1240px] px-5 py-14 sm:px-8">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
           <Eyebrow className="mb-5">Featured work · Studio of Anoop Jose</Eyebrow>
@@ -52,12 +62,13 @@ export function Showcase() {
               className="absolute inset-0"
               style={{ backgroundColor: slide.panel }}
               custom={direction}
-              initial={reduce ? false : { x: direction * 80, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={reduce ? { opacity: 0 } : { x: direction * -80, opacity: 0 }}
+              variants={slideVariants}
+              initial={reduce ? false : "enter"}
+              animate={reduce ? { x: 0, opacity: 1 } : "center"}
+              exit={reduce ? { opacity: 0 } : "exit"}
               transition={{ duration: 0.6, ease: EASE }}
             >
-              <div className="liquid absolute left-6 top-6 z-10 rounded-full px-4 py-1.5 text-[12.5px] font-medium">
+              <div className="liquid absolute left-6 top-6 z-10 max-w-[calc(100%-7rem)] truncate rounded-full px-4 py-1.5 text-[12.5px] font-medium">
                 {slide.eyebrow}
               </div>
 

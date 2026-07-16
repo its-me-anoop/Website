@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { Github, Mail, Menu, X } from "lucide-react";
@@ -17,12 +17,20 @@ const links = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
+  /* Escape closes the sheet and returns focus to the toggle so
+     keyboard users aren't dropped to <body>. */
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus();
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [open]);
 
   return (
     <m.header
@@ -68,11 +76,12 @@ export function Nav() {
 
           {/* Mobile toggle */}
           <button
+            ref={toggleRef}
             type="button"
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            aria-controls="atelier-mobile-menu"
+            aria-controls={open ? "atelier-mobile-menu" : undefined}
             className="liquid flex h-10 w-10 items-center justify-center rounded-full md:hidden"
           >
             {open ? <X size={18} aria-hidden /> : <Menu size={18} aria-hidden />}
@@ -111,7 +120,7 @@ export function Nav() {
             className="liquid mx-4 mb-4 grid gap-1 rounded-3xl p-4 md:hidden"
             initial={reduce ? false : { opacity: 0, y: -12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.98 }}
+            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -12, scale: 0.98 }}
             transition={{ duration: 0.18, ease: EASE }}
           >
             {links.map((link, i) => (

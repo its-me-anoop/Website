@@ -33,6 +33,22 @@ export function Vision() {
   const reduce = useReducedMotion();
   const tab = folderTabs.find((t) => t.id === active) ?? folderTabs[0];
 
+  /* ARIA tabs keyboard pattern: arrows move + activate, with a roving
+     tabindex so only the active tab is in the tab order. */
+  const onTablistKeyDown = (e: React.KeyboardEvent) => {
+    const ids = folderTabs.map((t) => t.id);
+    const i = ids.indexOf(active);
+    let next = -1;
+    if (e.key === "ArrowRight") next = (i + 1) % ids.length;
+    else if (e.key === "ArrowLeft") next = (i - 1 + ids.length) % ids.length;
+    else if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = ids.length - 1;
+    if (next === -1) return;
+    e.preventDefault();
+    setActive(ids[next]);
+    document.getElementById(`folder-tab-${ids[next]}`)?.focus();
+  };
+
   return (
     <section
       aria-label="Studio vision and work browser"
@@ -84,8 +100,13 @@ export function Vision() {
 
       {/* Folder-tab browser */}
       <div>
-        <div className="flex items-center justify-between px-2">
-          <div className="flex items-end gap-2" role="tablist" aria-label="Browse work by platform">
+        <div className="flex flex-wrap items-center justify-between gap-y-2 px-2">
+          <div
+            className="flex items-end gap-2"
+            role="tablist"
+            aria-label="Browse work by platform"
+            onKeyDown={onTablistKeyDown}
+          >
             {folderTabs.map((t) => {
               const selected = t.id === active;
               return (
@@ -95,7 +116,8 @@ export function Vision() {
                   role="tab"
                   id={`folder-tab-${t.id}`}
                   aria-selected={selected}
-                  aria-controls={`folder-panel-${t.id}`}
+                  aria-controls={selected ? `folder-panel-${t.id}` : undefined}
+                  tabIndex={selected ? 0 : -1}
                   onClick={() => setActive(t.id)}
                   className={
                     selected
@@ -110,7 +132,7 @@ export function Vision() {
           </div>
           <a
             href={`mailto:${site.email}`}
-            className="liquid mb-2 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-medium transition-transform duration-300 hover:-translate-y-0.5"
+            className="liquid mb-2 inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-[13px] font-medium transition-transform duration-300 hover:-translate-y-0.5"
           >
             <Plus size={14} aria-hidden /> Start yours
           </a>
@@ -120,6 +142,7 @@ export function Vision() {
           role="tabpanel"
           id={`folder-panel-${tab.id}`}
           aria-labelledby={`folder-tab-${tab.id}`}
+          tabIndex={0}
           className="overflow-hidden rounded-3xl rounded-tl-none bg-at-dark p-3"
         >
           <AnimatePresence mode="wait" initial={false}>

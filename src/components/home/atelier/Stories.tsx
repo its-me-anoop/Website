@@ -69,7 +69,7 @@ function VioletCard() {
         {service.number}
       </span>
       <h3 className="mt-2 text-[21px] font-medium tracking-tight">{service.title}</h3>
-      <p className="mt-2.5 text-[14px] leading-relaxed text-white/75">{service.copy}</p>
+      <p className="mt-2.5 text-[14px] leading-relaxed text-white">{service.copy}</p>
       <a
         href={service.cta.href}
         className="liquid-dark mt-5 inline-flex rounded-full px-5 py-2.5 text-[13px] font-medium transition-transform duration-300 hover:-translate-y-0.5"
@@ -113,7 +113,7 @@ function ProcessCard() {
   return (
     <article
       id="process"
-      className="scroll-mt-24 rounded-[28px] bg-at-dark p-7 text-at-dark-ink"
+      className="rounded-[28px] bg-at-dark p-7 text-at-dark-ink"
     >
       <span className="text-[11px] font-medium uppercase tracking-[0.24em] text-at-dark-ink/50">
         The process
@@ -137,10 +137,10 @@ function ProcessCard() {
 
 export function Stories() {
   return (
-    <section id="services" className="mx-auto w-full max-w-[1240px] scroll-mt-24 px-5 py-20 sm:px-8">
+    <section id="services" className="mx-auto w-full max-w-[1240px] px-5 py-20 sm:px-8">
       <div className="text-center">
         <Eyebrow className="mb-5">
-          Your product <span className="text-at-violet">telling</span>
+          Your product&rsquo;s <span className="text-at-violet">story</span>
         </Eyebrow>
         <RevealWords
           as="h2"

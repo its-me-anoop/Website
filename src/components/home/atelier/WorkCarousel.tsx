@@ -26,12 +26,12 @@ export function WorkCarousel() {
   };
 
   return (
-    <section id="work" className="mx-auto w-full max-w-[1240px] scroll-mt-24 px-5 py-20 sm:px-8">
+    <section id="work" className="mx-auto w-full max-w-[1240px] px-5 py-20 sm:px-8">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)] lg:gap-14">
         {/* Heading column */}
         <div>
           <Eyebrow className="mb-5">
-            Get more <span className="text-at-violet">closer</span>
+            A closer <span className="text-at-violet">look</span>
           </Eyebrow>
           <RevealWords
             as="h2"
@@ -81,7 +81,7 @@ export function WorkCarousel() {
                   >
                     <Image
                       src={project.image}
-                      alt={`${project.name} — ${project.type}`}
+                      alt=""
                       fill
                       sizes="270px"
                       className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
@@ -94,7 +94,7 @@ export function WorkCarousel() {
                     <h3 className="text-[16.5px] font-medium tracking-tight text-at-ink">
                       {project.name}
                     </h3>
-                    <span className="whitespace-nowrap text-[12.5px] text-at-muted">
+                    <span className="whitespace-nowrap text-[12.5px] text-at-ink-soft">
                       {project.type} · {project.year}
                     </span>
                   </div>
