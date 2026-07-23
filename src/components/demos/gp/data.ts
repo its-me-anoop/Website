@@ -17,7 +17,9 @@ export const navLinks = [
   { href: "/demo/gp-practice", label: "Home" },
   { href: "/demo/gp-practice/appointments", label: "Appointments" },
   { href: "/demo/gp-practice/prescriptions", label: "Prescriptions" },
-  { href: "/demo/gp-practice/contact", label: "Contact & opening times" },
+  { href: "/demo/gp-practice/services", label: "Services & clinics" },
+  { href: "/demo/gp-practice/team", label: "Our team" },
+  { href: "/demo/gp-practice/contact", label: "Contact" },
 ] as const;
 
 export const alert = {
@@ -84,6 +86,137 @@ export const news = [
     date: "12 June 2026",
     title: "Blood test clinics moving to mornings",
     copy: "From July, blood test appointments run 8:00am to 12:00pm to get samples to the lab on the same day.",
+  },
+] as const;
+
+/* ── Our team ──────────────────────────────────────────────── */
+
+export const team = [
+  {
+    group: "Doctors",
+    members: [
+      ["Dr Sarah Patel", "GP Partner — women's health, minor surgery"],
+      ["Dr James Okafor", "GP Partner — diabetes and cardiovascular care"],
+      ["Dr Amara Osei", "Salaried GP — women's health and long-term conditions"],
+      ["Dr Tom Bradley", "GP Registrar — a qualified doctor training in general practice"],
+    ],
+  },
+  {
+    group: "Nursing team",
+    members: [
+      ["Helen Carter", "Lead Practice Nurse — asthma, COPD and travel clinics"],
+      ["Priya Sharma", "Practice Nurse — immunisations and cervical screening"],
+      ["Mark Davies", "Healthcare Assistant — blood tests, blood pressure and health checks"],
+    ],
+  },
+  {
+    group: "Wider clinical team",
+    members: [
+      ["Fatima Khan", "Clinical Pharmacist — medication reviews and prescription queries"],
+      ["Rob Jenkins", "First-Contact Physiotherapist — muscle and joint problems, no GP referral needed"],
+      ["Grace Adeyemi", "Social Prescriber — practical support with money, housing, loneliness and more"],
+    ],
+  },
+  {
+    group: "Practice team",
+    members: [
+      ["Lisa Morton", "Practice Manager"],
+      ["Our reception team", "Trained care navigators — they ask what you need so you reach the right person first time"],
+    ],
+  },
+] as const;
+
+/* ── Services & clinics ────────────────────────────────────── */
+
+export const serviceGroups = [
+  {
+    title: "Long-term conditions",
+    items: [
+      "Asthma and COPD reviews",
+      "Diabetes care and annual reviews",
+      "Blood pressure checks and hypertension clinics",
+      "Annual medication reviews with our clinical pharmacist",
+    ],
+  },
+  {
+    title: "Prevention & screening",
+    items: [
+      "Childhood immunisations",
+      "Flu, COVID-19 and pneumonia vaccinations",
+      "Cervical screening (smear tests)",
+      "NHS Health Checks for 40–74 year olds",
+    ],
+  },
+  {
+    title: "Everyday care",
+    items: [
+      "Blood tests (morning phlebotomy clinics)",
+      "Wound care and dressings",
+      "Contraception and family planning",
+      "Menopause support",
+      "Joint injections and minor surgery",
+      "Travel health advice and vaccinations",
+    ],
+  },
+] as const;
+
+/** Services patients can access directly, without seeing a GP first. */
+export const selfReferral = [
+  {
+    title: "Pharmacy First",
+    copy: "Your local pharmacy can treat seven common conditions — including earache, sore throat, sinusitis and urinary infections — and prescribe where appropriate, no appointment needed.",
+  },
+  {
+    title: "NHS Talking Therapies",
+    copy: "Free, confidential support for stress, anxiety and low mood. Refer yourself directly online or by phone — you do not need to see a GP first.",
+  },
+  {
+    title: "Sexual health services",
+    copy: "Contraception, testing and advice through local sexual health clinics, booked directly and in confidence.",
+  },
+  {
+    title: "Stop smoking support",
+    copy: "Free local support that makes you three times more likely to quit for good. Sign up directly — no GP appointment needed.",
+  },
+] as const;
+
+/* ── Practice information & policies ───────────────────────── */
+
+export const practiceInfo = [
+  {
+    id: "feedback",
+    title: "Feedback and complaints",
+    copy: "Tell us when something goes wrong — or right. Speak to any member of staff, or write to our practice manager, Lisa Morton, and you will receive an acknowledgement within three working days. If you are not happy with our response, you can take your complaint to the Parliamentary and Health Service Ombudsman. We also take part in the NHS Friends and Family Test — the results are displayed in our waiting room and on this website.",
+  },
+  {
+    id: "records",
+    title: "Your records and privacy",
+    copy: "Your medical record is confidential and handled under UK GDPR. You can read our full privacy notice at reception or on this page, see your own record through the NHS App, and ask for information we hold to be corrected. We never share your record outside your care without your consent, unless the law requires it.",
+  },
+  {
+    id: "everyone-welcome",
+    title: "Everyone is welcome here",
+    copy: "You do not need proof of address, identification or immigration status to register with the practice. We are a veteran-friendly practice, we support registration for people experiencing homelessness, and free interpreters — including British Sign Language — can be arranged for any appointment. Just tell us what you need when you book.",
+  },
+  {
+    id: "carers",
+    title: "Are you a carer?",
+    copy: "If you look after a family member, friend or neighbour, tell us — we will note it on your record, offer you an annual flu jab and health check, and connect you with local carer support services.",
+  },
+  {
+    id: "chaperones",
+    title: "Chaperones",
+    copy: "You are welcome to have a chaperone present for any examination — a trained member of staff, or someone you bring with you. Just ask when booking or at any point during your appointment.",
+  },
+  {
+    id: "zero-tolerance",
+    title: "Respect for our team",
+    copy: "Our staff come to work to care for people. In line with the NHS zero-tolerance policy, violence or abuse towards any member of the team may lead to removal from the practice list.",
+  },
+  {
+    id: "ppg",
+    title: "Patient Participation Group",
+    copy: "Our PPG is a group of patients who meet quarterly with the practice team to help shape how the surgery works — from phone systems to clinic times. Everyone registered here is welcome; ask at reception or mention it in any message to join.",
   },
 ] as const;
 

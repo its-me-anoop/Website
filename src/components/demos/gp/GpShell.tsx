@@ -73,6 +73,14 @@ export function GpShell({ children }: { children: React.ReactNode }) {
               ))}
               <li>
                 <Link
+                  href="/demo/gp-practice/practice-information"
+                  className="text-[var(--dgp-blue)] underline"
+                >
+                  Practice information & policies
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/demo/gp-practice/accessibility"
                   className="text-[var(--dgp-blue)] underline"
                 >
