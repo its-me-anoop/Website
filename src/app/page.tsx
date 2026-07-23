@@ -1,18 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { AtelierHome } from "@/components/home/atelier/AtelierHome";
+import { BloomHome } from "@/components/bloom/home/BloomHome";
 
 export const metadata: Metadata = {
-  title: "Independent product studio",
+  title: "Websites for GP practices, care homes & ambitious products",
   description:
-    "Flutterly is an independent product studio in Reading, UK, designing and building focused web and mobile products with Next.js, SwiftUI and Flutter.",
+    "Flutterly designs and builds accessible, fast websites for GP practices, care homes and ambitious products — custom-coded in Reading, UK, never a template.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Flutterly — Independent product studio",
+    title: "Flutterly — Websites for GP practices, care homes & ambitious products",
     description:
-      "Senior product thinking, interface design and engineering without agency hand-offs.",
+      "Accessible, fast, custom-coded websites for healthcare organisations and ambitious products — designed, built and supported by one accountable studio.",
     url: site.url,
-    siteName: site.name,
+    siteName: site.studio,
     locale: site.locale,
     type: "website",
     images: [
@@ -20,26 +20,26 @@ export const metadata: Metadata = {
         url: site.ogImage,
         width: 1200,
         height: 630,
-        alt: "Flutterly — independent product studio in Reading, UK",
+        alt: "Flutterly — websites for GP practices, care homes and ambitious products",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Flutterly — Independent product studio",
+    title: "Flutterly — Websites for GP practices, care homes & ambitious products",
     description:
-      "Product direction, interface design and engineering by Anoop Jose.",
+      "Accessible, fast, custom-coded websites for healthcare organisations and ambitious products.",
     images: [site.ogImage],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f1efeb",
+  themeColor: "#fafcfb",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function Home() {
-  return <AtelierHome />;
+  return <BloomHome />;
 }

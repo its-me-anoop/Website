@@ -1,38 +1,55 @@
 import React from "react";
 import { describe, expect, it } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
-import { AtelierHome } from "./AtelierHome";
+import { BloomHome } from "./BloomHome";
 
 /** The app provides LazyMotion in `template.tsx`; mirror that here. */
 function renderHome() {
   return render(
     <LazyMotion features={domMax} strict>
-      <AtelierHome />
+      <BloomHome />
     </LazyMotion>
   );
 }
 
-describe("AtelierHome", () => {
+describe("BloomHome", () => {
   it("renders the hero headline and studio eyebrow", () => {
     renderHome();
 
     const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading).toHaveTextContent(/Design, build/);
-    expect(heading).toHaveTextContent(/people love to use/);
+    expect(heading).toHaveTextContent(/Websites that care for/);
+    expect(heading).toHaveTextContent(/who use them/);
     expect(
       screen.getByText(/Independent product studio · Reading, UK/i)
     ).toBeInTheDocument();
   });
 
-  it("exposes primary navigation with section links", () => {
+  it("exposes primary navigation with the healthcare sector pages", () => {
     renderHome();
 
     const nav = screen.getByRole("navigation", { name: /primary/i });
     expect(nav).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: /start a project/i }).length)
-      .toBeGreaterThan(0);
+
+    ["/gp-websites", "/care-home-websites", "/packages"].forEach((href) => {
+      const links = screen
+        .getAllByRole("link")
+        .filter((a) => a.getAttribute("href") === href);
+      expect(links.length).toBeGreaterThan(0);
+    });
+    expect(
+      screen.getAllByRole("link", { name: /get in touch/i }).length
+    ).toBeGreaterThan(0);
+  });
+
+  it("offers the free website audit prominently", () => {
+    renderHome();
+
+    const auditLinks = screen
+      .getAllByRole("link")
+      .filter((a) => a.getAttribute("href") === "/free-audit");
+    expect(auditLinks.length).toBeGreaterThan(0);
   });
 
   it("links case studies internally and client sites externally", () => {
@@ -53,28 +70,14 @@ describe("AtelierHome", () => {
     });
   });
 
-  it("switches the folder tabs between apps and web work", async () => {
+  it("renders the anti-template comparison table", () => {
     renderHome();
 
-    const webTab = screen.getByRole("tab", { name: /web/i });
-    expect(webTab).toHaveAttribute("aria-selected", "false");
-
-    fireEvent.click(webTab);
-
-    expect(webTab).toHaveAttribute("aria-selected", "true");
-    expect(
-      await screen.findByAltText(/Greenmead Housing website/i)
-    ).toBeInTheDocument();
-  });
-
-  it("advances the featured showcase with the arrow controls", () => {
-    renderHome();
-
-    expect(screen.getByText(/Case study · Adaptive hydration/i)).toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole("button", { name: /next project/i }));
-
-    expect(screen.getByText(/Case study · Family memories/i)).toBeInTheDocument();
+    const table = screen.getByRole("table", {
+      name: /comparison of typical template builders/i,
+    });
+    expect(table).toBeInTheDocument();
+    expect(screen.getByText(/A Flutterly build/)).toBeInTheDocument();
   });
 
   it("renders the process steps and footer contact details", () => {

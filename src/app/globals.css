@@ -87,29 +87,31 @@
   --signal: var(--accent);
   --signal-ink: var(--accent-ink);
 
-  /* ── "Atelier" homepage palette ───────────────────────────────
-     The home route runs a warm gallery language: cream canvas,
-     charcoal ink, terracotta / violet / lime accents, pill chrome
-     and oversized editorial type. Case-study pages stay on the
-     Porcelain ramp above. */
-  --at-canvas: #f1efeb; /* warm cream page */
-  --at-panel: #f8f7f4; /* raised cards on canvas */
-  --at-surface: #ffffff; /* white pills / tiles */
-  --at-ink: #22211f; /* near-black text */
-  --at-ink-soft: #55534d; /* secondary text */
-  --at-muted: #a3a099; /* tertiary / ghost words */
-  --at-line: rgba(34, 33, 31, 0.08);
-  --at-line-2: rgba(34, 33, 31, 0.14);
-  --at-dark: #262523; /* dark pills, chips, folder tab */
-  --at-dark-ink: #f4f3f0; /* text on dark */
-  --at-terracotta: #b65437; /* headline + chip accent */
-  --at-terracotta-soft: #d9997f;
-  --at-violet: #6a58e0; /* feature cards, View All pill */
-  --at-violet-soft: #a695f2;
-  --at-lime: #e7ecb4; /* ticker band */
-  --at-sun: #dc9552; /* warm carousel panel */
-  --at-pink: #c96f88; /* split CTA card */
-  --at-sky: #dbe7ee; /* app tile tint */
+  /* ── "Bloom" service-site palette ─────────────────────────────
+     The marketing routes (home, sectors, packages, audit) run a
+     clean healthcare language: near-white canvas with soft mint
+     bands, deep pine ink, one teal action colour, plus an NHS
+     blue accent for GP practices and a warm amber accent for
+     care homes. Case-study pages stay on the Porcelain ramp. */
+  --bl-canvas: #fafcfb; /* page */
+  --bl-band: #eff6f2; /* soft mint section band */
+  --bl-band-2: #f5faf7; /* barely-raised band */
+  --bl-surface: #ffffff; /* cards */
+  --bl-ink: #10312a; /* primary text */
+  --bl-ink-soft: #48635b; /* secondary text */
+  --bl-muted: #7f958d; /* captions / labels */
+  --bl-line: rgba(16, 49, 42, 0.09);
+  --bl-line-2: rgba(16, 49, 42, 0.16);
+  --bl-pine: #0b2f28; /* dark bands, footer */
+  --bl-pine-2: #123f36; /* raised cards on pine */
+  --bl-pine-ink: #eaf3ef; /* text on pine */
+  --bl-teal: #0e7a63; /* the one action colour */
+  --bl-teal-hover: #0c6a56;
+  --bl-teal-soft: #dcefe7;
+  --bl-nhs: #005eb8; /* GP practice accent */
+  --bl-nhs-soft: #e8f1fa;
+  --bl-amber: #a96417; /* care home accent */
+  --bl-amber-soft: #f7efe1;
 }
 
 /* Sipli case study: light aqua product palette */
@@ -186,24 +188,25 @@
   --color-pink: var(--pink);
   --color-green: var(--green);
 
-  --color-at-canvas: var(--at-canvas);
-  --color-at-panel: var(--at-panel);
-  --color-at-surface: var(--at-surface);
-  --color-at-ink: var(--at-ink);
-  --color-at-ink-soft: var(--at-ink-soft);
-  --color-at-muted: var(--at-muted);
-  --color-at-line: var(--at-line);
-  --color-at-line-2: var(--at-line-2);
-  --color-at-dark: var(--at-dark);
-  --color-at-dark-ink: var(--at-dark-ink);
-  --color-at-terracotta: var(--at-terracotta);
-  --color-at-terracotta-soft: var(--at-terracotta-soft);
-  --color-at-violet: var(--at-violet);
-  --color-at-violet-soft: var(--at-violet-soft);
-  --color-at-lime: var(--at-lime);
-  --color-at-sun: var(--at-sun);
-  --color-at-pink: var(--at-pink);
-  --color-at-sky: var(--at-sky);
+  --color-bl-canvas: var(--bl-canvas);
+  --color-bl-band: var(--bl-band);
+  --color-bl-band-2: var(--bl-band-2);
+  --color-bl-surface: var(--bl-surface);
+  --color-bl-ink: var(--bl-ink);
+  --color-bl-ink-soft: var(--bl-ink-soft);
+  --color-bl-muted: var(--bl-muted);
+  --color-bl-line: var(--bl-line);
+  --color-bl-line-2: var(--bl-line-2);
+  --color-bl-pine: var(--bl-pine);
+  --color-bl-pine-2: var(--bl-pine-2);
+  --color-bl-pine-ink: var(--bl-pine-ink);
+  --color-bl-teal: var(--bl-teal);
+  --color-bl-teal-hover: var(--bl-teal-hover);
+  --color-bl-teal-soft: var(--bl-teal-soft);
+  --color-bl-nhs: var(--bl-nhs);
+  --color-bl-nhs-soft: var(--bl-nhs-soft);
+  --color-bl-amber: var(--bl-amber);
+  --color-bl-amber-soft: var(--bl-amber-soft);
 
   /* Semantic + legacy aliases */
   --color-background: var(--background);
@@ -361,146 +364,70 @@ p {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Atelier — homepage design language
-   Warm cream canvas, charcoal editorial grotesque type, pill
-   chrome, floating art cards with @handle chips, marquee bands.
-   Scoped to the home route via `.atelier-root` so Porcelain
-   pages are untouched.
+   Bloom — marketing-site design language
+   Clean near-white canvas with mint bands, deep pine ink, teal
+   actions, generous card geometry and calm rise-in motion. Used
+   by the home, sector, packages, audit and accessibility routes
+   via `.bloom-root` so Porcelain case-study pages are untouched.
    ───────────────────────────────────────────────────────────── */
 
-/* Cream chrome (overscroll, scrollbars) only while the Atelier
-   homepage is mounted. */
-html:has(.atelier-root) {
-  background: var(--at-canvas);
+/* Canvas chrome (overscroll, scrollbars) while a Bloom page is
+   mounted. */
+html:has(.bloom-root) {
+  background: var(--bl-canvas);
 }
-html:has(.atelier-root)::-webkit-scrollbar-track {
-  background: var(--at-canvas);
+html:has(.bloom-root)::-webkit-scrollbar-track {
+  background: var(--bl-canvas);
 }
-html:has(.atelier-root)::-webkit-scrollbar-thumb {
-  background: #d4d1ca;
-  border-color: var(--at-canvas);
+html:has(.bloom-root)::-webkit-scrollbar-thumb {
+  background: #cfdcd6;
+  border-color: var(--bl-canvas);
 }
-html:has(.atelier-root)::-webkit-scrollbar-thumb:hover {
-  background: var(--at-muted);
+html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
+  background: var(--bl-muted);
 }
 
-.atelier-root {
+.bloom-root {
   font-family: var(--font-grotesk);
   letter-spacing: -0.01em;
 }
-.atelier-root ::selection {
-  background: var(--at-terracotta);
+.bloom-root ::selection {
+  background: var(--bl-teal);
   color: #fff;
 }
-.atelier-root :focus-visible {
-  outline-color: var(--at-terracotta);
+.bloom-root :focus-visible {
+  outline-color: var(--bl-teal);
 }
 
-/* ── Liquid Glass chrome ──────────────────────────────────────
-   Apple-style liquid glass for buttons, pills and the menu:
-   saturated backdrop blur, a specular top rim, an inner hairline
-   and soft depth. Three finishes — light (dark ink), dark (light
-   ink) and clear (over imagery, white ink) — plus a violet tint. */
-.liquid,
-.liquid-dark,
-.liquid-clear,
-.liquid-violet {
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
+/* Frosted chrome for the Bloom sticky nav. */
+.bl-frost {
+  background: rgba(250, 252, 251, 0.82);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
 }
-.liquid {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.62),
-    rgba(255, 255, 255, 0.26)
-  );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.16),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
-    0 10px 28px -14px rgba(34, 33, 31, 0.35);
-  color: var(--at-ink);
-}
-.liquid-dark {
-  background: linear-gradient(
-    135deg,
-    rgba(38, 37, 35, 0.85),
-    rgba(38, 37, 35, 0.64)
-  );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 12px 30px -14px rgba(34, 33, 31, 0.55);
-  color: var(--at-dark-ink);
-}
-.liquid-clear {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.3),
-    rgba(255, 255, 255, 0.1)
-  );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.25),
-    0 10px 26px -14px rgba(0, 0, 0, 0.35);
-  color: #ffffff;
-}
-.liquid-violet {
-  background: linear-gradient(
-    135deg,
-    rgba(106, 88, 224, 0.88),
-    rgba(106, 88, 224, 0.64)
-  );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
-    0 12px 30px -14px rgba(106, 88, 224, 0.5);
-  color: #ffffff;
-}
-
-/* Solid fallbacks when the user asks for less transparency. */
 @media (prefers-reduced-transparency: reduce) {
-  .liquid,
-  .liquid-dark,
-  .liquid-clear,
-  .liquid-violet {
+  .bl-frost {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+    background: var(--bl-canvas);
   }
-  .liquid { background: var(--at-surface); }
-  .liquid-dark { background: var(--at-dark); }
-  .liquid-clear { background: rgba(0, 0, 0, 0.55); }
-  .liquid-violet { background: var(--at-violet); }
 }
 
-/* Speech-bubble tail for @handle chips. */
-.at-chip-tail::after {
-  content: "";
-  position: absolute;
-  left: 18px;
-  bottom: -5px;
-  width: 10px;
-  height: 10px;
-  background: inherit;
-  clip-path: polygon(0 0, 100% 0, 20% 100%);
+/* Soft card elevation used across Bloom surfaces. */
+.bl-card {
+  box-shadow:
+    0 1px 0 var(--bl-line),
+    0 18px 44px -28px rgba(11, 47, 40, 0.28);
 }
 
-/* Reverse-direction marquee (pairs with .animate-marquee). */
-@keyframes marquee-rev {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
-}
-.animate-marquee-rev {
-  animation: marquee-rev var(--marquee-duration, 48s) linear infinite;
-}
-
-/* Gentle idle float for fanned cards / chips. */
-@keyframes at-drift {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-9px); }
-}
-.animate-at-drift {
-  animation: at-drift 5.5s var(--ease-in-out) infinite;
+/* Faint clinical grid for the hero backdrop. */
+.bl-grid {
+  background-image:
+    linear-gradient(var(--bl-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bl-line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 30%, transparent 75%);
 }
 
 @media (prefers-reduced-motion: reduce) {

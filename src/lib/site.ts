@@ -11,7 +11,7 @@ export const site = {
   tagline: "App & Web Developer",
   role: "Developer & Designer · Founder of Flutterly",
   description:
-    "Anoop Jose is a UK-based developer and designer crafting fast, polished web and mobile apps with Next.js, React, SwiftUI and Flutter — founder of Flutterly, a product studio in Reading.",
+    "Flutterly is an independent product studio in Reading, UK — designing and building accessible websites for GP practices and care homes, plus web and mobile products with Next.js, SwiftUI and Flutter.",
   email: "anoop@flutterly.co.uk",
   phone: "+44-7780-580534",
   phoneDisplay: "+44 7780 580 534",

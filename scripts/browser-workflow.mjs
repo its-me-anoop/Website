@@ -16,6 +16,11 @@ import { chromium, devices } from "playwright";
 const BASE = process.env.BASE_URL || "http://localhost:3100";
 const ROUTES = [
   "/",
+  "/gp-websites",
+  "/care-home-websites",
+  "/packages",
+  "/free-audit",
+  "/accessibility",
   "/projects/sipli",
   "/projects/artling",
   "/projects/sipli/privacy-policy",
@@ -141,7 +146,7 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   if (!(await menu.isVisible().catch(() => false))) {
     note("home", "mobile navigation did not open");
   } else {
-    await menu.locator('a[href="#services"]').click();
+    await menu.locator('a[href="/#services"]').click();
     await page.waitForTimeout(250);
     if (await menu.isVisible().catch(() => false))
       note("home", "mobile navigation did not close after selecting a link");
@@ -166,7 +171,7 @@ const reducedMotion = await browser.newContext({
   reducedMotion: "reduce",
   ...devices["iPhone 13"],
 });
-for (const route of ["/", "/projects/sipli", "/projects/artling"]) {
+for (const route of ["/", "/gp-websites", "/packages", "/projects/sipli", "/projects/artling"]) {
   const page = await reducedMotion.newPage();
   await page.goto(BASE + route, { waitUntil: "networkidle" });
   const visible = await page.locator("h1").isVisible().catch(() => false);
