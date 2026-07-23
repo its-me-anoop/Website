@@ -141,8 +141,50 @@ export default function GpDemoHome() {
         </GpSection>
       </div>
 
-      {/* Self-serve answers */}
+      {/* Wellbeing & self-help */}
       <GpSection>
+        <h2 className="text-[22px] font-bold tracking-tight">
+          Take care of your own health
+        </h2>
+        <p className="mt-2 max-w-[680px] text-[15px] leading-relaxed text-[var(--dgp-ink-soft)]">
+          Trusted NHS information for checking symptoms, understanding
+          medicines and staying well — plus services you can refer yourself
+          to, no appointment needed.
+        </p>
+        <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["Health A to Z", "Check symptoms and conditions", "https://www.nhs.uk/conditions/"],
+            ["Medicines A to Z", "How your medicines work", "https://www.nhs.uk/medicines/"],
+            ["Live Well", "Sleep, exercise, food and quitting smoking", "https://www.nhs.uk/live-well/"],
+            ["Every Mind Matters", "Practical mental-health support", "https://www.nhs.uk/every-mind-matters/"],
+          ].map(([title, copy, href]) => (
+            <li key={title}>
+              <a
+                href={href}
+                className="block h-full rounded-md border border-[var(--dgp-line)] bg-white p-5 transition-colors hover:border-[var(--dgp-blue)]"
+              >
+                <span className="text-[16px] font-bold text-[var(--dgp-blue)] underline-offset-2 hover:underline">
+                  {title}
+                </span>
+                <span className="mt-1 block text-[14px] leading-relaxed text-[var(--dgp-ink-soft)]">
+                  {copy}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-[14.5px] leading-relaxed text-[var(--dgp-ink-soft)]">
+          You can also{" "}
+          <Link href="/demo/gp-practice/services" className="text-[var(--dgp-blue)] underline">
+            refer yourself directly
+          </Link>{" "}
+          to talking therapies, sexual health, stop-smoking support and
+          Pharmacy First — no GP appointment needed.
+        </p>
+      </GpSection>
+
+      {/* Self-serve answers */}
+      <GpSection className="pt-0">
         <h2 className="text-[22px] font-bold tracking-tight">How do I…?</h2>
         <div className="mt-5 divide-y divide-[var(--dgp-line)] rounded-md border border-[var(--dgp-line)] bg-white">
           {faqs.map((faq) => (
