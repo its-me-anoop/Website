@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
+import { breadcrumbJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { BloomShell } from "@/components/bloom/BloomShell";
 
 const description =
@@ -29,6 +31,12 @@ export const viewport: Viewport = {
 export default function AccessibilityPage() {
   return (
     <BloomShell>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Accessibility statement", path: "/accessibility" },
+        ])}
+      />
       <article className="mx-auto w-full max-w-[720px] px-5 py-16 sm:px-8 sm:py-20">
         <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-bl-teal">
           Accessibility
@@ -88,8 +96,7 @@ export default function AccessibilityPage() {
               >
                 {site.email}
               </a>{" "}
-              or call {site.phoneDisplay}, and you will get a response within
-              two working days.
+              and you will get a response within two working days.
             </p>
           </section>
           <p className="border-t border-bl-line pt-6 text-[13.5px] text-bl-muted">

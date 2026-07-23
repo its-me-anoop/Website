@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { AuditPage } from "@/components/bloom/audit/AuditPage";
 
 const description =
@@ -18,6 +20,12 @@ export const metadata: Metadata = {
     type: "website",
     images: [{ url: site.ogImage, width: 1200, height: 630 }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `Free website audit — ${site.studio}`,
+    description,
+    images: [site.ogImage],
+  },
 };
 
 export const viewport: Viewport = {
@@ -28,5 +36,23 @@ export const viewport: Viewport = {
 };
 
 export default function FreeAudit() {
-  return <AuditPage />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          serviceJsonLd({
+            name: "Free Website Audit",
+            description,
+            path: "/free-audit",
+            serviceType: "Website audit",
+          }),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Free website audit", path: "/free-audit" },
+          ]),
+        ]}
+      />
+      <AuditPage />
+    </>
+  );
 }

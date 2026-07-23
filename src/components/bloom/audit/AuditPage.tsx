@@ -86,8 +86,8 @@ export function AuditPage() {
             <BtnLink href={auditMailto} tone="teal" arrow>
               Request your free audit
             </BtnLink>
-            <BtnLink href={`tel:${site.phone}`} tone="outline">
-              Or call {site.phoneDisplay}
+            <BtnLink href="/packages" tone="outline">
+              See packages
             </BtnLink>
           </Rise>
         </div>

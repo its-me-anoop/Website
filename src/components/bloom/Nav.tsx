@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
-import { Menu, Phone, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { site } from "@/lib/site";
 import { EASE } from "./primitives";
 
@@ -59,15 +59,6 @@ export function Nav() {
 
         <div className="flex items-center gap-2.5">
           <a
-            href={`tel:${site.phone}`}
-            className="hidden items-center gap-2 text-[14px] font-medium text-bl-ink transition-colors duration-300 hover:text-bl-teal xl:flex"
-          >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-bl-teal-soft text-bl-teal">
-              <Phone size={14} aria-hidden />
-            </span>
-            {site.phoneDisplay}
-          </a>
-          <a
             href={`mailto:${site.email}`}
             className="rounded-full bg-bl-teal px-4 py-2 text-[13.5px] font-medium text-white shadow-[0_10px_26px_-12px_rgba(14,122,99,0.65)] transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-bl-teal-hover sm:px-5 sm:py-2.5"
           >
@@ -111,14 +102,6 @@ export function Nav() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={`tel:${site.phone}`}
-              onClick={() => setOpen(false)}
-              className="flex items-baseline gap-3 rounded-2xl px-4 py-3 text-[17px] font-medium text-bl-ink transition-colors hover:bg-bl-band"
-            >
-              <span className="text-[11px] tabular-nums text-bl-muted">06</span>
-              {site.phoneDisplay}
-            </a>
             <Link
               href="/free-audit"
               onClick={() => setOpen(false)}

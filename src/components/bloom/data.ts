@@ -373,9 +373,9 @@ export type Sector = {
 export const gpSector: Sector = {
   slug: "gp-websites",
   accent: "nhs",
-  metaTitle: "GP practice websites",
+  metaTitle: "GP practice website design",
   metaDescription:
-    "Accessible, fast websites for GP practices — clear NHS signposting, self-serve patient journeys and WCAG 2.2 AA accessibility, built and supported in the UK.",
+    "Accessible, fast websites for GP practices and surgeries — clear NHS signposting, self-serve patient journeys and WCAG 2.2 AA accessibility, designed, built and supported in the UK.",
   eyebrow: "Websites for GP practices",
   headline: "A practice website that works as hard as your reception team",
   intro:
@@ -472,9 +472,9 @@ export const gpSector: Sector = {
 export const careSector: Sector = {
   slug: "care-home-websites",
   accent: "amber",
-  metaTitle: "Care home websites",
+  metaTitle: "Care home website design",
   metaDescription:
-    "Warm, trustworthy websites for care homes — designed for families researching care, with CQC transparency, admissions journeys and recruitment built in.",
+    "Warm, trustworthy websites for care homes — designed for families researching care, with CQC transparency, admissions journeys and recruitment built in. UK design and support.",
   eyebrow: "Websites for care homes",
   headline: "The first visit to your home happens online",
   intro:

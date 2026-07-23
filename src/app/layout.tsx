@@ -116,7 +116,6 @@ function JsonLd() {
     jobTitle: "Developer & Designer",
     url: site.url,
     email: site.email,
-    telephone: site.phone,
     image: `${site.url}/anoop-jose.jpg`,
     address: { "@type": "PostalAddress", ...site.address },
     sameAs: [site.social.github, site.social.linkedin],
@@ -152,7 +151,6 @@ function JsonLd() {
     address: { "@type": "PostalAddress", ...site.address },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: site.phone,
       contactType: "customer service",
       email: site.email,
       availableLanguage: ["English"],

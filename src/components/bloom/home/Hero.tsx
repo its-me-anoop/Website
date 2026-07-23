@@ -129,9 +129,7 @@ export function Hero() {
           ))}
         </div>
       </div>
-      <p className="sr-only">
-        Contact Flutterly: {site.email} or {site.phoneDisplay}
-      </p>
+      <p className="sr-only">Contact Flutterly: {site.email}</p>
     </section>
   );
 }
