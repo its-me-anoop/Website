@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { site } from "@/lib/site";
 import { footerColumns } from "./data";
 
@@ -32,15 +32,6 @@ export function Footer() {
                 >
                   <Mail size={15} aria-hidden />
                   {site.email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`tel:${site.phone}`}
-                  className="inline-flex items-center gap-2.5 text-bl-pine-ink/85 transition-colors hover:text-white"
-                >
-                  <Phone size={15} aria-hidden />
-                  {site.phoneDisplay}
                 </a>
               </li>
               <li className="inline-flex items-start gap-2.5 text-bl-pine-ink/75">

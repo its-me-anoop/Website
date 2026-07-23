@@ -1,6 +1,5 @@
 "use client";
 
-import { Phone } from "lucide-react";
 import { site } from "@/lib/site";
 import { BtnLink, Rise } from "./primitives";
 
@@ -36,13 +35,9 @@ export function CtaBand({
               Email {site.founder.split(" ")[0]}
             </BtnLink>
           </div>
-          <a
-            href={`tel:${site.phone}`}
-            className="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-bl-pine-ink/80 transition-colors hover:text-white"
-          >
-            <Phone size={15} aria-hidden />
-            Or call {site.phoneDisplay}
-          </a>
+          <p className="mt-6 text-[15px] font-medium text-bl-pine-ink/80">
+            Every enquiry gets a reply within one working day.
+          </p>
         </Rise>
       </div>
     </section>
