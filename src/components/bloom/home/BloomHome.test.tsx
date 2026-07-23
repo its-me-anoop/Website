@@ -52,6 +52,17 @@ describe("BloomHome", () => {
     expect(auditLinks.length).toBeGreaterThan(0);
   });
 
+  it("links to the hosted sample sites from the sector cards", () => {
+    renderHome();
+
+    ["/demo/gp-practice", "/demo/care-home"].forEach((href) => {
+      const links = screen
+        .getAllByRole("link")
+        .filter((a) => a.getAttribute("href") === href);
+      expect(links.length).toBeGreaterThan(0);
+    });
+  });
+
   it("links case studies internally and client sites externally", () => {
     renderHome();
 

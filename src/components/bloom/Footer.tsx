@@ -20,7 +20,7 @@ export function Footer() {
                 Flutterly
               </span>
             </div>
-            <p className="mt-4 max-w-[300px] text-[14px] leading-relaxed text-bl-pine-ink/65">
+            <p className="mt-4 max-w-[300px] text-[14px] leading-relaxed text-bl-pine-ink/75">
               An independent product studio in Reading, UK — websites for GP
               practices, care homes and ambitious products.
             </p>
@@ -43,7 +43,7 @@ export function Footer() {
                   {site.phoneDisplay}
                 </a>
               </li>
-              <li className="inline-flex items-start gap-2.5 text-bl-pine-ink/65">
+              <li className="inline-flex items-start gap-2.5 text-bl-pine-ink/75">
                 <MapPin size={15} aria-hidden className="mt-0.5 shrink-0" />
                 <span>
                   {site.address.addressLocality}, {site.address.addressRegion},{" "}
@@ -59,7 +59,7 @@ export function Footer() {
           >
             {footerColumns.map((column) => (
               <div key={column.title}>
-                <h3 className="text-[12px] font-semibold uppercase tracking-[0.2em] text-bl-pine-ink/50">
+                <h3 className="text-[12px] font-semibold uppercase tracking-[0.2em] text-bl-pine-ink/70">
                   {column.title}
                 </h3>
                 <ul className="mt-4 space-y-2.5">
@@ -92,7 +92,7 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-white/10 pt-7 text-[13px] text-bl-pine-ink/55 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-3 border-t border-white/10 pt-7 text-[13px] text-bl-pine-ink/75 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.legalName} · {site.address.addressLocality}, UK
           </p>

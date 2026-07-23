@@ -118,6 +118,71 @@ export function SectorPage({ sector }: { sector: Sector }) {
         </div>
       </section>
 
+      {/* Live sample site */}
+      <section className="mx-auto grid w-full max-w-[1240px] items-center gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[0.95fr_1.05fr]">
+        <div>
+          <Rise>
+            <p
+              className={`text-[11px] font-semibold uppercase tracking-[0.26em] ${accentText[sector.accent]}`}
+            >
+              See it for yourself
+            </p>
+            <h2 className="mt-4 max-w-[520px] text-[clamp(1.8rem,4vw,2.7rem)] font-medium leading-[1.1] tracking-[-0.03em] text-bl-ink">
+              Don&rsquo;t take our word for it — click around{" "}
+              {sector.demo.name}
+            </h2>
+            <p className="mt-4 max-w-[520px] text-[15.5px] leading-relaxed text-bl-ink-soft">
+              {sector.demo.copy}
+            </p>
+          </Rise>
+          <Rise delay={0.1}>
+            <ul className="mt-6 space-y-3">
+              {sector.demo.points.map((point) => (
+                <CheckItem key={point}>{point}</CheckItem>
+              ))}
+            </ul>
+          </Rise>
+          <Rise delay={0.18} className="mt-8">
+            <BtnLink href={sector.demo.href} tone="teal" arrow>
+              Explore the sample site
+            </BtnLink>
+          </Rise>
+        </div>
+
+        <Rise delay={0.15}>
+          <a
+            href={sector.demo.href}
+            aria-label={`Open the ${sector.demo.name} sample website`}
+            className="group block"
+          >
+            <span
+              className={`bl-card block overflow-hidden rounded-[26px] border border-bl-line transition-transform duration-300 group-hover:-translate-y-1 ${accentSoft[sector.accent]}`}
+            >
+              <span className="flex items-center gap-2 border-b border-bl-line bg-bl-surface px-4 py-2.5">
+                <span className="flex gap-1.5" aria-hidden>
+                  <span className="h-2 w-2 rounded-full bg-bl-line-2" />
+                  <span className="h-2 w-2 rounded-full bg-bl-line-2" />
+                  <span className="h-2 w-2 rounded-full bg-bl-line-2" />
+                </span>
+                <span className="ml-2 truncate rounded-full bg-bl-band px-3 py-0.5 text-[12px] font-medium text-bl-ink-soft">
+                  flutterly.uk{sector.demo.href}
+                </span>
+              </span>
+              <Image
+                src={sector.demo.image}
+                alt={sector.demo.imageAlt}
+                width={960}
+                height={645}
+                className="h-auto w-full object-cover"
+              />
+            </span>
+            <span className="mt-3 block text-center text-[13px] text-bl-muted">
+              A live, hosted sample — the organisation shown is fictional
+            </span>
+          </a>
+        </Rise>
+      </section>
+
       {/* Compliance / trust */}
       <section className="mx-auto grid w-full max-w-[1240px] items-center gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2">
         <div>
