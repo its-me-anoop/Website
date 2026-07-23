@@ -134,8 +134,8 @@ export function AuditPage() {
           {steps.map((step, i) => {
             const Icon = step.icon;
             return (
-              <Rise key={step.title} delay={i * 0.1}>
-                <li className="h-full rounded-[24px] border border-bl-line bg-bl-surface p-7">
+              <li key={step.title}>
+                <Rise delay={i * 0.1} className="h-full rounded-[24px] border border-bl-line bg-bl-surface p-7">
                   <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-bl-teal-soft text-bl-teal">
                     <Icon size={20} aria-hidden />
                   </span>
@@ -145,8 +145,8 @@ export function AuditPage() {
                   <p className="mt-2 text-[14px] leading-relaxed text-bl-ink-soft">
                     {step.copy}
                   </p>
-                </li>
-              </Rise>
+                </Rise>
+              </li>
             );
           })}
         </ol>

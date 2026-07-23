@@ -141,6 +141,8 @@ export const sectorCards = [
     ],
     accent: "nhs",
     cta: "GP practice websites",
+    demoHref: "/demo/gp-practice",
+    demoLabel: "Preview a sample practice site",
   },
   {
     slug: "care-home-websites",
@@ -155,6 +157,8 @@ export const sectorCards = [
     ],
     accent: "amber",
     cta: "Care home websites",
+    demoHref: "/demo/care-home",
+    demoLabel: "Preview a sample home site",
   },
 ] as const;
 
@@ -344,6 +348,15 @@ export type Sector = {
   intro: string;
   heroPoints: readonly string[];
   heroImage: { src: string; alt: string; tint: string };
+  /** The hosted sample site built for this sector. */
+  demo: {
+    href: string;
+    name: string;
+    image: string;
+    imageAlt: string;
+    copy: string;
+    points: readonly string[];
+  };
   features: readonly { title: string; copy: string }[];
   compliance: {
     eyebrow: string;
@@ -373,9 +386,21 @@ export const gpSector: Sector = {
     "Fast on any connection — no page builders, no plugin stack",
   ],
   heroImage: {
-    src: "/project-greenmead.png",
-    alt: "An accessible healthcare website built by Flutterly",
+    src: "/demos/gp-home.png",
+    alt: "The Willowbrook Surgery sample website — a task-first GP practice homepage built by Flutterly",
     tint: "var(--bl-nhs-soft)",
+  },
+  demo: {
+    href: "/demo/gp-practice",
+    name: "Willowbrook Surgery",
+    image: "/demos/gp-home.png",
+    imageAlt: "Homepage of the Willowbrook Surgery sample website",
+    copy: "Willowbrook Surgery is a fictional practice built and hosted by Flutterly so you can judge the standard for yourself — click around it on any device, exactly as your patients would.",
+    points: [
+      "Task-first homepage that answers before patients call",
+      "NHS 111 and emergency signposting on every visit",
+      "Self-serve answers, practice news and a published accessibility statement",
+    ],
   },
   features: [
     {
@@ -408,7 +433,7 @@ export const gpSector: Sector = {
     title: "Built around the standards NHS websites are held to",
     copy: "Practice websites are expected to meet public-sector accessibility regulations and NHS content guidance. Every Flutterly build treats those as the starting line, not an add-on.",
     points: [
-      "WCAG 2.2 AA target, aligned with the Public Sector Bodies Accessibility Regulations 2018",
+      "WCAG 2.2 AA target, aligned with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018",
       "A published accessibility statement, kept up to date",
       "Content patterns informed by the NHS service manual — plain English, task-first structure",
       "Clear privacy information and cookie behaviour that respects patients",
@@ -429,7 +454,7 @@ export const gpSector: Sector = {
     },
     {
       q: "Do you meet NHS accessibility requirements?",
-      a: "Every build targets WCAG 2.2 AA — the level referenced by the Public Sector Bodies Accessibility Regulations 2018 — and ships with a maintained accessibility statement.",
+      a: "Every build targets WCAG 2.2 AA — the level referenced by the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 — and ships with a maintained accessibility statement.",
     },
     {
       q: "Can the practice update the site itself?",
@@ -463,6 +488,18 @@ export const careSector: Sector = {
     src: "/project-sandbourne.png",
     alt: "The Sandbourne Care website built by Flutterly",
     tint: "var(--bl-amber-soft)",
+  },
+  demo: {
+    href: "/demo/care-home",
+    name: "Oakfield House",
+    image: "/demos/care-home.png",
+    imageAlt: "Homepage of the Oakfield House sample website",
+    copy: "Oakfield House is a fictional care home built and hosted by Flutterly so you can judge the standard for yourself — warm, honest and clear, the way families need it to be.",
+    points: [
+      "Families-first structure with fees published plainly",
+      "CQC-style transparency, front and centre",
+      "Visiting, recruitment and daily life shown honestly",
+    ],
   },
   features: [
     {

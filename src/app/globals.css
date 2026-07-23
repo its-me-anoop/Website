@@ -99,7 +99,7 @@
   --bl-surface: #ffffff; /* cards */
   --bl-ink: #10312a; /* primary text */
   --bl-ink-soft: #48635b; /* secondary text */
-  --bl-muted: #7f958d; /* captions / labels */
+  --bl-muted: #5e7268; /* captions / labels — AA on canvas & bands */
   --bl-line: rgba(16, 49, 42, 0.09);
   --bl-line-2: rgba(16, 49, 42, 0.16);
   --bl-pine: #0b2f28; /* dark bands, footer */
@@ -418,6 +418,81 @@ html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
   box-shadow:
     0 1px 0 var(--bl-line),
     0 18px 44px -28px rgba(11, 47, 40, 0.28);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Demo sites — two self-contained sample-client languages.
+   These routes exist to show prospective GP practices and care
+   homes a finished site, so each gets its own scope and palette
+   and deliberately does NOT reuse Bloom styling.
+   ───────────────────────────────────────────────────────────── */
+
+/* "Willowbrook Surgery" — NHS-service-manual-inspired GP demo:
+   NHS blue, pale grey panels, green actions, generous plain type
+   on the system stack, and a bold yellow focus style. */
+.demo-gp-root {
+  --dgp-blue: #005eb8;
+  --dgp-blue-deep: #003087;
+  --dgp-canvas: #ffffff;
+  --dgp-tint: #f0f4f5;
+  --dgp-ink: #212b32;
+  --dgp-ink-soft: #4c6272;
+  --dgp-line: #d8dde0;
+  --dgp-green: #007f3b;
+  --dgp-green-deep: #00662f;
+  --dgp-yellow: #ffeb3b;
+  --dgp-red: #d5281b;
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  background: var(--dgp-canvas);
+  color: var(--dgp-ink);
+}
+.demo-gp-root ::selection {
+  background: var(--dgp-blue);
+  color: #fff;
+}
+.demo-gp-root :focus-visible {
+  outline: 3px solid var(--dgp-yellow);
+  outline-offset: 0;
+  box-shadow: 0 0 0 6px rgba(33, 43, 50, 0.9);
+  border-radius: 2px;
+}
+
+/* "Oakfield House" — warm care-home demo: cream canvas, warm
+   charcoal ink, terracotta actions, sage support, Syne display. */
+.demo-care-root {
+  --dch-canvas: #faf6ef;
+  --dch-surface: #ffffff;
+  --dch-cream: #f3ead9;
+  --dch-ink: #33291f;
+  --dch-soft: #6a5c4b;
+  --dch-line: rgba(51, 41, 31, 0.14);
+  --dch-terra: #9d4425; /* AA for text on cream and for white-on-terra */
+  --dch-terra-deep: #7e3319;
+  --dch-sage: #57683f;
+  --dch-sage-soft: #e8eddc;
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  background: var(--dch-canvas);
+  color: var(--dch-ink);
+}
+.demo-care-root .dch-display {
+  font-family: var(--font-syne-v), ui-serif, Georgia, serif;
+  letter-spacing: -0.015em;
+}
+.demo-care-root ::selection {
+  background: var(--dch-terra);
+  color: #fff;
+}
+/* Dual-ring focus: cream inner ring + terra outline, so the indicator
+   keeps ≥3:1 contrast on light and dark surfaces alike. */
+.demo-care-root :focus-visible {
+  outline: 3px solid var(--dch-terra);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--dch-cream);
+  border-radius: 2px;
 }
 
 /* Faint clinical grid for the hero backdrop. */

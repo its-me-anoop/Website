@@ -63,9 +63,17 @@ export function Sectors() {
                     <CheckItem key={point}>{point}</CheckItem>
                   ))}
                 </ul>
-                <div className="mt-auto pt-8">
+                <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-8">
                   <BtnLink href={`/${sector.slug}`} tone="pine" arrow>
                     {sector.cta}
+                  </BtnLink>
+                  <BtnLink
+                    href={sector.demoHref}
+                    tone="ghost"
+                    arrow
+                    className="px-0 py-0"
+                  >
+                    {sector.demoLabel}
                   </BtnLink>
                 </div>
               </article>

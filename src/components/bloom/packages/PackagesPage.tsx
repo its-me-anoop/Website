@@ -35,9 +35,9 @@ function PackageCard({
             Most popular
           </p>
         ) : null}
-        <h3 className="text-[20px] font-semibold tracking-tight text-bl-ink">
+        <h2 className="text-[20px] font-semibold tracking-tight text-bl-ink">
           {pkg.name}
-        </h3>
+        </h2>
         <p className="mt-1 text-[13.5px] font-medium text-bl-teal">{pkg.strap}</p>
         <p className="mt-3 text-[14.5px] leading-relaxed text-bl-ink-soft">
           {pkg.copy}

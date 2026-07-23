@@ -17,19 +17,19 @@ export function Process() {
         </div>
         <ol className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {processSteps.map(([title, copy], i) => (
-            <Rise key={title} delay={i * 0.08}>
-              <li className="h-full rounded-[24px] bg-bl-pine-2 p-6">
+            <li key={title}>
+              <Rise delay={i * 0.08} className="h-full rounded-[24px] bg-bl-pine-2 p-6">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-[13px] font-semibold tabular-nums">
                   0{i + 1}
                 </span>
                 <h3 className="mt-4 text-[17px] font-medium tracking-tight text-white">
                   {title}
                 </h3>
-                <p className="mt-2 text-[13.5px] leading-relaxed text-bl-pine-ink/65">
+                <p className="mt-2 text-[13.5px] leading-relaxed text-bl-pine-ink/75">
                   {copy}
                 </p>
-              </li>
-            </Rise>
+              </Rise>
+            </li>
           ))}
         </ol>
       </div>
