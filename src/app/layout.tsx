@@ -33,23 +33,24 @@ const jbMono = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.tagline}`,
-    template: `%s — ${site.name}`,
+    default: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
+    template: `%s — ${site.studio}`,
   },
   description: site.description,
-  applicationName: site.name,
+  applicationName: site.studio,
   category: "technology",
   keywords: [
-    "developer portfolio",
-    "app developer UK",
+    "GP practice websites",
+    "GP surgery website design",
+    "care home websites",
+    "care home web design UK",
+    "healthcare website design",
+    "accessible website design",
+    "NHS website standards",
     "web developer UK",
     "Next.js developer",
-    "React developer",
     "SwiftUI developer",
     "Flutter developer",
-    "iOS development",
-    "product engineer",
-    "UI engineer",
     "Reading UK developer",
     "Flutterly",
     "Anoop Jose",
@@ -61,22 +62,22 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: site.url,
-    siteName: site.name,
+    siteName: site.studio,
     locale: site.locale,
-    title: `${site.name} — ${site.tagline}`,
+    title: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
     description: site.description,
     images: [
       {
         url: site.ogImage,
         width: 1200,
         height: 630,
-        alt: `${site.name} — ${site.tagline}`,
+        alt: `${site.studio} — websites for GP practices, care homes and ambitious products`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
+    title: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
     description: site.description,
     images: [site.ogImage],
   },
@@ -147,7 +148,7 @@ function JsonLd() {
       height: 900,
     },
     description:
-      "Flutterly is a UK product studio designing and engineering fast, polished web and mobile apps.",
+      "Flutterly is a UK product studio designing and engineering accessible websites for GP practices and care homes, plus fast, polished web and mobile apps.",
     address: { "@type": "PostalAddress", ...site.address },
     contactPoint: {
       "@type": "ContactPoint",
@@ -160,6 +161,24 @@ function JsonLd() {
     sameAs: [site.social.linkedin, site.social.github],
     areaServed: { "@type": "Country", name: "United Kingdom" },
     makesOffer: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "GP Practice Website Design",
+          description:
+            "Accessible, fast websites for GP practices with NHS signposting, self-serve patient journeys and a WCAG 2.2 AA accessibility target.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Care Home Website Design",
+          description:
+            "Warm, trustworthy websites for care homes — designed for families, with CQC transparency, admissions journeys and recruitment built in.",
+        },
+      },
       {
         "@type": "Offer",
         itemOffered: {
@@ -194,9 +213,9 @@ function JsonLd() {
     "@type": "WebSite",
     "@id": `${site.url}#website`,
     url: site.url,
-    name: `${site.name} — ${site.tagline}`,
+    name: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
     description: site.description,
-    publisher: { "@id": `${site.url}#person` },
+    publisher: { "@id": `${site.url}#organization` },
     inLanguage: "en-GB",
   };
 
