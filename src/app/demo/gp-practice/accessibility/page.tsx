@@ -13,7 +13,7 @@ export default function GpAccessibilityPage() {
       />
 
       <GpSection className="max-w-[820px]">
-        <div className="space-y-7 text-[15px] leading-relaxed text-[var(--dgp-ink-soft)]">
+        <div className="space-y-7 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
           <section>
             <h2 className="text-[20px] font-bold tracking-tight text-[var(--dgp-ink)]">
               Our commitment
@@ -50,7 +50,7 @@ export default function GpAccessibilityPage() {
               and it will be treated as a fault to fix, not feedback to file.
             </p>
           </section>
-          <p className="border-t border-[var(--dgp-line)] pt-5 text-[13.5px]">
+          <p className="border-t border-[var(--dgp-line)] pt-5 text-sm">
             This statement is part of a sample website built by Flutterly and
             was last reviewed in July 2026.
           </p>

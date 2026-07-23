@@ -27,8 +27,8 @@ export const alert = {
   copy: "Book travel vaccinations at least six weeks before you fly. Appointments are available now — book through the NHS App or call the surgery.",
 } as const;
 
-/** Task-first tiles — the six things patients come to do. */
-export const tasks = [
+/** The two tasks that dominate every GP practice's traffic. */
+export const primaryTasks = [
   {
     title: "Book or cancel an appointment",
     copy: "Routine and urgent appointments, by phone or online.",
@@ -39,6 +39,10 @@ export const tasks = [
     copy: "Order in the NHS App or at reception — we can't take orders by phone.",
     href: "/demo/gp-practice/prescriptions",
   },
+] as const;
+
+/** The rest of the everyday tasks patients come to do. */
+export const moreTasks = [
   {
     title: "Get help for your symptoms",
     copy: "Tell us what's wrong online and we'll direct you to the right care.",
@@ -55,8 +59,8 @@ export const tasks = [
     href: "/demo/gp-practice/appointments#results",
   },
   {
-    title: "Request a fit note",
-    copy: "Ask for a fit note without booking an appointment.",
+    title: "Get a sick (fit) note",
+    copy: "Ask for a sick note without booking an appointment.",
     href: "/demo/gp-practice/appointments#fit-note",
   },
 ] as const;
@@ -74,16 +78,19 @@ export const openingTimes = [
 export const news = [
   {
     date: "18 July 2026",
-    title: "New online consultation service",
-    copy: "You can now tell us about your symptoms online, any time. A clinician reviews every request and replies within one working day.",
+    iso: "2026-07-18",
+    title: "Tell us about your symptoms online",
+    copy: "You can now tell us about your symptoms online, any time. A doctor or nurse reviews every request and replies within one working day.",
   },
   {
     date: "2 July 2026",
+    iso: "2026-07-02",
     title: "Welcome to Dr Amara Osei",
     copy: "Dr Osei joins the practice team with a special interest in women's health and long-term conditions.",
   },
   {
     date: "12 June 2026",
+    iso: "2026-06-12",
     title: "Blood test clinics moving to mornings",
     copy: "From July, blood test appointments run 8:00am to 12:00pm to get samples to the lab on the same day.",
   },
@@ -167,6 +174,10 @@ export const selfReferral = [
     copy: "Your local pharmacy can treat seven common conditions — including earache, sore throat, sinusitis and urinary infections — and prescribe where appropriate, no appointment needed.",
   },
   {
+    title: "First-contact physiotherapy",
+    copy: "Muscle, joint and back problems can be booked straight in with our physiotherapist — no GP appointment first. Book the same way as any appointment.",
+  },
+  {
     title: "NHS Talking Therapies",
     copy: "Free, confidential support for stress, anxiety and low mood. Refer yourself directly online or by phone — you do not need to see a GP first.",
   },
@@ -223,7 +234,7 @@ export const practiceInfo = [
 export const faqs = [
   {
     q: "How do I see a doctor urgently?",
-    a: "Call the surgery at 8:00am for a same-day urgent appointment. If the surgery is closed, call NHS 111. For a life-threatening emergency, always call 999.",
+    a: "Call the surgery at 8:00am for an urgent appointment today. If the surgery is closed, call NHS 111. For a life-threatening emergency, always call 999.",
   },
   {
     q: "How long does a repeat prescription take?",

@@ -442,11 +442,23 @@ html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
   --dgp-green-deep: #00662f;
   --dgp-yellow: #ffeb3b;
   --dgp-red: #d5281b;
+  --dgp-amber: #ffb81c;
+  --dgp-amber-line: #e8c56d;
+  --dgp-amber-tint: #fff7e6;
   font-family:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
     sans-serif;
   background: var(--dgp-canvas);
   color: var(--dgp-ink);
+}
+
+/* Inside the GP demo the global skip link swaps its Bloom pill for
+   the NHS yellow-on-ink focus treatment. Literal values: the link is
+   a sibling of .demo-gp-root, so --dgp-* tokens do not reach it. */
+body:has(.demo-gp-root) > a[href="#main"]:focus {
+  background: #ffeb3b;
+  color: #212b32;
+  border-radius: 6px;
 }
 .demo-gp-root ::selection {
   background: var(--dgp-blue);
