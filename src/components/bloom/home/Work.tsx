@@ -14,7 +14,7 @@ function WorkCard({
 }) {
   const external = !project.internal;
   return (
-    <Rise delay={(index % 3) * 0.08} className={index < 2 ? "lg:col-span-3" : "lg:col-span-2"}>
+    <Rise delay={(index % 3) * 0.08} className={index < 2 ? "lg:col-span-6" : "lg:col-span-3"}>
       <a
         href={project.href}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -32,6 +32,11 @@ function WorkCard({
             sizes="(max-width: 1024px) 92vw, 560px"
             className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
           />
+          {project.status ? (
+            <span className="absolute left-3 top-3 rounded-full bg-bl-amber px-3 py-1 text-[12px] font-semibold text-white shadow-[0_8px_20px_-10px_rgba(11,47,40,0.5)]">
+              {project.status}
+            </span>
+          ) : null}
         </div>
         <div className="flex grow flex-col p-6 sm:p-7">
           <div className="flex items-center justify-between gap-3">
@@ -78,7 +83,7 @@ export function Work() {
           ]}
           copy="Client sites you can visit today and products you can download — the evidence behind every promise on this page."
         />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-12">
           {projects.map((project, i) => (
             <WorkCard key={project.name} project={project} index={i} />
           ))}

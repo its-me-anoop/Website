@@ -15,9 +15,24 @@ export type Project = {
   /** Card / tile tint behind the artwork. */
   tint: string;
   tags: readonly string[];
+  /** Shown as a badge on the work card, e.g. "In development". */
+  status?: string;
 };
 
 export const projects: readonly Project[] = [
+  {
+    name: "Pembroke Care",
+    type: "Care web",
+    year: "2026",
+    status: "In development",
+    description:
+      "A boutique residential, respite and transitional-living provider in Reading — a calm, warm site that will replace pembrokecare.com at launch.",
+    href: "https://pembroke-care.vercel.app/",
+    internal: false,
+    image: "/project-pembroke.png",
+    tint: "#edf1e6",
+    tags: ["Care sector", "Hospital to home", "Next.js"],
+  },
   {
     name: "Sandbourne",
     type: "Care web",
@@ -82,12 +97,12 @@ export const projects: readonly Project[] = [
 
 /** Wordmarks for the “Trusted by” band. */
 export const trustedBy = [
+  "Pembroke Care",
   "Greenmead Housing",
   "JJ Paper Essential",
   "Sandbourne Care",
   "Sipli",
   "Artling",
-  "Little Artist",
 ] as const;
 
 /** Honest hero credentials — commitments, not invented statistics. */
@@ -596,11 +611,12 @@ export const footerColumns = [
   {
     title: "Projects",
     links: [
-      { label: "Sipli", href: "/projects/sipli" },
-      { label: "Artling", href: "/projects/artling" },
+      { label: "Pembroke Care", href: "https://pembroke-care.vercel.app/" },
+      { label: "Sandbourne", href: "https://sandbournecare.co.uk/" },
       { label: "Greenmead", href: "https://www.greenmead.co.uk/" },
       { label: "JJ Paper", href: "https://www.jjpaperessential.com/" },
-      { label: "Sandbourne", href: "https://sandbournecare.co.uk/" },
+      { label: "Sipli", href: "/projects/sipli" },
+      { label: "Artling", href: "/projects/artling" },
     ],
   },
   {
