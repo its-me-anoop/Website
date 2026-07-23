@@ -150,7 +150,7 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
     note("home", `mobile elements outside viewport: ${clippedElements.join(" | ")}`);
 
   const projects = await page.locator("[data-project-card]").count();
-  if (projects !== 5) note("home", `expected 5 project cards, found ${projects}`);
+  if (projects !== 6) note("home", `expected 6 project cards, found ${projects}`);
 
   await page.getByRole("button", { name: /open menu/i }).click();
   const menu = page.getByRole("navigation", { name: /mobile/i });
