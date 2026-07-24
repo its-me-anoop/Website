@@ -15,13 +15,20 @@ See docs/DESIGN-SYSTEM.md. Light editorial system, system font stacks.
 
 ## 3. Demo GP — "Willowbrook" (`/demo/gp-practice`, `.demo-gp-root`)
 
-NHS-service-manual flavoured, deliberately familiar to NHS patients:
+A modern practice site that keeps NHS trust cues: white chrome with a
+blue-cross wordmark, pale sky hero washes, soft-shadow rounded-2xl
+cards, pill CTAs, deep-blue footer. NHS blue/green/yellow/red keep
+their NHS meanings throughout.
 
 - Tokens (globals.css): `--dgp-blue #005eb8`, `--dgp-blue-deep #003087`,
-  `--dgp-tint #f0f4f5`, `--dgp-ink #212b32`, `--dgp-ink-soft #4c6272`,
+  `--dgp-tint #f0f4f5`, `--dgp-sky #e9f2fa` / `--dgp-sky-line #d2e2f0`
+  (hero washes), `--dgp-ink #212b32`, `--dgp-ink-soft #4c6272`,
   `--dgp-line #d8dde0`, `--dgp-green #007f3b` (the "do" action colour),
   `--dgp-yellow` (focus), `--dgp-red` (urgent), `--dgp-amber` /
   `--dgp-amber-line` / `--dgp-amber-tint` (warning callouts).
+- Elevation: one shared soft shadow (`gpShadow` in GpShell) on every
+  raised surface; radius ladder rounded-full (pills/chips) ·
+  rounded-2xl (cards/panels) · rounded-xl (media, wordmark).
 - Type ladder: text-sm 14 (small print) · text-base 16 (body) ·
   text-lg 18 (card titles/h3) · 20 (inner-page h2) · text-2xl 24
   (landing-section h2) · clamp h1. No sizes off the ladder.

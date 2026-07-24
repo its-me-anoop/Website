@@ -59,7 +59,7 @@ export default function PrescriptionsPage() {
             alt="Blister packs of prescription tablets"
             width={760}
             height={507}
-            className="hidden rounded-md object-cover shadow-[0_2px_0_var(--dgp-line)] lg:block"
+            className="hidden rounded-2xl object-cover shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)] lg:block"
           />
         </div>
         <div className="mt-8">

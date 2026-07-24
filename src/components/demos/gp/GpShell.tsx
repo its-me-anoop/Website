@@ -4,14 +4,21 @@ import { GpNav } from "./GpNav";
 import { navLinks, practice } from "./data";
 
 /**
- * Chrome for the Willowbrook Surgery demo — NHS-service-manual
- * flavoured: blue masthead, plain link nav, pale grey page ends.
- * Server components except GpNav (current-page marking); the root
- * route transition skips /demo so content renders before hydration.
+ * Chrome for the Willowbrook Surgery demo — a modern take on an NHS
+ * practice site: slim deep-blue utility strip, white masthead with a
+ * cross wordmark and pill CTA, white nav with a blue current-page
+ * underline, and a deep-blue footer. Server components except GpNav
+ * (current-page marking); the root route transition skips /demo so
+ * content renders before hydration.
  *
  * Type ladder (keep to it): text-sm 14 small print · text-base 16
  * body · text-lg 18 card titles/h3 · text-2xl 24 h2 · clamp h1.
  */
+
+/** Soft elevation used by every raised surface in the demo. */
+export const gpShadow =
+  "shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)]";
+
 export function GpShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="demo-gp-root relative min-h-screen">
@@ -20,43 +27,80 @@ export function GpShell({ children }: { children: React.ReactNode }) {
         sectorLabel="Get a site like this for your practice"
       />
 
-      <header className="bg-[var(--dgp-blue)] text-white">
-        <div className="mx-auto flex w-full max-w-[1100px] flex-wrap items-center justify-between gap-x-8 gap-y-4 px-4 py-5 sm:px-6">
-          <div>
+      <header>
+        {/* Utility strip */}
+        <div className="bg-[var(--dgp-blue-deep)] text-white">
+          <div className="mx-auto flex w-full max-w-[1140px] flex-wrap items-center justify-between gap-x-6 gap-y-1 px-4 py-2 text-sm sm:px-6">
+            <p className="text-white/90">{practice.address}</p>
+            <p className="text-white/90">
+              Out of hours: call <strong className="text-white">NHS 111</strong>
+            </p>
+          </div>
+        </div>
+
+        {/* Masthead */}
+        <div className="bg-white">
+          <div className="mx-auto flex w-full max-w-[1140px] flex-wrap items-center justify-between gap-x-8 gap-y-4 px-4 py-4 sm:px-6 sm:py-5">
             <Link
               href="/demo/gp-practice"
-              className="text-[26px] font-bold tracking-tight hover:underline"
+              className="group flex items-center gap-3"
             >
-              {practice.name}
-            </Link>
-            <p className="mt-0.5 text-sm text-white/85">{practice.strap}</p>
-          </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <a
-              href={practice.phoneHref}
-              className="group flex items-center gap-2 text-white hover:underline"
-            >
-              <svg
+              <span
                 aria-hidden
-                viewBox="0 0 24 24"
-                className="h-4.5 w-4.5 fill-none stroke-current stroke-2"
+                className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[var(--dgp-blue)]"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 5c0 8.3 6.7 15 15 15l2-4-4.5-2-2 2c-2.8-1.4-5.1-3.7-6.5-6.5l2-2L8 3 4 5Z"
-                />
-              </svg>
-              <span className="text-[17px] font-semibold tracking-tight">
-                {practice.phone}
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-6 w-6 fill-none stroke-white stroke-[2.5]"
+                >
+                  <path strokeLinecap="round" d="M12 5.5v13M5.5 12h13" />
+                </svg>
               </span>
-            </a>
-            <Link
-              href="/demo/gp-practice/appointments"
-              className="rounded-md bg-[var(--dgp-green)] px-4 py-2.5 text-base font-semibold text-white shadow-[0_3px_0_var(--dgp-green-deep)] transition-colors hover:bg-[var(--dgp-green-deep)]"
-            >
-              Book an appointment
+              <span>
+                <span className="block text-[22px] font-bold leading-tight tracking-tight text-[var(--dgp-ink)] group-hover:text-[var(--dgp-blue)]">
+                  {practice.name}
+                </span>
+                <span className="mt-0.5 block text-sm text-[var(--dgp-ink-soft)]">
+                  {practice.strap}
+                </span>
+              </span>
             </Link>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <a
+                href={practice.phoneHref}
+                className="group flex items-center gap-2.5 text-[var(--dgp-ink)]"
+              >
+                <span
+                  aria-hidden
+                  className="grid h-9 w-9 place-items-center rounded-full bg-[var(--dgp-sky)]"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4.5 w-4.5 fill-none stroke-[var(--dgp-blue)] stroke-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4 5c0 8.3 6.7 15 15 15l2-4-4.5-2-2 2c-2.8-1.4-5.1-3.7-6.5-6.5l2-2L8 3 4 5Z"
+                    />
+                  </svg>
+                </span>
+                <span>
+                  <span className="block text-sm leading-none text-[var(--dgp-ink-soft)]">
+                    Call us, 8:00am – 6:30pm
+                  </span>
+                  <span className="mt-1 block text-[17px] font-bold leading-none tracking-tight group-hover:text-[var(--dgp-blue)] group-hover:underline">
+                    {practice.phone}
+                  </span>
+                </span>
+              </a>
+              <Link
+                href="/demo/gp-practice/appointments"
+                className="rounded-full bg-[var(--dgp-green)] px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-[var(--dgp-green-deep)]"
+              >
+                Book an appointment
+              </Link>
+            </div>
           </div>
         </div>
         <GpNav />
@@ -64,15 +108,18 @@ export function GpShell({ children }: { children: React.ReactNode }) {
 
       <main id="main">{children}</main>
 
-      <footer className="mt-16 border-t-4 border-[var(--dgp-blue)] bg-[var(--dgp-tint)]">
-        <div className="mx-auto grid w-full max-w-[1100px] gap-8 px-4 py-10 sm:grid-cols-3 sm:px-6">
+      <footer className="mt-16 bg-[var(--dgp-blue-deep)] text-white">
+        <div className="mx-auto grid w-full max-w-[1140px] gap-10 px-4 py-12 sm:grid-cols-3 sm:px-6">
           <div>
             <h2 className="text-base font-bold">{practice.name}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--dgp-ink-soft)]">
+            <p className="mt-3 text-sm leading-relaxed text-white/80">
               {practice.address}
               <br />
               Telephone:{" "}
-              <a href={practice.phoneHref} className="text-[var(--dgp-blue)] underline">
+              <a
+                href={practice.phoneHref}
+                className="font-semibold text-white underline underline-offset-2"
+              >
                 {practice.phone}
               </a>
               <br />
@@ -81,12 +128,12 @@ export function GpShell({ children }: { children: React.ReactNode }) {
           </div>
           <div>
             <h2 className="text-base font-bold">Quick links</h2>
-            <ul className="mt-1 text-sm">
+            <ul className="mt-2 text-sm">
               {navLinks.slice(1).map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="block py-1.5 text-[var(--dgp-blue)] underline"
+                    className="block py-1.5 text-white/80 underline underline-offset-2 hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -95,7 +142,7 @@ export function GpShell({ children }: { children: React.ReactNode }) {
               <li>
                 <Link
                   href="/demo/gp-practice/practice-information"
-                  className="block py-1.5 text-[var(--dgp-blue)] underline"
+                  className="block py-1.5 text-white/80 underline underline-offset-2 hover:text-white"
                 >
                   Practice information & policies
                 </Link>
@@ -103,7 +150,7 @@ export function GpShell({ children }: { children: React.ReactNode }) {
               <li>
                 <Link
                   href="/demo/gp-practice/accessibility"
-                  className="block py-1.5 text-[var(--dgp-blue)] underline"
+                  className="block py-1.5 text-white/80 underline underline-offset-2 hover:text-white"
                 >
                   Accessibility statement
                 </Link>
@@ -112,19 +159,22 @@ export function GpShell({ children }: { children: React.ReactNode }) {
           </div>
           <div>
             <h2 className="text-base font-bold">Urgent help</h2>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--dgp-ink-soft)]">
+            <p className="mt-3 text-sm leading-relaxed text-white/80">
               When the surgery is closed, call{" "}
-              <strong className="text-[var(--dgp-ink)]">NHS 111</strong>. In a
+              <strong className="text-white">NHS 111</strong>. In a
               life-threatening emergency, always call{" "}
-              <strong className="text-[var(--dgp-ink)]">999</strong>.
+              <strong className="text-white">999</strong>.
             </p>
           </div>
         </div>
-        <div className="border-t border-[var(--dgp-line)]">
-          <p className="mx-auto w-full max-w-[1100px] px-4 py-4 text-sm text-[var(--dgp-ink-soft)] sm:px-6">
+        <div className="border-t border-white/20">
+          <p className="mx-auto w-full max-w-[1140px] px-4 py-4 text-sm text-white/70 sm:px-6">
             {practice.name} is a fictional practice. This sample website was
             designed and built by{" "}
-            <Link href="/gp-websites" className="text-[var(--dgp-blue)] underline">
+            <Link
+              href="/gp-websites"
+              className="text-white underline underline-offset-2"
+            >
               Flutterly
             </Link>
             .
@@ -137,15 +187,15 @@ export function GpShell({ children }: { children: React.ReactNode }) {
 
 /* ── Shared page primitives ─────────────────────────────────── */
 
-/** Breadcrumb trail for inner pages, NHS-manual style. */
+/** Breadcrumb trail for inner pages. */
 export function GpBreadcrumb({ current }: { current: string }) {
   return (
-    <nav aria-label="Breadcrumb" className="bg-[var(--dgp-tint)]">
-      <ol className="mx-auto flex w-full max-w-[1100px] flex-wrap items-center gap-1.5 px-4 pt-4 text-sm sm:px-6">
+    <nav aria-label="Breadcrumb" className="bg-[var(--dgp-sky)]">
+      <ol className="mx-auto flex w-full max-w-[1140px] flex-wrap items-center gap-1.5 px-4 pt-5 text-sm sm:px-6">
         <li>
           <Link
             href="/demo/gp-practice"
-            className="text-[var(--dgp-blue)] underline underline-offset-2 hover:text-[var(--dgp-blue-deep)]"
+            className="font-medium text-[var(--dgp-blue-deep)] underline underline-offset-2 hover:text-[var(--dgp-blue)]"
           >
             Home
           </Link>
@@ -161,7 +211,7 @@ export function GpBreadcrumb({ current }: { current: string }) {
   );
 }
 
-/** Tinted page-title band used on every inner page, with breadcrumb. */
+/** Pale-sky page-title band used on every inner page, with breadcrumb. */
 export function GpPageHero({
   title,
   lede,
@@ -173,9 +223,9 @@ export function GpPageHero({
   crumb?: string;
 }) {
   return (
-    <div className="border-b border-[var(--dgp-line)] bg-[var(--dgp-tint)]">
+    <div className="border-b border-[var(--dgp-sky-line)] bg-[var(--dgp-sky)]">
       <GpBreadcrumb current={crumb ?? title} />
-      <div className="mx-auto w-full max-w-[1100px] px-4 pb-8 pt-4 sm:px-6 sm:pb-10 sm:pt-5">
+      <div className="mx-auto w-full max-w-[1140px] px-4 pb-9 pt-4 sm:px-6 sm:pb-12 sm:pt-5">
         <h1 className="max-w-[720px] text-[clamp(1.8rem,4.5vw,2.6rem)] font-bold leading-tight tracking-tight">
           {title}
         </h1>
@@ -207,14 +257,14 @@ export function GpSection({
   } as const;
   return (
     <section
-      className={`mx-auto w-full max-w-[1100px] px-4 sm:px-6 ${pads[pad]} ${className}`}
+      className={`mx-auto w-full max-w-[1140px] px-4 sm:px-6 ${pads[pad]} ${className}`}
     >
       {children}
     </section>
   );
 }
 
-/** Bordered card; the full border tints NHS blue on hover.
+/** Soft-shadowed card; the border tints NHS blue on hover.
     Reserved for interactive tiles — static content stays in plain flow. */
 export function GpCard({
   title,
@@ -228,10 +278,17 @@ export function GpCard({
   return (
     <Link
       href={href}
-      className="group block rounded-md border border-[var(--dgp-line)] bg-white p-5 shadow-[0_2px_0_var(--dgp-line)] transition-colors hover:border-[var(--dgp-blue)]"
+      className={`group block rounded-2xl border border-[var(--dgp-line)] bg-white p-5 transition-colors hover:border-[var(--dgp-blue)] ${gpShadow}`}
     >
-      <h3 className="text-lg font-bold text-[var(--dgp-blue)] underline-offset-2 group-hover:underline">
+      <h3 className="flex items-start justify-between gap-3 text-lg font-bold leading-snug text-[var(--dgp-ink)] group-hover:text-[var(--dgp-blue)]">
         {title}
+        <svg
+          aria-hidden
+          viewBox="0 0 24 24"
+          className="mt-1 h-4 w-4 shrink-0 fill-none stroke-[var(--dgp-blue)] stroke-2 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 6l6 6-6 6" />
+        </svg>
       </h3>
       <p className="mt-1.5 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
         {copy}
@@ -253,10 +310,10 @@ export function GpPrimaryCard({
   return (
     <Link
       href={href}
-      className="group flex items-center justify-between gap-4 rounded-md border border-[var(--dgp-line)] bg-white p-6 shadow-[0_2px_0_var(--dgp-line)] transition-colors hover:border-[var(--dgp-blue)] sm:p-7"
+      className={`group flex items-center justify-between gap-4 rounded-2xl border border-[var(--dgp-line)] bg-white p-6 transition-colors hover:border-[var(--dgp-blue)] sm:p-7 ${gpShadow}`}
     >
       <div>
-        <h3 className="text-lg font-bold leading-snug text-[var(--dgp-blue)] underline-offset-2 group-hover:underline">
+        <h3 className="text-lg font-bold leading-snug text-[var(--dgp-ink)] group-hover:text-[var(--dgp-blue)]">
           {title}
         </h3>
         <p className="mt-1.5 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
@@ -266,7 +323,7 @@ export function GpPrimaryCard({
       <svg
         aria-hidden
         viewBox="0 0 24 24"
-        className="h-8 w-8 shrink-0 rounded-full bg-[var(--dgp-blue)] fill-none stroke-white stroke-2 p-1.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none"
+        className="h-9 w-9 shrink-0 rounded-full bg-[var(--dgp-blue)] fill-none stroke-white stroke-2 p-2 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none"
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
       </svg>
@@ -274,7 +331,7 @@ export function GpPrimaryCard({
   );
 }
 
-/** Solid green action button (NHS "do" colour). External destinations
+/** Solid green pill action (NHS "do" colour). External destinations
     open in the same tab, per NHS service manual guidance. */
 export function GpAction({
   children,
@@ -286,7 +343,7 @@ export function GpAction({
   return (
     <a
       href={href}
-      className="inline-block rounded-md bg-[var(--dgp-green)] px-6 py-3 text-base font-semibold text-white shadow-[0_3px_0_var(--dgp-green-deep)] transition-colors hover:bg-[var(--dgp-green-deep)]"
+      className="inline-block rounded-full bg-[var(--dgp-green)] px-7 py-3 text-base font-semibold text-white transition-colors hover:bg-[var(--dgp-green-deep)]"
     >
       {children}
     </a>
@@ -302,7 +359,7 @@ export function GpCallout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-md border border-[var(--dgp-amber-line)] bg-[var(--dgp-amber-tint)] p-5">
+    <div className="rounded-2xl border border-[var(--dgp-amber-line)] bg-[var(--dgp-amber-tint)] p-5 sm:p-6">
       {/* A notice, not a document section — deliberately not a heading,
           so task tiles keep their place in the page outline. */}
       <p className="flex items-center gap-2 text-base font-bold">
@@ -342,9 +399,11 @@ export function GpCareCard({
         ? "bg-[#1c2b39]"
         : "bg-[var(--dgp-blue)]";
   return (
-    <div className="overflow-hidden rounded-md border border-[var(--dgp-line)] bg-white">
+    <div
+      className={`overflow-hidden rounded-2xl border border-[var(--dgp-line)] bg-white ${gpShadow}`}
+    >
       {/* h3: every current use sits inside a section already headed by an h2. */}
-      <h3 className={`${header} px-5 py-3 text-lg font-bold text-white`}>
+      <h3 className={`${header} px-5 py-3.5 text-lg font-bold text-white`}>
         {title}
       </h3>
       <div className="p-5 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
@@ -357,7 +416,7 @@ export function GpCareCard({
 /** One consistent note for the demo's illustrative dead-ends. */
 export function GpSampleNote({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mt-4 inline-flex items-center gap-2 rounded-md bg-white/70 px-3 py-1.5 text-sm text-[var(--dgp-ink-soft)]">
+    <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-1.5 text-sm text-[var(--dgp-ink-soft)]">
       <svg
         aria-hidden
         viewBox="0 0 24 24"
@@ -380,7 +439,7 @@ export function GpMiniMap() {
       role="img"
       aria-label="Illustrative map showing Willowbrook Surgery on Meadow Lane, next to the village green and the number 12 bus stop"
       viewBox="0 0 560 300"
-      className="h-auto w-full rounded-md border border-[var(--dgp-line)]"
+      className="h-auto w-full rounded-xl border border-[var(--dgp-line)]"
     >
       <rect width="560" height="300" fill="#eef3f0" />
       {/* village green */}

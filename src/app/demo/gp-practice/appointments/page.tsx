@@ -83,7 +83,7 @@ export default function AppointmentsPage() {
             alt="A GP talking through notes with a patient in a consulting room"
             width={760}
             height={507}
-            className="hidden rounded-md object-cover shadow-[0_2px_0_var(--dgp-line)] lg:block"
+            className="hidden rounded-2xl object-cover shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)] lg:block"
           />
         </div>
         <div className="mt-8">
@@ -127,7 +127,7 @@ export default function AppointmentsPage() {
       </GpSection>
 
       <GpSection pad="flush">
-        <div id="online" className="scroll-mt-6 rounded-md bg-[var(--dgp-tint)] p-6 sm:p-8">
+        <div id="online" className="scroll-mt-6 rounded-2xl bg-[var(--dgp-tint)] p-6 sm:p-8">
           <h2 className="text-[20px] font-bold tracking-tight">
             Request an appointment online
           </h2>

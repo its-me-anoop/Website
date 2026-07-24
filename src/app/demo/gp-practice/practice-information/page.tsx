@@ -19,7 +19,7 @@ export default function PracticeInformationPage() {
           alt="The surgery's bright waiting room with comfortable chairs"
           width={1920}
           height={1280}
-          className="max-h-[300px] w-full rounded-md object-cover shadow-[0_2px_0_var(--dgp-line)]"
+          className="max-h-[300px] w-full rounded-2xl object-cover shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)]"
         />
 
         <div className="mt-4 divide-y divide-[var(--dgp-line)]">

@@ -427,14 +427,17 @@ html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
    and deliberately does NOT reuse Bloom styling.
    ───────────────────────────────────────────────────────────── */
 
-/* "Willowbrook Surgery" — NHS-service-manual-inspired GP demo:
-   NHS blue, pale grey panels, green actions, generous plain type
-   on the system stack, and a bold yellow focus style. */
+/* "Willowbrook Surgery" — modern NHS-flavoured GP demo: white chrome
+   with NHS blue accents, a pale sky hero wash, soft-shadow cards,
+   green pill actions, generous plain type on the system stack, and a
+   bold yellow focus style. */
 .demo-gp-root {
   --dgp-blue: #005eb8;
   --dgp-blue-deep: #003087;
   --dgp-canvas: #ffffff;
   --dgp-tint: #f0f4f5;
+  --dgp-sky: #e9f2fa;
+  --dgp-sky-line: #d2e2f0;
   --dgp-ink: #212b32;
   --dgp-ink-soft: #4c6272;
   --dgp-line: #d8dde0;

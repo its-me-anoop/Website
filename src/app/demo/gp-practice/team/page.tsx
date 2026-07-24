@@ -21,7 +21,7 @@ export default function TeamPage() {
             alt="Doctors and nurses from a practice team standing together in a corridor"
             width={1580}
             height={1280}
-            className="max-h-[340px] w-full rounded-md object-cover object-[50%_22%] shadow-[0_2px_0_var(--dgp-line)]"
+            className="max-h-[340px] w-full rounded-2xl object-cover object-[50%_22%] shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)]"
           />
           <figcaption className="mt-2 text-sm text-[var(--dgp-ink-soft)]">
             Illustrative photograph — not the people named below. A real
@@ -51,7 +51,7 @@ export default function TeamPage() {
       </GpSection>
 
       <GpSection pad="flush">
-        <div className="rounded-md bg-[var(--dgp-tint)] p-6 sm:p-8">
+        <div className="rounded-2xl bg-[var(--dgp-tint)] p-6 sm:p-8">
           <h2 className="text-[20px] font-bold tracking-tight">
             Why you might not see a GP
           </h2>

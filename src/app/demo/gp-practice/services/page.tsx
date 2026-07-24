@@ -50,7 +50,7 @@ export default function ServicesPage() {
               alt="A practice nurse checking a patient's blood pressure in a clinic room"
               width={760}
               height={507}
-              className="rounded-md object-cover shadow-[0_2px_0_var(--dgp-line)]"
+              className="rounded-2xl object-cover shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)]"
             />
             <figcaption className="mt-2 text-sm text-[var(--dgp-ink-soft)]">
               Nurse-led clinics run every weekday.
@@ -83,7 +83,7 @@ export default function ServicesPage() {
                 alt="A physiotherapist assessing a patient's leg during a session"
                 width={760}
                 height={507}
-                className="rounded-md object-cover shadow-[0_2px_0_var(--dgp-line)]"
+                className="rounded-2xl object-cover shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)]"
               />
               <figcaption className="mt-2 text-sm text-[var(--dgp-ink-soft)]">
                 Joint or muscle problem? Book the physiotherapist directly.
