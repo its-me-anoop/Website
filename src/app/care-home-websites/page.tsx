@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { careSector } from "@/components/aurora/data";
-import { SectorPage } from "@/components/aurora/sectors/SectorPage";
+import { careSector } from "@/components/aurum/data";
+import { SectorPage } from "@/components/aurum/sectors/SectorPage";
 
 export const metadata: Metadata = {
   title: careSector.metaTitle,

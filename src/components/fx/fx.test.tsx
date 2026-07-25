@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
-import { AuroraBackdrop } from "./AuroraBackdrop";
+import { PaperField } from "./PaperField";
 import { CountUp } from "./CountUp";
 import { Marquee } from "./Marquee";
 import { Reveal, TextReveal } from "./Reveal";
@@ -69,9 +69,9 @@ describe("TextReveal", () => {
   });
 });
 
-describe("AuroraBackdrop", () => {
+describe("PaperField", () => {
   it("is decorative: hidden from the accessibility tree and untouchable", () => {
-    const { container } = render(<AuroraBackdrop />);
+    const { container } = render(<PaperField />);
     const root = container.firstElementChild!;
 
     expect(root).toHaveAttribute("aria-hidden");

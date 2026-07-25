@@ -1,109 +1,135 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════
-   Flutterly · Design System — "Aurora"
+   Flutterly · Design System — "Aurum"
    ───────────────────────────────────────────────────────────────────
-   A cinematic, luminous language for the studio site: a deep
-   midnight-pine canvas lit by slow-drifting aurora gradients, glass
-   surfaces with hairline gradient edges, film grain, and one bright
-   teal action colour. Content sections float on a single continuous
-   backdrop so scrolling reads as movement through one space.
+   A warm editorial language for the studio site: a cream paper canvas
+   under soft amber washes, cocoa ink, plates that sit on the page like
+   pressed card, Bricolage Grotesque over Figtree, and one three-colour
+   rule — teal → amber → rose — drawn at the seams between sections.
+
+   The page is light. Two night bands (the fold and the process
+   interlude) invert it, and they do it by *re-declaring the same
+   tokens* rather than by forking the component vocabulary: drop
+   `.au-night` on a section and every plate, hairline and ink step
+   inside it flips. One set of components, two atmospheres.
 
    Layers:
      1. :root   — raw design tokens (single source of truth)
-     2. @theme  — maps tokens to Tailwind v4 utilities (bg-au-canvas…)
+     2. @theme  — maps tokens to Tailwind v4 utilities (bg-au-paper…)
      3. base    — element defaults (typography, focus, scrollbars)
-     4. utils   — effect helpers (.au-glass, .au-mesh, .au-grain…)
-     5. motion  — keyframes + prefers-reduced-motion guards
-     6. scopes  — the two demo client sites, deliberately untouched
+     4. scopes  — .aurum-root, .au-night, the case-study retints
+     5. utils   — surface and graphic helpers (.au-plate, .au-rule…)
+     6. motion  — keyframes + prefers-reduced-motion guards
+     7. demos   — the two sample client sites, deliberately untouched
 
    Accessibility is not traded for atmosphere: every text/background
-   pair clears WCAG 2.2 AA, every decorative layer is aria-hidden and
-   pointer-events-none, and all motion collapses under
-   `prefers-reduced-motion` and `prefers-reduced-transparency`.
+   pair clears WCAG 2.2 AA on both paper and night, every decorative
+   layer is aria-hidden and pointer-events-none, and all motion
+   collapses under `prefers-reduced-motion`.
    ═══════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ── Aurora · canvas ramp ─────────────────────────────────── */
-  --au-void: #03070a; /* deepest — behind everything */
-  --au-canvas: #060d11; /* page */
-  --au-canvas-2: #0a161b; /* raised band */
-  --au-canvas-3: #0e1f24; /* pressed / inset */
+  /* ── Aurum · paper ramp ───────────────────────────────────────
+     The canvas is warm, never white: pure white next to cocoa ink
+     reads as a glare, and every photograph on the site is warm. */
+  --au-paper: #fdf6ec; /* page */
+  --au-paper-2: #fffaf0; /* plates, cards */
+  --au-paper-3: #fffefb; /* inputs — the brightest surface */
+  --au-sink: #f6ead9; /* tinted relief band */
 
-  /* ── Aurora · glass surfaces ──────────────────────────────── */
-  --au-surface: rgba(255, 255, 255, 0.045);
-  --au-surface-2: rgba(255, 255, 255, 0.075);
-  --au-surface-3: rgba(255, 255, 255, 0.11);
-  --au-line: rgba(255, 255, 255, 0.1);
-  --au-line-2: rgba(255, 255, 255, 0.18);
+  /* ── Aurum · night ramp (the two inverted bands) ──────────────── */
+  --au-night: #170c0f;
+  --au-night-2: #231317;
+  --au-night-3: #2f1c20;
 
-  /* ── Aurora · ink ramp (on --au-canvas) ───────────────────────
-     ink   #ecf7f3 → 16.8:1   ink-2 #c3d6d1 → 11.3:1
-     ink-3 #9db3ae →  7.2:1   muted #82988f →  5.4:1  — all AA+. */
-  --au-ink: #ecf7f3;
-  --au-ink-2: #c3d6d1;
-  --au-ink-3: #9db3ae;
-  --au-muted: #86a09a;
+  /* ── Aurum · ink ramp ─────────────────────────────────────────
+     Contrast on the page (#fdf6ec), all AA+ for body copy:
+     ink 17.7:1 · ink-2 12.3:1 · ink-3 7.8:1 · muted 5.7:1 */
+  --au-ink: #1a0c0e;
+  --au-ink-2: #46291f;
+  --au-ink-3: #6a4438;
+  --au-muted: #7d5a4e;
 
-  /* ── Aurora · spectrum ────────────────────────────────────────
-     Teal is still the one action colour; aqua, sky and violet are
-     light — they appear in gradients, glows and graphics only. */
-  --au-teal: #2fd8ad; /* luminous action on dark (11.4:1) */
-  --au-teal-2: #16b18c;
-  --au-teal-deep: #0e7a63; /* the brand teal, for light surfaces */
-  --au-teal-ink: #032b22; /* text on a teal fill (12.9:1) */
-  --au-aqua: #5ce6d5;
-  --au-sky: #5cb2ff;
-  --au-violet: #a48cff;
-  --au-amber: #ffbc6b;
-  --au-rose: #ff8aa8;
+  /* ── Aurum · hairlines and washes ─────────────────────────────
+     Cocoa at low alpha, never grey: a neutral hairline on a warm
+     page reads as dirt. */
+  --au-line: rgba(82, 50, 42, 0.14);
+  --au-line-2: rgba(82, 50, 42, 0.24);
+  --au-surface: rgba(82, 50, 42, 0.035);
+  --au-surface-2: rgba(82, 50, 42, 0.06);
+  --au-surface-3: rgba(82, 50, 42, 0.1);
+
+  /* ── Aurum · the three-colour rule ────────────────────────────
+     Teal leads (it is the action colour); amber and rose are the
+     supporting voices. They appear together only in the rule, and
+     apart as sector and craft accents.
+
+     Teal at full strength is 3.6:1 on paper — enough for icons,
+     borders and large display type, not for body copy. Anything
+     that has to read at 14px uses `--au-teal-deep` (5.7:1), which
+     also carries cream text at 5.8:1 when it is a button fill. */
+  --au-teal: #1b8fa1;
+  --au-teal-deep: #146c7a;
+  --au-teal-press: #0f5b66; /* hover / active — always darker, never paler */
+  --au-teal-lift: #3ec3d5; /* the teal that works on night */
+  --au-teal-ink: #fffaf0; /* text on a teal-deep fill */
+  --au-amber: #e89a2a;
+  --au-amber-ink: #96500c; /* the amber that reads as text on every warm ground */
+  --au-rose: #c73e6f;
+  --au-rose-ink: #b02f5e;
+  --au-gold: #f5a623; /* stat numerals on night */
+
+  /* Two fixed values that the night scope deliberately does NOT flip.
+     Everything else in the system is relative to its ground, but a
+     "cream button" has to stay cream wherever it is dropped — that is
+     the whole point of it on a night band. */
+  --au-cream: #fffaf0;
+  --au-cocoa: #1a0c0e;
 
   /* Sector accents (kept from the brand: NHS blue, care amber) */
-  --au-nhs: #6fbaff;
-  --au-care: #ffc98a;
+  --au-nhs: #005eb8;
+  --au-nhs-lift: #7fb9f2;
+  --au-care: #96500c;
+  --au-care-lift: #f0b872;
 
   /* Accent hook — case-study scopes retint the system through this. */
-  --au-accent: var(--au-teal);
-  --au-accent-2: var(--au-aqua);
-
-  /* ── Aurora · daylight panel (bright relief bands) ─────────── */
-  --au-day: #f2f7f6;
-  --au-day-2: #e4efec;
-  --au-day-ink: #06231c;
-  --au-day-soft: #2f5149;
-  --au-day-muted: #4a6b63;
-  --au-day-line: rgba(6, 35, 28, 0.12);
+  --au-accent: var(--au-teal-deep);
+  --au-accent-2: var(--au-teal);
 
   /* ── Gradients ────────────────────────────────────────────── */
-  --grad-aurora: linear-gradient(
-    100deg,
+  --au-rule: linear-gradient(
+    90deg,
     var(--au-teal) 0%,
-    var(--au-aqua) 32%,
-    var(--au-sky) 66%,
-    var(--au-violet) 100%
+    var(--au-amber) 52%,
+    var(--au-rose) 100%
   );
-  --grad-edge: linear-gradient(
-    140deg,
-    rgba(255, 255, 255, 0.28),
-    rgba(255, 255, 255, 0.04) 42%,
-    rgba(255, 255, 255, 0.02) 68%,
-    rgba(92, 178, 255, 0.22)
+  --au-rule-soft: linear-gradient(
+    90deg,
+    rgba(27, 143, 161, 0.55) 0%,
+    rgba(232, 154, 42, 0.55) 52%,
+    rgba(199, 62, 111, 0.55) 100%
   );
 
-  /* ── Radii ────────────────────────────────────────────────── */
-  --r-xs: 10px;
-  --r-sm: 14px;
-  --r-md: 20px;
-  --r-lg: 28px;
-  --r-xl: 36px;
-  --r-2xl: 44px;
+  /* ── Radii ────────────────────────────────────────────────────
+     Editorial, not bubbly: a plate is a pressed card, not a pill. */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 20px;
+  --r-xl: 26px;
+  --r-2xl: 32px;
   --r-pill: 999px;
 
-  /* ── Elevation & glow ─────────────────────────────────────── */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow: 0 18px 50px -24px rgba(0, 0, 0, 0.85);
-  --shadow-lg: 0 44px 120px -40px rgba(0, 0, 0, 0.9);
-  --glow-teal: 0 0 0 1px rgba(47, 216, 173, 0.22), 0 18px 60px -22px rgba(47, 216, 173, 0.5);
+  /* ── Elevation ────────────────────────────────────────────────
+     Warm shadows on a warm page. The inset top highlight is what
+     makes a plate read as card stock rather than a flat rectangle. */
+  --au-lip: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --shadow-sm: var(--au-lip), 0 2px 4px -2px rgba(20, 8, 10, 0.1);
+  --shadow: var(--au-lip), 0 6px 18px -10px rgba(20, 8, 10, 0.22),
+    0 2px 4px -2px rgba(20, 8, 10, 0.08);
+  --shadow-lg: var(--au-lip), 0 28px 56px -20px rgba(20, 8, 10, 0.28),
+    0 4px 10px -6px rgba(20, 8, 10, 0.12);
 
   /* ── Rhythm ───────────────────────────────────────────────── */
   --space-section: clamp(5rem, 11vw, 9.5rem);
@@ -117,8 +143,8 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Supporting product hues, used sparingly inside case studies. */
-  --teal: #4fd8e8;
-  --orange: #ffb168;
+  --teal: #1b8fa1;
+  --orange: #e89a2a;
 
   /* ── Porcelain (light) — retained for the two demo client sites
         and the document defaults they inherit. ────────────────── */
@@ -133,22 +159,26 @@
   --faint: #d2d2d7;
   --line: rgba(0, 0, 0, 0.08);
   --line-2: rgba(0, 0, 0, 0.12);
-  --night: #04090c;
-  --night-ink: #ecf7f3;
-  --accent: #0e7a63;
-  --accent-hover: #128f74;
-  --accent-deep: #0b5f4d;
-  --accent-soft: rgba(14, 122, 99, 0.12);
+  --night: #170c0f;
+  --night-ink: #fffaf0;
+  --accent: #146c7a;
+  --accent-hover: #10707e;
+  --accent-deep: #0f5b66;
+  --accent-soft: rgba(20, 108, 122, 0.12);
   --accent-ink: #ffffff;
   --background: var(--canvas);
   --foreground: var(--ink);
 }
 
 @theme inline {
-  --color-au-void: var(--au-void);
-  --color-au-canvas: var(--au-canvas);
-  --color-au-canvas-2: var(--au-canvas-2);
-  --color-au-canvas-3: var(--au-canvas-3);
+  --color-au-paper: var(--au-paper);
+  --color-au-paper-2: var(--au-paper-2);
+  --color-au-paper-3: var(--au-paper-3);
+  --color-au-sink: var(--au-sink);
+
+  --color-au-night: var(--au-night);
+  --color-au-night-2: var(--au-night-2);
+  --color-au-night-3: var(--au-night-3);
 
   --color-au-surface: var(--au-surface);
   --color-au-surface-2: var(--au-surface-2);
@@ -162,25 +192,23 @@
   --color-au-muted: var(--au-muted);
 
   --color-au-teal: var(--au-teal);
-  --color-au-teal-2: var(--au-teal-2);
   --color-au-teal-deep: var(--au-teal-deep);
+  --color-au-teal-press: var(--au-teal-press);
+  --color-au-teal-lift: var(--au-teal-lift);
   --color-au-teal-ink: var(--au-teal-ink);
-  --color-au-aqua: var(--au-aqua);
-  --color-au-sky: var(--au-sky);
-  --color-au-violet: var(--au-violet);
   --color-au-amber: var(--au-amber);
+  --color-au-amber-ink: var(--au-amber-ink);
   --color-au-rose: var(--au-rose);
+  --color-au-rose-ink: var(--au-rose-ink);
+  --color-au-gold: var(--au-gold);
+  --color-au-cream: var(--au-cream);
+  --color-au-cocoa: var(--au-cocoa);
   --color-au-nhs: var(--au-nhs);
+  --color-au-nhs-lift: var(--au-nhs-lift);
   --color-au-care: var(--au-care);
+  --color-au-care-lift: var(--au-care-lift);
   --color-au-accent: var(--au-accent);
   --color-au-accent-2: var(--au-accent-2);
-
-  --color-au-day: var(--au-day);
-  --color-au-day-2: var(--au-day-2);
-  --color-au-day-ink: var(--au-day-ink);
-  --color-au-day-soft: var(--au-day-soft);
-  --color-au-day-muted: var(--au-day-muted);
-  --color-au-day-line: var(--au-day-line);
 
   /* Porcelain / legacy aliases (demo routes + document defaults) */
   --color-canvas: var(--canvas);
@@ -213,11 +241,9 @@
   --radius-xl: var(--r-xl);
   --radius-2xl: var(--r-2xl);
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
-  --font-display: var(--font-grotesk-v), "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-syne: var(--font-syne-v), "Syne", var(--font-display);
-  --font-grotesk: var(--font-grotesk-v), "Space Grotesk", var(--font-sans);
-  --font-mono: var(--font-jb-v), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: var(--font-sans-v), "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-display-v), "Bricolage Grotesque", var(--font-sans-v), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-syne: var(--font-syne-v), "Syne", var(--font-sans);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -268,241 +294,288 @@ p { text-wrap: pretty; }
 }
 
 /* ═════════════════════════════════════════════════════════════
-   Aurora scope — every Flutterly-branded route
+   Aurum scope — every Flutterly-branded route
    ═════════════════════════════════════════════════════════════ */
 
-html:has(.aurora-root) {
-  background: var(--au-void);
-  color-scheme: dark;
+html:has(.aurum-root) {
+  background: var(--au-paper);
+  color-scheme: light;
 }
-body:has(.aurora-root) {
-  background: var(--au-void);
+body:has(.aurum-root) {
+  background: var(--au-paper);
   color: var(--au-ink);
 }
-html:has(.aurora-root)::-webkit-scrollbar-track { background: var(--au-void); }
-html:has(.aurora-root)::-webkit-scrollbar-thumb {
-  background: #1d3138;
-  border-color: var(--au-void);
+html:has(.aurum-root)::-webkit-scrollbar-track { background: var(--au-paper); }
+html:has(.aurum-root)::-webkit-scrollbar-thumb {
+  background: #ddc9b4;
+  border-color: var(--au-paper);
 }
-html:has(.aurora-root)::-webkit-scrollbar-thumb:hover { background: #2b4750; }
+html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
 
-.aurora-root {
-  font-family: var(--font-grotesk);
-  letter-spacing: -0.011em;
-  background: var(--au-canvas);
+.aurum-root {
+  font-family: var(--font-sans);
+  letter-spacing: -0.005em;
+  background: var(--au-paper);
   color: var(--au-ink);
 }
-.aurora-root ::selection {
-  background: var(--au-accent);
-  color: var(--au-teal-ink);
+.aurum-root ::selection {
+  background: var(--au-amber);
+  color: var(--au-ink);
 }
-.aurora-root :focus-visible {
-  outline: 2px solid var(--au-accent);
+.aurum-root :focus-visible {
+  outline: 2px solid var(--au-teal-deep);
   outline-offset: 3px;
 }
-/* On daylight panels the focus ring flips to the deep brand teal so it
-   keeps 3:1 against a near-white surface. */
-.aurora-root .au-day-panel :focus-visible {
-  outline-color: var(--au-teal-deep);
-}
 
-/* ── Glass surfaces ───────────────────────────────────────────
-   A translucent fill, a blurred backdrop and a hairline that is
-   brighter at the top-left — the way a real edge catches light. */
-.au-glass {
-  background: linear-gradient(
-    160deg,
-    rgba(255, 255, 255, 0.07) 0%,
-    rgba(255, 255, 255, 0.028) 46%,
-    rgba(255, 255, 255, 0.015) 100%
-  );
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.11),
-    0 24px 60px -34px rgba(0, 0, 0, 0.9);
-}
-.au-glass-strong {
-  background: linear-gradient(
-    160deg,
-    rgba(255, 255, 255, 0.115) 0%,
-    rgba(255, 255, 255, 0.05) 55%,
-    rgba(255, 255, 255, 0.03) 100%
-  );
-  -webkit-backdrop-filter: blur(26px) saturate(150%);
-  backdrop-filter: blur(26px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 30px 80px -40px rgba(0, 0, 0, 0.95);
-}
+/* ── Night bands ──────────────────────────────────────────────
+   The inversion. Everything below re-declares the *same* tokens
+   the paper scope defines, so a plate, a hairline or an ink step
+   needs no variant class to survive the flip — it simply reads
+   the token it always read. */
+.au-night {
+  --au-paper: var(--au-night);
+  --au-paper-2: var(--au-night-2);
+  --au-paper-3: var(--au-night-3);
+  --au-sink: var(--au-night-2);
 
-/* Frosted chrome for the sticky header. Deliberately more opaque than
-   `.au-glass`: text scrolling underneath a lightly-blurred bar reads as
-   a smear, so the header keeps its own near-solid ground. */
-.au-frost {
-  background: rgba(7, 15, 20, 0.86);
-  -webkit-backdrop-filter: blur(24px) saturate(150%);
-  backdrop-filter: blur(24px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    0 20px 50px -30px rgba(0, 0, 0, 0.95);
-}
+  --au-ink: #fffaf0;
+  --au-ink-2: #f5e6d7;
+  --au-ink-3: #c4ab98;
+  --au-muted: #ab9080;
 
-@media (prefers-reduced-transparency: reduce) {
-  .au-glass, .au-glass-strong {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: var(--au-canvas-2);
-  }
-  .au-frost {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: var(--au-canvas);
-  }
-}
+  --au-line: rgba(245, 230, 215, 0.16);
+  --au-line-2: rgba(245, 230, 215, 0.28);
+  --au-surface: rgba(255, 255, 255, 0.04);
+  --au-surface-2: rgba(255, 255, 255, 0.07);
+  --au-surface-3: rgba(255, 255, 255, 0.11);
 
-/* ── Daylight relief panel ────────────────────────────────────
-   One bright interlude per page: dense content (the comparison
-   table, packages, the audit report) reads better on paper. */
-.au-day-panel {
-  background:
-    radial-gradient(120% 90% at 12% 0%, rgba(47, 216, 173, 0.16), transparent 58%),
-    radial-gradient(110% 90% at 92% 12%, rgba(92, 178, 255, 0.16), transparent 55%),
-    linear-gradient(180deg, var(--au-day) 0%, var(--au-day-2) 100%);
-  color: var(--au-day-ink);
+  /* Teal loses its legibility on cocoa; the lifted cut takes over
+     as both the action colour and the accent. */
+  --au-teal: var(--au-teal-lift);
+  --au-teal-deep: var(--au-teal-lift);
+  --au-teal-press: #7fdcea;
+  --au-teal-ink: #06272c;
+  --au-amber-ink: var(--au-amber);
+  --au-rose-ink: #f07fa5;
+  --au-nhs: var(--au-nhs-lift);
+  --au-care: var(--au-care-lift);
+  --au-accent: var(--au-teal-lift);
+  --au-accent-2: var(--au-amber);
+
+  --au-lip: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --shadow-sm: var(--au-lip), 0 2px 6px -2px rgba(0, 0, 0, 0.5);
+  --shadow: var(--au-lip), 0 12px 32px -16px rgba(0, 0, 0, 0.75),
+    0 4px 12px -6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: var(--au-lip), 0 32px 70px -24px rgba(0, 0, 0, 0.8),
+    0 6px 16px -8px rgba(0, 0, 0, 0.45);
+
+  background: var(--au-night);
+  color: var(--au-ink);
 }
-.au-day-panel ::selection {
-  background: var(--au-teal-deep);
-  color: #fff;
+.au-night ::selection {
+  background: var(--au-teal-lift);
+  color: #06272c;
+}
+.au-night :focus-visible {
+  outline-color: var(--au-teal-lift);
 }
 
 /* ── Case-study product scopes ────────────────────────────────
-   Sipli and Artling keep their own product accent, but sit on the
-   Aurora canvas: the semantic Porcelain tokens their markup already
+   Sipli and Artling keep their own product accent but sit on the
+   Aurum paper: the semantic Porcelain tokens their markup already
    uses are remapped here, so one block retints a whole case study.
-   `--background: transparent` lets the shared backdrop show through.
    ───────────────────────────────────────────────────────────── */
 .sipli-theme,
 .artling-theme {
   --background: transparent;
   --canvas: transparent;
-  --canvas-2: rgba(255, 255, 255, 0.028);
-  --surface: rgba(255, 255, 255, 0.045);
-  --surface-2: rgba(255, 255, 255, 0.075);
+  --canvas-2: var(--au-surface);
+  --surface: var(--au-paper-2);
+  --surface-2: var(--au-surface-2);
   --ink: var(--au-ink);
   --ink-2: var(--au-ink-2);
   --ink-3: var(--au-ink-3);
   --muted: var(--au-muted);
-  --faint: rgba(255, 255, 255, 0.22);
-  --line: rgba(255, 255, 255, 0.1);
-  --line-2: rgba(255, 255, 255, 0.18);
-  --night: #03070a;
-  --night-ink: var(--au-ink);
+  --faint: var(--au-line-2);
+  --line: var(--au-line);
+  --line-2: var(--au-line-2);
+  --night: var(--au-night);
+  --night-ink: #fffaf0;
   color: var(--au-ink);
 }
 
-/* Sipli — aqua, after the app's water-drop identity. 11.2:1 on canvas. */
+/* Sipli — deep water teal, after the app's water-drop identity.
+   5.7:1 on paper, and it carries cream text at 5.8:1. */
 .sipli-theme {
-  --accent: #4fd8e8;
-  --accent-hover: #7ee6f2;
-  --accent-deep: #1fb9cc;
-  --accent-soft: rgba(79, 216, 232, 0.14);
-  --accent-ink: #032128;
-  --teal: #4fd8e8;
-  --au-accent: #4fd8e8;
-  --au-accent-2: #7ee6f2;
+  --accent: #146c7a;
+  --accent-hover: #10707e;
+  --accent-deep: #0f5b66;
+  --accent-soft: rgba(20, 108, 122, 0.12);
+  --accent-ink: #fffaf0;
+  --teal: #1b8fa1;
+  --au-accent: #146c7a;
+  --au-accent-2: #1b8fa1;
 }
 
-/* Artling — warm amber, after the app's crayon-and-paper identity. */
+/* Artling — burnt amber, after the app's crayon-and-paper identity. */
 .artling-theme {
-  --accent: #ffb168;
-  --accent-hover: #ffc793;
-  --accent-deep: #d9873c;
-  --accent-soft: rgba(255, 177, 104, 0.14);
-  --accent-ink: #2b1608;
-  --orange: #ffb168;
-  --au-accent: #ffb168;
-  --au-accent-2: #ffc793;
+  --accent: #a85c10;
+  --accent-hover: #b8651a;
+  --accent-deep: #8c4b0a;
+  --accent-soft: rgba(168, 92, 16, 0.12);
+  --accent-ink: #fffaf0;
+  --orange: #e89a2a;
+  --au-accent: #a85c10;
+  --au-accent-2: #e89a2a;
 }
 
-/* ── Background graphics ──────────────────────────────────── */
+/* ═════════════════════════════════════════════════════════════
+   Surfaces
+   ═════════════════════════════════════════════════════════════ */
 
-/* Film grain — one inlined SVG turbulence tile, no network cost. */
+/* The workhorse. A plate is card stock: an opaque warm fill, a
+   cocoa hairline, a lit top lip and a soft warm shadow beneath. */
+.au-plate {
+  background: var(--au-paper-2);
+  border: 1px solid var(--au-line);
+  box-shadow: var(--shadow);
+}
+.au-plate-strong {
+  background: var(--au-paper-2);
+  border: 1px solid var(--au-line-2);
+  box-shadow: var(--shadow-lg);
+}
+
+/* The sticky header. Translucent so the page shows through, but
+   near-opaque: text scrolling under a lightly-blurred bar reads as
+   a smear. Prefix first, standard last — the minifier drops the
+   standard property when it follows the -webkit- form. */
+.au-frost {
+  background: color-mix(in srgb, var(--au-paper) 88%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .au-frost {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--au-paper);
+  }
+}
+
+/* The tinted relief band — a half-step darker than the page, used
+   to group a section without boxing it. */
+.au-band {
+  background: var(--au-sink);
+}
+
+/* ═════════════════════════════════════════════════════════════
+   The three-colour rule — the signature seam
+   ═════════════════════════════════════════════════════════════ */
+
+.au-rule-top,
+.au-rule-bottom {
+  position: relative;
+}
+.au-rule-top::before,
+.au-rule-bottom::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--au-rule);
+  pointer-events: none;
+}
+.au-rule-top::before { top: 0; }
+.au-rule-bottom::after { bottom: 0; }
+
+/* The heavy cut, reserved for the foot of the fold and the foot of
+   the closing call to action. */
+.au-rule-heavy::after {
+  height: 7px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(20, 8, 10, 0.12);
+}
+
+/* A short rule used as a display underline. */
+.au-tick {
+  display: block;
+  height: 3px;
+  width: 3.25rem;
+  border-radius: 999px;
+  background: var(--au-rule);
+}
+
+/* ═════════════════════════════════════════════════════════════
+   Background graphics
+   ═════════════════════════════════════════════════════════════ */
+
+/* Paper tooth — one inlined SVG turbulence tile, no network cost.
+   Multiply on cream so it reads as fibre rather than as static. */
 .au-grain::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+.au-night .au-grain::after,
+.au-grain.au-night::after {
   mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  opacity: 0.5;
 }
 
 /* Engineering grid, faded out by a radial mask. */
 .au-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    linear-gradient(rgba(82, 50, 42, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(82, 50, 42, 0.055) 1px, transparent 1px);
   background-size: 62px 62px;
   -webkit-mask-image: radial-gradient(ellipse 78% 62% at 50% 34%, #000 12%, transparent 76%);
   mask-image: radial-gradient(ellipse 78% 62% at 50% 34%, #000 12%, transparent 76%);
 }
+.au-night .au-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
 
-/* Dot matrix, used behind card decks and the process band. */
+/* Dot matrix, used behind card decks. */
 .au-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(82, 50, 42, 0.16) 1px, transparent 1px);
   background-size: 26px 26px;
   -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 5%, transparent 72%);
   mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 5%, transparent 72%);
 }
 
-/* The aurora itself: three drifting light fields, blurred to a haze. */
-.au-mesh {
+/* The warm wash the whole page floats on: amber high-left, rose
+   low-right, teal breathing under the fold. */
+.au-wash {
   background:
-    radial-gradient(38% 46% at 18% 24%, rgba(47, 216, 173, 0.34), transparent 68%),
-    radial-gradient(34% 40% at 82% 18%, rgba(92, 178, 255, 0.3), transparent 66%),
-    radial-gradient(44% 48% at 62% 82%, rgba(164, 140, 255, 0.26), transparent 70%),
-    radial-gradient(28% 34% at 8% 78%, rgba(92, 230, 213, 0.2), transparent 66%);
-  filter: blur(24px);
+    radial-gradient(62% 48% at 14% 6%, rgba(232, 154, 42, 0.13), transparent 62%),
+    radial-gradient(52% 46% at 88% 26%, rgba(199, 62, 111, 0.09), transparent 60%),
+    radial-gradient(58% 42% at 46% 96%, rgba(27, 143, 161, 0.1), transparent 64%);
 }
 
-/* Horizon glow that anchors the fold. */
-.au-horizon {
+/* The same idea on cocoa, for the night bands. Amber carries most of
+   the light — three hues at equal strength on a dark ground read as an
+   oil slick rather than as warmth. */
+.au-wash-night {
   background:
-    radial-gradient(60% 46% at 50% 100%, rgba(47, 216, 173, 0.3), transparent 72%),
-    radial-gradient(90% 60% at 50% 108%, rgba(92, 178, 255, 0.18), transparent 70%);
+    radial-gradient(56% 44% at 14% 2%, rgba(27, 143, 161, 0.16), transparent 62%),
+    radial-gradient(40% 40% at 88% 18%, rgba(199, 62, 111, 0.07), transparent 62%),
+    radial-gradient(70% 52% at 54% 104%, rgba(232, 154, 42, 0.2), transparent 68%);
 }
 
 /* Edge fade for marquees and overflow rows. */
 .au-edge-mask {
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-
-/* Gradient hairline: a 1px conic edge drawn with a mask, so the card
-   keeps its own background. */
-.au-hairline {
-  position: relative;
-}
-.au-hairline::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: var(--grad-edge);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
 }
 
 /* Pointer spotlight — components set --mx/--my on pointermove. */
@@ -516,7 +589,7 @@ html:has(.aurora-root)::-webkit-scrollbar-thumb:hover { background: #2b4750; }
   transition: opacity 0.35s var(--ease-out-expo);
   background: radial-gradient(
     260px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(47, 216, 173, 0.16),
+    color-mix(in srgb, var(--au-brand, var(--au-teal)) 12%, transparent),
     transparent 62%
   );
 }
@@ -525,47 +598,170 @@ html:has(.aurora-root)::-webkit-scrollbar-thumb:hover { background: #2b4750; }
   opacity: 1;
 }
 
-/* ── Type treatments ─────────────────────────────────────── */
+/* Hover lift — the plate rises and its shadow takes the colour of
+   whatever accent the card set on `--au-brand`. */
+.au-lift {
+  transition:
+    transform 0.5s var(--ease-out-expo),
+    border-color 0.5s var(--ease-out-expo),
+    box-shadow 0.5s var(--ease-out-expo);
+}
+.au-lift:hover,
+.au-lift:focus-within {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--au-brand, var(--au-teal)) 42%, var(--au-line));
+  box-shadow:
+    var(--au-lip),
+    0 26px 52px -18px color-mix(in srgb, var(--au-brand, var(--au-teal)) 34%, rgba(20, 8, 10, 0.34)),
+    0 3px 8px -4px rgba(20, 8, 10, 0.14);
+}
 
-/* Aurora gradient text with a slow pan. Painted with background-clip,
-   so a fallback colour is set first for anything that can't clip. */
+/* ═════════════════════════════════════════════════════════════
+   Type treatments
+   ═════════════════════════════════════════════════════════════ */
+
+/* The display face. Bricolage Grotesque is shipped with its
+   optical-size axis, and every display setting on the site pins it to
+   96 — the cut drawn for headlines, where the joins tighten and the
+   apertures close up. Below that it relaxes into a text face. */
+.au-display {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 96;
+  font-weight: 600;
+  letter-spacing: -0.028em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+/* The fold and the closing line carry more weight and a tighter fit. */
+.au-display-hero {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 96;
+  font-weight: 700;
+  letter-spacing: -0.032em;
+  line-height: 1.03;
+  text-wrap: balance;
+}
+
+/* Eyebrows, stat labels, table headers — Figtree, wide and small.
+   The letterspacing is what makes it read as a label and not as
+   shouting. */
+.au-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The rose-to-amber ink used on one phrase per heading. Painted
+   with background-clip, so a fallback colour is set first for
+   anything that cannot clip. */
 .au-grad-text {
-  color: var(--au-aqua);
+  color: var(--au-teal-deep);
   background: linear-gradient(
-    98deg,
-    var(--au-teal) 0%,
-    var(--au-aqua) 48%,
-    var(--au-sky) 100%
+    96deg,
+    var(--au-teal-deep) 0%,
+    var(--au-amber-ink) 58%,
+    var(--au-rose-ink) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* On cocoa the ink drops to two stops. A three-hue sweep across two or
+   three words at headline size reads as a rainbow; teal into gold reads
+   as light falling across the phrase. */
+.au-night .au-grad-text {
+  color: var(--au-gold);
+  background: linear-gradient(
+    96deg,
+    var(--au-teal-lift) 0%,
+    var(--au-gold) 88%
   );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Softly fading ink for oversized display headings. */
+/* Softly fading ink for the oversized footer wordmark. */
 .au-fade-text {
-  background: linear-gradient(178deg, var(--au-ink) 24%, rgba(236, 247, 243, 0.42) 128%);
+  background: linear-gradient(178deg, var(--au-ink) 18%, rgba(245, 230, 215, 0.28) 122%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.au-mono {
-  font-family: var(--font-mono);
-  font-feature-settings: "ss02" 1;
+/* ── The underline that grows from the centre ─────────────────
+   Lifted straight from the reference: a 3px pill that scales out
+   of nothing under a nav link. */
+.au-underline {
+  position: relative;
+}
+.au-underline::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: calc(100% - 1.75rem);
+  height: 3px;
+  border-radius: 2px;
+  background: var(--au-brand, var(--au-teal));
+  opacity: 0;
+  transform: translateX(-50%) scaleX(0) translateY(4px);
+  transition: transform 0.22s var(--ease-out-expo), opacity 0.22s ease;
+  pointer-events: none;
+}
+.au-underline:hover::after,
+.au-underline[data-active="true"]::after {
+  opacity: 1;
+  transform: translateX(-50%) scaleX(1) translateY(0);
 }
 
-/* ── Motion ─────────────────────────────────────────────────── */
-@keyframes aurora-drift-a {
-  0%, 100% { transform: translate3d(-4%, -2%, 0) scale(1.06) rotate(0deg); }
-  33% { transform: translate3d(6%, 4%, 0) scale(1.16) rotate(6deg); }
-  66% { transform: translate3d(-2%, 7%, 0) scale(1.1) rotate(-5deg); }
+/* ── The sweep on a filled button ─────────────────────────────
+   A light band that crosses the pill once on hover. */
+.au-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.au-sweep::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 80%
+  );
+  translate: -100%;
+  transition: opacity 0.3s ease, translate 0.6s var(--ease-out-expo);
+}
+.au-sweep:hover::before {
+  opacity: 1;
+  translate: 100%;
 }
 
-@keyframes aurora-drift-b {
-  0%, 100% { transform: translate3d(5%, 3%, 0) scale(1.12) rotate(0deg); }
-  50% { transform: translate3d(-7%, -5%, 0) scale(1.22) rotate(-8deg); }
+/* ═════════════════════════════════════════════════════════════
+   Motion
+   ═════════════════════════════════════════════════════════════ */
+
+@keyframes au-wash-drift-a {
+  0%, 100% { transform: translate3d(-3%, -2%, 0) scale(1.05); }
+  50% { transform: translate3d(4%, 3%, 0) scale(1.14); }
 }
+
+@keyframes au-wash-drift-b {
+  0%, 100% { transform: translate3d(4%, 2%, 0) scale(1.1); }
+  50% { transform: translate3d(-5%, -4%, 0) scale(1.18); }
+}
+
+.au-drift-a { animation: au-wash-drift-a 38s var(--ease-in-out) infinite; }
+.au-drift-b { animation: au-wash-drift-b 52s var(--ease-in-out) infinite; }
 
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -587,23 +783,10 @@ html:has(.aurora-root)::-webkit-scrollbar-thumb:hover { background: #2b4750; }
 }
 .animate-pulse-soft { animation: pulse-soft 2.8s var(--ease-in-out) infinite; }
 
-@keyframes sheen {
-  from { transform: translateX(-130%) skewX(-18deg); }
-  to { transform: translateX(230%) skewX(-18deg); }
-}
-
-@keyframes scan {
-  from { transform: translateY(-100%); }
-  to { transform: translateY(900%); }
-}
-
 @keyframes spin-slow {
   to { transform: rotate(360deg); }
 }
 .animate-spin-slow { animation: spin-slow 26s linear infinite; }
-
-.au-drift-a { animation: aurora-drift-a 34s var(--ease-in-out) infinite; }
-.au-drift-b { animation: aurora-drift-b 46s var(--ease-in-out) infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -619,7 +802,7 @@ html:has(.aurora-root)::-webkit-scrollbar-thumb:hover { background: #2b4750; }
    Demo sites — two self-contained sample-client languages.
    These routes exist to show prospective GP practices and care
    homes a finished site of their own, so each keeps its own scope
-   and palette and deliberately does NOT inherit Aurora.
+   and palette and deliberately does NOT inherit Aurum.
    ═════════════════════════════════════════════════════════════ */
 
 /* "Willowbrook Surgery" — modern NHS-flavoured GP demo: white chrome
@@ -650,7 +833,7 @@ html:has(.aurora-root)::-webkit-scrollbar-thumb:hover { background: #2b4750; }
   color: var(--dgp-ink);
 }
 
-/* Inside the GP demo the global skip link swaps its Aurora pill for
+/* Inside the GP demo the global skip link swaps its Aurum pill for
    the NHS yellow-on-ink focus treatment. Literal values: the link is
    a sibling of .demo-gp-root, so --dgp-* tokens do not reach it. */
 body:has(.demo-gp-root) > a[href="#main"]:focus {

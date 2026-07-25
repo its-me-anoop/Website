@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { packagesFaq } from "@/components/aurora/data";
-import { PackagesPage } from "@/components/aurora/packages/PackagesPage";
+import { packagesFaq } from "@/components/aurum/data";
+import { PackagesPage } from "@/components/aurum/packages/PackagesPage";
 
 const description =
   "Website packages for GP practices, care homes and growing organisations — custom design and build, managed care plans and ongoing partnership, with fixed written quotes.";

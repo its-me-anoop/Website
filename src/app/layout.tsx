@@ -3,31 +3,32 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { site } from "@/lib/site";
 
-/* Porcelain pages render on the native SF-style system stack (see
-   globals.css). The Atelier homepage sets Space Grotesk; Syne and
-   JetBrains Mono stay available to sub-pages — all self-hosted as
-   latin variable woff2 subsets (~97KB total) so builds never depend
-   on the Google Fonts CDN. */
+/* Aurum runs on two faces: Bricolage Grotesque for display (shipped
+   with its optical-size axis, which every heading pins to 96) and
+   Figtree for everything else. Syne stays for the care-home demo
+   alone, so it is not preloaded. All self-hosted as latin variable
+   woff2 subsets, so builds never depend on the Google Fonts CDN. */
+
+const bricolage = localFont({
+  src: "../fonts/bricolage-latin-var.woff2",
+  weight: "200 800",
+  variable: "--font-display-v",
+  display: "swap",
+});
+
+const figtree = localFont({
+  src: "../fonts/figtree-latin-var.woff2",
+  weight: "300 900",
+  variable: "--font-sans-v",
+  display: "swap",
+});
 
 const syne = localFont({
   src: "../fonts/syne-latin-var.woff2",
   weight: "400 800",
   variable: "--font-syne-v",
   display: "swap",
-});
-
-const grotesk = localFont({
-  src: "../fonts/space-grotesk-latin-var.woff2",
-  weight: "300 700",
-  variable: "--font-grotesk-v",
-  display: "swap",
-});
-
-const jbMono = localFont({
-  src: "../fonts/jetbrains-mono-latin-var.woff2",
-  weight: "100 800",
-  variable: "--font-jb-v",
-  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -100,7 +101,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#fdf6ec",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -242,7 +243,7 @@ export default function RootLayout({
     <html
       lang="en-GB"
       suppressHydrationWarning
-      className={`${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
+      className={`${bricolage.variable} ${figtree.variable} ${syne.variable}`}
     >
       <head>
         <JsonLd />

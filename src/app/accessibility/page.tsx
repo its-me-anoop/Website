@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Bullet, LegalPage, PolicySection } from "@/components/aurora/LegalPage";
+import { Bullet, LegalPage, PolicySection } from "@/components/aurum/LegalPage";
 
 const description =
   "Accessibility statement for flutterly.uk — the standards this website aims to meet, how it is tested, and how to report a problem.";
@@ -62,8 +62,8 @@ export default function AccessibilityPage() {
             visible focus indicator that meets contrast requirements.
           </Bullet>
           <Bullet bold="Contrast —">
-            text and interface colours meet AA ratios on both the dark canvas
-            and the light panels.
+            text and interface colours meet AA ratios on the cream page and
+            inside the darker bands alike.
           </Bullet>
           <Bullet bold="Images —">
             meaningful images carry text alternatives; decorative graphics,
@@ -103,7 +103,7 @@ export default function AccessibilityPage() {
           please say so — it will be treated as a bug, not feedback. Email{" "}
           <a
             href={`mailto:${site.email}`}
-            className="font-medium text-au-teal underline-offset-4 hover:underline"
+            className="font-semibold text-au-teal-deep underline-offset-4 hover:underline"
           >
             {site.email}
           </a>{" "}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Shell } from "@/components/aurora/Shell";
+import { Shell } from "@/components/aurum/Shell";
 
 export const metadata: Metadata = {
   title: "Artling — Privacy Policy",
@@ -25,7 +25,7 @@ function PolicySection({
   return (
     <section className="border-b border-line px-[var(--gutter)] py-14 last:border-b-0 md:py-20">
       <div className="mx-auto grid max-w-[920px] gap-x-14 gap-y-4 md:grid-cols-[64px_1fr] md:items-start">
-        <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-accent md:pt-1.5">
+        <p className="au-label text-accent md:pt-1.5">
           {label}
         </p>
         <div>

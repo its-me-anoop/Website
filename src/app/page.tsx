@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { Home as AuroraHome } from "@/components/aurora/home/Home";
+import { Home as AurumHome } from "@/components/aurum/home/Home";
 
 export const metadata: Metadata = {
   title: "Websites for GP practices, care homes & ambitious products",
@@ -41,5 +41,5 @@ export const viewport: Viewport = {
 };
 
 export default function Home() {
-  return <AuroraHome />;
+  return <AurumHome />;
 }

@@ -21,7 +21,7 @@ import {
   Tags,
   WandSparkles,
 } from "lucide-react";
-import { Shell } from "@/components/aurora/Shell";
+import { Shell } from "@/components/aurum/Shell";
 import { Button } from "@/components/ui/Button";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
@@ -168,7 +168,7 @@ function ArtlingPhoneMockup() {
             key={chip}
             className={`rounded-full px-3 py-2 text-[10px] font-semibold shadow-sm ${
               index === 0
-                ? "bg-[#FF9D57] text-white"
+                ? "bg-[#FF9D57] text-[#2F211D]"
                 : "border border-[#ECD9CF] bg-white/75 text-[#6E574D]"
             }`}
           >
