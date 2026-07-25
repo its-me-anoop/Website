@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { GpShell } from "@/components/demos/gp/GpShell";
+import { GP_THEME_BOOTSTRAP } from "@/components/demos/gp/GpThemeSwitcher";
 
 export const metadata: Metadata = {
   title: {
@@ -25,5 +26,15 @@ export default function GpDemoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <GpShell>{children}</GpShell>;
+  return (
+    <>
+      {/* Applies a previously chosen colour scheme before first paint,
+          so a returning visitor never sees the default flash first.
+          Without JavaScript the site simply renders in NHS blue. */}
+      <script
+        dangerouslySetInnerHTML={{ __html: GP_THEME_BOOTSTRAP }}
+      />
+      <GpShell>{children}</GpShell>
+    </>
+  );
 }

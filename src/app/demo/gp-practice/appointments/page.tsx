@@ -5,7 +5,6 @@ import {
   GpCallout,
   GpCareCard,
   GpPageHero,
-  GpSampleNote,
   GpSection,
 } from "@/components/demos/gp/GpShell";
 import { practice } from "@/components/demos/gp/data";
@@ -36,8 +35,8 @@ const routes = [
     ),
   },
   {
-    title: "Tell us your symptoms online",
-    copy: "Fill in a short online form and a doctor or nurse will review it and reply within one working day with the right next step.",
+    title: "Tell us what you need online",
+    copy: "Fill in a short form between 8:00am and 6:30pm. A GP reads every one and replies with the right next step, usually the same day.",
     icon: (
       <path
         strokeLinecap="round"
@@ -83,7 +82,7 @@ export default function AppointmentsPage() {
             alt="A GP talking through notes with a patient in a consulting room"
             width={760}
             height={507}
-            className="hidden rounded-2xl object-cover shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)] lg:block"
+            className="hidden rounded-[var(--dgp-radius)] object-cover shadow-[0_2px_0_var(--dgp-line)] lg:block"
           />
         </div>
         <div className="mt-8">
@@ -127,17 +126,21 @@ export default function AppointmentsPage() {
       </GpSection>
 
       <GpSection pad="flush">
-        <div id="online" className="scroll-mt-6 rounded-2xl bg-[var(--dgp-tint)] p-6 sm:p-8">
+        <div id="online" className="scroll-mt-6 rounded-[var(--dgp-radius)] bg-[var(--dgp-tint)] p-6 sm:p-8">
           <h2 className="text-[20px] font-bold tracking-tight">
             Request an appointment online
           </h2>
           <p className="mt-2 max-w-[680px] text-base leading-relaxed text-[var(--dgp-ink-soft)]">
-            Not sure you need an appointment? Describe your symptoms online and
-            we will point you to the right care — an appointment, a pharmacy,
-            self-care advice or a prescription. Forms submitted before 3:00pm
-            on a working day are reviewed the same day.
+            Not sure you need an appointment? Describe what is wrong online and
+            we will point you to the right care — an appointment, a pharmacist,
+            self-care advice or a prescription.
           </p>
-          <div className="mt-4 max-w-[680px]">
+          <p className="mt-4">
+            <GpAction href="/demo/gp-practice/online-consultation">
+              See how it works
+            </GpAction>
+          </p>
+          <div className="mt-5 max-w-[680px]">
             <GpCareCard variant="urgent" title="Urgent problems: do not use the online form">
               Call us on{" "}
               <a href={practice.phoneHref} className="font-semibold text-[var(--dgp-blue)] underline">
@@ -147,10 +150,6 @@ export default function AppointmentsPage() {
               life-threatening emergency.
             </GpCareCard>
           </div>
-          <GpSampleNote>
-            Sample site — on a live build this links to the practice&rsquo;s
-            online consultation form.
-          </GpSampleNote>
         </div>
       </GpSection>
 

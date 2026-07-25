@@ -24,27 +24,35 @@ tokens their markup uses (see docs/DESIGN-SYSTEM.md for those tokens).
 
 ## 3. Demo GP — "Willowbrook" (`/demo/gp-practice`, `.demo-gp-root`)
 
-A modern practice site that keeps NHS trust cues: white chrome with a
-blue-cross wordmark, pale sky hero washes, soft-shadow rounded-2xl
-cards, pill CTAs, deep-blue footer. NHS blue/green/yellow/red keep
-their NHS meanings throughout.
+NHS-service-manual flavoured, deliberately familiar to NHS patients:
 
-- Tokens (globals.css): `--dgp-blue #005eb8`, `--dgp-blue-deep #003087`,
-  `--dgp-tint #f0f4f5`, `--dgp-sky #e9f2fa` / `--dgp-sky-line #d2e2f0`
-  (hero washes), `--dgp-ink #212b32`, `--dgp-ink-soft #4c6272`,
-  `--dgp-line #d8dde0`, `--dgp-green #007f3b` (the "do" action colour),
-  `--dgp-yellow` (focus), `--dgp-red` (urgent), `--dgp-amber` /
-  `--dgp-amber-line` / `--dgp-amber-tint` (warning callouts).
-- Elevation: one shared soft shadow (`gpShadow` in GpShell) on every
-  raised surface; radius ladder rounded-full (pills/chips) ·
-  rounded-2xl (cards/panels) · rounded-xl (media, wordmark).
+- **Three colour schemes over one structure.** `nhs` (default), `forest`
+  and `slate` re-declare the `--dgp-*` tokens and nothing else — every
+  care card, task tile, breadcrumb, focus style and the green "do"
+  colour are the service manual's in all three. Chosen by the showcase
+  bar above the masthead (Flutterly's chrome, not the practice's),
+  applied before paint by a blocking script in the demo layout, and
+  each audited separately by `npm run test:contrast`.
+- Tokens (globals.css): `--dgp-blue` (masthead/links), `--dgp-blue-deep`
+  (nav), `--dgp-tint`, `--dgp-ink`, `--dgp-ink-soft`, `--dgp-line`,
+  `--dgp-green` (the "do" action colour), `--dgp-yellow` (focus, the
+  same in every scheme), `--dgp-red` (urgent), `--dgp-emergency`,
+  `--dgp-amber*` (warning callouts), `--dgp-radius`.
 - Type ladder: text-sm 14 (small print) · text-base 16 (body) ·
   text-lg 18 (card titles/h3) · 20 (inner-page h2) · text-2xl 24
   (landing-section h2) · clamp h1. No sizes off the ladder.
 - Light theme only (`colorScheme: "light"`): patients of every age on any
   device in daylight; no dark mode.
-- Server components only — no client JS in the demo; native `<details>`,
-  real `<table>`, semantic HTML.
+- Server components except three: the nav (current-page marking), the
+  colour-scheme switcher, and the online-consultation form. Everything
+  else is native `<details>`, real `<table>`, semantic HTML, and the
+  whole site renders and reads without JavaScript.
+- **The triage form actually works.** `GpTriageDemo` walks the journey
+  every online-consultation supplier implements — what do you need, who
+  is it for, tell us about it, here is what happens next — and submits
+  nothing. Focus moves to each new question in a layout effect, never a
+  `requestAnimationFrame`: focusing asynchronously races anyone who
+  starts typing immediately and silently eats their keystrokes.
 - Typography: system/Geist sans, fixed scale, body ≥15px, generous
   line-height. One `<h1>` per page.
 - Focus style: 3px `--dgp-yellow` outline (NHS convention).
