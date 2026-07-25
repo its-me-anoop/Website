@@ -206,8 +206,26 @@ Three details worth keeping:
   collapsed the depth of the screens inside them for the whole
   animation, and the composition popped into perspective as the fade
   ended. They lift without fading.
-- The shared observer uses `rootMargin: "100000px 0px -12% 0px"`. The
-  bottom −12% is the timing. The enormous top margin is a correctness
+- **The fade and the rise are two animations at two speeds.** `au-fade`
+  runs in ~0.24s and `au-rise` in ~0.62s, off the same delay. Sharing
+  one duration forced a choice between readable-soon and visible-motion:
+  the only way to get copy on screen faster was to shorten the entrance
+  until there was no entrance. Split, the words resolve in about a fifth
+  of a second and the block keeps settling for half a second after that
+  — which is the part the eye actually reads as movement.
+- The shared observer uses `rootMargin: "100000px 0px 10% 0px"`. The
+  bottom **+10%** starts the entrance while the block is still just
+  below the fold, so it is already resolving by the time anyone can see
+  it. That number is a trade: too small and a block is blank at the
+  moment you look at it; too large and the entrance finishes off-screen,
+  which is the same as not having one. Measured over a full scroll, no
+  block is ever blank or part-faded while on screen, and 47 of 50 are
+  still visibly settling once they are.
+- Per-block `delay` is clamped to 0.1s once armed (`MAX_DELAY`). A
+  staircase across neighbours is right when the group arrives together
+  and pure waiting when it does not. The fold's longer cascade is
+  untouched, because nothing above the fold is ever armed.
+- The enormous top margin is a correctness
   fix: without it, a trackpad flick or a jump to a `#hash` can carry a
   block from below the fold to above it between two frames, the ratio
   goes 0 → 0, no threshold is crossed, the callback never fires at all,

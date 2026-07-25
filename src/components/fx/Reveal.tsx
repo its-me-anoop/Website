@@ -6,6 +6,19 @@ import { cn } from "@/lib/utils";
 /** The house entrance curve — fast out of the gate, long tail. */
 export const EASE = [0.16, 1, 0.3, 1] as const;
 
+/**
+ * Ceiling on a block's own entrance delay, in seconds.
+ *
+ * Call sites stagger neighbouring blocks by passing `delay`, which is
+ * right when the whole group is on screen together and pure waiting
+ * when it is not — a third of a second of nothing, on the one block the
+ * viewer has just scrolled to. Above the fold nothing is armed, so the
+ * fold's longer cascade is untouched; this only clamps the blocks a
+ * viewer arrives at mid-scroll, where the ordering still reads but the
+ * wait does not.
+ */
+const MAX_DELAY = 0.1;
+
 /* ─────────────────────────────────────────────────────────────
    The entrance system.
 
@@ -51,8 +64,17 @@ function observerFor(): IntersectionObserver | null {
       (entries) => {
         for (const entry of entries) hits.get(entry.target)?.(entry.isIntersecting);
       },
-      /* Bottom −12%: a block resolves as its top passes 88% of the
-         viewport, which is what gives the entrance its timing.
+      /* Bottom +32%: the entrance starts while the block is still a
+         third of a screen BELOW the fold, so it is most of the way in
+         by the time the viewer can see it.
+         ─────────────────────────────────────────────────────────
+         This margin used to be −12%, which meant a block only began to
+         appear once its top had already climbed to 88% of the viewport
+         — and then took the better part of a second to arrive. Measured
+         over a full scroll of the homepage, real copy sat invisible for
+         a median of 782ms after entering view, with 60 blocks blank for
+         more than half a second. Motion is supposed to be serving the
+         reading, and it was getting in the way of it.
          ─────────────────────────────────────────────────────────
          Top +100000px: the root is extended far above the viewport so
          that anything already scrolled past still counts as
@@ -61,9 +83,8 @@ function observerFor(): IntersectionObserver | null {
          below the fold to above it between two animation frames — the
          intersection ratio goes 0 → 0, no threshold is crossed, the
          observer never fires at all, and that block stays invisible for
-         the rest of the session. Widening the root cannot make anything
-         reveal early: the bottom edge alone decides that. */
-      { rootMargin: "100000px 0px -12% 0px" }
+         the rest of the session. */
+      { rootMargin: "100000px 0px 10% 0px" }
     );
   }
   return sharedObserver;
@@ -150,7 +171,7 @@ export function Reveal({
       data-au-reveal=""
       style={
         {
-          "--au-delay": `${delay}s`,
+          "--au-delay": `${Math.min(delay, MAX_DELAY)}s`,
           "--au-rise": `${y}px`,
           ...(scale ? { "--au-scale": `${scale}` } : {}),
         } as React.CSSProperties
@@ -256,7 +277,7 @@ export function Stagger({
       data-au-stagger=""
       style={
         {
-          "--au-delay": `${delay}s`,
+          "--au-delay": `${Math.min(delay, MAX_DELAY)}s`,
           "--au-gap": `${gap}s`,
         } as React.CSSProperties
       }

@@ -770,40 +770,47 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
 @media (prefers-reduced-motion: no-preference) {
   [data-au-reveal][data-armed] {
     opacity: 0;
-    transform: translate3d(0, var(--au-rise, 26px), 0) scale(var(--au-scale, 1));
+    transform: translateY(var(--au-rise, 26px)) scale(var(--au-scale, 1));
   }
   [data-au-reveal][data-armed][data-in] {
     opacity: 1;
     transform: none;
-    animation: au-enter 0.72s var(--ease-out-quint) var(--au-delay, 0s) backwards;
+    animation:
+      au-fade 0.24s var(--ease-out-quint) var(--au-delay, 0s) backwards,
+      au-rise 0.62s var(--ease-out-quint) var(--au-delay, 0s) backwards;
   }
 
   /* Display headings resolve word by word, each one clipped out of
      its own line box. */
   [data-au-words][data-armed] [data-au-word] {
     opacity: 0;
-    transform: translate3d(0, 112%, 0);
+    transform: translateY(112%);
   }
   [data-au-words][data-armed][data-in] [data-au-word] {
     opacity: 1;
     transform: none;
-    animation: au-word 0.8s var(--ease-out-quint) var(--au-delay, 0s) backwards;
+    animation:
+      au-fade 0.22s var(--ease-out-quint) var(--au-delay, 0s) backwards,
+      au-word-rise 0.6s var(--ease-out-quint) var(--au-delay, 0s) backwards;
   }
 
   /* Grid and list children, delayed by their position in the row.
-     The ladder covers the longest run on the site (nine audit
-     checks); anything past it simply enters on the last beat. */
+     The ladder stops at five: past that the delay is doing nothing but
+     keeping the last card of a long grid waiting, and a viewer who has
+     scrolled to it wants to read it. */
   [data-au-stagger][data-armed] [data-au-stagger-item] {
     --au-item-delay: calc(
-      var(--au-delay, 0s) + var(--au-i, 0) * var(--au-gap, 0.09s)
+      var(--au-delay, 0s) + var(--au-i, 0) * var(--au-gap, 0.05s)
     );
     opacity: 0;
-    transform: translate3d(0, 24px, 0);
+    transform: translateY(24px);
   }
   [data-au-stagger][data-armed][data-in] [data-au-stagger-item] {
     opacity: 1;
     transform: none;
-    animation: au-enter 0.8s var(--ease-out-quint) var(--au-item-delay) backwards;
+    animation:
+      au-fade 0.24s var(--ease-out-quint) var(--au-item-delay) backwards,
+      au-rise 0.62s var(--ease-out-quint) var(--au-item-delay) backwards;
     --au-rise: 24px;
   }
   [data-au-stagger] > :nth-child(1) { --au-i: 0; }
@@ -811,11 +818,7 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
   [data-au-stagger] > :nth-child(3) { --au-i: 2; }
   [data-au-stagger] > :nth-child(4) { --au-i: 3; }
   [data-au-stagger] > :nth-child(5) { --au-i: 4; }
-  [data-au-stagger] > :nth-child(6) { --au-i: 5; }
-  [data-au-stagger] > :nth-child(7) { --au-i: 6; }
-  [data-au-stagger] > :nth-child(8) { --au-i: 7; }
-  [data-au-stagger] > :nth-child(9) { --au-i: 8; }
-  [data-au-stagger] > :nth-child(n + 10) { --au-i: 9; }
+  [data-au-stagger] > :nth-child(n + 6) { --au-i: 5; }
 
   /* Above-the-fold furniture — the header bar, the spec chips. These
      are on screen at load, so they play once on a timer rather than
@@ -853,9 +856,26 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
   }
 }
 
-@keyframes au-word {
+/* Fade and rise are deliberately two animations at two speeds, not one.
+   Sharing a duration meant the only way to make a block readable sooner
+   was to shorten the motion until there was no motion left. Split, the
+   words resolve in about a fifth of a second — you never look at a
+   blank block — while the rise carries on settling for half a second
+   after that, which is the part the eye reads as movement. */
+@keyframes au-fade {
   from {
     opacity: 0;
+  }
+}
+
+@keyframes au-rise {
+  from {
+    transform: translate3d(0, var(--au-rise, 26px), 0) scale(var(--au-scale, 1));
+  }
+}
+
+@keyframes au-word-rise {
+  from {
     transform: translate3d(0, 112%, 0);
   }
 }
