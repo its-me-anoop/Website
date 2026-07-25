@@ -47,12 +47,11 @@ export function Nav() {
   }, []);
 
   /* Close the sheet when the viewport grows past `lg`.
-     ─────────────────────────────────────────────────────────────
-     Above `lg` both the sheet and the hamburger are `display: none`,
-     so there is no longer any way to close it — and the effect below
-     keeps `main`, the footer and the scroll lock in place. Rotating an
-     iPad with the menu open left a page that looked completely normal
-     and in which nothing could be clicked. */
+     Above `lg` both the sheet and the hamburger are `display: none`, so
+     there is no longer any way to close it — and the effect below keeps
+     `main`, the footer and the scroll lock in place. Rotating an iPad
+     with the menu open left a page that looked completely normal and in
+     which nothing could be clicked. */
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 1024px)");
     const onChange = () => desktop.matches && setOpen(false);
@@ -111,18 +110,16 @@ export function Nav() {
   }, [open]);
 
   return (
-    <header
+    <m.header
       ref={headerRef}
-      /* The bar drops in from a stylesheet keyframe rather than a motion
-         component: a motion `initial` is serialised into the HTML, which
-         meant shipping the site header at `opacity: 0` and holding it
-         there until the async motion chunk arrived. */
-      className={`au-enter au-frost sticky top-0 z-[150] border-b transition-[border-color,box-shadow] duration-300 ${
+      className={`au-frost sticky top-0 z-[150] border-b transition-[border-color,box-shadow] duration-300 ${
         lifted || open
           ? "border-au-line shadow-[0_10px_30px_-24px_rgba(20,8,10,0.5)]"
           : "border-transparent"
       }`}
-      style={{ "--au-rise": "-20px", "--au-delay": "0.05s" } as React.CSSProperties}
+      initial={reduce ? false : { y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: EASE, delay: 0.05 }}
     >
       <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-3 px-4 py-3 sm:px-8">
         <Link
@@ -256,6 +253,6 @@ export function Nav() {
           </m.nav>
         )}
       </AnimatePresence>
-    </header>
+    </m.header>
   );
 }

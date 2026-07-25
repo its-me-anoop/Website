@@ -1,7 +1,8 @@
 "use client";
 
+import { m, useReducedMotion } from "framer-motion";
 import { Check, X } from "lucide-react";
-import { Reveal, Stagger, StaggerItem } from "@/components/fx";
+import { EASE, Reveal } from "@/components/fx";
 import { comparison } from "../data";
 import { Section, SectionHead } from "../primitives";
 
@@ -13,6 +14,8 @@ import { Section, SectionHead } from "../primitives";
  * column headers.
  */
 export function Compare() {
+  const reduce = useReducedMotion();
+
   return (
     <Section width="wide">
       <SectionHead
@@ -65,12 +68,18 @@ export function Compare() {
                 </th>
               </tr>
             </thead>
-            <Stagger as="tbody" gap={0.06}>
+            <tbody>
               {comparison.rows.map((row, i) => {
                 const last = i === comparison.rows.length - 1;
                 const border = last ? "" : "border-b border-au-line";
                 return (
-                  <StaggerItem as="tr" key={row.label}>
+                  <m.tr
+                    key={row.label}
+                    initial={reduce ? false : { opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "0px 0px -8% 0px" }}
+                    transition={{ duration: 0.55, ease: EASE, delay: i * 0.06 }}
+                  >
                     <th
                       scope="row"
                       className={`au-label px-6 py-5 align-top tracking-[0.16em] text-au-muted ${border}`}
@@ -102,10 +111,10 @@ export function Compare() {
                         {row.us}
                       </span>
                     </td>
-                  </StaggerItem>
+                  </m.tr>
                 );
               })}
-            </Stagger>
+            </tbody>
           </table>
         </div>
         <p className="au-label mt-4 text-center tracking-[0.2em] text-au-muted sm:hidden">

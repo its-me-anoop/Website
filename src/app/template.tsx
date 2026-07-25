@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { LazyMotion } from "framer-motion";
+import { LazyMotion, m, useReducedMotion } from "framer-motion";
 
 /**
  * Loads the Framer Motion feature set as a separate async chunk (see
@@ -12,31 +12,25 @@ const loadFeatures = () =>
 
 /**
  * Route transition wrapper. `template.tsx` re-mounts on every navigation, so a
- * plain enter animation gives each page a soft rise.
+ * plain enter animation gives each page a soft blur-and-rise reveal. Disabled
+ * for reduced-motion users, who get the content immediately.
  *
- * The entrance is a CSS keyframe, not a motion component, and that is
- * load-bearing. Framer serialises a component's `initial` state into the
- * server-rendered HTML, so animating this wrapper meant shipping
- * `<div style="opacity:0">` around the entire page and holding first paint
- * until the async motion chunk had downloaded, parsed and hydrated — on a
- * throttled connection, several seconds of blank cream. A keyframe runs off
- * the stylesheet, so the page paints immediately and animates if it can.
+ * This is also the single `LazyMotion` provider for the app: every page (and
+ * its `m` components) renders inside it.
  *
- * The keyframe deliberately has no fill mode: once it finishes, the wrapper
- * carries no transform, so it stops being the containing block for the fixed
- * paper backdrop and the scroll-progress rail. `prefers-reduced-motion` and
- * the no-JavaScript case are both handled in the stylesheet, before paint,
- * rather than after hydration (see globals.css, "Scroll entrances").
- *
- * This is still the single `LazyMotion` provider for the app: the pointer and
- * scroll effects that remain — Tilt, Magnetic, Parallax, the progress rail —
- * all render their `m` components inside it.
+ * The entrance moves opacity and offset only — never a filter. Framer keeps
+ * the final `filter: blur(0px)` on an element, and any filter other than
+ * `none` makes that element the containing block for every
+ * `position: fixed` descendant, which silently un-fixes the paper backdrop
+ * and the scroll-progress bar and anchors them to the document instead of
+ * the viewport.
  *
  * Demo routes (`/demo/…`) opt out entirely: they showcase static-first
- * builds, so they render without the wrapper and the motion feature chunk
- * never loads there.
+ * builds, so they render without the motion wrapper — content is visible
+ * before hydration and the motion feature chunk never loads there.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
+  const reduce = useReducedMotion();
   const pathname = usePathname();
 
   if (pathname?.startsWith("/demo")) {
@@ -45,7 +39,17 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
   return (
     <LazyMotion features={loadFeatures} strict>
-      <div className="au-page-in">{children}</div>
+      {reduce ? (
+        children
+      ) : (
+        <m.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {children}
+        </m.div>
+      )}
     </LazyMotion>
   );
 }

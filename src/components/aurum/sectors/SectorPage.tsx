@@ -51,7 +51,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
         />
         <div className="relative mx-auto grid w-full max-w-[1240px] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
           <div>
-            <Reveal y={14}>
+            <Reveal y={14} blur={4}>
               <p
                 className={`au-label inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 tracking-[0.22em] ${accent.chip}`}
               >

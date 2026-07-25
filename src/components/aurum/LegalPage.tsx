@@ -30,7 +30,7 @@ export function LegalPage({
           className="pointer-events-none absolute -top-40 right-[-10%] h-[460px] w-[620px] rounded-full bg-au-amber/12 blur-[120px]"
         />
         <div className="relative mx-auto max-w-[920px]">
-          <Reveal y={12}>
+          <Reveal y={12} blur={4}>
             <span className="au-label inline-flex items-center gap-2 rounded-full border border-au-line bg-au-paper-2 px-3.5 py-1.5 tracking-[0.22em] text-au-ink-3">
               <span className="h-1.5 w-1.5 rounded-full bg-au-teal-deep" aria-hidden />
               {eyebrow}
@@ -73,7 +73,7 @@ export function PolicySection({
         <p className="au-label text-au-teal-deep md:pt-1.5">
           {label}
         </p>
-        <Reveal y={18}>
+        <Reveal y={18} blur={5}>
           <h2 className="au-display mb-5 text-[21px] md:text-[24px]">
             {title}
           </h2>

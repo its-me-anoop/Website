@@ -68,7 +68,7 @@ export function AuditPage() {
           className="pointer-events-none absolute left-1/2 top-0 h-[440px] w-[760px] max-w-full -translate-x-1/2 rounded-full bg-au-rose/12 blur-[120px]"
         />
         <div className="relative mx-auto w-full max-w-[1240px]">
-          <Reveal y={14}>
+          <Reveal y={14} blur={4}>
             <Eyebrow className="justify-center">Free website audit</Eyebrow>
           </Reveal>
           <TextReveal

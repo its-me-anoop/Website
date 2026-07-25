@@ -1,9 +1,11 @@
 "use client";
 
+import { m, useReducedMotion } from "framer-motion";
 import { ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { site } from "@/lib/site";
 import {
   CountUp,
+  EASE,
   IMac,
   MacBook,
   ParticleField,
@@ -35,6 +37,8 @@ const chips = [
  * whole composition renders still (but complete) under reduced motion.
  */
 export function Hero() {
+  const reduce = useReducedMotion();
+
   return (
     <section
       id="top"
@@ -48,7 +52,7 @@ export function Hero() {
 
       <div className="relative mx-auto grid w-full max-w-[1240px] items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.04fr_0.96fr] lg:gap-12">
         <div className="relative">
-          <Reveal y={16}>
+          <Reveal y={16} blur={4}>
             <p className="inline-flex items-center gap-2.5 rounded-full border border-au-line bg-au-surface-2 py-1.5 pl-2.5 pr-4 text-[12.5px] font-medium text-au-ink-2 backdrop-blur-md">
               <span className="relative flex h-2 w-2" aria-hidden>
                 <span className="animate-pulse-soft absolute inline-flex h-full w-full rounded-full bg-au-teal-lift" />
@@ -92,11 +96,10 @@ export function Hero() {
               {heroStats.map((stat) => (
                 <div key={stat.label}>
                   <dt className="sr-only">{stat.label}</dt>
-                  {/* The reserved box has to fit the longest value, not
-                      the typical one: "WCAG 2.2 AA" wraps to two lines
-                      and at 2.3em it overflowed, pushing that one
-                      column's label below its three neighbours and
-                      breaking the band of small caps. */}
+                  {/* The reserved box has to fit the longest value, not the
+                      typical one: "WCAG 2.2 AA" wraps to two lines and at
+                      2.3em it overflowed, pushing that one column's label
+                      below its three neighbours. */}
                   <dd className="flex min-h-[2.7em] items-start text-balance text-[clamp(1.1rem,1.8vw,1.4rem)] font-bold leading-tight tracking-[-0.02em] text-au-gold">
                     <CountUp value={stat.value} />
                   </dd>
@@ -116,59 +119,46 @@ export function Hero() {
                 sample practice site. Hidden below `sm`, where there is
                 no room for two machines and the MacBook alone tells the
                 story. */}
-            {/* Two rules hold the desk together. The entrance keyframe
-                owns `transform` while it runs, so the depth lives on an
-                inner box — a translateZ sharing the animated element
-                would be dropped for the duration and pop back at the
-                end. And the entrance is `au-lift-in`, which does not
-                touch opacity: an element at less than full opacity is a
-                grouping element, and a grouping element flattens
-                `preserve-3d`, which collapsed the screens onto one
-                plane for the whole animation. */}
-            <div
-              className="au-lift-in relative hidden w-[78%] sm:block sm:[transform-style:preserve-3d]"
-              style={
-                { "--au-rise": "34px", "--au-delay": "0.5s" } as React.CSSProperties
-              }
+            <m.div
+              className="relative hidden w-[78%] sm:block [transform:translateZ(12px)]"
+              initial={reduce ? false : { y: 34, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, ease: EASE, delay: 0.5 }}
             >
-              <div className="[transform:translateZ(12px)]">
-                <IMac
-                  shell="dark"
-                  shot={{
-                    src: "/demos/gp-home.png",
-                    alt: "",
-                    tint: "#f0f4f5",
-                    sizes: "(max-width: 1024px) 56vw, 400px",
-                  }}
-                />
-              </div>
-            </div>
+              <IMac
+                shell="dark"
+                shot={{
+                  src: "/demos/gp-home.png",
+                  alt: "",
+                  tint: "#f0f4f5",
+                  sizes: "(max-width: 1024px) 56vw, 400px",
+                }}
+              />
+            </m.div>
 
             {/* The MacBook sits in front of it and to the right,
                 carrying the strongest build. On its own below `sm`. */}
-            <div
-              className="au-lift-in relative w-full sm:absolute sm:-bottom-[9%] sm:-right-[3%] sm:w-[68%] sm:[transform-style:preserve-3d]"
-              style={
-                { "--au-rise": "46px", "--au-delay": "0.32s" } as React.CSSProperties
-              }
+            <m.div
+              className="relative w-full sm:absolute sm:-bottom-[9%] sm:-right-[3%] sm:w-[68%] sm:[transform:translateZ(56px)]"
+              initial={reduce ? false : { y: 46, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, ease: EASE, delay: 0.32 }}
             >
-              <div className="sm:[transform:translateZ(56px)]">
-                <MacBook
-                  shell="light"
-                  shot={{
-                    src: "/project-pembroke.png",
-                    alt: "The Pembroke Care website, designed and built by Flutterly",
-                    tint: "#f7f2ea",
-                    priority: true,
-                    sizes: "(max-width: 1024px) 76vw, 360px",
-                  }}
-                />
-                <figcaption className="sr-only">
-                  Live client work: Pembroke Care, and the Willowbrook Surgery
-                  sample practice website
-                </figcaption>
-              </div>
-            </div>
+              <MacBook
+                shell="light"
+                shot={{
+                  src: "/project-pembroke.png",
+                  alt: "The Pembroke Care website, designed and built by Flutterly",
+                  tint: "#f7f2ea",
+                  priority: true,
+                  sizes: "(max-width: 1024px) 76vw, 360px",
+                }}
+              />
+              <figcaption className="sr-only">
+                Live client work: Pembroke Care, and the Willowbrook Surgery
+                sample practice website
+              </figcaption>
+            </m.div>
 
             {/* Warm light pooling under the desk. */}
             <div
@@ -180,21 +170,17 @@ export function Hero() {
           {chips.map((chip, i) => {
             const Icon = chip.icon;
             return (
-              <span
+              <m.span
                 key={chip.label}
                 aria-hidden
-                className={`au-enter absolute ${chip.position} z-20 hidden items-center gap-2 rounded-full border border-au-line-2 bg-au-night/85 px-3.5 py-2 text-[12.5px] font-medium text-au-ink shadow-[0_18px_40px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md lg:inline-flex`}
-                style={
-                  {
-                    "--au-rise": "18px",
-                    "--au-scale": "0.94",
-                    "--au-delay": `${0.85 + i * 0.14}s`,
-                  } as React.CSSProperties
-                }
+                className={`absolute ${chip.position} z-20 hidden items-center gap-2 rounded-full border border-au-line-2 bg-au-night/85 px-3.5 py-2 text-[12.5px] font-medium text-au-ink shadow-[0_18px_40px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md lg:inline-flex`}
+                initial={reduce ? false : { y: 18, opacity: 0, scale: 0.94 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7, ease: EASE, delay: 0.85 + i * 0.14 }}
               >
                 <Icon size={14} className="text-au-teal-lift" />
                 {chip.label}
-              </span>
+              </m.span>
             );
           })}
         </div>

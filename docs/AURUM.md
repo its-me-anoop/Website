@@ -56,15 +56,13 @@ opaque, so they simply cover it. Four decorative layers, all
 3. an engineering grid, radially masked to a whisper
 4. paper tooth, blended multiply, to kill gradient banding
 
-> **Gotcha worth keeping:** any ancestor with a `filter` — or a
-> `transform` — other than `none` becomes the containing block for
-> `position: fixed` descendants, which silently un-fixes this backdrop
-> and the scroll-progress rail and anchors them to the document. Framer
-> Motion leaves a final `filter: blur(0px)` behind on anything that
-> animates a blur, so no entrance animates a filter. The route-change
-> keyframe does animate a transform, and therefore carries **no fill
-> mode**: the moment it ends the wrapper is untransformed again. Do not
-> "tidy" `au-page-in` to `forwards`.
+> **Gotcha worth keeping:** any ancestor with a `filter` other than
+> `none` becomes the containing block for `position: fixed`
+> descendants. Framer Motion leaves the final `filter: blur(0px)` on
+> anything that animates a blur, which silently un-fixes this backdrop
+> and the scroll-progress rail and anchors them to the document instead
+> of the viewport. `app/template.tsx` therefore animates opacity and
+> offset only — never a filter.
 
 ## Tokens (globals.css)
 
@@ -91,8 +89,7 @@ inversion), `.au-rule-top` / `.au-rule-bottom` / `.au-rule-heavy` /
 `.au-wash-night` / `.au-grid` / `.au-dots` / `.au-grain` (background
 graphics), `.au-lift` / `.au-spot` (hover behaviour), `.au-display` /
 `.au-display-hero` / `.au-label` / `.au-fade-text` (type),
-`.au-underline` / `.au-sweep` (the two signature interactions), and
-`.au-enter` / `.au-lift-in` / `.au-page-in` (the keyframe entrances).
+`.au-underline` / `.au-sweep` (the two signature interactions).
 
 > There was an `.au-grad-text` that painted one phrase per heading with
 > a three-stop teal → amber → rose gradient through
@@ -161,75 +158,32 @@ src/components/
 | `Marquee` | Seamless band; the duplicated half is `aria-hidden` |
 | `ScrollProgress` | The three-colour rule, filling as the page scrolls |
 
-### Entrances are CSS, and only ever additive
+### Entrances
 
-Two rules, and both are load-bearing.
+`Reveal` / `TextReveal` / `Stagger` are Framer Motion components that
+animate once as a block scrolls into view, and `app/template.tsx` gives
+each route a soft rise on entry. Both honour `prefers-reduced-motion` by
+rendering content statically.
 
-**A block is only hidden once JavaScript has armed it.** The hidden
-start state in `globals.css` requires `[data-armed]`, an attribute
-nothing but the effect in `fx/Reveal.tsx` ever writes. There is
-therefore no state in which content is hidden and nothing is coming to
-reveal it — no JavaScript, a blocked script, a chunk that 404s after a
-deploy, a hydration crash: the page simply reads.
+> **Known trade.** Framer serialises a component's `initial` state into
+> the server-rendered HTML, so a page ships its blocks at `opacity: 0`
+> and they resolve once the async `domMax` chunk has hydrated. That
+> costs first paint on a slow connection, and it means the marketing
+> routes need JavaScript to become readable — the `/demo/*` routes opt
+> out of the wrapper entirely and do not.
+>
+> This was replaced with a stylesheet-driven system and then put back:
+> the CSS version fixed the paint cost but changed the feel of the
+> scroll, and the feel won. If it is revisited, the two things to keep
+> from that attempt are that the fade and the rise want different
+> durations (words readable fast, block still settling), and that the
+> observer should fire *before* a block reaches the fold rather than
+> after — `-12%` means a block only starts appearing once its top has
+> already climbed to 88% of the viewport.
 
-**Only what is below the fold at hydration gets armed.** Anything
-already on screen is left exactly as served, so the headline, the lede
-and the calls to action paint with the HTML and never wait on a bundle.
-
-This is not a style preference. These entrances used to be motion
-components, and Framer serialises a component's `initial` state into the
-server-rendered HTML: the homepage shipped 60 text-bearing elements at
-`opacity: 0`, wrapped in one page-level `<div style="opacity:0">`, and
-nothing painted until the async `domMax` chunk had downloaded, parsed
-and hydrated. At 400 kbps that was a 10.5 s blank cream screen. FCP is
-now 3.3 s, the hero is readable at that moment, and every route renders
-in full with JavaScript off.
-
-Three shapes, all transform-and-opacity only — no animated blur, which
-is the most expensive thing to composite during a scroll:
-
-| Hook | Used for |
-|---|---|
-| `[data-au-reveal]` / `[data-au-words]` / `[data-au-stagger]` | Observer-driven. Armed with `data-armed`, revealed with `data-in`. |
-| `.au-enter` / `.au-page-in` | Plain keyframes on a timer — above-the-fold furniture and the route change. |
-| `.au-lift-in` | The same, without the fade. |
-
-Three details worth keeping:
-
-- The entrance is an **`animation`, never a `transition`**. A
-  `transition` shorthand on `[data-au-reveal]` outranks the
-  `transition-colors` / `transition-shadow` utilities that call sites
-  put on the very same element, and their hovers snap instead of easing.
-- `.au-lift-in` exists because an element below full opacity is a
-  *grouping element*, and a grouping element flattens
-  `transform-style: preserve-3d`. Fading the hero's two machines
-  collapsed the depth of the screens inside them for the whole
-  animation, and the composition popped into perspective as the fade
-  ended. They lift without fading.
-- **The fade and the rise are two animations at two speeds.** `au-fade`
-  runs in ~0.24s and `au-rise` in ~0.62s, off the same delay. Sharing
-  one duration forced a choice between readable-soon and visible-motion:
-  the only way to get copy on screen faster was to shorten the entrance
-  until there was no entrance. Split, the words resolve in about a fifth
-  of a second and the block keeps settling for half a second after that
-  — which is the part the eye actually reads as movement.
-- The shared observer uses `rootMargin: "100000px 0px 10% 0px"`. The
-  bottom **+10%** starts the entrance while the block is still just
-  below the fold, so it is already resolving by the time anyone can see
-  it. That number is a trade: too small and a block is blank at the
-  moment you look at it; too large and the entrance finishes off-screen,
-  which is the same as not having one. Measured over a full scroll, no
-  block is ever blank or part-faded while on screen, and 47 of 50 are
-  still visibly settling once they are.
-- Per-block `delay` is clamped to 0.1s once armed (`MAX_DELAY`). A
-  staircase across neighbours is right when the group arrives together
-  and pure waiting when it does not. The fold's longer cascade is
-  untouched, because nothing above the fold is ever armed.
-- The enormous top margin is a correctness
-  fix: without it, a trackpad flick or a jump to a `#hash` can carry a
-  block from below the fold to above it between two frames, the ratio
-  goes 0 → 0, no threshold is crossed, the callback never fires at all,
-  and that block stays invisible for the rest of the session.
+A `background-clip: text` fill never reaches glyphs inside a
+transformed descendant, so `TextReveal` puts the tone class on the
+*animated* word span — not on a wrapper around it.
 
 
 ## Signature moves
