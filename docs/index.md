@@ -35,7 +35,8 @@ src/
 │   └── projects/           # Case-study subpages (sipli, artling)
 ├── components/
 │   ├── fx/                 # Effects kit (ground, particles, reveals,
-│   │                       # plates, tilt, magnetism, marquee, count-up)
+│   │                       # plates, device frames, tilt, magnetism,
+│   │                       # marquee, count-up)
 │   ├── aurum/              # The site itself (shell, nav, footer, legal,
 │   │                       # primitives, data, home/sectors/packages/audit)
 │   ├── ui/                 # Primitives used by the case studies
@@ -66,6 +67,6 @@ src/
   with `SoftwareApplication` JSON-LD on product pages.
 - `sitemap.ts` and `robots.ts` generate `/sitemap.xml` and `/robots.txt`.
 - Shared constants come from `src/lib/site.ts` so details never drift.
-- Fonts are self-hosted latin variable subsets — Fraunces (with its
-  optical-size axis) and DM Sans, ~104KB, no CDN dependency. Syne is
-  loaded without preload for the care-home demo alone.
+- Fonts are self-hosted latin variable subsets — Bricolage Grotesque
+  (with its optical-size axis) and Figtree, ~97KB, no CDN dependency.
+  Syne is loaded without preload for the care-home demo alone.

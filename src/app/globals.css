@@ -5,9 +5,8 @@
    ───────────────────────────────────────────────────────────────────
    A warm editorial language for the studio site: a cream paper canvas
    under soft amber washes, cocoa ink, plates that sit on the page like
-   pressed card, a Fraunces display serif over DM Sans, and one
-   three-colour rule — teal → amber → rose — drawn at the seams between
-   sections.
+   pressed card, Bricolage Grotesque over Figtree, and one three-colour
+   rule — teal → amber → rose — drawn at the seams between sections.
 
    The page is light. Two night bands (the fold and the process
    interlude) invert it, and they do it by *re-declaring the same
@@ -242,8 +241,8 @@
   --radius-xl: var(--r-xl);
   --radius-2xl: var(--r-2xl);
 
-  --font-sans: var(--font-dm-v), "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
-  --font-display: var(--font-fraunces-v), "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-sans-v), "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-display-v), "Bricolage Grotesque", var(--font-sans-v), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-syne: var(--font-syne-v), "Syne", var(--font-sans);
 }
 
@@ -621,15 +620,15 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
    Type treatments
    ═════════════════════════════════════════════════════════════ */
 
-/* The display face. Fraunces is shipped with its optical-size axis,
-   and every display setting on the site pins it to 144 — the cut
-   drawn for headlines, with the sharpest contrast and the tightest
-   joins. Below that the letterforms turn bookish. */
+/* The display face. Bricolage Grotesque is shipped with its
+   optical-size axis, and every display setting on the site pins it to
+   96 — the cut drawn for headlines, where the joins tighten and the
+   apertures close up. Below that it relaxes into a text face. */
 .au-display {
   font-family: var(--font-display);
-  font-variation-settings: "opsz" 144;
-  font-weight: 450;
-  letter-spacing: -0.022em;
+  font-variation-settings: "opsz" 96;
+  font-weight: 600;
+  letter-spacing: -0.028em;
   line-height: 1.05;
   text-wrap: balance;
 }
@@ -637,14 +636,14 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
 /* The fold and the closing line carry more weight and a tighter fit. */
 .au-display-hero {
   font-family: var(--font-display);
-  font-variation-settings: "opsz" 144;
-  font-weight: 650;
-  letter-spacing: -0.028em;
+  font-variation-settings: "opsz" 96;
+  font-weight: 700;
+  letter-spacing: -0.032em;
   line-height: 1.03;
   text-wrap: balance;
 }
 
-/* Eyebrows, stat labels, table headers — DM Sans, wide and small.
+/* Eyebrows, stat labels, table headers — Figtree, wide and small.
    The letterspacing is what makes it read as a label and not as
    shouting. */
 .au-label {

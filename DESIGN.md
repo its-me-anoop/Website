@@ -6,8 +6,8 @@ Three scoped design systems coexist. Never leak tokens across scopes.
 
 See docs/AURUM.md. Warm cream paper canvas `#fdf6ec` under one shared
 fixed ground (drifting amber/rose/teal washes, masked grid, paper
-tooth), cocoa ink, plates that read as pressed card, **Fraunces over
-DM Sans**, and one three-colour rule — **teal `#1b8fa1` → amber
+tooth), cocoa ink, plates that read as pressed card, **Bricolage
+Grotesque over Figtree**, and one three-colour rule — **teal `#1b8fa1` → amber
 `#e89a2a` → rose `#c73e6f`** — at the seams between sections. Teal is
 the only action colour; `--au-teal-deep` carries anything that has to
 read at body size. Two `.au-night` bands (the fold, the process

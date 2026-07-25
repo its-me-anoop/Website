@@ -4,7 +4,7 @@ Every Flutterly-branded route — the homepage, the two sector pages,
 packages, the free audit, the accessibility statement, the case
 studies and the privacy policies — runs **Aurum**: a warm cream paper
 canvas under soft amber washes, cocoa ink, plates that sit on the page
-like pressed card, a Fraunces display serif over DM Sans, and one
+like pressed card, Bricolage Grotesque over Figtree, and one
 three-colour rule — **teal → amber → rose** — drawn at the seams
 between sections.
 
@@ -99,14 +99,19 @@ interactions).
 
 Two faces, no third.
 
-- **Fraunces** for display, shipped with its optical-size axis and
-  pinned by `.au-display` to `opsz 144` — the cut drawn for headlines,
-  with the sharpest contrast and the tightest joins. Below that the
-  letterforms turn bookish. `.au-display-hero` adds weight (650) and a
-  tighter fit for the fold and the closing line.
-- **DM Sans** for everything else, including `.au-label`: 11px,
+- **Bricolage Grotesque** for display, shipped with its optical-size
+  axis and pinned by `.au-display` to `opsz 96` — the cut drawn for
+  headlines, where the joins tighten and the apertures close up. Below
+  that it relaxes into a text face. `.au-display-hero` adds weight
+  (700) and a tighter fit for the fold and the closing line.
+- **Figtree** for everything else, including `.au-label`: 11px,
   uppercase, `0.28em` tracking, tabular numerals. The letterspacing is
   what makes it read as a label rather than as shouting.
+
+Bricolage does the job a display serif was doing before it: it sets
+tight enough that "No templates. No plugins. No excuses." holds one
+line where a neutral grotesque wraps, and it has enough character in
+the `g` and the `W` to carry a page that is otherwise very quiet.
 
 ## Structure
 
@@ -134,6 +139,7 @@ src/components/
 | Piece | What it does |
 |---|---|
 | `PaperField` | The shared four-layer ground described above |
+| `MacBook` / `IMac` / `Phone` | Device frames, drawn entirely in CSS |
 | `ParticleField` | Canvas constellation in the fold, in the rule's colours; count scales with area, DPR capped at 2, loop suspends off-screen or on a hidden tab |
 | `Reveal` / `TextReveal` / `Stagger` | Blur-and-rise entrances; `TextReveal` resolves a heading word by word |
 | `Plate` / `RuleCard` | The workhorse surface, and the rule-crowned card reserved for one featured item per page |
@@ -148,6 +154,13 @@ transformed descendant, so `TextReveal` puts the tone class on the
 
 ## Signature moves
 
+- **Work is shown on hardware** — a screenshot in a rounded rectangle
+  reads as "an image"; the same screenshot inside a laptop reads as "a
+  website someone is looking at", which is the claim the page is
+  making. The frames are CSS, not mock-up PNGs, so there is no raster
+  to ship and the aluminium re-tints (`light` on paper, `dark` on
+  night) with whatever ground it lands on. Reserved for the fold and
+  the sector pages — a grid of framed cards is noise.
 - **The rule at the seams** — teal → amber → rose, 3px between
   sections, 7px at the foot of the fold and the foot of the closing
   call to action, and as a tick under a heading or above a footer

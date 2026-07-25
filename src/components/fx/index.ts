@@ -5,6 +5,7 @@
  * `prefers-reduced-motion`.
  */
 export { PaperField } from "./PaperField";
+export { IMac, MacBook, Phone } from "./DeviceFrame";
 export { ParticleField } from "./ParticleField";
 export { RuleCard, Plate, useSpotlight } from "./Plate";
 export { CountUp } from "./CountUp";

@@ -151,8 +151,8 @@ export function TextLink({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   SectionHead — the recurring opener: eyebrow, Fraunces display
-   heading, lead paragraph.
+   SectionHead — the recurring opener: eyebrow, display heading,
+   lead paragraph.
    ───────────────────────────────────────────────────────────── */
 
 export function SectionHead({

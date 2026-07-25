@@ -3,23 +3,23 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { site } from "@/lib/site";
 
-/* Aurum runs on two faces: Fraunces for display (shipped with its
-   optical-size axis, which every heading pins to 144) and DM Sans for
-   everything else. Syne stays for the care-home demo alone, so it is
-   not preloaded. All self-hosted as latin variable woff2 subsets, so
-   builds never depend on the Google Fonts CDN. */
+/* Aurum runs on two faces: Bricolage Grotesque for display (shipped
+   with its optical-size axis, which every heading pins to 96) and
+   Figtree for everything else. Syne stays for the care-home demo
+   alone, so it is not preloaded. All self-hosted as latin variable
+   woff2 subsets, so builds never depend on the Google Fonts CDN. */
 
-const fraunces = localFont({
-  src: "../fonts/fraunces-latin-var.woff2",
-  weight: "100 900",
-  variable: "--font-fraunces-v",
+const bricolage = localFont({
+  src: "../fonts/bricolage-latin-var.woff2",
+  weight: "200 800",
+  variable: "--font-display-v",
   display: "swap",
 });
 
-const dmSans = localFont({
-  src: "../fonts/dm-sans-latin-var.woff2",
-  weight: "100 1000",
-  variable: "--font-dm-v",
+const figtree = localFont({
+  src: "../fonts/figtree-latin-var.woff2",
+  weight: "300 900",
+  variable: "--font-sans-v",
   display: "swap",
 });
 
@@ -243,7 +243,7 @@ export default function RootLayout({
     <html
       lang="en-GB"
       suppressHydrationWarning
-      className={`${fraunces.variable} ${dmSans.variable} ${syne.variable}`}
+      className={`${bricolage.variable} ${figtree.variable} ${syne.variable}`}
     >
       <head>
         <JsonLd />

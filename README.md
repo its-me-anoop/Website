@@ -4,7 +4,7 @@ The site of **Flutterly Ltd**, the one-person product studio of
 **Anoop Jose** (Reading, UK). It runs the
 ["Aurum" design language](./docs/AURUM.md) — a warm cream paper canvas
 under drifting amber washes, cocoa ink, plates that read as pressed
-card, a Fraunces display serif over DM Sans, and one three-colour rule
+card, Bricolage Grotesque over Figtree, and one three-colour rule
 — teal → amber → rose — drawn at the seams between sections. Every
 page shares a single fixed ground, and two night bands invert it by
 re-declaring the same tokens rather than by forking the components.
@@ -23,9 +23,9 @@ care homes a finished site of *theirs*, not of ours.
   all `aria-hidden` and suspended when off-screen
 - **Vitest** + Testing Library for tests, **Playwright** for the
   browser workflow
-- **Self-hosted fonts** — Fraunces (with its optical-size axis) and
-  DM Sans as latin variable woff2 subsets (~104KB total), plus Syne,
-  un-preloaded, for the care-home demo alone
+- **Self-hosted fonts** — Bricolage Grotesque (with its optical-size
+  axis) and Figtree as latin variable woff2 subsets (~97KB total),
+  plus Syne, un-preloaded, for the care-home demo alone
 
 ## Getting started
 
@@ -64,9 +64,12 @@ for the Porcelain tokens the case-study markup is built on.
 - **Two atmospheres, one component set** — `.au-night` re-declares the
   same tokens the cream page uses, so a plate, a hairline or a button
   inverts without a variant prop.
-- **Word-by-word headlines** — Fraunces resolves out of clipped line
+- **Word-by-word headlines** — Bricolage resolves out of clipped line
   boxes with the blur burning off, one phrase per heading picking up
   the rule's gradient.
+- **Work shown on hardware** — MacBook, iMac and phone frames drawn
+  entirely in CSS, so there is no mock-up raster to ship and the
+  aluminium re-tints with the ground it sits on.
 - **Per-card light** — a card sets `--au-brand` and its hover edge,
   shadow bloom and pointer spotlight all take that colour.
 - **Accessible by construction** — WCAG 2.2 AA on cream and cocoa

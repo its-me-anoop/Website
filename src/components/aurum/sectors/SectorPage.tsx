@@ -1,11 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
-import { Plate, Parallax, Reveal, Stagger, StaggerItem, TextReveal, Tilt } from "@/components/fx";
+import {
+  IMac,
+  MacBook,
+  Plate,
+  Parallax,
+  Reveal,
+  Stagger,
+  StaggerItem,
+  TextReveal,
+  Tilt,
+} from "@/components/fx";
 import { Shell } from "../Shell";
 import { CtaBand } from "../CtaBand";
-import { BrowserChrome } from "../home/Hero";
 import type { Sector } from "../data";
 import { Band, Btn, CheckItem, FaqList, Section, SectionHead } from "../primitives";
 
@@ -79,18 +87,15 @@ export function SectorPage({ sector }: { sector: Sector }) {
 
           <Reveal delay={0.2} className="mx-auto w-full max-w-[520px]">
             <Tilt strength={6}>
-              <figure className="au-plate-strong relative overflow-hidden rounded-[var(--r-xl)]">
-                <BrowserChrome />
-                <Image
-                  src={sector.heroImage.src}
-                  alt={sector.heroImage.alt}
-                  width={900}
-                  height={600}
-                  priority
-                  sizes="(max-width: 1024px) 92vw, 520px"
-                  className="h-auto w-full object-cover"
-                />
-              </figure>
+              <MacBook
+                shot={{
+                  src: sector.heroImage.src,
+                  alt: sector.heroImage.alt,
+                  tint: sector.heroImage.tint,
+                  priority: true,
+                  sizes: "(max-width: 1024px) 88vw, 500px",
+                }}
+              />
             </Tilt>
           </Reveal>
         </div>
@@ -175,32 +180,25 @@ export function SectorPage({ sector }: { sector: Sector }) {
               aria-label={`Open the ${sector.demo.name} sample website`}
               className="group block"
             >
-              <span className="au-plate-strong relative block overflow-hidden rounded-[var(--r-xl)] transition-transform duration-500 group-hover:-translate-y-1.5">
-                <span className="flex items-center gap-2 border-b border-au-line bg-au-surface px-4 py-2.5">
-                  <span className="flex gap-1.5" aria-hidden>
-                    <span className="h-2 w-2 rounded-full bg-au-surface-3" />
-                    <span className="h-2 w-2 rounded-full bg-au-surface-3" />
-                    <span className="h-2 w-2 rounded-full bg-au-surface-3" />
-                  </span>
-                  <span className="au-label ml-2 truncate rounded-full bg-au-surface-2 px-2.5 py-0.5 text-[10px] tracking-[0.14em] text-au-muted">
-                    flutterly.uk{sector.demo.href}
-                  </span>
-                  <span className="ml-auto flex items-center gap-1.5 text-[10.5px] font-semibold text-au-teal-deep">
-                    <span className="animate-pulse-soft h-1.5 w-1.5 rounded-full bg-au-teal-deep" aria-hidden />
-                    Live
-                  </span>
-                </span>
-                <Image
-                  src={sector.demo.image}
-                  alt={sector.demo.imageAlt}
-                  width={960}
-                  height={645}
-                  sizes="(max-width: 1024px) 92vw, 620px"
-                  className="h-auto w-full object-cover"
+              <span className="block transition-transform duration-500 group-hover:-translate-y-1.5">
+                <IMac
+                  shot={{
+                    src: sector.demo.image,
+                    alt: sector.demo.imageAlt,
+                    tint: sector.heroImage.tint,
+                    sizes: "(max-width: 1024px) 92vw, 600px",
+                  }}
                 />
               </span>
-              <span className="mt-4 block text-center text-[13px] text-au-muted">
-                A live, hosted sample — the organisation shown is fictional
+              <span className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-[13px] text-au-muted">
+                <span className="au-label inline-flex items-center gap-1.5 text-au-teal-deep">
+                  <span
+                    className="animate-pulse-soft h-1.5 w-1.5 rounded-full bg-au-teal-deep"
+                    aria-hidden
+                  />
+                  Live
+                </span>
+                flutterly.uk{sector.demo.href} — the organisation shown is fictional
               </span>
             </a>
           </Reveal>

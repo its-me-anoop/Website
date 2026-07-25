@@ -1,12 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { m, useReducedMotion } from "framer-motion";
 import { ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { site } from "@/lib/site";
 import {
   CountUp,
   EASE,
+  IMac,
+  MacBook,
   ParticleField,
   Reveal,
   TextReveal,
@@ -16,22 +17,24 @@ import { heroStats } from "../data";
 import { Btn } from "../primitives";
 
 const chips = [
-  { label: "WCAG 2.2 AA", icon: ShieldCheck, position: "left-[-7%] top-[1%]" },
-  { label: "100/100 speed budget", icon: Zap, position: "right-[-4%] top-[52%]" },
-  { label: "No templates", icon: Sparkles, position: "left-[4%] bottom-[2%]" },
+  { label: "WCAG 2.2 AA", icon: ShieldCheck, position: "left-[-9%] top-[26%]" },
+  { label: "100/100 speed budget", icon: Zap, position: "right-[-7%] top-[6%]" },
+  { label: "No templates", icon: Sparkles, position: "left-[-2%] bottom-[2%]" },
 ] as const;
 
 /**
  * The fold — the one place the page inverts to cocoa.
  *
- * A Fraunces headline in cream over a warm-lit night band, a gold stat
- * row beneath it, and to the right two client sites floating in glass
- * browser frames on a shared 3D tilt, with capability chips pinned in
- * the space between them. The three-colour rule cuts the band off at
- * the bottom, which is where the cream page begins.
+ * A Bricolage headline in cream over a warm-lit night band, a gold stat
+ * row beneath it, and to the right a desk: the Willowbrook Surgery
+ * sample practice site on an iMac at the back, the Pembroke Care build
+ * on a MacBook in front of it. Real hardware rather than floating
+ * rectangles, because the claim being made is that these are websites
+ * people actually sit down in front of.
  *
- * Everything decorative is aria-hidden, and the whole composition
- * renders still (but complete) under reduced motion.
+ * The three-colour rule cuts the band off at the bottom, which is where
+ * the cream page begins. Everything decorative is aria-hidden, and the
+ * whole composition renders still (but complete) under reduced motion.
  */
 export function Hero() {
   const reduce = useReducedMotion();
@@ -47,7 +50,7 @@ export function Hero() {
       />
       <ParticleField className="opacity-80" />
 
-      <div className="relative mx-auto grid w-full max-w-[1240px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.06fr_0.94fr] lg:gap-8">
+      <div className="relative mx-auto grid w-full max-w-[1240px] items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.04fr_0.96fr] lg:gap-12">
         <div className="relative">
           <Reveal y={16} blur={4}>
             <p className="inline-flex items-center gap-2.5 rounded-full border border-au-line bg-au-surface-2 py-1.5 pl-2.5 pr-4 text-[12.5px] font-medium text-au-ink-2 backdrop-blur-md">
@@ -63,7 +66,7 @@ export function Hero() {
             as="h1"
             delay={0.12}
             stagger={0.06}
-            className="au-display-hero mt-7 max-w-[680px] text-[clamp(2.7rem,6.4vw,4.75rem)]"
+            className="au-display-hero mt-7 max-w-[640px] text-[clamp(2.6rem,6vw,4.5rem)]"
             segments={[
               { text: "Websites that care for" },
               { text: "the people", tone: "gradient" },
@@ -96,7 +99,7 @@ export function Hero() {
                   <dd className="flex min-h-[2.3em] items-start text-balance text-[clamp(1.1rem,1.8vw,1.4rem)] font-bold leading-tight tracking-[-0.02em] text-au-gold">
                     <CountUp value={stat.value} />
                   </dd>
-                  <dd className="au-label mt-2.5 tracking-[0.14em] leading-[1.5] text-au-muted">
+                  <dd className="au-label mt-2.5 leading-[1.55] tracking-[0.1em] text-au-muted">
                     {stat.label}
                   </dd>
                 </div>
@@ -105,50 +108,58 @@ export function Hero() {
           </Reveal>
         </div>
 
-        {/* Layered browser frames of live client work. */}
-        <div className="relative mx-auto w-full max-w-[520px] lg:max-w-none">
-          <Tilt strength={7} className="relative">
+        {/* The desk. */}
+        <div className="relative mx-auto w-full max-w-[560px] lg:max-w-none">
+          <Tilt strength={5} className="relative">
+            {/* The iMac stands at the back of the desk, carrying the
+                sample practice site. Hidden below `sm`, where there is
+                no room for two machines and the MacBook alone tells the
+                story. */}
             <m.div
-              aria-hidden
-              className="absolute -right-[1%] top-[4%] hidden w-[74%] overflow-hidden rounded-[var(--r-lg)] border border-au-line-2 bg-au-night-2/90 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.95)] backdrop-blur-md sm:block [transform:translateZ(20px)_rotate(4deg)]"
-              initial={reduce ? false : { y: 44, opacity: 0 }}
+              className="relative hidden w-[78%] sm:block [transform:translateZ(12px)]"
+              initial={reduce ? false : { y: 34, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 1, ease: EASE, delay: 0.5 }}
             >
-              <BrowserChrome label="greenmead.co.uk" />
-              <Image
-                src="/project-greenmead.png"
-                alt=""
-                width={640}
-                height={420}
-                className="h-auto w-full object-cover opacity-90"
+              <IMac
+                shell="dark"
+                shot={{
+                  src: "/demos/gp-home.png",
+                  alt: "",
+                  tint: "#f0f4f5",
+                  sizes: "(max-width: 1024px) 56vw, 400px",
+                }}
               />
             </m.div>
 
-            <m.figure
-              className="relative w-[88%] overflow-hidden rounded-[var(--r-xl)] border border-au-line-2 bg-au-night-2/95 shadow-[0_50px_110px_-40px_rgba(0,0,0,0.95)] backdrop-blur-md sm:mt-20 [transform:translateZ(55px)_rotate(-2deg)]"
-              initial={reduce ? false : { y: 56, opacity: 0 }}
+            {/* The MacBook sits in front of it and to the right,
+                carrying the strongest build. On its own below `sm`. */}
+            <m.div
+              className="relative w-full sm:absolute sm:-bottom-[9%] sm:-right-[3%] sm:w-[68%] sm:[transform:translateZ(56px)]"
+              initial={reduce ? false : { y: 46, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 1, ease: EASE, delay: 0.32 }}
             >
-              <BrowserChrome label="sandbournecare.co.uk" />
-              <Image
-                src="/project-sandbourne.png"
-                alt="The Sandbourne Care website, designed and built by Flutterly"
-                width={640}
-                height={420}
-                priority
-                className="h-auto w-full object-cover"
+              <MacBook
+                shell="light"
+                shot={{
+                  src: "/project-pembroke.png",
+                  alt: "The Pembroke Care website, designed and built by Flutterly",
+                  tint: "#f7f2ea",
+                  priority: true,
+                  sizes: "(max-width: 1024px) 76vw, 360px",
+                }}
               />
               <figcaption className="sr-only">
-                Live client work: Sandbourne Care and Greenmead Housing
+                Live client work: Pembroke Care, and the Willowbrook Surgery
+                sample practice website
               </figcaption>
-            </m.figure>
+            </m.div>
 
-            {/* Warm light pooling under the stack. */}
+            {/* Warm light pooling under the desk. */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-x-[8%] bottom-[-8%] h-24 rounded-[50%] bg-au-amber/25 blur-3xl"
+              className="pointer-events-none absolute inset-x-[6%] bottom-[-12%] h-24 rounded-[50%] bg-au-amber/25 blur-3xl"
             />
           </Tilt>
 
@@ -158,7 +169,7 @@ export function Hero() {
               <m.span
                 key={chip.label}
                 aria-hidden
-                className={`absolute ${chip.position} z-20 hidden items-center gap-2 rounded-full border border-au-line-2 bg-au-night/85 px-3.5 py-2 text-[12.5px] font-medium text-au-ink shadow-[0_18px_40px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md sm:inline-flex`}
+                className={`absolute ${chip.position} z-20 hidden items-center gap-2 rounded-full border border-au-line-2 bg-au-night/85 px-3.5 py-2 text-[12.5px] font-medium text-au-ink shadow-[0_18px_40px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md lg:inline-flex`}
                 initial={reduce ? false : { y: 18, opacity: 0, scale: 0.94 }}
                 animate={{ y: 0, opacity: 1, scale: 1 }}
                 transition={{ duration: 0.7, ease: EASE, delay: 0.85 + i * 0.14 }}
@@ -173,23 +184,5 @@ export function Hero() {
 
       <p className="sr-only">Contact Flutterly: {site.email}</p>
     </section>
-  );
-}
-
-/** The three-dot title bar shared by every browser frame on the site. */
-export function BrowserChrome({ label }: { label?: string }) {
-  return (
-    <div className="flex items-center gap-2 border-b border-au-line bg-au-surface px-3.5 py-2.5">
-      <span className="flex gap-1.5" aria-hidden>
-        <span className="h-2 w-2 rounded-full bg-au-surface-3" />
-        <span className="h-2 w-2 rounded-full bg-au-surface-3" />
-        <span className="h-2 w-2 rounded-full bg-au-surface-3" />
-      </span>
-      {label ? (
-        <span className="au-label ml-2 truncate rounded-full bg-au-surface-2 px-2.5 py-0.5 text-[10px] tracking-[0.14em] text-au-muted">
-          {label}
-        </span>
-      ) : null}
-    </div>
   );
 }
