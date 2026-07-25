@@ -1,234 +1,223 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════
-   Anoop Jose · Design System — "Porcelain"
+   Flutterly · Design System — "Aurora"
    ───────────────────────────────────────────────────────────────────
-   An Apple-inspired, light, whitespace-first language for a developer
-   portfolio. White canvas with #f5f5f7 bands, a disciplined ink ramp,
-   hairline rules, one blue accent, soft elevation, and SF-style system
-   typography. Motion is calm: blur-in entrances, scroll-scrubbed
-   product imagery, spring micro-interactions.
+   A cinematic, luminous language for the studio site: a deep
+   midnight-pine canvas lit by slow-drifting aurora gradients, glass
+   surfaces with hairline gradient edges, film grain, and one bright
+   teal action colour. Content sections float on a single continuous
+   backdrop so scrolling reads as movement through one space.
 
    Layers:
-     1. :root  — raw design tokens (single source of truth)
-     2. @theme — maps tokens to Tailwind v4 utilities (bg-canvas, text-ink…)
-     3. base   — element defaults (typography, focus, scrollbars)
-     4. utils  — helpers (.frosted, .text-fade, .edge-mask…)
-     5. motion — keyframes + prefers-reduced-motion guards
+     1. :root   — raw design tokens (single source of truth)
+     2. @theme  — maps tokens to Tailwind v4 utilities (bg-au-canvas…)
+     3. base    — element defaults (typography, focus, scrollbars)
+     4. utils   — effect helpers (.au-glass, .au-mesh, .au-grain…)
+     5. motion  — keyframes + prefers-reduced-motion guards
+     6. scopes  — the two demo client sites, deliberately untouched
+
+   Accessibility is not traded for atmosphere: every text/background
+   pair clears WCAG 2.2 AA, every decorative layer is aria-hidden and
+   pointer-events-none, and all motion collapses under
+   `prefers-reduced-motion` and `prefers-reduced-transparency`.
    ═══════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ── Canvases · porcelain ramp ────────────────────────────── */
-  --canvas: #ffffff; /* page */
-  --canvas-2: #f5f5f7; /* alternating section bands */
-  --canvas-3: #fbfbfd; /* barely-raised band */
-  --surface: #ffffff; /* cards */
-  --surface-2: #f5f5f7; /* nested cards / inputs */
-  --surface-3: #e8e8ed; /* pressed / hover */
-  --night: #000000; /* full-bleed dark finale band */
-  --night-2: #1d1d1f; /* cards on night */
-  --night-ink: #f5f5f7; /* text on night */
+  /* ── Aurora · canvas ramp ─────────────────────────────────── */
+  --au-void: #03070a; /* deepest — behind everything */
+  --au-canvas: #060d11; /* page */
+  --au-canvas-2: #0a161b; /* raised band */
+  --au-canvas-3: #0e1f24; /* pressed / inset */
 
-  /* ── Ink ramp ─────────────────────────────────────────────── */
-  --ink: #1d1d1f; /* primary text */
-  --ink-2: #424245; /* secondary */
-  --ink-3: #6e6e73; /* tertiary / body */
-  --muted: #86868b; /* captions / labels */
-  --muted-2: #a1a1a6;
-  --faint: #d2d2d7; /* disabled / hairline fills */
+  /* ── Aurora · glass surfaces ──────────────────────────────── */
+  --au-surface: rgba(255, 255, 255, 0.045);
+  --au-surface-2: rgba(255, 255, 255, 0.075);
+  --au-surface-3: rgba(255, 255, 255, 0.11);
+  --au-line: rgba(255, 255, 255, 0.1);
+  --au-line-2: rgba(255, 255, 255, 0.18);
 
-  /* ── Hairlines ────────────────────────────────────────────── */
-  --line: rgba(0, 0, 0, 0.08);
-  --line-2: rgba(0, 0, 0, 0.12);
-  --line-3: rgba(0, 0, 0, 0.18);
+  /* ── Aurora · ink ramp (on --au-canvas) ───────────────────────
+     ink   #ecf7f3 → 16.8:1   ink-2 #c3d6d1 → 11.3:1
+     ink-3 #9db3ae →  7.2:1   muted #82988f →  5.4:1  — all AA+. */
+  --au-ink: #ecf7f3;
+  --au-ink-2: #c3d6d1;
+  --au-ink-3: #9db3ae;
+  --au-muted: #86a09a;
 
-  /* ── Accent · the one blue ────────────────────────────────── */
-  --accent: #0071e3;
-  --accent-hover: #0077ed;
-  --accent-deep: #005bb8;
-  --accent-ink: #ffffff; /* text on an accent fill */
-  --accent-soft: rgba(0, 113, 227, 0.1);
+  /* ── Aurora · spectrum ────────────────────────────────────────
+     Teal is still the one action colour; aqua, sky and violet are
+     light — they appear in gradients, glows and graphics only. */
+  --au-teal: #2fd8ad; /* luminous action on dark (11.4:1) */
+  --au-teal-2: #16b18c;
+  --au-teal-deep: #0e7a63; /* the brand teal, for light surfaces */
+  --au-teal-ink: #032b22; /* text on a teal fill (12.9:1) */
+  --au-aqua: #5ce6d5;
+  --au-sky: #5cb2ff;
+  --au-violet: #a48cff;
+  --au-amber: #ffbc6b;
+  --au-rose: #ff8aa8;
 
-  /* ── Supporting hues (data + product tints, sparingly) ────── */
-  --indigo: #5e5ce6;
-  --teal: #30b0c7;
-  --orange: #ff9500;
-  --pink: #ff375f;
-  --green: #34c759;
+  /* Sector accents (kept from the brand: NHS blue, care amber) */
+  --au-nhs: #6fbaff;
+  --au-care: #ffc98a;
 
-  /* ── Radii · soft Apple geometry ──────────────────────────── */
-  --r-xs: 8px;
-  --r-sm: 12px;
-  --r-md: 18px;
-  --r-lg: 24px;
-  --r-xl: 32px;
+  /* Accent hook — case-study scopes retint the system through this. */
+  --au-accent: var(--au-teal);
+  --au-accent-2: var(--au-aqua);
+
+  /* ── Aurora · daylight panel (bright relief bands) ─────────── */
+  --au-day: #f2f7f6;
+  --au-day-2: #e4efec;
+  --au-day-ink: #06231c;
+  --au-day-soft: #2f5149;
+  --au-day-muted: #4a6b63;
+  --au-day-line: rgba(6, 35, 28, 0.12);
+
+  /* ── Gradients ────────────────────────────────────────────── */
+  --grad-aurora: linear-gradient(
+    100deg,
+    var(--au-teal) 0%,
+    var(--au-aqua) 32%,
+    var(--au-sky) 66%,
+    var(--au-violet) 100%
+  );
+  --grad-edge: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0.04) 42%,
+    rgba(255, 255, 255, 0.02) 68%,
+    rgba(92, 178, 255, 0.22)
+  );
+
+  /* ── Radii ────────────────────────────────────────────────── */
+  --r-xs: 10px;
+  --r-sm: 14px;
+  --r-md: 20px;
+  --r-lg: 28px;
+  --r-xl: 36px;
+  --r-2xl: 44px;
   --r-pill: 999px;
 
-  /* ── Elevation · diffuse, never harsh ─────────────────────── */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 24px 70px -18px rgba(0, 0, 0, 0.18);
-  --shadow-accent: 0 10px 30px -10px rgba(0, 113, 227, 0.45);
+  /* ── Elevation & glow ─────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 18px 50px -24px rgba(0, 0, 0, 0.85);
+  --shadow-lg: 0 44px 120px -40px rgba(0, 0, 0, 0.9);
+  --glow-teal: 0 0 0 1px rgba(47, 216, 173, 0.22), 0 18px 60px -22px rgba(47, 216, 173, 0.5);
 
-  /* ── Spacing rhythm · generous Apple whitespace ───────────── */
-  --space-section: clamp(6rem, 13vw, 13rem);
+  /* ── Rhythm ───────────────────────────────────────────────── */
+  --space-section: clamp(5rem, 11vw, 9.5rem);
   --gutter: clamp(1.25rem, 4vw, 2.5rem);
-  --measure: 1200px; /* max content width */
+  --measure: 1240px;
 
-  /* ── Motion · Apple easing ────────────────────────────────── */
+  /* ── Easing ───────────────────────────────────────────────── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Semantic aliases (consumed by sub-pages / legacy class names) */
+  /* Supporting product hues, used sparingly inside case studies. */
+  --teal: #4fd8e8;
+  --orange: #ffb168;
+
+  /* ── Porcelain (light) — retained for the two demo client sites
+        and the document defaults they inherit. ────────────────── */
+  --canvas: #ffffff;
+  --canvas-2: #f5f5f7;
+  --surface: #ffffff;
+  --surface-2: #f5f5f7;
+  --ink: #1d1d1f;
+  --ink-2: #424245;
+  --ink-3: #6e6e73;
+  --muted: #86868b;
+  --faint: #d2d2d7;
+  --line: rgba(0, 0, 0, 0.08);
+  --line-2: rgba(0, 0, 0, 0.12);
+  --night: #04090c;
+  --night-ink: #ecf7f3;
+  --accent: #0e7a63;
+  --accent-hover: #128f74;
+  --accent-deep: #0b5f4d;
+  --accent-soft: rgba(14, 122, 99, 0.12);
+  --accent-ink: #ffffff;
   --background: var(--canvas);
   --foreground: var(--ink);
-  --signal: var(--accent);
-  --signal-ink: var(--accent-ink);
-
-  /* ── "Bloom" service-site palette ─────────────────────────────
-     The marketing routes (home, sectors, packages, audit) run a
-     clean healthcare language: near-white canvas with soft mint
-     bands, deep pine ink, one teal action colour, plus an NHS
-     blue accent for GP practices and a warm amber accent for
-     care homes. Case-study pages stay on the Porcelain ramp. */
-  --bl-canvas: #fafcfb; /* page */
-  --bl-band: #eff6f2; /* soft mint section band */
-  --bl-band-2: #f5faf7; /* barely-raised band */
-  --bl-surface: #ffffff; /* cards */
-  --bl-ink: #10312a; /* primary text */
-  --bl-ink-soft: #48635b; /* secondary text */
-  --bl-muted: #5e7268; /* captions / labels — AA on canvas & bands */
-  --bl-line: rgba(16, 49, 42, 0.09);
-  --bl-line-2: rgba(16, 49, 42, 0.16);
-  --bl-pine: #0b2f28; /* dark bands, footer */
-  --bl-pine-2: #123f36; /* raised cards on pine */
-  --bl-pine-ink: #eaf3ef; /* text on pine */
-  --bl-teal: #0e7a63; /* the one action colour */
-  --bl-teal-hover: #0c6a56;
-  --bl-teal-soft: #dcefe7;
-  --bl-nhs: #005eb8; /* GP practice accent */
-  --bl-nhs-soft: #e8f1fa;
-  --bl-amber: #a96417; /* care home accent */
-  --bl-amber-soft: #f7efe1;
-}
-
-/* Sipli case study: light aqua product palette */
-.sipli-theme {
-  --background: #f3fafc;
-  --canvas-2: #e9f4f8;
-  --surface: #ffffff;
-  --surface-2: #eef7fa;
-  --ink: #0c2a33;
-  --ink-2: #335560;
-  --ink-3: #5d7a83;
-  --muted: #7d959c;
-  --accent: #0e8aa3;
-  --accent-hover: #1198b3;
-  --accent-deep: #0b6e83;
-  --accent-soft: rgba(14, 138, 163, 0.1);
-  --line: rgba(12, 42, 51, 0.1);
-  --line-2: rgba(12, 42, 51, 0.16);
-  color: var(--ink);
-  background: var(--background);
-}
-
-/* Artling case study: warm cream product palette */
-.artling-theme {
-  --background: #fdf8f1;
-  --canvas-2: #f8efe2;
-  --surface: #ffffff;
-  --surface-2: #faf3e9;
-  --ink: #2b1a10;
-  --ink-2: #56402f;
-  --ink-3: #7d6552;
-  --muted: #99836f;
-  --accent: #e07a1f;
-  --accent-hover: #ef8c33;
-  --accent-deep: #c2660f;
-  --accent-soft: rgba(224, 122, 31, 0.12);
-  --line: rgba(43, 26, 16, 0.1);
-  --line-2: rgba(43, 26, 16, 0.16);
-  color: var(--ink);
-  background: var(--background);
 }
 
 @theme inline {
+  --color-au-void: var(--au-void);
+  --color-au-canvas: var(--au-canvas);
+  --color-au-canvas-2: var(--au-canvas-2);
+  --color-au-canvas-3: var(--au-canvas-3);
+
+  --color-au-surface: var(--au-surface);
+  --color-au-surface-2: var(--au-surface-2);
+  --color-au-surface-3: var(--au-surface-3);
+  --color-au-line: var(--au-line);
+  --color-au-line-2: var(--au-line-2);
+
+  --color-au-ink: var(--au-ink);
+  --color-au-ink-2: var(--au-ink-2);
+  --color-au-ink-3: var(--au-ink-3);
+  --color-au-muted: var(--au-muted);
+
+  --color-au-teal: var(--au-teal);
+  --color-au-teal-2: var(--au-teal-2);
+  --color-au-teal-deep: var(--au-teal-deep);
+  --color-au-teal-ink: var(--au-teal-ink);
+  --color-au-aqua: var(--au-aqua);
+  --color-au-sky: var(--au-sky);
+  --color-au-violet: var(--au-violet);
+  --color-au-amber: var(--au-amber);
+  --color-au-rose: var(--au-rose);
+  --color-au-nhs: var(--au-nhs);
+  --color-au-care: var(--au-care);
+  --color-au-accent: var(--au-accent);
+  --color-au-accent-2: var(--au-accent-2);
+
+  --color-au-day: var(--au-day);
+  --color-au-day-2: var(--au-day-2);
+  --color-au-day-ink: var(--au-day-ink);
+  --color-au-day-soft: var(--au-day-soft);
+  --color-au-day-muted: var(--au-day-muted);
+  --color-au-day-line: var(--au-day-line);
+
+  /* Porcelain / legacy aliases (demo routes + document defaults) */
   --color-canvas: var(--canvas);
   --color-canvas-2: var(--canvas-2);
-  --color-canvas-3: var(--canvas-3);
   --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-surface-3: var(--surface-3);
-  --color-night: var(--night);
-  --color-night-2: var(--night-2);
-  --color-night-ink: var(--night-ink);
-
   --color-ink: var(--ink);
-  --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
   --color-muted: var(--muted);
-  --color-muted-2: var(--muted-2);
   --color-faint: var(--faint);
-
   --color-line: var(--line);
-  --color-line-2: var(--line-2);
-  --color-line-3: var(--line-3);
-
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-deep: var(--accent-deep);
-  --color-accent-ink: var(--accent-ink);
   --color-accent-soft: var(--accent-soft);
-
-  --color-indigo: var(--indigo);
+  --color-accent-ink: var(--accent-ink);
+  --color-surface-2: var(--surface-2);
+  --color-ink-2: var(--ink-2);
+  --color-line-2: var(--line-2);
+  --color-night: var(--night);
+  --color-night-ink: var(--night-ink);
   --color-teal: var(--teal);
   --color-orange: var(--orange);
-  --color-pink: var(--pink);
-  --color-green: var(--green);
-
-  --color-bl-canvas: var(--bl-canvas);
-  --color-bl-band: var(--bl-band);
-  --color-bl-band-2: var(--bl-band-2);
-  --color-bl-surface: var(--bl-surface);
-  --color-bl-ink: var(--bl-ink);
-  --color-bl-ink-soft: var(--bl-ink-soft);
-  --color-bl-muted: var(--bl-muted);
-  --color-bl-line: var(--bl-line);
-  --color-bl-line-2: var(--bl-line-2);
-  --color-bl-pine: var(--bl-pine);
-  --color-bl-pine-2: var(--bl-pine-2);
-  --color-bl-pine-ink: var(--bl-pine-ink);
-  --color-bl-teal: var(--bl-teal);
-  --color-bl-teal-hover: var(--bl-teal-hover);
-  --color-bl-teal-soft: var(--bl-teal-soft);
-  --color-bl-nhs: var(--bl-nhs);
-  --color-bl-nhs-soft: var(--bl-nhs-soft);
-  --color-bl-amber: var(--bl-amber);
-  --color-bl-amber-soft: var(--bl-amber-soft);
-
-  /* Semantic + legacy aliases */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-signal: var(--signal);
-  --color-signal-ink: var(--signal-ink);
 
   --radius-xs: var(--r-xs);
   --radius-sm: var(--r-sm);
   --radius-md: var(--r-md);
   --radius-lg: var(--r-lg);
   --radius-xl: var(--r-xl);
+  --radius-2xl: var(--r-2xl);
 
-  /* SF-style system stacks: zero font payload, native feel everywhere */
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
-  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Inter, "Helvetica Neue", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
-
-  /* Display type system (self-hosted via next/font, see layout.tsx) */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-grotesk-v), "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-syne: var(--font-syne-v), "Syne", var(--font-display);
   --font-grotesk: var(--font-grotesk-v), "Space Grotesk", var(--font-sans);
-  --font-jb: var(--font-jb-v), "JetBrains Mono", var(--font-mono);
+  --font-mono: var(--font-jb-v), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -236,7 +225,7 @@
    ───────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 6rem;
   background: var(--canvas);
   color: var(--ink);
   color-scheme: light;
@@ -249,7 +238,6 @@ body {
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-sans);
-  letter-spacing: -0.012em;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -257,36 +245,20 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
   text-wrap: balance;
-  letter-spacing: -0.028em;
-  font-weight: 600;
-  line-height: 1.05;
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
 }
 
-p {
-  text-wrap: pretty;
-}
+p { text-wrap: pretty; }
 
-::selection {
-  background: var(--accent);
-  color: var(--accent-ink);
-}
-
-::-webkit-scrollbar {
-  width: 11px;
-  height: 11px;
-}
-::-webkit-scrollbar-track {
-  background: var(--canvas);
-}
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--canvas); }
 ::-webkit-scrollbar-thumb {
   background: var(--faint);
   border-radius: 999px;
   border: 3px solid var(--canvas);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--muted-2);
 }
 
 *:focus-visible {
@@ -295,137 +267,360 @@ p {
   border-radius: 6px;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Utility helpers
+/* ═════════════════════════════════════════════════════════════
+   Aurora scope — every Flutterly-branded route
+   ═════════════════════════════════════════════════════════════ */
+
+html:has(.aurora-root) {
+  background: var(--au-void);
+  color-scheme: dark;
+}
+body:has(.aurora-root) {
+  background: var(--au-void);
+  color: var(--au-ink);
+}
+html:has(.aurora-root)::-webkit-scrollbar-track { background: var(--au-void); }
+html:has(.aurora-root)::-webkit-scrollbar-thumb {
+  background: #1d3138;
+  border-color: var(--au-void);
+}
+html:has(.aurora-root)::-webkit-scrollbar-thumb:hover { background: #2b4750; }
+
+.aurora-root {
+  font-family: var(--font-grotesk);
+  letter-spacing: -0.011em;
+  background: var(--au-canvas);
+  color: var(--au-ink);
+}
+.aurora-root ::selection {
+  background: var(--au-accent);
+  color: var(--au-teal-ink);
+}
+.aurora-root :focus-visible {
+  outline: 2px solid var(--au-accent);
+  outline-offset: 3px;
+}
+/* On daylight panels the focus ring flips to the deep brand teal so it
+   keeps 3:1 against a near-white surface. */
+.aurora-root .au-day-panel :focus-visible {
+  outline-color: var(--au-teal-deep);
+}
+
+/* ── Glass surfaces ───────────────────────────────────────────
+   A translucent fill, a blurred backdrop and a hairline that is
+   brighter at the top-left — the way a real edge catches light. */
+.au-glass {
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.028) 46%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.11),
+    0 24px 60px -34px rgba(0, 0, 0, 0.9);
+}
+.au-glass-strong {
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.115) 0%,
+    rgba(255, 255, 255, 0.05) 55%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  -webkit-backdrop-filter: blur(26px) saturate(150%);
+  backdrop-filter: blur(26px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 30px 80px -40px rgba(0, 0, 0, 0.95);
+}
+
+/* Frosted chrome for the sticky header. Deliberately more opaque than
+   `.au-glass`: text scrolling underneath a lightly-blurred bar reads as
+   a smear, so the header keeps its own near-solid ground. */
+.au-frost {
+  background: rgba(7, 15, 20, 0.86);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 20px 50px -30px rgba(0, 0, 0, 0.95);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .au-glass, .au-glass-strong {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--au-canvas-2);
+  }
+  .au-frost {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--au-canvas);
+  }
+}
+
+/* ── Daylight relief panel ────────────────────────────────────
+   One bright interlude per page: dense content (the comparison
+   table, packages, the audit report) reads better on paper. */
+.au-day-panel {
+  background:
+    radial-gradient(120% 90% at 12% 0%, rgba(47, 216, 173, 0.16), transparent 58%),
+    radial-gradient(110% 90% at 92% 12%, rgba(92, 178, 255, 0.16), transparent 55%),
+    linear-gradient(180deg, var(--au-day) 0%, var(--au-day-2) 100%);
+  color: var(--au-day-ink);
+}
+.au-day-panel ::selection {
+  background: var(--au-teal-deep);
+  color: #fff;
+}
+
+/* ── Case-study product scopes ────────────────────────────────
+   Sipli and Artling keep their own product accent, but sit on the
+   Aurora canvas: the semantic Porcelain tokens their markup already
+   uses are remapped here, so one block retints a whole case study.
+   `--background: transparent` lets the shared backdrop show through.
    ───────────────────────────────────────────────────────────── */
-
-/* Frosted chrome for the fixed nav (Apple-style saturated blur). */
-.frosted {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+.sipli-theme,
+.artling-theme {
+  --background: transparent;
+  --canvas: transparent;
+  --canvas-2: rgba(255, 255, 255, 0.028);
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-2: rgba(255, 255, 255, 0.075);
+  --ink: var(--au-ink);
+  --ink-2: var(--au-ink-2);
+  --ink-3: var(--au-ink-3);
+  --muted: var(--au-muted);
+  --faint: rgba(255, 255, 255, 0.22);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-2: rgba(255, 255, 255, 0.18);
+  --night: #03070a;
+  --night-ink: var(--au-ink);
+  color: var(--au-ink);
 }
 
-/* Frosted chrome on the dark finale band. */
-.frosted-dark {
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+/* Sipli — aqua, after the app's water-drop identity. 11.2:1 on canvas. */
+.sipli-theme {
+  --accent: #4fd8e8;
+  --accent-hover: #7ee6f2;
+  --accent-deep: #1fb9cc;
+  --accent-soft: rgba(79, 216, 232, 0.14);
+  --accent-ink: #032128;
+  --teal: #4fd8e8;
+  --au-accent: #4fd8e8;
+  --au-accent-2: #7ee6f2;
 }
 
-/* Soft ink fade for oversized display headings. */
-.text-fade {
-  background: linear-gradient(180deg, var(--ink) 30%, var(--ink-3) 130%);
+/* Artling — warm amber, after the app's crayon-and-paper identity. */
+.artling-theme {
+  --accent: #ffb168;
+  --accent-hover: #ffc793;
+  --accent-deep: #d9873c;
+  --accent-soft: rgba(255, 177, 104, 0.14);
+  --accent-ink: #2b1608;
+  --orange: #ffb168;
+  --au-accent: #ffb168;
+  --au-accent-2: #ffc793;
+}
+
+/* ── Background graphics ──────────────────────────────────── */
+
+/* Film grain — one inlined SVG turbulence tile, no network cost. */
+.au-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+/* Engineering grid, faded out by a radial mask. */
+.au-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 62px 62px;
+  -webkit-mask-image: radial-gradient(ellipse 78% 62% at 50% 34%, #000 12%, transparent 76%);
+  mask-image: radial-gradient(ellipse 78% 62% at 50% 34%, #000 12%, transparent 76%);
+}
+
+/* Dot matrix, used behind card decks and the process band. */
+.au-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 5%, transparent 72%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 5%, transparent 72%);
+}
+
+/* The aurora itself: three drifting light fields, blurred to a haze. */
+.au-mesh {
+  background:
+    radial-gradient(38% 46% at 18% 24%, rgba(47, 216, 173, 0.34), transparent 68%),
+    radial-gradient(34% 40% at 82% 18%, rgba(92, 178, 255, 0.3), transparent 66%),
+    radial-gradient(44% 48% at 62% 82%, rgba(164, 140, 255, 0.26), transparent 70%),
+    radial-gradient(28% 34% at 8% 78%, rgba(92, 230, 213, 0.2), transparent 66%);
+  filter: blur(24px);
+}
+
+/* Horizon glow that anchors the fold. */
+.au-horizon {
+  background:
+    radial-gradient(60% 46% at 50% 100%, rgba(47, 216, 173, 0.3), transparent 72%),
+    radial-gradient(90% 60% at 50% 108%, rgba(92, 178, 255, 0.18), transparent 70%);
+}
+
+/* Edge fade for marquees and overflow rows. */
+.au-edge-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Gradient hairline: a 1px conic edge drawn with a mask, so the card
+   keeps its own background. */
+.au-hairline {
+  position: relative;
+}
+.au-hairline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--grad-edge);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Pointer spotlight — components set --mx/--my on pointermove. */
+.au-spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out-expo);
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(47, 216, 173, 0.16),
+    transparent 62%
+  );
+}
+.au-spot:hover::after,
+.au-spot:focus-within::after {
+  opacity: 1;
+}
+
+/* ── Type treatments ─────────────────────────────────────── */
+
+/* Aurora gradient text with a slow pan. Painted with background-clip,
+   so a fallback colour is set first for anything that can't clip. */
+.au-grad-text {
+  color: var(--au-aqua);
+  background: linear-gradient(
+    98deg,
+    var(--au-teal) 0%,
+    var(--au-aqua) 48%,
+    var(--au-sky) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Animated blue→indigo gradient for a single emphasis word. */
-.text-accent-gradient {
-  background: linear-gradient(100deg, var(--accent) 0%, var(--indigo) 100%);
+/* Softly fading ink for oversized display headings. */
+.au-fade-text {
+  background: linear-gradient(178deg, var(--au-ink) 24%, rgba(236, 247, 243, 0.42) 128%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Edge fade mask for marquees / overflow rows. */
-.edge-mask {
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+.au-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "ss02" 1;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Motion
-   ───────────────────────────────────────────────────────────── */
+/* ── Motion ─────────────────────────────────────────────────── */
+@keyframes aurora-drift-a {
+  0%, 100% { transform: translate3d(-4%, -2%, 0) scale(1.06) rotate(0deg); }
+  33% { transform: translate3d(6%, 4%, 0) scale(1.16) rotate(6deg); }
+  66% { transform: translate3d(-2%, 7%, 0) scale(1.1) rotate(-5deg); }
+}
+
+@keyframes aurora-drift-b {
+  0%, 100% { transform: translate3d(5%, 3%, 0) scale(1.12) rotate(0deg); }
+  50% { transform: translate3d(-7%, -5%, 0) scale(1.22) rotate(-8deg); }
+}
+
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: marquee var(--marquee-duration, 48s) linear infinite;
-}
-
-@keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(0, 113, 227, 0.35); }
-  70% { box-shadow: 0 0 0 9px transparent; }
-  100% { box-shadow: 0 0 0 0 transparent; }
-}
-.animate-pulse-ring {
-  animation: pulse-ring 2.4s var(--ease-out-expo) infinite;
+  animation: marquee var(--marquee-duration, 44s) linear infinite;
 }
 
 @keyframes float-y {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
+  50% { transform: translateY(-9px); }
 }
-.animate-float {
-  animation: float-y 6s var(--ease-in-out) infinite;
+.animate-float { animation: float-y 7s var(--ease-in-out) infinite; }
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.35); }
+}
+.animate-pulse-soft { animation: pulse-soft 2.8s var(--ease-in-out) infinite; }
+
+@keyframes sheen {
+  from { transform: translateX(-130%) skewX(-18deg); }
+  to { transform: translateX(230%) skewX(-18deg); }
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Bloom — marketing-site design language
-   Clean near-white canvas with mint bands, deep pine ink, teal
-   actions, generous card geometry and calm rise-in motion. Used
-   by the home, sector, packages, audit and accessibility routes
-   via `.bloom-root` so Porcelain case-study pages are untouched.
-   ───────────────────────────────────────────────────────────── */
-
-/* Canvas chrome (overscroll, scrollbars) while a Bloom page is
-   mounted. */
-html:has(.bloom-root) {
-  background: var(--bl-canvas);
-}
-html:has(.bloom-root)::-webkit-scrollbar-track {
-  background: var(--bl-canvas);
-}
-html:has(.bloom-root)::-webkit-scrollbar-thumb {
-  background: #cfdcd6;
-  border-color: var(--bl-canvas);
-}
-html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
-  background: var(--bl-muted);
+@keyframes scan {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(900%); }
 }
 
-.bloom-root {
-  font-family: var(--font-grotesk);
-  letter-spacing: -0.01em;
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
 }
-.bloom-root ::selection {
-  background: var(--bl-teal);
-  color: #fff;
-}
-.bloom-root :focus-visible {
-  outline-color: var(--bl-teal);
-}
+.animate-spin-slow { animation: spin-slow 26s linear infinite; }
 
-/* Frosted chrome for the Bloom sticky nav. */
-.bl-frost {
-  background: rgba(250, 252, 251, 0.82);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-}
-@media (prefers-reduced-transparency: reduce) {
-  .bl-frost {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: var(--bl-canvas);
+.au-drift-a { animation: aurora-drift-a 34s var(--ease-in-out) infinite; }
+.au-drift-b { animation: aurora-drift-b 46s var(--ease-in-out) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* Soft card elevation used across Bloom surfaces. */
-.bl-card {
-  box-shadow:
-    0 1px 0 var(--bl-line),
-    0 18px 44px -28px rgba(11, 47, 40, 0.28);
-}
-
-/* ─────────────────────────────────────────────────────────────
+/* ═════════════════════════════════════════════════════════════
    Demo sites — two self-contained sample-client languages.
    These routes exist to show prospective GP practices and care
-   homes a finished site, so each gets its own scope and palette
-   and deliberately does NOT reuse Bloom styling.
-   ───────────────────────────────────────────────────────────── */
+   homes a finished site of their own, so each keeps its own scope
+   and palette and deliberately does NOT inherit Aurora.
+   ═════════════════════════════════════════════════════════════ */
 
 /* "Willowbrook Surgery" — NHS-service-manual-inspired GP demo:
    NHS blue, pale grey panels, green actions, generous plain type
@@ -452,7 +647,7 @@ html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
   color: var(--dgp-ink);
 }
 
-/* Inside the GP demo the global skip link swaps its Bloom pill for
+/* Inside the GP demo the global skip link swaps its Aurora pill for
    the NHS yellow-on-ink focus treatment. Literal values: the link is
    a sibling of .demo-gp-root, so --dgp-* tokens do not reach it. */
 body:has(.demo-gp-root) > a[href="#main"]:focus {
@@ -505,23 +700,4 @@ body:has(.demo-gp-root) > a[href="#main"]:focus {
   outline-offset: 2px;
   box-shadow: 0 0 0 2px var(--dch-cream);
   border-radius: 2px;
-}
-
-/* Faint clinical grid for the hero backdrop. */
-.bl-grid {
-  background-image:
-    linear-gradient(var(--bl-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--bl-line) 1px, transparent 1px);
-  background-size: 44px 44px;
-  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 30%, transparent 75%);
-  mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 30%, transparent 75%);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
 }

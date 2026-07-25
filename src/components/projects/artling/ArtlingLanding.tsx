@@ -21,8 +21,7 @@ import {
   Tags,
   WandSparkles,
 } from "lucide-react";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { Shell } from "@/components/aurora/Shell";
 import { Button } from "@/components/ui/Button";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
@@ -229,11 +228,11 @@ export function ArtlingLanding() {
   const reduce = useReducedMotion();
 
   return (
-    <main id="main" className="artling-theme min-h-screen overflow-x-hidden bg-background text-ink">
-      <Navbar />
+    <Shell intensity="calm">
+      <div className="artling-theme">
 
       {/* ── HERO ── */}
-      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-24 pt-36 md:pt-44">
+      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-24 pt-12 md:pt-20">
         <div
           className="pointer-events-none absolute right-[-10%] top-[-6%] h-[520px] w-[520px] rounded-full"
           style={{ background: "var(--accent-soft)", filter: "blur(110px)" }}
@@ -649,7 +648,7 @@ export function ArtlingLanding() {
         </Reveal>
       </section>
 
-      <Footer />
-    </main>
+      </div>
+    </Shell>
   );
 }

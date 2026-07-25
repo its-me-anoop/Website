@@ -18,6 +18,13 @@ const loadFeatures = () =>
  * This is also the single `LazyMotion` provider for the app: every page (and
  * its `m` components) renders inside it.
  *
+ * The entrance moves opacity and offset only — never a filter. Framer keeps
+ * the final `filter: blur(0px)` on an element, and any filter other than
+ * `none` makes that element the containing block for every
+ * `position: fixed` descendant, which silently un-fixes the aurora backdrop
+ * and the scroll-progress bar and anchors them to the document instead of
+ * the viewport.
+ *
  * Demo routes (`/demo/…`) opt out entirely: they showcase static-first
  * builds, so they render without the motion wrapper — content is visible
  * before hydration and the motion feature chunk never loads there.
@@ -36,8 +43,8 @@ export default function Template({ children }: { children: React.ReactNode }) {
         children
       ) : (
         <m.div
-          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           {children}

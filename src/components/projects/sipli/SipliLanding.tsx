@@ -28,8 +28,7 @@ import {
   Watch,
   Zap,
 } from "lucide-react";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { Shell } from "@/components/aurora/Shell";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -158,11 +157,11 @@ export function SipliLanding() {
   const phoneY = useTransform(scrollYProgress, [0, 1], [36, 0]);
 
   return (
-    <main id="main" className="sipli-theme min-h-screen overflow-x-hidden bg-background text-ink">
-      <Navbar />
+    <Shell intensity="calm">
+      <div className="sipli-theme">
 
       {/* ── HERO ── */}
-      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-20 pt-36 md:pt-44">
+      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-20 pt-12 md:pt-20">
         <div
           className="pointer-events-none absolute left-1/2 top-[-12%] h-[520px] w-[820px] -translate-x-1/2 rounded-full"
           style={{ background: "var(--accent-soft)", filter: "blur(120px)" }}
@@ -962,8 +961,8 @@ export function SipliLanding() {
         </Reveal>
       </section>
 
-      <Footer />
-    </main>
+      </div>
+    </Shell>
   );
 }
 
