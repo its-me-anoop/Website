@@ -1,23 +1,18 @@
 "use client";
 
 import { Globe2, HeartPulse, Smartphone } from "lucide-react";
-import { GlassCard, Stagger, StaggerItem } from "@/components/fx";
+import { Plate, Stagger, StaggerItem } from "@/components/fx";
 import { suite } from "../data";
 import { Btn, Section, SectionHead } from "../primitives";
 
 const icons = [HeartPulse, Globe2, Smartphone] as const;
 
-/** Each craft gets its own light: teal, sky, violet. */
-const auras = [
-  "from-au-teal/25 to-au-aqua/5 text-au-teal",
-  "from-au-sky/25 to-au-violet/5 text-au-sky",
-  "from-au-violet/25 to-au-rose/5 text-au-violet",
-] as const;
-
-const glows = [
-  "bg-au-teal/18",
-  "bg-au-sky/18",
-  "bg-au-violet/18",
+/* Three crafts, the three colours of the rule — read left to right,
+   the row spells out the same gradient the seams are drawn in. */
+const crafts = [
+  { brand: "var(--au-teal)", chip: "bg-au-teal/12 text-au-teal-deep ring-au-teal/25" },
+  { brand: "var(--au-amber)", chip: "bg-au-amber/16 text-au-amber-ink ring-au-amber/35" },
+  { brand: "var(--au-rose)", chip: "bg-au-rose/12 text-au-rose-ink ring-au-rose/25" },
 ] as const;
 
 export function Suite() {
@@ -32,31 +27,37 @@ export function Suite() {
         copy="Everything is designed and engineered in-house — so the person you talk to is the person doing the work."
       />
 
-      <Stagger className="mt-16 grid gap-5 md:grid-cols-3" delay={0.1}>
+      <Stagger className="mt-16 grid gap-6 md:grid-cols-3" delay={0.1}>
         {suite.map((service, i) => {
           const Icon = icons[i];
+          const craft = crafts[i];
           return (
             <StaggerItem key={service.id} className="h-full">
-              <GlassCard as="article" className="flex h-full flex-col p-7 sm:p-8">
-                {/* Corner glow that warms on hover. */}
+              <Plate
+                as="article"
+                brand={craft.brand}
+                className="flex h-full flex-col p-7 sm:p-8"
+              >
+                {/* The card's own colour, cut across its head. */}
                 <span
                   aria-hidden
-                  className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full blur-3xl transition-opacity duration-700 ${glows[i]} opacity-40 group-hover:opacity-90`}
+                  className="pointer-events-none absolute inset-x-0 top-0 h-[3px]"
+                  style={{ background: craft.brand }}
                 />
                 <span
                   aria-hidden
-                  className="au-mono absolute right-6 top-6 text-[11px] tracking-[0.2em] text-white/15"
+                  className="au-label absolute right-6 top-6 text-[10px] text-au-line-2"
                 >
                   0{i + 1}
                 </span>
 
                 <span
-                  className={`relative flex h-13 w-13 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br p-3.5 ${auras[i]}`}
+                  className={`relative flex h-12 w-12 items-center justify-center rounded-[var(--r-sm)] ring-1 ${craft.chip}`}
                 >
                   <Icon size={22} aria-hidden />
                 </span>
 
-                <h3 className="relative mt-6 text-[21px] font-medium tracking-tight text-au-ink">
+                <h3 className="au-display relative mt-6 text-[23px]">
                   {service.title}
                 </h3>
                 <p className="relative mt-3 text-[14.5px] leading-relaxed text-au-ink-2">
@@ -67,7 +68,7 @@ export function Suite() {
                   {service.points.map((point) => (
                     <li
                       key={point}
-                      className="rounded-full border border-white/8 bg-white/[0.04] px-3 py-1 text-[12.5px] font-medium text-au-ink-3"
+                      className="rounded-full border border-au-line bg-au-surface px-3 py-1 text-[12.5px] font-medium text-au-ink-3"
                     >
                       {point}
                     </li>
@@ -79,7 +80,7 @@ export function Suite() {
                     {service.cta.label}
                   </Btn>
                 </div>
-              </GlassCard>
+              </Plate>
             </StaggerItem>
           );
         })}

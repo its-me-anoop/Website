@@ -1,7 +1,7 @@
 "use client";
 
 import { site } from "@/lib/site";
-import { BeamCard, GlassCard, Reveal, TextReveal } from "@/components/fx";
+import { RuleCard, Plate, Reveal, TextReveal } from "@/components/fx";
 import { Shell } from "../Shell";
 import { CtaBand } from "../CtaBand";
 import { Compare } from "../home/Compare";
@@ -11,19 +11,12 @@ import { Btn, CheckItem, Eyebrow, FaqList, Section, SectionHead } from "../primi
 function PackageBody({ pkg }: { pkg: (typeof packages)[number] }) {
   return (
     <>
-      {pkg.featured ? (
-        <p className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-au-teal px-4 py-1 text-[11.5px] font-semibold text-au-teal-ink shadow-[0_10px_30px_-12px_rgba(47,216,173,0.9)]">
-          Most popular
-        </p>
-      ) : null}
-      <h2 className="text-[22px] font-semibold tracking-tight text-au-ink">
-        {pkg.name}
-      </h2>
-      <p className="au-mono mt-1.5 text-[12px] uppercase tracking-[0.18em] text-au-teal">
+      <h2 className="au-display text-[25px]">{pkg.name}</h2>
+      <p className="au-label mt-2 tracking-[0.18em] text-au-teal-deep">
         {pkg.strap}
       </p>
       <p className="mt-4 text-[14.5px] leading-relaxed text-au-ink-2">{pkg.copy}</p>
-      <ul className="mt-7 space-y-3.5 border-t border-white/8 pt-7">
+      <ul className="mt-7 space-y-3.5 border-t border-au-line pt-7">
         {pkg.features.map((feature) => (
           <CheckItem key={feature}>{feature}</CheckItem>
         ))}
@@ -33,7 +26,7 @@ function PackageBody({ pkg }: { pkg: (typeof packages)[number] }) {
           href={`mailto:${site.email}?subject=${encodeURIComponent(
             `Quote request — ${pkg.name} package`
           )}`}
-          tone={pkg.featured ? "primary" : "glass"}
+          tone={pkg.featured ? "primary" : "plate"}
           magnetic={false}
           className="w-full"
         >
@@ -47,7 +40,7 @@ function PackageBody({ pkg }: { pkg: (typeof packages)[number] }) {
 /**
  * Packages are presented without hard prices — quotes are tailored
  * after a short scoping call, which is how the studio actually works.
- * The featured tier is the only element on the page wearing the beam.
+ * The featured tier is the only card on the page crowned by the rule.
  */
 export function PackagesPage() {
   return (
@@ -55,7 +48,7 @@ export function PackagesPage() {
       <section id="top" className="relative px-5 pb-10 pt-14 text-center sm:px-8 sm:pt-20">
         <span
           aria-hidden
-          className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[720px] max-w-full -translate-x-1/2 rounded-full bg-au-teal/12 blur-[120px]"
+          className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[720px] max-w-full -translate-x-1/2 rounded-full bg-au-amber/14 blur-[120px]"
         />
         <div className="relative mx-auto w-full max-w-[1240px]">
           <Reveal y={14} blur={4}>
@@ -64,14 +57,14 @@ export function PackagesPage() {
           <TextReveal
             as="h1"
             delay={0.1}
-            className="mx-auto mt-6 max-w-[720px] text-[clamp(2.3rem,5.8vw,3.9rem)] font-medium leading-[1.04] tracking-[-0.04em]"
+            className="au-display-hero mx-auto mt-6 max-w-[720px] text-[clamp(2.3rem,5.6vw,3.9rem)]"
             segments={[
               { text: "Clear packages." },
               { text: "Honest quotes.", tone: "gradient" },
             ]}
           />
           <Reveal delay={0.24}>
-            <p className="mx-auto mt-6 max-w-[580px] text-[16.5px] leading-relaxed text-au-ink-2">
+            <p className="mx-auto mt-6 max-w-[580px] text-[17px] leading-[1.6] text-au-ink-2">
               Every organisation is different, so pricing is tailored — but
               never vague. After a short call you get a written, fixed quote
               within two working days, and it does not change afterwards.
@@ -85,16 +78,23 @@ export function PackagesPage() {
           {packages.map((pkg, i) => (
             <Reveal key={pkg.name} delay={i * 0.1} className="h-full">
               {pkg.featured ? (
-                <BeamCard
-                  className="h-full"
-                  innerClassName="flex h-full flex-col p-7 sm:p-8"
-                >
-                  <PackageBody pkg={pkg} />
-                </BeamCard>
+                /* The badge rides above the card, so it sits outside the
+                   rounded clip that keeps the rule on the top edge. */
+                <div className="relative h-full pt-3">
+                  <p className="absolute left-1/2 top-0 z-20 -translate-x-1/2 rounded-full bg-au-teal-deep px-4 py-1 text-[11.5px] font-semibold text-au-teal-ink shadow-[0_10px_26px_-12px_rgba(20,108,122,0.9)]">
+                    Most popular
+                  </p>
+                  <RuleCard
+                    className="h-full"
+                    innerClassName="flex h-full flex-col p-7 pt-9 sm:p-8 sm:pt-10"
+                  >
+                    <PackageBody pkg={pkg} />
+                  </RuleCard>
+                </div>
               ) : (
-                <GlassCard className="flex h-full flex-col p-7 sm:p-8">
+                <Plate className="flex h-full flex-col p-7 sm:p-8">
                   <PackageBody pkg={pkg} />
-                </GlassCard>
+                </Plate>
               )}
             </Reveal>
           ))}
@@ -104,7 +104,7 @@ export function PackagesPage() {
             Not sure which fits? Start with the{" "}
             <a
               href="/free-audit"
-              className="font-medium text-au-teal underline-offset-4 hover:underline"
+              className="font-semibold text-au-teal-deep underline-offset-4 hover:underline"
             >
               free website audit
             </a>{" "}

@@ -19,35 +19,44 @@ export function useSpotlight() {
 }
 
 /**
- * The workhorse surface of the Aurora system: a frosted pane with a
- * gradient hairline, an inner top highlight and a spotlight that
- * follows the pointer. Hover lifts it a hair and warms the edge.
+ * The workhorse surface of the Aurum system: card stock. An opaque
+ * warm fill, a cocoa hairline, a lit top lip and a soft warm shadow.
+ * Hover lifts it three pixels and tints both the edge and the shadow
+ * with whatever accent the card set on `--au-brand`.
+ *
+ * Every value comes from a token, so dropping the same plate inside a
+ * `.au-night` band inverts it with no variant class.
  */
-export function GlassCard({
+export function Plate({
   children,
   className,
   as: Tag = "div",
   interactive = true,
   strong = false,
+  brand,
 }: {
   children: React.ReactNode;
   className?: string;
   as?: "div" | "article" | "li" | "section";
-  /** Adds the pointer spotlight and hover lift. */
+  /** Adds the pointer spotlight and the hover lift. */
   interactive?: boolean;
-  /** Brighter fill, for hero and featured cards. */
+  /** Heavier edge and shadow, for hero and featured cards. */
   strong?: boolean;
+  /** The accent this card tints its hover glow and spotlight with. */
+  brand?: string;
 }) {
   const onPointerMove = useSpotlight();
 
   return (
     <Tag
       {...(interactive ? { onPointerMove } : {})}
+      {...(brand
+        ? { style: { ["--au-brand" as string]: brand } }
+        : {})}
       className={cn(
-        "group relative overflow-hidden rounded-[26px]",
-        strong ? "au-glass-strong" : "au-glass",
-        interactive &&
-          "au-spot transition-[transform,border-color,box-shadow] duration-500 hover:-translate-y-1 hover:border-white/20",
+        "group relative overflow-hidden rounded-[var(--r-xl)]",
+        strong ? "au-plate-strong" : "au-plate",
+        interactive && "au-spot au-lift",
         className
       )}
     >
@@ -57,11 +66,12 @@ export function GlassCard({
 }
 
 /**
- * A card wrapped in a slowly rotating conic beam — reserved for the one
- * featured item on a page (the popular package, the primary CTA card).
- * The beam is a decorative sibling layer, so it never affects layout.
+ * A plate crowned by the three-colour rule — reserved for the one
+ * featured item on a page (the popular package, the closing call to
+ * action). The rule is a decorative sibling layer, so it never
+ * affects layout.
  */
-export function BeamCard({
+export function RuleCard({
   children,
   className,
   innerClassName,
@@ -73,19 +83,19 @@ export function BeamCard({
   const onPointerMove = useSpotlight();
 
   return (
-    <div className={cn("relative rounded-[28px] p-px", className)}>
-      <div
+    <div
+      className={cn(
+        "au-plate-strong relative overflow-hidden rounded-[var(--r-2xl)]",
+        className
+      )}
+    >
+      <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 overflow-hidden rounded-[28px]"
-      >
-        <div className="animate-spin-slow absolute left-1/2 top-1/2 h-[220%] w-[220%] -translate-x-1/2 -translate-y-1/2 bg-[conic-gradient(from_0deg,transparent_0%,rgba(47,216,173,0.9)_12%,rgba(92,178,255,0.7)_22%,transparent_38%,transparent_100%)] opacity-70" />
-      </div>
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[4px] bg-[image:var(--au-rule)]"
+      />
       <div
         onPointerMove={onPointerMove}
-        className={cn(
-          "au-spot relative overflow-hidden rounded-[27px] bg-[#08131a]/92 backdrop-blur-xl",
-          innerClassName
-        )}
+        className={cn("au-spot relative", innerClassName)}
       >
         {children}
       </div>

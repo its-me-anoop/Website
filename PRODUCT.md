@@ -4,7 +4,7 @@
 
 The website of **Flutterly Ltd**, the one-person product studio of Anoop Jose
 (Reading, UK), specialising in websites for **GP practices and care homes**.
-The marketing site runs the "Aurora" design language (docs/AURORA.md). Two demo
+The marketing site runs the "Aurum" design language (docs/AURUM.md). Two demo
 sites live under `/demo/*` and are the studio's proof of work:
 
 - `/demo/gp-practice` — **Willowbrook Surgery**, a fictional NHS GP practice.
@@ -23,7 +23,7 @@ them and think "I want our site to work like this."
 
 ## Register
 
-- Marketing (Aurora) pages: **brand**.
+- Marketing (Aurum) pages: **brand**.
 - Demo sites (`/demo/*`): **product** — the user is in a task; earned
   familiarity with NHS conventions beats novelty. The category's "best tools"
   are nhs.uk and the NHS service manual: patients trust interfaces that feel

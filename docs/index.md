@@ -3,17 +3,18 @@
 The site of Flutterly Ltd — the product studio of Anoop Jose. Built
 with Next.js 16 (App Router), React 19 and Tailwind CSS v4. Every
 Flutterly-branded route — marketing pages, case studies and policies —
-runs the dark, luminous "Aurora" language over one shared animated
-backdrop. The two sample client sites under `/demo/*` keep their own
+runs the warm, editorial "Aurum" language over one shared animated
+ground. The two sample client sites under `/demo/*` keep their own
 scoped palettes on purpose.
 
 ## Contents
 
-- [Design Language — "Aurora"](./AURORA.md) — tokens, the shared
-  backdrop, the effects kit, signature moves and the motion system.
+- [Design Language — "Aurum"](./AURUM.md) — tokens, the shared
+  ground, the night inversion, the effects kit, signature moves and
+  the motion system.
 - [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — the light
   system the case-study markup was built on; its semantic tokens are
-  now remapped onto the Aurora canvas per product scope.
+  now remapped onto the Aurum paper per product scope.
 
 ## Architecture at a glance
 
@@ -22,7 +23,7 @@ src/
 ├── app/
 │   ├── layout.tsx          # Root layout: fonts, metadata, JSON-LD, skip link
 │   ├── template.tsx        # Route transition wrapper
-│   ├── page.tsx            # Aurora homepage composition
+│   ├── page.tsx            # Aurum homepage composition
 │   ├── globals.css         # Design tokens + Tailwind theme + utilities
 │   ├── sitemap.ts          # SEO sitemap
 │   ├── robots.ts           # SEO robots
@@ -33,9 +34,9 @@ src/
 │   ├── accessibility/      # Accessibility statement
 │   └── projects/           # Case-study subpages (sipli, artling)
 ├── components/
-│   ├── fx/                 # Effects kit (backdrop, particles, reveals,
-│   │                       # glass, tilt, magnetism, marquee, count-up)
-│   ├── aurora/             # The site itself (shell, nav, footer, legal,
+│   ├── fx/                 # Effects kit (ground, particles, reveals,
+│   │                       # plates, tilt, magnetism, marquee, count-up)
+│   ├── aurum/              # The site itself (shell, nav, footer, legal,
 │   │                       # primitives, data, home/sectors/packages/audit)
 │   ├── ui/                 # Primitives used by the case studies
 │   ├── demos/              # The two sample client sites
@@ -56,6 +57,7 @@ src/
 | `npm run lint` | ESLint |
 | `npx vitest run` | Unit/component tests |
 | `npm run test:browser` | Headless-browser audit of every route |
+| `npm run test:contrast` | WCAG 2.2 AA contrast audit of every rendered text node |
 
 ## SEO
 
@@ -64,5 +66,6 @@ src/
   with `SoftwareApplication` JSON-LD on product pages.
 - `sitemap.ts` and `robots.ts` generate `/sitemap.xml` and `/robots.txt`.
 - Shared constants come from `src/lib/site.ts` so details never drift.
-- Homepage fonts are self-hosted latin variable subsets (~97KB, no CDN
-  dependency); case-study pages stay on zero-payload system stacks.
+- Fonts are self-hosted latin variable subsets — Fraunces (with its
+  optical-size axis) and DM Sans, ~104KB, no CDN dependency. Syne is
+  loaded without preload for the care-home demo alone.

@@ -5,7 +5,11 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal, useSpotlight } from "@/components/fx";
 import { projects } from "../data";
-import { Section, SectionHead } from "../primitives";
+import { Band, Section, SectionHead } from "../primitives";
+
+/* The rule's three colours, cycled across the grid, so each specimen
+   plate hovers into a light of its own. */
+const brands = ["var(--au-teal)", "var(--au-amber)", "var(--au-rose)"] as const;
 
 function WorkCard({
   project,
@@ -21,10 +25,6 @@ function WorkCard({
   const inner = (
     <>
       <div className="relative aspect-[16/10] overflow-hidden">
-        <span
-          aria-hidden
-          className="absolute inset-0 z-10 bg-[linear-gradient(180deg,transparent_45%,rgba(6,13,17,0.85)_100%)]"
-        />
         <Image
           src={project.image}
           alt={`${project.name} — ${project.type}`}
@@ -34,21 +34,19 @@ function WorkCard({
           style={{ backgroundColor: project.tint }}
         />
         {project.status ? (
-          <span className="absolute left-4 top-4 z-20 rounded-full border border-au-amber/30 bg-[#0a1014]/80 px-3 py-1 text-[11.5px] font-medium text-au-amber backdrop-blur-md">
+          <span className="absolute left-4 top-4 z-20 rounded-full border border-au-amber/40 bg-au-paper-2/90 px-3 py-1 text-[11.5px] font-semibold text-au-amber-ink backdrop-blur-md">
             {project.status}
           </span>
         ) : null}
       </div>
 
-      <div className="relative flex grow flex-col p-6 sm:p-7">
-        <div className="flex items-baseline justify-between gap-3">
-          <h3 className="text-[19px] font-medium tracking-tight text-au-ink">
-            {project.name}
-          </h3>
-          <span className="au-mono shrink-0 text-[11px] uppercase tracking-[0.14em] text-au-muted">
-            {project.type} · {project.year}
-          </span>
-        </div>
+      <div className="relative flex grow flex-col border-t border-au-line p-6 sm:p-7">
+        {/* The label rides above the name: at four cards across, a
+            year-and-discipline line has nowhere to sit beside it. */}
+        <span className="au-label tracking-[0.14em] text-au-muted">
+          {project.type} · {project.year}
+        </span>
+        <h3 className="au-display mt-2 text-[21px]">{project.name}</h3>
         <p className="mt-2.5 text-[14px] leading-relaxed text-au-ink-3">
           {project.description}
         </p>
@@ -57,7 +55,7 @@ function WorkCard({
             {project.tags.slice(0, 2).map((tag) => (
               <li
                 key={tag}
-                className="rounded-full border border-white/8 bg-white/[0.04] px-3 py-1 text-[11.5px] font-medium text-au-ink-3"
+                className="rounded-full border border-au-line bg-au-surface px-3 py-1 text-[11.5px] font-medium text-au-ink-3"
               >
                 {tag}
               </li>
@@ -65,7 +63,7 @@ function WorkCard({
           </ul>
           <span
             aria-hidden
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-au-teal transition-all duration-500 group-hover:border-au-teal/40 group-hover:bg-au-teal group-hover:text-au-teal-ink"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-au-line bg-au-surface text-au-teal-deep transition-all duration-500 group-hover:border-au-teal-deep group-hover:bg-au-teal-deep group-hover:text-au-teal-ink"
           >
             <ArrowUpRight size={16} />
           </span>
@@ -75,7 +73,8 @@ function WorkCard({
   );
 
   const className =
-    "au-glass au-spot group relative flex h-full flex-col overflow-hidden rounded-[26px] transition-[transform,border-color] duration-500 hover:-translate-y-1.5 hover:border-white/22";
+    "au-plate au-spot au-lift group relative flex h-full flex-col overflow-hidden rounded-[var(--r-xl)]";
+  const style = { ["--au-brand" as string]: brands[index % brands.length] };
 
   return (
     <Reveal
@@ -89,6 +88,7 @@ function WorkCard({
           rel="noopener noreferrer"
           data-project-card
           onPointerMove={onPointerMove}
+          style={style}
           className={className}
         >
           {inner}
@@ -98,6 +98,7 @@ function WorkCard({
           href={project.href}
           data-project-card
           onPointerMove={onPointerMove}
+          style={style}
           className={className}
         >
           {inner}
@@ -113,20 +114,22 @@ function WorkCard({
  */
 export function Work() {
   return (
-    <Section id="work">
-      <SectionHead
-        eyebrow="Selected work"
-        title={[
-          { text: "Live products." },
-          { text: "Real organisations.", tone: "muted" },
-        ]}
-        copy="Client sites you can visit today and products you can download — the evidence behind every promise on this page."
-      />
-      <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-12">
-        {projects.map((project, i) => (
-          <WorkCard key={project.name} project={project} index={i} />
-        ))}
-      </div>
-    </Section>
+    <Band id="work" rule="top">
+      <Section>
+        <SectionHead
+          eyebrow="Selected work"
+          title={[
+            { text: "Live products." },
+            { text: "Real organisations.", tone: "muted" },
+          ]}
+          copy="Client sites you can visit today and products you can download — the evidence behind every promise on this page."
+        />
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-12">
+          {projects.map((project, i) => (
+            <WorkCard key={project.name} project={project} index={i} />
+          ))}
+        </div>
+      </Section>
+    </Band>
   );
 }

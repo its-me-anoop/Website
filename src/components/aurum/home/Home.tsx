@@ -14,10 +14,13 @@ import { Process } from "./Process";
 import { About } from "./About";
 
 /**
- * The Aurora homepage. Specialist positioning at the fold, the service
- * suite, the two healthcare sectors, one bright interlude for the
- * anti-template comparison, the free audit offer, live work as proof,
- * then process, the founder, and a single closing call to action.
+ * The Aurum homepage, and the rhythm the rest of the site follows:
+ *
+ *   night fold → cream (trust, suite) → tinted band (sectors) →
+ *   cream (comparison, audit) → tinted band (work) → cream (why) →
+ *   night interlude (process) → cream (founder) → warm closing band
+ *
+ * Two inversions, never adjacent, each sealed by the three-colour rule.
  */
 export function Home() {
   return (

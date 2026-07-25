@@ -26,32 +26,30 @@ export function TrustBand() {
   return (
     <section
       aria-label="Organisations Flutterly has built for"
-      className="relative border-y border-white/8 bg-white/[0.015] py-8"
+      className="relative border-b border-au-line bg-au-paper-2/70 py-9"
     >
       <Reveal y={12} blur={4}>
-        <p className="au-mono mb-6 text-center text-[11px] font-medium uppercase tracking-[0.28em] text-au-muted">
-          Trusted by
-        </p>
+        <p className="au-label mb-6 text-center text-au-muted">Trusted by</p>
 
         <Marquee duration={40}>
           {trustedBy.map((name) => (
             <span key={name} className="flex items-center">
-              <span className="whitespace-nowrap px-7 text-[clamp(1rem,2vw,1.3rem)] font-medium tracking-tight text-au-ink-2 transition-colors duration-300 hover:text-au-ink">
+              <span className="au-display whitespace-nowrap px-7 text-[clamp(1.1rem,2.1vw,1.45rem)] text-au-ink-2 transition-colors duration-300 hover:text-au-ink">
                 {name}
               </span>
               <span
                 aria-hidden
-                className="h-1 w-1 shrink-0 rounded-full bg-au-teal/60"
+                className="h-1.5 w-1.5 shrink-0 rounded-full bg-au-amber"
               />
             </span>
           ))}
         </Marquee>
 
-        <Marquee duration={54} reverse className="mt-5 opacity-70">
+        <Marquee duration={54} reverse className="mt-6">
           {capabilities.map((item) => (
             <span
               key={item}
-              className="au-mono mx-2 whitespace-nowrap rounded-full border border-white/8 px-4 py-1.5 text-[11.5px] uppercase tracking-[0.16em] text-au-muted"
+              className="au-label mx-1.5 whitespace-nowrap rounded-full border border-au-line bg-au-paper-2 px-4 py-1.5 tracking-[0.16em] text-au-ink-3"
             >
               {item}
             </span>

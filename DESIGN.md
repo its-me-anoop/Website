@@ -2,19 +2,23 @@
 
 Three scoped design systems coexist. Never leak tokens across scopes.
 
-## 1. Aurora (every Flutterly-branded route)
+## 1. Aurum (every Flutterly-branded route)
 
-See docs/AURORA.md. Deep midnight-pine canvas `#060d11` under one shared
-fixed backdrop (drifting aurora fields, masked grid, horizon glow, grain),
-glass surfaces, **teal `#2fd8ad` as the only action colour**, NHS-blue and
-care-amber sector accents, and one bright `.au-day-panel` interlude per
-page for dense content. Motion: shared `EASE` curve, `Reveal` /
-`TextReveal` / `Stagger` entrances, full reduced-motion and
-reduced-transparency fallbacks. `.aurora-root` scope.
+See docs/AURUM.md. Warm cream paper canvas `#fdf6ec` under one shared
+fixed ground (drifting amber/rose/teal washes, masked grid, paper
+tooth), cocoa ink, plates that read as pressed card, **Fraunces over
+DM Sans**, and one three-colour rule — **teal `#1b8fa1` → amber
+`#e89a2a` → rose `#c73e6f`** — at the seams between sections. Teal is
+the only action colour; `--au-teal-deep` carries anything that has to
+read at body size. Two `.au-night` bands (the fold, the process
+interlude) invert the page by re-declaring the same tokens, so one set
+of components serves both grounds. Motion: shared `EASE` curve,
+`Reveal` / `TextReveal` / `Stagger` entrances, full reduced-motion and
+reduced-transparency fallbacks. `.aurum-root` scope.
 
 ## 2. Case-study product scopes (`/projects/*`)
 
-`.sipli-theme` (aqua) and `.artling-theme` (amber) sit inside Aurora and
+`.sipli-theme` (deep water teal) and `.artling-theme` (burnt amber) sit inside Aurum and
 retint it: each sets `--au-accent` and remaps the semantic Porcelain
 tokens their markup uses (see docs/DESIGN-SYSTEM.md for those tokens).
 
@@ -54,3 +58,6 @@ person to a named fictional clinician.
 
 WCAG 2.2 AA: 4.5:1 body contrast, 3:1 large text/UI, visible focus, skip
 link to `#main`, `prefers-reduced-motion` honoured, keyboard operable.
+`npm run test:contrast` walks every rendered text node on every route,
+composites the colour actually painted behind it, and fails on anything
+under the floor for its size — so this is a checked claim, not a hope.

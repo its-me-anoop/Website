@@ -68,16 +68,14 @@ export function Reveal({
 
 export type Segment = {
   text: string;
-  tone?: "ink" | "muted" | "accent" | "gradient" | "day" | "day-muted";
+  tone?: "ink" | "muted" | "accent" | "gradient";
 };
 
 const toneClass: Record<NonNullable<Segment["tone"]>, string> = {
   ink: "text-au-ink",
   muted: "text-au-ink-3",
-  accent: "text-au-accent",
+  accent: "text-au-teal-deep",
   gradient: "au-grad-text",
-  day: "text-au-day-ink",
-  "day-muted": "text-au-day-muted",
 };
 
 const wordVariants: Variants = {
@@ -239,32 +237,27 @@ export function StaggerItem({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Eyebrow — the small monospaced label above every section head.
+   Eyebrow — the wide, letterspaced label above every section head,
+   led by a short three-colour tick.
    ───────────────────────────────────────────────────────────── */
 
 export function Eyebrow({
   children,
   className,
-  tone = "accent",
 }: {
   children: React.ReactNode;
   className?: string;
-  tone?: "accent" | "day";
 }) {
   return (
     <p
       className={cn(
-        "au-mono flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.28em]",
-        tone === "accent" ? "text-au-accent" : "text-au-teal-deep",
+        "au-label flex items-center gap-3 text-au-muted",
         className
       )}
     >
       <span
         aria-hidden
-        className={cn(
-          "inline-block h-px w-6",
-          tone === "accent" ? "bg-au-accent/60" : "bg-au-teal-deep/50"
-        )}
+        className="inline-block h-[3px] w-7 rounded-full bg-[image:var(--au-rule)]"
       />
       {children}
     </p>

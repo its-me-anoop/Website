@@ -28,7 +28,7 @@ import {
   Watch,
   Zap,
 } from "lucide-react";
-import { Shell } from "@/components/aurora/Shell";
+import { Shell } from "@/components/aurum/Shell";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -363,7 +363,7 @@ export function SipliLanding() {
                 aria-hidden="true"
               />
               <div className="relative max-w-[640px]">
-                <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/20 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+                <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-au-line-2 bg-white/20 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
                   <Leaf className="h-3 w-3" aria-hidden="true" />
                   Earth Week 2026 · Apr 20–26
                 </span>
@@ -1030,7 +1030,7 @@ function WatchMock({ reduce }: { reduce: boolean }) {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1">
+          <div className="flex items-center gap-1.5 rounded-full bg-au-surface-3 px-3 py-1">
             <span
               className={`h-1 w-1 rounded-full bg-teal ${reduce ? "" : "animate-pulse"}`}
             />

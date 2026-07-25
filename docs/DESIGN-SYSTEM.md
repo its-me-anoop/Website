@@ -2,10 +2,10 @@
 
 The token vocabulary the **case-study pages** (`/projects/*`) are
 built on: a whitespace-first, Apple-inspired system. Those pages now
-render on the dark Aurora canvas — `.sipli-theme` and `.artling-theme`
-remap the semantic tokens below to the dark ramp and set the product
-accent — so read this for *what each token means*, and
-["Aurora"](./AURORA.md) for the values in use today.
+render on the Aurum paper — `.sipli-theme` and `.artling-theme` remap
+the semantic tokens below to the cream ramp and set the product accent
+— so read this for *what each token means*, and
+["Aurum"](./AURUM.md) for the values in use today.
 
 > TL;DR — white canvas with `#f5f5f7` bands, a disciplined ink ramp, hairline
 > rules, **one** Apple-blue accent, soft diffuse shadows, SF-style system

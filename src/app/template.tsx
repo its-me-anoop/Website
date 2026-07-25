@@ -21,7 +21,7 @@ const loadFeatures = () =>
  * The entrance moves opacity and offset only — never a filter. Framer keeps
  * the final `filter: blur(0px)` on an element, and any filter other than
  * `none` makes that element the containing block for every
- * `position: fixed` descendant, which silently un-fixes the aurora backdrop
+ * `position: fixed` descendant, which silently un-fixes the paper backdrop
  * and the scroll-progress bar and anchors them to the document instead of
  * the viewport.
  *

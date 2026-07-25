@@ -1,6 +1,6 @@
 "use client";
 
-import { AuroraBackdrop, ScrollProgress } from "@/components/fx";
+import { PaperField, ScrollProgress } from "@/components/fx";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 
@@ -9,7 +9,7 @@ import { Footer } from "./Footer";
  *
  * The backdrop is mounted once, `fixed`, behind everything — so every
  * section scrolls through one continuous field of light instead of
- * carrying its own background. `.aurora-root` scopes the design
+ * carrying its own background. `.aurum-root` scopes the design
  * language, keeping it out of the two demo client sites.
  */
 export function Shell({
@@ -20,8 +20,8 @@ export function Shell({
   intensity?: "full" | "calm";
 }) {
   return (
-    <div className="aurora-root relative min-h-screen overflow-x-clip">
-      <AuroraBackdrop intensity={intensity} />
+    <div className="aurum-root relative min-h-screen overflow-x-clip">
+      <PaperField intensity={intensity} />
       <ScrollProgress />
       <div className="relative z-10">
         <Nav />

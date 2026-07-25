@@ -14,7 +14,7 @@ function renderHome() {
   );
 }
 
-describe("Aurora home", () => {
+describe("Aurum home", () => {
   it("renders the hero headline and studio eyebrow", () => {
     renderHome();
 

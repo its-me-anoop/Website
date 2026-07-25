@@ -13,7 +13,9 @@ type Particle = {
   hue: number;
 };
 
-const PALETTE = ["47,216,173", "92,178,255", "164,140,255", "92,230,213"];
+/* The three-colour rule, plus the gold the fold's stat row uses —
+   motes of the same light the rest of the page is lit by. */
+const PALETTE = ["62,195,213", "232,154,42", "240,127,165", "245,166,35"];
 
 /**
  * A slow constellation of light motes drifting across the hero.
@@ -129,7 +131,7 @@ export function ParticleField({ className }: { className?: string }) {
           const d2 = dx * dx + dy * dy;
           if (d2 > 11000) continue;
           const alpha = (1 - d2 / 11000) * 0.09;
-          ctx.strokeStyle = `rgba(120,205,215,${alpha})`;
+          ctx.strokeStyle = `rgba(245, 230, 215,${alpha})`;
           ctx.beginPath();
           ctx.moveTo(a.x + px * a.z * 26, a.y + py * a.z * 26);
           ctx.lineTo(b.x + px * b.z * 26, b.y + py * b.z * 26);

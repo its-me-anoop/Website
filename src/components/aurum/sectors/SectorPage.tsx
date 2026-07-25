@@ -2,23 +2,25 @@
 
 import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
-import { GlassCard, Parallax, Reveal, Stagger, StaggerItem, TextReveal, Tilt } from "@/components/fx";
+import { Plate, Parallax, Reveal, Stagger, StaggerItem, TextReveal, Tilt } from "@/components/fx";
 import { Shell } from "../Shell";
 import { CtaBand } from "../CtaBand";
 import { BrowserChrome } from "../home/Hero";
 import type { Sector } from "../data";
-import { Btn, CheckItem, FaqList, Section, SectionHead } from "../primitives";
+import { Band, Btn, CheckItem, FaqList, Section, SectionHead } from "../primitives";
 
 const accents = {
   nhs: {
+    brand: "var(--au-nhs)",
     text: "text-au-nhs",
-    glow: "bg-au-nhs/20",
-    chip: "border-au-nhs/25 bg-au-nhs/10 text-au-nhs",
+    glow: "bg-au-nhs/14",
+    chip: "border-au-nhs/30 bg-au-nhs/10 text-au-nhs",
   },
   amber: {
+    brand: "var(--au-care)",
     text: "text-au-care",
-    glow: "bg-au-care/20",
-    chip: "border-au-care/25 bg-au-care/10 text-au-care",
+    glow: "bg-au-care/14",
+    chip: "border-au-care/30 bg-au-care/10 text-au-care",
   },
 } as const;
 
@@ -42,7 +44,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
           <div>
             <Reveal y={14} blur={4}>
               <p
-                className={`au-mono inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.22em] ${accent.chip}`}
+                className={`au-label inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 tracking-[0.22em] ${accent.chip}`}
               >
                 {sector.eyebrow}
               </p>
@@ -50,7 +52,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
             <TextReveal
               as="h1"
               delay={0.1}
-              className="mt-6 max-w-[620px] text-[clamp(2.3rem,5.8vw,3.9rem)] font-medium leading-[1.04] tracking-[-0.04em] text-au-ink"
+              className="au-display-hero mt-6 max-w-[620px] text-[clamp(2.3rem,5.6vw,3.9rem)]"
               segments={[{ text: sector.headline }]}
             />
             <Reveal delay={0.24}>
@@ -69,7 +71,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
               <Btn href="/free-audit" tone="primary" arrow>
                 Get your free audit
               </Btn>
-              <Btn href="/packages" tone="glass">
+              <Btn href="/packages" tone="plate">
                 See packages
               </Btn>
             </Reveal>
@@ -77,7 +79,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
 
           <Reveal delay={0.2} className="mx-auto w-full max-w-[520px]">
             <Tilt strength={6}>
-              <figure className="relative overflow-hidden rounded-[24px] border border-white/12 bg-[#0a161b]/95 shadow-[0_50px_110px_-45px_rgba(0,0,0,0.95)]">
+              <figure className="au-plate-strong relative overflow-hidden rounded-[var(--r-xl)]">
                 <BrowserChrome />
                 <Image
                   src={sector.heroImage.src}
@@ -106,19 +108,23 @@ export function SectorPage({ sector }: { sector: Sector }) {
         <Stagger className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" delay={0.06}>
           {sector.features.map((feature, i) => (
             <StaggerItem key={feature.title} className="h-full">
-              <GlassCard as="article" className="h-full p-6 sm:p-7">
+              <Plate
+                as="article"
+                brand={accent.brand}
+                className="h-full p-6 sm:p-7"
+              >
                 <span
-                  className={`au-mono relative inline-flex h-9 w-9 items-center justify-center rounded-full border text-[12px] font-medium tabular-nums ${accent.chip}`}
+                  className={`au-label relative inline-flex h-9 w-9 items-center justify-center rounded-full border text-[11px] tracking-[0.06em] ${accent.chip}`}
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="relative mt-5 text-[17.5px] font-medium tracking-tight text-au-ink">
+                <h3 className="au-display relative mt-5 text-[19px]">
                   {feature.title}
                 </h3>
                 <p className="relative mt-2.5 text-[14px] leading-relaxed text-au-ink-2">
                   {feature.copy}
                 </p>
-              </GlassCard>
+              </Plate>
             </StaggerItem>
           ))}
         </Stagger>
@@ -129,7 +135,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
         <div>
           <Reveal>
             <p
-              className={`au-mono text-[11px] font-medium uppercase tracking-[0.26em] ${accent.text}`}
+              className={`au-label ${accent.text}`}
             >
               See it for yourself
             </p>
@@ -137,7 +143,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
           <TextReveal
             as="h2"
             delay={0.06}
-            className="mt-5 max-w-[520px] text-[clamp(1.9rem,4.2vw,2.9rem)] font-medium leading-[1.08] tracking-[-0.03em] text-au-ink"
+            className="au-display mt-5 max-w-[520px] text-[clamp(1.9rem,4.2vw,2.95rem)]"
             segments={[
               { text: "Don’t take our word for it — click around" },
               { text: sector.demo.name, tone: "gradient" },
@@ -169,18 +175,18 @@ export function SectorPage({ sector }: { sector: Sector }) {
               aria-label={`Open the ${sector.demo.name} sample website`}
               className="group block"
             >
-              <span className="relative block overflow-hidden rounded-[24px] border border-white/12 bg-[#0a161b]/95 shadow-[0_50px_120px_-50px_rgba(0,0,0,0.95)] transition-transform duration-500 group-hover:-translate-y-1.5">
-                <span className="flex items-center gap-2 border-b border-white/8 bg-white/[0.04] px-4 py-2.5">
+              <span className="au-plate-strong relative block overflow-hidden rounded-[var(--r-xl)] transition-transform duration-500 group-hover:-translate-y-1.5">
+                <span className="flex items-center gap-2 border-b border-au-line bg-au-surface px-4 py-2.5">
                   <span className="flex gap-1.5" aria-hidden>
-                    <span className="h-2 w-2 rounded-full bg-white/15" />
-                    <span className="h-2 w-2 rounded-full bg-white/15" />
-                    <span className="h-2 w-2 rounded-full bg-white/15" />
+                    <span className="h-2 w-2 rounded-full bg-au-surface-3" />
+                    <span className="h-2 w-2 rounded-full bg-au-surface-3" />
+                    <span className="h-2 w-2 rounded-full bg-au-surface-3" />
                   </span>
-                  <span className="au-mono ml-2 truncate rounded-full bg-white/[0.05] px-2.5 py-0.5 text-[10.5px] text-au-muted">
+                  <span className="au-label ml-2 truncate rounded-full bg-au-surface-2 px-2.5 py-0.5 text-[10px] tracking-[0.14em] text-au-muted">
                     flutterly.uk{sector.demo.href}
                   </span>
-                  <span className="ml-auto flex items-center gap-1.5 text-[10.5px] font-medium text-au-teal">
-                    <span className="animate-pulse-soft h-1.5 w-1.5 rounded-full bg-au-teal" aria-hidden />
+                  <span className="ml-auto flex items-center gap-1.5 text-[10.5px] font-semibold text-au-teal-deep">
+                    <span className="animate-pulse-soft h-1.5 w-1.5 rounded-full bg-au-teal-deep" aria-hidden />
                     Live
                   </span>
                 </span>
@@ -206,7 +212,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
         <div>
           <Reveal>
             <p
-              className={`au-mono text-[11px] font-medium uppercase tracking-[0.26em] ${accent.text}`}
+              className={`au-label ${accent.text}`}
             >
               {sector.compliance.eyebrow}
             </p>
@@ -214,7 +220,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
           <TextReveal
             as="h2"
             delay={0.06}
-            className="mt-5 max-w-[520px] text-[clamp(1.9rem,4.2vw,2.9rem)] font-medium leading-[1.08] tracking-[-0.03em] text-au-ink"
+            className="au-display mt-5 max-w-[520px] text-[clamp(1.9rem,4.2vw,2.95rem)]"
             segments={[{ text: sector.compliance.title }]}
           />
           <Reveal delay={0.16}>
@@ -224,8 +230,8 @@ export function SectorPage({ sector }: { sector: Sector }) {
           </Reveal>
         </div>
         <Reveal delay={0.15}>
-          <GlassCard strong className="p-7 sm:p-9">
-            <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-au-teal/25 bg-au-teal/12 text-au-teal">
+          <Plate strong className="p-7 sm:p-9">
+            <span className="relative flex h-12 w-12 items-center justify-center rounded-[var(--r-sm)] border border-au-teal/30 bg-au-teal/12 text-au-teal-deep">
               <ShieldCheck size={22} aria-hidden />
             </span>
             <ul className="relative mt-7 space-y-4">
@@ -233,32 +239,29 @@ export function SectorPage({ sector }: { sector: Sector }) {
                 <CheckItem key={point}>{point}</CheckItem>
               ))}
             </ul>
-          </GlassCard>
+          </Plate>
         </Reveal>
       </Section>
 
-      {/* What's included — the daylight interlude */}
-      <section className="relative mx-auto w-full max-w-[1440px] px-3 py-14 sm:px-6 sm:py-20">
-        <div className="au-day-panel au-grain relative overflow-hidden rounded-[32px] px-5 py-20 sm:rounded-[44px] sm:px-10 sm:py-24">
+      {/* What's included — the tinted relief band */}
+      <Band rule="both">
+        <Section>
           <SectionHead
-            tone="day"
             eyebrow="Every build includes"
             title={[
               { text: "Nothing essential" },
-              { text: "is an add-on.", tone: "day-muted" },
+              { text: "is an add-on.", tone: "muted" },
             ]}
           />
           <Reveal delay={0.1} className="mx-auto mt-12 max-w-[900px]">
-            <ul className="grid gap-x-10 gap-y-4 rounded-[24px] border border-au-day-line bg-white/70 p-8 shadow-[0_30px_80px_-50px_rgba(6,35,28,0.5)] sm:grid-cols-2 sm:p-10">
+            <ul className="au-plate-strong grid gap-x-10 gap-y-4 rounded-[var(--r-xl)] p-8 sm:grid-cols-2 sm:p-10">
               {sector.included.map((item) => (
-                <CheckItem key={item} tone="day">
-                  {item}
-                </CheckItem>
+                <CheckItem key={item}>{item}</CheckItem>
               ))}
             </ul>
           </Reveal>
-        </div>
-      </section>
+        </Section>
+      </Band>
 
       {/* FAQ */}
       <Section width="narrow">
