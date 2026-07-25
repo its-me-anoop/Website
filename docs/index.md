@@ -1,17 +1,19 @@
 # Documentation
 
 The site of Flutterly Ltd — the product studio of Anoop Jose. Built
-with Next.js 16 (App Router), React 19 and Tailwind CSS v4. The
-marketing pages (home, GP practices, care homes, packages, free
-audit) run the clean healthcare-service "Bloom" language; case-study
-pages run the light "Porcelain" system with Framer Motion.
+with Next.js 16 (App Router), React 19 and Tailwind CSS v4. Every
+Flutterly-branded route — marketing pages, case studies and policies —
+runs the dark, luminous "Aurora" language over one shared animated
+backdrop. The two sample client sites under `/demo/*` keep their own
+scoped palettes on purpose.
 
 ## Contents
 
-- [Design Language — "Bloom"](./BLOOM.md) — marketing-site tokens,
-  structure, signature moves, and the motion system.
-- [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — tokens,
-  primitives, motion, and accessibility rules for case-study pages.
+- [Design Language — "Aurora"](./AURORA.md) — tokens, the shared
+  backdrop, the effects kit, signature moves and the motion system.
+- [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — the light
+  system the case-study markup was built on; its semantic tokens are
+  now remapped onto the Aurora canvas per product scope.
 
 ## Architecture at a glance
 
@@ -20,7 +22,7 @@ src/
 ├── app/
 │   ├── layout.tsx          # Root layout: fonts, metadata, JSON-LD, skip link
 │   ├── template.tsx        # Route transition wrapper
-│   ├── page.tsx            # Bloom homepage composition
+│   ├── page.tsx            # Aurora homepage composition
 │   ├── globals.css         # Design tokens + Tailwind theme + utilities
 │   ├── sitemap.ts          # SEO sitemap
 │   ├── robots.ts           # SEO robots
@@ -31,10 +33,12 @@ src/
 │   ├── accessibility/      # Accessibility statement
 │   └── projects/           # Case-study subpages (sipli, artling)
 ├── components/
-│   ├── bloom/              # Bloom marketing site (shell, nav, footer,
+│   ├── fx/                 # Effects kit (backdrop, particles, reveals,
+│   │                       # glass, tilt, magnetism, marquee, count-up)
+│   ├── aurora/             # The site itself (shell, nav, footer, legal,
 │   │                       # primitives, data, home/sectors/packages/audit)
-│   ├── ui/                 # Porcelain primitives (Button, LiftCard, …)
-│   ├── layout/             # Porcelain Navbar/Footer (case-study pages)
+│   ├── ui/                 # Primitives used by the case studies
+│   ├── demos/              # The two sample client sites
 │   └── projects/           # Per-product landing UIs
 ├── fonts/                  # Self-hosted variable woff2 subsets
 └── lib/

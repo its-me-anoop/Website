@@ -2,16 +2,21 @@
 
 Three scoped design systems coexist. Never leak tokens across scopes.
 
-## 1. Bloom (marketing: home, sector pages, packages, audit)
+## 1. Aurora (every Flutterly-branded route)
 
-See docs/BLOOM.md. Near-white canvas `#fafcfb`, soft mint bands, deep pine
-ink, **teal as the only action colour**, NHS-blue accent for GP content,
-amber for care homes. Motion: shared `EASE` curve, `Rise` / `RevealWords`
-entrances, reduced-motion fallbacks. `.bloom-root` scope.
+See docs/AURORA.md. Deep midnight-pine canvas `#060d11` under one shared
+fixed backdrop (drifting aurora fields, masked grid, horizon glow, grain),
+glass surfaces, **teal `#2fd8ad` as the only action colour**, NHS-blue and
+care-amber sector accents, and one bright `.au-day-panel` interlude per
+page for dense content. Motion: shared `EASE` curve, `Reveal` /
+`TextReveal` / `Stagger` entrances, full reduced-motion and
+reduced-transparency fallbacks. `.aurora-root` scope.
 
-## 2. Porcelain (case studies `/projects/*`)
+## 2. Case-study product scopes (`/projects/*`)
 
-See docs/DESIGN-SYSTEM.md. Light editorial system, system font stacks.
+`.sipli-theme` (aqua) and `.artling-theme` (amber) sit inside Aurora and
+retint it: each sets `--au-accent` and remaps the semantic Porcelain
+tokens their markup uses (see docs/DESIGN-SYSTEM.md for those tokens).
 
 ## 3. Demo GP — "Willowbrook" (`/demo/gp-practice`, `.demo-gp-root`)
 
