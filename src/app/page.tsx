@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { BloomHome } from "@/components/bloom/home/BloomHome";
+import { Home as AuroraHome } from "@/components/aurora/home/Home";
 
 export const metadata: Metadata = {
   title: "Websites for GP practices, care homes & ambitious products",
@@ -34,12 +34,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fafcfb",
-  colorScheme: "light",
+  themeColor: "#060d11",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function Home() {
-  return <BloomHome />;
+  return <AuroraHome />;
 }

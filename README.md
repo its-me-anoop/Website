@@ -1,12 +1,16 @@
 # Flutterly — Design-grade engineering
 
 The site of **Flutterly Ltd**, the one-person product studio of
-**Anoop Jose** (Reading, UK). The homepage runs the
-["Atelier" design language](./docs/ATELIER.md) — a warm cream gallery
-with oversized Space Grotesk type revealed word by word, fanned
-project cards with `@handle` chips, folder-tab browsing, marquee bands
-and pill chrome. Case-study pages (`/projects/*`) keep the light
-["Porcelain" system](./docs/DESIGN-SYSTEM.md).
+**Anoop Jose** (Reading, UK). It runs the
+["Aurora" design language](./docs/AURORA.md) — a deep midnight-pine
+canvas lit by slow-drifting aurora gradients, glass surfaces with
+hairline gradient edges, film grain and one bright teal action colour.
+Every page shares a single fixed backdrop, so scrolling reads as
+movement through one continuous space.
+
+The two sample client sites under `/demo/*` deliberately keep their
+own scoped palettes: they exist to show prospective GP practices and
+care homes a finished site of *theirs*, not of ours.
 
 ## Stack
 
@@ -14,6 +18,8 @@ and pill chrome. Case-study pages (`/projects/*`) keep the light
 - **Tailwind CSS v4** (token-driven `@theme`)
 - **Framer Motion** everywhere (single `LazyMotion` provider, `m`
   components, reduced-motion aware)
+- A **canvas particle field** and CSS-only aurora/grain/grid layers,
+  all `aria-hidden` and suspended when off-screen
 - **Vitest** + Testing Library for tests, **Playwright** for the
   browser workflow
 - **Self-hosted fonts** — Syne, Space Grotesk, and JetBrains Mono as
@@ -41,26 +47,28 @@ npm run dev      # http://localhost:3000
 ## Project structure & design system
 
 See [`docs/index.md`](./docs/index.md) for the architecture overview,
-[`docs/ATELIER.md`](./docs/ATELIER.md) for the homepage language, and
-[`docs/DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md) for the Porcelain
-tokens used by the case-study pages.
+[`docs/AURORA.md`](./docs/AURORA.md) for the design language and the
+effects kit, and [`docs/DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md)
+for the Porcelain tokens the case-study markup is built on.
 
 ## Highlights
 
-- **Staggered word reveals** — headlines rise out of clipped line
-  boxes word by word as they scroll into view, with tinted segments
-  (terracotta, violet, ghost-muted).
-- **Fanned art decks** — the hero spreads five project cards into a
-  fan; the statement cluster fans open scroll-linked; `@handle`
-  speech-bubble chips drift above both.
-- **Gallery furniture** — a featured-work carousel, a folder-tab work
-  browser, drifting community walls, a lime ticker band and marquee
-  wordmarks on a warm cream canvas.
-- **Liquid Glass chrome** — buttons, pills and the menu wear
-  Apple-style liquid glass: saturated backdrop blur with a specular
-  rim, falling back to solid fills under
-  `prefers-reduced-transparency`.
+- **One living backdrop** — drifting aurora fields, a masked
+  engineering grid, a horizon glow and film grain, mounted once and
+  fixed, so sections scroll *through* the light.
+- **Word-by-word headlines** — display type resolves out of clipped
+  line boxes with the blur burning off, tinted segments picking up the
+  teal→aqua→sky ramp.
+- **Glass everywhere it earns its keep** — frosted cards with gradient
+  hairlines, a pointer spotlight, 3D tilt on hero artwork, magnetic
+  buttons, and a rotating conic beam on the one featured card per page.
+- **A bright interlude per page** — the densest content sits on a
+  daylight panel, because a comparison table reads better on paper.
+- **Accessible by construction** — WCAG 2.2 AA contrast on dark and
+  light surfaces, full reduced-motion and reduced-transparency paths,
+  real table and disclosure semantics, and a headless-browser audit of
+  every route at phone and desktop sizes on every change.
 - **SEO** — metadata + Person/Organization JSON-LD, sitemap, robots,
-  semantic HTML, and a fully reduced-motion-aware, accessible UI.
+  semantic HTML throughout.
 
 © 2026 Flutterly Ltd.
