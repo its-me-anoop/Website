@@ -132,7 +132,7 @@ export function GpTriageDemo() {
   const chosenNeed = needs.find((n) => n.id === answers.need);
 
   return (
-    <div className="rounded-[var(--dgp-radius)] border-2 border-[var(--dgp-line)] bg-white">
+    <div className="rounded-[var(--dgp-radius-lg)] border-2 border-[var(--dgp-line)] bg-white shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)]">
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-[var(--dgp-line)] bg-[var(--dgp-tint)] px-5 py-3">
         <p className="text-base font-bold">Online request</p>
         <p aria-live="polite" className="text-sm text-[var(--dgp-ink-soft)]">

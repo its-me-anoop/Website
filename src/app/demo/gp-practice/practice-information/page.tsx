@@ -24,13 +24,13 @@ export default function PracticeInformationPage() {
           alt="The surgery's bright waiting room with comfortable chairs"
           width={1920}
           height={1280}
-          className="max-h-[300px] w-full rounded-[var(--dgp-radius)] object-cover shadow-[0_2px_0_var(--dgp-line)]"
+          className="max-h-[300px] w-full rounded-[var(--dgp-radius-lg)] object-cover shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)]"
         />
 
         {/* The inspection rating is a publication requirement, so it
             gets its own place rather than a line in a policy. */}
-        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-[var(--dgp-tint)] p-5">
-          <span className="rounded-[var(--dgp-radius)] bg-[var(--dgp-green)] px-3 py-1.5 text-base font-bold text-white">
+        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-[var(--dgp-radius-lg)] border border-[var(--dgp-line)] bg-[var(--dgp-tint)] p-5">
+          <span className="rounded-full bg-[var(--dgp-green)] px-3 py-1.5 text-base font-bold text-white">
             CQC rating: {cqc.rating}
           </span>
           <p className="text-base text-[var(--dgp-ink-soft)]">
@@ -104,7 +104,7 @@ export default function PracticeInformationPage() {
           Every NHS practice must make this information public. It is here
           rather than buried in a PDF.
         </p>
-        <div className="mt-5 divide-y divide-[var(--dgp-line)] rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-white">
+        <div className="mt-5 divide-y divide-[var(--dgp-line)] rounded-[var(--dgp-radius-lg)] border border-[var(--dgp-line)] bg-white">
           {publications.map((item) => (
             <section key={item.id} id={item.id} className="scroll-mt-6 p-5 sm:p-6">
               <h3 className="text-lg font-bold tracking-tight">{item.title}</h3>

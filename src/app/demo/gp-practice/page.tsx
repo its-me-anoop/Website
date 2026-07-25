@@ -5,6 +5,7 @@ import {
   GpCard,
   GpMiniMap,
   GpSection,
+  gpShadow,
 } from "@/components/demos/gp/GpShell";
 import {
   alert,
@@ -51,8 +52,8 @@ export default function GpDemoHome() {
   return (
     <>
       {/* Practice welcome */}
-      <div className="border-b border-[var(--dgp-line)] bg-[var(--dgp-tint)]">
-        <div className="mx-auto grid w-full max-w-[1100px] items-center gap-8 px-4 py-8 sm:px-6 sm:py-12 lg:grid-cols-[1fr_400px]">
+      <div className="border-b border-[var(--dgp-sky-line)] bg-[var(--dgp-sky)]">
+        <div className="mx-auto grid w-full max-w-[1100px] items-center gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[1fr_420px] lg:gap-12">
           <div>
             <h1 className="max-w-[760px] text-[clamp(1.9rem,4.8vw,2.8rem)] font-bold leading-tight tracking-tight">
               What do you need to do today?
@@ -63,21 +64,27 @@ export default function GpDemoHome() {
               what happens next.
             </p>
             <p className="mt-4 flex flex-wrap items-center gap-2 text-base text-[var(--dgp-ink-soft)]">
-              <span className="rounded-[var(--dgp-radius)] bg-[var(--dgp-green)] px-2.5 py-1 text-sm font-bold text-white">
+              <span className="rounded-full bg-[var(--dgp-green)] px-3 py-1 text-sm font-bold text-white">
                 CQC: {cqc.rating}
               </span>
               <span>{cqc.date}</span>
             </p>
           </div>
-          {/* No `priority`: the image is display:none below lg, and the
-              unconditional preload would cost phones ~170KB for nothing. */}
-          <Image
-            src="/demos/gp/gp-hero.jpg"
-            alt="The bright reception area at Willowbrook Surgery, with patients checking in at the front desk"
-            width={800}
-            height={534}
-            className="hidden rounded-[var(--dgp-radius)] object-cover shadow-[0_2px_0_var(--dgp-line)] lg:block"
-          />
+          <div className="relative">
+            <Image
+              src="/demos/gp/gp-hero.jpg"
+              alt="The bright reception area at Willowbrook Surgery, with patients checking in at the front desk"
+              width={800}
+              height={534}
+              sizes="(min-width: 1024px) 420px, 100vw"
+              className={`rounded-[var(--dgp-radius-lg)] object-cover ${gpShadow}`}
+            />
+            <p
+              className={`absolute bottom-4 left-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[var(--dgp-ink)] ${gpShadow}`}
+            >
+              Open 8:00am – 6:30pm, Monday to Friday
+            </p>
+          </div>
         </div>
       </div>
 
@@ -96,7 +103,9 @@ export default function GpDemoHome() {
             const Wrapper = external ? "a" : Link;
             return (
               <li key={way.id}>
-                <div className="flex h-full flex-col rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-white p-6 shadow-[0_2px_0_var(--dgp-line)]">
+                <div
+                  className={`flex h-full flex-col rounded-[var(--dgp-radius-lg)] border border-[var(--dgp-line)] bg-white p-6 ${gpShadow}`}
+                >
                   <svg
                     aria-hidden
                     viewBox="0 0 24 24"
@@ -153,31 +162,33 @@ export default function GpDemoHome() {
       </GpSection>
 
       {/* Urgent help */}
-      <div className="bg-[var(--dgp-blue)] text-white">
-        <div className="mx-auto grid w-full max-w-[1100px] gap-6 px-4 py-8 sm:grid-cols-2 sm:px-6">
-          <div>
-            <h2 className="text-[20px] font-bold">Need help right now?</h2>
-            <p className="mt-2 max-w-[440px] text-base leading-relaxed text-white/85">
-              If the surgery is closed, NHS 111 can help day and night — online
-              or by phone. In a life-threatening emergency, call 999.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3 sm:justify-end">
-            <a
-              href="https://111.nhs.uk/"
-              className="rounded-[var(--dgp-radius)] bg-white px-6 py-3 text-base font-semibold text-[var(--dgp-blue)] hover:bg-[var(--dgp-tint)]"
-            >
-              Get help from NHS 111
-            </a>
-            <a
-              href="tel:999"
-              className="rounded-[var(--dgp-radius)] border-2 border-white px-6 py-3 text-base font-semibold text-white hover:bg-white/10"
-            >
-              Emergency: 999
-            </a>
+      <GpSection pad="flush">
+        <div className="rounded-[var(--dgp-radius-lg)] bg-[var(--dgp-blue)] text-white">
+          <div className="grid gap-6 px-6 py-8 sm:grid-cols-2 sm:px-8">
+            <div>
+              <h2 className="text-[20px] font-bold">Need help right now?</h2>
+              <p className="mt-2 max-w-[440px] text-base leading-relaxed text-white/85">
+                If the surgery is closed, NHS 111 can help day and night —
+                online or by phone. In a life-threatening emergency, call 999.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 sm:justify-end">
+              <a
+                href="https://111.nhs.uk/"
+                className="rounded-full bg-white px-6 py-3 text-base font-semibold text-[var(--dgp-blue)] hover:bg-[var(--dgp-sky)]"
+              >
+                Get help from NHS 111
+              </a>
+              <a
+                href="tel:999"
+                className="rounded-full border-2 border-white px-6 py-3 text-base font-semibold text-white hover:bg-white/10"
+              >
+                Emergency: 999
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      </GpSection>
 
       {/* What the practice runs on */}
       <GpSection>
@@ -237,8 +248,10 @@ export default function GpDemoHome() {
       {/* Opening times + find us */}
       <div className="bg-[var(--dgp-tint)]">
         <GpSection pad="spacious">
-          <div className="grid gap-10 lg:grid-cols-2">
-            <div>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div
+              className={`rounded-[var(--dgp-radius-lg)] border border-[var(--dgp-line)] bg-white p-6 sm:p-8 ${gpShadow}`}
+            >
               <h2 className="text-2xl font-bold tracking-tight">Opening times</h2>
               <table className="mt-4 w-full border-collapse text-base">
                 <caption className="sr-only">
@@ -260,7 +273,9 @@ export default function GpDemoHome() {
                 have to ring at 8:00am to be seen today.
               </p>
             </div>
-            <div>
+            <div
+              className={`rounded-[var(--dgp-radius-lg)] border border-[var(--dgp-line)] bg-white p-6 sm:p-8 ${gpShadow}`}
+            >
               <h2 className="text-2xl font-bold tracking-tight">Find us</h2>
               <p className="mt-4 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
                 {practice.address}
@@ -362,7 +377,9 @@ export default function GpDemoHome() {
       {/* Self-serve answers */}
       <GpSection>
         <h2 className="text-2xl font-bold tracking-tight">How do I…?</h2>
-        <div className="mt-5 divide-y divide-[var(--dgp-line)] rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-white">
+        <div
+          className={`mt-5 divide-y divide-[var(--dgp-line)] rounded-[var(--dgp-radius-lg)] border border-[var(--dgp-line)] bg-white ${gpShadow}`}
+        >
           {faqs.map((faq) => (
             <details key={faq.q} className="group p-5">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-[var(--dgp-blue)] underline-offset-2 hover:underline [&::-webkit-details-marker]:hidden">

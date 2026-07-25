@@ -8,6 +8,9 @@ import { navLinks } from "./data";
  * Primary nav for the GP demo. The one client component in the demo:
  * it exists solely to mark the current page (aria-current + underline),
  * and server-renders identically for the no-JS experience.
+ *
+ * A single scrollable row on every viewport — no hamburger, no JS —
+ * with the current page marked by a solid NHS-blue underline.
  */
 export function GpNav() {
   const pathname = usePathname();
@@ -15,23 +18,23 @@ export function GpNav() {
   return (
     <nav
       aria-label="Primary"
-      className="border-t border-white/25 bg-[var(--dgp-blue-deep)]"
+      className="border-y border-[var(--dgp-line)] bg-white"
     >
-      <ul className="mx-auto grid w-full max-w-[1100px] grid-cols-2 sm:flex sm:flex-wrap sm:px-4">
+      <ul className="mx-auto flex w-full max-w-[1100px] items-stretch overflow-x-auto px-4 sm:px-6">
         {navLinks.map((link) => {
           const active =
             link.href === "/demo/gp-practice"
               ? pathname === link.href
               : pathname?.startsWith(link.href);
           return (
-            <li key={link.href} className="border-b border-white/15 sm:border-b-0">
+            <li key={link.href} className="shrink-0">
               <Link
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`block px-4 py-3 text-base font-medium text-white hover:bg-white/10 hover:underline sm:px-3 ${
+                className={`block whitespace-nowrap px-3.5 py-3.5 text-base font-medium transition-colors sm:px-4 ${
                   active
-                    ? "bg-white/10 shadow-[inset_0_-4px_0_var(--dgp-yellow)]"
-                    : ""
+                    ? "text-[var(--dgp-blue)] shadow-[inset_0_-3px_0_var(--dgp-blue)]"
+                    : "text-[var(--dgp-ink)] hover:text-[var(--dgp-blue)] hover:shadow-[inset_0_-3px_0_var(--dgp-sky-line)]"
                 }`}
               >
                 {link.label}
