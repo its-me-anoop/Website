@@ -11,7 +11,10 @@ re-declaring the same tokens rather than by forking the components.
 
 The two sample client sites under `/demo/*` deliberately keep their
 own scoped palettes: they exist to show prospective GP practices and
-care homes a finished site of *theirs*, not of ours.
+care homes a finished site of *theirs*, not of ours. The GP sample
+goes further and ships three colour schemes over one NHS-service-manual
+structure, plus a working online-consultation journey — the two things
+a screenshot cannot prove.
 
 ## Stack
 
@@ -45,6 +48,7 @@ npm run dev      # http://localhost:3000
 | `npx vitest run` | Run the test suite |
 | `npm run test:browser` | Headless-browser audit of every route |
 | `npm run test:contrast` | WCAG 2.2 AA contrast audit of every rendered text node |
+| `npm run test:gp` | Drives the GP demo: triage form, no-JS render, colour schemes |
 
 ## Project structure & design system
 
