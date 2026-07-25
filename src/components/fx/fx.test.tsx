@@ -32,15 +32,23 @@ describe("CountUp", () => {
 });
 
 describe("Marquee", () => {
-  it("duplicates the row for a seamless loop but announces it once", () => {
+  /* Asserted as a contract rather than a copy count: how many copies it
+     takes to keep a full-bleed band full depends on the widest display
+     worth covering, so the number is free to change. What must not
+     change is that the row repeats, and that assistive tech hears the
+     list exactly once. */
+  it("repeats the row for a seamless loop but announces it once", () => {
     const { container } = withMotion(
       <Marquee>
         <span>Pembroke Care</span>
       </Marquee>
     );
 
-    expect(screen.getAllByText("Pembroke Care")).toHaveLength(2);
-    expect(container.querySelectorAll("[aria-hidden='true']")).toHaveLength(1);
+    const copies = screen.getAllByText("Pembroke Care").length;
+    expect(copies).toBeGreaterThanOrEqual(2);
+    expect(container.querySelectorAll("[aria-hidden='true']")).toHaveLength(
+      copies - 1
+    );
   });
 });
 
@@ -60,7 +68,7 @@ describe("TextReveal", () => {
     withMotion(
       <TextReveal
         as="h2"
-        segments={[{ text: "Live products." }, { text: "Real organisations.", tone: "gradient" }]}
+        segments={[{ text: "Live products." }, { text: "Real organisations.", tone: "accent" }]}
       />
     );
 

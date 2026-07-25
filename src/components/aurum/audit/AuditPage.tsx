@@ -68,7 +68,7 @@ export function AuditPage() {
           className="pointer-events-none absolute left-1/2 top-0 h-[440px] w-[760px] max-w-full -translate-x-1/2 rounded-full bg-au-rose/12 blur-[120px]"
         />
         <div className="relative mx-auto w-full max-w-[1240px]">
-          <Reveal y={14} blur={4}>
+          <Reveal y={14}>
             <Eyebrow className="justify-center">Free website audit</Eyebrow>
           </Reveal>
           <TextReveal
@@ -77,7 +77,7 @@ export function AuditPage() {
             className="au-display-hero mx-auto mt-6 max-w-[760px] text-[clamp(2.3rem,5.6vw,3.9rem)]"
             segments={[
               { text: "Find out how your website" },
-              { text: "really performs.", tone: "gradient" },
+              { text: "really performs.", tone: "accent" },
             ]}
           />
           <Reveal delay={0.24}>

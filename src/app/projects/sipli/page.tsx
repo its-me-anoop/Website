@@ -21,6 +21,11 @@ export const metadata: Metadata = {
     description,
     url: "/projects/sipli",
     type: "website",
+    /* Repeated rather than inherited — Next.js replaces an inherited
+       `openGraph` object wholesale, so omitting these left the case
+       study with no og:site_name and no en_GB signal. */
+    siteName: site.studio,
+    locale: site.locale,
     images: [
       {
         url: heroImage,

@@ -8,7 +8,6 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
-  type Variants,
 } from "framer-motion";
 import {
   ArrowLeft,
@@ -29,14 +28,13 @@ import {
   Zap,
 } from "lucide-react";
 import { Shell } from "@/components/aurum/Shell";
-import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
+import { Reveal } from "@/components/ui/Reveal";
+import { Stagger, StaggerItem } from "@/components/fx";
 import { LiftCard } from "@/components/ui/LiftCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 const APP_STORE_URL =
   "https://apps.apple.com/us/app/sipli-water-tracker/id6758851574";
-
-const ease = [0.16, 1, 0.3, 1] as const;
 
 /* ── Shared building blocks ─────────────────────────────── */
 
@@ -131,22 +129,6 @@ function PhoneShot({
 export function SipliLanding() {
   const reduce = useReducedMotion();
 
-  const heroStagger: Variants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
-  };
-  const heroItem: Variants = reduce
-    ? { hidden: {}, visible: {} }
-    : {
-        hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
-        visible: {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-          transition: { duration: 0.8, ease },
-        },
-      };
-
   // Scroll-scrub: the hero phone settles into place as it enters the viewport.
   const phoneRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -177,15 +159,14 @@ export function SipliLanding() {
             Back to Home
           </Link>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={heroStagger}
-            className="mx-auto flex max-w-[760px] flex-col items-center text-center"
-          >
-            <motion.div
-              variants={heroItem}
-              className="mb-7 flex flex-wrap justify-center gap-2"
+          {/* The fold enters from the stylesheet, staggered by an explicit
+              delay per line. Motion variants put `opacity: 0` into the
+              server-rendered HTML, which left the whole hero invisible
+              until the async motion chunk arrived. */}
+          <div className="mx-auto flex max-w-[760px] flex-col items-center text-center">
+            <div
+              className="au-enter mb-7 flex flex-wrap justify-center gap-2"
+              style={{ "--au-rise": "20px", "--au-delay": "0.05s" } as React.CSSProperties}
             >
               <Eyebrow>
                 <Droplets className="h-3 w-3 text-accent" aria-hidden="true" />
@@ -195,35 +176,35 @@ export function SipliLanding() {
                 <Watch className="h-3 w-3 text-accent" aria-hidden="true" />
                 New on Apple Watch
               </Eyebrow>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              variants={heroItem}
-              className="text-[clamp(56px,9vw,104px)] font-semibold leading-[0.98] tracking-[-0.04em] text-ink"
+            <h1
+              className="au-enter text-[clamp(56px,9vw,104px)] font-semibold leading-[0.98] tracking-[-0.04em] text-ink"
+              style={{ "--au-rise": "20px", "--au-delay": "0.15s" } as React.CSSProperties}
             >
               Sipli
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              variants={heroItem}
-              className="mt-4 font-display text-[clamp(22px,3vw,32px)] font-semibold leading-snug tracking-[-0.02em] text-accent"
+            <p
+              className="au-enter mt-4 font-display text-[clamp(22px,3vw,32px)] font-semibold leading-snug tracking-[-0.02em] text-accent"
+              style={{ "--au-rise": "20px", "--au-delay": "0.25s" } as React.CSSProperties}
             >
               Stay Hydrated, Effortlessly.
-            </motion.p>
+            </p>
 
-            <motion.p
-              variants={heroItem}
-              className="mt-6 max-w-[560px] text-[16px] leading-[1.7] text-ink-3 md:text-[17px]"
+            <p
+              className="au-enter mt-6 max-w-[560px] text-[16px] leading-[1.7] text-ink-3 md:text-[17px]"
+              style={{ "--au-rise": "20px", "--au-delay": "0.35s" } as React.CSSProperties}
             >
               Adaptive goals that flex with your body, weather, and workouts.
               Now on Apple Watch — log a sip in one tap from your wrist. 35+
               beverages, on-device AI coaching, and reminders that think with
               you, not at you.
-            </motion.p>
+            </p>
 
-            <motion.div
-              variants={heroItem}
-              className="mt-9 flex flex-col items-center gap-4 sm:flex-row"
+            <div
+              className="au-enter mt-9 flex flex-col items-center gap-4 sm:flex-row"
+              style={{ "--au-rise": "20px", "--au-delay": "0.45s" } as React.CSSProperties}
             >
               <AppStoreBadge />
               <div className="flex items-center gap-1">
@@ -238,17 +219,17 @@ export function SipliLanding() {
                   Free on the App Store
                 </span>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          {/* Scroll-scrubbed hero device */}
+          {/* Scroll-scrubbed hero device. The scrub stays on a motion
+              component — it is genuinely scroll-linked — but the fade-in
+              is a stylesheet keyframe, so the phone is not shipped at
+              `opacity: 0` waiting on the motion chunk. */}
           <motion.div
             ref={phoneRef}
             style={reduce ? undefined : { scale: phoneScale, y: phoneY }}
-            initial={reduce ? false : { opacity: 0 }}
-            animate={reduce ? undefined : { opacity: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease }}
-            className="mt-16 flex justify-center md:mt-20"
+            className="au-enter mt-16 flex justify-center md:mt-20"
           >
             <PhoneShot
               src="/images/sipli/iphone/01-hero-1320x2868.jpg"
@@ -265,13 +246,7 @@ export function SipliLanding() {
         className="border-y border-line bg-surface px-[var(--gutter)] py-14"
         aria-label="Sipli highlights"
       >
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-10% 0px" }}
-          className="mx-auto grid w-full max-w-[1200px] grid-cols-2 gap-4 md:grid-cols-4"
-        >
+        <Stagger className="mx-auto grid w-full max-w-[1200px] grid-cols-2 gap-4 md:grid-cols-4">
           {[
             { icon: Watch, label: "Apple Watch", desc: "One-tap logging on your wrist" },
             { icon: Sparkles, label: "AI Coaching", desc: "On-device Apple Intelligence" },
@@ -280,11 +255,7 @@ export function SipliLanding() {
           ].map((item) => {
             const Icon = item.icon;
             return (
-              <motion.div
-                key={item.label}
-                variants={staggerItem}
-                className="flex flex-col items-center gap-3 rounded-[var(--r-md)] bg-surface-2 px-4 py-6 text-center transition-transform duration-300 hover:-translate-y-0.5"
-              >
+              <StaggerItem key={item.label} className="flex flex-col items-center gap-3 rounded-[var(--r-md)] bg-surface-2 px-4 py-6 text-center transition-transform duration-300 hover:-translate-y-0.5">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
@@ -294,10 +265,10 @@ export function SipliLanding() {
                   </p>
                   <p className="text-xs text-muted">{item.desc}</p>
                 </div>
-              </motion.div>
+              </StaggerItem>
             );
           })}
-        </motion.div>
+        </Stagger>
       </section>
 
       {/* ── APPLE WATCH ── */}
@@ -344,7 +315,7 @@ export function SipliLanding() {
         aria-labelledby="earth-week-heading"
       >
         <div className="relative mx-auto w-full max-w-[1200px]">
-          <Reveal blur>
+          <Reveal>
             <div
               className="relative overflow-hidden rounded-[var(--r-xl)] p-10 shadow-[var(--shadow-lg)] md:p-14 lg:p-16"
               style={{
@@ -395,13 +366,7 @@ export function SipliLanding() {
             </div>
           </Reveal>
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-10% 0px" }}
-            className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2"
-          >
+          <Stagger className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
             {[
               {
                 title: "Refill Pledge",
@@ -420,11 +385,7 @@ export function SipliLanding() {
                 desc: "Year-round in Settings — the honest case for tap water, reusable bottles, and habit over hype.",
               },
             ].map((f) => (
-              <motion.div
-                key={f.title}
-                variants={staggerItem}
-                className="rounded-[var(--r-lg)] border border-line bg-surface p-6 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow)]"
-              >
+              <StaggerItem key={f.title} className="rounded-[var(--r-lg)] border border-line bg-surface p-6 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow)]">
                 <div className="flex items-start gap-3">
                   <span
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl"
@@ -441,9 +402,9 @@ export function SipliLanding() {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </StaggerItem>
             ))}
-          </motion.div>
+          </Stagger>
 
           <Reveal>
             <p className="mx-auto mt-8 max-w-[520px] text-center text-xs leading-relaxed text-muted">
@@ -520,13 +481,7 @@ export function SipliLanding() {
               sports drinks, and more. Caffeine and alcohol are accounted for,
               so a cold brew doesn&apos;t count like water.
             </p>
-            <motion.ul
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-10% 0px" }}
-              className="flex flex-wrap gap-2"
-            >
+            <Stagger as="ul" className="flex flex-wrap gap-2">
               {[
                 { name: "Water", pct: "100%" },
                 { name: "Sparkling", pct: "100%" },
@@ -541,16 +496,12 @@ export function SipliLanding() {
                 { name: "Sports Drink", pct: "80%" },
                 { name: "+ 25 more", pct: "" },
               ].map((b) => (
-                <motion.li
-                  key={b.name}
-                  variants={staggerItem}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-2 px-3 py-1.5 text-xs font-medium text-ink-2 transition-colors hover:border-line-2"
-                >
+                <StaggerItem as="li" key={b.name} className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-2 px-3 py-1.5 text-xs font-medium text-ink-2 transition-colors hover:border-line-2">
                   {b.name}
                   {b.pct && <span className="font-bold text-accent">{b.pct}</span>}
-                </motion.li>
+                </StaggerItem>
               ))}
-            </motion.ul>
+            </Stagger>
           </Reveal>
 
           <Reveal delay={0.08} className="flex justify-center lg:justify-end">
@@ -580,7 +531,7 @@ export function SipliLanding() {
             lede="Weekly charts, hydration heatmaps, beverage breakdowns, and streak tracking — everything you need to stay consistent."
           />
 
-          <Reveal blur className="mb-14 flex justify-center">
+          <Reveal className="mb-14 flex justify-center">
             <div className="relative w-full max-w-[620px]">
               <div
                 className="pointer-events-none absolute inset-0 rounded-[var(--r-xl)]"
@@ -602,13 +553,7 @@ export function SipliLanding() {
             </div>
           </Reveal>
 
-          <motion.ul
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-10% 0px" }}
-            className="mx-auto grid max-w-2xl grid-cols-2 gap-3 md:grid-cols-3"
-          >
+          <Stagger as="ul" className="mx-auto grid max-w-2xl grid-cols-2 gap-3 md:grid-cols-3">
             {[
               "Weekly & monthly bar charts",
               "Hydration heatmap calendar",
@@ -617,16 +562,12 @@ export function SipliLanding() {
               "Beverage breakdown chart",
               "AI coaching tips",
             ].map((feat) => (
-              <motion.li
-                key={feat}
-                variants={staggerItem}
-                className="flex items-center gap-2.5 rounded-[var(--r-sm)] border border-line bg-surface p-3.5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
-              >
+              <StaggerItem as="li" key={feat} className="flex items-center gap-2.5 rounded-[var(--r-sm)] border border-line bg-surface p-3.5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
                 <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent" aria-hidden="true" />
                 <span className="text-xs text-ink-2">{feat}</span>
-              </motion.li>
+              </StaggerItem>
             ))}
-          </motion.ul>
+          </Stagger>
         </div>
       </section>
 
@@ -724,18 +665,8 @@ export function SipliLanding() {
             </h2>
           </Reveal>
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-8% 0px" }}
-            className="flex items-end justify-center gap-4 md:gap-8"
-          >
-            <motion.div
-              variants={staggerItem}
-              className="mb-10 flex-shrink-0"
-              style={{ width: "clamp(120px, 14vw, 180px)" }}
-            >
+          <Stagger className="flex items-end justify-center gap-4 md:gap-8">
+            <StaggerItem className="mb-10 w-[clamp(120px,14vw,180px)] flex-shrink-0">
               <Image
                 src="/images/sipli/iphone/04-insights-1320x2868.jpg"
                 alt="Sipli insights"
@@ -744,12 +675,8 @@ export function SipliLanding() {
                 className="h-auto w-full rounded-[var(--r-lg)]"
                 style={{ filter: "drop-shadow(0 18px 36px rgba(12,42,51,0.18))" }}
               />
-            </motion.div>
-            <motion.div
-              variants={staggerItem}
-              className="relative flex-shrink-0"
-              style={{ width: "clamp(150px, 18vw, 230px)" }}
-            >
+            </StaggerItem>
+            <StaggerItem className="relative w-[clamp(150px,18vw,230px)] flex-shrink-0">
               <div
                 className="pointer-events-none absolute inset-0 rounded-full"
                 style={{
@@ -767,12 +694,8 @@ export function SipliLanding() {
                 className="relative h-auto w-full rounded-[var(--r-lg)]"
                 style={{ filter: "drop-shadow(0 26px 52px rgba(12,42,51,0.22))" }}
               />
-            </motion.div>
-            <motion.div
-              variants={staggerItem}
-              className="mb-10 flex-shrink-0"
-              style={{ width: "clamp(120px, 14vw, 180px)" }}
-            >
+            </StaggerItem>
+            <StaggerItem className="mb-10 w-[clamp(120px,14vw,180px)] flex-shrink-0">
               <Image
                 src="/images/sipli/iphone/05-breakdown-1320x2868.jpg"
                 alt="Sipli breakdown"
@@ -781,8 +704,8 @@ export function SipliLanding() {
                 className="h-auto w-full rounded-[var(--r-lg)]"
                 style={{ filter: "drop-shadow(0 18px 36px rgba(12,42,51,0.18))" }}
               />
-            </motion.div>
-          </motion.div>
+            </StaggerItem>
+          </Stagger>
         </div>
       </section>
 
@@ -805,13 +728,7 @@ export function SipliLanding() {
             </p>
           </Reveal>
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-8% 0px" }}
-            className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
-          >
+          <Stagger className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 icon: Bell,
@@ -846,7 +763,7 @@ export function SipliLanding() {
             ].map((item) => {
               const Icon = item.icon;
               return (
-                <motion.div key={item.title} variants={staggerItem}>
+                <StaggerItem key={item.title}>
                   <LiftCard className="h-full">
                     <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-accent">
                       <Icon className="h-5 w-5" aria-hidden="true" />
@@ -858,10 +775,10 @@ export function SipliLanding() {
                       {item.desc}
                     </p>
                   </LiftCard>
-                </motion.div>
+                </StaggerItem>
               );
             })}
-          </motion.div>
+          </Stagger>
         </div>
       </section>
 

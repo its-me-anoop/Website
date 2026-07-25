@@ -78,7 +78,11 @@ export function GpShell({ children }: { children: React.ReactNode }) {
         <GpNav />
       </header>
 
-      <main id="main">{children}</main>
+      {/* `tabIndex={-1}` so the skip link moves the reading position and
+          not just Chromium's sequential-navigation start point. */}
+      <main id="main" tabIndex={-1} className="outline-none">
+        {children}
+      </main>
 
       <footer className="mt-16 border-t-4 border-[var(--dgp-blue)] bg-[var(--dgp-tint)]">
         <div className="mx-auto grid w-full max-w-[1100px] gap-8 px-4 py-10 sm:grid-cols-3 sm:px-6">

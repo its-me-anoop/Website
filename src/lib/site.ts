@@ -4,7 +4,21 @@
  * details never drift between files.
  */
 export const site = {
-  url: "https://flutterly.uk",
+  /**
+   * The origin the site is actually served from, and the one every
+   * canonical, og:url, sitemap entry and JSON-LD @id is built on.
+   *
+   * `flutterly.uk` is a registrar parking page, not this site: every
+   * path on it returns the same 114-byte redirect stub. Pointing the
+   * canonicals there told search engines the real version of each page
+   * lived somewhere that serves no content, and made every social
+   * unfurl fetch its og:image from a stub. `flutterly.co.uk` redirects
+   * to the `www` host, so the canonical is the `www` form — matching
+   * `site.email`, which has always been on `.co.uk`.
+   */
+  url: "https://www.flutterly.co.uk",
+  /** The bare host, for prose that names the site rather than links it. */
+  domain: "flutterly.co.uk",
   name: "Anoop Jose",
   legalName: "Flutterly Ltd",
   studio: "Flutterly",

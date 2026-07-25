@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
+import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://flutterly.uk";
+  /* From `site`, not a second copy of the string — see robots.ts. */
+  const baseUrl = site.url;
 
   return [
     {
@@ -64,11 +66,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
-    {
-      url: `${baseUrl}/little-artist/privacy-policy`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
+    /* `/little-artist/privacy-policy` is deliberately absent: it is a
+       permanent redirect to the Artling policy above, and listing a
+       redirect in a sitemap just asks a crawler to follow a hop. The
+       route stays for the App Store listing that still points at it. */
   ];
 }

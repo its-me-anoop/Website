@@ -88,6 +88,54 @@ export default function ContactPage() {
         </div>
       </GpSection>
 
+      {/* Two links elsewhere on the demo — the interpreting and BSL card
+          on the services page, and the contact-preference line in the
+          online consultation — promised this section and pointed at
+          `#access`, which did not exist. They landed the reader silently
+          at the top of this page instead. The information they promise
+          is exactly the sort a practice is expected to publish, so the
+          section is the fix rather than re-pointing the links. */}
+      <GpSection>
+        <div id="access" className="scroll-mt-6">
+          <h2 className="text-[20px] font-bold tracking-tight">
+            Accessibility and communication support
+          </h2>
+          <p className="mt-3 max-w-[680px] text-base leading-relaxed">
+            Tell us what you need and we will arrange it before your
+            appointment — you do not have to ask again each time.
+          </p>
+          <ul className="mt-4 max-w-[680px] space-y-3 text-base leading-relaxed">
+            <li>
+              <strong>Interpreters, including British Sign Language.</strong>{" "}
+              Tell us the language you need when you book and we book an
+              interpreter for the appointment. This is free.
+            </li>
+            <li>
+              <strong>How we contact you.</strong> If a phone call will not
+              reach you, tell us — we can use text message, email, or write to
+              you instead, and we record that on your file.
+            </li>
+            <li>
+              <strong>Letters in another format.</strong> Large print, easy
+              read, braille and audio are all available on request.
+            </li>
+            <li>
+              <strong>Getting into the building.</strong> The surgery is on one
+              level with step-free access from the car park, an accessible
+              toilet, and a hearing loop at reception.
+            </li>
+            <li>
+              <strong>Bringing someone with you.</strong> You are welcome to
+              bring a family member, friend or advocate to any appointment.
+            </li>
+          </ul>
+          <GpSampleNote>
+            Sample site — a live practice site states its own building
+            access, loop and interpreting arrangements here.
+          </GpSampleNote>
+        </div>
+      </GpSection>
+
       <GpSection pad="flush">
         <div id="register" className="scroll-mt-6 rounded-md bg-[var(--dgp-tint)] p-6 sm:p-8">
           <h2 className="text-[20px] font-bold tracking-tight">

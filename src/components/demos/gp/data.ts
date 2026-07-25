@@ -396,10 +396,19 @@ export const triageAlternatives = [
    The things a practice website is actually required to carry, in
    one place, so a practice manager can check them off. */
 
+/**
+ * Sample inspection summary. The link goes to the CQC's own search
+ * rather than to a report: Willowbrook is fictional, so "Read the full
+ * inspection report" pointed at the CQC homepage and left the reader
+ * hunting for a practice that does not exist. The care-home demo has
+ * always carried a note like this one; the GP demo should too.
+ */
 export const cqc = {
   rating: "Good",
   date: "Last inspected March 2025",
-  href: "https://www.cqc.org.uk/",
+  href: "https://www.cqc.org.uk/search/all",
+  linkLabel: "Find a practice on cqc.org.uk",
+  note: "Sample rating shown for demonstration. A real practice site links this straight to its own report on cqc.org.uk.",
 } as const;
 
 export const publications = [

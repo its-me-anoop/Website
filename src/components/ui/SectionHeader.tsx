@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { m as motion, useReducedMotion } from "framer-motion";
+import { Reveal } from "@/components/fx";
 import { cn } from "@/lib/utils";
 
 interface SectionHeaderProps {
@@ -22,6 +22,12 @@ interface SectionHeaderProps {
 /**
  * Consistent section heading: a small caption, a large display title and an
  * optional lede. Drives the editorial rhythm shared across every section.
+ *
+ * The three parts enter through the shared stylesheet-driven `Reveal`, so
+ * the heading is present and readable in the served HTML. It used to
+ * animate `opacity` and a `blur` from a motion component, which meant
+ * every section title on both case studies was shipped invisible and
+ * only resolved once the async motion chunk had loaded.
  */
 export function SectionHeader({
   eyebrow,
@@ -32,18 +38,6 @@ export function SectionHeader({
   align = "split",
   className,
 }: SectionHeaderProps) {
-  const reduce = useReducedMotion();
-
-  const reveal = (delay: number) =>
-    reduce
-      ? {}
-      : {
-          initial: { opacity: 0, y: 22, filter: "blur(8px)" },
-          whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
-          viewport: { once: true, margin: "-12% 0px" },
-          transition: { duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] as const },
-        };
-
   return (
     <div
       className={cn(
@@ -55,34 +49,35 @@ export function SectionHeader({
       )}
     >
       <div>
-        <motion.span
-          {...reveal(0)}
-          className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-muted"
-        >
-          <span
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ background: dot }}
-          />
-          {eyebrow}
-        </motion.span>
-        <motion.h2
-          id={headingId}
-          {...reveal(0.08)}
-          className="mt-4 text-[clamp(34px,5vw,64px)] font-semibold leading-[1.04] tracking-[-0.03em] text-ink [&_em]:not-italic [&_em]:text-accent"
-        >
-          {title}
-        </motion.h2>
+        <Reveal y={22} as="span" className="block">
+          <span className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-muted">
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: dot }}
+            />
+            {eyebrow}
+          </span>
+        </Reveal>
+        <Reveal y={22} delay={0.08}>
+          <h2
+            id={headingId}
+            className="mt-4 text-[clamp(34px,5vw,64px)] font-semibold leading-[1.04] tracking-[-0.03em] text-ink [&_em]:not-italic [&_em]:text-accent"
+          >
+            {title}
+          </h2>
+        </Reveal>
       </div>
       {lede ? (
-        <motion.div
-          {...reveal(0.16)}
+        <Reveal
+          y={22}
+          delay={0.16}
           className={cn(
             "text-[16px] leading-[1.7] text-ink-3",
             align === "split" ? "max-w-[440px]" : "mt-5 max-w-xl"
           )}
         >
           {lede}
-        </motion.div>
+        </Reveal>
       ) : null}
     </div>
   );

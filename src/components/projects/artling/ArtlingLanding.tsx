@@ -24,11 +24,10 @@ import {
 import { Shell } from "@/components/aurum/Shell";
 import { Button } from "@/components/ui/Button";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
-import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
+import { Reveal } from "@/components/ui/Reveal";
+import { Stagger, StaggerItem } from "@/components/fx";
 import { LiftCard } from "@/components/ui/LiftCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-
-const ease = [0.16, 1, 0.3, 1] as const;
 
 const pillars = [
   {
@@ -249,76 +248,58 @@ export function ArtlingLanding() {
           </Link>
 
           <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={
-                reduce
-                  ? undefined
-                  : { hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } } }
-              }
-            >
-              <motion.div
-                variants={reduce ? undefined : { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              >
+            {/* The fold enters from the stylesheet, staggered by an
+                explicit delay per line rather than by motion variants —
+                the variants put `opacity: 0` into the server-rendered
+                HTML, so the whole hero was invisible until the async
+                motion chunk arrived. */}
+            <div>
+              <div className="au-enter" style={{ "--au-rise": "20px", "--au-delay": "0.05s" } as React.CSSProperties}>
                 <Eyebrow>
                   <Sparkles className="h-3 w-3 text-accent" aria-hidden="true" />
                   Art archive for busy families
                 </Eyebrow>
-              </motion.div>
+              </div>
 
-              <motion.h1
-                variants={
-                  reduce
-                    ? undefined
-                    : {
-                        hidden: { opacity: 0, y: 24, filter: "blur(10px)" },
-                        visible: {
-                          opacity: 1,
-                          y: 0,
-                          filter: "blur(0px)",
-                          transition: { duration: 0.9, ease },
-                        },
-                      }
-                }
-                className="mt-7 max-w-[16ch] text-[clamp(40px,6vw,76px)] font-semibold leading-[1.0] tracking-[-0.035em] text-ink"
+              <h1
+                className="au-enter mt-7 max-w-[16ch] text-[clamp(40px,6vw,76px)] font-semibold leading-[1.0] tracking-[-0.035em] text-ink"
+                style={{ "--au-rise": "24px", "--au-delay": "0.15s" } as React.CSSProperties}
               >
                 Turn fridge masterpieces into a{" "}
                 <span className="text-accent">living family gallery.</span>
-              </motion.h1>
+              </h1>
 
-              <motion.p
-                variants={reduce ? undefined : { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } } }}
-                className="mt-6 max-w-[560px] text-[16px] leading-[1.7] text-ink-3 md:text-[18px]"
+              <p
+                className="au-enter mt-6 max-w-[560px] text-[16px] leading-[1.7] text-ink-3 md:text-[18px]"
+                style={{ "--au-rise": "18px", "--au-delay": "0.25s" } as React.CSSProperties}
               >
                 Artling helps parents capture artwork fast, keep the story around
                 each piece, and revisit a child’s creative growth through
                 timelines, milestones, sharing, and AI-assisted captions.
-              </motion.p>
+              </p>
 
-              <motion.div
-                variants={reduce ? undefined : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } } }}
-                className="mt-9 flex flex-wrap gap-3"
+              <div
+                className="au-enter mt-9 flex flex-wrap gap-3"
+                style={{ "--au-rise": "14px", "--au-delay": "0.35s" } as React.CSSProperties}
               >
-                <Link href="#features" aria-label="Explore features">
-                  <Button variant="primary" size="lg" className="group">
+                <Link href="#features">
+                  <Button as="span" variant="primary" size="lg" className="group">
                     Explore Features
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Button>
                 </Link>
                 <Link
                   href="/projects/artling/privacy-policy"
-                  aria-label="Read privacy policy"
                 >
-                  <Button variant="outline" size="lg">
+                  <Button as="span" variant="outline" size="lg">
                     Read Privacy Policy
                   </Button>
                 </Link>
-              </motion.div>
+              </div>
 
-              <motion.ul
-                variants={reduce ? undefined : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } } }}
-                className="mt-10 flex flex-wrap gap-2"
+              <ul
+                className="au-enter mt-10 flex flex-wrap gap-2"
+                style={{ "--au-rise": "14px", "--au-delay": "0.45s" } as React.CSSProperties}
               >
                 {["Timeline + milestones", "PDF export", "iCloud sync", "AI captions"].map(
                   (item) => (
@@ -330,14 +311,12 @@ export function ArtlingLanding() {
                     </li>
                   )
                 )}
-              </motion.ul>
-            </motion.div>
+              </ul>
+            </div>
 
-            <motion.div
-              initial={reduce ? false : { opacity: 0, y: 34 }}
-              animate={reduce ? undefined : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.12, ease }}
-              className="relative mx-auto w-full max-w-[600px]"
+            <div
+              className="au-enter relative mx-auto w-full max-w-[600px]"
+              style={{ "--au-rise": "34px", "--au-delay": "0.12s" } as React.CSSProperties}
             >
               <div className="absolute -left-2 top-12 hidden max-w-[180px] rounded-[var(--r-lg)] border border-line bg-surface p-4 shadow-[var(--shadow)] lg:block">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
@@ -379,7 +358,7 @@ export function ArtlingLanding() {
                   priority
                 />
               </motion.div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </header>
@@ -403,17 +382,11 @@ export function ArtlingLanding() {
             lede="Artling is less about storing files and more about preserving context. It gives busy parents one place to collect artwork, track growth over time, and turn everyday creations into memories that stay easy to revisit."
           />
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-8% 0px" }}
-            className="grid gap-5 lg:grid-cols-3"
-          >
+          <Stagger className="grid gap-5 lg:grid-cols-3">
             {pillars.map((pillar) => {
               const Icon = pillar.icon;
               return (
-                <motion.div key={pillar.title} variants={staggerItem}>
+                <StaggerItem key={pillar.title}>
                   <LiftCard className="h-full p-7">
                     <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-soft text-accent">
                       <Icon className="h-6 w-6" aria-hidden="true" />
@@ -425,10 +398,10 @@ export function ArtlingLanding() {
                       {pillar.description}
                     </p>
                   </LiftCard>
-                </motion.div>
+                </StaggerItem>
               );
             })}
-          </motion.div>
+          </Stagger>
         </div>
       </section>
 
@@ -468,21 +441,11 @@ export function ArtlingLanding() {
             </ul>
           </Reveal>
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-8% 0px" }}
-            className="grid gap-4 sm:grid-cols-2"
-          >
+          <Stagger className="grid gap-4 sm:grid-cols-2">
             {featureCards.map((card) => {
               const Icon = card.icon;
               return (
-                <motion.div
-                  key={card.title}
-                  variants={staggerItem}
-                  className="rounded-[var(--r-lg)] border border-line bg-surface p-6 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow)]"
-                >
+                <StaggerItem key={card.title} className="rounded-[var(--r-lg)] border border-line bg-surface p-6 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow)]">
                   <div className="flex items-center gap-3">
                     <span className="flex h-11 w-11 items-center justify-center rounded-[16px] bg-accent-soft text-accent">
                       <Icon className="h-5 w-5" aria-hidden="true" />
@@ -494,10 +457,10 @@ export function ArtlingLanding() {
                   <p className="mt-4 text-sm leading-relaxed text-ink-3">
                     {card.description}
                   </p>
-                </motion.div>
+                </StaggerItem>
               );
             })}
-          </motion.div>
+          </Stagger>
         </div>
       </section>
 
@@ -507,7 +470,7 @@ export function ArtlingLanding() {
         aria-labelledby="why-heading"
       >
         <div className="mx-auto grid w-full max-w-[1200px] gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <Reveal blur className="relative overflow-hidden rounded-[var(--r-xl)] border border-line bg-surface p-8 shadow-[var(--shadow-sm)] md:p-10">
+          <Reveal className="relative overflow-hidden rounded-[var(--r-xl)] border border-line bg-surface p-8 shadow-[var(--shadow-sm)] md:p-10">
             <div
               className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full"
               style={{ background: "var(--accent-soft)", filter: "blur(50px)" }}
@@ -587,9 +550,8 @@ export function ArtlingLanding() {
             <div className="mt-8">
               <Link
                 href="/projects/artling/privacy-policy"
-                aria-label="Read the Artling privacy policy"
               >
-                <Button variant="outline" className="group">
+                <Button as="span" variant="outline" className="group">
                   Read the Artling Privacy Policy
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </Button>
@@ -633,15 +595,13 @@ export function ArtlingLanding() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/projects/artling/privacy-policy"
-                aria-label="Privacy policy"
               >
-                <Button variant="outline">Privacy Policy</Button>
+                <Button as="span" variant="outline">Privacy Policy</Button>
               </Link>
               <Link
                 href="mailto:anoop@flutterly.co.uk"
-                aria-label="Enquire about the app"
               >
-                <Button variant="primary">Enquire About the App</Button>
+                <Button as="span" variant="primary">Enquire About the App</Button>
               </Link>
             </div>
           </div>

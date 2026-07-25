@@ -56,12 +56,15 @@ opaque, so they simply cover it. Four decorative layers, all
 3. an engineering grid, radially masked to a whisper
 4. paper tooth, blended multiply, to kill gradient banding
 
-> **Gotcha worth keeping:** any ancestor with a `filter` other than
-> `none` becomes the containing block for `position: fixed`
-> descendants. Framer Motion leaves the final `filter: blur(0px)` on
-> anything that animates a blur, which silently un-fixes this backdrop
-> and the scroll-progress bar. `app/template.tsx` therefore animates
-> opacity and offset only — never a filter.
+> **Gotcha worth keeping:** any ancestor with a `filter` — or a
+> `transform` — other than `none` becomes the containing block for
+> `position: fixed` descendants, which silently un-fixes this backdrop
+> and the scroll-progress rail and anchors them to the document. Framer
+> Motion leaves a final `filter: blur(0px)` behind on anything that
+> animates a blur, so no entrance animates a filter. The route-change
+> keyframe does animate a transform, and therefore carries **no fill
+> mode**: the moment it ends the wrapper is untransformed again. Do not
+> "tidy" `au-page-in` to `forwards`.
 
 ## Tokens (globals.css)
 
@@ -87,9 +90,19 @@ inversion), `.au-rule-top` / `.au-rule-bottom` / `.au-rule-heavy` /
 `.au-tick` (the rule at its four weights), `.au-wash` /
 `.au-wash-night` / `.au-grid` / `.au-dots` / `.au-grain` (background
 graphics), `.au-lift` / `.au-spot` (hover behaviour), `.au-display` /
-`.au-display-hero` / `.au-label` / `.au-grad-text` / `.au-fade-text`
-(type), `.au-underline` / `.au-sweep` (the two signature
-interactions).
+`.au-display-hero` / `.au-label` / `.au-fade-text` (type),
+`.au-underline` / `.au-sweep` (the two signature interactions), and
+`.au-enter` / `.au-lift-in` / `.au-page-in` (the keyframe entrances).
+
+> There was an `.au-grad-text` that painted one phrase per heading with
+> a three-stop teal → amber → rose gradient through
+> `background-clip: text`. It is gone. Interpolating across three hues
+> puts the middle of a phrase in colours the palette does not contain —
+> "Honest quotes." ran through olive and rust — and the gradient
+> restarted per segment, so a two-phrase headline jumped from magenta
+> back to teal mid-sentence. Emphasis is `tone: "accent"` and weight.
+> `.au-fade-text` stays: it is a single-hue fade to transparent on the
+> decorative 22%-opacity footer wordmark, not colour on reading text.
 
 > **Vendor-prefix order matters.** The CSS minifier drops the standard
 > `backdrop-filter` when it *follows* the `-webkit-` form, leaving a
@@ -140,17 +153,66 @@ src/components/
 |---|---|
 | `PaperField` | The shared four-layer ground described above |
 | `MacBook` / `IMac` / `Phone` | Device frames, drawn entirely in CSS |
-| `ParticleField` | Canvas constellation in the fold, in the rule's colours; count scales with area, DPR capped at 2, loop suspends off-screen or on a hidden tab |
-| `Reveal` / `TextReveal` / `Stagger` | Blur-and-rise entrances; `TextReveal` resolves a heading word by word |
+| `ParticleField` | Canvas constellation in the fold, in the rule's colours; count scales with area, DPR capped at 2, the rAF loop is cancelled (not just skipped) off-screen or on a hidden tab, and a resize carries the field across rather than reseeding it |
+| `Reveal` / `TextReveal` / `Stagger` | Rise-and-clip entrances; `TextReveal` resolves a heading word by word |
 | `Plate` / `RuleCard` | The workhorse surface, and the rule-crowned card reserved for one featured item per page |
 | `Tilt` / `Magnetic` / `Parallax` | Pointer tilt with `translateZ` depth, magnetic buttons, scroll-linked drift |
 | `CountUp` | Stat counter; values that do not open with digits render verbatim |
 | `Marquee` | Seamless band; the duplicated half is `aria-hidden` |
 | `ScrollProgress` | The three-colour rule, filling as the page scrolls |
 
-A `background-clip: text` fill never reaches glyphs inside a
-transformed descendant, so `TextReveal` puts the tone class on the
-*animated* word span — not on a wrapper around it.
+### Entrances are CSS, and only ever additive
+
+Two rules, and both are load-bearing.
+
+**A block is only hidden once JavaScript has armed it.** The hidden
+start state in `globals.css` requires `[data-armed]`, an attribute
+nothing but the effect in `fx/Reveal.tsx` ever writes. There is
+therefore no state in which content is hidden and nothing is coming to
+reveal it — no JavaScript, a blocked script, a chunk that 404s after a
+deploy, a hydration crash: the page simply reads.
+
+**Only what is below the fold at hydration gets armed.** Anything
+already on screen is left exactly as served, so the headline, the lede
+and the calls to action paint with the HTML and never wait on a bundle.
+
+This is not a style preference. These entrances used to be motion
+components, and Framer serialises a component's `initial` state into the
+server-rendered HTML: the homepage shipped 60 text-bearing elements at
+`opacity: 0`, wrapped in one page-level `<div style="opacity:0">`, and
+nothing painted until the async `domMax` chunk had downloaded, parsed
+and hydrated. At 400 kbps that was a 10.5 s blank cream screen. FCP is
+now 3.3 s, the hero is readable at that moment, and every route renders
+in full with JavaScript off.
+
+Three shapes, all transform-and-opacity only — no animated blur, which
+is the most expensive thing to composite during a scroll:
+
+| Hook | Used for |
+|---|---|
+| `[data-au-reveal]` / `[data-au-words]` / `[data-au-stagger]` | Observer-driven. Armed with `data-armed`, revealed with `data-in`. |
+| `.au-enter` / `.au-page-in` | Plain keyframes on a timer — above-the-fold furniture and the route change. |
+| `.au-lift-in` | The same, without the fade. |
+
+Three details worth keeping:
+
+- The entrance is an **`animation`, never a `transition`**. A
+  `transition` shorthand on `[data-au-reveal]` outranks the
+  `transition-colors` / `transition-shadow` utilities that call sites
+  put on the very same element, and their hovers snap instead of easing.
+- `.au-lift-in` exists because an element below full opacity is a
+  *grouping element*, and a grouping element flattens
+  `transform-style: preserve-3d`. Fading the hero's two machines
+  collapsed the depth of the screens inside them for the whole
+  animation, and the composition popped into perspective as the fade
+  ended. They lift without fading.
+- The shared observer uses `rootMargin: "100000px 0px -12% 0px"`. The
+  bottom −12% is the timing. The enormous top margin is a correctness
+  fix: without it, a trackpad flick or a jump to a `#hash` can carry a
+  block from below the fold to above it between two frames, the ratio
+  goes 0 → 0, no threshold is crossed, the callback never fires at all,
+  and that block stays invisible for the rest of the session.
+
 
 ## Signature moves
 

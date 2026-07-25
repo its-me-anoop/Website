@@ -59,7 +59,12 @@ export const metadata: Metadata = {
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   publisher: site.legalName,
-  alternates: { canonical: "/" },
+  /* Deliberately no `alternates.canonical` here. Next.js inherits it
+     into every route that does not set its own, which meant all fifteen
+     noindexed /demo/* pages declared the marketing homepage as their
+     canonical — telling Google fifteen "do not index" URLs were
+     duplicates of the one page that most needs indexing. Every real
+     route sets its own canonical; the demos correctly emit none. */
   openGraph: {
     type: "website",
     url: site.url,

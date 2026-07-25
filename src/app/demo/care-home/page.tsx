@@ -115,7 +115,12 @@ export default function CareDemoHome() {
                 {inspection.note}
               </p>
             </div>
-            <table className="w-full max-w-[420px] border-collapse justify-self-center text-[15px] lg:justify-self-end">
+            {/* `justify-self-start` below `lg`, where the grid is a
+                single full-width column: centring a 420px-capped table
+                in a track twice that wide stranded the ratings up to
+                278px right of the left margin every other block on the
+                page shares, which read as a rendering fault. */}
+            <table className="w-full max-w-[420px] border-collapse justify-self-start text-[15px] lg:justify-self-end">
               <caption className="sr-only">
                 Inspection ratings by area (sample content)
               </caption>

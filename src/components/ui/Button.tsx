@@ -8,6 +8,15 @@ export interface ButtonProps extends Omit<HTMLMotionProps<"button">, "ref"> {
   /** Visual style. `primary` is the Apple-blue pill. */
   variant?: "primary" | "dark" | "outline" | "ghost";
   size?: "sm" | "md" | "lg";
+  /**
+   * Render as a `span` when the pill sits *inside* a link.
+   *
+   * `<a>` may not contain interactive content, and a real button in
+   * there is announced twice with two different roles and costs a
+   * second Tab press. Wrapped in a link, the anchor is the control and
+   * this is only its skin.
+   */
+  as?: "button" | "span";
   children: React.ReactNode;
 }
 
@@ -31,12 +40,16 @@ const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
  * spring tap feedback and a soft hover lift. Reduced-motion aware.
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", children, ...props }, ref) => {
+  (
+    { className, variant = "primary", size = "md", as = "button", children, ...props },
+    ref
+  ) => {
     const reduce = useReducedMotion();
+    const Tag = as === "span" ? motion.span : motion.button;
 
     return (
-      <motion.button
-        ref={ref}
+      <Tag
+        ref={ref as React.Ref<HTMLButtonElement & HTMLSpanElement>}
         whileHover={reduce ? undefined : { y: -1 }}
         whileTap={reduce ? undefined : { scale: 0.97 }}
         transition={{ type: "spring", stiffness: 420, damping: 26 }}
@@ -49,7 +62,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {children}
-      </motion.button>
+      </Tag>
     );
   }
 );

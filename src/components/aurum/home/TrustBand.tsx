@@ -28,7 +28,7 @@ export function TrustBand() {
       aria-label="Organisations Flutterly has built for"
       className="relative border-b border-au-line bg-au-paper-2/70 py-9"
     >
-      <Reveal y={12} blur={4}>
+      <Reveal y={12}>
         <p className="au-label mb-6 text-center text-au-muted">Trusted by</p>
 
         <Marquee duration={40}>

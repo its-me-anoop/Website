@@ -33,7 +33,7 @@ export function Audit() {
           className="au-display mt-5 max-w-[560px] text-[clamp(2.1rem,4.8vw,3.6rem)]"
           segments={[
             { text: "How does your current site" },
-            { text: "measure up?", tone: "gradient" },
+            { text: "measure up?", tone: "accent" },
           ]}
         />
         <Reveal delay={0.16}>

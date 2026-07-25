@@ -16,6 +16,14 @@ export const metadata: Metadata = {
     title: `${title} | Flutterly Ltd`,
     description,
     url: "/projects/artling",
+    /* `type`, `siteName` and `locale` are repeated here rather than
+       inherited: Next.js replaces an inherited `openGraph` object
+       wholesale, so without them this was the only route on the site
+       with no og:type — a required property — and neither case study
+       was attributed to the studio in a share card. */
+    type: "website",
+    siteName: site.studio,
+    locale: site.locale,
     images: [
       {
         url: "/projects/artling/fox-painter.png",

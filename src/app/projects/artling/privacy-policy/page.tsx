@@ -1,13 +1,48 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Shell } from "@/components/aurum/Shell";
+import { site } from "@/lib/site";
+
+const title = "Artling — Privacy Policy";
+const description =
+  "Privacy policy for Artling, the iOS app for preserving children's artwork. No accounts, no developer servers — everything stays on your device and in your private iCloud.";
 
 export const metadata: Metadata = {
-  title: "Artling — Privacy Policy",
-  description:
-    "Privacy policy for Artling, the iOS app for preserving children's artwork. No accounts, no developer servers — everything stays on your device and in your private iCloud.",
+  title,
+  description,
   alternates: {
     canonical: "/projects/artling/privacy-policy",
+  },
+  /* App Store review needs a shareable privacy-policy URL, and this one
+     gets pasted into Slack and email. Without its own social block it
+     inherited the studio homepage's title, description and og:url, so
+     the card described the marketing site instead of the policy. */
+  openGraph: {
+    title,
+    description,
+    url: `${site.url}/projects/artling/privacy-policy`,
+    siteName: site.studio,
+    locale: site.locale,
+    type: "article",
+    /* Images repeated, not inherited: Next.js replaces an inherited
+       `openGraph` object wholesale, so declaring this block without them
+       dropped the root layout's og:image and left the share card bare —
+       on the one URL that gets pasted into Slack and submitted for App
+       Store review. */
+    images: [
+      {
+        url: site.ogImage,
+        width: 1200,
+        height: 630,
+        alt: `${site.studio} — websites for GP practices, care homes and ambitious products`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [site.ogImage],
   },
 };
 

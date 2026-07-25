@@ -25,7 +25,15 @@ export function Shell({
       <ScrollProgress />
       <div className="relative z-10">
         <Nav />
-        <main id="main">{children}</main>
+        {/* `tabIndex={-1}` is what makes the skip link actually move
+            focus: without it the anchor only shifts Chromium's
+            sequential-navigation start point, and a screen reader whose
+            virtual cursor follows focus never leaves the top of the
+            page. `outline-none` because it is only ever focused
+            programmatically. */}
+        <main id="main" tabIndex={-1} className="outline-none">
+          {children}
+        </main>
         <Footer />
       </div>
     </div>

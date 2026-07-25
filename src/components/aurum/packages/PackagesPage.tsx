@@ -51,7 +51,7 @@ export function PackagesPage() {
           className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[720px] max-w-full -translate-x-1/2 rounded-full bg-au-amber/14 blur-[120px]"
         />
         <div className="relative mx-auto w-full max-w-[1240px]">
-          <Reveal y={14} blur={4}>
+          <Reveal y={14}>
             <Eyebrow className="justify-center">Packages</Eyebrow>
           </Reveal>
           <TextReveal
@@ -60,7 +60,7 @@ export function PackagesPage() {
             className="au-display-hero mx-auto mt-6 max-w-[720px] text-[clamp(2.3rem,5.6vw,3.9rem)]"
             segments={[
               { text: "Clear packages." },
-              { text: "Honest quotes.", tone: "gradient" },
+              { text: "Honest quotes.", tone: "accent" },
             ]}
           />
           <Reveal delay={0.24}>
@@ -75,27 +75,42 @@ export function PackagesPage() {
 
       <Section className="pt-10">
         <div className="grid items-stretch gap-6 pt-4 lg:grid-cols-3">
+          {/* Every column carries the same `pt-3`, not just the featured
+              one. The padding exists to leave room for the badge that
+              rides above the card — but applying it to one column alone
+              dropped that card's top edge 12px below its neighbours, and
+              with the extra inner padding on top of that, its tier name,
+              strapline and feature rules sat 20px out of line across the
+              whole three-up grid. */}
           {packages.map((pkg, i) => (
             <Reveal key={pkg.name} delay={i * 0.1} className="h-full">
-              {pkg.featured ? (
-                /* The badge rides above the card, so it sits outside the
-                   rounded clip that keeps the rule on the top edge. */
-                <div className="relative h-full pt-3">
-                  <p className="absolute left-1/2 top-0 z-20 -translate-x-1/2 rounded-full bg-au-teal-deep px-4 py-1 text-[11.5px] font-semibold text-au-teal-ink shadow-[0_10px_26px_-12px_rgba(20,108,122,0.9)]">
-                    Most popular
-                  </p>
-                  <RuleCard
-                    className="h-full"
-                    innerClassName="flex h-full flex-col p-7 pt-9 sm:p-8 sm:pt-10"
-                  >
+              <div className="relative h-full pt-3">
+                {pkg.featured ? (
+                  <>
+                    <p className="absolute left-1/2 top-0 z-20 -translate-x-1/2 rounded-full bg-au-teal-deep px-4 py-1 text-[11.5px] font-semibold text-au-teal-ink shadow-[0_10px_26px_-12px_rgba(20,108,122,0.9)]">
+                      Most popular
+                    </p>
+                    <RuleCard
+                      /* Matched to the plain tiers' radius. RuleCard's
+                         own 32px is right when it stands alone; beside
+                         two 26px plates in the same row it just looks
+                         like a different component. */
+                      className="h-full rounded-[var(--r-xl)]"
+                      /* Padding identical to the plain tiers, so all
+                         three tier names sit on one line. The badge
+                         overlaps the top edge but is centred, and the
+                         content is left-aligned, so nothing collides. */
+                      innerClassName="flex h-full flex-col p-7 sm:p-8"
+                    >
+                      <PackageBody pkg={pkg} />
+                    </RuleCard>
+                  </>
+                ) : (
+                  <Plate className="flex h-full flex-col p-7 sm:p-8">
                     <PackageBody pkg={pkg} />
-                  </RuleCard>
-                </div>
-              ) : (
-                <Plate className="flex h-full flex-col p-7 sm:p-8">
-                  <PackageBody pkg={pkg} />
-                </Plate>
-              )}
+                  </Plate>
+                )}
+              </div>
             </Reveal>
           ))}
         </div>
