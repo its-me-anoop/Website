@@ -20,7 +20,7 @@ export function GpNav() {
       aria-label="Primary"
       className="border-y border-[var(--dgp-line)] bg-white"
     >
-      <ul className="mx-auto flex w-full max-w-[1140px] items-stretch overflow-x-auto px-4 sm:px-6">
+      <ul className="mx-auto flex w-full max-w-[1100px] items-stretch overflow-x-auto px-4 sm:px-6">
         {navLinks.map((link) => {
           const active =
             link.href === "/demo/gp-practice"

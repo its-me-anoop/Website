@@ -53,7 +53,7 @@ export default function ContactPage() {
                 alt="A receptionist welcoming a patient at the surgery front desk"
                 width={760}
                 height={507}
-                className="rounded-2xl object-cover shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)]"
+                className="rounded-[var(--dgp-radius-lg)] object-cover shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)]"
               />
               <figcaption className="mt-2 text-sm text-[var(--dgp-ink-soft)]">
                 Our reception team can help with anything on this page.
@@ -89,7 +89,7 @@ export default function ContactPage() {
       </GpSection>
 
       <GpSection pad="flush">
-        <div id="register" className="scroll-mt-6 rounded-2xl bg-[var(--dgp-tint)] p-6 sm:p-8">
+        <div id="register" className="scroll-mt-6 rounded-[var(--dgp-radius-lg)] bg-[var(--dgp-tint)] p-6 sm:p-8">
           <h2 className="text-[20px] font-bold tracking-tight">
             Register as a new patient
           </h2>

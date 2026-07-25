@@ -24,7 +24,10 @@ tokens their markup uses (see docs/DESIGN-SYSTEM.md for those tokens).
 
 ## 3. Demo GP — "Willowbrook" (`/demo/gp-practice`, `.demo-gp-root`)
 
-NHS-service-manual flavoured, deliberately familiar to NHS patients:
+A modern practice site that keeps NHS trust cues — white chrome with a
+cross wordmark, pale sky hero washes, soft-shadow cards, pill CTAs, a
+deep-blue footer — while every pattern underneath stays the service
+manual's:
 
 - **Three colour schemes over one structure.** `nhs` (default), `forest`
   and `slate` re-declare the `--dgp-*` tokens and nothing else — every
@@ -33,11 +36,16 @@ NHS-service-manual flavoured, deliberately familiar to NHS patients:
   bar above the masthead (Flutterly's chrome, not the practice's),
   applied before paint by a blocking script in the demo layout, and
   each audited separately by `npm run test:contrast`.
-- Tokens (globals.css): `--dgp-blue` (masthead/links), `--dgp-blue-deep`
-  (nav), `--dgp-tint`, `--dgp-ink`, `--dgp-ink-soft`, `--dgp-line`,
-  `--dgp-green` (the "do" action colour), `--dgp-yellow` (focus, the
-  same in every scheme), `--dgp-red` (urgent), `--dgp-emergency`,
-  `--dgp-amber*` (warning callouts), `--dgp-radius`.
+- Tokens (globals.css): `--dgp-blue` (brand/links), `--dgp-blue-deep`
+  (utility strip/footer), `--dgp-tint`, `--dgp-sky` / `--dgp-sky-line`
+  (hero and page-title washes), `--dgp-ink`, `--dgp-ink-soft`,
+  `--dgp-line`, `--dgp-green` (the "do" action colour), `--dgp-yellow`
+  (focus, the same in every scheme), `--dgp-red` (urgent),
+  `--dgp-emergency`, `--dgp-amber*` (warning callouts), `--dgp-radius`
+  (controls) and `--dgp-radius-lg` (cards/panels/media — each scheme
+  sets both, so corner personality follows the scheme).
+- Elevation: one shared soft shadow (`gpShadow` in GpShell) on every
+  raised surface; action buttons and chips are pills (rounded-full).
 - Type ladder: text-sm 14 (small print) · text-base 16 (body) ·
   text-lg 18 (card titles/h3) · 20 (inner-page h2) · text-2xl 24
   (landing-section h2) · clamp h1. No sizes off the ladder.

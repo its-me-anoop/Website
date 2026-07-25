@@ -47,7 +47,7 @@ export default function OnlineConsultationPage() {
             </div>
           </div>
 
-          <aside className="rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-[var(--dgp-tint)] p-5 sm:p-6">
+          <aside className="rounded-[var(--dgp-radius-lg)] border border-[var(--dgp-line)] bg-[var(--dgp-tint)] p-5 sm:p-6">
             <p className="flex flex-wrap items-center gap-x-2 text-base">
               <span
                 aria-hidden
@@ -106,7 +106,7 @@ export default function OnlineConsultationPage() {
           {triageSteps.map((step, i) => (
             <li
               key={step.title}
-              className="rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-white p-5 shadow-[0_2px_0_var(--dgp-line)]"
+              className="rounded-[var(--dgp-radius-lg)] border border-[var(--dgp-line)] bg-white p-5 shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)]"
             >
               <span
                 aria-hidden
@@ -179,7 +179,7 @@ export default function OnlineConsultationPage() {
 
       {/* No-one is pushed online. */}
       <GpSection pad="flush">
-        <div className="rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-[var(--dgp-tint)] p-6 sm:p-8">
+        <div className="rounded-[var(--dgp-radius-lg)] border border-[var(--dgp-line)] bg-[var(--dgp-tint)] p-6 sm:p-8">
           <h2 className="text-2xl font-bold tracking-tight">
             If you would rather not do this online
           </h2>
@@ -216,7 +216,7 @@ export default function OnlineConsultationPage() {
             {digitalTools.map((tool) => (
               <li
                 key={tool.name}
-                className="rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-white p-5 shadow-[0_2px_0_var(--dgp-line)]"
+                className="rounded-[var(--dgp-radius-lg)] border border-[var(--dgp-line)] bg-white p-5 shadow-[0_1px_2px_rgba(16,42,67,0.05),0_16px_32px_-24px_rgba(16,42,67,0.35)]"
               >
                 <h3 className="text-lg font-bold leading-snug">
                   {tool.external ? (
