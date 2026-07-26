@@ -10,10 +10,6 @@
  * Decorative and invisible text is skipped: `aria-hidden` subtrees,
  * `.sr-only`, zero-opacity nodes and elements with no box.
  *
- * The GP demo's three colour schemes are each audited separately —
- * shipping a palette a practice can choose means auditing the palette
- * a practice can choose.
- *
  * Usage:
  *   1. npm run build && PORT=3100 npm start
  *   2. BASE_URL=http://localhost:3100 node scripts/contrast-audit.mjs
@@ -34,18 +30,8 @@ const ROUTES = [
   "/projects/artling/privacy-policy",
   "/little-artist/privacy-policy",
   "/demo/gp-practice",
-  "/demo/gp-practice/online-consultation",
-  "/demo/gp-practice/practice-information",
   "/demo/care-home",
 ];
-
-/* The GP demo ships three colour schemes and a practice may pick any
-   of them, so each is audited as its own route rather than trusting
-   that the default passing means the others do. */
-const GP_THEMES = ["nhs", "forest", "slate"];
-const THEMED = ROUTES.filter((r) => r.startsWith("/demo/gp-practice")).flatMap(
-  (route) => GP_THEMES.slice(1).map((theme) => ({ route, theme }))
-);
 
 const AUDIT = () => {
   const parse = (value) => {
@@ -149,22 +135,8 @@ const browser = await chromium.launch();
 let failures = 0;
 let checked = 0;
 
-for (const target of [...ROUTES.map((route) => ({ route })), ...THEMED]) {
-  const { route, theme } = target;
-  const label = theme ? `${route} [${theme}]` : route;
-  const context = await browser.newContext({
-    viewport: { width: 1440, height: 950 },
-  });
-  if (theme) {
-    await context.addInitScript((value) => {
-      try {
-        localStorage.setItem("flutterly:gp-demo-theme", value);
-      } catch {
-        /* Storage unavailable; the run will just audit the default. */
-      }
-    }, theme);
-  }
-  const page = await context.newPage();
+for (const route of ROUTES) {
+  const page = await browser.newPage({ viewport: { width: 1440, height: 950 } });
   await page.goto(BASE + route, { waitUntil: "networkidle" });
   /* Scroll the whole page so every scroll-revealed block is painted
      before anything is measured. */
@@ -179,22 +151,22 @@ for (const target of [...ROUTES.map((route) => ({ route })), ...THEMED]) {
   checked += 1;
   if (findings.length) {
     failures += findings.length;
-    console.log(`\n✗ ${label} — ${findings.length} below AA`);
+    console.log(`\n✗ ${route} — ${findings.length} below AA`);
     for (const f of findings) {
       console.log(
         `   ${f.ratio}:1 (needs ${f.floor}) ${f.size} ${f.colour} <${f.tag}> “${f.text}”\n     ${f.cls}`
       );
     }
   } else {
-    console.log(`✓ ${label}`);
+    console.log(`✓ ${route}`);
   }
-  await context.close();
+  await page.close();
 }
 
 await browser.close();
 console.log(
   failures
-    ? `\n${failures} contrast failure(s) across ${checked} page renders.`
-    : `\nAll text across ${checked} page renders clears WCAG 2.2 AA.`
+    ? `\n${failures} contrast failure(s) across ${checked} routes.`
+    : `\nAll text on ${checked} routes clears WCAG 2.2 AA.`
 );
 process.exit(failures ? 1 : 0);

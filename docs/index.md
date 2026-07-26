@@ -58,8 +58,7 @@ src/
 | `npm run lint` | ESLint |
 | `npx vitest run` | Unit/component tests |
 | `npm run test:browser` | Headless-browser audit of every route |
-| `npm run test:contrast` | WCAG 2.2 AA contrast audit of every rendered text node, in every GP colour scheme |
-| `npm run test:gp` | Drives the GP demo: triage form, no-JS render, colour schemes |
+| `npm run test:contrast` | WCAG 2.2 AA contrast audit of every rendered text node |
 
 ## SEO
 

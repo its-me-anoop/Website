@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { SampleRibbon } from "../SampleRibbon";
 import { GpNav } from "./GpNav";
-import { GpThemeSwitcher } from "./GpThemeSwitcher";
-import { cqc, navLinks, practice } from "./data";
+import { navLinks, practice } from "./data";
 
 /**
  * Chrome for the Willowbrook Surgery demo — NHS-service-manual
@@ -20,21 +19,6 @@ export function GpShell({ children }: { children: React.ReactNode }) {
         sectorHref="/gp-websites"
         sectorLabel="Get a site like this for your practice"
       />
-
-      {/* Flutterly's chrome, not the practice's: one structure, three
-          palettes, so a visiting practice manager can see the same
-          NHS-standard site in their own colours. */}
-      <aside
-        aria-label="Sample site controls"
-        className="bg-[#231317] text-[#f5e6d7]"
-      >
-        <div className="mx-auto flex w-full max-w-[1100px] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-2.5 sm:px-6">
-          <GpThemeSwitcher />
-          <p className="text-[12.5px] text-[#f5e6d7]/70">
-            Same pages, same NHS patterns — only the palette changes.
-          </p>
-        </div>
-      </aside>
 
       <header className="bg-[var(--dgp-blue)] text-white">
         <div className="mx-auto flex w-full max-w-[1100px] flex-wrap items-center justify-between gap-x-8 gap-y-4 px-4 py-5 sm:px-6">
@@ -68,10 +52,10 @@ export function GpShell({ children }: { children: React.ReactNode }) {
               </span>
             </a>
             <Link
-              href="/demo/gp-practice/online-consultation"
-              className="rounded-[var(--dgp-radius)] bg-[var(--dgp-green)] px-4 py-2.5 text-base font-semibold text-white shadow-[0_3px_0_var(--dgp-green-deep)] transition-colors hover:bg-[var(--dgp-green-deep)]"
+              href="/demo/gp-practice/appointments"
+              className="rounded-md bg-[var(--dgp-green)] px-4 py-2.5 text-base font-semibold text-white shadow-[0_3px_0_var(--dgp-green-deep)] transition-colors hover:bg-[var(--dgp-green-deep)]"
             >
-              Get help online
+              Book an appointment
             </Link>
           </div>
         </div>
@@ -133,14 +117,6 @@ export function GpShell({ children }: { children: React.ReactNode }) {
               <strong className="text-[var(--dgp-ink)]">NHS 111</strong>. In a
               life-threatening emergency, always call{" "}
               <strong className="text-[var(--dgp-ink)]">999</strong>.
-            </p>
-
-            <h2 className="mt-6 text-base font-bold">Inspection rating</h2>
-            <p className="mt-2 flex flex-wrap items-center gap-2 text-sm text-[var(--dgp-ink-soft)]">
-              <span className="rounded-[var(--dgp-radius)] bg-[var(--dgp-green)] px-2.5 py-1 text-sm font-bold text-white">
-                CQC: {cqc.rating}
-              </span>
-              <span>{cqc.date}</span>
             </p>
           </div>
         </div>
@@ -219,12 +195,10 @@ export function GpSection({
   children,
   className = "",
   pad = "normal",
-  id,
 }: {
   children: React.ReactNode;
   className?: string;
   pad?: "flush" | "normal" | "spacious";
-  id?: string;
 }) {
   const pads = {
     flush: "pb-12 pt-0",
@@ -233,7 +207,6 @@ export function GpSection({
   } as const;
   return (
     <section
-      id={id}
       className={`mx-auto w-full max-w-[1100px] px-4 sm:px-6 ${pads[pad]} ${className}`}
     >
       {children}
@@ -255,7 +228,7 @@ export function GpCard({
   return (
     <Link
       href={href}
-      className="group block rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-white p-5 shadow-[0_2px_0_var(--dgp-line)] transition-colors hover:border-[var(--dgp-blue)]"
+      className="group block rounded-md border border-[var(--dgp-line)] bg-white p-5 shadow-[0_2px_0_var(--dgp-line)] transition-colors hover:border-[var(--dgp-blue)]"
     >
       <h3 className="text-lg font-bold text-[var(--dgp-blue)] underline-offset-2 group-hover:underline">
         {title}
@@ -280,7 +253,7 @@ export function GpPrimaryCard({
   return (
     <Link
       href={href}
-      className="group flex items-center justify-between gap-4 rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-white p-6 shadow-[0_2px_0_var(--dgp-line)] transition-colors hover:border-[var(--dgp-blue)] sm:p-7"
+      className="group flex items-center justify-between gap-4 rounded-md border border-[var(--dgp-line)] bg-white p-6 shadow-[0_2px_0_var(--dgp-line)] transition-colors hover:border-[var(--dgp-blue)] sm:p-7"
     >
       <div>
         <h3 className="text-lg font-bold leading-snug text-[var(--dgp-blue)] underline-offset-2 group-hover:underline">
@@ -313,7 +286,7 @@ export function GpAction({
   return (
     <a
       href={href}
-      className="inline-block rounded-[var(--dgp-radius)] bg-[var(--dgp-green)] px-6 py-3 text-base font-semibold text-white shadow-[0_3px_0_var(--dgp-green-deep)] transition-colors hover:bg-[var(--dgp-green-deep)]"
+      className="inline-block rounded-md bg-[var(--dgp-green)] px-6 py-3 text-base font-semibold text-white shadow-[0_3px_0_var(--dgp-green-deep)] transition-colors hover:bg-[var(--dgp-green-deep)]"
     >
       {children}
     </a>
@@ -329,18 +302,18 @@ export function GpCallout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-[var(--dgp-radius)] border border-[var(--dgp-amber-line)] bg-[var(--dgp-amber-tint)] p-5">
+    <div className="rounded-md border border-[var(--dgp-amber-line)] bg-[var(--dgp-amber-tint)] p-5">
       {/* A notice, not a document section — deliberately not a heading,
           so task tiles keep their place in the page outline. */}
       <p className="flex items-center gap-2 text-base font-bold">
         <svg
           aria-hidden
           viewBox="0 0 24 24"
-          className="h-5 w-5 shrink-0 fill-none stroke-[var(--dgp-amber-ink)] stroke-2"
+          className="h-5 w-5 shrink-0 fill-none stroke-[#9a6b00] stroke-2"
         >
           <circle cx="12" cy="12" r="9" />
           <path strokeLinecap="round" d="M12 8v5" />
-          <circle cx="12" cy="16.5" r="0.5" className="fill-[var(--dgp-amber-ink)]" />
+          <circle cx="12" cy="16.5" r="0.5" className="fill-[#9a6b00]" />
         </svg>
         {title}
       </p>
@@ -366,10 +339,10 @@ export function GpCareCard({
     variant === "urgent"
       ? "bg-[var(--dgp-red)]"
       : variant === "emergency"
-        ? "bg-[var(--dgp-emergency)]"
+        ? "bg-[#1c2b39]"
         : "bg-[var(--dgp-blue)]";
   return (
-    <div className="overflow-hidden rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-white">
+    <div className="overflow-hidden rounded-md border border-[var(--dgp-line)] bg-white">
       {/* h3: every current use sits inside a section already headed by an h2. */}
       <h3 className={`${header} px-5 py-3 text-lg font-bold text-white`}>
         {title}
@@ -384,7 +357,7 @@ export function GpCareCard({
 /** One consistent note for the demo's illustrative dead-ends. */
 export function GpSampleNote({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mt-4 inline-flex items-center gap-2 rounded-[var(--dgp-radius)] bg-white/70 px-3 py-1.5 text-sm text-[var(--dgp-ink-soft)]">
+    <p className="mt-4 inline-flex items-center gap-2 rounded-md bg-white/70 px-3 py-1.5 text-sm text-[var(--dgp-ink-soft)]">
       <svg
         aria-hidden
         viewBox="0 0 24 24"
@@ -407,7 +380,7 @@ export function GpMiniMap() {
       role="img"
       aria-label="Illustrative map showing Willowbrook Surgery on Meadow Lane, next to the village green and the number 12 bus stop"
       viewBox="0 0 560 300"
-      className="h-auto w-full rounded-[var(--dgp-radius)] border border-[var(--dgp-line)]"
+      className="h-auto w-full rounded-md border border-[var(--dgp-line)]"
     >
       <rect width="560" height="300" fill="#eef3f0" />
       {/* village green */}

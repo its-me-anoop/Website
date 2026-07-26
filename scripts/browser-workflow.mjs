@@ -22,7 +22,6 @@ const ROUTES = [
   "/free-audit",
   "/accessibility",
   "/demo/gp-practice",
-  "/demo/gp-practice/online-consultation",
   "/demo/gp-practice/appointments",
   "/demo/gp-practice/prescriptions",
   "/demo/gp-practice/services",

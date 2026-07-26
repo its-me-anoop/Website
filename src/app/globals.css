@@ -554,67 +554,12 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
 }
 
 /* The warm wash the whole page floats on: amber high-left, rose
-   low-right, teal breathing under the fold.
-   ─────────────────────────────────────────────────────────────
-   The softness lives in these stops, not in a `filter: blur()`. The two
-   wash layers used to be blurred at runtime — 36px on the front, 52px
-   on the back. They are larger than the viewport and sit `fixed` behind
-   a page that scrolls through them, so that blur was re-composited on
-   every scroll frame and never cached: measured on the homepage it was
-   the most expensive thing on the site by a distance, a median frame of
-   65ms against 10ms without it, and 68% of frames over 32ms against
-   none.
-
-   A blurred radial gradient is a wider radial gradient. Each stop gains
-   a mid-point at about a third of peak and its outer edge moves out by
-   a few points, which is the falloff the Gaussian was producing. A blur
-   redistributes light rather than adding it, so the mid-stop is
-   deliberately well below half: pixel-diffed against the blurred build,
-   this lands within 1% per channel. No per-frame cost. */
+   low-right, teal breathing under the fold. */
 .au-wash {
   background:
-    radial-gradient(
-      72% 58% at 14% 6%,
-      rgba(232, 154, 42, 0.13),
-      rgba(232, 154, 42, 0.044) 38%,
-      transparent 70%
-    ),
-    radial-gradient(
-      62% 56% at 88% 26%,
-      rgba(199, 62, 111, 0.09),
-      rgba(199, 62, 111, 0.03) 38%,
-      transparent 68%
-    ),
-    radial-gradient(
-      68% 52% at 46% 96%,
-      rgba(27, 143, 161, 0.1),
-      rgba(27, 143, 161, 0.034) 38%,
-      transparent 72%
-    );
-}
-
-/* The back layer carried the heavier blur, so it spreads a little
-   further than the front one. */
-.au-wash-b {
-  background:
-    radial-gradient(
-      78% 64% at 14% 6%,
-      rgba(232, 154, 42, 0.13),
-      rgba(232, 154, 42, 0.044) 40%,
-      transparent 76%
-    ),
-    radial-gradient(
-      68% 62% at 88% 26%,
-      rgba(199, 62, 111, 0.09),
-      rgba(199, 62, 111, 0.03) 40%,
-      transparent 74%
-    ),
-    radial-gradient(
-      74% 58% at 46% 96%,
-      rgba(27, 143, 161, 0.1),
-      rgba(27, 143, 161, 0.034) 40%,
-      transparent 78%
-    );
+    radial-gradient(62% 48% at 14% 6%, rgba(232, 154, 42, 0.13), transparent 62%),
+    radial-gradient(52% 46% at 88% 26%, rgba(199, 62, 111, 0.09), transparent 60%),
+    radial-gradient(58% 42% at 46% 96%, rgba(27, 143, 161, 0.1), transparent 64%);
 }
 
 /* The same idea on cocoa, for the night bands. Amber carries most of
@@ -622,24 +567,9 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
    oil slick rather than as warmth. */
 .au-wash-night {
   background:
-    radial-gradient(
-      66% 54% at 14% 2%,
-      rgba(27, 143, 161, 0.16),
-      rgba(27, 143, 161, 0.055) 38%,
-      transparent 70%
-    ),
-    radial-gradient(
-      50% 50% at 88% 18%,
-      rgba(199, 62, 111, 0.07),
-      rgba(199, 62, 111, 0.024) 38%,
-      transparent 70%
-    ),
-    radial-gradient(
-      80% 62% at 54% 104%,
-      rgba(232, 154, 42, 0.2),
-      rgba(232, 154, 42, 0.068) 38%,
-      transparent 76%
-    );
+    radial-gradient(56% 44% at 14% 2%, rgba(27, 143, 161, 0.16), transparent 62%),
+    radial-gradient(40% 40% at 88% 18%, rgba(199, 62, 111, 0.07), transparent 62%),
+    radial-gradient(70% 52% at 54% 104%, rgba(232, 154, 42, 0.2), transparent 68%);
 }
 
 /* Edge fade for marquees and overflow rows. */
@@ -875,88 +805,29 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
    and palette and deliberately does NOT inherit Aurum.
    ═════════════════════════════════════════════════════════════ */
 
-/* "Willowbrook Surgery" — the sample GP practice site.
-   ─────────────────────────────────────────────────────────────
-   The structure is the NHS service manual's: care cards, task
-   tiles, breadcrumbs, one green "do" colour, a bold focus style.
-   The *palette* is a practice's own, so the demo ships three of
-   them and lets a visiting practice manager switch between them.
-   Only these tokens change; not one component varies.
-
-   Every one of the three clears WCAG 2.2 AA on its own ground —
-   `npm run test:contrast` walks the demo route once per theme.
-
-   Each theme matches on two selectors. `html[data-gp-theme]` is set
-   by a blocking script in the demo layout, so a returning visitor
-   never sees the default flash first; `.demo-gp-root[data-theme]`
-   is what the switcher itself writes once React is running.
-   ───────────────────────────────────────────────────────────── */
+/* "Willowbrook Surgery" — NHS-service-manual-inspired GP demo:
+   NHS blue, pale grey panels, green actions, generous plain type
+   on the system stack, and a bold yellow focus style. */
 .demo-gp-root {
-  /* Theme 1 — NHS blue. The default, and the safest: patients
-     already know it from nhs.uk. */
-  --dgp-blue: #005eb8; /* 6.4:1 on white */
+  --dgp-blue: #005eb8;
   --dgp-blue-deep: #003087;
   --dgp-canvas: #ffffff;
   --dgp-tint: #f0f4f5;
   --dgp-ink: #212b32;
-  --dgp-ink-soft: #4c6272; /* 6.4:1 on white, 5.8:1 on tint */
+  --dgp-ink-soft: #4c6272;
   --dgp-line: #d8dde0;
   --dgp-green: #007f3b;
   --dgp-green-deep: #00662f;
   --dgp-yellow: #ffeb3b;
   --dgp-red: #d5281b;
-  --dgp-emergency: #1c2b39;
   --dgp-amber: #ffb81c;
   --dgp-amber-line: #e8c56d;
   --dgp-amber-tint: #fff7e6;
-  --dgp-amber-ink: #9a6b00;
-  --dgp-radius: 6px;
   font-family:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
     sans-serif;
   background: var(--dgp-canvas);
   color: var(--dgp-ink);
-}
-
-/* Theme 2 — Forest. A village or market-town practice: deep green
-   masthead, warm sage panels, terracotta for the "do" colour so it
-   still separates from the link colour. */
-.demo-gp-root[data-theme="forest"],
-html[data-gp-theme="forest"] .demo-gp-root {
-  --dgp-blue: #155c3c; /* 8.0:1 on white */
-  --dgp-blue-deep: #0e4229;
-  --dgp-tint: #f1f4ee;
-  --dgp-ink: #1e2a22;
-  --dgp-ink-soft: #4a5a4e; /* 7.3:1 on white */
-  --dgp-line: #d7ded4;
-  --dgp-green: #9a4a12; /* the action colour, 6.3:1 under white */
-  --dgp-green-deep: #7e3b0c;
-  --dgp-red: #b3261e;
-  --dgp-emergency: #2b241c;
-  --dgp-amber-line: #dcc79a;
-  --dgp-amber-tint: #fbf5e9;
-  --dgp-amber-ink: #82590a;
-  --dgp-radius: 10px;
-}
-
-/* Theme 3 — Slate. An urban practice or a large PCN site: indigo
-   masthead, cool grey panels, emerald actions, tighter corners. */
-.demo-gp-root[data-theme="slate"],
-html[data-gp-theme="slate"] .demo-gp-root {
-  --dgp-blue: #1e40af; /* 8.7:1 on white */
-  --dgp-blue-deep: #172e6d;
-  --dgp-tint: #f1f5f9;
-  --dgp-ink: #0f172a;
-  --dgp-ink-soft: #475569; /* 7.6:1 on white */
-  --dgp-line: #cbd5e1;
-  --dgp-green: #047857;
-  --dgp-green-deep: #036148;
-  --dgp-red: #b91c1c;
-  --dgp-emergency: #0f172a;
-  --dgp-amber-line: #d9c08a;
-  --dgp-amber-tint: #fdf7ea;
-  --dgp-amber-ink: #8a6100;
-  --dgp-radius: 4px;
 }
 
 /* Inside the GP demo the global skip link swaps its Aurum pill for
