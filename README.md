@@ -46,6 +46,14 @@ npm run dev      # http://localhost:3000
 | `npm run test:browser` | Headless-browser audit of every route |
 | `npm run test:contrast` | WCAG 2.2 AA contrast audit of every rendered text node |
 
+The last two drive a real browser against a built site rather than a dev
+server, so they need one already running on port 3100 — otherwise they
+just fail to connect:
+
+```bash
+npm run build && PORT=3100 npm start
+```
+
 ## Project structure & design system
 
 See [`docs/index.md`](./docs/index.md) for the architecture overview,
