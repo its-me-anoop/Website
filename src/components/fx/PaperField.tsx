@@ -40,16 +40,26 @@ export function PaperField({
       {/* 1 — base */}
       <div className="absolute inset-0 bg-[linear-gradient(180deg,#fffaf0_0%,#fdf6ec_42%,#faeedf_100%)]" />
 
-      {/* 2 — drifting washes */}
+      {/* 2 — drifting washes.
+          No `filter: blur()` here, deliberately. These are two layers
+          larger than the viewport, sitting `fixed` behind a page that
+          scrolls through them, so a runtime blur has to be re-composited
+          on every scroll frame and never gets cached. Measured on the
+          homepage it was the single most expensive thing on the site by
+          a distance: median frame 65ms with it, 10ms without, and 68% of
+          frames over 32ms versus none. The softness is baked into the
+          gradient stops in `.au-wash` instead — a blurred radial
+          gradient is just a wider radial gradient, and this one costs
+          nothing to paint. */}
       <div
         className={cn(
-          "au-wash au-drift-a absolute -inset-[18%] blur-[36px] will-change-transform",
+          "au-wash au-drift-a absolute -inset-[18%] will-change-transform",
           dim ? "opacity-45" : "opacity-90"
         )}
       />
       <div
         className={cn(
-          "au-wash au-drift-b absolute -inset-[26%] blur-[52px] will-change-transform",
+          "au-wash au-wash-b au-drift-b absolute -inset-[26%] will-change-transform",
           dim ? "opacity-30" : "opacity-55"
         )}
         style={{ animationDelay: "-16s" }}

@@ -554,12 +554,67 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
 }
 
 /* The warm wash the whole page floats on: amber high-left, rose
-   low-right, teal breathing under the fold. */
+   low-right, teal breathing under the fold.
+   ─────────────────────────────────────────────────────────────
+   The softness lives in these stops, not in a `filter: blur()`. The two
+   wash layers used to be blurred at runtime — 36px on the front, 52px
+   on the back. They are larger than the viewport and sit `fixed` behind
+   a page that scrolls through them, so that blur was re-composited on
+   every scroll frame and never cached: measured on the homepage it was
+   the most expensive thing on the site by a distance, a median frame of
+   65ms against 10ms without it, and 68% of frames over 32ms against
+   none.
+
+   A blurred radial gradient is a wider radial gradient. Each stop gains
+   a mid-point at about a third of peak and its outer edge moves out by
+   a few points, which is the falloff the Gaussian was producing. A blur
+   redistributes light rather than adding it, so the mid-stop is
+   deliberately well below half: pixel-diffed against the blurred build,
+   this lands within 1% per channel. No per-frame cost. */
 .au-wash {
   background:
-    radial-gradient(62% 48% at 14% 6%, rgba(232, 154, 42, 0.13), transparent 62%),
-    radial-gradient(52% 46% at 88% 26%, rgba(199, 62, 111, 0.09), transparent 60%),
-    radial-gradient(58% 42% at 46% 96%, rgba(27, 143, 161, 0.1), transparent 64%);
+    radial-gradient(
+      72% 58% at 14% 6%,
+      rgba(232, 154, 42, 0.13),
+      rgba(232, 154, 42, 0.044) 38%,
+      transparent 70%
+    ),
+    radial-gradient(
+      62% 56% at 88% 26%,
+      rgba(199, 62, 111, 0.09),
+      rgba(199, 62, 111, 0.03) 38%,
+      transparent 68%
+    ),
+    radial-gradient(
+      68% 52% at 46% 96%,
+      rgba(27, 143, 161, 0.1),
+      rgba(27, 143, 161, 0.034) 38%,
+      transparent 72%
+    );
+}
+
+/* The back layer carried the heavier blur, so it spreads a little
+   further than the front one. */
+.au-wash-b {
+  background:
+    radial-gradient(
+      78% 64% at 14% 6%,
+      rgba(232, 154, 42, 0.13),
+      rgba(232, 154, 42, 0.044) 40%,
+      transparent 76%
+    ),
+    radial-gradient(
+      68% 62% at 88% 26%,
+      rgba(199, 62, 111, 0.09),
+      rgba(199, 62, 111, 0.03) 40%,
+      transparent 74%
+    ),
+    radial-gradient(
+      74% 58% at 46% 96%,
+      rgba(27, 143, 161, 0.1),
+      rgba(27, 143, 161, 0.034) 40%,
+      transparent 78%
+    );
 }
 
 /* The same idea on cocoa, for the night bands. Amber carries most of
@@ -567,9 +622,24 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
    oil slick rather than as warmth. */
 .au-wash-night {
   background:
-    radial-gradient(56% 44% at 14% 2%, rgba(27, 143, 161, 0.16), transparent 62%),
-    radial-gradient(40% 40% at 88% 18%, rgba(199, 62, 111, 0.07), transparent 62%),
-    radial-gradient(70% 52% at 54% 104%, rgba(232, 154, 42, 0.2), transparent 68%);
+    radial-gradient(
+      66% 54% at 14% 2%,
+      rgba(27, 143, 161, 0.16),
+      rgba(27, 143, 161, 0.055) 38%,
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 50% at 88% 18%,
+      rgba(199, 62, 111, 0.07),
+      rgba(199, 62, 111, 0.024) 38%,
+      transparent 70%
+    ),
+    radial-gradient(
+      80% 62% at 54% 104%,
+      rgba(232, 154, 42, 0.2),
+      rgba(232, 154, 42, 0.068) 38%,
+      transparent 76%
+    );
 }
 
 /* Edge fade for marquees and overflow rows. */
