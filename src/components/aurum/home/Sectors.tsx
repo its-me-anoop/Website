@@ -12,13 +12,11 @@ const accents = {
   nhs: {
     brand: "var(--au-nhs)",
     text: "text-au-nhs",
-    tint: "from-au-nhs/14",
     icon: "bg-au-nhs/10 text-au-nhs ring-au-nhs/25",
   },
   amber: {
     brand: "var(--au-care)",
     text: "text-au-care",
-    tint: "from-au-care/14",
     icon: "bg-au-care/10 text-au-care ring-au-care/25",
   },
 } as const;
@@ -102,19 +100,32 @@ export function Sectors() {
                     </div>
                   </div>
 
-                  {/* A sliver of the finished sample site, rising on hover. */}
-                  <div className="relative mt-2 h-[132px] overflow-hidden px-8 sm:px-10">
-                    <div
-                      aria-hidden
-                      className={`pointer-events-none absolute inset-0 z-10 bg-gradient-to-t ${accent.tint} via-transparent to-transparent`}
-                    />
+                  {/* The finished sample site, whole. The card's foot *is*
+                      the screenshot: bled to the plate's own edges and ended
+                      by the plate's own radius, cut by nothing.
+
+                      It used to be a 132px window over the top of the image.
+                      At 1440 that showed 40% of it and put the cut one pixel
+                      above the card's bottom edge, so the crop had no frame
+                      to belong to and read as a failed render — on the care
+                      card it severed the words "home, with care". The
+                      hairline is the seam `Work.tsx` puts between a specimen
+                      and its body, inverted.
+
+                      `width`/`height` are the raster's true dimensions, so
+                      the box reserved on load is the box that gets painted;
+                      the old 900×600 against a 1.488 image was a latent
+                      layout shift. `sizes` stops at 600px deliberately —
+                      620 crosses a Next image-size boundary and would fetch
+                      w=1920 for a box that measures 574. */}
+                  <div className="relative shrink-0 border-t border-au-line bg-au-paper-3">
                     <Image
                       src={preview.src}
                       alt={preview.alt}
-                      width={900}
-                      height={600}
-                      sizes="(max-width: 1024px) 92vw, 560px"
-                      className="w-full rounded-t-[var(--r-md)] border border-b-0 border-au-line object-cover object-top shadow-[0_-18px_44px_-28px_rgba(20,8,10,0.4)] transition-transform duration-700 ease-out group-hover:-translate-y-3"
+                      width={1920}
+                      height={1290}
+                      sizes="(max-width: 1023px) 94vw, 600px"
+                      className="block h-auto w-full"
                     />
                   </div>
                 </Plate>
