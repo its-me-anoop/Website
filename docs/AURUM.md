@@ -60,9 +60,8 @@ opaque, so they simply cover it. Four decorative layers, all
 > `none` becomes the containing block for `position: fixed`
 > descendants. Framer Motion leaves the final `filter: blur(0px)` on
 > anything that animates a blur, which silently un-fixes this backdrop
-> and the scroll-progress rail and anchors them to the document instead
-> of the viewport. `app/template.tsx` therefore animates opacity and
-> offset only — never a filter.
+> and the scroll-progress bar. `app/template.tsx` therefore animates
+> opacity and offset only — never a filter.
 
 ## Tokens (globals.css)
 
@@ -88,18 +87,9 @@ inversion), `.au-rule-top` / `.au-rule-bottom` / `.au-rule-heavy` /
 `.au-tick` (the rule at its four weights), `.au-wash` /
 `.au-wash-night` / `.au-grid` / `.au-dots` / `.au-grain` (background
 graphics), `.au-lift` / `.au-spot` (hover behaviour), `.au-display` /
-`.au-display-hero` / `.au-label` / `.au-fade-text` (type),
-`.au-underline` / `.au-sweep` (the two signature interactions).
-
-> There was an `.au-grad-text` that painted one phrase per heading with
-> a three-stop teal → amber → rose gradient through
-> `background-clip: text`. It is gone. Interpolating across three hues
-> puts the middle of a phrase in colours the palette does not contain —
-> "Honest quotes." ran through olive and rust — and the gradient
-> restarted per segment, so a two-phrase headline jumped from magenta
-> back to teal mid-sentence. Emphasis is `tone: "accent"` and weight.
-> `.au-fade-text` stays: it is a single-hue fade to transparent on the
-> decorative 22%-opacity footer wordmark, not colour on reading text.
+`.au-display-hero` / `.au-label` / `.au-grad-text` / `.au-fade-text`
+(type), `.au-underline` / `.au-sweep` (the two signature
+interactions).
 
 > **Vendor-prefix order matters.** The CSS minifier drops the standard
 > `backdrop-filter` when it *follows* the `-webkit-` form, leaving a
@@ -150,41 +140,17 @@ src/components/
 |---|---|
 | `PaperField` | The shared four-layer ground described above |
 | `MacBook` / `IMac` / `Phone` | Device frames, drawn entirely in CSS |
-| `ParticleField` | Canvas constellation in the fold, in the rule's colours; count scales with area, DPR capped at 2, the rAF loop is cancelled (not just skipped) off-screen or on a hidden tab, and a resize carries the field across rather than reseeding it |
-| `Reveal` / `TextReveal` / `Stagger` | Rise-and-clip entrances; `TextReveal` resolves a heading word by word |
+| `ParticleField` | Canvas constellation in the fold, in the rule's colours; count scales with area, DPR capped at 2, loop suspends off-screen or on a hidden tab |
+| `Reveal` / `TextReveal` / `Stagger` | Blur-and-rise entrances; `TextReveal` resolves a heading word by word |
 | `Plate` / `RuleCard` | The workhorse surface, and the rule-crowned card reserved for one featured item per page |
 | `Tilt` / `Magnetic` / `Parallax` | Pointer tilt with `translateZ` depth, magnetic buttons, scroll-linked drift |
 | `CountUp` | Stat counter; values that do not open with digits render verbatim |
 | `Marquee` | Seamless band; the duplicated half is `aria-hidden` |
 | `ScrollProgress` | The three-colour rule, filling as the page scrolls |
 
-### Entrances
-
-`Reveal` / `TextReveal` / `Stagger` are Framer Motion components that
-animate once as a block scrolls into view, and `app/template.tsx` gives
-each route a soft rise on entry. Both honour `prefers-reduced-motion` by
-rendering content statically.
-
-> **Known trade.** Framer serialises a component's `initial` state into
-> the server-rendered HTML, so a page ships its blocks at `opacity: 0`
-> and they resolve once the async `domMax` chunk has hydrated. That
-> costs first paint on a slow connection, and it means the marketing
-> routes need JavaScript to become readable — the `/demo/*` routes opt
-> out of the wrapper entirely and do not.
->
-> This was replaced with a stylesheet-driven system and then put back:
-> the CSS version fixed the paint cost but changed the feel of the
-> scroll, and the feel won. If it is revisited, the two things to keep
-> from that attempt are that the fade and the rise want different
-> durations (words readable fast, block still settling), and that the
-> observer should fire *before* a block reaches the fold rather than
-> after — `-12%` means a block only starts appearing once its top has
-> already climbed to 88% of the viewport.
-
 A `background-clip: text` fill never reaches glyphs inside a
 transformed descendant, so `TextReveal` puts the tone class on the
 *animated* word span — not on a wrapper around it.
-
 
 ## Signature moves
 

@@ -300,16 +300,17 @@ export function ArtlingLanding() {
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } } }}
                 className="mt-9 flex flex-wrap gap-3"
               >
-                <Link href="#features">
-                  <Button as="span" variant="primary" size="lg" className="group">
+                <Link href="#features" aria-label="Explore features">
+                  <Button variant="primary" size="lg" className="group">
                     Explore Features
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Button>
                 </Link>
                 <Link
                   href="/projects/artling/privacy-policy"
+                  aria-label="Read privacy policy"
                 >
-                  <Button as="span" variant="outline" size="lg">
+                  <Button variant="outline" size="lg">
                     Read Privacy Policy
                   </Button>
                 </Link>
@@ -586,8 +587,9 @@ export function ArtlingLanding() {
             <div className="mt-8">
               <Link
                 href="/projects/artling/privacy-policy"
+                aria-label="Read the Artling privacy policy"
               >
-                <Button as="span" variant="outline" className="group">
+                <Button variant="outline" className="group">
                   Read the Artling Privacy Policy
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </Button>
@@ -631,13 +633,15 @@ export function ArtlingLanding() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/projects/artling/privacy-policy"
+                aria-label="Privacy policy"
               >
-                <Button as="span" variant="outline">Privacy Policy</Button>
+                <Button variant="outline">Privacy Policy</Button>
               </Link>
               <Link
                 href="mailto:anoop@flutterly.co.uk"
+                aria-label="Enquire about the app"
               >
-                <Button as="span" variant="primary">Enquire About the App</Button>
+                <Button variant="primary">Enquire About the App</Button>
               </Link>
             </div>
           </div>

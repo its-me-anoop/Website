@@ -12,7 +12,6 @@ import {
   TextReveal,
   Tilt,
 } from "@/components/fx";
-import { site } from "@/lib/site";
 import { Shell } from "../Shell";
 import { CtaBand } from "../CtaBand";
 import type { Sector } from "../data";
@@ -152,7 +151,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
             className="au-display mt-5 max-w-[520px] text-[clamp(1.9rem,4.2vw,2.95rem)]"
             segments={[
               { text: "Don’t take our word for it — click around" },
-              { text: sector.demo.name, tone: "accent" },
+              { text: sector.demo.name, tone: "gradient" },
             ]}
           />
           <Reveal delay={0.16}>
@@ -199,7 +198,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
                   />
                   Live
                 </span>
-                {site.domain}{sector.demo.href} — the organisation shown is fictional
+                flutterly.uk{sector.demo.href} — the organisation shown is fictional
               </span>
             </a>
           </Reveal>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -33,8 +33,6 @@ export function Nav() {
   const reduce = useReducedMotion();
   const pathname = usePathname();
   const { scrollY } = useScroll();
-  const headerRef = useRef<HTMLElement>(null);
-  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useMotionValueEvent(scrollY, "change", (y) => setLifted(y > 12));
 
@@ -46,72 +44,18 @@ export function Nav() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  /* Close the sheet when the viewport grows past `lg`.
-     Above `lg` both the sheet and the hamburger are `display: none`, so
-     there is no longer any way to close it — and the effect below keeps
-     `main`, the footer and the scroll lock in place. Rotating an iPad
-     with the menu open left a page that looked completely normal and in
-     which nothing could be clicked. */
-  useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1024px)");
-    const onChange = () => desktop.matches && setOpen(false);
-    onChange();
-    desktop.addEventListener("change", onChange);
-    return () => desktop.removeEventListener("change", onChange);
-  }, []);
-
-  /* Freeze the page behind the mobile sheet while it is open, and take
-     everything outside the header out of the tab order.
-     ─────────────────────────────────────────────────────────────
-     The sheet covers the page rather than sitting in a dialog, so
-     without this Tab walks straight out of the menu and onto links
-     underneath it: the focus ring goes behind the open sheet and the
-     viewer is navigating blind. WCAG 2.2 §2.4.11 (Focus Not Obscured).
-
-     The header is nested several levels down, so inerting the body's
-     direct children would inert the menu too. Instead we climb from the
-     header to the body and, at each level, inert the siblings — which
-     leaves exactly the header chain reachable. */
+  /* Freeze the page behind the mobile sheet while it is open. */
   useEffect(() => {
     if (!open) return;
-    const previousOverflow = document.body.style.overflow;
+    const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
-    const inerted: HTMLElement[] = [];
-    let node: HTMLElement | null = headerRef.current;
-    while (node && node !== document.body) {
-      const parent: HTMLElement | null = node.parentElement;
-      if (!parent) break;
-      for (const sibling of Array.from(parent.children)) {
-        if (
-          sibling !== node &&
-          sibling instanceof HTMLElement &&
-          !sibling.hasAttribute("inert")
-        ) {
-          sibling.setAttribute("inert", "");
-          inerted.push(sibling);
-        }
-      }
-      node = parent;
-    }
-
     return () => {
-      document.body.style.overflow = previousOverflow;
-      for (const element of inerted) element.removeAttribute("inert");
+      document.body.style.overflow = previous;
     };
-  }, [open]);
-
-  /* Closing the sheet — by Escape, or by the toggle — hands focus back
-     to the control that opened it, rather than dropping it on <body>. */
-  const wasOpen = useRef(false);
-  useEffect(() => {
-    if (wasOpen.current && !open) toggleRef.current?.focus();
-    wasOpen.current = open;
   }, [open]);
 
   return (
     <m.header
-      ref={headerRef}
       className={`au-frost sticky top-0 z-[150] border-b transition-[border-color,box-shadow] duration-300 ${
         lifted || open
           ? "border-au-line shadow-[0_10px_30px_-24px_rgba(20,8,10,0.5)]"
@@ -184,7 +128,6 @@ export function Nav() {
           </Magnetic>
 
           <button
-            ref={toggleRef}
             type="button"
             onClick={() => setOpen((value) => !value)}
             aria-label={open ? "Close menu" : "Open menu"}

@@ -29,25 +29,17 @@ export default function PracticeInformationPage() {
 
         {/* The inspection rating is a publication requirement, so it
             gets its own place rather than a line in a policy. */}
-        <div className="mt-6 rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-[var(--dgp-tint)] p-5">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            <span className="rounded-[var(--dgp-radius)] bg-[var(--dgp-green)] px-3 py-1.5 text-base font-bold text-white">
-              CQC rating: {cqc.rating}
-            </span>
-            <p className="text-base text-[var(--dgp-ink-soft)]">
-              {cqc.date}.{" "}
-              <a
-                href={cqc.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--dgp-blue)] underline"
-              >
-                {cqc.linkLabel}
-              </a>
-              .
-            </p>
-          </div>
-          <p className="mt-3 text-sm text-[var(--dgp-ink-soft)]">{cqc.note}</p>
+        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-[var(--dgp-radius)] border border-[var(--dgp-line)] bg-[var(--dgp-tint)] p-5">
+          <span className="rounded-[var(--dgp-radius)] bg-[var(--dgp-green)] px-3 py-1.5 text-base font-bold text-white">
+            CQC rating: {cqc.rating}
+          </span>
+          <p className="text-base text-[var(--dgp-ink-soft)]">
+            {cqc.date}.{" "}
+            <a href={cqc.href} className="text-[var(--dgp-blue)] underline">
+              Read the full inspection report
+            </a>
+            .
+          </p>
         </div>
 
         <div className="mt-4 divide-y divide-[var(--dgp-line)]">

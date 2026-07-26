@@ -655,21 +655,37 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
   font-variant-numeric: tabular-nums;
 }
 
-/* The emphasised phrase in a heading is set in the action colour and
-   nothing else.
-   ─────────────────────────────────────────────────────────────
-   There was a `.au-grad-text` here that painted one phrase per heading
-   with a three-stop teal → amber → rose gradient through
-   `background-clip: text`. It is gone on purpose. Interpolating
-   between three hues puts the middle of the phrase in colours the
-   palette does not contain — "Honest quotes." ran through olive and
-   rust — and it restarted per segment, so a two-phrase headline jumped
-   from magenta back to teal mid-sentence. Emphasis here comes from
-   colour and weight, not from a gradient. */
+/* The rose-to-amber ink used on one phrase per heading. Painted
+   with background-clip, so a fallback colour is set first for
+   anything that cannot clip. */
+.au-grad-text {
+  color: var(--au-teal-deep);
+  background: linear-gradient(
+    96deg,
+    var(--au-teal-deep) 0%,
+    var(--au-amber-ink) 58%,
+    var(--au-rose-ink) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* On cocoa the ink drops to two stops. A three-hue sweep across two or
+   three words at headline size reads as a rainbow; teal into gold reads
+   as light falling across the phrase. */
+.au-night .au-grad-text {
+  color: var(--au-gold);
+  background: linear-gradient(
+    96deg,
+    var(--au-teal-lift) 0%,
+    var(--au-gold) 88%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-/* Softly fading ink for the oversized footer wordmark. This is a
-   single-hue fade to transparent on a decorative 22%-opacity mark, not
-   coloured emphasis on reading text. */
+/* Softly fading ink for the oversized footer wordmark. */
 .au-fade-text {
   background: linear-gradient(178deg, var(--au-ink) 18%, rgba(245, 230, 215, 0.28) 122%);
   -webkit-background-clip: text;
@@ -747,15 +763,9 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
 .au-drift-a { animation: au-wash-drift-a 38s var(--ease-in-out) infinite; }
 .au-drift-b { animation: au-wash-drift-b 52s var(--ease-in-out) infinite; }
 
-/* One full copy, not half of one. The band is two identical rows side
-   by side, and the animation runs on each row — so a percentage
-   resolves against that row's own width, not the pair's. At -50% each
-   row stopped half a list short and snapped back, jumping the band by
-   several hundred pixels every cycle. At -100% the second copy lands
-   exactly where the first began, which is what makes the loop seamless. */
 @keyframes marquee {
   from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+  to { transform: translateX(-50%); }
 }
 .animate-marquee {
   animation: marquee var(--marquee-duration, 44s) linear infinite;
@@ -896,24 +906,6 @@ body:has(.demo-gp-root) > a[href="#main"]:focus {
   outline-offset: 0;
   box-shadow: 0 0 0 6px rgba(33, 43, 50, 0.9);
   border-radius: 2px;
-}
-
-/* Radio and checkbox groups drawn as pills — the colour-scheme switcher
-   above the masthead, and the triage form's answer buttons — hide the
-   real control with `.sr-only` and style the label around it. The rule
-   above still fires, but it paints the ring on a 1px clipped box, which
-   is no indicator at all: keyboard users saw Tab apparently do nothing
-   while arrow keys silently repainted the site. Move the indicator onto
-   the label, which is the thing actually on screen. WCAG 2.2 §2.4.7.
-   The label keeps its own corner radius, so a pill stays a pill. */
-.demo-gp-root label:has(> input.sr-only:focus-visible) {
-  outline: 3px solid var(--dgp-yellow);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 6px rgba(33, 43, 50, 0.9);
-}
-.demo-gp-root label > input.sr-only:focus-visible {
-  outline: none;
-  box-shadow: none;
 }
 
 /* "Oakfield House" — warm care-home demo: cream canvas, warm

@@ -23,23 +23,12 @@ export function GpNav() {
             link.href === "/demo/gp-practice"
               ? pathname === link.href
               : pathname?.startsWith(link.href);
-          /* Below `sm` this is a two-column grid, and the list has an
-             odd number of links. `flex` on the cell plus `grow` on the
-             anchor makes the link fill its cell: without it a cell whose
-             label wrapped to two lines left ~25px at the bottom
-             unclickable, with the current-page highlight painting only
-             the top two-thirds. The last link spans both columns so the
-             row of hairlines runs the full width instead of stopping
-             dead in the middle of the page. */
           return (
-            <li
-              key={link.href}
-              className="flex border-b border-white/15 last:col-span-2 sm:border-b-0 sm:last:col-span-1"
-            >
+            <li key={link.href} className="border-b border-white/15 sm:border-b-0">
               <Link
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`flex grow items-center px-4 py-3 text-base font-medium text-white hover:bg-white/10 hover:underline sm:px-3 ${
+                className={`block px-4 py-3 text-base font-medium text-white hover:bg-white/10 hover:underline sm:px-3 ${
                   active
                     ? "bg-white/10 shadow-[inset_0_-4px_0_var(--dgp-yellow)]"
                     : ""

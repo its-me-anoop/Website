@@ -5,7 +5,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Bullet, LegalPage, PolicySection } from "@/components/aurum/LegalPage";
 
 const description =
-  `Accessibility statement for ${site.domain} — the standards this website aims to meet, how it is tested, and how to report a problem.`;
+  "Accessibility statement for flutterly.uk — the standards this website aims to meet, how it is tested, and how to report a problem.";
 
 export const metadata: Metadata = {
   title: "Accessibility statement",
@@ -18,26 +18,6 @@ export const metadata: Metadata = {
     siteName: site.studio,
     locale: site.locale,
     type: "website",
-    /* Next.js replaces an inherited `openGraph` wholesale rather than
-       merging it, so declaring this block without images dropped the
-       root layout's og:image — leaving the one page a public-sector
-       buyer is most likely to share as a bare text card. */
-    images: [
-      {
-        url: site.ogImage,
-        width: 1200,
-        height: 630,
-        alt: `${site.studio} — websites for GP practices, care homes and ambitious products`,
-      },
-    ],
-  },
-  /* Same trap on the Twitter side: with no block here the page kept the
-     root layout's title, which does not mention accessibility at all. */
-  twitter: {
-    card: "summary_large_image",
-    title: `Accessibility statement — ${site.studio}`,
-    description,
-    images: [site.ogImage],
   },
 };
 
@@ -66,7 +46,7 @@ export default function AccessibilityPage() {
         <p>
           Flutterly builds websites for organisations whose visitors span every
           age, ability and device — so this site is held to the same standard
-          asked of client work. {site.domain} aims to meet the Web Content
+          asked of client work. flutterly.uk aims to meet the Web Content
           Accessibility Guidelines (WCAG) 2.2 at level AA.
         </p>
       </PolicySection>

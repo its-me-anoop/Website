@@ -69,7 +69,7 @@ export function Hero() {
             className="au-display-hero mt-7 max-w-[640px] text-[clamp(2.6rem,6vw,4.5rem)]"
             segments={[
               { text: "Websites that care for" },
-              { text: "the people", tone: "accent" },
+              { text: "the people", tone: "gradient" },
               { text: "who use them." },
             ]}
           />
@@ -96,11 +96,7 @@ export function Hero() {
               {heroStats.map((stat) => (
                 <div key={stat.label}>
                   <dt className="sr-only">{stat.label}</dt>
-                  {/* The reserved box has to fit the longest value, not the
-                      typical one: "WCAG 2.2 AA" wraps to two lines and at
-                      2.3em it overflowed, pushing that one column's label
-                      below its three neighbours. */}
-                  <dd className="flex min-h-[2.7em] items-start text-balance text-[clamp(1.1rem,1.8vw,1.4rem)] font-bold leading-tight tracking-[-0.02em] text-au-gold">
+                  <dd className="flex min-h-[2.3em] items-start text-balance text-[clamp(1.1rem,1.8vw,1.4rem)] font-bold leading-tight tracking-[-0.02em] text-au-gold">
                     <CountUp value={stat.value} />
                   </dd>
                   <dd className="au-label mt-2.5 leading-[1.55] tracking-[0.1em] text-au-muted">

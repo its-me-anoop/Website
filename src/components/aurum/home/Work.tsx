@@ -24,25 +24,14 @@ function WorkCard({
 
   const inner = (
     <>
-      {/* Website screenshots are 16:10 and fill the frame. App screens
-          are portrait, so cropping them to the same box threw the whole
-          product away — a 1284×2778 phone shot left a notch and half a
-          word. Those sit whole inside the frame on the product's tint
-          instead, which reads as a specimen rather than a mistake. */}
-      <div
-        className="relative aspect-[16/10] overflow-hidden"
-        style={{ backgroundColor: project.tint }}
-      >
+      <div className="relative aspect-[16/10] overflow-hidden">
         <Image
           src={project.image}
           alt={`${project.name} — ${project.type}`}
           fill
           sizes={feature ? "(max-width: 1024px) 92vw, 560px" : "(max-width: 1024px) 92vw, 300px"}
-          className={`transition-transform duration-[900ms] ease-out group-hover:scale-[1.06] ${
-            project.portrait
-              ? "object-contain object-center p-4"
-              : "object-cover object-top"
-          }`}
+          className="object-cover object-top transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
+          style={{ backgroundColor: project.tint }}
         />
         {project.status ? (
           <span className="absolute left-4 top-4 z-20 rounded-full border border-au-amber/40 bg-au-paper-2/90 px-3 py-1 text-[11.5px] font-semibold text-au-amber-ink backdrop-blur-md">
@@ -61,11 +50,7 @@ function WorkCard({
         <p className="mt-2.5 text-[14px] leading-relaxed text-au-ink-3">
           {project.description}
         </p>
-        {/* `items-end`, not `items-center`: one card's two tags wrap to a
-            second line and the rest do not, and centring made that
-            card's arrow sit 13px above its neighbours' in the same row.
-            Anchored to the last line, the row of arrows stays level. */}
-        <div className="mt-auto flex items-end justify-between gap-4 pt-6">
+        <div className="mt-auto flex items-center justify-between gap-4 pt-6">
           <ul className="flex flex-wrap gap-2">
             {project.tags.slice(0, 2).map((tag) => (
               <li

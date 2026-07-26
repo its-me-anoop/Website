@@ -77,7 +77,7 @@ export function AuditPage() {
             className="au-display-hero mx-auto mt-6 max-w-[760px] text-[clamp(2.3rem,5.6vw,3.9rem)]"
             segments={[
               { text: "Find out how your website" },
-              { text: "really performs.", tone: "accent" },
+              { text: "really performs.", tone: "gradient" },
             ]}
           />
           <Reveal delay={0.24}>

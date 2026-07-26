@@ -68,13 +68,14 @@ export function Reveal({
 
 export type Segment = {
   text: string;
-  tone?: "ink" | "muted" | "accent";
+  tone?: "ink" | "muted" | "accent" | "gradient";
 };
 
 const toneClass: Record<NonNullable<Segment["tone"]>, string> = {
   ink: "text-au-ink",
   muted: "text-au-ink-3",
   accent: "text-au-teal-deep",
+  gradient: "au-grad-text",
 };
 
 const wordVariants: Variants = {

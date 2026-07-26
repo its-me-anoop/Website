@@ -50,11 +50,7 @@ export function CareShell({ children }: { children: React.ReactNode }) {
         </nav>
       </header>
 
-      {/* `tabIndex={-1}` so the skip link moves the reading position and
-          not just Chromium's sequential-navigation start point. */}
-      <main id="main" tabIndex={-1} className="outline-none">
-        {children}
-      </main>
+      <main id="main">{children}</main>
 
       <footer className="bg-[#2c231a] text-[#efe8dc]">
         <div className="mx-auto grid w-full max-w-[1100px] gap-8 px-4 py-10 sm:grid-cols-3 sm:px-6">

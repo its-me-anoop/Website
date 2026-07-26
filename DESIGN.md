@@ -12,8 +12,8 @@ Grotesque over Figtree**, and one three-colour rule — **teal `#1b8fa1` → amb
 the only action colour; `--au-teal-deep` carries anything that has to
 read at body size. Two `.au-night` bands (the fold, the process
 interlude) invert the page by re-declaring the same tokens, so one set
-of components serves both grounds. Motion: shared `EASE` curve, `Reveal` /
-`TextReveal` / `Stagger` entrances, full reduced-motion and
+of components serves both grounds. Motion: shared `EASE` curve,
+`Reveal` / `TextReveal` / `Stagger` entrances, full reduced-motion and
 reduced-transparency fallbacks. `.aurum-root` scope.
 
 ## 2. Case-study product scopes (`/projects/*`)

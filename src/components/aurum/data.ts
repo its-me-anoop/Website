@@ -17,13 +17,6 @@ export type Project = {
   tags: readonly string[];
   /** Shown as a badge on the work card, e.g. "In development". */
   status?: string;
-  /**
-   * Portrait artwork — an app screen rather than a website screenshot.
-   * The card sits it whole inside the frame on its tint instead of
-   * cropping it to the landscape box, which on a 1284×2778 phone shot
-   * left nothing on screen but a notch.
-   */
-  portrait?: boolean;
 };
 
 export const projects: readonly Project[] = [
@@ -31,13 +24,10 @@ export const projects: readonly Project[] = [
     name: "Pembroke Care",
     type: "Care web",
     year: "2026",
+    status: "In development",
     description:
-      "A boutique residential, respite and transitional-living provider in Reading — a calm, warm site with one clear pathway from hospital back to independence.",
-    /* Live on the client's own domain since launch. The card carried an
-       "In development" badge and a Vercel preview URL long after the
-       build shipped, which both understated the portfolio and sent every
-       visitor through an extra redirect. */
-    href: "https://pembrokecare.com/",
+      "A boutique residential, respite and transitional-living provider in Reading — a calm, warm site that will replace pembrokecare.com at launch.",
+    href: "https://pembroke-care.vercel.app/",
     internal: false,
     image: "/project-pembroke.png",
     tint: "#edf1e6",
@@ -89,7 +79,6 @@ export const projects: readonly Project[] = [
     internal: true,
     image: "/projects/sipli/dashboard.png",
     tint: "#dbe7ee",
-    portrait: true,
     tags: ["SwiftUI", "HealthKit", "On-device intelligence"],
   },
   {
@@ -102,32 +91,23 @@ export const projects: readonly Project[] = [
     internal: true,
     image: "/projects/artling/fox-painter.png",
     tint: "#f3e7d3",
-    portrait: true,
     tags: ["SwiftUI", "Local first", "Family sharing"],
   },
 ] as const;
 
-/**
- * Wordmarks for the “Trusted by” band — organisations that commissioned
- * work, and nobody else. Sipli and Artling used to appear here: they are
- * Flutterly's own products, so listing them under a heading that reads
- * "Organisations Flutterly has built for" inflated four clients into
- * six. They have their own place in the work grid.
- */
+/** Wordmarks for the “Trusted by” band. */
 export const trustedBy = [
   "Pembroke Care",
   "Greenmead Housing",
   "JJ Paper Essential",
   "Sandbourne Care",
+  "Sipli",
+  "Artling",
 ] as const;
 
-/**
- * Honest hero credentials — commitments, not invented statistics.
- * The count is the length of `projects` above: six, now that Pembroke
- * Care has launched on its own domain. Keep the two in step.
- */
+/** Honest hero credentials — commitments, not invented statistics. */
 export const heroStats = [
-  { value: "6", label: "live products and client sites" },
+  { value: "5", label: "live products and client sites" },
   { value: "100%", label: "custom code — never a template" },
   { value: "WCAG 2.2 AA", label: "accessibility target on every build" },
   { value: "1 day", label: "to hear back on any enquiry" },
@@ -631,7 +611,7 @@ export const footerColumns = [
   {
     title: "Projects",
     links: [
-      { label: "Pembroke Care", href: "https://pembrokecare.com/" },
+      { label: "Pembroke Care", href: "https://pembroke-care.vercel.app/" },
       { label: "Sandbourne", href: "https://sandbournecare.co.uk/" },
       { label: "Greenmead", href: "https://www.greenmead.co.uk/" },
       { label: "JJ Paper", href: "https://www.jjpaperessential.com/" },
