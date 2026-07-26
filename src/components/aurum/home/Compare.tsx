@@ -29,14 +29,75 @@ export function Compare() {
       />
 
       <Reveal delay={0.1} className="mx-auto mt-14 max-w-[1000px]">
-        {/* The table needs room to breathe, so on a phone it scrolls
-            sideways. A scrollable region has to be focusable and named
-            to stay keyboard-operable — WCAG 2.2 §2.1.1. */}
+        {/* Below `md` the two columns stack instead of scrolling sideways.
+            The table needs 640px and the page gives it 704px at `md`, so
+            anything narrower used to hide the Flutterly column off the
+            right edge entirely — the reader saw only the criticism and
+            had to discover a sideways scroll to find the answer to it. */}
+        <div className="au-plate-strong overflow-hidden rounded-[var(--r-xl)] md:hidden">
+          {/* The two sides are named once, here, rather than repeated on
+              every row — six repetitions of "A Flutterly build" is a lot
+              of a phone screen to spend on a label. Each value below
+              still carries its own name for a screen reader, so nothing
+              depends on having seen this legend, or on the colour. */}
+          <p
+            aria-hidden
+            className="flex flex-wrap gap-x-5 gap-y-1.5 border-b border-au-line px-5 py-4 text-[12.5px] font-semibold"
+          >
+            <span className="flex items-center gap-1.5 text-au-muted">
+              <X size={14} className="shrink-0 text-au-rose-ink/70" />
+              {comparison.them}
+            </span>
+            <span className="flex items-center gap-1.5 text-au-teal-deep">
+              <Check size={14} strokeWidth={2.8} className="shrink-0" />
+              {comparison.us}
+            </span>
+          </p>
+
+          <dl className="divide-y divide-au-line">
+            {comparison.rows.map((row) => (
+              <div key={row.label} className="p-5">
+                <dt className="au-label tracking-[0.16em] text-au-muted">
+                  {row.label}
+                </dt>
+                <dd className="mt-3 flex gap-2.5 text-[14.5px] leading-relaxed text-au-ink-3">
+                  <X
+                    size={16}
+                    aria-hidden
+                    className="mt-1 shrink-0 text-au-rose-ink/70"
+                  />
+                  <span>
+                    <span className="sr-only">{comparison.them}: </span>
+                    {row.them}
+                  </span>
+                </dd>
+                <dd className="mt-2.5 flex gap-2.5 rounded-[var(--r-md)] bg-au-teal/[0.07] p-3.5 text-[14.5px] font-medium leading-relaxed text-au-ink">
+                  <Check
+                    size={16}
+                    strokeWidth={2.8}
+                    aria-hidden
+                    className="mt-1 shrink-0 text-au-teal-deep"
+                  />
+                  <span>
+                    <span className="sr-only">{comparison.us}: </span>
+                    {row.us}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        {/* From `md` the table fits, and a real table is the better
+            reading of a comparison. `overflow-x-auto` stays as a
+            safeguard for very large text settings; a scrollable region
+            has to be focusable and named to stay keyboard-operable —
+            WCAG 2.2 §2.1.1. */}
         <div
           role="region"
           aria-label="Template builders compared with a Flutterly build"
           tabIndex={0}
-          className="au-plate-strong relative overflow-x-auto rounded-[var(--r-xl)]"
+          className="au-plate-strong relative hidden overflow-x-auto rounded-[var(--r-xl)] md:block"
         >
           <table className="w-full min-w-[640px] border-separate border-spacing-0 text-left">
             <caption className="sr-only">
@@ -117,9 +178,6 @@ export function Compare() {
             </tbody>
           </table>
         </div>
-        <p className="au-label mt-4 text-center tracking-[0.2em] text-au-muted sm:hidden">
-          Scroll the table sideways to compare
-        </p>
       </Reveal>
     </Section>
   );

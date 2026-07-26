@@ -1,6 +1,6 @@
 import React from "react";
 import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
 import { Home } from "./Home";
@@ -93,7 +93,29 @@ describe("Aurum home", () => {
       name: /comparison of typical template builders/i,
     });
     expect(table).toBeInTheDocument();
-    expect(screen.getByText(/A Flutterly build/)).toBeInTheDocument();
+    /* Scoped to the table: the comparison also renders as a stacked list
+       below `md`, so the Flutterly column heading legitimately appears
+       more than once in the document. */
+    expect(within(table).getByText(/A Flutterly build/)).toBeInTheDocument();
+  });
+
+  it("stacks the comparison for narrow screens without losing a side", () => {
+    const { container } = renderHome();
+
+    /* The table is 640px wide and hidden below `md`; the stacked list
+       takes over. Every row must carry both sides — the sideways-scrolling
+       table used to push the Flutterly column off the right edge, so a
+       phone showed only the criticism. */
+    const stacked = container.querySelector("dl.divide-y");
+    expect(stacked).not.toBeNull();
+
+    const rows = stacked!.querySelectorAll(":scope > div");
+    expect(rows).toHaveLength(6);
+    rows.forEach((row) => {
+      expect(row.querySelectorAll("dd")).toHaveLength(2);
+      expect(row.textContent).toContain("Typical template builders");
+      expect(row.textContent).toContain("A Flutterly build");
+    });
   });
 
   it("renders the process steps and footer contact details", () => {
