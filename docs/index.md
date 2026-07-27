@@ -1,20 +1,17 @@
 # Documentation
 
 The site of Flutterly Ltd — the product studio of Anoop Jose. Built
-with Next.js 16 (App Router), React 19 and Tailwind CSS v4. Every
-Flutterly-branded route — marketing pages, case studies and policies —
-runs the warm, editorial "Aurum" language over one shared animated
-ground. The two sample client sites under `/demo/*` keep their own
-scoped palettes on purpose.
+with Next.js 16 (App Router), React 19 and Tailwind CSS v4. The
+marketing pages (home, GP practices, care homes, packages, free
+audit) run the clean healthcare-service "Bloom" language; case-study
+pages run the light "Porcelain" system with Framer Motion.
 
 ## Contents
 
-- [Design Language — "Aurum"](./AURUM.md) — tokens, the shared
-  ground, the night inversion, the effects kit, signature moves and
-  the motion system.
-- [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — the light
-  system the case-study markup was built on; its semantic tokens are
-  now remapped onto the Aurum paper per product scope.
+- [Design Language — "Bloom"](./BLOOM.md) — marketing-site tokens,
+  structure, signature moves, and the motion system.
+- [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — tokens,
+  primitives, motion, and accessibility rules for case-study pages.
 
 ## Architecture at a glance
 
@@ -23,7 +20,7 @@ src/
 ├── app/
 │   ├── layout.tsx          # Root layout: fonts, metadata, JSON-LD, skip link
 │   ├── template.tsx        # Route transition wrapper
-│   ├── page.tsx            # Aurum homepage composition
+│   ├── page.tsx            # Bloom homepage composition
 │   ├── globals.css         # Design tokens + Tailwind theme + utilities
 │   ├── sitemap.ts          # SEO sitemap
 │   ├── robots.ts           # SEO robots
@@ -34,13 +31,10 @@ src/
 │   ├── accessibility/      # Accessibility statement
 │   └── projects/           # Case-study subpages (sipli, artling)
 ├── components/
-│   ├── fx/                 # Effects kit (ground, particles, reveals,
-│   │                       # plates, device frames, tilt, magnetism,
-│   │                       # marquee, count-up)
-│   ├── aurum/              # The site itself (shell, nav, footer, legal,
+│   ├── bloom/              # Bloom marketing site (shell, nav, footer,
 │   │                       # primitives, data, home/sectors/packages/audit)
-│   ├── ui/                 # Primitives used by the case studies
-│   ├── demos/              # The two sample client sites
+│   ├── ui/                 # Porcelain primitives (Button, LiftCard, …)
+│   ├── layout/             # Porcelain Navbar/Footer (case-study pages)
 │   └── projects/           # Per-product landing UIs
 ├── fonts/                  # Self-hosted variable woff2 subsets
 └── lib/
@@ -58,7 +52,6 @@ src/
 | `npm run lint` | ESLint |
 | `npx vitest run` | Unit/component tests |
 | `npm run test:browser` | Headless-browser audit of every route |
-| `npm run test:contrast` | WCAG 2.2 AA contrast audit of every rendered text node |
 
 ## SEO
 
@@ -67,6 +60,5 @@ src/
   with `SoftwareApplication` JSON-LD on product pages.
 - `sitemap.ts` and `robots.ts` generate `/sitemap.xml` and `/robots.txt`.
 - Shared constants come from `src/lib/site.ts` so details never drift.
-- Fonts are self-hosted latin variable subsets — Bricolage Grotesque
-  (with its optical-size axis) and Figtree, ~97KB, no CDN dependency.
-  Syne is loaded without preload for the care-home demo alone.
+- Homepage fonts are self-hosted latin variable subsets (~97KB, no CDN
+  dependency); case-study pages stay on zero-payload system stacks.

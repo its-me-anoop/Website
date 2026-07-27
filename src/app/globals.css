@@ -1,249 +1,234 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════
-   Flutterly · Design System — "Aurum"
+   Anoop Jose · Design System — "Porcelain"
    ───────────────────────────────────────────────────────────────────
-   A warm editorial language for the studio site: a cream paper canvas
-   under soft amber washes, cocoa ink, plates that sit on the page like
-   pressed card, Bricolage Grotesque over Figtree, and one three-colour
-   rule — teal → amber → rose — drawn at the seams between sections.
-
-   The page is light. Two night bands (the fold and the process
-   interlude) invert it, and they do it by *re-declaring the same
-   tokens* rather than by forking the component vocabulary: drop
-   `.au-night` on a section and every plate, hairline and ink step
-   inside it flips. One set of components, two atmospheres.
+   An Apple-inspired, light, whitespace-first language for a developer
+   portfolio. White canvas with #f5f5f7 bands, a disciplined ink ramp,
+   hairline rules, one blue accent, soft elevation, and SF-style system
+   typography. Motion is calm: blur-in entrances, scroll-scrubbed
+   product imagery, spring micro-interactions.
 
    Layers:
-     1. :root   — raw design tokens (single source of truth)
-     2. @theme  — maps tokens to Tailwind v4 utilities (bg-au-paper…)
-     3. base    — element defaults (typography, focus, scrollbars)
-     4. scopes  — .aurum-root, .au-night, the case-study retints
-     5. utils   — surface and graphic helpers (.au-plate, .au-rule…)
-     6. motion  — keyframes + prefers-reduced-motion guards
-     7. demos   — the two sample client sites, deliberately untouched
-
-   Accessibility is not traded for atmosphere: every text/background
-   pair clears WCAG 2.2 AA on both paper and night, every decorative
-   layer is aria-hidden and pointer-events-none, and all motion
-   collapses under `prefers-reduced-motion`.
+     1. :root  — raw design tokens (single source of truth)
+     2. @theme — maps tokens to Tailwind v4 utilities (bg-canvas, text-ink…)
+     3. base   — element defaults (typography, focus, scrollbars)
+     4. utils  — helpers (.frosted, .text-fade, .edge-mask…)
+     5. motion — keyframes + prefers-reduced-motion guards
    ═══════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ── Aurum · paper ramp ───────────────────────────────────────
-     The canvas is warm, never white: pure white next to cocoa ink
-     reads as a glare, and every photograph on the site is warm. */
-  --au-paper: #fdf6ec; /* page */
-  --au-paper-2: #fffaf0; /* plates, cards */
-  --au-paper-3: #fffefb; /* inputs — the brightest surface */
-  --au-sink: #f6ead9; /* tinted relief band */
+  /* ── Canvases · porcelain ramp ────────────────────────────── */
+  --canvas: #ffffff; /* page */
+  --canvas-2: #f5f5f7; /* alternating section bands */
+  --canvas-3: #fbfbfd; /* barely-raised band */
+  --surface: #ffffff; /* cards */
+  --surface-2: #f5f5f7; /* nested cards / inputs */
+  --surface-3: #e8e8ed; /* pressed / hover */
+  --night: #000000; /* full-bleed dark finale band */
+  --night-2: #1d1d1f; /* cards on night */
+  --night-ink: #f5f5f7; /* text on night */
 
-  /* ── Aurum · night ramp (the two inverted bands) ──────────────── */
-  --au-night: #170c0f;
-  --au-night-2: #231317;
-  --au-night-3: #2f1c20;
+  /* ── Ink ramp ─────────────────────────────────────────────── */
+  --ink: #1d1d1f; /* primary text */
+  --ink-2: #424245; /* secondary */
+  --ink-3: #6e6e73; /* tertiary / body */
+  --muted: #86868b; /* captions / labels */
+  --muted-2: #a1a1a6;
+  --faint: #d2d2d7; /* disabled / hairline fills */
 
-  /* ── Aurum · ink ramp ─────────────────────────────────────────
-     Contrast on the page (#fdf6ec), all AA+ for body copy:
-     ink 17.7:1 · ink-2 12.3:1 · ink-3 7.8:1 · muted 5.7:1 */
-  --au-ink: #1a0c0e;
-  --au-ink-2: #46291f;
-  --au-ink-3: #6a4438;
-  --au-muted: #7d5a4e;
+  /* ── Hairlines ────────────────────────────────────────────── */
+  --line: rgba(0, 0, 0, 0.08);
+  --line-2: rgba(0, 0, 0, 0.12);
+  --line-3: rgba(0, 0, 0, 0.18);
 
-  /* ── Aurum · hairlines and washes ─────────────────────────────
-     Cocoa at low alpha, never grey: a neutral hairline on a warm
-     page reads as dirt. */
-  --au-line: rgba(82, 50, 42, 0.14);
-  --au-line-2: rgba(82, 50, 42, 0.24);
-  --au-surface: rgba(82, 50, 42, 0.035);
-  --au-surface-2: rgba(82, 50, 42, 0.06);
-  --au-surface-3: rgba(82, 50, 42, 0.1);
+  /* ── Accent · the one blue ────────────────────────────────── */
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --accent-deep: #005bb8;
+  --accent-ink: #ffffff; /* text on an accent fill */
+  --accent-soft: rgba(0, 113, 227, 0.1);
 
-  /* ── Aurum · the three-colour rule ────────────────────────────
-     Teal leads (it is the action colour); amber and rose are the
-     supporting voices. They appear together only in the rule, and
-     apart as sector and craft accents.
+  /* ── Supporting hues (data + product tints, sparingly) ────── */
+  --indigo: #5e5ce6;
+  --teal: #30b0c7;
+  --orange: #ff9500;
+  --pink: #ff375f;
+  --green: #34c759;
 
-     Teal at full strength is 3.6:1 on paper — enough for icons,
-     borders and large display type, not for body copy. Anything
-     that has to read at 14px uses `--au-teal-deep` (5.7:1), which
-     also carries cream text at 5.8:1 when it is a button fill. */
-  --au-teal: #1b8fa1;
-  --au-teal-deep: #146c7a;
-  --au-teal-press: #0f5b66; /* hover / active — always darker, never paler */
-  --au-teal-lift: #3ec3d5; /* the teal that works on night */
-  --au-teal-ink: #fffaf0; /* text on a teal-deep fill */
-  --au-amber: #e89a2a;
-  --au-amber-ink: #96500c; /* the amber that reads as text on every warm ground */
-  --au-rose: #c73e6f;
-  --au-rose-ink: #b02f5e;
-  --au-gold: #f5a623; /* stat numerals on night */
-
-  /* Two fixed values that the night scope deliberately does NOT flip.
-     Everything else in the system is relative to its ground, but a
-     "cream button" has to stay cream wherever it is dropped — that is
-     the whole point of it on a night band. */
-  --au-cream: #fffaf0;
-  --au-cocoa: #1a0c0e;
-
-  /* Sector accents (kept from the brand: NHS blue, care amber) */
-  --au-nhs: #005eb8;
-  --au-nhs-lift: #7fb9f2;
-  --au-care: #96500c;
-  --au-care-lift: #f0b872;
-
-  /* Accent hook — case-study scopes retint the system through this. */
-  --au-accent: var(--au-teal-deep);
-  --au-accent-2: var(--au-teal);
-
-  /* ── Gradients ────────────────────────────────────────────── */
-  --au-rule: linear-gradient(
-    90deg,
-    var(--au-teal) 0%,
-    var(--au-amber) 52%,
-    var(--au-rose) 100%
-  );
-  --au-rule-soft: linear-gradient(
-    90deg,
-    rgba(27, 143, 161, 0.55) 0%,
-    rgba(232, 154, 42, 0.55) 52%,
-    rgba(199, 62, 111, 0.55) 100%
-  );
-
-  /* ── Radii ────────────────────────────────────────────────────
-     Editorial, not bubbly: a plate is a pressed card, not a pill. */
+  /* ── Radii · soft Apple geometry ──────────────────────────── */
   --r-xs: 8px;
   --r-sm: 12px;
-  --r-md: 16px;
-  --r-lg: 20px;
-  --r-xl: 26px;
-  --r-2xl: 32px;
+  --r-md: 18px;
+  --r-lg: 24px;
+  --r-xl: 32px;
   --r-pill: 999px;
 
-  /* ── Elevation ────────────────────────────────────────────────
-     Warm shadows on a warm page. The inset top highlight is what
-     makes a plate read as card stock rather than a flat rectangle. */
-  --au-lip: inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  --shadow-sm: var(--au-lip), 0 2px 4px -2px rgba(20, 8, 10, 0.1);
-  --shadow: var(--au-lip), 0 6px 18px -10px rgba(20, 8, 10, 0.22),
-    0 2px 4px -2px rgba(20, 8, 10, 0.08);
-  --shadow-lg: var(--au-lip), 0 28px 56px -20px rgba(20, 8, 10, 0.28),
-    0 4px 10px -6px rgba(20, 8, 10, 0.12);
+  /* ── Elevation · diffuse, never harsh ─────────────────────── */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 24px 70px -18px rgba(0, 0, 0, 0.18);
+  --shadow-accent: 0 10px 30px -10px rgba(0, 113, 227, 0.45);
 
-  /* ── Rhythm ───────────────────────────────────────────────── */
-  --space-section: clamp(5rem, 11vw, 9.5rem);
+  /* ── Spacing rhythm · generous Apple whitespace ───────────── */
+  --space-section: clamp(6rem, 13vw, 13rem);
   --gutter: clamp(1.25rem, 4vw, 2.5rem);
-  --measure: 1240px;
+  --measure: 1200px; /* max content width */
 
-  /* ── Easing ───────────────────────────────────────────────── */
+  /* ── Motion · Apple easing ────────────────────────────────── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Supporting product hues, used sparingly inside case studies. */
-  --teal: #1b8fa1;
-  --orange: #e89a2a;
-
-  /* ── Porcelain (light) — retained for the two demo client sites
-        and the document defaults they inherit. ────────────────── */
-  --canvas: #ffffff;
-  --canvas-2: #f5f5f7;
-  --surface: #ffffff;
-  --surface-2: #f5f5f7;
-  --ink: #1d1d1f;
-  --ink-2: #424245;
-  --ink-3: #6e6e73;
-  --muted: #86868b;
-  --faint: #d2d2d7;
-  --line: rgba(0, 0, 0, 0.08);
-  --line-2: rgba(0, 0, 0, 0.12);
-  --night: #170c0f;
-  --night-ink: #fffaf0;
-  --accent: #146c7a;
-  --accent-hover: #10707e;
-  --accent-deep: #0f5b66;
-  --accent-soft: rgba(20, 108, 122, 0.12);
-  --accent-ink: #ffffff;
+  /* Semantic aliases (consumed by sub-pages / legacy class names) */
   --background: var(--canvas);
   --foreground: var(--ink);
+  --signal: var(--accent);
+  --signal-ink: var(--accent-ink);
+
+  /* ── "Bloom" service-site palette ─────────────────────────────
+     The marketing routes (home, sectors, packages, audit) run a
+     clean healthcare language: near-white canvas with soft mint
+     bands, deep pine ink, one teal action colour, plus an NHS
+     blue accent for GP practices and a warm amber accent for
+     care homes. Case-study pages stay on the Porcelain ramp. */
+  --bl-canvas: #fafcfb; /* page */
+  --bl-band: #eff6f2; /* soft mint section band */
+  --bl-band-2: #f5faf7; /* barely-raised band */
+  --bl-surface: #ffffff; /* cards */
+  --bl-ink: #10312a; /* primary text */
+  --bl-ink-soft: #48635b; /* secondary text */
+  --bl-muted: #5e7268; /* captions / labels — AA on canvas & bands */
+  --bl-line: rgba(16, 49, 42, 0.09);
+  --bl-line-2: rgba(16, 49, 42, 0.16);
+  --bl-pine: #0b2f28; /* dark bands, footer */
+  --bl-pine-2: #123f36; /* raised cards on pine */
+  --bl-pine-ink: #eaf3ef; /* text on pine */
+  --bl-teal: #0e7a63; /* the one action colour */
+  --bl-teal-hover: #0c6a56;
+  --bl-teal-soft: #dcefe7;
+  --bl-nhs: #005eb8; /* GP practice accent */
+  --bl-nhs-soft: #e8f1fa;
+  --bl-amber: #a96417; /* care home accent */
+  --bl-amber-soft: #f7efe1;
+}
+
+/* Sipli case study: light aqua product palette */
+.sipli-theme {
+  --background: #f3fafc;
+  --canvas-2: #e9f4f8;
+  --surface: #ffffff;
+  --surface-2: #eef7fa;
+  --ink: #0c2a33;
+  --ink-2: #335560;
+  --ink-3: #5d7a83;
+  --muted: #7d959c;
+  --accent: #0e8aa3;
+  --accent-hover: #1198b3;
+  --accent-deep: #0b6e83;
+  --accent-soft: rgba(14, 138, 163, 0.1);
+  --line: rgba(12, 42, 51, 0.1);
+  --line-2: rgba(12, 42, 51, 0.16);
+  color: var(--ink);
+  background: var(--background);
+}
+
+/* Artling case study: warm cream product palette */
+.artling-theme {
+  --background: #fdf8f1;
+  --canvas-2: #f8efe2;
+  --surface: #ffffff;
+  --surface-2: #faf3e9;
+  --ink: #2b1a10;
+  --ink-2: #56402f;
+  --ink-3: #7d6552;
+  --muted: #99836f;
+  --accent: #e07a1f;
+  --accent-hover: #ef8c33;
+  --accent-deep: #c2660f;
+  --accent-soft: rgba(224, 122, 31, 0.12);
+  --line: rgba(43, 26, 16, 0.1);
+  --line-2: rgba(43, 26, 16, 0.16);
+  color: var(--ink);
+  background: var(--background);
 }
 
 @theme inline {
-  --color-au-paper: var(--au-paper);
-  --color-au-paper-2: var(--au-paper-2);
-  --color-au-paper-3: var(--au-paper-3);
-  --color-au-sink: var(--au-sink);
-
-  --color-au-night: var(--au-night);
-  --color-au-night-2: var(--au-night-2);
-  --color-au-night-3: var(--au-night-3);
-
-  --color-au-surface: var(--au-surface);
-  --color-au-surface-2: var(--au-surface-2);
-  --color-au-surface-3: var(--au-surface-3);
-  --color-au-line: var(--au-line);
-  --color-au-line-2: var(--au-line-2);
-
-  --color-au-ink: var(--au-ink);
-  --color-au-ink-2: var(--au-ink-2);
-  --color-au-ink-3: var(--au-ink-3);
-  --color-au-muted: var(--au-muted);
-
-  --color-au-teal: var(--au-teal);
-  --color-au-teal-deep: var(--au-teal-deep);
-  --color-au-teal-press: var(--au-teal-press);
-  --color-au-teal-lift: var(--au-teal-lift);
-  --color-au-teal-ink: var(--au-teal-ink);
-  --color-au-amber: var(--au-amber);
-  --color-au-amber-ink: var(--au-amber-ink);
-  --color-au-rose: var(--au-rose);
-  --color-au-rose-ink: var(--au-rose-ink);
-  --color-au-gold: var(--au-gold);
-  --color-au-cream: var(--au-cream);
-  --color-au-cocoa: var(--au-cocoa);
-  --color-au-nhs: var(--au-nhs);
-  --color-au-nhs-lift: var(--au-nhs-lift);
-  --color-au-care: var(--au-care);
-  --color-au-care-lift: var(--au-care-lift);
-  --color-au-accent: var(--au-accent);
-  --color-au-accent-2: var(--au-accent-2);
-
-  /* Porcelain / legacy aliases (demo routes + document defaults) */
   --color-canvas: var(--canvas);
   --color-canvas-2: var(--canvas-2);
+  --color-canvas-3: var(--canvas-3);
   --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-night: var(--night);
+  --color-night-2: var(--night-2);
+  --color-night-ink: var(--night-ink);
+
   --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
   --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
   --color-faint: var(--faint);
+
   --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-line-3: var(--line-3);
+
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-deep: var(--accent-deep);
-  --color-accent-soft: var(--accent-soft);
   --color-accent-ink: var(--accent-ink);
-  --color-surface-2: var(--surface-2);
-  --color-ink-2: var(--ink-2);
-  --color-line-2: var(--line-2);
-  --color-night: var(--night);
-  --color-night-ink: var(--night-ink);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-indigo: var(--indigo);
   --color-teal: var(--teal);
   --color-orange: var(--orange);
+  --color-pink: var(--pink);
+  --color-green: var(--green);
+
+  --color-bl-canvas: var(--bl-canvas);
+  --color-bl-band: var(--bl-band);
+  --color-bl-band-2: var(--bl-band-2);
+  --color-bl-surface: var(--bl-surface);
+  --color-bl-ink: var(--bl-ink);
+  --color-bl-ink-soft: var(--bl-ink-soft);
+  --color-bl-muted: var(--bl-muted);
+  --color-bl-line: var(--bl-line);
+  --color-bl-line-2: var(--bl-line-2);
+  --color-bl-pine: var(--bl-pine);
+  --color-bl-pine-2: var(--bl-pine-2);
+  --color-bl-pine-ink: var(--bl-pine-ink);
+  --color-bl-teal: var(--bl-teal);
+  --color-bl-teal-hover: var(--bl-teal-hover);
+  --color-bl-teal-soft: var(--bl-teal-soft);
+  --color-bl-nhs: var(--bl-nhs);
+  --color-bl-nhs-soft: var(--bl-nhs-soft);
+  --color-bl-amber: var(--bl-amber);
+  --color-bl-amber-soft: var(--bl-amber-soft);
+
+  /* Semantic + legacy aliases */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-signal: var(--signal);
+  --color-signal-ink: var(--signal-ink);
 
   --radius-xs: var(--r-xs);
   --radius-sm: var(--r-sm);
   --radius-md: var(--r-md);
   --radius-lg: var(--r-lg);
   --radius-xl: var(--r-xl);
-  --radius-2xl: var(--r-2xl);
 
-  --font-sans: var(--font-sans-v), "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
-  --font-display: var(--font-display-v), "Bricolage Grotesque", var(--font-sans-v), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-syne: var(--font-syne-v), "Syne", var(--font-sans);
+  /* SF-style system stacks: zero font payload, native feel everywhere */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Inter, "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Display type system (self-hosted via next/font, see layout.tsx) */
+  --font-syne: var(--font-syne-v), "Syne", var(--font-display);
+  --font-grotesk: var(--font-grotesk-v), "Space Grotesk", var(--font-sans);
+  --font-jb: var(--font-jb-v), "JetBrains Mono", var(--font-mono);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -251,7 +236,7 @@
    ───────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
+  scroll-padding-top: 5rem;
   background: var(--canvas);
   color: var(--ink);
   color-scheme: light;
@@ -264,6 +249,7 @@ body {
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-sans);
+  letter-spacing: -0.012em;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -271,20 +257,36 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
   text-wrap: balance;
-  font-weight: 500;
-  line-height: 1.06;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.028em;
+  font-weight: 600;
+  line-height: 1.05;
 }
 
-p { text-wrap: pretty; }
+p {
+  text-wrap: pretty;
+}
 
-::-webkit-scrollbar { width: 11px; height: 11px; }
-::-webkit-scrollbar-track { background: var(--canvas); }
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track {
+  background: var(--canvas);
+}
 ::-webkit-scrollbar-thumb {
   background: var(--faint);
   border-radius: 999px;
   border: 3px solid var(--canvas);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-2);
 }
 
 *:focus-visible {
@@ -293,517 +295,137 @@ p { text-wrap: pretty; }
   border-radius: 6px;
 }
 
-/* ═════════════════════════════════════════════════════════════
-   Aurum scope — every Flutterly-branded route
-   ═════════════════════════════════════════════════════════════ */
-
-html:has(.aurum-root) {
-  background: var(--au-paper);
-  color-scheme: light;
-}
-body:has(.aurum-root) {
-  background: var(--au-paper);
-  color: var(--au-ink);
-}
-html:has(.aurum-root)::-webkit-scrollbar-track { background: var(--au-paper); }
-html:has(.aurum-root)::-webkit-scrollbar-thumb {
-  background: #ddc9b4;
-  border-color: var(--au-paper);
-}
-html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
-
-.aurum-root {
-  font-family: var(--font-sans);
-  letter-spacing: -0.005em;
-  background: var(--au-paper);
-  color: var(--au-ink);
-}
-.aurum-root ::selection {
-  background: var(--au-amber);
-  color: var(--au-ink);
-}
-.aurum-root :focus-visible {
-  outline: 2px solid var(--au-teal-deep);
-  outline-offset: 3px;
-}
-
-/* ── Night bands ──────────────────────────────────────────────
-   The inversion. Everything below re-declares the *same* tokens
-   the paper scope defines, so a plate, a hairline or an ink step
-   needs no variant class to survive the flip — it simply reads
-   the token it always read. */
-.au-night {
-  --au-paper: var(--au-night);
-  --au-paper-2: var(--au-night-2);
-  --au-paper-3: var(--au-night-3);
-  --au-sink: var(--au-night-2);
-
-  --au-ink: #fffaf0;
-  --au-ink-2: #f5e6d7;
-  --au-ink-3: #c4ab98;
-  --au-muted: #ab9080;
-
-  --au-line: rgba(245, 230, 215, 0.16);
-  --au-line-2: rgba(245, 230, 215, 0.28);
-  --au-surface: rgba(255, 255, 255, 0.04);
-  --au-surface-2: rgba(255, 255, 255, 0.07);
-  --au-surface-3: rgba(255, 255, 255, 0.11);
-
-  /* Teal loses its legibility on cocoa; the lifted cut takes over
-     as both the action colour and the accent. */
-  --au-teal: var(--au-teal-lift);
-  --au-teal-deep: var(--au-teal-lift);
-  --au-teal-press: #7fdcea;
-  --au-teal-ink: #06272c;
-  --au-amber-ink: var(--au-amber);
-  --au-rose-ink: #f07fa5;
-  --au-nhs: var(--au-nhs-lift);
-  --au-care: var(--au-care-lift);
-  --au-accent: var(--au-teal-lift);
-  --au-accent-2: var(--au-amber);
-
-  --au-lip: inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  --shadow-sm: var(--au-lip), 0 2px 6px -2px rgba(0, 0, 0, 0.5);
-  --shadow: var(--au-lip), 0 12px 32px -16px rgba(0, 0, 0, 0.75),
-    0 4px 12px -6px rgba(0, 0, 0, 0.4);
-  --shadow-lg: var(--au-lip), 0 32px 70px -24px rgba(0, 0, 0, 0.8),
-    0 6px 16px -8px rgba(0, 0, 0, 0.45);
-
-  background: var(--au-night);
-  color: var(--au-ink);
-}
-.au-night ::selection {
-  background: var(--au-teal-lift);
-  color: #06272c;
-}
-.au-night :focus-visible {
-  outline-color: var(--au-teal-lift);
-}
-
-/* ── Case-study product scopes ────────────────────────────────
-   Sipli and Artling keep their own product accent but sit on the
-   Aurum paper: the semantic Porcelain tokens their markup already
-   uses are remapped here, so one block retints a whole case study.
+/* ─────────────────────────────────────────────────────────────
+   Utility helpers
    ───────────────────────────────────────────────────────────── */
-.sipli-theme,
-.artling-theme {
-  --background: transparent;
-  --canvas: transparent;
-  --canvas-2: var(--au-surface);
-  --surface: var(--au-paper-2);
-  --surface-2: var(--au-surface-2);
-  --ink: var(--au-ink);
-  --ink-2: var(--au-ink-2);
-  --ink-3: var(--au-ink-3);
-  --muted: var(--au-muted);
-  --faint: var(--au-line-2);
-  --line: var(--au-line);
-  --line-2: var(--au-line-2);
-  --night: var(--au-night);
-  --night-ink: #fffaf0;
-  color: var(--au-ink);
+
+/* Frosted chrome for the fixed nav (Apple-style saturated blur). */
+.frosted {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
-/* Sipli — deep water teal, after the app's water-drop identity.
-   5.7:1 on paper, and it carries cream text at 5.8:1. */
-.sipli-theme {
-  --accent: #146c7a;
-  --accent-hover: #10707e;
-  --accent-deep: #0f5b66;
-  --accent-soft: rgba(20, 108, 122, 0.12);
-  --accent-ink: #fffaf0;
-  --teal: #1b8fa1;
-  --au-accent: #146c7a;
-  --au-accent-2: #1b8fa1;
+/* Frosted chrome on the dark finale band. */
+.frosted-dark {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
 }
 
-/* Artling — burnt amber, after the app's crayon-and-paper identity. */
-.artling-theme {
-  --accent: #a85c10;
-  --accent-hover: #b8651a;
-  --accent-deep: #8c4b0a;
-  --accent-soft: rgba(168, 92, 16, 0.12);
-  --accent-ink: #fffaf0;
-  --orange: #e89a2a;
-  --au-accent: #a85c10;
-  --au-accent-2: #e89a2a;
-}
-
-/* ═════════════════════════════════════════════════════════════
-   Surfaces
-   ═════════════════════════════════════════════════════════════ */
-
-/* The workhorse. A plate is card stock: an opaque warm fill, a
-   cocoa hairline, a lit top lip and a soft warm shadow beneath. */
-.au-plate {
-  background: var(--au-paper-2);
-  border: 1px solid var(--au-line);
-  box-shadow: var(--shadow);
-}
-.au-plate-strong {
-  background: var(--au-paper-2);
-  border: 1px solid var(--au-line-2);
-  box-shadow: var(--shadow-lg);
-}
-
-/* The sticky header. Translucent so the page shows through, but
-   near-opaque: text scrolling under a lightly-blurred bar reads as
-   a smear. Prefix first, standard last — the minifier drops the
-   standard property when it follows the -webkit- form. */
-.au-frost {
-  background: color-mix(in srgb, var(--au-paper) 88%, transparent);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
-  backdrop-filter: blur(18px) saturate(150%);
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .au-frost {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: var(--au-paper);
-  }
-}
-
-/* The tinted relief band — a half-step darker than the page, used
-   to group a section without boxing it. */
-.au-band {
-  background: var(--au-sink);
-}
-
-/* ═════════════════════════════════════════════════════════════
-   The three-colour rule — the signature seam
-   ═════════════════════════════════════════════════════════════ */
-
-.au-rule-top,
-.au-rule-bottom {
-  position: relative;
-}
-.au-rule-top::before,
-.au-rule-bottom::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--au-rule);
-  pointer-events: none;
-}
-.au-rule-top::before { top: 0; }
-.au-rule-bottom::after { bottom: 0; }
-
-/* The heavy cut, reserved for the foot of the fold and the foot of
-   the closing call to action. */
-.au-rule-heavy::after {
-  height: 7px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(20, 8, 10, 0.12);
-}
-
-/* A short rule used as a display underline. */
-.au-tick {
-  display: block;
-  height: 3px;
-  width: 3.25rem;
-  border-radius: 999px;
-  background: var(--au-rule);
-}
-
-/* ═════════════════════════════════════════════════════════════
-   Background graphics
-   ═════════════════════════════════════════════════════════════ */
-
-/* Paper tooth — one inlined SVG turbulence tile, no network cost.
-   Multiply on cream so it reads as fibre rather than as static. */
-.au-grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.32;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
-}
-.au-night .au-grain::after,
-.au-grain.au-night::after {
-  mix-blend-mode: soft-light;
-  opacity: 0.5;
-}
-
-/* Engineering grid, faded out by a radial mask. */
-.au-grid {
-  background-image:
-    linear-gradient(rgba(82, 50, 42, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(82, 50, 42, 0.055) 1px, transparent 1px);
-  background-size: 62px 62px;
-  -webkit-mask-image: radial-gradient(ellipse 78% 62% at 50% 34%, #000 12%, transparent 76%);
-  mask-image: radial-gradient(ellipse 78% 62% at 50% 34%, #000 12%, transparent 76%);
-}
-.au-night .au-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-}
-
-/* Dot matrix, used behind card decks. */
-.au-dots {
-  background-image: radial-gradient(rgba(82, 50, 42, 0.16) 1px, transparent 1px);
-  background-size: 26px 26px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 5%, transparent 72%);
-  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 5%, transparent 72%);
-}
-
-/* The warm wash the whole page floats on: amber high-left, rose
-   low-right, teal breathing under the fold. */
-.au-wash {
-  background:
-    radial-gradient(62% 48% at 14% 6%, rgba(232, 154, 42, 0.13), transparent 62%),
-    radial-gradient(52% 46% at 88% 26%, rgba(199, 62, 111, 0.09), transparent 60%),
-    radial-gradient(58% 42% at 46% 96%, rgba(27, 143, 161, 0.1), transparent 64%);
-}
-
-/* The same idea on cocoa, for the night bands. Amber carries most of
-   the light — three hues at equal strength on a dark ground read as an
-   oil slick rather than as warmth. */
-.au-wash-night {
-  background:
-    radial-gradient(56% 44% at 14% 2%, rgba(27, 143, 161, 0.16), transparent 62%),
-    radial-gradient(40% 40% at 88% 18%, rgba(199, 62, 111, 0.07), transparent 62%),
-    radial-gradient(70% 52% at 54% 104%, rgba(232, 154, 42, 0.2), transparent 68%);
-}
-
-/* Edge fade for marquees and overflow rows. */
-.au-edge-mask {
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-
-/* Pointer spotlight — components set --mx/--my on pointermove. */
-.au-spot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.35s var(--ease-out-expo);
-  background: radial-gradient(
-    260px circle at var(--mx, 50%) var(--my, 50%),
-    color-mix(in srgb, var(--au-brand, var(--au-teal)) 12%, transparent),
-    transparent 62%
-  );
-}
-.au-spot:hover::after,
-.au-spot:focus-within::after {
-  opacity: 1;
-}
-
-/* Hover lift — the plate rises and its shadow takes the colour of
-   whatever accent the card set on `--au-brand`. */
-.au-lift {
-  transition:
-    transform 0.5s var(--ease-out-expo),
-    border-color 0.5s var(--ease-out-expo),
-    box-shadow 0.5s var(--ease-out-expo);
-}
-.au-lift:hover,
-.au-lift:focus-within {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--au-brand, var(--au-teal)) 42%, var(--au-line));
-  box-shadow:
-    var(--au-lip),
-    0 26px 52px -18px color-mix(in srgb, var(--au-brand, var(--au-teal)) 34%, rgba(20, 8, 10, 0.34)),
-    0 3px 8px -4px rgba(20, 8, 10, 0.14);
-}
-
-/* ═════════════════════════════════════════════════════════════
-   Type treatments
-   ═════════════════════════════════════════════════════════════ */
-
-/* The display face. Bricolage Grotesque is shipped with its
-   optical-size axis, and every display setting on the site pins it to
-   96 — the cut drawn for headlines, where the joins tighten and the
-   apertures close up. Below that it relaxes into a text face. */
-.au-display {
-  font-family: var(--font-display);
-  font-variation-settings: "opsz" 96;
-  font-weight: 600;
-  letter-spacing: -0.028em;
-  line-height: 1.05;
-  text-wrap: balance;
-}
-
-/* The fold and the closing line carry more weight and a tighter fit. */
-.au-display-hero {
-  font-family: var(--font-display);
-  font-variation-settings: "opsz" 96;
-  font-weight: 700;
-  letter-spacing: -0.032em;
-  line-height: 1.03;
-  text-wrap: balance;
-}
-
-/* Eyebrows, stat labels, table headers — Figtree, wide and small.
-   The letterspacing is what makes it read as a label and not as
-   shouting. */
-.au-label {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  font-variant-numeric: tabular-nums;
-}
-
-/* The rose-to-amber ink used on one phrase per heading. Painted
-   with background-clip, so a fallback colour is set first for
-   anything that cannot clip. */
-.au-grad-text {
-  color: var(--au-teal-deep);
-  background: linear-gradient(
-    96deg,
-    var(--au-teal-deep) 0%,
-    var(--au-amber-ink) 58%,
-    var(--au-rose-ink) 100%
-  );
+/* Soft ink fade for oversized display headings. */
+.text-fade {
+  background: linear-gradient(180deg, var(--ink) 30%, var(--ink-3) 130%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
-/* On cocoa the ink drops to two stops. A three-hue sweep across two or
-   three words at headline size reads as a rainbow; teal into gold reads
-   as light falling across the phrase. */
-.au-night .au-grad-text {
-  color: var(--au-gold);
-  background: linear-gradient(
-    96deg,
-    var(--au-teal-lift) 0%,
-    var(--au-gold) 88%
-  );
+
+/* Animated blue→indigo gradient for a single emphasis word. */
+.text-accent-gradient {
+  background: linear-gradient(100deg, var(--accent) 0%, var(--indigo) 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
-/* Softly fading ink for the oversized footer wordmark. */
-.au-fade-text {
-  background: linear-gradient(178deg, var(--au-ink) 18%, rgba(245, 230, 215, 0.28) 122%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Edge fade mask for marquees / overflow rows. */
+.edge-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 
-/* ── The underline that grows from the centre ─────────────────
-   Lifted straight from the reference: a 3px pill that scales out
-   of nothing under a nav link. */
-.au-underline {
-  position: relative;
-}
-.au-underline::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: calc(100% - 1.75rem);
-  height: 3px;
-  border-radius: 2px;
-  background: var(--au-brand, var(--au-teal));
-  opacity: 0;
-  transform: translateX(-50%) scaleX(0) translateY(4px);
-  transition: transform 0.22s var(--ease-out-expo), opacity 0.22s ease;
-  pointer-events: none;
-}
-.au-underline:hover::after,
-.au-underline[data-active="true"]::after {
-  opacity: 1;
-  transform: translateX(-50%) scaleX(1) translateY(0);
-}
-
-/* ── The sweep on a filled button ─────────────────────────────
-   A light band that crosses the pill once on hover. */
-.au-sweep {
-  position: relative;
-  overflow: hidden;
-}
-.au-sweep::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  background: linear-gradient(
-    100deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.4) 50%,
-    transparent 80%
-  );
-  translate: -100%;
-  transition: opacity 0.3s ease, translate 0.6s var(--ease-out-expo);
-}
-.au-sweep:hover::before {
-  opacity: 1;
-  translate: 100%;
-}
-
-/* ═════════════════════════════════════════════════════════════
+/* ─────────────────────────────────────────────────────────────
    Motion
-   ═════════════════════════════════════════════════════════════ */
-
-@keyframes au-wash-drift-a {
-  0%, 100% { transform: translate3d(-3%, -2%, 0) scale(1.05); }
-  50% { transform: translate3d(4%, 3%, 0) scale(1.14); }
-}
-
-@keyframes au-wash-drift-b {
-  0%, 100% { transform: translate3d(4%, 2%, 0) scale(1.1); }
-  50% { transform: translate3d(-5%, -4%, 0) scale(1.18); }
-}
-
-.au-drift-a { animation: au-wash-drift-a 38s var(--ease-in-out) infinite; }
-.au-drift-b { animation: au-wash-drift-b 52s var(--ease-in-out) infinite; }
-
+   ───────────────────────────────────────────────────────────── */
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: marquee var(--marquee-duration, 44s) linear infinite;
+  animation: marquee var(--marquee-duration, 48s) linear infinite;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(0, 113, 227, 0.35); }
+  70% { box-shadow: 0 0 0 9px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 2.4s var(--ease-out-expo) infinite;
 }
 
 @keyframes float-y {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-9px); }
+  50% { transform: translateY(-7px); }
 }
-.animate-float { animation: float-y 7s var(--ease-in-out) infinite; }
-
-@keyframes pulse-soft {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.35); }
+.animate-float {
+  animation: float-y 6s var(--ease-in-out) infinite;
 }
-.animate-pulse-soft { animation: pulse-soft 2.8s var(--ease-in-out) infinite; }
 
-@keyframes spin-slow {
-  to { transform: rotate(360deg); }
+/* ─────────────────────────────────────────────────────────────
+   Bloom — marketing-site design language
+   Clean near-white canvas with mint bands, deep pine ink, teal
+   actions, generous card geometry and calm rise-in motion. Used
+   by the home, sector, packages, audit and accessibility routes
+   via `.bloom-root` so Porcelain case-study pages are untouched.
+   ───────────────────────────────────────────────────────────── */
+
+/* Canvas chrome (overscroll, scrollbars) while a Bloom page is
+   mounted. */
+html:has(.bloom-root) {
+  background: var(--bl-canvas);
 }
-.animate-spin-slow { animation: spin-slow 26s linear infinite; }
+html:has(.bloom-root)::-webkit-scrollbar-track {
+  background: var(--bl-canvas);
+}
+html:has(.bloom-root)::-webkit-scrollbar-thumb {
+  background: #cfdcd6;
+  border-color: var(--bl-canvas);
+}
+html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
+  background: var(--bl-muted);
+}
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+.bloom-root {
+  font-family: var(--font-grotesk);
+  letter-spacing: -0.01em;
+}
+.bloom-root ::selection {
+  background: var(--bl-teal);
+  color: #fff;
+}
+.bloom-root :focus-visible {
+  outline-color: var(--bl-teal);
+}
+
+/* Frosted chrome for the Bloom sticky nav. */
+.bl-frost {
+  background: rgba(250, 252, 251, 0.82);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .bl-frost {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--bl-canvas);
   }
 }
 
-/* ═════════════════════════════════════════════════════════════
+/* Soft card elevation used across Bloom surfaces. */
+.bl-card {
+  box-shadow:
+    0 1px 0 var(--bl-line),
+    0 18px 44px -28px rgba(11, 47, 40, 0.28);
+}
+
+/* ─────────────────────────────────────────────────────────────
    Demo sites — two self-contained sample-client languages.
    These routes exist to show prospective GP practices and care
-   homes a finished site of their own, so each keeps its own scope
-   and palette and deliberately does NOT inherit Aurum.
-   ═════════════════════════════════════════════════════════════ */
+   homes a finished site, so each gets its own scope and palette
+   and deliberately does NOT reuse Bloom styling.
+   ───────────────────────────────────────────────────────────── */
 
 /* "Willowbrook Surgery" — NHS-service-manual-inspired GP demo:
    NHS blue, pale grey panels, green actions, generous plain type
@@ -830,7 +452,7 @@ html:has(.aurum-root)::-webkit-scrollbar-thumb:hover { background: #c9b09a; }
   color: var(--dgp-ink);
 }
 
-/* Inside the GP demo the global skip link swaps its Aurum pill for
+/* Inside the GP demo the global skip link swaps its Bloom pill for
    the NHS yellow-on-ink focus treatment. Literal values: the link is
    a sibling of .demo-gp-root, so --dgp-* tokens do not reach it. */
 body:has(.demo-gp-root) > a[href="#main"]:focus {
@@ -883,4 +505,23 @@ body:has(.demo-gp-root) > a[href="#main"]:focus {
   outline-offset: 2px;
   box-shadow: 0 0 0 2px var(--dch-cream);
   border-radius: 2px;
+}
+
+/* Faint clinical grid for the hero backdrop. */
+.bl-grid {
+  background-image:
+    linear-gradient(var(--bl-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bl-line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 30%, transparent 75%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

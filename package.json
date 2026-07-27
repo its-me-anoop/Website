@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:browser": "node scripts/browser-workflow.mjs",
-    "test:contrast": "node scripts/contrast-audit.mjs"
+    "test:browser": "node scripts/browser-workflow.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

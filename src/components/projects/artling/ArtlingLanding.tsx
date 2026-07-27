@@ -21,7 +21,8 @@ import {
   Tags,
   WandSparkles,
 } from "lucide-react";
-import { Shell } from "@/components/aurum/Shell";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
@@ -168,7 +169,7 @@ function ArtlingPhoneMockup() {
             key={chip}
             className={`rounded-full px-3 py-2 text-[10px] font-semibold shadow-sm ${
               index === 0
-                ? "bg-[#FF9D57] text-[#2F211D]"
+                ? "bg-[#FF9D57] text-white"
                 : "border border-[#ECD9CF] bg-white/75 text-[#6E574D]"
             }`}
           >
@@ -228,11 +229,11 @@ export function ArtlingLanding() {
   const reduce = useReducedMotion();
 
   return (
-    <Shell intensity="calm">
-      <div className="artling-theme">
+    <main id="main" className="artling-theme min-h-screen overflow-x-hidden bg-background text-ink">
+      <Navbar />
 
       {/* ── HERO ── */}
-      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-24 pt-12 md:pt-20">
+      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-24 pt-36 md:pt-44">
         <div
           className="pointer-events-none absolute right-[-10%] top-[-6%] h-[520px] w-[520px] rounded-full"
           style={{ background: "var(--accent-soft)", filter: "blur(110px)" }}
@@ -648,7 +649,7 @@ export function ArtlingLanding() {
         </Reveal>
       </section>
 
-      </div>
-    </Shell>
+      <Footer />
+    </main>
   );
 }

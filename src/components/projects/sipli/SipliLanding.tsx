@@ -28,7 +28,8 @@ import {
   Watch,
   Zap,
 } from "lucide-react";
-import { Shell } from "@/components/aurum/Shell";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -157,11 +158,11 @@ export function SipliLanding() {
   const phoneY = useTransform(scrollYProgress, [0, 1], [36, 0]);
 
   return (
-    <Shell intensity="calm">
-      <div className="sipli-theme">
+    <main id="main" className="sipli-theme min-h-screen overflow-x-hidden bg-background text-ink">
+      <Navbar />
 
       {/* ── HERO ── */}
-      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-20 pt-12 md:pt-20">
+      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-20 pt-36 md:pt-44">
         <div
           className="pointer-events-none absolute left-1/2 top-[-12%] h-[520px] w-[820px] -translate-x-1/2 rounded-full"
           style={{ background: "var(--accent-soft)", filter: "blur(120px)" }}
@@ -363,7 +364,7 @@ export function SipliLanding() {
                 aria-hidden="true"
               />
               <div className="relative max-w-[640px]">
-                <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-au-line-2 bg-white/20 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+                <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/20 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
                   <Leaf className="h-3 w-3" aria-hidden="true" />
                   Earth Week 2026 · Apr 20–26
                 </span>
@@ -961,8 +962,8 @@ export function SipliLanding() {
         </Reveal>
       </section>
 
-      </div>
-    </Shell>
+      <Footer />
+    </main>
   );
 }
 
@@ -1030,7 +1031,7 @@ function WatchMock({ reduce }: { reduce: boolean }) {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-1.5 rounded-full bg-au-surface-3 px-3 py-1">
+          <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1">
             <span
               className={`h-1 w-1 rounded-full bg-teal ${reduce ? "" : "animate-pulse"}`}
             />

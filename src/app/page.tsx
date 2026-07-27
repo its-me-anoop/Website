@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { Home as AurumHome } from "@/components/aurum/home/Home";
+import { BloomHome } from "@/components/bloom/home/BloomHome";
 
 export const metadata: Metadata = {
   title: "Websites for GP practices, care homes & ambitious products",
@@ -34,12 +34,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#060d11",
-  colorScheme: "dark",
+  themeColor: "#fafcfb",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function Home() {
-  return <AurumHome />;
+  return <BloomHome />;
 }

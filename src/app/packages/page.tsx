@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { packagesFaq } from "@/components/aurum/data";
-import { PackagesPage } from "@/components/aurum/packages/PackagesPage";
+import { packagesFaq } from "@/components/bloom/data";
+import { PackagesPage } from "@/components/bloom/packages/PackagesPage";
 
 const description =
   "Website packages for GP practices, care homes and growing organisations — custom design and build, managed care plans and ongoing partnership, with fixed written quotes.";
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#060d11",
-  colorScheme: "dark",
+  themeColor: "#fafcfb",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };

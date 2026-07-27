@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Shell } from "@/components/aurum/Shell";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Sipli — Privacy Policy",
@@ -25,7 +26,7 @@ function PolicySection({
   return (
     <section className="border-b border-line px-[var(--gutter)] py-14 last:border-b-0 md:py-20">
       <div className="mx-auto grid max-w-[920px] gap-x-14 gap-y-4 md:grid-cols-[64px_1fr] md:items-start">
-        <p className="au-label text-accent md:pt-1.5">
+        <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-accent md:pt-1.5">
           {label}
         </p>
         <div>
@@ -55,10 +56,10 @@ function Bullet({ bold, children }: { bold?: string; children?: ReactNode }) {
 
 export default function SipliPrivacyPolicy() {
   return (
-    <Shell intensity="calm">
-      <div className="sipli-theme">
+    <main id="main" className="sipli-theme min-h-screen bg-background text-ink">
+      <Navbar />
 
-      <header className="relative overflow-hidden border-b border-line px-[var(--gutter)] pb-20 pt-14 md:pt-20">
+      <header className="relative overflow-hidden border-b border-line px-[var(--gutter)] pb-20 pt-36 md:pt-48">
         <div
           className="pointer-events-none absolute right-[-10%] top-[-20%] h-[420px] w-[620px] rounded-full"
           style={{ background: "var(--accent-soft)", filter: "blur(110px)" }}
@@ -238,7 +239,7 @@ export default function SipliPrivacyPolicy() {
         </div>
       </PolicySection>
 
-      </div>
-    </Shell>
+      <Footer />
+    </main>
   );
 }

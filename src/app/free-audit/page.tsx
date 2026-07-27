@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { AuditPage } from "@/components/aurum/audit/AuditPage";
+import { AuditPage } from "@/components/bloom/audit/AuditPage";
 
 const description =
   "Get a free written audit of your GP practice or care home website — accessibility, speed, mobile experience, content and local search, reviewed in plain English with no obligation.";
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#060d11",
-  colorScheme: "dark",
+  themeColor: "#fafcfb",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
