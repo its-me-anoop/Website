@@ -471,6 +471,106 @@ body:has(.demo-gp-root) > a[href="#main"]:focus {
   border-radius: 2px;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Flutterly GP Websites CMS — restrained, task-led product UI.
+   This scope is intentionally portable with the shared CMS feature;
+   the host marketing site's Bloom tokens are not required.
+   ───────────────────────────────────────────────────────────── */
+.gp-cms-root {
+  --cms-canvas: oklch(97.4% 0.008 165);
+  --cms-surface: oklch(99% 0.004 165);
+  --cms-soft: oklch(94.8% 0.016 165);
+  --cms-ink: oklch(23% 0.025 165);
+  --cms-muted: oklch(47% 0.026 165);
+  --cms-faint: oklch(64% 0.018 165);
+  --cms-line: oklch(87% 0.018 165);
+  --cms-line-strong: oklch(76% 0.026 165);
+  --cms-sidebar: oklch(29% 0.052 165);
+  --cms-brand: oklch(43% 0.087 165);
+  --cms-brand-dark: oklch(34% 0.07 165);
+  --cms-brand-soft: oklch(94% 0.03 165);
+  --cms-positive: oklch(40% 0.09 150);
+  --cms-positive-soft: oklch(94% 0.035 150);
+  --cms-warning: oklch(43% 0.09 75);
+  --cms-warning-soft: oklch(95% 0.045 85);
+  --cms-danger: oklch(43% 0.14 25);
+  --cms-danger-soft: oklch(95% 0.035 25);
+  --cms-focus: oklch(70% 0.12 175 / 0.28);
+  --cms-on-dark: oklch(98% 0.005 165);
+  font-family: "Avenir Next", "Segoe UI Variable", "Segoe UI", ui-sans-serif,
+    system-ui, sans-serif;
+  font-size: 16px;
+  letter-spacing: -0.004em;
+}
+
+.gp-cms-root .text-white {
+  color: var(--cms-on-dark);
+}
+
+html:has(.gp-cms-root),
+body:has(.gp-cms-root) {
+  background: var(--cms-canvas);
+}
+
+body:has(.gp-cms-root) > a[href="#main"]:focus {
+  border-radius: 10px;
+  background: var(--cms-on-dark);
+  color: var(--cms-sidebar);
+}
+
+.gp-cms-root ::selection {
+  background: var(--cms-brand);
+  color: var(--cms-on-dark);
+}
+
+.gp-cms-root :focus-visible {
+  outline: 3px solid var(--cms-brand);
+  outline-offset: 3px;
+}
+
+/* Shared public practice renderer. Brand colours arrive from the
+   workspace; readable clinical neutrals stay consistent across tenants. */
+.gp-site-root {
+  --practice-canvas: oklch(99% 0.004 235);
+  --practice-ink: oklch(25% 0.025 235);
+  --practice-muted: oklch(45% 0.033 235);
+  --practice-line: oklch(86% 0.018 235);
+  --practice-warning: oklch(43% 0.105 60);
+  --practice-warning-line: oklch(74% 0.085 70);
+  --practice-warning-soft: oklch(96% 0.045 85);
+  --practice-on-dark: oklch(98.5% 0.004 235);
+  background: var(--practice-canvas);
+  color: var(--practice-ink);
+  font-family: "Atkinson Hyperlegible Next Variable", "Avenir Next",
+    ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+}
+
+.gp-site-root .bg-white {
+  background-color: var(--practice-canvas);
+}
+
+.gp-site-root .text-white {
+  color: var(--practice-on-dark);
+}
+
+body:has(.gp-site-root) > a[href="#main"]:focus {
+  border-radius: 6px;
+  background: var(--practice-accent);
+  color: var(--practice-ink);
+}
+
+.gp-site-root ::selection {
+  background: var(--practice-primary);
+  color: var(--practice-on-dark);
+}
+
+.gp-site-root :focus-visible {
+  outline: 3px solid var(--practice-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--practice-ink);
+}
+
 /* "Oakfield House" — warm care-home demo: cream canvas, warm
    charcoal ink, terracotta actions, sage support, Syne display. */
 .demo-care-root {

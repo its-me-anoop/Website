@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
+import type { ReactNode } from "react";
 import { BloomShell } from "../BloomShell";
 import { CtaBand } from "../CtaBand";
 import type { Sector } from "../data";
@@ -21,7 +22,7 @@ const accentSoft = { nhs: "bg-bl-nhs-soft", amber: "bg-bl-amber-soft" } as const
  * sectors — entirely data-driven from `Sector` so both pages stay
  * consistent as the offer evolves.
  */
-export function SectorPage({ sector }: { sector: Sector }) {
+export function SectorPage({ sector, extra }: { sector: Sector; extra?: ReactNode }) {
   return (
     <BloomShell>
       {/* Hero */}
@@ -182,6 +183,8 @@ export function SectorPage({ sector }: { sector: Sector }) {
           </a>
         </Rise>
       </section>
+
+      {extra}
 
       {/* Compliance / trust */}
       <section className="mx-auto grid w-full max-w-[1240px] items-center gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2">
