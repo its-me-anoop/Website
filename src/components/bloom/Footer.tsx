@@ -21,8 +21,8 @@ export function Footer() {
               </span>
             </div>
             <p className="mt-4 max-w-[300px] text-[14px] leading-relaxed text-bl-pine-ink/75">
-              An independent product studio in Reading, UK — websites for GP
-              practices, care homes and ambitious products.
+              A digital delivery company in Reading, UK. Websites, products,
+              business technology and campaign support for organisations.
             </p>
             <ul className="mt-6 space-y-3 text-[14px]">
               <li>
@@ -87,7 +87,7 @@ export function Footer() {
           <p>
             © {year} {site.legalName} · {site.address.addressLocality}, UK
           </p>
-          <p>Custom-coded, accessible websites — never a template.</p>
+          <p>Clear delivery. Accessible technology. Practical support.</p>
         </div>
       </div>
     </footer>

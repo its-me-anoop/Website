@@ -1,10 +1,9 @@
 # Design Language — "Bloom"
 
-The marketing site (home, sector pages, packages, free audit,
-accessibility statement) runs the **Bloom** language — a clean
-healthcare-service aesthetic inspired by specialist NHS/care web
-studios: near-white canvas, soft mint bands, deep pine ink, one teal
-action colour, and calm rise-in motion. Case-study pages stay on the
+The marketing site (home, services, sector pages, packages and audit)
+runs the **Bloom** language: a clean, high-trust system for a professional
+digital delivery company. It uses a tinted canvas, soft mint bands, deep
+pine ink, one teal action colour and restrained route-level motion. Case-study pages stay on the
 "Porcelain" system (see [DESIGN-SYSTEM.md](./DESIGN-SYSTEM.md)).
 
 ## Scope
@@ -17,7 +16,7 @@ never leak into Porcelain pages.
 
 | Token | Role |
 |---|---|
-| `--bl-canvas` `#fafcfb` | Page background |
+| `--bl-canvas` | Tinted near-white page background |
 | `--bl-band` / `--bl-band-2` | Soft mint section bands |
 | `--bl-surface` | Cards |
 | `--bl-ink` / `--bl-ink-soft` / `--bl-muted` | Text ramp |
@@ -27,16 +26,16 @@ never leak into Porcelain pages.
 | `--bl-nhs` (+ `-soft`) | GP-practice accent (NHS blue) |
 | `--bl-amber` (+ `-soft`) | Care-home accent (warm amber) |
 
-Helpers: `.bl-frost` (sticky-nav blur, with reduced-transparency
-fallback), `.bl-card` (soft elevation), `.bl-grid` (faint clinical
-grid behind heroes).
+Typography pairs Archivo for display copy with Atkinson Hyperlegible Next
+for body copy. Helpers: `.bl-frost` (opaque sticky navigation surface),
+`.bl-card` (soft elevation), `.bl-grid` (faint technical grid behind heroes).
 
 ## Structure
 
 ```
 src/components/bloom/
 ├── BloomShell.tsx     # Nav + <main id="main"> + Footer, .bloom-root scope
-├── Nav.tsx            # Sticky frosted nav: links, phone, Get in touch, mobile sheet
+├── Nav.tsx            # Sticky nav: service links, project CTA, mobile sheet
 ├── Footer.tsx         # Pine footer: contact, columns, compliance links
 ├── CtaBand.tsx        # Closing CTA band (configurable copy per page)
 ├── primitives.tsx     # EASE, RevealWords, Rise, Eyebrow, SectionHead,
@@ -45,27 +44,35 @@ src/components/bloom/
 ├── home/              # Homepage sections (Hero, TrustBar, Suite, Sectors,
 │                      # Compare, Audit, Work, Why, Process, About)
 ├── sectors/           # SectorPage template (GP practices / care homes)
+├── services/          # Services hub + reusable service-detail template
 ├── packages/          # PackagesPage
-└── audit/             # AuditPage (free website audit)
+├── audit/             # AuditPage (free website audit)
+└── ../privacy/        # Global consent notice and inline preferences
 ```
 
 ## Signature moves
 
-- **Specialist positioning first** — the hero leads with GP practices
-  and care homes, honest capability stats (commitments, not invented
-  numbers) and layered browser cards of live client work.
-- **Sector accents** — NHS blue for GP content, warm amber for care
+- **Company positioning first**: the hero names Flutterly Limited as a
+  digital delivery company, then makes GP practices and care homes clear
+  as specialisms within a broader commercial service offer.
+- **Joined-up services**: websites, products, business email, social
+  campaigns and ongoing support share one information architecture.
+- **Sector accents**: NHS blue for GP content, warm amber for care
   homes; teal remains the only action colour.
-- **Anti-template comparison** — a real `<table>` (with `sr-only`
-  caption) contrasting template builders against a custom build.
-- **Free audit** — recurring offer; the audit page requests via a
+- **Delivery-model comparison**: a real `<table>` (with `sr-only`
+  caption) contrasts fragmented suppliers with accountable delivery.
+- **Free audit**: recurring offer; the audit page requests via a
   prefilled `mailto:` (no backend form).
-- **Native disclosure FAQs** — `<details>/<summary>`, no JS state.
+- **Native disclosure FAQs**: `<details>/<summary>`, no JS state.
+- **Proportionate consent**: the site currently sets no cookies or trackers;
+  a non-modal preference panel records the choice in local storage and exposes
+  versioned gates for any future optional scripts.
 
 ## Motion & accessibility
 
-- Entrances use the shared `EASE` curve via `Rise` and `RevealWords`;
-  both fall back to static rendering under `prefers-reduced-motion`.
+- Below-fold content is static to keep scrolling stable. Route transitions
+  and the mobile menu use short opacity/transform motion with reduced-motion
+  fallbacks. The sticky header deliberately avoids backdrop filters.
 - One `<h1>` per page, `#main` skip-link target in `BloomShell`,
   visible focus styles (teal), AA contrast on every text/background
   pair, and keyboard-operable menus.

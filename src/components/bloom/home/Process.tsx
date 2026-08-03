@@ -7,12 +7,12 @@ export function Process() {
   return (
     <section id="process" className="border-y border-bl-line bg-bl-pine text-bl-pine-ink">
       <div className="mx-auto w-full max-w-[1240px] scroll-mt-24 px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mx-auto max-w-[680px] text-center">
+        <div className="max-w-[760px]">
           <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.26em] text-bl-teal-soft/80">
             The process
           </p>
           <h2 className="text-[clamp(1.9rem,4.6vw,3rem)] font-medium leading-[1.08] tracking-[-0.03em] text-white">
-            Four steps, one accountable person
+            A delivery process your team can follow
           </h2>
         </div>
         <ol className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

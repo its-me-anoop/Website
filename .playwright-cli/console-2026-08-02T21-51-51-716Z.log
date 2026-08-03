@@ -1,0 +1,140 @@
+[     291ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[     328ms] [LOG] [HMR] connected @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    1342ms] [WARNING] Image with src "/demos/gp-home.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    2434ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[    2483ms] [LOG] [Fast Refresh] done in 150ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[   13819ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[   14071ms] [LOG] [Fast Refresh] done in 353ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[   16825ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[   17045ms] [LOG] [Fast Refresh] done in 322ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[   18261ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[   18424ms] [LOG] [Fast Refresh] done in 265ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[   18931ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[   18934ms] [LOG] [Fast Refresh] done in 104ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  197435ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  197674ms] [LOG] [Fast Refresh] done in 257ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  206666ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  206693ms] [LOG] [Fast Refresh] done in 104ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  235792ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  235879ms] [LOG] [Fast Refresh] done in 191ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  253611ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  253944ms] [LOG] [Fast Refresh] done in 436ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  254789ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  255015ms] [LOG] [Fast Refresh] done in 328ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  255228ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  255243ms] [LOG] [Fast Refresh] done in 118ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  260718ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  260807ms] [LOG] [Fast Refresh] done in 190ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  384402ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  384485ms] [LOG] [Fast Refresh] done in 184ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  423053ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  423071ms] [LOG] [Fast Refresh] done in 120ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  424813ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  424839ms] [LOG] [Fast Refresh] done in 128ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  443532ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  443575ms] [LOG] [Fast Refresh] done in 146ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  461612ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  462330ms] [LOG] [Fast Refresh] done in 822ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  464081ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  464126ms] [LOG] [Fast Refresh] done in 147ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  466766ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  466935ms] [LOG] [Fast Refresh] done in 270ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  469053ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  469230ms] [LOG] [Fast Refresh] done in 277ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  469404ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  469443ms] [LOG] [Fast Refresh] done in 139ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  472862ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  472863ms] [LOG] [Fast Refresh] done in 100ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  478031ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  480138ms] [LOG] [Fast Refresh] done in 2210ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  482065ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  482143ms] [LOG] [Fast Refresh] done in 180ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  484053ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  484195ms] [LOG] [Fast Refresh] done in 244ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  486007ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  486028ms] [LOG] [Fast Refresh] done in 123ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  490751ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  494552ms] [LOG] [Fast Refresh] done in 3903ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  494796ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  495532ms] [LOG] [Fast Refresh] done in 837ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  504532ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  504628ms] [LOG] [Fast Refresh] done in 198ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  504848ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  504848ms] [LOG] [Fast Refresh] done in 102ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  505582ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  505719ms] [LOG] [Fast Refresh] done in 239ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  507254ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  507277ms] [LOG] [Fast Refresh] done in 126ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  515965ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  515997ms] [LOG] [Fast Refresh] done in 136ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  517433ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  517433ms] [LOG] [Fast Refresh] done in 101ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  517925ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  517935ms] [LOG] [Fast Refresh] done in 112ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  523538ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  523544ms] [LOG] [Fast Refresh] done in 108ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  524194ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  524200ms] [LOG] [Fast Refresh] done in 107ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  525164ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  525204ms] [LOG] [Fast Refresh] done in 142ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  525742ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  525758ms] [LOG] [Fast Refresh] done in 116ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  530414ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  530420ms] [LOG] [Fast Refresh] done in 110ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  531204ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  531238ms] [LOG] [Fast Refresh] done in 136ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  542461ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  542525ms] [LOG] [Fast Refresh] done in 168ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  543078ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  543091ms] [LOG] [Fast Refresh] done in 116ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  546295ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  546336ms] [LOG] [Fast Refresh] done in 144ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  548276ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  548309ms] [LOG] [Fast Refresh] done in 135ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  551238ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  551265ms] [LOG] [Fast Refresh] done in 128ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  553217ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  553254ms] [LOG] [Fast Refresh] done in 139ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  556058ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  556193ms] [LOG] [Fast Refresh] done in 237ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  556987ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  557029ms] [LOG] [Fast Refresh] done in 145ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  557391ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  557425ms] [LOG] [Fast Refresh] done in 136ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  559042ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  559110ms] [LOG] [Fast Refresh] done in 169ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  560929ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  560944ms] [LOG] [Fast Refresh] done in 116ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  562466ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  562466ms] [LOG] [Fast Refresh] done in 103ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  564951ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  564965ms] [LOG] [Fast Refresh] done in 117ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  565248ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  565262ms] [LOG] [Fast Refresh] done in 116ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  565667ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  566159ms] [LOG] [Fast Refresh] done in 594ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  568893ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  569151ms] [LOG] [Fast Refresh] done in 360ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  570018ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  570258ms] [LOG] [Fast Refresh] done in 342ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  571928ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  572114ms] [LOG] [Fast Refresh] done in 286ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  576122ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  576179ms] [LOG] [Fast Refresh] done in 160ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  589936ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  589971ms] [LOG] [Fast Refresh] done in 138ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  594234ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[  594240ms] [LOG] [Fast Refresh] done in 109ms @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
+[ 4520988ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116
+[ 4521996ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116
+[ 4523001ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116
+[ 4524007ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116
+[ 4525016ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116
+[ 4530024ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116
+[ 4535038ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116
+[ 4540058ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116
+[ 4545101ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116
+[ 4550186ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116
+[ 4555351ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116
+[ 4560440ms] [ERROR] WebSocket connection to 'ws://localhost:3100/_next/webpack-hmr?id=4FqTphqrGE0LXfxEGd_j9' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3100/_next/static/chunks/node_modules_next_dist_client_aaee43fe._.js:10116

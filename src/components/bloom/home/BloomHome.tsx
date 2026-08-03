@@ -14,10 +14,9 @@ import { Process } from "./Process";
 import { About } from "./About";
 
 /**
- * "Bloom" homepage — a clean healthcare-service language: specialist
- * positioning up top, the service suite, GP and care-home sectors,
- * the anti-template comparison, the free audit offer, live work as
- * proof, then process, the founder and a single closing call to action.
+ * Flutterly Limited homepage: commercial digital-delivery positioning,
+ * full service architecture, healthcare specialisms, working proof,
+ * process, leadership and one clear route into a project conversation.
  */
 export function BloomHome() {
   return (
@@ -33,8 +32,9 @@ export function BloomHome() {
       <Process />
       <About />
       <CtaBand
-        title="Ready to give the people you serve a better experience?"
-        copy="Whether it is a practice website, a care home or a product idea — start with a conversation, or a free written audit of what you have today."
+        title="Make the next digital project easier to deliver"
+        copy="Whether you need a healthcare website, a digital product, business email or campaign support, start with the outcome and the current setup. Flutterly will turn it into a clear next step."
+        secondaryLabel="Start with a website audit"
         id="contact"
       />
     </BloomShell>

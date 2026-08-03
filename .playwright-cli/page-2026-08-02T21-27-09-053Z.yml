@@ -1,0 +1,127 @@
+- generic [ref=f1e1]:
+  - link "Skip to main content" [ref=f1e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f1e4]:
+    - banner [ref=f1e5]:
+      - generic [ref=f1e7]:
+        - link "WS Willowbrook Surgery" [ref=f1e8] [cursor=pointer]:
+          - /url: /practice/willowbrook
+          - generic [ref=f1e9]: WS
+          - generic [ref=f1e10]: Willowbrook Surgery
+        - link "0118 496 0123" [ref=f1e12] [cursor=pointer]:
+          - /url: tel:+441184960123
+      - group [ref=f1e15]:
+        - generic "Website menu" [ref=f1e16] [cursor=pointer]
+    - main [ref=f1e18]:
+      - generic [ref=f1e20]:
+        - generic [ref=f1e21]:
+          - paragraph [ref=f1e22]: Here when you need us
+          - heading "What can we help you with today?" [level=1] [ref=f1e23]
+          - paragraph [ref=f1e24]: Find the right care, manage routine requests and get trusted health advice without waiting on the phone.
+          - generic [ref=f1e25]:
+            - link "Request an appointment" [ref=f1e26] [cursor=pointer]:
+              - /url: https://www.nhs.uk/nhs-app/
+            - link "View our services" [ref=f1e29] [cursor=pointer]:
+              - /url: "#services"
+        - img "The bright reception area at Willowbrook Surgery, with patients checking in" [ref=f1e30]
+      - region "Practice notices" [ref=f1e31]:
+        - article [ref=f1e32]:
+          - generic [ref=f1e35]:
+            - heading "Travelling this summer?" [level=2] [ref=f1e36]
+            - paragraph [ref=f1e37]: Ask about travel vaccinations at least six weeks before you fly. Appointments are available now.
+      - region [ref=f1e38]:
+        - heading "Common requests" [level=2] [ref=f1e39]
+        - generic [ref=f1e40]:
+          - link [ref=f1e41] [cursor=pointer]:
+            - /url: https://www.nhs.uk/nhs-app/
+            - heading "Appointments" [level=3] [ref=f1e44]
+            - paragraph [ref=f1e45]: Request routine care or find urgent help.
+          - link [ref=f1e50] [cursor=pointer]:
+            - /url: https://www.nhs.uk/nhs-app/
+            - heading "Repeat prescriptions" [level=3] [ref=f1e54]
+            - paragraph [ref=f1e55]: Order safely through the NHS App.
+          - link [ref=f1e60] [cursor=pointer]:
+            - /url: https://111.nhs.uk/
+            - heading "Health advice" [level=3] [ref=f1e65]
+            - paragraph [ref=f1e66]: Check symptoms and get trusted NHS information.
+      - generic [ref=f1e72]:
+        - generic [ref=f1e73]:
+          - paragraph [ref=f1e74]: Care at the practice
+          - heading "Services and clinics" [level=2] [ref=f1e75]
+          - paragraph [ref=f1e76]: Clear information about the care available and how to access it.
+        - generic [ref=f1e77]:
+          - article [ref=f1e78]:
+            - heading "Long-term condition reviews" [level=3] [ref=f1e79]
+            - generic [ref=f1e80]:
+              - paragraph [ref=f1e81]: Regular reviews for asthma, COPD, diabetes and blood pressure.
+              - paragraph [ref=f1e82]: Our clinical team will invite eligible patients for their annual review and explain any tests needed first.
+          - article [ref=f1e83]:
+            - heading "Vaccinations" [level=3] [ref=f1e84]
+            - generic [ref=f1e85]:
+              - paragraph [ref=f1e86]: Routine, seasonal and travel vaccination clinics.
+              - paragraph [ref=f1e87]: Contact reception for current clinic dates. Travel appointments should be requested at least six weeks before departure.
+      - generic [ref=f1e88]:
+        - generic [ref=f1e89]:
+          - heading "Opening times" [level=2] [ref=f1e94]
+          - generic [ref=f1e95]:
+            - generic [ref=f1e96]:
+              - term [ref=f1e97]: Monday
+              - definition [ref=f1e98]: 8:00am – 6:30pm
+            - generic [ref=f1e99]:
+              - term [ref=f1e100]: Tuesday
+              - definition [ref=f1e101]: 8:00am – 6:30pm
+            - generic [ref=f1e102]:
+              - term [ref=f1e103]: Wednesday
+              - definition [ref=f1e104]: 8:00am – 6:30pm
+            - generic [ref=f1e105]:
+              - term [ref=f1e106]: Thursday
+              - definition [ref=f1e107]: 8:00am – 6:30pm
+            - generic [ref=f1e108]:
+              - term [ref=f1e109]: Friday
+              - definition [ref=f1e110]: 8:00am – 6:30pm
+            - generic [ref=f1e111]:
+              - term [ref=f1e112]: Saturday
+              - definition [ref=f1e113]:
+                - text: Closed
+                - generic [ref=f1e114]: Use NHS 111 when we are closed
+            - generic [ref=f1e115]:
+              - term [ref=f1e116]: Sunday
+              - definition [ref=f1e117]:
+                - text: Closed
+                - generic [ref=f1e118]: Use NHS 111 when we are closed
+        - generic [ref=f1e119]:
+          - heading "Find and contact us" [level=2] [ref=f1e124]
+          - generic [ref=f1e125]: 1 Meadow Lane, Willowbrook, ReadingRG1 9ZZ
+          - link "0118 496 0123" [ref=f1e126] [cursor=pointer]:
+            - /url: tel:+441184960123
+          - paragraph [ref=f1e129]: The entrance faces Meadow Lane. Bus stops are within a two-minute walk and cycle parking is beside reception.
+          - paragraph [ref=f1e131]: Step-free entrance, accessible toilet, hearing loop and free interpreter support are available.
+      - generic [ref=f1e136]:
+        - heading "Meet the practice team" [level=2] [ref=f1e143]
+        - generic [ref=f1e144]:
+          - article [ref=f1e145]:
+            - heading "Dr Sarah Patel" [level=3] [ref=f1e146]
+            - paragraph [ref=f1e147]: GP Partner
+            - paragraph [ref=f1e148]: Special interests in women’s health and minor surgery.
+          - article [ref=f1e149]:
+            - heading "Dr James Okafor" [level=3] [ref=f1e150]
+            - paragraph [ref=f1e151]: GP Partner
+            - paragraph [ref=f1e152]: Special interests in diabetes and cardiovascular care.
+          - article [ref=f1e153]:
+            - heading "Helen Carter" [level=3] [ref=f1e154]
+            - paragraph [ref=f1e155]: Lead Practice Nurse
+            - paragraph [ref=f1e156]: Leads asthma, COPD and travel clinics.
+    - contentinfo [ref=f1e157]:
+      - generic [ref=f1e158]:
+        - generic [ref=f1e159]:
+          - heading "Willowbrook Surgery" [level=2] [ref=f1e160]
+          - paragraph [ref=f1e161]: 1 Meadow Lane, Willowbrook, ReadingRG1 9ZZ
+        - generic [ref=f1e162]:
+          - heading "When we are closed" [level=2] [ref=f1e163]
+          - paragraph [ref=f1e164]: Use NHS 111 online or call 111. In a life-threatening emergency, call 999.
+        - generic [ref=f1e165]:
+          - heading "About this website" [level=2] [ref=f1e166]
+          - paragraph [ref=f1e167]: Fictional practice and demo content only. No patient services or clinical systems are connected.
+      - paragraph [ref=f1e169]: Custom GP website platform demonstration by Flutterly Limited.
+  - alert [ref=f1e170]
+  - button "Cookie settings" [active] [ref=f1e182]

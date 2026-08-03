@@ -1,0 +1,155 @@
+- generic [active] [ref=f3e1]:
+  - link "Skip to main content" [ref=f3e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f3e4]:
+    - banner [ref=f3e5]:
+      - generic [ref=f3e7]:
+        - link "WS Willowbrook Surgery NHS GP services for Willowbrook and surrounding villages" [ref=f3e8] [cursor=pointer]:
+          - /url: /practice/willowbrook
+          - generic [ref=f3e9]: WS
+          - generic [ref=f3e10]:
+            - generic [ref=f3e11]: Willowbrook Surgery
+            - generic [ref=f3e12]: NHS GP services for Willowbrook and surrounding villages
+        - link "0118 496 0123" [ref=f3e13] [cursor=pointer]:
+          - /url: tel:+441184960123
+      - navigation "Primary" [ref=f3e17]:
+        - list [ref=f3e18]:
+          - listitem [ref=f3e19]:
+            - link "Home" [ref=f3e20] [cursor=pointer]:
+              - /url: /practice/willowbrook
+          - listitem [ref=f3e21]:
+            - link "Appointments" [ref=f3e22] [cursor=pointer]:
+              - /url: /practice/willowbrook?preview=appointments
+          - listitem [ref=f3e23]:
+            - link "Prescriptions" [ref=f3e24] [cursor=pointer]:
+              - /url: /practice/willowbrook?preview=prescriptions
+          - listitem [ref=f3e25]:
+            - link "Services" [ref=f3e26] [cursor=pointer]:
+              - /url: "#services"
+          - listitem [ref=f3e27]:
+            - link "Contact" [ref=f3e28] [cursor=pointer]:
+              - /url: "#contact"
+    - main [ref=f3e29]:
+      - generic [ref=f3e31]:
+        - generic [ref=f3e32]:
+          - paragraph [ref=f3e33]: Here when you need us
+          - heading "What can we help you with today?" [level=1] [ref=f3e34]
+          - paragraph [ref=f3e35]: Find the right care, manage routine requests and get trusted health advice without waiting on the phone.
+          - generic [ref=f3e36]:
+            - link "Request an appointment" [ref=f3e37] [cursor=pointer]:
+              - /url: https://www.nhs.uk/nhs-app/
+            - link "View our services" [ref=f3e40] [cursor=pointer]:
+              - /url: "#services"
+        - img "The bright reception area at Willowbrook Surgery, with patients checking in" [ref=f3e41]
+      - region "Practice notices" [ref=f3e42]:
+        - article [ref=f3e43]:
+          - generic [ref=f3e46]:
+            - heading "Travelling this summer?" [level=2] [ref=f3e47]
+            - paragraph [ref=f3e48]: Ask about travel vaccinations at least six weeks before you fly. Appointments are available now.
+      - region [ref=f3e49]:
+        - heading "Common requests" [level=2] [ref=f3e50]
+        - generic [ref=f3e51]:
+          - link [ref=f3e52] [cursor=pointer]:
+            - /url: https://www.nhs.uk/nhs-app/
+            - heading "Appointments" [level=3] [ref=f3e55]
+            - paragraph [ref=f3e56]: Request routine care or find urgent help.
+          - link [ref=f3e61] [cursor=pointer]:
+            - /url: https://www.nhs.uk/nhs-app/
+            - heading "Repeat prescriptions" [level=3] [ref=f3e65]
+            - paragraph [ref=f3e66]: Order safely through the NHS App.
+          - link [ref=f3e71] [cursor=pointer]:
+            - /url: https://111.nhs.uk/
+            - heading "Health advice" [level=3] [ref=f3e76]
+            - paragraph [ref=f3e77]: Check symptoms and get trusted NHS information.
+      - generic [ref=f3e83]:
+        - generic [ref=f3e84]:
+          - paragraph [ref=f3e85]: Care at the practice
+          - heading "Services and clinics" [level=2] [ref=f3e86]
+          - paragraph [ref=f3e87]: Clear information about the care available and how to access it.
+        - generic [ref=f3e88]:
+          - article [ref=f3e89]:
+            - heading "Long-term condition reviews" [level=3] [ref=f3e90]
+            - generic [ref=f3e91]:
+              - paragraph [ref=f3e92]: Regular reviews for asthma, COPD, diabetes and blood pressure.
+              - paragraph [ref=f3e93]: Our clinical team will invite eligible patients for their annual review and explain any tests needed first.
+          - article [ref=f3e94]:
+            - heading "Vaccinations" [level=3] [ref=f3e95]
+            - generic [ref=f3e96]:
+              - paragraph [ref=f3e97]: Routine, seasonal and travel vaccination clinics.
+              - paragraph [ref=f3e98]: Contact reception for current clinic dates. Travel appointments should be requested at least six weeks before departure.
+      - generic [ref=f3e99]:
+        - generic [ref=f3e100]:
+          - heading "Opening times" [level=2] [ref=f3e105]
+          - generic [ref=f3e106]:
+            - generic [ref=f3e107]:
+              - term [ref=f3e108]: Monday
+              - definition [ref=f3e109]: 8:00am – 6:30pm
+            - generic [ref=f3e110]:
+              - term [ref=f3e111]: Tuesday
+              - definition [ref=f3e112]: 8:00am – 6:30pm
+            - generic [ref=f3e113]:
+              - term [ref=f3e114]: Wednesday
+              - definition [ref=f3e115]: 8:00am – 6:30pm
+            - generic [ref=f3e116]:
+              - term [ref=f3e117]: Thursday
+              - definition [ref=f3e118]: 8:00am – 6:30pm
+            - generic [ref=f3e119]:
+              - term [ref=f3e120]: Friday
+              - definition [ref=f3e121]: 8:00am – 6:30pm
+            - generic [ref=f3e122]:
+              - term [ref=f3e123]: Saturday
+              - definition [ref=f3e124]:
+                - text: Closed
+                - generic [ref=f3e125]: Use NHS 111 when we are closed
+            - generic [ref=f3e126]:
+              - term [ref=f3e127]: Sunday
+              - definition [ref=f3e128]:
+                - text: Closed
+                - generic [ref=f3e129]: Use NHS 111 when we are closed
+        - generic [ref=f3e130]:
+          - heading "Find and contact us" [level=2] [ref=f3e135]
+          - generic [ref=f3e136]: 1 Meadow Lane, Willowbrook, ReadingRG1 9ZZ
+          - link "0118 496 0123" [ref=f3e137] [cursor=pointer]:
+            - /url: tel:+441184960123
+          - paragraph [ref=f3e140]: The entrance faces Meadow Lane. Bus stops are within a two-minute walk and cycle parking is beside reception.
+          - paragraph [ref=f3e142]: Step-free entrance, accessible toilet, hearing loop and free interpreter support are available.
+      - generic [ref=f3e147]:
+        - heading "Meet the practice team" [level=2] [ref=f3e154]
+        - generic [ref=f3e155]:
+          - article [ref=f3e156]:
+            - heading "Dr Sarah Patel" [level=3] [ref=f3e157]
+            - paragraph [ref=f3e158]: GP Partner
+            - paragraph [ref=f3e159]: Special interests in women’s health and minor surgery.
+          - article [ref=f3e160]:
+            - heading "Dr James Okafor" [level=3] [ref=f3e161]
+            - paragraph [ref=f3e162]: GP Partner
+            - paragraph [ref=f3e163]: Special interests in diabetes and cardiovascular care.
+          - article [ref=f3e164]:
+            - heading "Helen Carter" [level=3] [ref=f3e165]
+            - paragraph [ref=f3e166]: Lead Practice Nurse
+            - paragraph [ref=f3e167]: Leads asthma, COPD and travel clinics.
+    - contentinfo [ref=f3e168]:
+      - generic [ref=f3e169]:
+        - generic [ref=f3e170]:
+          - heading "Willowbrook Surgery" [level=2] [ref=f3e171]
+          - paragraph [ref=f3e172]: 1 Meadow Lane, Willowbrook, ReadingRG1 9ZZ
+        - generic [ref=f3e173]:
+          - heading "When we are closed" [level=2] [ref=f3e174]
+          - paragraph [ref=f3e175]: Use NHS 111 online or call 111. In a life-threatening emergency, call 999.
+        - generic [ref=f3e176]:
+          - heading "About this website" [level=2] [ref=f3e177]
+          - paragraph [ref=f3e178]: Fictional practice and demo content only. No patient services or clinical systems are connected.
+      - paragraph [ref=f3e180]: Custom GP website platform demonstration by Flutterly Limited.
+  - alert [ref=f3e181]
+  - region "Cookie preferences" [ref=f3e182]:
+    - generic [ref=f3e183]:
+      - generic [ref=f3e184]:
+        - paragraph [ref=f3e185]: Privacy choices
+        - heading "This site currently uses no analytics or marketing cookies" [level=2] [ref=f3e186]
+        - paragraph [ref=f3e187]: We store your choice in this browser so we do not ask on every visit. You can accept optional categories, reject them, or review the plain-language details first.
+        - link "Read the cookie policy" [ref=f3e188] [cursor=pointer]:
+          - /url: /cookie-policy
+      - generic [ref=f3e189]:
+        - button "Accept all" [ref=f3e190]
+        - button "Reject non-essential" [ref=f3e191]
+        - button "Manage preferences" [ref=f3e192]

@@ -18,9 +18,13 @@ const ROUTES = [
   "/",
   "/gp-websites",
   "/care-home-websites",
+  "/services",
+  "/business-email",
+  "/social-media-marketing",
   "/packages",
   "/free-audit",
   "/accessibility",
+  "/cookie-policy",
   "/demo/gp-practice",
   "/demo/gp-practice/appointments",
   "/demo/gp-practice/prescriptions",
@@ -29,6 +33,13 @@ const ROUTES = [
   "/demo/gp-practice/practice-information",
   "/demo/gp-practice/contact",
   "/demo/gp-practice/accessibility",
+  "/cms",
+  "/cms/willowbrook",
+  "/cms/willowbrook/pages",
+  "/cms/meadow-view/notices",
+  "/practice/willowbrook",
+  "/practice/meadow-view",
+  "/practice/kingsway",
   "/demo/care-home",
   "/demo/care-home/life",
   "/demo/care-home/families",
@@ -130,6 +141,34 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const headlineVisible = await page.locator("h1").isVisible().catch(() => false);
   if (!headlineVisible) note("home", "hero headline is not visible");
 
+  const consent = page.getByRole("region", { name: /cookie preferences/i });
+  if (!(await consent.isVisible().catch(() => false))) {
+    note("home", "cookie preference notice is not visible on a first visit");
+  } else {
+    for (const label of ["Accept all", "Reject non-essential", "Manage preferences"]) {
+      if (!(await consent.getByRole("button", { name: label }).isVisible().catch(() => false))) {
+        note("home", `cookie control is missing: ${label}`);
+      }
+    }
+    await consent.getByRole("button", { name: "Manage preferences" }).click();
+    const essential = page.getByRole("checkbox", { name: /Essential/i });
+    if (!(await essential.isChecked().catch(() => false)) || !(await essential.isDisabled().catch(() => false))) {
+      note("home", "essential cookie category is not fixed on");
+    }
+    await page.getByRole("button", { name: "Reject non-essential" }).click();
+    const storedConsent = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem("flutterly.cookieConsent") || "{}")
+    );
+    if (storedConsent.analytics !== false || storedConsent.marketing !== false) {
+      note("home", "reject non-essential did not persist both optional categories as false");
+    }
+    if (!(await page.getByRole("button", { name: "Cookie settings" }).isVisible().catch(() => false))) {
+      note("home", "cookie settings cannot be reopened after a decision");
+    }
+    const cookies = await mobile.cookies(BASE);
+    if (cookies.length) note("home", `expected no site cookies, found ${cookies.map((cookie) => cookie.name).join(", ")}`);
+  }
+
   const clippedElements = await page.evaluate(() => {
     const tolerance = 1;
     const selectors = "header a, header button, #top h1, #top p, #top a";
@@ -160,7 +199,7 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   if (!(await menu.isVisible().catch(() => false))) {
     note("home", "mobile navigation did not open");
   } else {
-    await menu.locator('a[href="/#services"]').click();
+    await menu.locator('a[href="/services"]').click();
     await page.waitForTimeout(250);
     if (await menu.isVisible().catch(() => false))
       note("home", "mobile navigation did not close after selecting a link");
@@ -180,6 +219,78 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   await missing.close();
 }
 await mobile.close();
+
+// The primary non-technical content path: authenticate, choose a page, save a
+// draft, open the protected preview, publish it, and verify the public renderer.
+const cmsJourney = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+{
+  const page = await cmsJourney.newPage();
+  await page.goto(BASE + "/cms/willowbrook/pages", { waitUntil: "networkidle" });
+  if (!(await page.getByRole("heading", { name: "Sign in to the CMS" }).isVisible().catch(() => false))) {
+    note("cms auth", "an unauthenticated CMS route did not redirect to sign-in");
+  }
+  await page.getByLabel("Demo practice").selectOption("willowbrook");
+  await page.getByLabel("Try a role").selectOption("practice_admin");
+  await page.getByRole("button", { name: "Start local demo session" }).click();
+  await page.waitForURL(/\/cms\/willowbrook\/pages/);
+  await page.getByRole("button", { name: /Appointments/ }).click();
+  await page.getByLabel("Page title").fill("Appointments at Willowbrook");
+  await page.getByRole("button", { name: "Save as draft" }).click();
+
+  const draft = await page.evaluate(() => {
+    const raw = localStorage.getItem("flutterly.gp-cms.demo.v1.practice_willowbrook");
+    const workspace = raw ? JSON.parse(raw) : null;
+    return workspace?.pages?.find((item) => item.slug === "appointments");
+  });
+  if (draft?.title !== "Appointments at Willowbrook" || draft?.status !== "draft") {
+    note("cms journey", "saving the guided page draft did not persist the edited title and draft state");
+  }
+
+  const draftPreviewPromise = page.waitForEvent("popup");
+  await page.getByRole("link", { name: "Preview", exact: true }).click();
+  const draftPreview = await draftPreviewPromise;
+  await draftPreview.waitForLoadState("networkidle");
+  if (!(await draftPreview.getByRole("heading", { name: "Appointments at Willowbrook" }).isVisible().catch(() => false))) {
+    note("cms journey", "draft preview did not render the edited page title");
+  }
+  if (!(await draftPreview.getByText(/only visible to authorised workspace users/i).isVisible().catch(() => false))) {
+    note("cms journey", "draft preview did not explain that the page is private");
+  }
+  await draftPreview.close();
+
+  await page.getByRole("button", { name: "Publish page" }).click();
+  const published = await page.evaluate(() => {
+    const raw = localStorage.getItem("flutterly.gp-cms.demo.v1.practice_willowbrook");
+    const workspace = raw ? JSON.parse(raw) : null;
+    return workspace?.pages?.find((item) => item.slug === "appointments");
+  });
+  if (published?.status !== "published") {
+    note("cms journey", "publishing the edited page did not persist the published state");
+  }
+
+  const publicPage = await cmsJourney.newPage();
+  await publicPage.goto(BASE + "/practice/willowbrook/appointments", {
+    waitUntil: "networkidle",
+  });
+  if (!(await publicPage.getByRole("heading", { name: "Appointments at Willowbrook" }).isVisible().catch(() => false))) {
+    note("cms journey", "published content was not visible in the shared public renderer");
+  }
+  if (await publicPage.getByText(/only visible to authorised workspace users/i).isVisible().catch(() => false)) {
+    note("cms journey", "published page still appeared as a protected CMS preview");
+  }
+  await publicPage.close();
+  await page.close();
+}
+await cmsJourney.close();
+
+const publicDraft = await browser.newContext({ viewport: { width: 390, height: 844 } });
+{
+  const page = await publicDraft.newPage();
+  const response = await page.goto(BASE + "/practice/willowbrook/unpublished-draft", { waitUntil: "networkidle" });
+  if (response?.status() !== 404) note("public draft", "a draft page was reachable from the public site");
+  await page.close();
+}
+await publicDraft.close();
 
 const reducedMotion = await browser.newContext({
   reducedMotion: "reduce",

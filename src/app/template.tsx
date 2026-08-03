@@ -12,7 +12,7 @@ const loadFeatures = () =>
 
 /**
  * Route transition wrapper. `template.tsx` re-mounts on every navigation, so a
- * plain enter animation gives each page a soft blur-and-rise reveal. Disabled
+ * plain enter animation gives each page a soft fade-and-rise reveal. Disabled
  * for reduced-motion users, who get the content immediately.
  *
  * This is also the single `LazyMotion` provider for the app: every page (and
@@ -36,9 +36,9 @@ export default function Template({ children }: { children: React.ReactNode }) {
         children
       ) : (
         <m.div
-          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
         >
           {children}
         </m.div>

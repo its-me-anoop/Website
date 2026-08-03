@@ -5,7 +5,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { AuditPage } from "@/components/bloom/audit/AuditPage";
 
 const description =
-  "Get a free written audit of your GP practice or care home website — accessibility, speed, mobile experience, content and local search, reviewed in plain English with no obligation.";
+  "Get a free written website audit covering accessibility, speed, mobile experience, content and local search, with sector-specific checks for GP practices and care homes.";
 
 export const metadata: Metadata = {
   title: "Free website audit",

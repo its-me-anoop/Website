@@ -93,25 +93,25 @@
      bands, deep pine ink, one teal action colour, plus an NHS
      blue accent for GP practices and a warm amber accent for
      care homes. Case-study pages stay on the Porcelain ramp. */
-  --bl-canvas: #fafcfb; /* page */
-  --bl-band: #eff6f2; /* soft mint section band */
-  --bl-band-2: #f5faf7; /* barely-raised band */
-  --bl-surface: #ffffff; /* cards */
-  --bl-ink: #10312a; /* primary text */
-  --bl-ink-soft: #48635b; /* secondary text */
-  --bl-muted: #5e7268; /* captions / labels — AA on canvas & bands */
-  --bl-line: rgba(16, 49, 42, 0.09);
-  --bl-line-2: rgba(16, 49, 42, 0.16);
-  --bl-pine: #0b2f28; /* dark bands, footer */
-  --bl-pine-2: #123f36; /* raised cards on pine */
-  --bl-pine-ink: #eaf3ef; /* text on pine */
-  --bl-teal: #0e7a63; /* the one action colour */
-  --bl-teal-hover: #0c6a56;
-  --bl-teal-soft: #dcefe7;
-  --bl-nhs: #005eb8; /* GP practice accent */
-  --bl-nhs-soft: #e8f1fa;
-  --bl-amber: #a96417; /* care home accent */
-  --bl-amber-soft: #f7efe1;
+  --bl-canvas: oklch(98.7% 0.008 165); /* page */
+  --bl-band: oklch(95.5% 0.018 165); /* soft mint section band */
+  --bl-band-2: oklch(97.4% 0.012 165); /* barely-raised band */
+  --bl-surface: oklch(99.4% 0.004 165); /* raised surface */
+  --bl-ink: oklch(27% 0.045 165); /* primary text */
+  --bl-ink-soft: oklch(43% 0.034 165); /* secondary text */
+  --bl-muted: oklch(49% 0.025 165); /* captions and labels */
+  --bl-line: oklch(27% 0.045 165 / 0.1);
+  --bl-line-2: oklch(27% 0.045 165 / 0.18);
+  --bl-pine: oklch(24% 0.05 165); /* dark bands, footer */
+  --bl-pine-2: oklch(30% 0.055 165); /* raised surfaces on pine */
+  --bl-pine-ink: oklch(94% 0.015 165); /* text on pine */
+  --bl-teal: oklch(49% 0.105 165); /* primary action colour */
+  --bl-teal-hover: oklch(43% 0.095 165);
+  --bl-teal-soft: oklch(92% 0.04 165);
+  --bl-nhs: oklch(48% 0.16 252); /* GP practice accent */
+  --bl-nhs-soft: oklch(94% 0.035 252);
+  --bl-amber: oklch(52% 0.12 65); /* care home accent */
+  --bl-amber-soft: oklch(95% 0.04 70);
 }
 
 /* Sipli case study: light aqua product palette */
@@ -388,8 +388,28 @@ html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
 }
 
 .bloom-root {
-  font-family: var(--font-grotesk);
-  letter-spacing: -0.01em;
+  --font-sans: "Atkinson Hyperlegible Next Variable", "Avenir Next", sans-serif;
+  --font-display: "Archivo Variable", "Avenir Next", sans-serif;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  letter-spacing: -0.006em;
+}
+.bloom-root h1,
+.bloom-root h2,
+.bloom-root h3,
+.bloom-root h4,
+.bloom-root h5,
+.bloom-root h6 {
+  font-family: var(--font-display);
+}
+
+.cookie-consent {
+  font-family: "Atkinson Hyperlegible Next Variable", "Avenir Next", sans-serif;
+  letter-spacing: -0.006em;
+}
+
+.cookie-consent h2 {
+  font-family: "Archivo Variable", "Avenir Next", sans-serif;
 }
 .bloom-root ::selection {
   background: var(--bl-teal);
@@ -399,16 +419,12 @@ html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
   outline-color: var(--bl-teal);
 }
 
-/* Frosted chrome for the Bloom sticky nav. */
+/* Opaque sticky chrome avoids repaint-heavy backdrop filtering on long pages. */
 .bl-frost {
-  background: rgba(250, 252, 251, 0.82);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  background: var(--bl-canvas);
 }
 @media (prefers-reduced-transparency: reduce) {
   .bl-frost {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     background: var(--bl-canvas);
   }
 }

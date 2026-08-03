@@ -33,22 +33,22 @@ const steps = [
   {
     icon: Send,
     title: "Send your website address",
-    copy: "One email is all it takes — no forms, no calls unless you want one. Just say who you are and where the site lives.",
+    copy: "One email is all it takes: no forms, no calls unless you want one. Just say who you are and where the site lives.",
   },
   {
     icon: FileSearch,
     title: "Flutterly reviews it properly",
-    copy: "Automated checks plus a manual review of accessibility, speed, mobile experience, content and local search — the same lens used on paid projects.",
+    copy: "Automated checks plus a manual review of accessibility, speed, mobile experience, content and local search: the same lens used on paid projects.",
   },
   {
     icon: MailCheck,
     title: "You get a written report",
-    copy: "A scored, plain-English review with prioritised recommendations, usually within a week. Yours to act on with anyone — no obligation.",
+    copy: "A scored, plain-English review with prioritised recommendations, usually within a week. Yours to act on with anyone: no obligation.",
   },
 ] as const;
 
 const promises = [
-  "Written in plain English — no jargon-wrapped sales pitch",
+  "Written in plain English: no jargon-wrapped sales pitch",
   "Prioritised fixes you can hand to any developer",
   "Includes “keep what you have” when that is the honest answer",
   "Free, with no follow-up pressure",
@@ -77,9 +77,9 @@ export function AuditPage() {
           <Rise delay={0.2}>
             <p className="mx-auto mt-5 max-w-[560px] text-[16.5px] leading-relaxed text-bl-ink-soft">
               A written review of your current site against the standards that
-              matter for GP practices and care homes — accessibility, speed,
-              mobile experience, content and local search. Free, honest and
-              yours to keep.
+              matter for the people you serve: accessibility, speed, mobile
+              experience, content and local search. Sector-specific checks are
+              included for GP practices and care homes.
             </p>
           </Rise>
           <Rise delay={0.3} className="mt-9 flex flex-wrap items-center justify-center gap-3">
@@ -167,7 +167,11 @@ export function AuditPage() {
 
       <CtaBand
         title="Two minutes now, a clear picture within a week"
-        copy="Send your website address and Flutterly will do the rest — a written, scored review with the fixes that matter most, whoever ends up making them."
+        copy="Send your website address and Flutterly will do the rest: a written, scored review with the fixes that matter most, whoever ends up making them."
+        primaryLabel="Request your free audit"
+        primaryHref={auditMailto}
+        secondaryLabel="Review all services"
+        secondaryHref="/services"
         id="contact"
       />
     </BloomShell>

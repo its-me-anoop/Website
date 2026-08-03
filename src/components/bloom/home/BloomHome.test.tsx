@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
+import { comparison } from "../data";
 import { BloomHome } from "./BloomHome";
 
 /** The app provides LazyMotion in `template.tsx`; mirror that here. */
@@ -15,14 +16,14 @@ function renderHome() {
 }
 
 describe("BloomHome", () => {
-  it("renders the hero headline and studio eyebrow", () => {
+  it("renders the company positioning and digital delivery eyebrow", () => {
     renderHome();
 
     const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading).toHaveTextContent(/Websites that care for/);
-    expect(heading).toHaveTextContent(/who use them/);
+    expect(heading).toHaveTextContent(/Digital delivery for/);
+    expect(heading).toHaveTextContent(/people rely on/);
     expect(
-      screen.getByText(/Independent product studio · Reading, UK/i)
+      screen.getByText(/Flutterly Limited · Digital delivery company · Reading, UK/i)
     ).toBeInTheDocument();
   });
 
@@ -32,14 +33,20 @@ describe("BloomHome", () => {
     const nav = screen.getByRole("navigation", { name: /primary/i });
     expect(nav).toBeInTheDocument();
 
-    ["/gp-websites", "/care-home-websites", "/packages"].forEach((href) => {
+    [
+      "/services",
+      "/gp-websites",
+      "/care-home-websites",
+      "/business-email",
+      "/social-media-marketing",
+    ].forEach((href) => {
       const links = screen
         .getAllByRole("link")
         .filter((a) => a.getAttribute("href") === href);
       expect(links.length).toBeGreaterThan(0);
     });
     expect(
-      screen.getAllByRole("link", { name: /get in touch/i }).length
+      screen.getAllByRole("link", { name: /discuss a project/i }).length
     ).toBeGreaterThan(0);
   });
 
@@ -81,20 +88,28 @@ describe("BloomHome", () => {
     });
   });
 
-  it("renders the anti-template comparison table", () => {
+  it("renders complete desktop and mobile comparisons", () => {
     renderHome();
 
     const table = screen.getByRole("table", {
-      name: /comparison of typical template builders/i,
+      name: /comparison of fragmented digital delivery/i,
     });
     expect(table).toBeInTheDocument();
-    expect(screen.getByText(/A Flutterly build/)).toBeInTheDocument();
+
+    const mobileComparison = screen.getByRole("region", {
+      name: /comparison of fragmented digital delivery/i,
+    });
+    comparison.rows.forEach((row) => {
+      expect(mobileComparison).toHaveTextContent(row.label);
+      expect(mobileComparison).toHaveTextContent(row.them);
+      expect(mobileComparison).toHaveTextContent(row.us);
+    });
   });
 
   it("renders the process steps and footer contact details", () => {
     renderHome();
 
-    ["Listen", "Shape", "Build", "Ship"].forEach((step) => {
+    ["Discover", "Plan", "Deliver", "Support"].forEach((step) => {
       expect(
         screen.getByRole("heading", { level: 3, name: step })
       ).toBeInTheDocument();

@@ -61,8 +61,9 @@ export function Footer() {
               Anoop Jose
             </Link>
             <p className="mt-3 text-[14px] leading-[1.6] text-ink-3">
-              Developer &amp; designer crafting web and mobile apps. Built to
-              last, shipped with care — through Flutterly, my product studio.
+              Founder and delivery lead at Flutterly Limited, building
+              accessible websites, digital products and practical business
+              technology for organisations.
             </p>
             <div className="mt-5 flex items-center gap-2">
               <SocialButton href={`mailto:${site.email}`} label="Email">

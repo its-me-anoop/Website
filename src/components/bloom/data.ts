@@ -1,5 +1,5 @@
 /**
- * Content model for the Bloom marketing site — the homepage, sector
+ * Content model for the Bloom marketing site: the homepage, sector
  * pages, packages and audit routes all read from here so copy, links
  * and imagery stay in one reviewable place.
  */
@@ -26,7 +26,7 @@ export const projects: readonly Project[] = [
     year: "2026",
     status: "In development",
     description:
-      "A boutique residential, respite and transitional-living provider in Reading — a calm, warm site that will replace pembrokecare.com at launch.",
+      "A boutique residential, respite and transitional-living provider in Reading: a calm, warm site that will replace pembrokecare.com at launch.",
     href: "https://pembroke-care.vercel.app/",
     internal: false,
     image: "/project-pembroke.png",
@@ -105,41 +105,64 @@ export const trustedBy = [
   "Artling",
 ] as const;
 
-/** Honest hero credentials — commitments, not invented statistics. */
-export const heroStats = [
-  { value: "5", label: "live products and client sites" },
-  { value: "100%", label: "custom code — never a template" },
-  { value: "WCAG 2.2 AA", label: "accessibility target on every build" },
-  { value: "1 day", label: "to hear back on any enquiry" },
+/** Commercial commitments, expressed without invented performance claims. */
+export const deliveryPromises = [
+  { title: "Direct delivery", copy: "Speak with the person responsible for the work." },
+  { title: "Accessible by default", copy: "WCAG 2.2 AA is the target on every website build." },
+  { title: "Built around operations", copy: "Technology that fits how your team actually works." },
+  { title: "UK-based support", copy: "A reply within one working day on every enquiry." },
 ] as const;
 
-/** The three service cards (“the suite”). */
-export const suite = [
+/** The complete delivery offer shown on the home and services pages. */
+export const services = [
   {
     id: "healthcare-websites",
-    title: "Healthcare websites",
-    copy: "Websites for GP practices and care homes that patients, residents and families can actually use — accessible, fast and easy for your team to keep current.",
-    points: ["GP practices", "Care homes", "Supported living"],
-    cta: { label: "Explore sectors", href: "#sectors" },
-    tone: "teal",
+    number: "01",
+    label: "Sector websites",
+    title: "Websites for services people rely on",
+    copy: "Accessible, fast websites for GP practices, care homes and other organisations, structured around the tasks customers, patients and families need to complete.",
+    points: ["GP practices", "Care providers", "Purpose-led organisations"],
+    cta: { label: "Explore sector delivery", href: "/#sectors" },
+    tone: "nhs",
   },
   {
     id: "web-engineering",
-    title: "Web & product engineering",
-    copy: "Marketing sites, portals and web applications built on Next.js — static-first, measurable and maintained as systems rather than one-off pages.",
-    points: ["Next.js & React", "Design systems", "SEO & performance"],
-    cta: { label: "See the work", href: "#work" },
+    number: "02",
+    label: "Digital projects",
+    title: "Web platforms and mobile products",
+    copy: "Customer portals, internal tools and mobile apps taken from a clear brief through design, engineering, launch and ongoing improvement.",
+    points: ["Next.js and React", "SwiftUI and Flutter", "Product delivery"],
+    cta: { label: "See delivered projects", href: "/#work" },
     tone: "pine",
   },
   {
-    id: "mobile-apps",
-    title: "Mobile apps",
-    copy: "Native and cross-platform apps with careful interaction design, dependable architecture and a clear route to the App Store.",
-    points: ["SwiftUI", "Flutter", "App Store releases"],
-    cta: { label: "View a case study", href: "/projects/sipli" },
-    tone: "light",
+    id: "business-email",
+    number: "03",
+    label: "Business technology",
+    title: "Professional email and collaboration",
+    copy: "Microsoft 365, Google Workspace, Zoho and comparable platforms configured around your domain, team structure and security needs.",
+    points: ["Mailbox setup and migration", "MFA and domain records", "Calendars, files and handover"],
+    cta: { label: "Set up business email", href: "/business-email" },
+    tone: "teal",
+  },
+  {
+    id: "social-media",
+    number: "04",
+    label: "Campaign support",
+    title: "Social media marketing with a purpose",
+    copy: "Practical campaign and content support for awareness, recruitment and service communication, connected to the website journey rather than treated as a separate feed.",
+    points: ["Campaign planning", "Content systems", "Reporting and improvement"],
+    cta: { label: "Explore social media support", href: "/social-media-marketing" },
+    tone: "amber",
   },
 ] as const;
+
+export const supportService = {
+  label: "Ongoing support",
+  title: "Keep the whole digital setup useful after launch",
+  copy: "Managed hosting, website updates and practical help as your organisation changes. Business email and campaign support can be scoped alongside the website when needed.",
+  cta: { label: "Review website care plans", href: "/packages" },
+} as const;
 
 /** Sector cards on the homepage. */
 export const sectorCards = [
@@ -163,7 +186,7 @@ export const sectorCards = [
     slug: "care-home-websites",
     eyebrow: "For care homes",
     title: "A home families trust before they ever visit",
-    copy: "Warm, photo-led design for relatives researching care — with your CQC rating, visiting information, admissions routes and recruitment handled properly.",
+    copy: "Warm, photo-led design for relatives researching care: with your CQC rating, visiting information, admissions routes and recruitment handled properly.",
     points: [
       "Designed for families first",
       "CQC rating and report, front and centre",
@@ -179,38 +202,38 @@ export const sectorCards = [
 
 /** “Never a page builder” comparison table. */
 export const comparison = {
-  them: "Typical template builders",
-  us: "A Flutterly build",
+  them: "Fragmented digital delivery",
+  us: "Flutterly Limited",
   rows: [
     {
-      label: "Platform",
-      them: "A generic theme shared with thousands of sites",
-      us: "Designed and coded for your organisation",
-    },
-    {
-      label: "Security",
-      them: "A plugin stack that needs constant patching",
-      us: "No plugins — a small, auditable surface area",
-    },
-    {
-      label: "Speed",
-      them: "Heavy page builders and slow scores",
-      us: "Static-first Next.js that stays fast on a poor signal",
-    },
-    {
-      label: "Accessibility",
-      them: "Whatever the theme happens to support",
-      us: "WCAG 2.2 AA designed in from the first wireframe",
+      label: "Planning",
+      them: "Different suppliers solving isolated tasks",
+      us: "One plan connecting your website, tools and campaigns",
     },
     {
       label: "Ownership",
-      them: "Content locked inside a subscription",
-      us: "You own the code, the content and the domain",
+      them: "Unclear responsibility when something breaks",
+      us: "A named delivery lead and documented handover",
     },
     {
-      label: "Support",
-      them: "Ticket queues and account managers",
-      us: "A direct line to the person who built it",
+      label: "Technology",
+      them: "Tools chosen because a supplier already sells them",
+      us: "Platforms selected for fit, security and maintainability",
+    },
+    {
+      label: "Accessibility",
+      them: "Checked at the end, if it is checked at all",
+      us: "WCAG 2.2 AA considered from structure through release",
+    },
+    {
+      label: "Launch",
+      them: "A handover document and a support queue",
+      us: "Training, monitoring and practical post-launch support",
+    },
+    {
+      label: "Commercial value",
+      them: "Outputs measured by pages and posts",
+      us: "Work tied to customer tasks and organisational outcomes",
     },
   ],
 } as const;
@@ -219,7 +242,7 @@ export const comparison = {
 export const auditChecks = [
   {
     title: "Accessibility",
-    copy: "Automated and manual checks against WCAG 2.2 AA — contrast, keyboard use, screen-reader labelling and focus order.",
+    copy: "Automated and manual checks against WCAG 2.2 AA: contrast, keyboard use, screen-reader labelling and focus order.",
   },
   {
     title: "Speed & Core Web Vitals",
@@ -231,7 +254,7 @@ export const auditChecks = [
   },
   {
     title: "Content & signposting",
-    copy: "Can visitors complete the top tasks — book, enquire, find opening hours — without phoning you?",
+    copy: "Can visitors complete the top tasks: book, enquire, find opening hours: without phoning you?",
   },
   {
     title: "Local search",
@@ -243,32 +266,32 @@ export const auditChecks = [
   },
 ] as const;
 
-/** Why organisations choose an independent studio. */
+/** Why organisations choose Flutterly as a delivery partner. */
 export const whyFlutterly = [
   {
-    title: "One accountable person",
-    copy: "You work directly with the designer-engineer who builds your site — no account managers, hand-offs or juniors learning on your project.",
+    title: "Clear accountability",
+    copy: "You work with the person responsible for planning and delivering the work, with decisions and next steps documented throughout.",
   },
   {
     title: "Built for the people you serve",
-    copy: "Patients in a hurry, relatives researching care at midnight, staff updating a page between tasks — every decision starts with them.",
+    copy: "Patients in a hurry, relatives researching care at night, staff updating information between tasks: every decision starts with a real user need.",
   },
   {
-    title: "Evidence over promises",
-    copy: "A free, written audit before any commitment, live client sites you can visit today, and measurable targets for speed and accessibility.",
+    title: "Evidence before claims",
+    copy: "Review live client work, explore complete sample sites and start with a written audit before making a larger commitment.",
   },
 ] as const;
 
 export const processSteps = [
-  ["Listen", "Understand your organisation, the people you serve and what the website must achieve before touching the interface."],
-  ["Shape", "Structure, plain-English content and a visual language you can react to early — as working pages, not static mock-ups."],
-  ["Build", "Engineer the site in small, reviewable slices with accessibility and speed checked throughout, not bolted on at the end."],
-  ["Ship", "Launch, measure and keep improving — the same person who built it stays responsible for it."],
+  ["Discover", "Clarify the operational problem, the people affected and the result the project needs to deliver."],
+  ["Plan", "Agree scope, responsibilities, content, technology and success measures before delivery begins."],
+  ["Deliver", "Build in reviewable stages, testing accessibility, security and performance as the work progresses."],
+  ["Support", "Launch, train the team and keep improving the service with a clear route for ongoing help."],
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────
-   Packages — presented without hard prices (quotes are tailored
-   after a short scoping call, mirroring how the studio works).
+   Packages: presented without hard prices (quotes are tailored
+   after a short scoping call, mirroring how the company works).
    ───────────────────────────────────────────────────────────── */
 
 export type Package = {
@@ -285,7 +308,7 @@ export const packages: readonly Package[] = [
     strap: "A focused site, done properly",
     copy: "For a practice or home that needs a clear, accessible website without ongoing extras.",
     features: [
-      "Custom design and build — no themes or page builders",
+      "Custom design and build: no themes or page builders",
       "Up to eight core pages, written for plain English",
       "WCAG 2.2 AA accessibility target with statement",
       "UK-served hosting, SSL and daily backups set up",
@@ -325,7 +348,7 @@ export const packages: readonly Package[] = [
 export const packagesFaq = [
   {
     q: "How much does a website cost?",
-    a: "It depends on the size of the site and how much ongoing help you want, so every quote is prepared individually after a short call. You will have a written, fixed quote within two working days — no surprises afterwards.",
+    a: "It depends on the size of the site and how much ongoing help you want, so every quote is prepared individually after a short call. You will have a written, fixed quote within two working days: no surprises afterwards.",
   },
   {
     q: "How long does a build take?",
@@ -333,15 +356,15 @@ export const packagesFaq = [
   },
   {
     q: "Do we own the website?",
-    a: "Yes. The code, the content and the domain are yours. If you ever move on, everything is handed over cleanly — nothing is held hostage in a subscription.",
+    a: "Yes. The code, the content and the domain are yours. If you ever move on, everything is handed over cleanly: nothing is held hostage in a subscription.",
   },
   {
     q: "Can you move our existing content across?",
-    a: "Yes. Migration from an existing site — including rewriting pages into plain English where useful — is part of every build.",
+    a: "Yes. Migration from an existing site: including rewriting pages into plain English where useful: is part of every build.",
   },
   {
     q: "Will the website be accessible?",
-    a: "Every build targets WCAG 2.2 AA, is tested with keyboards and screen readers, and ships with an accessibility statement — the standard expected of NHS and public-sector websites.",
+    a: "Every build targets WCAG 2.2 AA, is tested with keyboards and screen readers, and ships with an accessibility statement: the standard expected of NHS and public-sector websites.",
   },
   {
     q: "Where is the website hosted?",
@@ -350,7 +373,7 @@ export const packagesFaq = [
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────
-   Sector pages — GP practices and care homes share one template.
+   Sector pages: GP practices and care homes share one template.
    ───────────────────────────────────────────────────────────── */
 
 export type Sector = {
@@ -361,6 +384,7 @@ export type Sector = {
   eyebrow: string;
   headline: string;
   intro: string;
+  heroCtaLabel: string;
   heroPoints: readonly string[];
   heroImage: { src: string; alt: string; tint: string };
   /** The hosted sample site built for this sector. */
@@ -390,19 +414,20 @@ export const gpSector: Sector = {
   accent: "nhs",
   metaTitle: "GP practice website design",
   metaDescription:
-    "Accessible, fast websites for GP practices and surgeries — clear NHS signposting, self-serve patient journeys and WCAG 2.2 AA accessibility, designed, built and supported in the UK.",
+    "Accessible, fast websites for GP practices and surgeries: clear NHS signposting, self-serve patient journeys and WCAG 2.2 AA accessibility, designed, built and supported in the UK.",
   eyebrow: "Websites for GP practices",
   headline: "A practice website that works as hard as your reception team",
   intro:
-    "Patients arrive stressed, in a hurry and often on an old phone. Your website should get them to the right service in seconds — and quietly take routine requests off the phones.",
+    "Patients arrive stressed, in a hurry and often on an old phone. Your website should get them to the right service in seconds: and quietly take routine requests off the phones.",
+  heroCtaLabel: "Discuss your practice website",
   heroPoints: [
     "Signposting to the NHS App, online consultations and prescriptions",
     "WCAG 2.2 AA accessibility, tested with real assistive technology",
-    "Fast on any connection — no page builders, no plugin stack",
+    "Fast on any connection: no page builders, no plugin stack",
   ],
   heroImage: {
     src: "/demos/gp-home.png",
-    alt: "The Willowbrook Surgery sample website — a task-first GP practice homepage built by Flutterly",
+    alt: "The Willowbrook Surgery sample website: a task-first GP practice homepage built by Flutterly",
     tint: "var(--bl-nhs-soft)",
   },
   demo: {
@@ -410,7 +435,7 @@ export const gpSector: Sector = {
     name: "Willowbrook Surgery",
     image: "/demos/gp-home.png",
     imageAlt: "Homepage of the Willowbrook Surgery sample website",
-    copy: "Willowbrook Surgery is a fictional practice built and hosted by Flutterly so you can judge the standard for yourself — click around it on any device, exactly as your patients would.",
+    copy: "Willowbrook Surgery is a fictional practice built and hosted by Flutterly so you can judge the standard for yourself: click around it on any device, exactly as your patients would.",
     points: [
       "Task-first homepage that answers before patients call",
       "NHS 111 and emergency signposting on every visit",
@@ -420,7 +445,7 @@ export const gpSector: Sector = {
   features: [
     {
       title: "Signposting that comes first",
-      copy: "Appointments, prescriptions, online consultations and the NHS App sit front and centre, so the most common journeys take one tap — not a hunt through menus.",
+      copy: "Appointments, prescriptions, online consultations and the NHS App sit front and centre, so the most common journeys take one tap: not a hunt through menus.",
     },
     {
       title: "Accessible to every patient",
@@ -432,7 +457,7 @@ export const gpSector: Sector = {
     },
     {
       title: "Easy for your team to update",
-      copy: "Opening hours, closures, staff changes and practice news are simple, structured edits — no page builder to wrestle with between patients.",
+      copy: "Opening hours, closures, staff changes and practice news are simple, structured edits: no page builder to wrestle with between patients.",
     },
     {
       title: "Fast on every connection",
@@ -440,7 +465,7 @@ export const gpSector: Sector = {
     },
     {
       title: "Dependable by design",
-      copy: "UK-served hosting, SSL, daily backups and no plugins to patch — the boring things handled properly, permanently.",
+      copy: "UK-served hosting, SSL, daily backups and no plugins to patch: the boring things handled properly, permanently.",
     },
   ],
   compliance: {
@@ -450,13 +475,13 @@ export const gpSector: Sector = {
     points: [
       "WCAG 2.2 AA target, aligned with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018",
       "A published accessibility statement, kept up to date",
-      "Content patterns informed by the NHS service manual — plain English, task-first structure",
+      "Content patterns informed by the NHS service manual: plain English, task-first structure",
       "Clear privacy information and cookie behaviour that respects patients",
     ],
   },
   included: [
     "Discovery call and content review with your practice team",
-    "Custom design — no NHS-lookalike template refits",
+    "Custom design: no NHS-lookalike template refits",
     "All core pages: services, appointments, prescriptions, registration, team, news",
     "Self-serve patient guidance for your most common requests",
     "Accessibility statement and privacy pages",
@@ -465,15 +490,15 @@ export const gpSector: Sector = {
   faqs: [
     {
       q: "Can you work with our existing appointment and prescription systems?",
-      a: "Yes. The website links patients directly into the systems you already use — online consultation tools, the NHS App, your prescription ordering route — with clear guidance around each one.",
+      a: "Yes. The website links patients directly into the systems you already use: online consultation tools, the NHS App, your prescription ordering route: with clear guidance around each one.",
     },
     {
       q: "Do you meet NHS accessibility requirements?",
-      a: "Every build targets WCAG 2.2 AA — the level referenced by the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 — and ships with a maintained accessibility statement.",
+      a: "Every build targets WCAG 2.2 AA: the level referenced by the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018: and ships with a maintained accessibility statement.",
     },
     {
       q: "Can the practice update the site itself?",
-      a: "Yes. Day-to-day content — news, alerts, opening hours, team changes — is editable by your staff after a short training session, with Flutterly available for anything bigger.",
+      a: "Yes. Day-to-day content: news, alerts, opening hours, team changes: is editable by your staff after a short training session, with Flutterly available for anything bigger.",
     },
     {
       q: "What happens to our current website?",
@@ -481,7 +506,7 @@ export const gpSector: Sector = {
     },
   ],
   ctaTitle: "Ready to give your patients a better front door?",
-  ctaCopy: "Start with the free audit — a written review of your current site against NHS accessibility and content standards — or get in touch for a quote.",
+  ctaCopy: "Start with the free audit: a written review of your current site against NHS accessibility and content standards: or get in touch for a quote.",
 };
 
 export const careSector: Sector = {
@@ -489,11 +514,12 @@ export const careSector: Sector = {
   accent: "amber",
   metaTitle: "Care home website design",
   metaDescription:
-    "Warm, trustworthy websites for care homes — designed for families researching care, with CQC transparency, admissions journeys and recruitment built in. UK design and support.",
+    "Warm, trustworthy websites for care homes: designed for families researching care, with CQC transparency, admissions journeys and recruitment built in. UK design and support.",
   eyebrow: "Websites for care homes",
   headline: "The first visit to your home happens online",
   intro:
-    "Choosing care is emotional and often urgent. Families need warmth they can feel and facts they can check — long before they pick up the phone.",
+    "Choosing care is emotional and often urgent. Families need warmth they can feel and facts they can check: long before they pick up the phone.",
+  heroCtaLabel: "Discuss your care website",
   heroPoints: [
     "Designed for relatives researching care, often late at night",
     "CQC rating and inspection report presented openly",
@@ -509,7 +535,7 @@ export const careSector: Sector = {
     name: "Oakfield House",
     image: "/demos/care-home.png",
     imageAlt: "Homepage of the Oakfield House sample website",
-    copy: "Oakfield House is a fictional care home built and hosted by Flutterly so you can judge the standard for yourself — warm, honest and clear, the way families need it to be.",
+    copy: "Oakfield House is a fictional care home built and hosted by Flutterly so you can judge the standard for yourself: warm, honest and clear, the way families need it to be.",
     points: [
       "Families-first structure with fees published plainly",
       "CQC-style transparency, front and centre",
@@ -519,11 +545,11 @@ export const careSector: Sector = {
   features: [
     {
       title: "Families first",
-      copy: "The site is structured around the questions relatives actually ask — what care you provide, what it feels like, what it costs and what happens next.",
+      copy: "The site is structured around the questions relatives actually ask: what care you provide, what it feels like, what it costs and what happens next.",
     },
     {
       title: "Show the home honestly",
-      copy: "Photo-led pages for rooms, gardens, food and daily life do more reassuring than any brochure copy — presented beautifully and loading fast.",
+      copy: "Photo-led pages for rooms, gardens, food and daily life do more reassuring than any brochure copy: presented beautifully and loading fast.",
     },
     {
       title: "CQC transparency",
@@ -539,23 +565,23 @@ export const careSector: Sector = {
     },
     {
       title: "News families can follow",
-      copy: "Activities, events and seasonal moments are easy for your team to post — showing life in the home and reassuring relatives at a distance.",
+      copy: "Activities, events and seasonal moments are easy for your team to post: showing life in the home and reassuring relatives at a distance.",
     },
   ],
   compliance: {
     eyebrow: "Trust & transparency",
     title: "Built for the scrutiny care providers are under",
-    copy: "Families cross-check everything — your CQC report, your fees page, your reviews. The website is designed so what they find confirms what you told them.",
+    copy: "Families cross-check everything: your CQC report, your fees page, your reviews. The website is designed so what they find confirms what you told them.",
     points: [
       "CQC rating displayed with a direct link to the full report",
       "Fee and funding information presented clearly, as CQC guidance encourages",
-      "Accessible to older relatives — WCAG 2.2 AA target, larger type, clear contrast",
+      "Accessible to older relatives: WCAG 2.2 AA target, larger type, clear contrast",
       "Visiting, safeguarding and complaints information easy to locate",
     ],
   },
   included: [
     "Discovery visit or call with your home’s team",
-    "Warm, custom design shaped around your home — never a template",
+    "Warm, custom design shaped around your home: never a template",
     "Pages for care types, rooms, life at the home, team, fees and FAQs",
     "Photography direction, or careful use of the photos you have",
     "Enquiry, visit-booking and recruitment journeys",
@@ -564,7 +590,7 @@ export const careSector: Sector = {
   faqs: [
     {
       q: "Can you build one site for a small group of homes?",
-      a: "Yes. A group site with a consistent design and a distinct, findable section for each home works well — and each home can still hold its own place in local search results.",
+      a: "Yes. A group site with a consistent design and a distinct, findable section for each home works well: and each home can still hold its own place in local search results.",
     },
     {
       q: "We don’t have good photography. Does that matter?",
@@ -572,7 +598,7 @@ export const careSector: Sector = {
     },
     {
       q: "Can the site help with recruitment as well as occupancy?",
-      a: "Yes. Careers pages with real staff voices and a simple application route are part of the build — the same website that reassures families also persuades carers.",
+      a: "Yes. Careers pages with real staff voices and a simple application route are part of the build: the same website that reassures families also persuades carers.",
     },
     {
       q: "Who updates the website once it is live?",
@@ -580,10 +606,144 @@ export const careSector: Sector = {
     },
   ],
   ctaTitle: "Ready to give families a better first visit?",
-  ctaCopy: "Start with the free audit — a written review of how your current site serves families — or get in touch to talk about your home.",
+  ctaCopy: "Start with the free audit: a written review of how your current site serves families: or get in touch to talk about your home.",
 };
 
 export const sectors = [gpSector, careSector] as const;
+
+/* ─────────────────────────────────────────────────────────────
+   Business technology and campaign services.
+   ───────────────────────────────────────────────────────────── */
+
+export type BusinessService = {
+  slug: string;
+  metaTitle: string;
+  metaDescription: string;
+  eyebrow: string;
+  headline: string;
+  intro: string;
+  heroCtaLabel: string;
+  heroPoints: readonly string[];
+  platforms: readonly string[];
+  outcomes: readonly { title: string; copy: string }[];
+  processTitle: string;
+  process: readonly [string, string][];
+  idealTitle: string;
+  idealFor: readonly string[];
+  note: string;
+  ctaTitle: string;
+  ctaCopy: string;
+};
+
+export const businessEmailService: BusinessService = {
+  slug: "business-email",
+  metaTitle: "Business email & collaboration setup",
+  metaDescription:
+    "Professional business email and collaboration setup for Microsoft 365, Outlook, Google Workspace, Zoho and comparable platforms, including domains, migration, security and staff handover.",
+  eyebrow: "Business email & collaboration",
+  headline: "Professional email, calendars and files set up properly",
+  intro:
+    "Flutterly configures the business technology your team uses every day, from email on your own domain to shared calendars, documents and secure account access.",
+  heroCtaLabel: "Discuss your setup",
+  heroPoints: [
+    "Microsoft 365 and Outlook, Google Workspace, Zoho and comparable platforms",
+    "Domain records, mailboxes, shared addresses, calendars and file access",
+    "Migration planning, multi-factor authentication and staff handover",
+  ],
+  platforms: ["Microsoft 365", "Outlook", "Google Workspace", "Zoho Mail", "Teams", "Google Drive"],
+  outcomes: [
+    {
+      title: "A credible business identity",
+      copy: "Use reliable email on your own domain with consistent names, signatures and shared addresses for enquiries, referrals or recruitment.",
+    },
+    {
+      title: "A setup that matches the team",
+      copy: "Accounts, groups, shared mailboxes, calendars and permissions are configured around roles rather than copied from a generic checklist.",
+    },
+    {
+      title: "Security from the first sign-in",
+      copy: "Multi-factor authentication, recovery options, administrator access and essential domain records are put in place and documented.",
+    },
+    {
+      title: "A controlled migration",
+      copy: "Existing mail, contacts and calendars are assessed before any move, with a clear changeover plan designed to minimise disruption.",
+    },
+  ],
+  processTitle: "A controlled change, clearly handed over.",
+  process: [
+    ["Assess", "Review your domain, current provider, team structure and any data that needs to move."],
+    ["Configure", "Set up the chosen platform, accounts, security, shared resources and domain records."],
+    ["Move", "Migrate agreed data and coordinate the changeover with clear instructions for each user."],
+    ["Handover", "Test the setup, document administrator access and show the team how to use the essentials."],
+  ],
+  idealTitle: "Organisations that need the setup to keep working after handover.",
+  idealFor: [
+    "New organisations moving beyond personal email accounts",
+    "Teams changing provider or consolidating scattered services",
+    "GP practices and care providers improving shared communications",
+    "Organisations that need a documented, supportable setup",
+  ],
+  note:
+    "Platform subscriptions are purchased in your organisation’s name. Flutterly advises on fit, completes the agreed setup and leaves you with clear ownership and administrator access.",
+  ctaTitle: "Make business communication easier to manage",
+  ctaCopy:
+    "Share your current setup and team size. Flutterly will recommend a practical route, explain the costs and confirm the work before anything changes.",
+};
+
+export const socialMediaService: BusinessService = {
+  slug: "social-media-marketing",
+  metaTitle: "Social media marketing & campaign support",
+  metaDescription:
+    "Professional social media campaign and content support for GP practices, care homes and other organisations, including planning, content systems, publishing support and reporting.",
+  eyebrow: "Social media marketing",
+  headline: "Campaigns and content connected to a real business goal",
+  intro:
+    "Flutterly helps organisations plan and deliver useful social content for awareness, recruitment and service communication, with every campaign connected to a clear audience and next step.",
+  heroCtaLabel: "Discuss a campaign",
+  heroPoints: [
+    "Campaign planning around awareness, enquiries, recruitment or service updates",
+    "Practical content calendars, reusable formats and publishing support",
+    "Clear reporting that improves the next campaign instead of chasing vanity metrics",
+  ],
+  platforms: ["LinkedIn", "Facebook", "Instagram", "Campaign planning", "Content systems", "Performance review"],
+  outcomes: [
+    {
+      title: "A reason to publish",
+      copy: "Each content stream has an audience, purpose and next action, so the feed supports the organisation rather than becoming another task to fill.",
+    },
+    {
+      title: "A workable content system",
+      copy: "Themes, formats, approvals and a realistic calendar help your team publish consistently without relying on last-minute ideas.",
+    },
+    {
+      title: "Campaigns that connect",
+      copy: "Social posts, landing pages and enquiry routes are planned together so attention has somewhere useful to go.",
+    },
+    {
+      title: "Responsible communication",
+      copy: "Healthcare and care-sector content is shaped around consent, privacy, accessibility and appropriate organisational review.",
+    },
+  ],
+  processTitle: "A repeatable campaign, built to improve.",
+  process: [
+    ["Focus", "Choose the audience and business outcome, then review existing channels, content and constraints."],
+    ["Plan", "Define campaign messages, content formats, landing journeys, responsibilities and approvals."],
+    ["Produce", "Create the agreed assets and copy, or give your team a practical system for producing them."],
+    ["Improve", "Review useful signals such as qualified visits, enquiries or applications and adjust the next cycle."],
+  ],
+  idealTitle: "Organisations that need purposeful content without a full in-house team.",
+  idealFor: [
+    "Care homes building trust with families and prospective staff",
+    "GP practices communicating service changes and health campaigns",
+    "Organisations promoting a launch, event, vacancy or new service",
+    "Teams that need a repeatable content process rather than ad hoc posting",
+  ],
+  note:
+    "Support is scoped around useful outcomes and responsible publishing. Flutterly does not promise follower counts, guaranteed reach or instant sales.",
+  ctaTitle: "Turn social activity into a planned campaign",
+  ctaCopy:
+    "Tell Flutterly what you need people to understand or do. You will get a clear recommendation covering the channel, content and landing journey.",
+};
 
 /* ─────────────────────────────────────────────────────────────
    Footer
@@ -600,29 +760,28 @@ export const footerColumns = [
     ],
   },
   {
-    title: "Studio",
+    title: "Company",
     links: [
-      { label: "Services", href: "/#services" },
+      { label: "All services", href: "/services" },
       { label: "Work", href: "/#work" },
       { label: "Process", href: "/#process" },
       { label: "About", href: "/#about" },
     ],
   },
   {
-    title: "Projects",
+    title: "More services",
     links: [
-      { label: "Pembroke Care", href: "https://pembroke-care.vercel.app/" },
-      { label: "Sandbourne", href: "https://sandbournecare.co.uk/" },
-      { label: "Greenmead", href: "https://www.greenmead.co.uk/" },
-      { label: "JJ Paper", href: "https://www.jjpaperessential.com/" },
-      { label: "Sipli", href: "/projects/sipli" },
-      { label: "Artling", href: "/projects/artling" },
+      { label: "Business email setup", href: "/business-email" },
+      { label: "Social media marketing", href: "/social-media-marketing" },
+      { label: "Web & mobile projects", href: "/#work" },
+      { label: "Ongoing support", href: "/packages" },
     ],
   },
   {
     title: "Resources",
     links: [
       { label: "Accessibility statement", href: "/accessibility" },
+      { label: "Cookie policy", href: "/cookie-policy" },
       { label: "Artling privacy", href: "/projects/artling/privacy-policy" },
       { label: "Sipli privacy", href: "/projects/sipli/privacy-policy" },
       { label: "GitHub", href: "https://github.com/its-me-anoop" },

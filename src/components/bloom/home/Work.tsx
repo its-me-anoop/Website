@@ -27,7 +27,7 @@ function WorkCard({
         >
           <Image
             src={project.image}
-            alt={`${project.name} — ${project.type}`}
+            alt={`${project.name}: ${project.type}`}
             fill
             sizes="(max-width: 1024px) 92vw, 560px"
             className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
@@ -76,12 +76,13 @@ export function Work() {
     <section id="work" className="border-t border-bl-line bg-bl-band-2">
       <div className="mx-auto w-full max-w-[1240px] scroll-mt-24 px-5 py-20 sm:px-8 sm:py-28">
         <SectionHead
-          eyebrow="Selected work"
+          align="left"
+          eyebrow="Delivery evidence"
           title={[
-            { text: "Live products." },
-            { text: "Real organisations.", tone: "muted" },
+            { text: "Work you can" },
+            { text: "open, use and assess.", tone: "muted" },
           ]}
-          copy="Client sites you can visit today and products you can download — the evidence behind every promise on this page."
+          copy="Live client sites and working products show how Flutterly handles different sectors, technologies and user needs."
         />
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-12">
           {projects.map((project, i) => (

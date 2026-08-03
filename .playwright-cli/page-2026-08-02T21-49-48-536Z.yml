@@ -1,0 +1,43 @@
+- generic [active] [ref=f4e1]:
+  - link "Skip to main content" [ref=f4e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f4e4]:
+    - complementary [ref=f4e5]:
+      - link "F Flutterly GP Websites" [ref=f4e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f4e7]: F
+        - text: Flutterly GP Websites
+      - generic [ref=f4e8]:
+        - paragraph [ref=f4e9]: Secure workspace access
+        - paragraph [ref=f4e10]: Your practice website, in the right hands.
+        - paragraph [ref=f4e11]: Sign in to update patient-facing information, review drafts and publish changes with a clear record of who did what.
+      - paragraph [ref=f4e12]: Public practice websites remain open. This space is only for authorised staff.
+    - main [ref=f4e13]:
+      - generic [ref=f4e14]:
+        - generic [ref=f4e15]:
+          - heading "Sign in to the CMS" [level=1] [ref=f4e21]
+          - paragraph [ref=f4e22]: Use your practice or Flutterly account to manage a workspace. Your role decides which changes you can make.
+        - generic [ref=f4e23]:
+          - paragraph [ref=f4e28]:
+            - strong [ref=f4e29]: Local demonstration only.
+            - text: It uses no real account, must not be enabled in production, and is not suitable for real practice content.
+          - generic [ref=f4e30]:
+            - generic [ref=f4e31]:
+              - text: Demo practice
+              - combobox "Demo practice" [ref=f4e32]:
+                - option "Willowbrook Surgery" [selected]
+                - option "Meadow View Medical Centre"
+                - option "Kingsway Family Practice"
+            - generic [ref=f4e33]:
+              - text: Try a role
+              - generic [ref=f4e34]: This lets you check what each role can do in the local demonstration.
+              - combobox "Try a role This lets you check what each role can do in the local demonstration." [ref=f4e35]:
+                - option "Practice administrator" [selected]
+                - option "Editor"
+                - option "Viewer"
+                - option "Flutterly platform administrator"
+          - button "Start local demo session" [ref=f4e36]
+        - link "Back to Flutterly" [ref=f4e39] [cursor=pointer]:
+          - /url: /
+  - button "Open Next.js Dev Tools" [ref=f4e45] [cursor=pointer]
+  - alert [ref=f4e49]

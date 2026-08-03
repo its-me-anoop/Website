@@ -1,20 +1,22 @@
 "use client";
 
-import { Sparkles, UserRound, Users } from "lucide-react";
+import { ClipboardCheck, UserRoundCheck, UsersRound } from "lucide-react";
 import { whyFlutterly } from "../data";
 import { Rise, SectionHead } from "../primitives";
 
-const icons = [UserRound, Users, Sparkles] as const;
+const icons = [UserRoundCheck, UsersRound, ClipboardCheck] as const;
 
 export function Why() {
   return (
     <section className="mx-auto w-full max-w-[1240px] px-5 py-20 sm:px-8 sm:py-28">
       <SectionHead
-        eyebrow="Why Flutterly"
+        align="left"
+        eyebrow="Why organisations choose Flutterly"
         title={[
-          { text: "Small studio." },
-          { text: "Serious standards.", tone: "muted" },
+          { text: "Company-level delivery." },
+          { text: "Direct accountability.", tone: "muted" },
         ]}
+        copy="A focused delivery company can move quickly without losing the standards, documentation and ownership serious organisations expect."
       />
       <div className="mt-14 grid gap-5 md:grid-cols-3">
         {whyFlutterly.map((item, i) => {

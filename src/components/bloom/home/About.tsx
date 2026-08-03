@@ -23,7 +23,7 @@ export function About() {
       </Rise>
 
       <div>
-        <Eyebrow className="mb-4">About the studio</Eyebrow>
+        <Eyebrow className="mb-4">Leadership &amp; accountability</Eyebrow>
         <RevealWords
           as="h2"
           className="max-w-[560px] text-[clamp(1.9rem,4.6vw,3rem)] font-medium leading-[1.08] tracking-[-0.03em]"
@@ -34,15 +34,14 @@ export function About() {
         />
         <Rise delay={0.15}>
           <p className="mt-5 max-w-[540px] text-[16px] leading-relaxed text-bl-ink-soft">
-            Flutterly is the independent studio of {site.founder} — a designer
-            and engineer in Reading, UK. No account managers, no hand-offs, no
-            outsourcing: every website and app is designed, built and supported
-            by the same pair of hands.
+            Flutterly Limited is a digital delivery company led by {site.founder},
+            a designer and engineer in Reading, UK. Clients have a direct line to
+            the person accountable for scope, technical decisions and delivery.
           </p>
           <p className="mt-4 max-w-[540px] text-[16px] leading-relaxed text-bl-ink-soft">
-            That matters most in healthcare, where a website is often the first
-            —&nbsp;and sometimes the only — way a patient or family reaches
-            you. It has to work for everyone, every time.
+            The company works across websites, products, business systems and
+            campaigns, with particular experience in the high-trust journeys used
+            by patients, families, staff and local communities.
           </p>
         </Rise>
         <Rise delay={0.25} className="mt-8 flex flex-wrap gap-3">

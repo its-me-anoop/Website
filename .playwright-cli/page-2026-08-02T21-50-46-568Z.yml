@@ -1,0 +1,157 @@
+- generic [active] [ref=f2e1]:
+  - link "Skip to main content" [ref=f2e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f2e4]:
+    - banner [ref=f2e5]:
+      - generic [ref=f2e7]:
+        - link "KF Kingsway Family Practice Established care for Kingsway, Parkside and the city centre" [ref=f2e8] [cursor=pointer]:
+          - /url: /practice/kingsway
+          - generic [ref=f2e9]: KF
+          - generic [ref=f2e10]:
+            - generic [ref=f2e11]: Kingsway Family Practice
+            - generic [ref=f2e12]: Established care for Kingsway, Parkside and the city centre
+        - link "0118 496 0246" [ref=f2e13] [cursor=pointer]:
+          - /url: tel:+441184960246
+      - navigation "Primary" [ref=f2e17]:
+        - list [ref=f2e18]:
+          - listitem [ref=f2e19]:
+            - link "Home" [ref=f2e20] [cursor=pointer]:
+              - /url: /practice/kingsway
+          - listitem [ref=f2e21]:
+            - link "Appointments" [ref=f2e22] [cursor=pointer]:
+              - /url: /practice/kingsway/appointments
+          - listitem [ref=f2e23]:
+            - link "Prescriptions" [ref=f2e24] [cursor=pointer]:
+              - /url: /practice/kingsway/prescriptions
+          - listitem [ref=f2e25]:
+            - link "Services" [ref=f2e26] [cursor=pointer]:
+              - /url: /practice/kingsway#services
+          - listitem [ref=f2e27]:
+            - link "Contact" [ref=f2e28] [cursor=pointer]:
+              - /url: /practice/kingsway#contact
+    - main [ref=f2e29]:
+      - generic [ref=f2e31]:
+        - img "Accessible seating in the Kingsway Family Practice waiting room" [ref=f2e32]
+        - generic [ref=f2e33]:
+          - paragraph [ref=f2e34]: Serving our neighbourhood since 1986
+          - heading "Care that knows your community" [level=1] [ref=f2e35]
+          - paragraph [ref=f2e36]: Find the care, support and practical information you need from a practice team rooted in Kingsway and Parkside.
+          - generic [ref=f2e37]:
+            - link "Find the right service" [ref=f2e38] [cursor=pointer]:
+              - /url: "#services"
+            - link "Check opening times" [ref=f2e41] [cursor=pointer]:
+              - /url: "#contact"
+      - region "Practice notices" [ref=f2e42]:
+        - article [ref=f2e43]:
+          - generic [ref=f2e46]:
+            - heading "Autumn flu clinics" [level=2] [ref=f2e47]
+            - paragraph [ref=f2e48]: We will contact eligible patients when appointments are ready to book. Please wait for your invitation.
+      - region [ref=f2e49]:
+        - heading "Common requests" [level=2] [ref=f2e50]
+        - generic [ref=f2e51]:
+          - link [ref=f2e52] [cursor=pointer]:
+            - /url: https://www.nhs.uk/nhs-app/
+            - heading "Appointments" [level=3] [ref=f2e55]
+            - paragraph [ref=f2e56]: Request routine care or find urgent help.
+          - link [ref=f2e61] [cursor=pointer]:
+            - /url: https://www.nhs.uk/nhs-app/
+            - heading "Repeat prescriptions" [level=3] [ref=f2e65]
+            - paragraph [ref=f2e66]: Order safely through the NHS App.
+          - link [ref=f2e71] [cursor=pointer]:
+            - /url: https://111.nhs.uk/
+            - heading "Health advice" [level=3] [ref=f2e76]
+            - paragraph [ref=f2e77]: Check symptoms and get trusted NHS information.
+      - generic [ref=f2e83]:
+        - generic [ref=f2e84]:
+          - paragraph [ref=f2e85]: Care at the practice
+          - heading "Services and clinics" [level=2] [ref=f2e86]
+          - paragraph [ref=f2e87]: Clear information about the care available and how to access it.
+        - generic [ref=f2e88]:
+          - article [ref=f2e89]:
+            - heading "Care with your usual team" [level=3] [ref=f2e90]
+            - generic [ref=f2e91]:
+              - paragraph [ref=f2e92]: We will try to book you with a clinician who knows your care.
+              - paragraph [ref=f2e93]: Tell reception if continuity matters for your request and we will explain the next available options.
+          - article [ref=f2e94]:
+            - heading "Children and family health" [level=3] [ref=f2e95]
+            - generic [ref=f2e96]:
+              - paragraph [ref=f2e97]: Routine childhood care, vaccinations and support for parents and carers.
+              - paragraph [ref=f2e98]: Our nursing team can help you understand which clinic or local service is right for your family.
+          - article [ref=f2e99]:
+            - heading "Support for carers" [level=3] [ref=f2e100]
+            - generic [ref=f2e101]:
+              - paragraph [ref=f2e102]: Tell us if you care for someone, so we can record it and signpost support.
+              - paragraph [ref=f2e103]: We can discuss practical support, annual health checks and local carer services.
+      - generic [ref=f2e104]:
+        - generic [ref=f2e105]:
+          - heading "Opening times" [level=2] [ref=f2e110]
+          - generic [ref=f2e111]:
+            - generic [ref=f2e112]:
+              - term [ref=f2e113]: Monday
+              - definition [ref=f2e114]: 8:00am – 6:30pm
+            - generic [ref=f2e115]:
+              - term [ref=f2e116]: Tuesday
+              - definition [ref=f2e117]: 8:00am – 6:30pm
+            - generic [ref=f2e118]:
+              - term [ref=f2e119]: Wednesday
+              - definition [ref=f2e120]: 8:00am – 6:30pm
+            - generic [ref=f2e121]:
+              - term [ref=f2e122]: Thursday
+              - definition [ref=f2e123]: 8:00am – 6:30pm
+            - generic [ref=f2e124]:
+              - term [ref=f2e125]: Friday
+              - definition [ref=f2e126]: 8:00am – 6:30pm
+            - generic [ref=f2e127]:
+              - term [ref=f2e128]: Saturday
+              - definition [ref=f2e129]:
+                - text: Closed
+                - generic [ref=f2e130]: Use NHS 111 when we are closed
+            - generic [ref=f2e131]:
+              - term [ref=f2e132]: Sunday
+              - definition [ref=f2e133]:
+                - text: Closed
+                - generic [ref=f2e134]: Use NHS 111 when we are closed
+        - generic [ref=f2e135]:
+          - heading "Find and contact us" [level=2] [ref=f2e140]
+          - generic [ref=f2e141]: 8 Kingsway Parade, Parkside, ReadingRG3 7YY
+          - link "0118 496 0246" [ref=f2e142] [cursor=pointer]:
+            - /url: tel:+441184960246
+          - paragraph [ref=f2e145]: The practice is beside Kingsway Library, with a drop-off point outside and step-free access from Parkside Road.
+          - paragraph [ref=f2e147]: Step-free entrance, quiet waiting area, hearing loop and interpreter support are available on request.
+      - generic [ref=f2e152]:
+        - heading "Meet the practice team" [level=2] [ref=f2e159]
+        - generic [ref=f2e160]:
+          - article [ref=f2e161]:
+            - heading "Dr Emily Hughes" [level=3] [ref=f2e162]
+            - paragraph [ref=f2e163]: GP Partner
+            - paragraph [ref=f2e164]: Special interests in family medicine and older people’s care.
+          - article [ref=f2e165]:
+            - heading "Noah Grant" [level=3] [ref=f2e166]
+            - paragraph [ref=f2e167]: Care Navigator
+            - paragraph [ref=f2e168]: Helps patients find the right local or practice service first time.
+    - contentinfo [ref=f2e169]:
+      - generic [ref=f2e170]:
+        - generic [ref=f2e171]:
+          - heading "Kingsway Family Practice" [level=2] [ref=f2e172]
+          - paragraph [ref=f2e173]: 8 Kingsway Parade, Parkside, ReadingRG3 7YY
+        - generic [ref=f2e174]:
+          - heading "When we are closed" [level=2] [ref=f2e175]
+          - paragraph [ref=f2e176]: Use NHS 111 online or call 111. In a life-threatening emergency, call 999.
+        - generic [ref=f2e177]:
+          - heading "About this website" [level=2] [ref=f2e178]
+          - paragraph [ref=f2e179]: Fictional practice and demo content only. No patient services or clinical systems are connected.
+      - paragraph [ref=f2e181]: Custom GP website platform demonstration by Flutterly Limited.
+  - button "Open Next.js Dev Tools" [ref=f2e187] [cursor=pointer]
+  - alert [ref=f2e191]
+  - region "Cookie preferences" [ref=f2e192]:
+    - generic [ref=f2e193]:
+      - generic [ref=f2e194]:
+        - paragraph [ref=f2e195]: Privacy choices
+        - heading "This site currently uses no analytics or marketing cookies" [level=2] [ref=f2e196]
+        - paragraph [ref=f2e197]: We store your choice in this browser so we do not ask on every visit. You can accept optional categories, reject them, or review the plain-language details first.
+        - link "Read the cookie policy" [ref=f2e198] [cursor=pointer]:
+          - /url: /cookie-policy
+      - generic [ref=f2e199]:
+        - button "Accept all" [ref=f2e200]
+        - button "Reject non-essential" [ref=f2e201]
+        - button "Manage preferences" [ref=f2e202]

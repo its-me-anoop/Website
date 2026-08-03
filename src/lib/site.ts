@@ -1,5 +1,5 @@
 /**
- * Single source of truth for site-wide constants — consumed by layout
+ * Single source of truth for site-wide constants: consumed by layout
  * metadata, JSON-LD structured data, the sitemap and the footer so SEO
  * details never drift between files.
  */
@@ -8,10 +8,10 @@ export const site = {
   name: "Anoop Jose",
   legalName: "Flutterly Ltd",
   studio: "Flutterly",
-  tagline: "App & Web Developer",
-  role: "Developer & Designer · Founder of Flutterly",
+  tagline: "Digital Delivery Company",
+  role: "Founder & Digital Delivery Lead at Flutterly Limited",
   description:
-    "Flutterly is an independent product studio in Reading, UK — designing and building accessible websites for GP practices and care homes, plus web and mobile products with Next.js, SwiftUI and Flutter.",
+    "Flutterly Limited is a digital delivery company in Reading, UK, building accessible websites and digital products, setting up business email and collaboration, and supporting social media campaigns for GP practices, care homes and other organisations.",
   email: "anoop@flutterly.co.uk",
   founder: "Anoop Jose",
   locale: "en_GB",
