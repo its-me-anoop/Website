@@ -1,10 +1,14 @@
 # Demo-site CMS — schema-validated content layer
 
-The two demo sites (`/demo/gp-practice`, `/demo/care-home`) are fed by a
-file-based CMS: JSON content under `content/`, Zod schemas as the contract,
-and typed loaders that fail the build with a readable message when an edit
-breaks a rule. Design spec: `docs/superpowers/specs/2026-08-04-gp-cms-design.md`.
-Research behind the content model: `docs/research/`.
+The five demo sites (`/demo/gp-practice`, `/demo/care-home`,
+`/demo/dental-practice`, `/demo/pharmacy`, `/demo/physio-clinic`) are fed
+by a file-based CMS: JSON content under `content/`, Zod schemas as the
+contract, and typed loaders that fail the build with a readable message
+when an edit breaks a rule. Design specs:
+`docs/superpowers/specs/2026-08-04-gp-cms-design.md` and
+`2026-08-04-three-demos-design.md`. Research behind the content models:
+`docs/research/` (NHS/GP checklist, plus sector reports and per-demo
+blueprints for dental, pharmacy and physio).
 
 ## Layout
 
@@ -24,8 +28,20 @@ content/
     faqs.json           self-serve answers
     accessibility.json  statutory statement sections (PSBAR Reg 7 + GDS shape)
   care-home/            Oakfield House: home/care/life/families/careers.json
+  dental-practice/      Kennet Bridge Dental: practice, fees-nhs (one edit
+                        each April), fees-private, treatments, new-patients,
+                        urgent, team, complaints, accessibility
+  pharmacy/             Willowbrook Pharmacy: pharmacy (incl. the legal/
+                        GPhC footer block), home, pharmacy-first, services
+                        (funding: nhs-free | private-paid), prescriptions,
+                        team, feedback, accessibility
+  physio-clinic/        Forbury Physiotherapy: clinic, home, conditions,
+                        treatments, first-appointment, pricing, team,
+                        trust, accessibility
 src/lib/cms/
-  index.ts              public API: loadGpContent(), loadCareContent()
+  index.ts              public API: loadGpContent(), loadCareContent(),
+                        loadDentalContent(), loadPharmacyContent(),
+                        loadPhysioContent()
   schemas/              Zod schemas — one export per collection
   load.ts               readCollection(): parse + readable errors
   gp.ts, care.ts        loaders with derived data

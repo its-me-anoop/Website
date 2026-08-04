@@ -1,6 +1,6 @@
 # Three new demo sites — Design
 
-**Date:** 2026-08-04 · **Status:** Complete — awaiting user approval.
+**Date:** 2026-08-04 · **Status:** Approved and implemented.
 Sector research: `docs/research/sector-{dental,pharmacy,physio}.md`;
 per-demo blueprints: `docs/research/blueprint-{dental,pharmacy,physio}.md`.
 

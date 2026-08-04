@@ -1,6 +1,6 @@
 # Flutterly — Design Context
 
-Three scoped design systems coexist. Never leak tokens across scopes.
+Six scoped design systems coexist. Never leak tokens across scopes.
 
 ## 1. Bloom (marketing: home, sector pages, packages, audit)
 
@@ -41,6 +41,19 @@ NHS-service-manual flavoured, deliberately familiar to NHS patients:
   background tints and icons instead; no gradient text; no pure #000/#fff
   pairings for large surfaces (NHS palette colours are exempt as brand
   colours).
+
+## 4–6. New sector demos (2026-08)
+
+- **Dental — "Kennet Bridge"** (`/demo/dental-practice`, `.demo-dental-root`,
+  `--ddt-*`): porcelain canvas, graphite ink, petrol actions, sand fee
+  bands. System stack; hierarchy by weight. Quietly premium.
+- **Pharmacy — "Willowbrook"** (`/demo/pharmacy`, `.demo-pharm-root`,
+  `--dph-*`): white + mint, deep pharmacy-green actions, NHS-blue service
+  badges, amber seasonal notices. Task-first; same fictional village as
+  the GP demo. GPhC footer regulatory block on every page.
+- **Physio — "Forbury"** (`/demo/physio-clinic`, `.demo-physio-root`,
+  `--dpy-*`): warm paper, slate bands, coral actions, Space Grotesk
+  display (`.dpy-display`). Athletic editorial, oversized condition index.
 
 ## Imagery (demos)
 
