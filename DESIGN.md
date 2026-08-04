@@ -13,6 +13,10 @@ entrances, reduced-motion fallbacks. `.bloom-root` scope.
 
 See docs/DESIGN-SYSTEM.md. Light editorial system, system font stacks.
 
+Demo content is CMS-fed: JSON under `content/`, Zod-validated by
+`src/lib/cms` at build time (see docs/CMS.md). Pages never hardcode
+practice facts — edit the JSON, not the JSX.
+
 ## 3. Demo GP — "Willowbrook" (`/demo/gp-practice`, `.demo-gp-root`)
 
 NHS-service-manual flavoured, deliberately familiar to NHS patients:

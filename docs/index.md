@@ -12,6 +12,10 @@ pages run the light "Porcelain" system with Framer Motion.
   structure, signature moves, and the motion system.
 - [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — tokens,
   primitives, motion, and accessibility rules for case-study pages.
+- [Demo-site CMS](./CMS.md) — schema-validated content layer feeding
+  the GP and care-home demos (`content/` + `src/lib/cms/`).
+- [Research](./research/) — NHS standards checklist, GP-website supplier
+  comparison, exemplar analysis, and the Willowbrook gap analysis.
 
 ## Architecture at a glance
 
@@ -51,7 +55,9 @@ src/
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint |
 | `npx vitest run` | Unit/component tests |
-| `npm run test:browser` | Headless-browser audit of every route |
+| `npm run cms:validate` | Validate all shipped demo content against the schemas |
+| `npm run test:browser` | Headless-browser audit of every route (server on :3100) |
+| `npm run test:a11y` | axe-core WCAG 2.2 A/AA audit of every route (server on :3100) |
 
 ## SEO
 
