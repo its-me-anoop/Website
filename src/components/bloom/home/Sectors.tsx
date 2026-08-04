@@ -1,7 +1,8 @@
 "use client";
 
 import { HeartHandshake, Stethoscope } from "lucide-react";
-import { sectorCards } from "../data";
+import Link from "next/link";
+import { moreSamples, sectorCards } from "../data";
 import { BtnLink, CheckItem, Rise, SectionHead } from "../primitives";
 
 const accents = {
@@ -81,6 +82,33 @@ export function Sectors() {
           );
         })}
       </div>
+
+      {/* Further sample sites — a quiet list, not another card grid. */}
+      <Rise className="mt-10">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-bl-muted">
+          More sample sites
+        </p>
+        <ul className="mt-4 divide-y divide-bl-line border-y border-bl-line">
+          {moreSamples.map((sample) => (
+            <li key={sample.href}>
+              <Link
+                href={sample.href}
+                className="group flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-4"
+              >
+                <span className="text-[15.5px] font-semibold text-bl-ink underline-offset-4 group-hover:underline">
+                  {sample.name}
+                  <span className="ml-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-bl-teal">
+                    {sample.sector}
+                  </span>
+                </span>
+                <span className="max-w-[520px] text-[14px] text-bl-muted">
+                  {sample.note}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Rise>
     </section>
   );
 }

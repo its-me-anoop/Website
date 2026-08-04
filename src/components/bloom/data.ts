@@ -177,6 +177,28 @@ export const sectorCards = [
   },
 ] as const;
 
+/** Compact strip of further hosted sample sites below the sector cards. */
+export const moreSamples = [
+  {
+    href: "/demo/dental-practice",
+    name: "Kennet Bridge Dental",
+    sector: "Dental practice",
+    note: "NHS bands, private fees and nervous-patient care done properly",
+  },
+  {
+    href: "/demo/pharmacy",
+    name: "Willowbrook Pharmacy",
+    sector: "Community pharmacy",
+    note: "Pharmacy First, repeat prescriptions and honest opening hours",
+  },
+  {
+    href: "/demo/physio-clinic",
+    name: "Forbury Physiotherapy",
+    sector: "Physio clinic",
+    note: "Public pricing, first-visit guidance and the trust page most clinics skip",
+  },
+] as const;
+
 /** “Never a page builder” comparison table. */
 export const comparison = {
   them: "Typical template builders",

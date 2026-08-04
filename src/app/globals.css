@@ -508,6 +508,120 @@ body:has(.demo-gp-root) > a[href="#main"]:focus {
   border-radius: 2px;
 }
 
+/* "Kennet Bridge Dental" — quietly premium mixed NHS/private dental
+   demo: porcelain-warm canvas, graphite ink, deep petrol actions,
+   warm sand fee bands. System stack only — hierarchy by weight. */
+.demo-dental-root {
+  --ddt-canvas: #fbfaf8;
+  --ddt-surface: #ffffff;
+  --ddt-sand: #f3ede2;
+  --ddt-ink: #20262b;
+  --ddt-ink-soft: #4d565e; /* AA on canvas, surface and sand */
+  --ddt-line: #ddd8d0;
+  --ddt-petrol: #0e6b78; /* AA as text on canvas; white-on-petrol AA */
+  --ddt-petrol-deep: #0a505a;
+  --ddt-petrol-tint: #e7f0f1;
+  --ddt-urgent: #a52a1a; /* urgent-care emphasis, AA on canvas */
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  background: var(--ddt-canvas);
+  color: var(--ddt-ink);
+}
+body:has(.demo-dental-root) > a[href="#main"]:focus {
+  background: #0e6b78;
+  color: #ffffff;
+  border-radius: 6px;
+}
+.demo-dental-root ::selection {
+  background: var(--ddt-petrol);
+  color: #fff;
+}
+.demo-dental-root :focus-visible {
+  outline: 3px solid var(--ddt-petrol);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--ddt-canvas);
+  border-radius: 2px;
+}
+
+/* "Willowbrook Pharmacy" — task-first community pharmacy demo:
+   white canvas, mint panels, deep pharmacy-green actions, the same
+   village as the GP demo. System stack. */
+.demo-pharm-root {
+  --dph-canvas: #ffffff;
+  --dph-mint: #edf4ee;
+  --dph-ink: #1d2a22;
+  --dph-ink-soft: #47584c; /* AA on canvas and mint */
+  --dph-line: #d7ded8;
+  --dph-green: #046b3b; /* AA as text on canvas; white-on-green AA */
+  --dph-green-deep: #03562f;
+  --dph-green-tint: #e0efe4;
+  --dph-nhs: #005eb8; /* NHS-service badge colour, text-safe on white */
+  --dph-amber-tint: #fff7e6;
+  --dph-amber-line: #e8c56d;
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  background: var(--dph-canvas);
+  color: var(--dph-ink);
+}
+body:has(.demo-pharm-root) > a[href="#main"]:focus {
+  background: #046b3b;
+  color: #ffffff;
+  border-radius: 6px;
+}
+.demo-pharm-root ::selection {
+  background: var(--dph-green);
+  color: #fff;
+}
+.demo-pharm-root :focus-visible {
+  outline: 3px solid var(--dph-green-deep);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #ffffff;
+  border-radius: 2px;
+}
+
+/* "Forbury Physiotherapy" — athletic-editorial private physio demo:
+   warm paper canvas, slate-navy ink, coral actions, Space Grotesk
+   display over the system stack. */
+.demo-physio-root {
+  --dpy-canvas: #faf7f2;
+  --dpy-surface: #ffffff;
+  --dpy-tint: #f1ece3;
+  --dpy-ink: #232a33;
+  --dpy-ink-soft: #4e5866; /* AA on canvas, surface and tint */
+  --dpy-line: #ded8cd;
+  --dpy-coral: #c2452f; /* AA as text on canvas; white-on-coral AA */
+  --dpy-coral-deep: #a03623;
+  --dpy-coral-tint: #f9e9e5;
+  --dpy-slate: #232a33; /* dark bands */
+  --dpy-slate-ink: #ece7de; /* text on slate */
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  background: var(--dpy-canvas);
+  color: var(--dpy-ink);
+}
+.demo-physio-root .dpy-display {
+  font-family: var(--font-grotesk-v), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+body:has(.demo-physio-root) > a[href="#main"]:focus {
+  background: #c2452f;
+  color: #ffffff;
+  border-radius: 6px;
+}
+.demo-physio-root ::selection {
+  background: var(--dpy-coral);
+  color: #fff;
+}
+.demo-physio-root :focus-visible {
+  outline: 3px solid var(--dpy-coral-deep);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--dpy-canvas);
+  border-radius: 2px;
+}
+
 /* Faint clinical grid for the hero backdrop. */
 .bl-grid {
   background-image:
