@@ -26,7 +26,12 @@ export default function FeesPage() {
           Correct as of {feesNhs.effectiveFromDisplay}. {feesNhs.englandOnlyNote}
         </p>
 
-        <div className="mt-6 overflow-x-auto">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="NHS dental charge bands"
+          className="mt-6 overflow-x-auto"
+        >
           <table className="w-full min-w-[560px] border-collapse text-base">
             <caption className="sr-only">
               NHS dental charge bands, correct as of {feesNhs.effectiveFromDisplay}
@@ -109,7 +114,12 @@ export default function FeesPage() {
             before any private treatment starts.
           </p>
 
-          <div className="mt-6 overflow-x-auto">
+          <div
+            tabIndex={0}
+            role="region"
+            aria-label="Private treatment price ranges"
+            className="mt-6 overflow-x-auto"
+          >
             <table className="w-full min-w-[560px] border-collapse text-base">
               <caption className="sr-only">Private treatment price ranges</caption>
               <thead>

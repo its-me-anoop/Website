@@ -237,7 +237,7 @@ export function PhysioIndex({
           <>
             <span
               aria-hidden
-              className="dpy-display shrink-0 text-[clamp(1.6rem,4vw,2.6rem)] font-bold leading-none text-[var(--dpy-coral)]"
+              className="dpy-display shrink-0 text-[clamp(1.6rem,4vw,2.6rem)] font-bold leading-none text-[var(--dpy-coral-tint)]"
             >
               {number}
             </span>

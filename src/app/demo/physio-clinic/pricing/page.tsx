@@ -22,7 +22,12 @@ export default function PricingPage() {
 
       <PhysioSection>
         <h2 className="sr-only">Session prices</h2>
-        <div className="overflow-x-auto">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="Session prices"
+          className="overflow-x-auto"
+        >
           <table className="w-full min-w-[520px] border-collapse text-base">
             <caption className="sr-only">
               Session types with duration, price and what&rsquo;s included

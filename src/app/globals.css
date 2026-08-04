@@ -591,7 +591,7 @@ body:has(.demo-pharm-root) > a[href="#main"]:focus {
   --dpy-ink: #232a33;
   --dpy-ink-soft: #4e5866; /* AA on canvas, surface and tint */
   --dpy-line: #ded8cd;
-  --dpy-coral: #c2452f; /* AA as text on canvas; white-on-coral AA */
+  --dpy-coral: #b8402c; /* AA as text on canvas AND the tint panels; white-on-coral AA */
   --dpy-coral-deep: #a03623;
   --dpy-coral-tint: #f9e9e5;
   --dpy-slate: #232a33; /* dark bands */

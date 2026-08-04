@@ -26,7 +26,12 @@ export default function PharmacyFirstPage() {
         <h2 className="mt-10 text-2xl font-bold tracking-tight">
           The seven conditions we treat
         </h2>
-        <div className="mt-4 overflow-x-auto">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="Pharmacy First conditions and ages"
+          className="mt-4 overflow-x-auto"
+        >
           <table className="w-full min-w-[560px] border-collapse text-base">
             <caption className="sr-only">
               Pharmacy First conditions treated at Willowbrook Pharmacy, with age
