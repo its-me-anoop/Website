@@ -1,0 +1,30 @@
+{
+  "reviewed": "2026-08-04",
+  "blocks": [
+    {
+      "title": "Physiotherapist is a protected title",
+      "copy": "By law, only people registered with the Health and Care Professions Council (HCPC) can call themselves a physiotherapist. Every clinician at Forbury Physiotherapy is HCPC-registered — you can check any of our team on the HCPC register at hcpc-uk.org."
+    },
+    {
+      "title": "We're regulated by the HCPC, not the CQC",
+      "copy": "Physiotherapy clinics like ours are regulated by the HCPC, which registers and holds individual clinicians to account — not the Care Quality Commission (CQC), which inspects settings such as hospitals and care homes. There's no CQC rating to show you, because a private physiotherapy clinic isn't the kind of service the CQC inspects."
+    },
+    {
+      "title": "What Chartered membership means",
+      "copy": "The Chartered Society of Physiotherapy (CSP) is the professional body for physiotherapists. Some of our clinicians are Chartered members — you'll see it noted next to their name on our Team page. It's a mark of professional membership held by the individual, not something a clinic can claim on its own behalf."
+    },
+    {
+      "title": "Professional indemnity insurance",
+      "copy": "Every clinician here holds professional indemnity insurance, covering you in the unlikely event that something goes wrong with your treatment."
+    },
+    {
+      "title": "DBS checks",
+      "copy": "All clinical staff hold an up-to-date Disclosure and Barring Service (DBS) check, renewed regularly as part of our safeguarding practice."
+    },
+    {
+      "title": "Data protection",
+      "copy": "We're registered with the Information Commissioner's Office (ICO reference ZA000000 — sample number for demonstration) and handle your health records in line with UK GDPR."
+    }
+  ],
+  "verifyRegisterCopy": "You can check any HCPC-registered physiotherapist, including our team, on the HCPC register at hcpc-uk.org — search by name or registration number."
+}

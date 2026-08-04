@@ -1,0 +1,34 @@
+{
+  "reviewed": "2026-08-04",
+  "name": "Willowbrook Pharmacy",
+  "strap": "Your independent pharmacy on Meadow Lane, two doors from the surgery",
+  "phone": "0118 496 0567",
+  "email": "hello@willowbrookpharmacy.example",
+  "address": "3 Meadow Lane, Willowbrook, Reading RG1 9ZZ",
+  "neighbourhood": "Willowbrook",
+  "establishedCopy": "Family-run on Meadow Lane since 2004. We've watched Willowbrook grow up around us, and most of our regulars still call us by name — not a queue number.",
+  "openingTimes": [
+    { "day": "Monday", "morning": "9am – 1pm", "afternoon": "2pm – 6pm" },
+    { "day": "Tuesday", "morning": "9am – 1pm", "afternoon": "2pm – 6pm" },
+    { "day": "Wednesday", "morning": "9am – 1pm", "afternoon": "2pm – 6pm" },
+    { "day": "Thursday", "morning": "9am – 1pm", "afternoon": "2pm – 6pm" },
+    { "day": "Friday", "morning": "9am – 1pm", "afternoon": "2pm – 6pm" },
+    { "day": "Saturday", "morning": "9am – 1pm", "afternoon": "Closed" },
+    { "day": "Sunday", "morning": "Closed", "afternoon": "Closed" }
+  ],
+  "bankHolidayCopy": "We're closed on Sundays and bank holidays. If we're shut, NHS 111 can tell you which pharmacy nearby is open — the rota changes, so it's always worth checking rather than guessing.",
+  "deliveryOffered": true,
+  "deliveryCopy": "Free local delivery for repeat prescriptions to Willowbrook addresses, usually the same day your medicines are ready. Ask at the counter or mention it when you order to set it up.",
+  "consultationRoomCopy": "Just off the shop floor, our private consultation room is where Pharmacy First assessments, New Medicine Service reviews and contraception consultations happen — the same privacy you'd expect from any healthcare appointment, not a curtained-off corner.",
+  "legal": {
+    "entityName": "Willowbrook Pharmacy (Reading) Ltd",
+    "companyNumber": "09000123",
+    "gphcPremisesNumber": "9000001",
+    "sampleNote": "Company number and GPhC premises number shown are sample data for this demonstration site."
+  },
+  "superintendent": {
+    "name": "Priya Chandrasekaran",
+    "gphcNumber": "2000001",
+    "sampleNote": "Sample GPhC registration number for this demonstration site."
+  }
+}

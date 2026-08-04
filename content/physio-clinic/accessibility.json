@@ -1,0 +1,24 @@
+{
+  "reviewed": "2026-08-04",
+  "compliance": "This website aims to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA. We believe it is fully compliant, and treat any failure you find as a fault to fix, not feedback to file.",
+  "features": [
+    "Every page works with a keyboard alone, with a clear focus indicator",
+    "Text and background colours meet AA contrast standards",
+    "Content is written in plain English and structured with headings",
+    "The site works with screen readers and up to 400% text magnification",
+    "Every button and link is at least 24 by 24 pixels",
+    "Nothing on the site moves or changes unless you ask it to"
+  ],
+  "nonAccessible": [
+    "The \"Book an appointment\" and phone links on this sample site connect to pages and numbers within the demo rather than a live booking system — a real deployment would connect to your practice's own booking software, which carries its own accessibility statement.",
+    "There is no British Sign Language (BSL) interpreted video version of this website's content."
+  ],
+  "testing": "This statement was prepared on 4 August 2026. The site is checked with automated testing (axe-core) across every page on every build, and manually with keyboard-only navigation and screen-reader spot checks. It was last reviewed on 4 August 2026.",
+  "reporting": {
+    "copy": "If any part of this website is difficult to use with assistive technology — or you need information in a different format, such as large print or easy read — contact us and we will do our best to help within five working days.",
+    "email": "access@forburyphysio.example"
+  },
+  "enforcement": "The Equality and Human Rights Commission (EHRC) enforces the accessibility regulations that this statement follows. If you report a problem and are not happy with how we respond, contact the Equality Advisory and Support Service (EASS) at equalityadvisoryservice.com.",
+  "thirdParty": "This site links to the HCPC register and the Chartered Society of Physiotherapy (CSP) website to help you verify our clinicians. Those sites publish their own accessibility statements, which apply once you leave this site.",
+  "noOverlay": "We deliberately do not use an accessibility overlay or toolbar widget. These tools cannot make a website compliant on their own and often interfere with real assistive technology — accessibility is built into every page instead."
+}

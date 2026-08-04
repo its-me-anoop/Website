@@ -1,0 +1,30 @@
+{
+  "reviewed": "2026-08-04",
+  "members": [
+    {
+      "name": "Priya Chandrasekaran",
+      "role": "Superintendent Pharmacist",
+      "gphcNumber": "2000001",
+      "sampleNote": "Sample GPhC registration number for this demonstration site.",
+      "bio": "Priya has run the pharmacy since 2011 and leads on Pharmacy First and our contraception service. As superintendent, she's legally responsible for everything clinical that happens here — from the medicines on our shelves to how we train the team."
+    },
+    {
+      "name": "Tom Ndiaye",
+      "role": "Pharmacist",
+      "gphcNumber": "2000045",
+      "sampleNote": "Sample GPhC registration number for this demonstration site.",
+      "bio": "Tom job-shares the clinical rota with Priya and has a particular interest in the New Medicine Service — he says the two-week check-in catches more problems than people expect."
+    },
+    {
+      "name": "Amara Osei",
+      "role": "Dispensing Assistant",
+      "bio": "Amara's usually the friendly face at the dispensary hatch, checking prescriptions in and getting them ready. She's trained in accuracy checking, so she often spots queries before they reach the pharmacist."
+    },
+    {
+      "name": "Grace Whitfield",
+      "role": "Pharmacy Assistant",
+      "bio": "Grace works the counter and coordinates our local delivery rounds — if your prescription hasn't turned up, she's the one to ask."
+    }
+  ],
+  "responsiblePharmacistExplainer": "By law, a pharmacy can only open if a Responsible Pharmacist is on duty. They're personally accountable for the safe running of the pharmacy while it's open — checking dispensing, giving advice, and stepping in on anything clinical. We display the name of the pharmacist currently responsible on a notice in the pharmacy itself, as the law requires; it changes through the day as our pharmacists' shifts change, so we don't try to keep an online version current — the in-store notice is always the accurate one."
+}

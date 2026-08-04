@@ -1,0 +1,34 @@
+{
+  "reviewed": "2026-08-04",
+  "hero": {
+    "title": "Get back to what you'd rather be doing",
+    "copy": "Hands-on assessment and treatment for back, joint and sports injuries. Most people are seen within the week — treatment usually starts on the first visit."
+  },
+  "primaryTasks": [
+    {
+      "title": "Book an appointment",
+      "copy": "Call or email us — no GP referral needed, and most people are seen within the week.",
+      "href": "/demo/physio-clinic/first-appointment"
+    },
+    {
+      "title": "See our prices",
+      "copy": "Clear, published prices for every session — no need to call and ask.",
+      "href": "/demo/physio-clinic/pricing"
+    },
+    {
+      "title": "What to expect at your first visit",
+      "copy": "The four stages of a first appointment, and what to wear and bring.",
+      "href": "/demo/physio-clinic/first-appointment"
+    }
+  ],
+  "conditionsTeaser": [
+    { "label": "Back and neck pain, including sciatica", "slug": "back-and-neck-pain" },
+    { "label": "Shoulder problems, including frozen shoulder", "slug": "shoulder-problems" },
+    { "label": "Knee, hip and ankle problems" },
+    { "label": "Sports injuries", "slug": "sports-injuries" },
+    { "label": "Post-surgery rehabilitation", "slug": "post-surgery-rehabilitation" },
+    { "label": "Headaches and dizziness (vestibular)", "slug": "headaches-and-dizziness" },
+    { "label": "Women's and pelvic health", "slug": "womens-and-pelvic-health" },
+    { "label": "Arthritis and long-term pain management", "slug": "arthritis-and-long-term-pain" }
+  ]
+}

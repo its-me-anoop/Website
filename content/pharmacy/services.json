@@ -1,0 +1,85 @@
+{
+  "reviewed": "2026-08-04",
+  "services": [
+    {
+      "slug": "new-medicine-service",
+      "title": "New Medicine Service",
+      "funding": "nhs-free",
+      "walkIn": false,
+      "usesConsultationRoom": true,
+      "seasonal": false,
+      "summary": "Extra support in your first few weeks on a new long-term medicine, so it has the best chance of working for you.",
+      "details": "If you've just been prescribed a medicine for a condition such as asthma, high blood pressure, type 2 diabetes, or — since October 2025 — depression, ask us to enrol you. We'll arrange a short chat about two to three weeks in, in the consultation room, to see how you're getting on and sort out any side effects or worries before they become a reason to stop taking it. Free on the NHS."
+    },
+    {
+      "slug": "nhs-blood-pressure-checks",
+      "title": "NHS blood pressure checks",
+      "funding": "nhs-free",
+      "walkIn": true,
+      "usesConsultationRoom": false,
+      "seasonal": false,
+      "summary": "Free walk-in blood pressure checks for anyone aged 40 and over — no appointment, no referral.",
+      "details": "High blood pressure rarely has symptoms, so most people who have it don't know. If you're 40 or over, pop in any time we're open for a free check at the counter — it takes a few minutes. If your reading is high, we'll explain what happens next and can refer you to your GP with the results already in hand."
+    },
+    {
+      "slug": "pharmacy-contraception-service",
+      "title": "Pharmacy Contraception Service",
+      "funding": "nhs-free",
+      "walkIn": false,
+      "usesConsultationRoom": true,
+      "seasonal": false,
+      "summary": "Start or continue the contraceptive pill without a GP appointment — a private, judgement-free consultation.",
+      "details": "Our trained pharmacists can assess you and supply an ongoing or first supply of the pill under this NHS service, in our consultation room. It's a confidential conversation, on your terms, and free on the NHS. Ask at the counter and we'll fit you in as soon as we can."
+    },
+    {
+      "slug": "seasonal-flu-and-covid-vaccinations",
+      "title": "Seasonal flu & COVID-19 vaccinations",
+      "funding": "nhs-free",
+      "walkIn": true,
+      "usesConsultationRoom": false,
+      "seasonal": true,
+      "summary": "Vaccinations usually run September to March — free on the NHS if you're in an eligible group, or bookable privately if not.",
+      "details": "Eligibility for free NHS flu and COVID-19 vaccinations changes a little each year, so check current guidance nearer the time — we'll have posters up and can tell you at the counter. If you're not in an eligible group but still want protection, we can usually offer the flu vaccine as a paid private service instead."
+    },
+    {
+      "slug": "discharge-medicines-service",
+      "title": "After a hospital stay",
+      "funding": "nhs-free",
+      "walkIn": false,
+      "usesConsultationRoom": true,
+      "seasonal": false,
+      "summary": "If the hospital sends your discharge details to us, we'll check your new medicines fit safely with everything else you take.",
+      "details": "Medicines often change during a hospital stay, and that's a well-known point where mistakes can creep in. Under the NHS Discharge Medicines Service, hospitals can refer you to us on discharge; we'll go through the changes with you in the consultation room, sort out anything that doesn't add up, and make sure your regular repeat list is up to date. Free on the NHS."
+    },
+    {
+      "slug": "emergency-supply-of-medicines",
+      "title": "Emergency supply of medicines",
+      "funding": "private-paid",
+      "walkIn": true,
+      "usesConsultationRoom": false,
+      "seasonal": false,
+      "summary": "Run out of a regular medicine and can't reach your GP in time? We can often help, within limits set by law.",
+      "details": "If you've been prescribed a medicine before and genuinely can't get an urgent supply from your GP — over a bank holiday weekend, say — a pharmacist can use professional judgement to supply a limited amount to tide you over. Some medicines can't be supplied this way, and there's usually a small professional fee unless you've been referred to us through NHS 111's urgent medicine service, in which case it's free. Ask at the counter and we'll talk it through."
+    },
+    {
+      "slug": "travel-health-advice",
+      "title": "Travel health advice & vaccinations",
+      "funding": "private-paid",
+      "walkIn": false,
+      "usesConsultationRoom": true,
+      "seasonal": false,
+      "summary": "Destination-specific advice and travel vaccinations, booked ahead so we have time to order what you need.",
+      "details": "Tell us where and when you're travelling — ideally six to eight weeks before you go — and we'll talk through recommended vaccinations and general health advice for your trip in the consultation room. This is a private service with prices set out when you book, since NHS funding doesn't cover most travel vaccines."
+    },
+    {
+      "slug": "weight-management-support",
+      "title": "Weight-management support",
+      "funding": "private-paid",
+      "walkIn": false,
+      "usesConsultationRoom": true,
+      "seasonal": false,
+      "summary": "A private, structured conversation about your weight and health goals, with treatment available following a full consultation where clinically appropriate.",
+      "details": "This is a confidential, one-to-one consultation in our private room — not a walk-up sale. We'll talk through your health history and goals, and any treatment we might offer is discussed and agreed with you individually, in line with current clinical guidance. We do not advertise or supply weight-loss medicines without an appropriate consultation."
+    }
+  ]
+}

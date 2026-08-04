@@ -1,0 +1,32 @@
+{
+  "reviewed": "2026-08-04",
+  "name": "Kennet Bridge Dental",
+  "strap": "NHS and private dentistry by the Kennet",
+  "phone": "0118 496 0234",
+  "emergencyPhone": "0118 496 0234",
+  "address": "14 Bridge Row, Reading RG1 9YX",
+  "openingTimes": [
+    { "day": "Monday", "hours": "8:30am to 5:30pm" },
+    { "day": "Tuesday", "hours": "8:30am to 5:30pm" },
+    { "day": "Wednesday", "hours": "8:30am to 5:30pm" },
+    { "day": "Thursday", "hours": "8:30am to 5:30pm" },
+    { "day": "Friday", "hours": "8:30am to 4:30pm" },
+    { "day": "Saturday", "hours": "Closed — call NHS 111 for urgent care" },
+    { "day": "Sunday", "hours": "Closed — call NHS 111 for urgent care" }
+  ],
+  "access": [
+    "Free two-hour parking directly outside on Bridge Row, with a dropped kerb at the practice door",
+    "Step-free access throughout the ground floor, including both surgeries and the waiting room",
+    "A hearing loop at reception — just ask when you arrive",
+    "A five-minute walk from Reading rail and bus stations"
+  ],
+  "nhsAndPrivate": "Kennet Bridge Dental is a mixed practice. Most routine care — check-ups, fillings, extractions — is available on the NHS. We also offer private treatment where you want more choice: in materials, in appointment times, or in treatments the NHS does not fund, such as aligners, implants or whitening. We tell you which category every treatment falls into, and what it costs, before you agree to anything.",
+  "acceptingNhsPatients": true,
+  "cqc": {
+    "status": "Good",
+    "ratingText": "Rated Good by the Care Quality Commission",
+    "reportUrl": "https://www.cqc.org.uk/",
+    "sampleNote": "Sample rating shown for demonstration — this is not a real CQC inspection result."
+  },
+  "outOfHoursCopy": "When the practice is closed, call NHS 111. They can advise you and, if you need to be seen, direct you to the local urgent dental service. For a genuine emergency — uncontrolled bleeding, or swelling that affects your breathing or swallowing — go straight to A&E."
+}

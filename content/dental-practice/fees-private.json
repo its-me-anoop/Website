@@ -1,0 +1,42 @@
+{
+  "reviewed": "2026-08-04",
+  "items": [
+    {
+      "treatment": "Composite bonding (per tooth)",
+      "priceFrom": "£180",
+      "priceTo": "£350",
+      "note": "Depends on how many teeth you want treated and how much reshaping each one needs."
+    },
+    {
+      "treatment": "Clear aligners (full course)",
+      "priceFrom": "£2,200",
+      "priceTo": "£3,800",
+      "note": "Depends on how much your teeth need to move and how many aligners that takes."
+    },
+    {
+      "treatment": "Single dental implant",
+      "priceFrom": "£2,400",
+      "priceTo": "£3,200",
+      "note": "Covers the implant, abutment and crown. Does not include bone grafting, which we quote separately if you need it."
+    },
+    {
+      "treatment": "Professional teeth whitening",
+      "priceFrom": "£280",
+      "priceTo": "£450",
+      "note": "Home kits and in-surgery whitening are priced differently — we confirm which you are booking before you pay."
+    },
+    {
+      "treatment": "Porcelain veneer (per tooth)",
+      "priceFrom": "£450",
+      "priceTo": "£650"
+    },
+    {
+      "treatment": "Private crown",
+      "priceFrom": "£550",
+      "priceTo": "£850",
+      "note": "Material choice — porcelain, zirconia or gold — changes the price; we agree this with you first."
+    }
+  ],
+  "guaranteeCopy": "We guarantee private fillings, crowns and bridges for 2 years, and implants for 5 years, against failure through no fault of your own. Ask your dentist to confirm the guarantee for your treatment in writing before it starts.",
+  "planCopy": "If you would rather pay a fixed amount each month, ask about our private membership plan. It covers two check-ups and a scale and polish a year, plus a discount on any further treatment, for a set monthly fee."
+}

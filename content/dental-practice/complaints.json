@@ -1,0 +1,20 @@
+{
+  "reviewed": "2026-08-04",
+  "intro": "We hope you never need to complain about the care you receive here — but if something goes wrong, we want to know, and we want to put it right.",
+  "practiceStep": "Talk to us first. Ask to speak to the practice manager, in person or by phone, or put your complaint in writing. We aim to acknowledge you within 3 working days and give a full response within 10 working days.",
+  "nhsRoute": {
+    "steps": [
+      "Raise it with the practice manager, as above",
+      "If you are not satisfied with our response, contact NHS England or your Integrated Care Board (ICB) — they commission our NHS dental services and can review how we handled your complaint"
+    ],
+    "escalation": "If you remain unhappy after we and the ICB have investigated, you can ask the Parliamentary and Health Service Ombudsman (PHSO) to review your case. The PHSO is independent of the NHS and free to use."
+  },
+  "privateRoute": {
+    "steps": [
+      "Raise it with the practice manager, as above",
+      "If you are not satisfied with our response, contact the Dental Complaints Service"
+    ],
+    "escalation": "The Dental Complaints Service is free, independent and must be contacted within 12 months of the treatment, or 12 months of you realising something was wrong. They help resolve disputes about private treatment, including cost."
+  },
+  "gdcNote": "The General Dental Council (GDC) is not a complaints-handling body for routine care or billing disputes — it investigates serious fitness-to-practise concerns about a named individual. Use the NHS or private routes above first; the GDC is a last resort for conduct concerns, not day-to-day service complaints."
+}

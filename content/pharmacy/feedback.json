@@ -1,0 +1,20 @@
+{
+  "reviewed": "2026-08-04",
+  "howToRaise": [
+    {
+      "title": "Speak to us directly",
+      "copy": "Tell any member of the team, or ask to speak to the pharmacist. Most things — a mix-up, a wait longer than we'd like, a question about how we handled something — get sorted on the spot."
+    },
+    {
+      "title": "Put it in writing",
+      "copy": "Email hello@willowbrookpharmacy.example, or write to us at 3 Meadow Lane, Willowbrook, Reading RG1 9ZZ, for the attention of the superintendent pharmacist."
+    },
+    {
+      "title": "Ask for our complaints procedure",
+      "copy": "We can give you a printed copy of our full complaints procedure in store, or send you one, if you'd rather have it in writing before you decide how to raise something."
+    }
+  ],
+  "nhsServiceComplaintsRoute": "For NHS services we provide — Pharmacy First, the New Medicine Service, the Pharmacy Contraception Service, the Discharge Medicines Service, and NHS vaccinations — you can also raise a concern with NHS England or your local Integrated Care Board, who commission these services on the NHS's behalf. Ask us for their current contact details, or search \"NHS complaints\" on nhs.uk.",
+  "medicineSafetyCopy": "If you think a medicine or medical device has caused a side effect or safety problem, you can report it through the MHRA's Yellow Card scheme — the UK's national system for tracking medicine safety. Tell us and we'll help you report it in store, or you can report it yourself at yellowcard.mhra.gov.uk.",
+  "responseCommitment": "We aim to acknowledge every complaint within three working days and give you a full response within 20 working days — usually much sooner. If your concern is about a registered pharmacy professional's fitness to practise, you can also contact the General Pharmaceutical Council (GPhC), the regulator for pharmacies and pharmacy professionals in Great Britain."
+}

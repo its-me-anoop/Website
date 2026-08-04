@@ -1,0 +1,44 @@
+{
+  "reviewed": "2026-08-04",
+  "practitioners": [
+    {
+      "name": "Priya Anand",
+      "title": "Founder & Clinical Director",
+      "hcpcNumber": "PH184623",
+      "hcpcSampleNote": "Sample number for demonstration — verify any physiotherapist on the HCPC register at hcpc-uk.org.",
+      "cspMember": true,
+      "qualifications": [
+        { "award": "BSc (Hons) Physiotherapy", "institution": "University of Birmingham", "year": 2011 },
+        { "award": "MSc Sports Physiotherapy", "institution": "St Mary's University, Twickenham", "year": 2016 }
+      ],
+      "specialInterests": ["Sports injuries and return-to-running", "Complex, long-standing pain"],
+      "bio": "Priya founded Forbury Physiotherapy in 2019 after a decade working across NHS and elite sport settings. She's drawn to the trickier, long-standing problems that haven't responded to a first round of treatment elsewhere."
+    },
+    {
+      "name": "Daniel Okonkwo",
+      "title": "Senior Physiotherapist",
+      "hcpcNumber": "PH209157",
+      "hcpcSampleNote": "Sample number for demonstration — verify any physiotherapist on the HCPC register at hcpc-uk.org.",
+      "cspMember": true,
+      "qualifications": [
+        { "award": "BSc (Hons) Physiotherapy", "institution": "Coventry University", "year": 2015 },
+        { "award": "PG Cert Vestibular Rehabilitation", "institution": "University of Southampton", "year": 2020 }
+      ],
+      "specialInterests": ["Shoulder rehabilitation", "Headaches and vestibular (balance) problems"],
+      "bio": "Daniel joined the team in 2021, bringing a particular interest in shoulder rehabilitation and the dizziness and balance symptoms that often get missed elsewhere."
+    },
+    {
+      "name": "Freya Mitchell",
+      "title": "Physiotherapist",
+      "hcpcNumber": "PH231840",
+      "hcpcSampleNote": "Sample number for demonstration — verify any physiotherapist on the HCPC register at hcpc-uk.org.",
+      "cspMember": false,
+      "qualifications": [
+        { "award": "BSc (Hons) Physiotherapy", "institution": "Oxford Brookes University", "year": 2019 },
+        { "award": "PG Cert Pelvic Health Physiotherapy", "institution": "University of Bradford", "year": 2022 }
+      ],
+      "specialInterests": ["Women's and pelvic health", "Long-term pain management"],
+      "bio": "Freya treats women's and pelvic health alongside general musculoskeletal problems, with unhurried appointments and a private treatment room throughout."
+    }
+  ]
+}

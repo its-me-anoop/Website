@@ -1,0 +1,30 @@
+{
+  "reviewed": "2026-08-04",
+  "approaches": [
+    {
+      "title": "Assessment and diagnosis",
+      "copy": "A thorough, hands-on assessment of how you move, where you're restricted, and what's likely driving your symptoms — explained in plain English at your first visit.",
+      "whoItHelps": "Every new patient, and anyone returning after a change in their symptoms."
+    },
+    {
+      "title": "Manual therapy",
+      "copy": "Hands-on techniques — joint mobilisation, soft-tissue work and stretching — used to ease pain and restore movement.",
+      "whoItHelps": "Stiff joints, tight muscles, and the early, most uncomfortable stage of many injuries."
+    },
+    {
+      "title": "Exercise-based rehabilitation",
+      "copy": "A structured, progressive exercise programme built around your goals, taught in clinic and practised at home.",
+      "whoItHelps": "Building lasting strength and resilience — the core of most rehab plans here."
+    },
+    {
+      "title": "Acupuncture",
+      "copy": "Fine needles used alongside other treatment to help settle pain and muscle tension.",
+      "whoItHelps": "People who find it eases muscular pain as part of a wider treatment plan."
+    },
+    {
+      "title": "Sports massage",
+      "copy": "Focused soft-tissue massage to ease muscle tightness, aid recovery and support training load.",
+      "whoItHelps": "Athletes managing training load, and anyone with tight, overworked muscles."
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "reviewed": "2026-08-04",
+  "intro": "NHS Pharmacy First lets our pharmacists assess and treat seven common conditions — including prescribing medicines where appropriate — without you needing to see a GP first. For most of these conditions you can simply walk in and ask.",
+  "conditions": [
+    {
+      "condition": "Acute otitis media",
+      "plainName": "earache",
+      "ages": "1 to 17 years",
+      "note": "We'll check for signs of infection and can prescribe antibiotics if they're needed."
+    },
+    {
+      "condition": "Impetigo",
+      "plainName": "a crusty, weeping skin infection, often around the nose and mouth",
+      "ages": "1 year and over",
+      "note": "Impetigo spreads easily between family members and at school or nursery — early treatment helps stop that."
+    },
+    {
+      "condition": "Infected insect bites",
+      "plainName": "a bite that has become red, hot or swollen",
+      "ages": "1 year and over",
+      "note": "We'll look at the bite and can treat straightforward infections on the spot."
+    },
+    {
+      "condition": "Shingles",
+      "plainName": "a painful, blistering rash, usually on one side of the body",
+      "ages": "18 years and over",
+      "note": "Shingles treatment works best started early, so don't wait if you suspect it — come straight in."
+    },
+    {
+      "condition": "Sinusitis",
+      "plainName": "a sinus infection, with facial pain or a blocked, thick-mucus nose",
+      "ages": "12 years and over",
+      "note": "Most sinusitis clears on its own, but we can advise or treat if it's severe or not improving."
+    },
+    {
+      "condition": "Sore throat",
+      "plainName": "a painful, infected throat",
+      "ages": "5 years and over",
+      "note": "We'll check for signs that need antibiotics rather than just time and fluids."
+    },
+    {
+      "condition": "Uncomplicated urinary tract infection (UTI)",
+      "plainName": "a bladder infection with stinging, urgency or needing to go often",
+      "ages": "Women aged 16 to 64",
+      "note": "A quick, private conversation and, where appropriate, a dipstick test in the consultation room."
+    }
+  ],
+  "howItWorks": [
+    {
+      "title": "Ask at the counter, or arrive by referral",
+      "copy": "Walk in and tell any member of the team what's wrong — no booking needed. Your GP practice or NHS 111 can also refer you straight to us if they think Pharmacy First is the right route."
+    },
+    {
+      "title": "A short, private consultation",
+      "copy": "One of our pharmacists takes you into the consultation room, asks about your symptoms and, where needed, does a simple examination or test — the same confidentiality as a GP appointment."
+    },
+    {
+      "title": "Treatment, advice, or a safety-net referral",
+      "copy": "Most people leave with treatment or clear advice on the same visit. If your symptoms need more than we can offer, we'll refer you on — to your GP, an urgent care service, or 999 if it's serious."
+    }
+  ],
+  "referralRoutes": [
+    "Walk in and ask at the counter — no appointment or referral needed for most people",
+    "Referral from Willowbrook Surgery or another local GP practice",
+    "Referral from NHS 111, online or by phone"
+  ],
+  "freeOnNhsCopy": "NHS Pharmacy First is free on the NHS. There's nothing to pay for the consultation, and any medicine we prescribe under the service is also free of charge — the same as an NHS prescription exemption, but without the paperwork.",
+  "reviewedPathwaysNote": "The seven Pharmacy First clinical pathways shown here were last reviewed against national guidance in October 2025."
+}

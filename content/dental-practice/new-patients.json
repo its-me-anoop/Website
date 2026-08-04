@@ -1,0 +1,42 @@
+{
+  "reviewed": "2026-08-04",
+  "journeySteps": [
+    {
+      "title": "Register with us",
+      "copy": "Call us or fill in the online form. Tell us whether you want to be seen on the NHS, privately, or a mix of both — most patients are."
+    },
+    {
+      "title": "Your first visit",
+      "copy": "A full examination of your teeth and gums, plus a chat about your dental history and anything you are worried about. We take X-rays only if you need them."
+    },
+    {
+      "title": "Your written treatment plan",
+      "copy": "Before any treatment starts, you get a written plan setting out what we recommend, what it costs, and what happens if you decide against any part of it."
+    }
+  ],
+  "whatToBring": [
+    "Photo ID, such as a driving licence or passport",
+    "A list of any medicines you take, including ones you buy over the counter",
+    "Evidence of exemption from NHS charges, if this applies to you",
+    "Details of your previous dentist, if you have one, so we can request your records"
+  ],
+  "newPatientOffer": {
+    "title": "New patient examination (private)",
+    "price": "£65",
+    "includes": [
+      "A full examination and diagnosis",
+      "X-rays if clinically needed",
+      "A written treatment plan",
+      "An estimate for any further treatment"
+    ]
+  },
+  "nervousPatients": {
+    "intro": "If you're nervous about the dentist, tell us — you won't be the only patient today who is. We would rather know than have you put off a visit.",
+    "accommodations": [
+      "Book the first appointment slot of the day, before the waiting room fills up and before the day's schedule can overrun",
+      "Agree a stop signal with your dentist before we start, so you are always in control of when we pause",
+      "Ask for a walk-through of the surgery and instruments on a separate visit first, with nothing done that day"
+    ],
+    "sedationCopy": "For some patients, sedation makes treatment more manageable. We can talk you through the options — from a mild relaxant tablet taken beforehand to intravenous sedation — and refer you to a specialist sedation service if your treatment needs it."
+  }
+}

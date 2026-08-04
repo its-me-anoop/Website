@@ -1,0 +1,24 @@
+{
+  "reviewed": "2026-08-04",
+  "hero": {
+    "title": "What can we help with today?",
+    "copy": "Pop into 3 Meadow Lane for free NHS treatment through Pharmacy First, drop off or collect a repeat prescription, or ask our team for confidential advice at the counter. No appointment needed."
+  },
+  "primaryTasks": [
+    {
+      "title": "NHS Pharmacy First",
+      "copy": "Free NHS treatment and advice for seven common conditions, without waiting for a GP appointment.",
+      "href": "/demo/pharmacy/pharmacy-first"
+    },
+    {
+      "title": "Order a repeat prescription",
+      "copy": "Nominate us in the NHS App, or order by phone or in person — see how long it takes to be ready.",
+      "href": "/demo/pharmacy/prescriptions"
+    }
+  ],
+  "alert": {
+    "title": "Flu and COVID-19 vaccinations",
+    "copy": "Seasonal vaccinations usually run from September to March each year — check current NHS eligibility and book at the counter or online nearer the time.",
+    "expires": "2027-03-31"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "reviewed": "2026-08-04",
+  "sessions": [
+    {
+      "type": "Initial assessment",
+      "duration": "60 minutes",
+      "price": "£55–£75 (sample price)",
+      "includes": "A full assessment, hands-on treatment where appropriate, and a home exercise plan to start with."
+    },
+    {
+      "type": "Follow-up session",
+      "duration": "45 minutes",
+      "price": "£45–£60 (sample price)",
+      "includes": "Ongoing treatment and progression of your exercise programme."
+    },
+    {
+      "type": "Sports massage",
+      "duration": "30 or 60 minutes",
+      "price": "£35–£65 (sample price)",
+      "includes": "Focused soft-tissue work — booked on its own or alongside a treatment session."
+    }
+  ],
+  "courseLengthCopy": "Most acute problems settle in 2–4 sessions; more complex or long-standing problems often need 4–8 or more. We'll give you an honest estimate at your first visit and review it as we go — no wasted sessions, no pressure to keep coming back.",
+  "insuranceNotes": [
+    "An excess may apply — check your policy for the amount you're responsible for.",
+    "Most insurers ask for a pre-authorisation reference before your first session.",
+    "GP-referral rules vary by insurer; some require a referral letter, others accept self-referral.",
+    "Insurers typically approve a set number of sessions at a time — we'll let you know if we think you'll need more."
+  ],
+  "cancellation": {
+    "noticeHours": 24,
+    "policyCopy": "Please give us at least 24 hours' notice if you need to cancel or rearrange, so we can offer the slot to someone else.",
+    "insurerNote": "Insurers do not pay for missed appointments. If you're claiming through insurance and miss a session without enough notice, the cost is yours to cover, not your insurer's."
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "reviewed": "2026-08-04",
+  "groups": [
+    {
+      "group": "Dentists",
+      "members": [
+        {
+          "name": "Dr Amara Nwosu",
+          "role": "Principal Dentist",
+          "qualifications": "BDS",
+          "countryOfQualification": "United Kingdom",
+          "gdcNumber": "GDC 123456",
+          "gdcSampleNote": "Sample number for demonstration."
+        },
+        {
+          "name": "Dr Michael Chen",
+          "role": "Associate Dentist",
+          "qualifications": "BDS",
+          "countryOfQualification": "United Kingdom",
+          "gdcNumber": "GDC 234567",
+          "gdcSampleNote": "Sample number for demonstration."
+        },
+        {
+          "name": "Dr Priya Kapoor",
+          "role": "Associate Dentist — private cosmetic lead",
+          "qualifications": "BDS, MJDF RCS (Eng)",
+          "countryOfQualification": "United Kingdom",
+          "gdcNumber": "GDC 345678",
+          "gdcSampleNote": "Sample number for demonstration."
+        }
+      ]
+    },
+    {
+      "group": "Dental hygienists and therapists",
+      "members": [
+        {
+          "name": "Louise Fairbank",
+          "role": "Dental Hygienist",
+          "qualifications": "Diploma in Dental Hygiene",
+          "countryOfQualification": "United Kingdom",
+          "gdcNumber": "GDC 456789",
+          "gdcSampleNote": "Sample number for demonstration."
+        },
+        {
+          "name": "Sarah Okonkwo",
+          "role": "Dental Therapist",
+          "qualifications": "Diploma in Dental Therapy",
+          "countryOfQualification": "United Kingdom",
+          "gdcNumber": "GDC 567890",
+          "gdcSampleNote": "Sample number for demonstration."
+        }
+      ]
+    }
+  ]
+}
