@@ -5,13 +5,7 @@ import {
   CareHeading,
   CareSection,
 } from "@/components/demos/care/CareShell";
-import {
-  careTypes,
-  faqs,
-  home,
-  inspection,
-  lifeMoments,
-} from "@/components/demos/care/data";
+import { loadCareContent } from "@/lib/cms";
 
 const toneBg = {
   sage: "bg-[var(--dch-sage-soft)]",
@@ -22,6 +16,10 @@ const toneBg = {
 const momentIcons = [UtensilsCrossed, Flower2, HeartHandshake, HomeIcon] as const;
 
 export default function CareDemoHome() {
+  const { home, care, life, families } = loadCareContent();
+  const { careTypes, inspection } = care;
+  const lifeMoments = life.moments;
+  const faqs = families.faqs;
   return (
     <>
       {/* Welcome */}
@@ -120,7 +118,7 @@ export default function CareDemoHome() {
                 Inspection ratings by area (sample content)
               </caption>
               <tbody>
-                {inspection.areas.map(([area, rating]) => (
+                {inspection.areas.map(({ area, rating }) => (
                   <tr key={area} className="border-b border-[var(--dch-line)]">
                     <th scope="row" className="py-3 pr-4 text-left font-semibold text-[var(--dch-ink)]">
                       {area}

@@ -3,11 +3,12 @@ import {
   CarePageHero,
   CareSection,
 } from "@/components/demos/care/CareShell";
-import { home } from "@/components/demos/care/data";
+import { loadCareContent } from "@/lib/cms";
 
 export const metadata: Metadata = { title: "Accessibility statement" };
 
 export default function CareAccessibilityPage() {
+  const { home } = loadCareContent();
   return (
     <>
       <CarePageHero

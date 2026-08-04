@@ -5,11 +5,13 @@ import {
   CarePageHero,
   CareSection,
 } from "@/components/demos/care/CareShell";
-import { faqs, familySteps } from "@/components/demos/care/data";
+import { loadCareContent } from "@/lib/cms";
 
 export const metadata: Metadata = { title: "For families" };
 
 export default function FamiliesPage() {
+  const { families } = loadCareContent();
+  const { steps: familySteps, faqs } = families;
   return (
     <>
       <CarePageHero

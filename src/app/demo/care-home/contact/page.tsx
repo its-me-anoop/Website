@@ -4,11 +4,12 @@ import {
   CarePageHero,
   CareSection,
 } from "@/components/demos/care/CareShell";
-import { home } from "@/components/demos/care/data";
+import { loadCareContent } from "@/lib/cms";
 
 export const metadata: Metadata = { title: "Contact & visits" };
 
 export default function CareContactPage() {
+  const { home } = loadCareContent();
   return (
     <>
       <CarePageHero
