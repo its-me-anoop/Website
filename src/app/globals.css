@@ -122,10 +122,10 @@
   --surface-2: #eef7fa;
   --ink: #0c2a33;
   --ink-2: #335560;
-  --ink-3: #5d7a83;
-  --muted: #7d959c;
-  --accent: #0e8aa3;
-  --accent-hover: #1198b3;
+  --ink-3: #4d6a73; /* AA (≥4.5:1) on the aqua canvas */
+  --muted: #536b73; /* AA on the aqua canvas and tinted bands */
+  --accent: #0d7f96; /* white button text stays ≥4.5:1 */
+  --accent-hover: #0b6e83;
   --accent-deep: #0b6e83;
   --accent-soft: rgba(14, 138, 163, 0.1);
   --line: rgba(12, 42, 51, 0.1);
@@ -142,8 +142,9 @@
   --surface-2: #faf3e9;
   --ink: #2b1a10;
   --ink-2: #56402f;
-  --ink-3: #7d6552;
-  --muted: #99836f;
+  --ink-3: #6a5342; /* AA (≥4.5:1) on the cream canvas */
+  --muted: #77624e; /* AA on the cream canvas */
+  --accent-ink: #33200a; /* dark text on the orange accent fill */
   --accent: #e07a1f;
   --accent-hover: #ef8c33;
   --accent-deep: #c2660f;

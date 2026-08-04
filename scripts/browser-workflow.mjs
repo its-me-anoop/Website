@@ -25,6 +25,7 @@ const ROUTES = [
   "/demo/gp-practice/appointments",
   "/demo/gp-practice/prescriptions",
   "/demo/gp-practice/services",
+  "/demo/gp-practice/register",
   "/demo/gp-practice/team",
   "/demo/gp-practice/practice-information",
   "/demo/gp-practice/contact",

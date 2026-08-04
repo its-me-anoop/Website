@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "vitest run",
     "cms:validate": "vitest run src/lib/cms/shipped-content.test.ts",
-    "test:browser": "node scripts/browser-workflow.mjs"
+    "test:browser": "node scripts/browser-workflow.mjs",
+    "test:a11y": "node scripts/a11y-audit.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -29,6 +30,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6.0.2",
+    "axe-core": "^4.12.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.10",
     "jsdom": "^29.1.1",

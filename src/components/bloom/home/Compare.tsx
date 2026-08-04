@@ -18,8 +18,16 @@ export function Compare() {
           copy="Most small-organisation websites sit on a page builder someone has to keep patching. Flutterly builds a different way."
         />
 
-        <Rise className="mt-14 overflow-x-auto">
-          <table className="bl-card w-full min-w-[640px] border-separate border-spacing-0 overflow-hidden rounded-[26px] border border-bl-line bg-bl-surface text-left">
+        <Rise className="mt-14">
+          {/* tabIndex + region: the table scrolls sideways on small screens,
+              so keyboard users need a way to reach and scroll it. */}
+          <div
+            tabIndex={0}
+            role="region"
+            aria-label="Comparison table"
+            className="overflow-x-auto focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bl-teal"
+          >
+            <table className="bl-card w-full min-w-[640px] border-separate border-spacing-0 overflow-hidden rounded-[26px] border border-bl-line bg-bl-surface text-left">
             <caption className="sr-only">
               Comparison of typical template builders against a Flutterly build
             </caption>
@@ -61,7 +69,8 @@ export function Compare() {
                 );
               })}
             </tbody>
-          </table>
+            </table>
+          </div>
         </Rise>
       </div>
     </section>

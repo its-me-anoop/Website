@@ -151,7 +151,7 @@ function ArtlingPhoneMockup() {
 
       <div className="relative flex items-center justify-between pt-9">
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#A46B53]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7d4a33]">
             Artling
           </p>
           <h3 className="mt-1 text-[26px] font-semibold tracking-[-0.03em]">
@@ -169,7 +169,7 @@ function ArtlingPhoneMockup() {
             key={chip}
             className={`rounded-full px-3 py-2 text-[10px] font-semibold shadow-sm ${
               index === 0
-                ? "bg-[#FF9D57] text-white"
+                ? "bg-[#FF9D57] text-[#4a2b10]"
                 : "border border-[#ECD9CF] bg-white/75 text-[#6E574D]"
             }`}
           >
@@ -190,13 +190,13 @@ function ArtlingPhoneMockup() {
             <p className="mt-3 text-[11px] font-semibold text-[#35251E]">
               {card.title}
             </p>
-            <p className="mt-1 text-[10px] text-[#7F665C]">{card.meta}</p>
+            <p className="mt-1 text-[10px] text-[#6a544a]">{card.meta}</p>
           </div>
         ))}
       </div>
 
       <div className="relative mt-4 rounded-[24px] border border-[#ECD9CF] bg-white/85 p-4 shadow-[0_18px_34px_rgba(96,67,54,0.08)]">
-        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#A46B53]">
+        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#7d4a33]">
           <Clock3 className="h-4 w-4 text-[#FF9D57]" />
           On This Day
         </div>
@@ -341,7 +341,7 @@ export function ArtlingLanding() {
               className="relative mx-auto w-full max-w-[600px]"
             >
               <div className="absolute -left-2 top-12 hidden max-w-[180px] rounded-[var(--r-lg)] border border-line bg-surface p-4 shadow-[var(--shadow)] lg:block">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8d4508]">
                   Memory-rich
                 </p>
                 <p className="mt-3 text-sm leading-6 text-ink-2">
@@ -351,7 +351,7 @@ export function ArtlingLanding() {
               </div>
 
               <div className="absolute -right-1 bottom-16 hidden max-w-[190px] rounded-[var(--r-lg)] border border-line bg-surface p-4 shadow-[var(--shadow)] lg:block">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8d4508]">
                   Family-ready
                 </p>
                 <p className="mt-3 text-sm leading-6 text-ink-2">
