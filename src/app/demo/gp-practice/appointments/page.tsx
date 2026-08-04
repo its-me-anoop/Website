@@ -4,51 +4,41 @@ import {
   GpAction,
   GpCallout,
   GpCareCard,
+  GpInset,
   GpPageHero,
+  GpReviewDate,
   GpSampleNote,
   GpSection,
 } from "@/components/demos/gp/GpShell";
-import { practice } from "@/components/demos/gp/data";
+import { loadGpContent } from "@/lib/cms";
 
 export const metadata: Metadata = { title: "Appointments" };
 
-const routes = [
-  {
-    title: "Book online",
-    copy: "Use the NHS App or NHS website to book routine appointments at a time that suits you — no phone queue, available day and night.",
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 16h4"
-      />
-    ),
-  },
-  {
-    title: "Call the surgery",
-    copy: `Call ${practice.phone} from 8:00am. Tell reception briefly what the problem is — they will make sure the most suitable person sees you.`,
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M4 5c0 8.3 6.7 15 15 15l2-4-4.5-2-2 2c-2.8-1.4-5.1-3.7-6.5-6.5l2-2L8 3 4 5Z"
-      />
-    ),
-  },
-  {
-    title: "Tell us your symptoms online",
-    copy: "Fill in a short online form and a doctor or nurse will review it and reply within one working day with the right next step.",
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M4 5h16v11H8l-4 4V5Zm4 4h8m-8 3h5"
-      />
-    ),
-  },
-] as const;
+/** Presentational icons for the booking routes, in content order. */
+const routeIcons = [
+  <path
+    key="online"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 16h4"
+  />,
+  <path
+    key="phone"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M4 5c0 8.3 6.7 15 15 15l2-4-4.5-2-2 2c-2.8-1.4-5.1-3.7-6.5-6.5l2-2L8 3 4 5Z"
+  />,
+  <path
+    key="form"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M4 5h16v11H8l-4 4V5Zm4 4h8m-8 3h5"
+  />,
+];
 
 export default function AppointmentsPage() {
+  const { appointments, practice } = loadGpContent();
+
   return (
     <>
       <GpPageHero
@@ -60,14 +50,14 @@ export default function AppointmentsPage() {
         <h2 className="sr-only">Ways to get an appointment</h2>
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_380px]">
           <div className="divide-y divide-[var(--dgp-line)]">
-            {routes.map((route) => (
+            {appointments.routes.map((route, i) => (
               <div key={route.title} className="flex gap-5 py-6 first:pt-0 last:pb-0">
                 <svg
                   aria-hidden
                   viewBox="0 0 24 24"
                   className="mt-1 h-8 w-8 shrink-0 fill-none stroke-[var(--dgp-blue)] stroke-[1.75]"
                 >
-                  {route.icon}
+                  {routeIcons[i % routeIcons.length]}
                 </svg>
                 <div>
                   <h3 className="text-lg font-bold">{route.title}</h3>
@@ -91,6 +81,14 @@ export default function AppointmentsPage() {
             Book with the NHS App
           </GpAction>
         </div>
+        <div className="mt-8 max-w-[680px]">
+          <GpInset>
+            <strong className="text-[var(--dgp-ink)]">
+              What you can expect from us:
+            </strong>{" "}
+            {appointments.accessCommitment}
+          </GpInset>
+        </div>
       </GpSection>
 
       {/* Urgent care, in the NHS care-card hierarchy */}
@@ -103,24 +101,22 @@ export default function AppointmentsPage() {
           <a href={practice.phoneHref} className="font-semibold text-[var(--dgp-blue)] underline">
             {practice.phone}
           </a>{" "}
-          at 8:00am. Urgent requests are looked at first, and we keep
+          at 8am. Urgent requests are looked at first, and we keep
           appointments free every day for problems that cannot wait.
         </p>
         <div className="mt-5 grid gap-4 lg:grid-cols-2">
           <GpCareCard variant="urgent" title="Ask for an urgent appointment today if:">
             <ul className="list-disc space-y-1.5 pl-5">
-              <li>a baby or young child is unwell and you are worried</li>
-              <li>you have new pain that is getting rapidly worse</li>
-              <li>a long-term condition has suddenly worsened</li>
-              <li>you have a temperature that will not come down</li>
+              {appointments.urgentToday.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </GpCareCard>
           <GpCareCard variant="emergency" title="Call 999 or go to A&E now if:">
             <ul className="list-disc space-y-1.5 pl-5">
-              <li>you have signs of a heart attack or stroke</li>
-              <li>you have severe difficulty breathing</li>
-              <li>you have heavy bleeding that will not stop</li>
-              <li>someone has seriously injured themselves or taken an overdose</li>
+              {appointments.emergencyNow.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </GpCareCard>
         </div>
@@ -134,8 +130,11 @@ export default function AppointmentsPage() {
           <p className="mt-2 max-w-[680px] text-base leading-relaxed text-[var(--dgp-ink-soft)]">
             Not sure you need an appointment? Describe your symptoms online and
             we will point you to the right care — an appointment, a pharmacy,
-            self-care advice or a prescription. Forms submitted before 3:00pm
-            on a working day are reviewed the same day.
+            self-care advice or a prescription. This is the same form whether
+            you use this website or the NHS App.
+          </p>
+          <p className="mt-3 max-w-[680px] text-base leading-relaxed text-[var(--dgp-ink-soft)]">
+            {appointments.onlineHours}
           </p>
           <div className="mt-4 max-w-[680px]">
             <GpCareCard variant="urgent" title="Urgent problems: do not use the online form">
@@ -182,11 +181,19 @@ export default function AppointmentsPage() {
       </GpSection>
 
       <GpSection pad="flush">
+        <h2 className="text-[20px] font-bold tracking-tight">Home visits</h2>
+        <p className="mt-2 max-w-[680px] text-base leading-relaxed text-[var(--dgp-ink-soft)]">
+          {appointments.homeVisits}
+        </p>
+      </GpSection>
+
+      <GpSection pad="flush">
         <GpCallout title="Can't make your appointment?">
           Please cancel as early as you can — online, or by calling{" "}
           {practice.phone}. Every cancelled slot is offered to another patient
           the same day.
         </GpCallout>
+        <GpReviewDate reviewed={appointments.reviewed} />
       </GpSection>
     </>
   );

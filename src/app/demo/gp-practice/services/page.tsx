@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  GpCallout,
+  GpInset,
   GpPageHero,
+  GpReviewDate,
   GpSection,
 } from "@/components/demos/gp/GpShell";
-import { selfReferral, serviceGroups } from "@/components/demos/gp/data";
+import { loadGpContent } from "@/lib/cms";
 
 export const metadata: Metadata = { title: "Services & clinics" };
 
 export default function ServicesPage() {
+  const { services } = loadGpContent();
+
   return (
     <>
       <GpPageHero
@@ -21,7 +24,7 @@ export default function ServicesPage() {
       <GpSection>
         <div className="grid items-start gap-10 lg:grid-cols-[1fr_380px]">
           <div>
-            {serviceGroups.map((group, i) => (
+            {services.groups.map((group, i) => (
               <div
                 key={group.title}
                 className={i === 0 ? "" : "mt-8 border-t border-[var(--dgp-line)] pt-8"}
@@ -90,29 +93,36 @@ export default function ServicesPage() {
               </figcaption>
             </figure>
             <div className="divide-y divide-[var(--dgp-line)]">
-              {selfReferral.map((service) => (
+              {services.selfReferral.map((service) => (
                 <div key={service.title} className="py-5 first:pt-0 last:pb-0">
                   <h3 className="text-lg font-bold">{service.title}</h3>
                   <p className="mt-1 max-w-[620px] text-base leading-relaxed text-[var(--dgp-ink-soft)]">
                     {service.copy}
                   </p>
+                  {service.href ? (
+                    <p className="mt-2">
+                      <a
+                        href={service.href}
+                        className="text-base font-semibold text-[var(--dgp-blue)] underline"
+                      >
+                        {service.linkLabel ?? `Go to ${service.title}`}
+                      </a>
+                    </p>
+                  ) : null}
                 </div>
               ))}
             </div>
           </div>
-          <p className="mt-6 text-sm text-[var(--dgp-ink-soft)]">
-            Reception can give you the contact details for each of these — or
-            find them on the NHS website.
-          </p>
         </GpSection>
       </div>
 
       <GpSection>
-        <GpCallout title="Not sure which service you need?">
-          Tell us your symptoms online or call reception — our care navigators
-          are trained to get you to the right person or service first time,
-          which is often not a GP.
-        </GpCallout>
+        <GpInset>
+          Not sure which service you need? Tell us your symptoms online or
+          call reception — our care navigators are trained to get you to the
+          right person or service first time, which is often not a GP.
+        </GpInset>
+        <GpReviewDate reviewed={services.reviewed} />
       </GpSection>
     </>
   );

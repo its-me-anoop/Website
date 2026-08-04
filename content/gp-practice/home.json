@@ -24,9 +24,9 @@
       "href": "/demo/gp-practice/appointments#online"
     },
     {
-      "title": "Register as a new patient",
-      "copy": "Join the practice — most registrations are completed online.",
-      "href": "/demo/gp-practice/contact#register"
+      "title": "Join the surgery",
+      "copy": "Register as a new patient — done online in about ten minutes.",
+      "href": "/demo/gp-practice/register"
     },
     {
       "title": "Get test results",
@@ -34,8 +34,8 @@
       "href": "/demo/gp-practice/appointments#results"
     },
     {
-      "title": "Get a sick (fit) note",
-      "copy": "Ask for a sick note without booking an appointment.",
+      "title": "Get a fit note (sick note)",
+      "copy": "Ask for a fit note for work without booking an appointment.",
       "href": "/demo/gp-practice/appointments#fit-note"
     }
   ],

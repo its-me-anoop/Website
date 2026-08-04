@@ -1,0 +1,24 @@
+{
+  "reviewed": "2026-08-04",
+  "compliance": "This website aims to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA, in line with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018. We believe the site is fully compliant, and we treat any failure you find as a fault to fix, not feedback to file.",
+  "features": [
+    "Every page works with a keyboard alone, with a clear yellow focus indicator",
+    "Text and background colours meet AA contrast standards",
+    "Content is written in plain English and structured with headings",
+    "The site works with screen readers and up to 400% text magnification",
+    "Every target you tap or click is at least 24 by 24 pixels",
+    "Nothing on the site requires dragging, and nothing moves unless you ask it to",
+    "Pages load quickly, even on a slow mobile connection"
+  ],
+  "nonAccessible": [
+    "The illustrative map on the home and contact pages is a static picture. It has a full text alternative, but it cannot be zoomed or explored with a screen reader — written directions are always alongside it."
+  ],
+  "testing": "This statement was prepared on 4 August 2026. The site is checked with automated testing (axe-core) across every page on every build, and manually with keyboard-only navigation and screen-reader spot checks. It was last reviewed on 4 August 2026.",
+  "reporting": {
+    "copy": "If any part of this website is difficult to use with assistive technology — or you need information in a different format, such as large print or easy read — contact us and we will fix it or provide an alternative within five working days.",
+    "email": "access@willowbrooksurgery.example"
+  },
+  "enforcement": "The Equality and Human Rights Commission (EHRC) enforces the accessibility regulations. If you report a problem and are not happy with how we respond, contact the Equality Advisory and Support Service (EASS) at equalityadvisoryservice.com.",
+  "thirdParty": "This site links to NHS services such as the NHS App, NHS 111 online and the national registration service. Those services publish their own accessibility statements, which apply once you leave this site.",
+  "noOverlay": "We deliberately do not use an accessibility overlay or toolbar widget. NHS guidance is clear that overlays cannot make a website compliant and often make it harder to use with real assistive technology — accessibility is built into every page instead."
+}

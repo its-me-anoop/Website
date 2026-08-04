@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navLinks } from "./data";
+import { navLinks } from "./links";
 
 /**
  * Primary nav for the GP demo. The one client component in the demo:

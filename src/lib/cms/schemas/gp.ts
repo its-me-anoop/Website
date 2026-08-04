@@ -32,6 +32,12 @@ export const gpPracticeSchema = z.object({
   strap: text,
   phone: ukPhone,
   address: text,
+  hoursSummary: text,
+  access: z.array(text).min(1),
+  acceptingNewPatients: z.boolean(),
+  enhancedAccess: copy,
+  outOfHours: copy,
+  icb: z.object({ name: text, copy }),
   openingTimes: z
     .array(z.object({ day: z.enum(DAYS), hours: text }))
     .refine(
@@ -70,11 +76,22 @@ export const gpTeamSchema = z.object({
 export const gpServicesSchema = z.object({
   reviewed,
   groups: z.array(z.object({ title: text, items: z.array(text).min(1) })).min(1),
-  selfReferral: z.array(z.object({ title: text, copy })).min(1),
+  selfReferral: z
+    .array(
+      z.object({
+        title: text,
+        copy,
+        href: z.string().min(1).optional(),
+        linkLabel: text.optional(),
+      })
+    )
+    .min(1),
 });
 
 export const gpPracticeInfoSchema = z.object({
   reviewed,
+  cqc: z.object({ rating: text, copy }),
+  fft: z.object({ headline: text, copy }),
   policies: z
     .array(
       z.object({
@@ -96,11 +113,35 @@ export const gpAppointmentsSchema = z.object({
   routes: z.array(z.object({ title: text, copy })).min(2),
   urgentToday: z.array(text).min(1),
   emergencyNow: z.array(text).min(1),
+  homeVisits: copy,
+  onlineHours: copy,
+  accessCommitment: copy,
 });
 
 export const gpPrescriptionsSchema = z.object({
   reviewed,
   steps: z.array(z.object({ title: text, copy })).min(2),
+});
+
+export const gpRegisterSchema = z.object({
+  reviewed,
+  lede: copy,
+  catchment: z.object({ copy, checkNote: copy }),
+  steps: z.array(z.object({ title: text, copy })).min(2),
+  notes: z.array(z.object({ title: text, copy })).min(1),
+});
+
+/** The statutory accessibility-statement sections (PSBAR Reg 7 + GDS structure). */
+export const gpAccessibilitySchema = z.object({
+  reviewed,
+  compliance: copy,
+  features: z.array(text).min(1),
+  nonAccessible: z.array(text).min(1),
+  testing: copy,
+  reporting: z.object({ copy, email: z.email() }),
+  enforcement: copy,
+  thirdParty: copy,
+  noOverlay: copy,
 });
 
 export type GpPractice = z.infer<typeof gpPracticeSchema>;
@@ -112,3 +153,5 @@ export type GpPracticeInfo = z.infer<typeof gpPracticeInfoSchema>;
 export type GpFaqs = z.infer<typeof gpFaqsSchema>;
 export type GpAppointments = z.infer<typeof gpAppointmentsSchema>;
 export type GpPrescriptions = z.infer<typeof gpPrescriptionsSchema>;
+export type GpRegister = z.infer<typeof gpRegisterSchema>;
+export type GpAccessibility = z.infer<typeof gpAccessibilitySchema>;

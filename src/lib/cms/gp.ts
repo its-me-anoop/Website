@@ -1,5 +1,6 @@
 import { DEFAULT_ROOT, readCollection } from "./load";
 import {
+  gpAccessibilitySchema,
   gpAppointmentsSchema,
   gpFaqsSchema,
   gpHomeSchema,
@@ -7,6 +8,7 @@ import {
   gpPracticeInfoSchema,
   gpPracticeSchema,
   gpPrescriptionsSchema,
+  gpRegisterSchema,
   gpServicesSchema,
   gpTeamSchema,
 } from "./schemas/gp";
@@ -80,6 +82,8 @@ export function loadGpContent(options: LoadOptions = {}) {
     faqs: load("faqs", gpFaqsSchema),
     appointments: load("appointments", gpAppointmentsSchema),
     prescriptions: load("prescriptions", gpPrescriptionsSchema),
+    register: load("register", gpRegisterSchema),
+    accessibility: load("accessibility", gpAccessibilitySchema),
   };
 
   return {

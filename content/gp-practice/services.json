@@ -7,7 +7,7 @@
         "Asthma and COPD reviews",
         "Diabetes care and annual reviews",
         "Blood pressure checks and hypertension clinics",
-        "Annual medication reviews with our clinical pharmacist"
+        "Annual medicine reviews with our clinical pharmacist"
       ]
     },
     {
@@ -34,23 +34,33 @@
   "selfReferral": [
     {
       "title": "Pharmacy First",
-      "copy": "Your local pharmacy can treat seven common conditions — including earache, sore throat, sinusitis and urinary infections — and prescribe where appropriate, no appointment needed."
+      "copy": "Your local pharmacy can treat seven common conditions — including earache, sore throat, sinusitis and urinary infections — and prescribe where appropriate, no appointment needed.",
+      "href": "https://www.nhs.uk/nhs-services/pharmacies/how-pharmacies-can-help/",
+      "linkLabel": "Find out how pharmacies can help on the NHS website"
     },
     {
       "title": "First-contact physiotherapy",
-      "copy": "Muscle, joint and back problems can be booked straight in with our physiotherapist — no GP appointment first. Book the same way as any appointment."
+      "copy": "Muscle, joint and back problems can be booked straight in with our physiotherapist — no GP appointment first. Book the same way as any appointment.",
+      "href": "/demo/gp-practice/appointments",
+      "linkLabel": "Book a physiotherapy appointment"
     },
     {
       "title": "NHS Talking Therapies",
-      "copy": "Free, confidential support for stress, anxiety and low mood. Refer yourself directly online or by phone — you do not need to see a GP first."
+      "copy": "Free, confidential support for stress, anxiety and low mood. Refer yourself directly online or by phone — you do not need to see a GP first.",
+      "href": "https://www.nhs.uk/mental-health/talking-therapies-medicine-treatments/talking-therapies-and-counselling/nhs-talking-therapies/",
+      "linkLabel": "Refer yourself to NHS Talking Therapies"
     },
     {
       "title": "Sexual health services",
-      "copy": "Contraception, testing and advice through local sexual health clinics, booked directly and in confidence."
+      "copy": "Contraception, testing and advice through local sexual health clinics, booked directly and in confidence.",
+      "href": "https://www.nhs.uk/nhs-services/sexual-health-services/",
+      "linkLabel": "Find sexual health services on the NHS website"
     },
     {
       "title": "Stop smoking support",
-      "copy": "Free local support that makes you three times more likely to quit for good. Sign up directly — no GP appointment needed."
+      "copy": "Free local support that makes you three times more likely to quit for good. Sign up directly — no GP appointment needed.",
+      "href": "https://www.nhs.uk/better-health/quit-smoking/",
+      "linkLabel": "Get stop-smoking support from NHS Better Health"
     }
   ]
 }

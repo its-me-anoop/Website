@@ -1,0 +1,36 @@
+{
+  "reviewed": "2026-08-04",
+  "lede": "Join the surgery online in about ten minutes. You do not need proof of address, identification or immigration status — and you do not need to visit us.",
+  "catchment": {
+    "copy": "We register patients who live in Willowbrook, Meadowvale, Loddon End and the surrounding villages — roughly everywhere inside the RG1 9 and RG2 8 postcode areas. If you are not sure, call us and reception will check your address straight away.",
+    "checkNote": "Sample site — on a live build this section includes an interactive practice-boundary map with a postcode checker."
+  },
+  "steps": [
+    {
+      "title": "Check you live in our practice area",
+      "copy": "Look for your postcode above, or call us on {phone} — checking takes a minute and saves you filling in a form we cannot accept."
+    },
+    {
+      "title": "Fill in the online registration form",
+      "copy": "The national Register with a GP surgery service walks you through it in about ten minutes. Answer as much as you can — anything missing can be added later."
+    },
+    {
+      "title": "We confirm your registration",
+      "copy": "Most registrations are confirmed within two working days. Your medical records transfer automatically from your previous practice — there is nothing to collect or deliver."
+    }
+  ],
+  "notes": [
+    {
+      "title": "No documents needed",
+      "copy": "You do not need proof of address, photo ID or immigration status to register. We register people experiencing homelessness — you can use the surgery's address. We are also a veteran-friendly practice."
+    },
+    {
+      "title": "Registering for someone else",
+      "copy": "You can register a child you are responsible for, or an adult you care for with their consent. Tell us you are a carer when you register — we will note it and connect you with local support."
+    },
+    {
+      "title": "Prefer paper?",
+      "copy": "Pick up a registration form at reception and hand it back in — no appointment needed. Free interpreters, including British Sign Language, can be arranged for any part of registration."
+    }
+  ]
+}

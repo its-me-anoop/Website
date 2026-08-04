@@ -4,12 +4,26 @@
   "strap": "NHS GP services for Willowbrook and the surrounding villages",
   "phone": "0118 496 0123",
   "address": "1 Meadow Lane, Willowbrook, Reading RG1 9ZZ",
+  "hoursSummary": "Open 8am to 6:30pm, Monday to Friday",
+  "access": [
+    "Free patient parking, including four accessible bays by the door",
+    "Step-free access throughout the ground floor",
+    "Hearing loop at reception — just ask",
+    "The number 12 bus stops directly outside"
+  ],
+  "acceptingNewPatients": true,
+  "enhancedAccess": "Evening and Saturday appointments (6:30pm to 8pm on weekdays, 9am to 5pm on Saturdays) run at our Primary Care Network's Enhanced Access hub at Riverside Health Centre, a short drive away. Book them the same way as any appointment — online, in the NHS App or by phone.",
+  "outOfHours": "When the surgery is closed, contact NHS 111 online or by phone — they can arrange out-of-hours care and book urgent appointments where needed. In a life-threatening emergency, always call 999.",
+  "icb": {
+    "name": "NHS Willowbrook & District Integrated Care Board",
+    "copy": "The surgery provides NHS services under contract to NHS Willowbrook & District Integrated Care Board (a fictional ICB for this sample site), Wharf House, Riverside Park, Reading RG1 9YY. Telephone 0118 496 0900."
+  },
   "openingTimes": [
-    { "day": "Monday", "hours": "8:00am – 6:30pm" },
-    { "day": "Tuesday", "hours": "8:00am – 6:30pm" },
-    { "day": "Wednesday", "hours": "8:00am – 6:30pm" },
-    { "day": "Thursday", "hours": "8:00am – 6:30pm" },
-    { "day": "Friday", "hours": "8:00am – 6:30pm" },
+    { "day": "Monday", "hours": "8am to 6:30pm" },
+    { "day": "Tuesday", "hours": "8am to 6:30pm" },
+    { "day": "Wednesday", "hours": "8am to 6:30pm" },
+    { "day": "Thursday", "hours": "8am to 6:30pm" },
+    { "day": "Friday", "hours": "8am to 6:30pm" },
     { "day": "Saturday", "hours": "Closed — call NHS 111" },
     { "day": "Sunday", "hours": "Closed — call NHS 111" }
   ]

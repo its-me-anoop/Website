@@ -55,6 +55,12 @@ function gpFixture(overrides: Record<string, object> = {}): string {
       strap: "NHS GP services",
       phone: "0118 496 0123",
       address: "1 Meadow Lane, Reading RG1 9ZZ",
+      hoursSummary: "Open 8am to 6:30pm, Monday to Friday",
+      access: ["Step-free access throughout the ground floor"],
+      acceptingNewPatients: true,
+      enhancedAccess: "Evening and Saturday appointments run at the hub.",
+      outOfHours: "When we are closed, call NHS 111.",
+      icb: { name: "NHS Sample ICB", copy: "Contact the ICB." },
       openingTimes: [
         { day: "Monday", hours: "8-6" },
         { day: "Tuesday", hours: "8-6" },
@@ -97,6 +103,8 @@ function gpFixture(overrides: Record<string, object> = {}): string {
     },
     "gp-practice/practice-info.json": {
       reviewed: "2026-07-01",
+      cqc: { rating: "Good", copy: "Inspected March 2026." },
+      fft: { headline: "94% would recommend us", copy: "From 212 responses." },
       policies: [{ id: "records", title: "Records", copy: "Copy." }],
     },
     "gp-practice/faqs.json": {
@@ -111,6 +119,9 @@ function gpFixture(overrides: Record<string, object> = {}): string {
       ],
       urgentToday: ["a worrying symptom"],
       emergencyNow: ["signs of a stroke"],
+      homeVisits: "Call before 10:30am to ask for a home visit.",
+      onlineHours: "The online form is open 8am to 6:30pm, Monday to Friday.",
+      accessCommitment: "9 in 10 calls answered within 10 minutes.",
     },
     "gp-practice/prescriptions.json": {
       reviewed: "2026-07-01",
@@ -118,6 +129,27 @@ function gpFixture(overrides: Record<string, object> = {}): string {
         { title: "Order", copy: "Copy." },
         { title: "Collect", copy: "Copy." },
       ],
+    },
+    "gp-practice/register.json": {
+      reviewed: "2026-07-01",
+      lede: "Join the surgery online.",
+      catchment: { copy: "We cover Willowbrook.", checkNote: "RG1 is inside our area." },
+      steps: [
+        { title: "Check you live in our area", copy: "Copy." },
+        { title: "Fill in the online form", copy: "Copy." },
+      ],
+      notes: [{ title: "No documents needed", copy: "Copy." }],
+    },
+    "gp-practice/accessibility.json": {
+      reviewed: "2026-07-01",
+      compliance: "Partially compliant with WCAG 2.2 AA.",
+      features: ["Keyboard operable"],
+      nonAccessible: ["The illustrative map has no zoom control"],
+      testing: "Tested with axe-core in July 2026.",
+      reporting: { copy: "Tell us.", email: "access@example.example" },
+      enforcement: "Contact EASS if unhappy with our response.",
+      thirdParty: "NHS links carry their own statements.",
+      noOverlay: "No overlay widget is used.",
     },
   };
   return makeContentRoot({ ...base, ...overrides });
@@ -154,15 +186,18 @@ describe("loadGpContent", () => {
       "gp-practice/appointments.json": {
         reviewed: "2026-07-01",
         routes: [
-          { title: "Call the surgery", copy: "Call {phone} from 8:00am." },
+          { title: "Call the surgery", copy: "Call {phone} from 8am." },
           { title: "Book online", copy: "Use the NHS App." },
         ],
         urgentToday: ["a worrying symptom"],
         emergencyNow: ["signs of a stroke"],
+        homeVisits: "Call before 10:30am to ask for a home visit.",
+        onlineHours: "The online form is open 8am to 6:30pm, Monday to Friday.",
+        accessCommitment: "9 in 10 calls answered within 10 minutes.",
       },
     });
     const content = loadGpContent({ root, today: "2026-08-04" });
-    expect(content.appointments.routes[0].copy).toBe("Call 0118 496 0123 from 8:00am.");
+    expect(content.appointments.routes[0].copy).toBe("Call 0118 496 0123 from 8am.");
   });
 
   it("keeps a live alert and drops an expired one", () => {
