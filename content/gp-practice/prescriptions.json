@@ -1,0 +1,17 @@
+{
+  "reviewed": "2026-08-04",
+  "steps": [
+    {
+      "title": "Order",
+      "copy": "Order through the NHS App, or drop your repeat slip into the box at reception. We do not take orders by phone — it keeps the lines free for people who need to talk to us."
+    },
+    {
+      "title": "We process it",
+      "copy": "Allow two full working days. Your usual GP reviews anything unusual before it is signed off."
+    },
+    {
+      "title": "Collect",
+      "copy": "Collect from your nominated pharmacy. You can change your nomination at any time in the NHS App."
+    }
+  ]
+}

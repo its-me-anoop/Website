@@ -1,0 +1,21 @@
+{
+  "reviewed": "2026-08-04",
+  "items": [
+    {
+      "q": "How do I see a doctor urgently?",
+      "a": "Call the surgery at 8:00am for an urgent appointment today. If the surgery is closed, call NHS 111. For a life-threatening emergency, always call 999."
+    },
+    {
+      "q": "How long does a repeat prescription take?",
+      "a": "Allow two working days between ordering and collection. Order through the NHS App or the slip box at reception — we cannot take repeat orders over the phone, which keeps the lines free for people who need to talk to us."
+    },
+    {
+      "q": "Can I choose which GP I see?",
+      "a": "Yes — tell us your preference when booking. Continuity matters, and we will always try to book you with your usual GP, though you may wait a little longer."
+    },
+    {
+      "q": "How do I update my contact details?",
+      "a": "Update your details in the NHS App, or tell reception next time you visit. Keeping your mobile number current means you get appointment reminders by text."
+    }
+  ]
+}

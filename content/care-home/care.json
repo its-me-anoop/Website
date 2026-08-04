@@ -1,0 +1,31 @@
+{
+  "reviewed": "2026-08-04",
+  "careTypes": [
+    {
+      "title": "Residential care",
+      "copy": "Comfortable, long-term care with round-the-clock support — and as much independence as each resident wants to keep.",
+      "tone": "sage"
+    },
+    {
+      "title": "Dementia care",
+      "copy": "A calm, familiar environment with a specialist team, designed around each person's routines, history and family.",
+      "tone": "terra"
+    },
+    {
+      "title": "Respite stays",
+      "copy": "Short stays from one week — for recovery after hospital, or to give a family carer a proper break.",
+      "tone": "cream"
+    }
+  ],
+  "inspection": {
+    "rating": "Good",
+    "note": "Sample rating shown for demonstration. A real site links this block directly to the home's page on cqc.org.uk.",
+    "areas": [
+      { "area": "Safe", "rating": "Good" },
+      { "area": "Effective", "rating": "Good" },
+      { "area": "Caring", "rating": "Outstanding" },
+      { "area": "Responsive", "rating": "Good" },
+      { "area": "Well-led", "rating": "Good" }
+    ]
+  }
+}

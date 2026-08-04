@@ -1,0 +1,16 @@
+{
+  "reviewed": "2026-08-04",
+  "name": "Willowbrook Surgery",
+  "strap": "NHS GP services for Willowbrook and the surrounding villages",
+  "phone": "0118 496 0123",
+  "address": "1 Meadow Lane, Willowbrook, Reading RG1 9ZZ",
+  "openingTimes": [
+    { "day": "Monday", "hours": "8:00am – 6:30pm" },
+    { "day": "Tuesday", "hours": "8:00am – 6:30pm" },
+    { "day": "Wednesday", "hours": "8:00am – 6:30pm" },
+    { "day": "Thursday", "hours": "8:00am – 6:30pm" },
+    { "day": "Friday", "hours": "8:00am – 6:30pm" },
+    { "day": "Saturday", "hours": "Closed — call NHS 111" },
+    { "day": "Sunday", "hours": "Closed — call NHS 111" }
+  ]
+}

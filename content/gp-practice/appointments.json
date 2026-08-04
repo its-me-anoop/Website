@@ -1,0 +1,29 @@
+{
+  "reviewed": "2026-08-04",
+  "routes": [
+    {
+      "title": "Book online",
+      "copy": "Use the NHS App or NHS website to book routine appointments at a time that suits you — no phone queue, available day and night."
+    },
+    {
+      "title": "Call the surgery",
+      "copy": "Call {phone} from 8:00am. Tell reception briefly what the problem is — they will make sure the most suitable person sees you."
+    },
+    {
+      "title": "Tell us your symptoms online",
+      "copy": "Fill in a short online form and a doctor or nurse will review it and reply within one working day with the right next step."
+    }
+  ],
+  "urgentToday": [
+    "a baby or young child is unwell and you are worried",
+    "you have new pain that is getting rapidly worse",
+    "a long-term condition has suddenly worsened",
+    "you have a temperature that will not come down"
+  ],
+  "emergencyNow": [
+    "you have signs of a heart attack or stroke",
+    "you have severe difficulty breathing",
+    "you have heavy bleeding that will not stop",
+    "someone has seriously injured themselves or taken an overdose"
+  ]
+}
