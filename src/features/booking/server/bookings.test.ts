@@ -30,6 +30,20 @@ afterEach(async () => {
   await rm(dir, { recursive: true, force: true });
 });
 
+describe("storeFile", () => {
+  it("prefers the explicit path, then /tmp on serverless, then .data", async () => {
+    const { storeFile } = await import("./store");
+    expect(storeFile()).toBe(path.join(dir, "bookings.json"));
+
+    vi.stubEnv("BOOKING_STORE_FILE", "");
+    vi.stubEnv("VERCEL", "1");
+    expect(storeFile()).toBe("/tmp/flutterly-bookings.json");
+
+    vi.stubEnv("VERCEL", "");
+    expect(storeFile().endsWith(path.join(".data", "bookings.json"))).toBe(true);
+  });
+});
+
 describe("createBooking", () => {
   it("persists a confirmed booking and computes its end time", async () => {
     const result = await createBooking(request, now);

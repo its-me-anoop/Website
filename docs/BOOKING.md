@@ -56,7 +56,7 @@ inside the store's serialised critical section, and the API answers
 
 | Env var | Purpose |
 |---|---|
-| `BOOKING_STORE_FILE` | Store path (default `.data/bookings.json`, gitignored). Point at a persistent volume in hosting that has one. |
+| `BOOKING_STORE_FILE` | Store path (default `.data/bookings.json` locally, `/tmp/flutterly-bookings.json` on Vercel where the lambda filesystem is read-only elsewhere). Point at a persistent volume in hosting that has one. |
 | `BOOKING_NOTIFY_WEBHOOK` | URL POSTed on each new booking (`kind: booking.created`) — e.g. a Zapier/Make hook that emails or Slacks the owner. Failures log and never block the client. |
 | `BOOKING_ADMIN_TOKEN` | Enables `GET /api/booking/bookings` with `Authorization: Bearer <token>` for reading the diary. Unset ⇒ endpoint answers 503. |
 

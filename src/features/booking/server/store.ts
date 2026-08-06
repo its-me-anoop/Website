@@ -10,8 +10,13 @@ import type { Booking } from "../core/types";
  * requests cannot interleave a read-check-write cycle.
  */
 
-function storeFile(): string {
-  return process.env.BOOKING_STORE_FILE ?? path.join(process.cwd(), ".data", "bookings.json");
+export function storeFile(): string {
+  if (process.env.BOOKING_STORE_FILE) return process.env.BOOKING_STORE_FILE;
+  // Serverless filesystems (e.g. Vercel lambdas) are read-only outside
+  // /tmp, so default there when deployed; durability guidance lives in
+  // docs/BOOKING.md.
+  if (process.env.VERCEL) return path.join("/tmp", "flutterly-bookings.json");
+  return path.join(process.cwd(), ".data", "bookings.json");
 }
 
 let queue: Promise<unknown> = Promise.resolve();
