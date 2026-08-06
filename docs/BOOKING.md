@@ -48,16 +48,31 @@ groups and formats them in the visitor's timezone, so GMT/BST and
 overseas clients are handled by construction (see `core/time.test.ts`
 for the DST cases).
 
-Double-booking is prevented at write time: the availability check runs
-inside the store's serialised critical section, and the API answers
-`409` so the UI can refresh and explain.
+Double-booking is prevented at write time wherever processes share one
+store: the availability check runs inside a serialised critical section
+guarded both in-process (promise queue) and across processes (an
+advisory `.lock` file created with `O_CREAT|O_EXCL`, stale after 10s),
+and the API answers `409` so the UI can refresh and explain. Abuse is
+rate-limited per client (sliding window) with a cap on upcoming
+bookings per email address.
+
+**The honest serverless caveat:** on default Vercel, lambda instances
+do not share a filesystem, so no file lock can coordinate them — two
+simultaneous instances could, rarely, both accept the same slot, and a
+recycled instance forgets stored bookings. For a single consultant's
+diary this is a small, visible risk (both parties are emailed via the
+webhook), not a silent one — but the store file must not be treated as
+the system of record there. Configure `BOOKING_NOTIFY_WEBHOOK` so every
+booking reaches the owner's inbox immediately; the upgrade path is a
+durable shared backend (e.g. Vercel KV/Upstash Redis or Postgres) behind
+`server/store.ts`, which is deliberately the single persistence seam.
 
 ## Configuration (all optional)
 
 | Env var | Purpose |
 |---|---|
 | `BOOKING_STORE_FILE` | Store path (default `.data/bookings.json` locally, `/tmp/flutterly-bookings.json` on Vercel where the lambda filesystem is read-only elsewhere). Point at a persistent volume in hosting that has one. |
-| `BOOKING_NOTIFY_WEBHOOK` | URL POSTed on each new booking (`kind: booking.created`) — e.g. a Zapier/Make hook that emails or Slacks the owner. Failures log and never block the client. |
+| `BOOKING_NOTIFY_WEBHOOK` | URL POSTed on each new booking (`kind: booking.created`) — e.g. a Zapier/Make hook that emails or Slacks the owner. Failures log and never block the client. **Strongly recommended on Vercel**, where it is the durable record of each booking. |
 | `BOOKING_ADMIN_TOKEN` | Enables `GET /api/booking/bookings` with `Authorization: Bearer <token>` for reading the diary. Unset ⇒ endpoint answers 503. |
 
 On serverless hosting without a mounted volume the JSON store is

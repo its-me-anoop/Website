@@ -9,6 +9,9 @@ export type CreateBookingResult =
   | { ok: true; booking: Booking; eventType: EventType }
   | { ok: false; status: 400 | 409; error: string };
 
+/** Upcoming confirmed bookings one email address may hold at once. */
+const maxFutureBookingsPerEmail = 3;
+
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function isValidTimeZone(timeZone: string): boolean {
@@ -75,6 +78,20 @@ export async function createBooking(
         ok: false,
         status: 409,
         error: "That time has just been taken. Pick another slot.",
+      };
+    }
+    const upcomingForEmail = bookings.filter(
+      (booking) =>
+        booking.status === "confirmed" &&
+        booking.email.toLowerCase() === request.email.toLowerCase() &&
+        Date.parse(booking.startIso) > now.getTime()
+    ).length;
+    if (upcomingForEmail >= maxFutureBookingsPerEmail) {
+      return {
+        ok: false,
+        status: 409,
+        error:
+          "That email already has several calls booked. Reply to a confirmation email to arrange more.",
       };
     }
     const start = new Date(request.startIso);

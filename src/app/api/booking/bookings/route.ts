@@ -7,11 +7,13 @@ import {
   listBookings,
   validateBookingRequest,
 } from "@/features/booking/server/bookings";
+import { clientKeyFrom, isRateLimited } from "@/features/booking/server/rate-limit";
 
 function hasSameOrigin(request: Request) {
   const origin = request.headers.get("origin");
   return !origin || origin === new URL(request.url).origin;
 }
+
 
 /**
  * POST /api/booking/bookings — book a slot. Returns the confirmed
@@ -21,6 +23,12 @@ function hasSameOrigin(request: Request) {
 export async function POST(request: Request) {
   if (!hasSameOrigin(request)) {
     return NextResponse.json({ error: "This request must come from the site." }, { status: 403 });
+  }
+  if (isRateLimited(clientKeyFrom(request))) {
+    return NextResponse.json(
+      { error: "Too many booking attempts from this connection. Try again in a few minutes." },
+      { status: 429 }
+    );
   }
 
   const body = await request.json().catch(() => null);

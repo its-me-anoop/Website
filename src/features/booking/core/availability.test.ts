@@ -101,6 +101,19 @@ describe("listAvailableSlots", () => {
     expect(slots).not.toContain("2026-08-12T16:00:00.000Z");
   });
 
+  it("treats the query window as half-open so month fetches never overlap", () => {
+    // The client fetches [monthStart, nextMonthStart); a slot starting
+    // exactly at `to` must belong to the next window only.
+    const slots = listAvailableSlots({
+      eventType: consultation,
+      from: new Date("2026-08-12T00:00:00Z"),
+      to: new Date("2026-08-12T08:30:00.000Z"),
+      bookings: [],
+      now,
+    });
+    expect(slots).not.toContain("2026-08-12T08:30:00.000Z");
+  });
+
   it("keeps the config's stated shape", () => {
     // The engine assumes windows are ordered and non-overlapping.
     const sorted = [...availabilityConfig.windows].sort((a, b) =>

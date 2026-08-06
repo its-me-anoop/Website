@@ -2,6 +2,7 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { resetRateLimiter } from "@/features/booking/server/rate-limit";
 import { GET, POST } from "./route";
 
 const url = "https://flutterly.uk/api/booking/bookings";
@@ -29,6 +30,7 @@ beforeEach(async () => {
   dir = await mkdtemp(path.join(tmpdir(), "booking-route-"));
   vi.stubEnv("BOOKING_STORE_FILE", path.join(dir, "bookings.json"));
   vi.useFakeTimers({ now: new Date("2026-08-06T09:00:00Z"), toFake: ["Date"] });
+  resetRateLimiter();
 });
 
 afterEach(async () => {
@@ -66,6 +68,38 @@ describe("POST /api/booking/bookings", () => {
     await POST(postRequest(goodBody));
     const response = await POST(postRequest({ ...goodBody, email: "second@example.com" }));
     expect(response.status).toBe(409);
+  });
+
+  it("rate-limits repeated bookings from one client", async () => {
+    // Six well-spaced slots, distinct emails, one IP: the sixth attempt
+    // must trip the sliding-window limit before reaching the store.
+    const slots = [
+      "2026-08-12T08:30:00.000Z",
+      "2026-08-12T09:30:00.000Z",
+      "2026-08-12T10:30:00.000Z",
+      "2026-08-12T13:00:00.000Z",
+      "2026-08-12T14:00:00.000Z",
+      "2026-08-12T15:00:00.000Z",
+    ];
+    const headers = { "x-forwarded-for": "203.0.113.5, 10.0.0.1" };
+    const statuses: number[] = [];
+    for (const [i, startIso] of slots.entries()) {
+      const response = await POST(
+        postRequest({ ...goodBody, startIso, email: `client${i}@example.com` }, headers)
+      );
+      statuses.push(response.status);
+    }
+    expect(statuses.slice(0, 5)).toEqual([201, 201, 201, 201, 201]);
+    expect(statuses[5]).toBe(429);
+
+    // A different client is unaffected.
+    const other = await POST(
+      postRequest(
+        { ...goodBody, startIso: "2026-08-13T08:30:00.000Z", email: "other@example.com" },
+        { "x-forwarded-for": "198.51.100.9" }
+      )
+    );
+    expect(other.status).toBe(201);
   });
 });
 

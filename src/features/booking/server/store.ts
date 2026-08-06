@@ -1,4 +1,4 @@
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rename, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { Booking } from "../core/types";
 
@@ -6,8 +6,14 @@ import type { Booking } from "../core/types";
  * File-backed booking persistence. A JSON file keeps the system
  * dependency-free and easy to inspect; the path is swappable via
  * BOOKING_STORE_FILE for hosting environments with a mounted volume.
- * All access is funnelled through a process-wide queue so concurrent
- * requests cannot interleave a read-check-write cycle.
+ *
+ * Concurrency: access is funnelled through an in-process queue AND a
+ * cross-process advisory lock file (O_CREAT|O_EXCL), so read-check-write
+ * cycles cannot interleave between processes sharing one store file.
+ * Note the limit: serverless instances that do NOT share a filesystem
+ * (default Vercel, where each lambda has its own /tmp) cannot be
+ * coordinated by any file lock — see docs/BOOKING.md for the honest
+ * durability story there.
  */
 
 export function storeFile(): string {
@@ -19,11 +25,50 @@ export function storeFile(): string {
   return path.join(process.cwd(), ".data", "bookings.json");
 }
 
+/** A lock older than this is presumed abandoned by a dead process. */
+const staleLockMs = 10_000;
+const lockWaitMs = 5_000;
+
+async function acquireFileLock(file: string): Promise<() => Promise<void>> {
+  const lockPath = `${file}.lock`;
+  await mkdir(path.dirname(file), { recursive: true });
+  const deadline = Date.now() + lockWaitMs;
+  for (;;) {
+    try {
+      await writeFile(lockPath, String(process.pid), { flag: "wx" });
+      return () => rm(lockPath, { force: true });
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "EEXIST") throw error;
+      try {
+        const info = await stat(lockPath);
+        if (Date.now() - info.mtimeMs > staleLockMs) {
+          await rm(lockPath, { force: true });
+          continue;
+        }
+      } catch {
+        continue; // The holder released between our attempt and stat.
+      }
+      if (Date.now() > deadline) {
+        throw new Error("Timed out waiting for the booking store lock.");
+      }
+      await new Promise((resolve) => setTimeout(resolve, 25 + Math.random() * 50));
+    }
+  }
+}
+
 let queue: Promise<unknown> = Promise.resolve();
 
-/** Serialise store access: each critical section runs after the last. */
+/** Serialise store access in-process, then across processes. */
 export function withStoreLock<T>(fn: () => Promise<T>): Promise<T> {
-  const next = queue.then(fn, fn);
+  const critical = async () => {
+    const release = await acquireFileLock(storeFile());
+    try {
+      return await fn();
+    } finally {
+      await release();
+    }
+  };
+  const next = queue.then(critical, critical);
   // Keep the chain alive whether or not the section throws.
   queue = next.catch(() => undefined);
   return next;

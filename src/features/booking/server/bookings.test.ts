@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm, stat, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -80,6 +80,48 @@ describe("createBooking", () => {
       now
     );
     expect(adjacent).toMatchObject({ ok: false, status: 409 });
+  });
+
+  it("caps how many upcoming bookings one email can hold", async () => {
+    // Three well-spaced slots on the same day (clear of each other's buffers).
+    for (const startIso of [
+      "2026-08-12T08:30:00.000Z",
+      "2026-08-12T09:30:00.000Z",
+      "2026-08-12T10:30:00.000Z",
+    ]) {
+      const result = await createBooking({ ...request, startIso }, now);
+      expect(result.ok).toBe(true);
+    }
+    const fourth = await createBooking(
+      { ...request, startIso: "2026-08-12T13:00:00.000Z", email: "JO@example.com" },
+      now
+    );
+    expect(fourth).toMatchObject({ ok: false, status: 409 });
+    if (!fourth.ok) expect(fourth.error).toMatch(/already has several calls/i);
+  });
+
+  it("waits for another process's store lock instead of interleaving", async () => {
+    const lockPath = path.join(dir, "bookings.json.lock");
+    await writeFile(lockPath, "99999", { flag: "wx" });
+    let released = false;
+    setTimeout(() => {
+      released = true;
+      void rm(lockPath, { force: true });
+    }, 150);
+    const result = await createBooking(request, now);
+    expect(released).toBe(true);
+    expect(result.ok).toBe(true);
+  });
+
+  it("steals a stale lock left by a dead process", async () => {
+    const lockPath = path.join(dir, "bookings.json.lock");
+    await writeFile(lockPath, "99999", { flag: "wx" });
+    const old = (Date.now() - 60_000) / 1000;
+    await utimes(lockPath, old, old);
+    const result = await createBooking(request, now);
+    expect(result.ok).toBe(true);
+    // The lock is released again after the critical section.
+    await expect(stat(lockPath)).rejects.toMatchObject({ code: "ENOENT" });
   });
 });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -116,6 +116,25 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
+  // Survives the bounce back to the calendar when a slot is lost to a
+  // 409, so the visitor never retypes their details.
+  const [savedDetails, setSavedDetails] = useState<{
+    name: string;
+    email: string;
+    notes: string;
+  } | null>(null);
+
+  // Step changes unmount the element that held focus; move it to the new
+  // step's heading so keyboard and screen-reader users stay oriented.
+  const stepHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const skippedInitialFocus = useRef(false);
+  useEffect(() => {
+    if (!skippedInitialFocus.current) {
+      skippedInitialFocus.current = true;
+      return;
+    }
+    stepHeadingRef.current?.focus();
+  }, [step]);
 
   // Timezone and "today" are visitor-specific, so they resolve after
   // hydration; until then the calendar shows a quiet loading state.
@@ -176,11 +195,15 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
   }, [slotsLoading, slotsByDay, selectedDay, monthKey]);
 
   const timeZoneOptions = useMemo(() => {
+    // Before hydration completes, render exactly one option: the server's
+    // Intl zone list differs from the browser's, and emitting either
+    // during SSR causes a hydration mismatch.
+    if (!timeZone) return ["Europe/London"];
     const zones =
       typeof Intl.supportedValuesOf === "function"
         ? Intl.supportedValuesOf("timeZone")
         : ["Europe/London"];
-    return timeZone && !zones.includes(timeZone) ? [timeZone, ...zones] : zones;
+    return zones.includes(timeZone) ? zones : [timeZone, ...zones];
   }, [timeZone]);
 
   const minMonthKey = todayKey ? monthKeyOf(todayKey) : null;
@@ -201,6 +224,11 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
 
   async function submitBooking(form: FormData) {
     if (!selectedSlot || !timeZone) return;
+    setSavedDetails({
+      name: String(form.get("name") ?? ""),
+      email: String(form.get("email") ?? ""),
+      notes: String(form.get("notes") ?? ""),
+    });
     setSubmitting(true);
     setSubmitError(null);
     try {
@@ -265,6 +293,7 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
                 eventType={eventType}
                 confirmation={confirmation}
                 timeZone={timeZone ?? "Europe/London"}
+                headingRef={stepHeadingRef}
               />
             ) : (
               <div className="grid lg:grid-cols-[300px_1fr]">
@@ -325,25 +354,37 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
                         </p>
                       ) : null}
                       <div className="flex items-center justify-between">
-                        <h2 className="text-[16px] font-medium text-bl-ink">
+                        <h2
+                          ref={stepHeadingRef}
+                          tabIndex={-1}
+                          className="text-[16px] font-medium text-bl-ink outline-none"
+                        >
                           {monthKey ? monthTitle(monthKey) : "Loading dates…"}
                         </h2>
                         <div className="flex gap-1.5">
+                          {/* aria-disabled (not disabled) keeps focus on the
+                              button when a bound is reached mid-keyboarding. */}
                           <button
                             type="button"
                             aria-label="Previous month"
-                            disabled={!ready || monthKey === minMonthKey}
-                            onClick={() => setMonthKey((key) => key && shiftMonthKey(key, -1))}
-                            className="flex h-9 w-9 items-center justify-center rounded-full border border-bl-line-2 text-bl-ink transition-colors hover:border-bl-teal hover:text-bl-teal disabled:cursor-not-allowed disabled:opacity-35"
+                            aria-disabled={!ready || monthKey === minMonthKey}
+                            onClick={() => {
+                              if (!ready || monthKey === minMonthKey) return;
+                              setMonthKey((key) => key && shiftMonthKey(key, -1));
+                            }}
+                            className="flex h-9 w-9 items-center justify-center rounded-full border border-bl-line-2 text-bl-ink transition-colors hover:border-bl-teal hover:text-bl-teal aria-disabled:cursor-not-allowed aria-disabled:opacity-35 aria-disabled:hover:border-bl-line-2 aria-disabled:hover:text-bl-ink"
                           >
                             <ChevronLeft size={16} aria-hidden />
                           </button>
                           <button
                             type="button"
                             aria-label="Next month"
-                            disabled={!ready || monthKey === maxMonthKey}
-                            onClick={() => setMonthKey((key) => key && shiftMonthKey(key, 1))}
-                            className="flex h-9 w-9 items-center justify-center rounded-full border border-bl-line-2 text-bl-ink transition-colors hover:border-bl-teal hover:text-bl-teal disabled:cursor-not-allowed disabled:opacity-35"
+                            aria-disabled={!ready || monthKey === maxMonthKey}
+                            onClick={() => {
+                              if (!ready || monthKey === maxMonthKey) return;
+                              setMonthKey((key) => key && shiftMonthKey(key, 1));
+                            }}
+                            className="flex h-9 w-9 items-center justify-center rounded-full border border-bl-line-2 text-bl-ink transition-colors hover:border-bl-teal hover:text-bl-teal aria-disabled:cursor-not-allowed aria-disabled:opacity-35 aria-disabled:hover:border-bl-line-2 aria-disabled:hover:text-bl-ink"
                           >
                             <ChevronRight size={16} aria-hidden />
                           </button>
@@ -449,7 +490,11 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
                       <ArrowLeft size={15} aria-hidden />
                       Change time
                     </button>
-                    <h2 className="mt-4 text-[20px] font-medium tracking-tight text-bl-ink">
+                    <h2
+                      ref={stepHeadingRef}
+                      tabIndex={-1}
+                      className="mt-4 text-[20px] font-medium tracking-tight text-bl-ink outline-none"
+                    >
                       Confirm your {eventType.name.toLowerCase()}
                     </h2>
                     {selectedSlot && timeZone ? (
@@ -479,6 +524,7 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
                           required
                           maxLength={120}
                           autoComplete="name"
+                          defaultValue={savedDetails?.name ?? ""}
                           className="rounded-xl border border-bl-line-2 bg-bl-surface px-4 py-2.5 text-[14.5px] text-bl-ink"
                         />
                       </label>
@@ -490,6 +536,7 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
                           required
                           maxLength={254}
                           autoComplete="email"
+                          defaultValue={savedDetails?.email ?? ""}
                           className="rounded-xl border border-bl-line-2 bg-bl-surface px-4 py-2.5 text-[14.5px] text-bl-ink"
                         />
                         <span className="text-[12.5px] text-bl-muted">
@@ -505,6 +552,7 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
                           name="notes"
                           rows={3}
                           maxLength={2000}
+                          defaultValue={savedDetails?.notes ?? ""}
                           className="rounded-xl border border-bl-line-2 bg-bl-surface px-4 py-2.5 text-[14.5px] text-bl-ink"
                         />
                       </label>
@@ -542,10 +590,12 @@ function ConfirmationPanel({
   eventType,
   confirmation,
   timeZone,
+  headingRef,
 }: {
   eventType: EventType;
   confirmation: Confirmation;
   timeZone: string;
+  headingRef?: React.Ref<HTMLHeadingElement>;
 }) {
   const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(confirmation.ics)}`;
   const rescheduleMailto = `mailto:${site.email}?subject=${encodeURIComponent(
@@ -557,7 +607,11 @@ function ConfirmationPanel({
       <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-bl-teal-soft text-bl-teal">
         <CheckCircle2 size={28} aria-hidden />
       </span>
-      <h1 className="mt-5 text-[26px] font-medium tracking-tight text-bl-ink">
+      <h1
+        ref={headingRef}
+        tabIndex={-1}
+        className="mt-5 text-[26px] font-medium tracking-tight text-bl-ink outline-none"
+      >
         You&rsquo;re booked in
       </h1>
       <p className="mx-auto mt-3 max-w-[460px] text-[15px] leading-relaxed text-bl-ink-soft">

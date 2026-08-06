@@ -139,5 +139,10 @@ describe("Scheduler", () => {
       expect(screen.getByText(/just been taken/i)).toBeInTheDocument()
     );
     expect(screen.getByRole("button", { name: /previous month/i })).toBeInTheDocument();
+
+    // Picking another slot shows the form with the typed details intact.
+    fireEvent.click(screen.getByRole("button", { name: "09:30" }));
+    expect(screen.getByLabelText(/your name/i)).toHaveValue("Jo");
+    expect(screen.getByLabelText(/email address/i)).toHaveValue("jo@example.com");
   });
 });
