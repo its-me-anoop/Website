@@ -96,7 +96,13 @@ durable shared backend (e.g. Vercel KV/Upstash Redis or Postgres) behind
 | `BOOKING_AVAILABILITY_JSON` | Durable availability rules for serverless hosting; `/book/manage` shows the exact value to paste after saving. |
 | `BOOKING_AVAILABILITY_FILE` | Rules-file path override (default `.data/availability.json` locally, `/tmp/flutterly-availability.json` on Vercel). |
 | `BOOKING_STORE_FILE` | Store path (default `.data/bookings.json` locally, `/tmp/flutterly-bookings.json` on Vercel where the lambda filesystem is read-only elsewhere). Point at a persistent volume in hosting that has one. |
-| `BOOKING_NOTIFY_WEBHOOK` | URL POSTed on each new booking (`kind: booking.created`) — e.g. a Zapier/Make hook that emails or Slacks the owner. Failures log and never block the client. **Strongly recommended on Vercel**, where it is the durable record of each booking. |
+| `RESEND_API_KEY` | Enables **email to the owner on every booking** via [Resend](https://resend.com)'s HTTP API (no SDK dependency). With an unverified domain, Resend's onboarding sender delivers only to the Resend account owner's address. |
+| `BOOKING_NOTIFY_EMAIL` | Where booking emails go (default: the site contact address). |
+| `BOOKING_EMAIL_FROM` | Sender for booking emails (default `Flutterly bookings <onboarding@resend.dev>`; set to an address on your verified Resend domain in production). |
+| `BOOKING_NOTIFY_WEBHOOK` | URL POSTed on each new booking (`kind: booking.created`) — e.g. a Zapier/Make hook or a Google Apps Script relay that emails or Slacks the owner. Failures log and never block the client. |
+
+Email and webhook are independent; either (or both) serve as the
+durable per-booking record on serverless hosting.
 
 On serverless hosting without a mounted volume the JSON store is
 per-instance and ephemeral — set `BOOKING_NOTIFY_WEBHOOK` so every
