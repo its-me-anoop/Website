@@ -17,19 +17,26 @@ export type EventType = {
   location: "video-call" | "phone-call";
 };
 
-/** A bookable window inside a working day, as "HH:MM" wall times. */
-export type AvailabilityWindow = {
+/**
+ * A recurring bookable window: one weekday (1 = Monday … 7 = Sunday)
+ * with "HH:MM" wall times in the host timezone.
+ */
+export type WeeklyWindow = {
+  day: number;
   start: string;
   end: string;
 };
 
-export type AvailabilityConfig = {
+/**
+ * Owner-editable availability. With no windows, no slots exist and
+ * booking is closed — the default until the owner adds some via
+ * /book/manage (or BOOKING_AVAILABILITY_JSON in hosting env).
+ */
+export type AvailabilityRules = {
   /** IANA timezone the working hours are defined in. */
   timeZone: string;
-  /** ISO weekday numbers with availability (1 = Monday … 7 = Sunday). */
-  workingDays: readonly number[];
-  /** Bookable windows within each working day. */
-  windows: readonly AvailabilityWindow[];
+  /** Recurring weekly windows; empty means booking is closed. */
+  weeklyWindows: readonly WeeklyWindow[];
   /** Earliest a slot may start, measured from "now". */
   minNoticeHours: number;
   /** How far ahead bookings are accepted. */

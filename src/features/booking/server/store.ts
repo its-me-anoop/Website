@@ -56,22 +56,31 @@ async function acquireFileLock(file: string): Promise<() => Promise<void>> {
   }
 }
 
-let queue: Promise<unknown> = Promise.resolve();
+const queues = new Map<string, Promise<unknown>>();
 
-/** Serialise store access in-process, then across processes. */
-export function withStoreLock<T>(fn: () => Promise<T>): Promise<T> {
+/**
+ * Serialise access to a file in-process (per-path promise queue), then
+ * across processes (the advisory lock file).
+ */
+export function withFileLock<T>(file: string, fn: () => Promise<T>): Promise<T> {
   const critical = async () => {
-    const release = await acquireFileLock(storeFile());
+    const release = await acquireFileLock(file);
     try {
       return await fn();
     } finally {
       await release();
     }
   };
+  const queue = queues.get(file) ?? Promise.resolve();
   const next = queue.then(critical, critical);
   // Keep the chain alive whether or not the section throws.
-  queue = next.catch(() => undefined);
+  queues.set(file, next.catch(() => undefined));
   return next;
+}
+
+/** Serialise booking-store access. */
+export function withStoreLock<T>(fn: () => Promise<T>): Promise<T> {
+  return withFileLock(storeFile(), fn);
 }
 
 export async function loadBookings(): Promise<Booking[]> {

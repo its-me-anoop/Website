@@ -18,11 +18,25 @@ const request: BookingRequest = {
   timeZone: "Europe/London",
 };
 
+/** Owner availability for tests: Mon–Fri, two London windows. */
+const openRulesJson = JSON.stringify({
+  timeZone: "Europe/London",
+  weeklyWindows: [1, 2, 3, 4, 5].flatMap((day) => [
+    { day, start: "09:30", end: "12:30" },
+    { day, start: "14:00", end: "17:30" },
+  ]),
+  minNoticeHours: 18,
+  horizonDays: 60,
+  bufferMinutes: 15,
+});
+
 let dir: string;
 
 beforeEach(async () => {
   dir = await mkdtemp(path.join(tmpdir(), "booking-store-"));
   vi.stubEnv("BOOKING_STORE_FILE", path.join(dir, "bookings.json"));
+  vi.stubEnv("BOOKING_AVAILABILITY_FILE", path.join(dir, "availability.json"));
+  vi.stubEnv("BOOKING_AVAILABILITY_JSON", openRulesJson);
 });
 
 afterEach(async () => {
@@ -60,6 +74,12 @@ describe("createBooking", () => {
 
   it("rejects a slot outside the offered grid", async () => {
     const result = await createBooking({ ...request, startIso: "2026-08-12T09:10:00.000Z" }, now);
+    expect(result).toMatchObject({ ok: false, status: 409 });
+  });
+
+  it("rejects every booking when no availability is configured", async () => {
+    vi.stubEnv("BOOKING_AVAILABILITY_JSON", "");
+    const result = await createBooking(request, now);
     expect(result).toMatchObject({ ok: false, status: 409 });
   });
 

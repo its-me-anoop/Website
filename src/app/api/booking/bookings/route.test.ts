@@ -26,9 +26,22 @@ const goodBody = {
 
 let dir: string;
 
+const openRulesJson = JSON.stringify({
+  timeZone: "Europe/London",
+  weeklyWindows: [1, 2, 3, 4, 5].flatMap((day) => [
+    { day, start: "09:30", end: "12:30" },
+    { day, start: "14:00", end: "17:30" },
+  ]),
+  minNoticeHours: 18,
+  horizonDays: 60,
+  bufferMinutes: 15,
+});
+
 beforeEach(async () => {
   dir = await mkdtemp(path.join(tmpdir(), "booking-route-"));
   vi.stubEnv("BOOKING_STORE_FILE", path.join(dir, "bookings.json"));
+  vi.stubEnv("BOOKING_AVAILABILITY_FILE", path.join(dir, "availability.json"));
+  vi.stubEnv("BOOKING_AVAILABILITY_JSON", openRulesJson);
   vi.useFakeTimers({ now: new Date("2026-08-06T09:00:00Z"), toFake: ["Date"] });
   resetRateLimiter();
 });

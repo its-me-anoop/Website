@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { listAvailableSlots } from "@/features/booking/core/availability";
-import { availabilityConfig, getEventType } from "@/features/booking/core/config";
+import { getEventType } from "@/features/booking/core/config";
+import { resolveAvailability } from "@/features/booking/server/availability-store";
 import { listBookings } from "@/features/booking/server/bookings";
 
 /** Longest window a single request may ask for, in milliseconds. */
@@ -8,8 +9,10 @@ const maxSpanMs = 45 * 86_400_000;
 
 /**
  * GET /api/booking/availability?eventType=consultation&from=…&to=…
- * Returns bookable slot starts (UTC ISO) between two instants. The
- * client groups them by day in the visitor's own timezone.
+ * Returns bookable slot starts (UTC ISO) between two instants, plus
+ * whether booking is open at all (the owner may have no availability
+ * configured). The client groups slots by day in the visitor's own
+ * timezone.
  */
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -30,21 +33,26 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Ask for 45 days at most." }, { status: 400 });
   }
 
-  const bookings = await listBookings();
-  const slots = listAvailableSlots({
-    eventType,
-    from: new Date(from),
-    to: new Date(to),
-    bookings,
-    now: new Date(),
-  });
+  const { rules } = await resolveAvailability();
+  const bookingOpen = rules.weeklyWindows.length > 0;
+  const slots = bookingOpen
+    ? listAvailableSlots({
+        eventType,
+        from: new Date(from),
+        to: new Date(to),
+        bookings: await listBookings(),
+        now: new Date(),
+        rules,
+      })
+    : [];
 
   return NextResponse.json(
     {
       slots,
+      bookingOpen,
       durationMinutes: eventType.durationMinutes,
-      hostTimeZone: availabilityConfig.timeZone,
-      horizonDays: availabilityConfig.horizonDays,
+      hostTimeZone: rules.timeZone,
+      horizonDays: rules.horizonDays,
     },
     { headers: { "Cache-Control": "no-store" } }
   );

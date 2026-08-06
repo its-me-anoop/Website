@@ -1,5 +1,5 @@
-import { createHash, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
+import { adminConfigured, isAuthorisedAdmin } from "@/features/booking/server/admin-auth";
 import { buildIcs } from "@/features/booking/core/ics";
 import { getEventType } from "@/features/booking/core/config";
 import {
@@ -60,22 +60,12 @@ export async function POST(request: Request) {
   );
 }
 
-function isAuthorisedAdmin(request: Request): boolean {
-  const token = process.env.BOOKING_ADMIN_TOKEN;
-  if (!token) return false;
-  const header = request.headers.get("authorization") ?? "";
-  const presented = header.replace(/^Bearer\s+/i, "");
-  const a = createHash("sha256").update(presented).digest();
-  const b = createHash("sha256").update(token).digest();
-  return timingSafeEqual(a, b);
-}
-
 /**
  * GET /api/booking/bookings — the owner's view of the diary. Requires
  * BOOKING_ADMIN_TOKEN to be configured and presented as a bearer token.
  */
 export async function GET(request: Request) {
-  if (!process.env.BOOKING_ADMIN_TOKEN) {
+  if (!adminConfigured()) {
     return NextResponse.json({ error: "Admin access is not configured." }, { status: 503 });
   }
   if (!isAuthorisedAdmin(request)) {
