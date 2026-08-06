@@ -42,3 +42,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code worktrees must never be committed (broken gitlinks break CI checkouts)
+.claude/worktrees/

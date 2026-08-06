@@ -43,7 +43,7 @@ export function listAvailableSlots({
     now.getTime() + config.minNoticeHours * 3_600_000
   );
   const latest = Math.min(
-    to.getTime(),
+    to.getTime() - 1,
     now.getTime() + config.horizonDays * 86_400_000
   );
   if (earliest > latest) return [];

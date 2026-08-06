@@ -23,6 +23,10 @@ const ROUTES = [
   "/social-media-marketing",
   "/packages",
   "/free-audit",
+  "/book",
+  "/book/intro-call",
+  "/book/consultation",
+  "/book/project-scoping",
   "/accessibility",
   "/cookie-policy",
   "/demo/gp-practice",
@@ -67,9 +71,13 @@ async function auditPage(context, route, label = route) {
     if (message.type() === "error") consoleErrors.push(message.text());
   });
   page.on("pageerror", (error) => pageErrors.push(error.message));
-  page.on("requestfailed", (request) =>
-    failed.push(`${request.url()} :: ${request.failure()?.errorText}`)
-  );
+  page.on("requestfailed", (request) => {
+    const reason = request.failure()?.errorText;
+    // Aborted requests are routine (e.g. RSC prefetches cancelled when the
+    // page closes), not user-visible failures.
+    if (reason === "net::ERR_ABORTED") return;
+    failed.push(`${request.url()} :: ${reason}`);
+  });
   page.on("response", (response) => {
     if (response.status() >= 400) bad.push(`${response.status()} ${response.url()}`);
   });
@@ -222,6 +230,9 @@ await mobile.close();
 
 // The primary non-technical content path: authenticate, choose a page, save a
 // draft, open the protected preview, publish it, and verify the public renderer.
+// Demo sign-in is deliberately unavailable against production builds (and
+// whenever GP_CMS_AUTH_MODE/GP_CMS_AUTH_SECRET are unset), so the journey runs
+// only when the demo form is present; otherwise the secure default is verified.
 const cmsJourney = await browser.newContext({ viewport: { width: 1280, height: 900 } });
 {
   const page = await cmsJourney.newPage();
@@ -229,6 +240,24 @@ const cmsJourney = await browser.newContext({ viewport: { width: 1280, height: 9
   if (!(await page.getByRole("heading", { name: "Sign in to the CMS" }).isVisible().catch(() => false))) {
     note("cms auth", "an unauthenticated CMS route did not redirect to sign-in");
   }
+  const demoAvailable = await page
+    .getByLabel("Demo practice")
+    .isVisible()
+    .catch(() => false);
+  if (!demoAvailable) {
+    if (
+      !(await page
+        .getByText(/Organisation sign-in is not configured/i)
+        .isVisible()
+        .catch(() => false))
+    ) {
+      note("cms auth", "neither demo sign-in nor the unconfigured explanation rendered");
+    }
+    console.log(
+      "• CMS journey skipped: demo sign-in unavailable here (secure default verified)"
+    );
+    await page.close();
+  } else {
   await page.getByLabel("Demo practice").selectOption("willowbrook");
   await page.getByLabel("Try a role").selectOption("practice_admin");
   await page.getByRole("button", { name: "Start local demo session" }).click();
@@ -280,8 +309,69 @@ const cmsJourney = await browser.newContext({ viewport: { width: 1280, height: 9
   }
   await publicPage.close();
   await page.close();
+  }
 }
 await cmsJourney.close();
+
+// The consultation booking journey: reach the scheduler from /book, take the
+// first open slot, submit the form, and confirm the reference and calendar
+// file are produced. Exercises the availability API and the booking store.
+const bookingJourney = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+{
+  const page = await bookingJourney.newPage();
+  await page.goto(BASE + "/book", { waitUntil: "networkidle" });
+  await page
+    .locator('article:has-text("Consultation")')
+    .getByRole("link", { name: "Pick a time" })
+    .click();
+  await page.waitForURL(/\/book\/consultation/);
+
+  // Day buttons carry aria-pressed; an enabled one means slots exist. The
+  // current month can be legitimately empty near its end, so try the next.
+  const openDay = page.locator("button[aria-pressed]:not([disabled])").first();
+  try {
+    await openDay.waitFor({ timeout: 15000 });
+  } catch {
+    await page.getByRole("button", { name: "Next month" }).click();
+    await openDay.waitFor({ timeout: 15000 }).catch(() => {
+      note("booking journey", "no bookable day appeared in two months of availability");
+    });
+  }
+  if (await openDay.isVisible().catch(() => false)) {
+    await openDay.click();
+    const slot = page.locator('div[aria-busy="false"] button').first();
+    await slot.waitFor({ timeout: 10000 });
+    await slot.click();
+
+    await page.getByLabel("Your name").fill("Browser Workflow");
+    await page.getByLabel("Email address").fill("browser-workflow@example.com");
+    await page.getByLabel("Anything worth knowing").fill("Automated CI journey booking.");
+    await page.getByRole("button", { name: "Confirm booking" }).click();
+
+    const confirmed = await page
+      .getByRole("heading", { name: /booked in/i })
+      .waitFor({ timeout: 15000 })
+      .then(() => true)
+      .catch(() => false);
+    if (!confirmed) {
+      note("booking journey", "submitting the booking form did not reach the confirmation");
+    } else {
+      const body = await page.textContent("body");
+      if (!/FL-[2-9A-HJKMNP-Z]{8}/.test(body ?? "")) {
+        note("booking journey", "the confirmation did not show a booking reference");
+      }
+      const icsHref = await page
+        .getByRole("link", { name: /Add to calendar/ })
+        .getAttribute("href")
+        .catch(() => null);
+      if (!icsHref?.startsWith("data:text/calendar")) {
+        note("booking journey", "the confirmation did not offer an .ics calendar file");
+      }
+    }
+  }
+  await page.close();
+}
+await bookingJourney.close();
 
 const publicDraft = await browser.newContext({ viewport: { width: 390, height: 844 } });
 {
