@@ -762,6 +762,7 @@ export const footerColumns = [
   {
     title: "Company",
     links: [
+      { label: "Book a call", href: "/book" },
       { label: "All services", href: "/services" },
       { label: "Work", href: "/#work" },
       { label: "Process", href: "/#process" },

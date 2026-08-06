@@ -50,6 +50,9 @@ src/components/bloom/
 └── ../privacy/        # Global consent notice and inline preferences
 ```
 
+The `/book` pages (`src/features/booking/ui/`) also render inside
+`BloomShell` — see [BOOKING.md](./BOOKING.md).
+
 ## Signature moves
 
 - **Company positioning first**: the hero names Flutterly Limited as a
@@ -63,6 +66,8 @@ src/components/bloom/
   caption) contrasts fragmented suppliers with accountable delivery.
 - **Free audit**: recurring offer; the audit page requests via a
   prefilled `mailto:` (no backend form).
+- **Direct booking**: the nav's primary action is "Book a call" —
+  a cal.com-style scheduler at `/book` (see [BOOKING.md](./BOOKING.md)).
 - **Native disclosure FAQs**: `<details>/<summary>`, no JS state.
 - **Proportionate consent**: the site currently sets no cookies or trackers;
   a non-modal preference panel records the choice in local storage and exposes

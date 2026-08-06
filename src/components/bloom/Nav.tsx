@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { site } from "@/lib/site";
 import { EASE } from "./primitives";
 
 const links = [
@@ -60,13 +59,13 @@ export function Nav() {
         </nav>
 
         <div className="flex items-center gap-2.5">
-          <a
-            href={`mailto:${site.email}?subject=${encodeURIComponent("Project enquiry")}`}
+          <Link
+            href="/book"
             className="whitespace-nowrap rounded-full bg-bl-teal px-3.5 py-2 text-[13px] font-semibold text-white shadow-[0_10px_26px_-12px_rgba(14,122,99,0.65)] transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-bl-teal-hover min-[380px]:px-4 min-[380px]:text-[13.5px] sm:px-5 sm:py-2.5"
           >
-            <span className="min-[380px]:hidden">Contact</span>
-            <span className="hidden min-[380px]:inline">Discuss a project</span>
-          </a>
+            <span className="min-[380px]:hidden">Book</span>
+            <span className="hidden min-[380px]:inline">Book a call</span>
+          </Link>
 
           <button
             type="button"
@@ -105,13 +104,13 @@ export function Nav() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={`mailto:${site.email}?subject=${encodeURIComponent("Project enquiry")}`}
+            <Link
+              href="/book"
               onClick={() => setOpen(false)}
               className="mt-2 rounded-full bg-bl-teal px-5 py-3 text-center text-[15px] font-medium text-white"
             >
-              Discuss a project
-            </a>
+              Book a call
+            </Link>
           </m.nav>
         )}
       </AnimatePresence>

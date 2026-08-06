@@ -15,6 +15,8 @@ pages run the light "Porcelain" system with Framer Motion.
   structure, signature moves, and the motion system.
 - [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — tokens,
   primitives, motion, and accessibility rules for case-study pages.
+- [Appointment Booking](./BOOKING.md) — the `/book` scheduling system:
+  availability engine, storage, API and scheduler UI.
 
 ## Architecture at a glance
 
@@ -31,6 +33,8 @@ src/
 │   ├── care-home-websites/ # Care home sector page
 │   ├── packages/           # Packages page
 │   ├── free-audit/         # Free website audit page
+│   ├── book/               # Consultation booking (see BOOKING.md)
+│   ├── api/booking/        # Availability + bookings endpoints
 │   ├── services/           # Full digital delivery offer
 │   ├── business-email/     # Email and collaboration setup
 │   ├── social-media-marketing/ # Campaign and content support
@@ -48,6 +52,7 @@ src/
 │   └── projects/           # Per-product landing UIs
 ├── data/gp-cms/            # Fictional host-owned workspace configuration
 ├── features/gp-cms/        # Extractable core, admin and public renderer
+├── features/booking/       # Scheduling: core engine, store, scheduler UI
 ├── fonts/                  # Self-hosted variable woff2 subsets
 └── lib/
     ├── site.ts             # Single source of truth for SEO/site constants

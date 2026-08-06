@@ -1,9 +1,22 @@
 import type { MetadataRoute } from "next";
+import { eventTypes } from "@/features/booking/core/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://flutterly.uk";
 
   return [
+    {
+      url: `${baseUrl}/book`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
+    ...eventTypes.map((eventType) => ({
+      url: `${baseUrl}/book/${eventType.id}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     {
       url: `${baseUrl}/`,
       lastModified: new Date(),
