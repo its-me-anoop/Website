@@ -11,7 +11,7 @@ import {
   RevealWords,
   SectionHead,
 } from "@/components/bloom/primitives";
-import { availabilityConfig, eventTypes } from "../core/config";
+import { eventTypes } from "../core/config";
 
 const reassurances = [
   "No cost and no obligation for any first call",
@@ -110,9 +110,9 @@ export function BookingLanding() {
                 ))}
               </ul>
               <p className="mt-5 text-[13.5px] leading-relaxed text-bl-muted">
-                Calls are offered Monday to Friday, UK working hours
-                ({availabilityConfig.windows.map((w) => `${w.start}–${w.end}`).join(" and ")}).
-                Prefer email? Write to{" "}
+                Open times appear in the scheduler in your own timezone; when
+                the diary is paused, none are shown. Prefer email — or no
+                times suit? Write to{" "}
                 <a className="font-medium text-bl-teal hover:text-bl-teal-hover" href={`mailto:${site.email}`}>
                   {site.email}
                 </a>{" "}

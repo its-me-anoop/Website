@@ -15,7 +15,6 @@ import {
 import { site } from "@/lib/site";
 import { BloomShell } from "@/components/bloom/BloomShell";
 import { CheckItem } from "@/components/bloom/primitives";
-import { availabilityConfig } from "../core/config";
 import { addDaysToKey, dateKeyInZone, wallTimeToUtc, weekdayOfKey } from "../core/time";
 import type { EventType } from "../core/types";
 
@@ -107,6 +106,10 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
   const [todayKey, setTodayKey] = useState<string | null>(null);
   const [monthKey, setMonthKey] = useState<string | null>(null);
   const [slots, setSlots] = useState<string[]>([]);
+  // null until the first availability response arrives; false means the
+  // owner has no open windows, so booking is paused site-wide.
+  const [bookingOpen, setBookingOpen] = useState<boolean | null>(null);
+  const [horizonDays, setHorizonDays] = useState(60);
   const [slotsLoading, setSlotsLoading] = useState(true);
   const [slotsError, setSlotsError] = useState<string | null>(null);
   const [reloadCount, setReloadCount] = useState(0);
@@ -163,8 +166,14 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
     fetch(`/api/booking/availability?${query.toString()}`, { signal: controller.signal })
       .then(async (response) => {
         if (!response.ok) throw new Error(`availability ${response.status}`);
-        const payload = (await response.json()) as { slots: string[] };
+        const payload = (await response.json()) as {
+          slots: string[];
+          bookingOpen?: boolean;
+          horizonDays?: number;
+        };
         setSlots(payload.slots);
+        setBookingOpen(payload.bookingOpen !== false);
+        if (payload.horizonDays) setHorizonDays(payload.horizonDays);
         setSlotsLoading(false);
       })
       .catch((error: unknown) => {
@@ -207,9 +216,7 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
   }, [timeZone]);
 
   const minMonthKey = todayKey ? monthKeyOf(todayKey) : null;
-  const maxMonthKey = todayKey
-    ? monthKeyOf(addDaysToKey(todayKey, availabilityConfig.horizonDays))
-    : null;
+  const maxMonthKey = todayKey ? monthKeyOf(addDaysToKey(todayKey, horizonDays)) : null;
 
   const calendarCells = useMemo(() => {
     if (!monthKey) return [];
@@ -345,7 +352,36 @@ export function Scheduler({ eventType }: { eventType: EventType }) {
                   </label>
                 </aside>
 
-                {step === "pick" ? (
+                {step === "pick" && bookingOpen === false && !slotsLoading ? (
+                  <div className="flex flex-col items-start justify-center gap-4 p-7 sm:p-10">
+                    <h2
+                      ref={stepHeadingRef}
+                      tabIndex={-1}
+                      className="text-[20px] font-medium tracking-tight text-bl-ink outline-none"
+                    >
+                      Booking is paused right now
+                    </h2>
+                    <p className="max-w-[46ch] text-[14.5px] leading-relaxed text-bl-ink-soft">
+                      No times are open at the moment. Email{" "}
+                      <a
+                        className="font-medium text-bl-teal hover:text-bl-teal-hover"
+                        href={`mailto:${site.email}?subject=${encodeURIComponent(
+                          `Call request: ${eventType.name}`
+                        )}`}
+                      >
+                        {site.email}
+                      </a>{" "}
+                      instead and {site.founder.split(" ")[0]} will arrange the call
+                      directly — same conversation, one extra step.
+                    </p>
+                    <Link
+                      href="/"
+                      className="text-[13.5px] font-medium text-bl-teal hover:text-bl-teal-hover"
+                    >
+                      Back to the site
+                    </Link>
+                  </div>
+                ) : step === "pick" ? (
                   <div className="grid p-7 sm:p-8 md:grid-cols-[1fr_220px] md:gap-8">
                     <div>
                       {submitError ? (

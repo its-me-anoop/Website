@@ -11,10 +11,30 @@ file, and the UI is plain Bloom components.
    (30 min) or project scoping (60 min). All free video calls.
 2. **`/book/[eventType]`** — a month calendar shows days with open
    slots; times render in the visitor's own timezone (switchable). Pick
-   a slot, add name/email/notes, confirm.
+   a slot, add name/email/notes, confirm. When the owner has no
+   availability configured — the default — the scheduler shows a clear
+   "booking is paused" panel with an email fallback instead.
 3. **Confirmation** — instant booking reference, an `.ics` download, a
    Google Calendar link, and a note that joining details follow by
    email. Rescheduling is a reply quoting the reference.
+
+## Owner platform: availability
+
+Booking ships **closed**: there are no built-in working hours, so
+nobody can book until the owner opens some. Availability is managed at
+**`/book/manage`** (sign in with `BOOKING_ADMIN_TOKEN`):
+
+- add or remove recurring weekly windows (day + start/end, host
+  timezone), plus minimum notice, horizon and buffer;
+- **Pause all booking** clears every window in one click;
+- see upcoming bookings from this instance's diary;
+- copy the current rules as JSON for the hosting environment.
+
+Rules resolve in this order: the saved rules file (written by the
+platform, immediate effect) → the `BOOKING_AVAILABILITY_JSON` env var →
+the closed default. On serverless hosting the file does not survive
+instance recycling, so after changing availability paste the JSON the
+platform shows into `BOOKING_AVAILABILITY_JSON` to make it durable.
 
 ## Architecture
 
@@ -40,13 +60,14 @@ src/app/api/booking/
 └── bookings/route.ts       # POST create · GET admin list
 ```
 
-Availability rules live in `core/config.ts`: Mon–Fri, 09:30–12:30 and
-14:00–17:30 Europe/London, 18 hours minimum notice, 60-day horizon,
-15-minute buffer around existing bookings. Slots step by the event's
-own duration. All times cross the wire as UTC instants; the client
-groups and formats them in the visitor's timezone, so GMT/BST and
-overseas clients are handled by construction (see `core/time.test.ts`
-for the DST cases).
+Availability is owner-defined data, not code (see the platform section
+above); `core/config.ts` holds only the closed default and the shared
+numbers (18 hours minimum notice, 60-day horizon, 15-minute buffer —
+all editable in the platform). Slots step by the event's own duration
+inside each weekly window. All times cross the wire as UTC instants;
+the client groups and formats them in the visitor's timezone, so
+GMT/BST and overseas clients are handled by construction (see
+`core/time.test.ts` for the DST cases).
 
 Double-booking is prevented at write time wherever processes share one
 store: the availability check runs inside a serialised critical section
@@ -71,9 +92,11 @@ durable shared backend (e.g. Vercel KV/Upstash Redis or Postgres) behind
 
 | Env var | Purpose |
 |---|---|
+| `BOOKING_ADMIN_TOKEN` | Enables the owner platform at `/book/manage` and the admin APIs (`GET /api/booking/bookings`, `GET/PUT /api/booking/admin/availability`), presented as a bearer token. Unset ⇒ they answer 503. |
+| `BOOKING_AVAILABILITY_JSON` | Durable availability rules for serverless hosting; `/book/manage` shows the exact value to paste after saving. |
+| `BOOKING_AVAILABILITY_FILE` | Rules-file path override (default `.data/availability.json` locally, `/tmp/flutterly-availability.json` on Vercel). |
 | `BOOKING_STORE_FILE` | Store path (default `.data/bookings.json` locally, `/tmp/flutterly-bookings.json` on Vercel where the lambda filesystem is read-only elsewhere). Point at a persistent volume in hosting that has one. |
 | `BOOKING_NOTIFY_WEBHOOK` | URL POSTed on each new booking (`kind: booking.created`) — e.g. a Zapier/Make hook that emails or Slacks the owner. Failures log and never block the client. **Strongly recommended on Vercel**, where it is the durable record of each booking. |
-| `BOOKING_ADMIN_TOKEN` | Enables `GET /api/booking/bookings` with `Authorization: Bearer <token>` for reading the diary. Unset ⇒ endpoint answers 503. |
 
 On serverless hosting without a mounted volume the JSON store is
 per-instance and ephemeral — set `BOOKING_NOTIFY_WEBHOOK` so every

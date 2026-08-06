@@ -67,6 +67,32 @@ afterEach(() => {
 });
 
 describe("Scheduler", () => {
+  it("shows the paused panel when the owner has no availability", async () => {
+    const fetchMock = globalThis.fetch as ReturnType<typeof vi.fn>;
+    fetchMock.mockImplementation(
+      async () =>
+        new Response(
+          JSON.stringify({
+            slots: [],
+            bookingOpen: false,
+            durationMinutes: 30,
+            hostTimeZone: "Europe/London",
+            horizonDays: 60,
+          }),
+          { status: 200 }
+        )
+    );
+    renderScheduler();
+    expect(
+      await screen.findByRole("heading", { name: /booking is paused right now/i })
+    ).toBeInTheDocument();
+    const mailtoLinks = screen.getAllByRole("link", { name: /anoop@flutterly\.co\.uk/i });
+    expect(
+      mailtoLinks.some((link) => link.getAttribute("href")?.includes("Call%20request"))
+    ).toBe(true);
+    expect(screen.queryByRole("button", { name: /previous month/i })).not.toBeInTheDocument();
+  });
+
   it("walks from calendar to confirmed booking", async () => {
     renderScheduler();
 

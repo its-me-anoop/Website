@@ -313,12 +313,46 @@ const cmsJourney = await browser.newContext({ viewport: { width: 1280, height: 9
 }
 await cmsJourney.close();
 
-// The consultation booking journey: reach the scheduler from /book, take the
-// first open slot, submit the form, and confirm the reference and calendar
-// file are produced. Exercises the availability API and the booking store.
+// The booking journey. Availability defaults to CLOSED, so first verify the
+// paused state, then open windows through the owner admin API (what
+// /book/manage does), book the first open slot, and close availability
+// again. Exercises the paused UX, the admin platform, the availability API
+// and the booking store end to end. Needs BOOKING_ADMIN_TOKEN on the server.
+const putAvailability = (token, weeklyWindows) =>
+  fetch(BASE + "/api/booking/admin/availability", {
+    method: "PUT",
+    headers: { authorization: `Bearer ${token}`, "content-type": "application/json" },
+    body: JSON.stringify({
+      timeZone: "Europe/London",
+      weeklyWindows,
+      minNoticeHours: 18,
+      horizonDays: 60,
+      bufferMinutes: 15,
+    }),
+  }).then((response) => response.status);
+
 const bookingJourney = await browser.newContext({ viewport: { width: 1280, height: 900 } });
 {
   const page = await bookingJourney.newPage();
+  await page.goto(BASE + "/book/consultation", { waitUntil: "networkidle" });
+  const pausedShown = await page
+    .getByRole("heading", { name: /booking is paused/i })
+    .isVisible()
+    .catch(() => false);
+  if (!pausedShown) {
+    note("booking journey", "scheduler did not show the paused state while no availability is configured");
+  }
+
+  const adminToken = process.env.BOOKING_ADMIN_TOKEN;
+  if (!adminToken) {
+    console.log("• Booking journey ran the paused check only: BOOKING_ADMIN_TOKEN is not set");
+  } else {
+  const opened = await putAvailability(
+    adminToken,
+    [1, 2, 3, 4, 5, 6, 7].map((day) => ({ day, start: "09:00", end: "17:00" }))
+  );
+  if (opened !== 200) note("booking journey", `admin availability PUT failed with status ${opened}`);
+
   await page.goto(BASE + "/book", { waitUntil: "networkidle" });
   await page
     .locator('article:has-text("Consultation")')
@@ -368,6 +402,11 @@ const bookingJourney = await browser.newContext({ viewport: { width: 1280, heigh
         note("booking journey", "the confirmation did not offer an .ics calendar file");
       }
     }
+  }
+
+  // Close the diary again so the audit leaves availability as it found it.
+  const closed = await putAvailability(adminToken, []);
+  if (closed !== 200) note("booking journey", `closing availability failed with status ${closed}`);
   }
   await page.close();
 }

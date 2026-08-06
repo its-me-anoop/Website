@@ -1,4 +1,4 @@
-import type { AvailabilityConfig, EventType, EventTypeId } from "./types";
+import type { AvailabilityRules, EventType, EventTypeId } from "./types";
 
 /**
  * The consultation types clients can book. Copy follows the site's
@@ -55,17 +55,14 @@ export function isEventTypeId(id: string): id is EventTypeId {
 }
 
 /**
- * Working hours for consultations, kept deliberately narrower than the
- * working week so client calls cluster rather than fragment focus time.
- * Wall times are Europe/London and stay correct across GMT/BST.
+ * Default availability: CLOSED. No windows means no slots anywhere, so
+ * nobody can book until the owner adds windows via /book/manage (or the
+ * BOOKING_AVAILABILITY_JSON hosting env var). Wall times are
+ * Europe/London and stay correct across GMT/BST once windows exist.
  */
-export const availabilityConfig: AvailabilityConfig = {
+export const defaultAvailabilityRules: AvailabilityRules = {
   timeZone: "Europe/London",
-  workingDays: [1, 2, 3, 4, 5],
-  windows: [
-    { start: "09:30", end: "12:30" },
-    { start: "14:00", end: "17:30" },
-  ],
+  weeklyWindows: [],
   minNoticeHours: 18,
   horizonDays: 60,
   bufferMinutes: 15,

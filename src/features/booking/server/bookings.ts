@@ -2,6 +2,7 @@ import { isSlotAvailable } from "../core/availability";
 import { getEventType } from "../core/config";
 import { createBookingReference } from "../core/reference";
 import type { Booking, BookingRequest, EventType } from "../core/types";
+import { resolveAvailability } from "./availability-store";
 import { notifyNewBooking } from "./notify";
 import { loadBookings, persistBookings, withStoreLock } from "./store";
 
@@ -72,8 +73,9 @@ export async function createBooking(
   if (!eventType) return { ok: false, status: 400, error: "That call type does not exist." };
 
   const result = await withStoreLock<CreateBookingResult>(async () => {
+    const { rules } = await resolveAvailability();
     const bookings = await loadBookings();
-    if (!isSlotAvailable(eventType, request.startIso, bookings, now)) {
+    if (!isSlotAvailable(eventType, request.startIso, bookings, now, rules)) {
       return {
         ok: false,
         status: 409,
