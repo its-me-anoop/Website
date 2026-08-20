@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { BloomHome } from "@/components/bloom/home/BloomHome";
+import { ScrollWorldHome } from "@/components/bloom/home/ScrollWorldHome";
 
 export const metadata: Metadata = {
   title: "Digital delivery for organisations people rely on",
@@ -34,12 +34,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fafcfb",
+  themeColor: "#EEF4F0",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function Home() {
-  return <BloomHome />;
+  return <ScrollWorldHome />;
 }

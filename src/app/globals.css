@@ -436,6 +436,14 @@ html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
     0 18px 44px -28px rgba(11, 47, 40, 0.28);
 }
 
+/* Scroll-world homepage: mint canvas matching the clay diorama posters. */
+html:has(.sw-host) {
+  background: #eef4f0;
+}
+.sw-host {
+  min-height: 100vh;
+}
+
 /* ─────────────────────────────────────────────────────────────
    Demo sites — two self-contained sample-client languages.
    These routes exist to show prospective GP practices and care
