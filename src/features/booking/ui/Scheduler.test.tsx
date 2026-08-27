@@ -15,6 +15,14 @@ const offeredSlots = [
   "2026-08-13T14:00:00.000Z",
 ];
 
+function localTime(iso: string) {
+  return new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(new Date(iso));
+}
+
 const confirmedBooking = {
   booking: {
     reference: "FL-TEST2345",
@@ -102,8 +110,10 @@ describe("Scheduler", () => {
 
     // Availability loads for the current month and the first open day is
     // preselected, showing its times.
-    const firstSlot = await screen.findByRole("button", { name: "09:00" });
-    expect(screen.getByRole("button", { name: "09:30" })).toBeInTheDocument();
+    const firstSlotLabel = localTime(offeredSlots[0]);
+    const secondSlotLabel = localTime(offeredSlots[1]);
+    const firstSlot = await screen.findByRole("button", { name: firstSlotLabel });
+    expect(screen.getByRole("button", { name: secondSlotLabel })).toBeInTheDocument();
 
     // A day without slots is disabled.
     expect(
@@ -112,7 +122,9 @@ describe("Scheduler", () => {
 
     fireEvent.click(firstSlot);
     expect(screen.getByText(/Confirm your consultation/i)).toBeInTheDocument();
-    expect(document.body.textContent).toContain("Wednesday, 12 August 2026, 09:00–09:30");
+    expect(document.body.textContent).toContain(
+      `Wednesday, 12 August 2026, ${firstSlotLabel}–${secondSlotLabel}`,
+    );
 
     fireEvent.change(screen.getByLabelText(/your name/i), {
       target: { value: "Jo Bloggs" },
@@ -153,7 +165,9 @@ describe("Scheduler", () => {
     });
 
     renderScheduler();
-    fireEvent.click(await screen.findByRole("button", { name: "09:00" }));
+    fireEvent.click(
+      await screen.findByRole("button", { name: localTime(offeredSlots[0]) }),
+    );
     fireEvent.change(screen.getByLabelText(/your name/i), { target: { value: "Jo" } });
     fireEvent.change(screen.getByLabelText(/email address/i), {
       target: { value: "jo@example.com" },
@@ -167,7 +181,9 @@ describe("Scheduler", () => {
     expect(screen.getByRole("button", { name: /previous month/i })).toBeInTheDocument();
 
     // Picking another slot shows the form with the typed details intact.
-    fireEvent.click(screen.getByRole("button", { name: "09:30" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: localTime(offeredSlots[1]) }),
+    );
     expect(screen.getByLabelText(/your name/i)).toHaveValue("Jo");
     expect(screen.getByLabelText(/email address/i)).toHaveValue("jo@example.com");
   });

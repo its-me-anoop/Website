@@ -21,6 +21,12 @@ const ROUTES = [
   "/gp-websites",
   "/care-home-websites",
   "/packages",
+  "/about",
+  "/contact",
+  "/book",
+  "/book/intro-call",
+  "/book/consultation",
+  "/book/project-scoping",
   "/free-audit",
   "/accessibility",
   "/demo/gp-practice",
@@ -75,6 +81,7 @@ const problems = [];
 const browser = await chromium.launch();
 
 for (const [label, options] of [
+  ["mobile-320", { viewport: { width: 320, height: 740 } }],
   ["mobile", { ...devices["iPhone 13"] }],
   ["desktop", { viewport: { width: 1440, height: 900 } }],
 ]) {
@@ -82,7 +89,16 @@ for (const [label, options] of [
   for (const route of ROUTES) {
     const page = await context.newPage();
     try {
-      await page.goto(BASE + route, { waitUntil: "networkidle", timeout: 30000 });
+      const response = await page.goto(BASE + route, {
+        waitUntil: "networkidle",
+        timeout: 30000,
+      });
+      if (!response?.ok()) {
+        throw new Error(`route returned ${response?.status() ?? "no response"}`);
+      }
+      if (new URL(page.url()).pathname !== route) {
+        throw new Error(`route resolved to ${new URL(page.url()).pathname}`);
+      }
       await page.addScriptTag({ content: axeSource });
       const results = await page.evaluate(
         (runOptions) => window.axe.run(document, runOptions),
@@ -116,4 +132,4 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log(`✓ axe-core WCAG 2.2 A/AA audit passed on ${ROUTES.length} routes × 2 viewports.`);
+console.log(`✓ axe-core WCAG 2.2 A/AA audit passed on ${ROUTES.length} routes × 3 viewports.`);
