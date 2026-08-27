@@ -2,10 +2,12 @@
 
 ## What this is
 
-The website of **Flutterly Ltd**, the one-person product studio of Anoop Jose
-(Reading, UK), specialising in websites for **GP practices and care homes**.
-The marketing site runs the "Bloom" design language (docs/BLOOM.md). Five demo
-sites live under `/demo/*` and are the studio's proof of work:
+The website of **Flutterly Limited**, a digital delivery company led by Anoop
+Jose in Reading, UK. Flutterly plans, builds and supports accessible websites,
+web and mobile products, business email and collaboration services, and social
+media campaigns. Websites for **GP practices and care homes** are core
+specialisms. The marketing site runs the "Bloom" design language
+(docs/BLOOM.md). Five demo sites live under `/demo/*` as proof of delivery:
 
 - `/demo/gp-practice` — **Willowbrook Surgery**, a fictional NHS GP practice.
 - `/demo/care-home` — **Oakfield House**, a fictional care home.
@@ -19,8 +21,9 @@ them and think "I want our site to work like this."
 
 ## Users
 
-- **Marketing pages:** GP practice managers and care-home owners in the UK
-  evaluating a web studio. Mostly non-technical, NHS-literate, risk-averse.
+- **Marketing pages:** GP practice managers, care-home owners and leaders of
+  other UK organisations evaluating a digital delivery partner. Mostly
+  non-technical, risk-aware and focused on practical outcomes.
 - **GP demo:** simulates *patients* — every age, every device, often anxious,
   often in a hurry, frequently older or with access needs. Task-first: book,
   order, check, register. WCAG 2.2 AA is a hard floor.

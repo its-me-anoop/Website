@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
+import type { ReactNode } from "react";
+import { site } from "@/lib/site";
 import { BloomShell } from "../BloomShell";
 import { CtaBand } from "../CtaBand";
 import type { Sector } from "../data";
@@ -18,10 +20,14 @@ const accentSoft = { nhs: "bg-bl-nhs-soft", amber: "bg-bl-amber-soft" } as const
 
 /**
  * Shared landing-page template for the GP-practice and care-home
- * sectors — entirely data-driven from `Sector` so both pages stay
+ * sectors: entirely data-driven from `Sector` so both pages stay
  * consistent as the offer evolves.
  */
-export function SectorPage({ sector }: { sector: Sector }) {
+export function SectorPage({ sector, extra }: { sector: Sector; extra?: ReactNode }) {
+  const enquiryHref = `mailto:${site.email}?subject=${encodeURIComponent(
+    `${sector.eyebrow} enquiry`
+  )}`;
+
   return (
     <BloomShell>
       {/* Hero */}
@@ -54,11 +60,11 @@ export function SectorPage({ sector }: { sector: Sector }) {
               </ul>
             </Rise>
             <Rise delay={0.32} className="mt-9 flex flex-wrap gap-3">
-              <BtnLink href="/free-audit" tone="teal" arrow>
-                Get your free audit
+              <BtnLink href={enquiryHref} tone="teal" arrow>
+                {sector.heroCtaLabel}
               </BtnLink>
-              <BtnLink href="/packages" tone="outline">
-                See packages
+              <BtnLink href="/free-audit" tone="outline">
+                Get a free website audit
               </BtnLink>
             </Rise>
           </div>
@@ -90,20 +96,19 @@ export function SectorPage({ sector }: { sector: Sector }) {
       <section className="border-t border-bl-line bg-bl-band-2">
         <div className="mx-auto w-full max-w-[1240px] px-5 py-20 sm:px-8 sm:py-28">
           <SectionHead
+            align="left"
             eyebrow="What the website does"
             title={[
               { text: "Designed around real journeys," },
               { text: "not page templates.", tone: "muted" },
             ]}
           />
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid border-t border-bl-line sm:grid-cols-2 lg:grid-cols-3">
             {sector.features.map((feature, i) => (
               <Rise key={feature.title} delay={(i % 3) * 0.08}>
-                <article className="h-full rounded-[24px] border border-bl-line bg-bl-surface p-6 sm:p-7">
-                  <span
-                    className={`inline-flex h-8 w-8 items-center justify-center rounded-full text-[13px] font-semibold tabular-nums ${accentSoft[sector.accent]} ${accentText[sector.accent]}`}
-                  >
-                    {i + 1}
+                <article className="h-full border-b border-bl-line px-1 py-8 sm:px-7 sm:first:pl-0 lg:border-r lg:[&:nth-child(3n)]:border-r-0">
+                  <span className={`text-[12px] font-semibold tabular-nums ${accentText[sector.accent]}`}>
+                    0{i + 1}
                   </span>
                   <h3 className="mt-4 text-[17px] font-medium tracking-tight text-bl-ink">
                     {feature.title}
@@ -118,6 +123,34 @@ export function SectorPage({ sector }: { sector: Sector }) {
         </div>
       </section>
 
+      {/* Connected operational services */}
+      <section className="border-y border-bl-line bg-bl-band-2">
+        <div className="mx-auto w-full max-w-[1240px] px-5 py-16 sm:px-8 sm:py-20">
+          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
+            <div>
+              <p className={`text-[11px] font-semibold uppercase tracking-[0.24em] ${accentText[sector.accent]}`}>
+                Beyond the website
+              </p>
+              <h2 className="mt-4 max-w-[440px] text-[clamp(1.8rem,4vw,2.7rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-bl-ink">
+                Connect the tools and campaigns around the same audience.
+              </h2>
+            </div>
+            <div className="border-t border-bl-line-2">
+              <a href="/business-email" className="group grid gap-3 border-b border-bl-line py-6 sm:grid-cols-[1fr_1.4fr_auto] sm:items-start">
+                <h3 className="text-[17px] font-semibold text-bl-ink">Business email &amp; collaboration</h3>
+                <p className="text-[14px] leading-relaxed text-bl-ink-soft">Secure accounts, shared mailboxes, calendars and files configured for your team.</p>
+                <ArrowRight size={17} aria-hidden className="mt-1 text-bl-teal transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+              <a href="/social-media-marketing" className="group grid gap-3 border-b border-bl-line py-6 sm:grid-cols-[1fr_1.4fr_auto] sm:items-start">
+                <h3 className="text-[17px] font-semibold text-bl-ink">Social media campaigns</h3>
+                <p className="text-[14px] leading-relaxed text-bl-ink-soft">Responsible content support for awareness, service communication and recruitment.</p>
+                <ArrowRight size={17} aria-hidden className="mt-1 text-bl-teal transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Live sample site */}
       <section className="mx-auto grid w-full max-w-[1240px] items-center gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[0.95fr_1.05fr]">
         <div>
@@ -128,7 +161,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
               See it for yourself
             </p>
             <h2 className="mt-4 max-w-[520px] text-[clamp(1.8rem,4vw,2.7rem)] font-medium leading-[1.1] tracking-[-0.03em] text-bl-ink">
-              Don&rsquo;t take our word for it — click around{" "}
+              Don&rsquo;t take our word for it: click around{" "}
               {sector.demo.name}
             </h2>
             <p className="mt-4 max-w-[520px] text-[15.5px] leading-relaxed text-bl-ink-soft">
@@ -177,11 +210,13 @@ export function SectorPage({ sector }: { sector: Sector }) {
               />
             </span>
             <span className="mt-3 block text-center text-[13px] text-bl-muted">
-              A live, hosted sample — the organisation shown is fictional
+              A live, hosted sample: the organisation shown is fictional
             </span>
           </a>
         </Rise>
       </section>
+
+      {extra}
 
       {/* Compliance / trust */}
       <section className="mx-auto grid w-full max-w-[1240px] items-center gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2">
@@ -245,7 +280,13 @@ export function SectorPage({ sector }: { sector: Sector }) {
         </Rise>
       </section>
 
-      <CtaBand title={sector.ctaTitle} copy={sector.ctaCopy} id="contact" />
+      <CtaBand
+        title={sector.ctaTitle}
+        copy={sector.ctaCopy}
+        primaryHref={enquiryHref}
+        secondaryLabel="Get a free website audit"
+        id="contact"
+      />
     </BloomShell>
   );
 }

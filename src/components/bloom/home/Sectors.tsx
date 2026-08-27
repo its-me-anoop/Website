@@ -24,12 +24,13 @@ export function Sectors() {
   return (
     <section id="sectors" className="mx-auto w-full max-w-[1240px] scroll-mt-24 px-5 pb-20 sm:px-8 sm:pb-28">
       <SectionHead
-        eyebrow="Healthcare websites"
+        align="left"
+        eyebrow="Healthcare specialisms"
         title={[
-          { text: "Built for the sectors" },
-          { text: "where websites matter most.", tone: "muted" },
+          { text: "Digital front doors for" },
+          { text: "services people cannot afford to misunderstand.", tone: "muted" },
         ]}
-        copy="Two specialisms, one standard: accessible, fast and honest websites for organisations that people depend on."
+        copy="GP practices and care homes are core specialisms. The work combines sector-aware content, accessible engineering and practical support for busy teams."
       />
 
       <div className="mt-14 grid gap-5 lg:grid-cols-2">

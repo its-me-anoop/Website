@@ -3,14 +3,14 @@ import { site } from "@/lib/site";
 import { BloomHome } from "@/components/bloom/home/BloomHome";
 
 export const metadata: Metadata = {
-  title: "Websites for GP practices, care homes & ambitious products",
+  title: "Digital delivery for organisations people rely on",
   description:
-    "Flutterly designs and builds accessible, fast websites for GP practices, care homes and ambitious products — custom-coded in Reading, UK, never a template.",
+    "Flutterly Limited delivers accessible websites, web and mobile projects, business email setup and social media campaigns for GP practices, care homes and other organisations.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Flutterly — Websites for GP practices, care homes & ambitious products",
+    title: "Flutterly: Digital delivery for organisations people rely on",
     description:
-      "Accessible, fast, custom-coded websites for healthcare organisations and ambitious products — designed, built and supported by one accountable studio.",
+      "Websites, digital products, business technology and campaign support, delivered with direct accountability from Reading, UK.",
     url: site.url,
     siteName: site.studio,
     locale: site.locale,
@@ -20,15 +20,15 @@ export const metadata: Metadata = {
         url: site.ogImage,
         width: 1200,
         height: 630,
-        alt: "Flutterly — websites for GP practices, care homes and ambitious products",
+        alt: "Flutterly Limited: digital delivery for organisations people rely on",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Flutterly — Websites for GP practices, care homes & ambitious products",
+    title: "Flutterly: Digital delivery for organisations people rely on",
     description:
-      "Accessible, fast, custom-coded websites for healthcare organisations and ambitious products.",
+      "Websites, digital products, business technology and social campaign support for organisations.",
     images: [site.ogImage],
   },
 };

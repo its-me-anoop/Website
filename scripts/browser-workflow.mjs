@@ -18,9 +18,17 @@ const ROUTES = [
   "/",
   "/gp-websites",
   "/care-home-websites",
+  "/services",
+  "/business-email",
+  "/social-media-marketing",
   "/packages",
   "/free-audit",
+  "/book",
+  "/book/intro-call",
+  "/book/consultation",
+  "/book/project-scoping",
   "/accessibility",
+  "/cookie-policy",
   "/demo/gp-practice",
   "/demo/gp-practice/appointments",
   "/demo/gp-practice/prescriptions",
@@ -30,6 +38,13 @@ const ROUTES = [
   "/demo/gp-practice/practice-information",
   "/demo/gp-practice/contact",
   "/demo/gp-practice/accessibility",
+  "/cms",
+  "/cms/willowbrook",
+  "/cms/willowbrook/pages",
+  "/cms/meadow-view/notices",
+  "/practice/willowbrook",
+  "/practice/meadow-view",
+  "/practice/kingsway",
   "/demo/care-home",
   "/demo/care-home/life",
   "/demo/care-home/families",
@@ -78,9 +93,13 @@ async function auditPage(context, route, label = route) {
     if (message.type() === "error") consoleErrors.push(message.text());
   });
   page.on("pageerror", (error) => pageErrors.push(error.message));
-  page.on("requestfailed", (request) =>
-    failed.push(`${request.url()} :: ${request.failure()?.errorText}`)
-  );
+  page.on("requestfailed", (request) => {
+    const reason = request.failure()?.errorText;
+    // Aborted requests are routine (e.g. RSC prefetches cancelled when the
+    // page closes), not user-visible failures.
+    if (reason === "net::ERR_ABORTED") return;
+    failed.push(`${request.url()} :: ${reason}`);
+  });
   page.on("response", (response) => {
     if (response.status() >= 400) bad.push(`${response.status()} ${response.url()}`);
   });
@@ -152,6 +171,34 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const headlineVisible = await page.locator("h1").isVisible().catch(() => false);
   if (!headlineVisible) note("home", "hero headline is not visible");
 
+  const consent = page.getByRole("region", { name: /cookie preferences/i });
+  if (!(await consent.isVisible().catch(() => false))) {
+    note("home", "cookie preference notice is not visible on a first visit");
+  } else {
+    for (const label of ["Accept all", "Reject non-essential", "Manage preferences"]) {
+      if (!(await consent.getByRole("button", { name: label }).isVisible().catch(() => false))) {
+        note("home", `cookie control is missing: ${label}`);
+      }
+    }
+    await consent.getByRole("button", { name: "Manage preferences" }).click();
+    const essential = page.getByRole("checkbox", { name: /Essential/i });
+    if (!(await essential.isChecked().catch(() => false)) || !(await essential.isDisabled().catch(() => false))) {
+      note("home", "essential cookie category is not fixed on");
+    }
+    await page.getByRole("button", { name: "Reject non-essential" }).click();
+    const storedConsent = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem("flutterly.cookieConsent") || "{}")
+    );
+    if (storedConsent.analytics !== false || storedConsent.marketing !== false) {
+      note("home", "reject non-essential did not persist both optional categories as false");
+    }
+    if (!(await page.getByRole("button", { name: "Cookie settings" }).isVisible().catch(() => false))) {
+      note("home", "cookie settings cannot be reopened after a decision");
+    }
+    const cookies = await mobile.cookies(BASE);
+    if (cookies.length) note("home", `expected no site cookies, found ${cookies.map((cookie) => cookie.name).join(", ")}`);
+  }
+
   const clippedElements = await page.evaluate(() => {
     const tolerance = 1;
     const selectors = "header a, header button, #top h1, #top p, #top a";
@@ -182,7 +229,7 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   if (!(await menu.isVisible().catch(() => false))) {
     note("home", "mobile navigation did not open");
   } else {
-    await menu.locator('a[href="/#services"]').click();
+    await menu.locator('a[href="/services"]').click();
     await page.waitForTimeout(250);
     if (await menu.isVisible().catch(() => false))
       note("home", "mobile navigation did not close after selecting a link");
@@ -202,6 +249,199 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   await missing.close();
 }
 await mobile.close();
+
+// The primary non-technical content path: authenticate, choose a page, save a
+// draft, open the protected preview, publish it, and verify the public renderer.
+// Demo sign-in is deliberately unavailable against production builds (and
+// whenever GP_CMS_AUTH_MODE/GP_CMS_AUTH_SECRET are unset), so the journey runs
+// only when the demo form is present; otherwise the secure default is verified.
+const cmsJourney = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+{
+  const page = await cmsJourney.newPage();
+  await page.goto(BASE + "/cms/willowbrook/pages", { waitUntil: "networkidle" });
+  if (!(await page.getByRole("heading", { name: "Sign in to the CMS" }).isVisible().catch(() => false))) {
+    note("cms auth", "an unauthenticated CMS route did not redirect to sign-in");
+  }
+  const demoAvailable = await page
+    .getByLabel("Demo practice")
+    .isVisible()
+    .catch(() => false);
+  if (!demoAvailable) {
+    if (
+      !(await page
+        .getByText(/Organisation sign-in is not configured/i)
+        .isVisible()
+        .catch(() => false))
+    ) {
+      note("cms auth", "neither demo sign-in nor the unconfigured explanation rendered");
+    }
+    console.log(
+      "• CMS journey skipped: demo sign-in unavailable here (secure default verified)"
+    );
+    await page.close();
+  } else {
+  await page.getByLabel("Demo practice").selectOption("willowbrook");
+  await page.getByLabel("Try a role").selectOption("practice_admin");
+  await page.getByRole("button", { name: "Start local demo session" }).click();
+  await page.waitForURL(/\/cms\/willowbrook\/pages/);
+  await page.getByRole("button", { name: /Appointments/ }).click();
+  await page.getByLabel("Page title").fill("Appointments at Willowbrook");
+  await page.getByRole("button", { name: "Save as draft" }).click();
+
+  const draft = await page.evaluate(() => {
+    const raw = localStorage.getItem("flutterly.gp-cms.demo.v1.practice_willowbrook");
+    const workspace = raw ? JSON.parse(raw) : null;
+    return workspace?.pages?.find((item) => item.slug === "appointments");
+  });
+  if (draft?.title !== "Appointments at Willowbrook" || draft?.status !== "draft") {
+    note("cms journey", "saving the guided page draft did not persist the edited title and draft state");
+  }
+
+  const draftPreviewPromise = page.waitForEvent("popup");
+  await page.getByRole("link", { name: "Preview", exact: true }).click();
+  const draftPreview = await draftPreviewPromise;
+  await draftPreview.waitForLoadState("networkidle");
+  if (!(await draftPreview.getByRole("heading", { name: "Appointments at Willowbrook" }).isVisible().catch(() => false))) {
+    note("cms journey", "draft preview did not render the edited page title");
+  }
+  if (!(await draftPreview.getByText(/only visible to authorised workspace users/i).isVisible().catch(() => false))) {
+    note("cms journey", "draft preview did not explain that the page is private");
+  }
+  await draftPreview.close();
+
+  await page.getByRole("button", { name: "Publish page" }).click();
+  const published = await page.evaluate(() => {
+    const raw = localStorage.getItem("flutterly.gp-cms.demo.v1.practice_willowbrook");
+    const workspace = raw ? JSON.parse(raw) : null;
+    return workspace?.pages?.find((item) => item.slug === "appointments");
+  });
+  if (published?.status !== "published") {
+    note("cms journey", "publishing the edited page did not persist the published state");
+  }
+
+  const publicPage = await cmsJourney.newPage();
+  await publicPage.goto(BASE + "/practice/willowbrook/appointments", {
+    waitUntil: "networkidle",
+  });
+  if (!(await publicPage.getByRole("heading", { name: "Appointments at Willowbrook" }).isVisible().catch(() => false))) {
+    note("cms journey", "published content was not visible in the shared public renderer");
+  }
+  if (await publicPage.getByText(/only visible to authorised workspace users/i).isVisible().catch(() => false)) {
+    note("cms journey", "published page still appeared as a protected CMS preview");
+  }
+  await publicPage.close();
+  await page.close();
+  }
+}
+await cmsJourney.close();
+
+// The booking journey. Availability defaults to CLOSED, so first verify the
+// paused state, then open windows through the owner admin API (what
+// /book/manage does), book the first open slot, and close availability
+// again. Exercises the paused UX, the admin platform, the availability API
+// and the booking store end to end. Needs BOOKING_ADMIN_TOKEN on the server.
+const putAvailability = (token, weeklyWindows) =>
+  fetch(BASE + "/api/booking/admin/availability", {
+    method: "PUT",
+    headers: { authorization: `Bearer ${token}`, "content-type": "application/json" },
+    body: JSON.stringify({
+      timeZone: "Europe/London",
+      weeklyWindows,
+      minNoticeHours: 18,
+      horizonDays: 60,
+      bufferMinutes: 15,
+    }),
+  }).then((response) => response.status);
+
+const bookingJourney = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+{
+  const page = await bookingJourney.newPage();
+  await page.goto(BASE + "/book/consultation", { waitUntil: "networkidle" });
+  const pausedShown = await page
+    .getByRole("heading", { name: /booking is paused/i })
+    .isVisible()
+    .catch(() => false);
+  if (!pausedShown) {
+    note("booking journey", "scheduler did not show the paused state while no availability is configured");
+  }
+
+  const adminToken = process.env.BOOKING_ADMIN_TOKEN;
+  if (!adminToken) {
+    console.log("• Booking journey ran the paused check only: BOOKING_ADMIN_TOKEN is not set");
+  } else {
+  const opened = await putAvailability(
+    adminToken,
+    [1, 2, 3, 4, 5, 6, 7].map((day) => ({ day, start: "09:00", end: "17:00" }))
+  );
+  if (opened !== 200) note("booking journey", `admin availability PUT failed with status ${opened}`);
+
+  await page.goto(BASE + "/book", { waitUntil: "networkidle" });
+  await page
+    .locator('article:has-text("Consultation")')
+    .getByRole("link", { name: "Pick a time" })
+    .click();
+  await page.waitForURL(/\/book\/consultation/);
+
+  // Day buttons carry aria-pressed; an enabled one means slots exist. The
+  // current month can be legitimately empty near its end, so try the next.
+  const openDay = page.locator("button[aria-pressed]:not([disabled])").first();
+  try {
+    await openDay.waitFor({ timeout: 15000 });
+  } catch {
+    await page.getByRole("button", { name: "Next month" }).click();
+    await openDay.waitFor({ timeout: 15000 }).catch(() => {
+      note("booking journey", "no bookable day appeared in two months of availability");
+    });
+  }
+  if (await openDay.isVisible().catch(() => false)) {
+    await openDay.click();
+    const slot = page.locator('div[aria-busy="false"] button').first();
+    await slot.waitFor({ timeout: 10000 });
+    await slot.click();
+
+    await page.getByLabel("Your name").fill("Browser Workflow");
+    await page.getByLabel("Email address").fill("browser-workflow@example.com");
+    await page.getByLabel("Anything worth knowing").fill("Automated CI journey booking.");
+    await page.getByRole("button", { name: "Confirm booking" }).click();
+
+    const confirmed = await page
+      .getByRole("heading", { name: /booked in/i })
+      .waitFor({ timeout: 15000 })
+      .then(() => true)
+      .catch(() => false);
+    if (!confirmed) {
+      note("booking journey", "submitting the booking form did not reach the confirmation");
+    } else {
+      const body = await page.textContent("body");
+      if (!/FL-[2-9A-HJKMNP-Z]{8}/.test(body ?? "")) {
+        note("booking journey", "the confirmation did not show a booking reference");
+      }
+      const icsHref = await page
+        .getByRole("link", { name: /Add to calendar/ })
+        .getAttribute("href")
+        .catch(() => null);
+      if (!icsHref?.startsWith("data:text/calendar")) {
+        note("booking journey", "the confirmation did not offer an .ics calendar file");
+      }
+    }
+  }
+
+  // Close the diary again so the audit leaves availability as it found it.
+  const closed = await putAvailability(adminToken, []);
+  if (closed !== 200) note("booking journey", `closing availability failed with status ${closed}`);
+  }
+  await page.close();
+}
+await bookingJourney.close();
+
+const publicDraft = await browser.newContext({ viewport: { width: 390, height: 844 } });
+{
+  const page = await publicDraft.newPage();
+  const response = await page.goto(BASE + "/practice/willowbrook/unpublished-draft", { waitUntil: "networkidle" });
+  if (response?.status() !== 404) note("public draft", "a draft page was reachable from the public site");
+  await page.close();
+}
+await publicDraft.close();
 
 const reducedMotion = await browser.newContext({
   reducedMotion: "reduce",

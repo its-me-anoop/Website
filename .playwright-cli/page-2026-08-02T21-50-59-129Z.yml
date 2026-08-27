@@ -1,0 +1,19 @@
+- generic [active] [ref=f4e1]:
+  - link "Skip to main content" [ref=f4e2] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f4e4]:
+    - paragraph [ref=f4e5]: Loading practice website…
+  - button "Open Next.js Dev Tools" [ref=f4e11] [cursor=pointer]
+  - alert [ref=f4e15]
+  - region "Cookie preferences" [ref=f4e16]:
+    - generic [ref=f4e17]:
+      - generic [ref=f4e18]:
+        - paragraph [ref=f4e19]: Privacy choices
+        - heading "This site currently uses no analytics or marketing cookies" [level=2] [ref=f4e20]
+        - paragraph [ref=f4e21]: We store your choice in this browser so we do not ask on every visit. You can accept optional categories, reject them, or review the plain-language details first.
+        - link "Read the cookie policy" [ref=f4e22] [cursor=pointer]:
+          - /url: /cookie-policy
+      - generic [ref=f4e23]:
+        - button "Accept all" [ref=f4e24]
+        - button "Reject non-essential" [ref=f4e25]
+        - button "Manage preferences" [ref=f4e26]

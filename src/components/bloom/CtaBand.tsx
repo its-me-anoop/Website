@@ -12,10 +12,18 @@ export function CtaBand({
   title,
   copy,
   id,
+  primaryLabel = "Discuss your project",
+  primaryHref = `mailto:${site.email}?subject=${encodeURIComponent("Project enquiry")}`,
+  secondaryLabel = "Get a free website audit",
+  secondaryHref = "/free-audit",
 }: {
   title: string;
   copy: string;
   id?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
 }) {
   return (
     <section id={id} className="bg-bl-pine text-bl-pine-ink">
@@ -28,11 +36,11 @@ export function CtaBand({
             {copy}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <BtnLink href="/free-audit" tone="teal">
-              Get your free website audit
+            <BtnLink href={primaryHref} tone="teal">
+              {primaryLabel}
             </BtnLink>
-            <BtnLink href={`mailto:${site.email}`} tone="white">
-              Email {site.founder.split(" ")[0]}
+            <BtnLink href={secondaryHref} tone="white">
+              {secondaryLabel}
             </BtnLink>
           </div>
           <p className="mt-6 text-[15px] font-medium text-bl-pine-ink/80">

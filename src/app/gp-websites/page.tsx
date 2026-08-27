@@ -4,6 +4,7 @@ import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { gpSector } from "@/components/bloom/data";
 import { SectorPage } from "@/components/bloom/sectors/SectorPage";
+import { GpDemoPortfolio } from "@/components/bloom/sectors/GpDemoPortfolio";
 
 export const metadata: Metadata = {
   title: gpSector.metaTitle,
@@ -51,7 +52,7 @@ export default function GpWebsitesPage() {
           ]),
         ]}
       />
-      <SectorPage sector={gpSector} />
+      <SectorPage sector={gpSector} extra={<GpDemoPortfolio />} />
     </>
   );
 }

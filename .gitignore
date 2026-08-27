@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# local booking store (see docs/BOOKING.md)
+/.data/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
@@ -39,3 +42,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code worktrees must never be committed (broken gitlinks break CI checkouts)
+.claude/worktrees/

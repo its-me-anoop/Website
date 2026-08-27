@@ -1,0 +1,26 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=e4]:
+    - complementary [ref=e5]:
+      - link "F Flutterly GP Websites" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7]: F
+        - text: Flutterly GP Websites
+      - generic [ref=e8]:
+        - paragraph [ref=e9]: Secure workspace access
+        - heading "Your practice website, in the right hands." [level=1] [ref=e10]
+        - paragraph [ref=e11]: Sign in to update patient-facing information, review drafts and publish changes with a clear record of who did what.
+      - paragraph [ref=e12]: Public practice websites remain open. This space is only for authorised staff.
+    - main [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - heading "Sign in to the CMS" [level=1] [ref=e21]
+          - paragraph [ref=e22]: Use your practice or Flutterly account to manage a workspace. Your role decides which changes you can make.
+        - region [ref=e23]:
+          - generic [ref=e29]:
+            - heading "Organisation sign-in is not configured" [level=2] [ref=e30]
+            - paragraph [ref=e31]: Local demo authentication is disabled in production.
+          - paragraph [ref=e32]: "If you need access, contact your practice administrator or Flutterly. This message is intentional: no fallback credentials are available."
+        - link "Back to Flutterly" [ref=e33] [cursor=pointer]:
+          - /url: /

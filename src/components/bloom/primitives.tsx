@@ -1,16 +1,14 @@
 "use client";
 
-import { Fragment } from "react";
 import Link from "next/link";
-import { m, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/** Shared spring for entrances — soft, slightly overdamped. */
+/** Shared spring for entrances: soft, slightly overdamped. */
 export const EASE = [0.16, 1, 0.3, 1] as const;
 
 /* ─────────────────────────────────────────────────────────────
-   RevealWords — staggered word reveal for display headings.
+   RevealWords: staggered word reveal for display headings.
    Words rise out of clipped line-boxes; segments can be tinted.
    ───────────────────────────────────────────────────────────── */
 
@@ -25,20 +23,7 @@ const toneClass: Record<NonNullable<WordSegment["tone"]>, string> = {
   teal: "text-bl-teal",
 };
 
-const wordVariants = {
-  hidden: { y: "110%", opacity: 0 },
-  visible: (order: { delay: number; stagger: number; index: number }) => ({
-    y: "0%",
-    opacity: 1,
-    transition: {
-      duration: 0.7,
-      ease: EASE,
-      delay: order.delay + order.index * order.stagger,
-    },
-  }),
-};
-
-const revealTags = { h1: m.h1, h2: m.h2, h3: m.h3, p: m.p } as const;
+const revealTags = { h1: "h1", h2: "h2", h3: "h3", p: "p" } as const;
 
 export function RevealWords({
   segments,
@@ -53,58 +38,23 @@ export function RevealWords({
   delay?: number;
   stagger?: number;
 }) {
-  const reduce = useReducedMotion();
-  const MTag = revealTags[as];
-  const Tag = as;
-  let wordIndex = 0;
-
-  if (reduce) {
-    return (
-      <Tag className={className}>
-        {segments.map((segment, s) => (
-          <span key={s} className={toneClass[segment.tone ?? "ink"]}>
-            {segment.text}{" "}
-          </span>
-        ))}
-      </Tag>
-    );
-  }
+  const Tag = revealTags[as];
+  void delay;
+  void stagger;
 
   return (
-    <MTag
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-    >
+    <Tag className={className}>
       {segments.map((segment, s) => (
         <span key={s} className={toneClass[segment.tone ?? "ink"]}>
-          {segment.text.split(" ").map((word) => {
-            const i = wordIndex++;
-            /* The clip span is inline-block, so the separating space must
-               be a sibling of it, not inside it. */
-            return (
-              <Fragment key={i}>
-                <span className="inline-block overflow-hidden pb-[0.08em] -mb-[0.08em] align-bottom">
-                  <m.span
-                    className="inline-block will-change-transform"
-                    variants={wordVariants}
-                    custom={{ delay, stagger, index: i }}
-                  >
-                    {word}
-                  </m.span>
-                </span>{" "}
-              </Fragment>
-            );
-          })}
+          {segment.text}{" "}
         </span>
       ))}
-    </MTag>
+    </Tag>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Rise — soft rise-in wrapper for blocks.
+   Rise: soft rise-in wrapper for blocks.
    ───────────────────────────────────────────────────────────── */
 
 export function Rise({
@@ -118,22 +68,13 @@ export function Rise({
   delay?: number;
   y?: number;
 }) {
-  const reduce = useReducedMotion();
-  return (
-    <m.div
-      className={className}
-      initial={reduce ? false : { y, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-      transition={{ duration: 0.8, ease: EASE, delay }}
-    >
-      {children}
-    </m.div>
-  );
+  void delay;
+  void y;
+  return <div className={className}>{children}</div>;
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Eyebrow + SectionHead — the recurring section opener.
+   Eyebrow + SectionHead: the recurring section opener.
    ───────────────────────────────────────────────────────────── */
 
 export function Eyebrow({
@@ -196,7 +137,7 @@ export function SectionHead({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Buttons — pill links in four finishes.
+   Buttons: pill links in four finishes.
    ───────────────────────────────────────────────────────────── */
 
 const btnTone = {
@@ -256,7 +197,7 @@ export function BtnLink({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   CheckItem — tick list entry used across sectors / packages.
+   CheckItem: tick list entry used across sectors / packages.
    ───────────────────────────────────────────────────────────── */
 
 export function CheckItem({
@@ -286,7 +227,7 @@ export function CheckItem({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   FaqList — accessible native disclosure accordion.
+   FaqList: accessible native disclosure accordion.
    ───────────────────────────────────────────────────────────── */
 
 export function FaqList({

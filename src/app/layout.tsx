@@ -1,13 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import "@fontsource-variable/archivo/wght.css";
+import "@fontsource-variable/atkinson-hyperlegible-next/wght.css";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { CookieConsent } from "@/components/privacy/CookieConsent";
 
-/* Porcelain pages render on the native SF-style system stack (see
-   globals.css). The Atelier homepage sets Space Grotesk; Syne and
-   JetBrains Mono stay available to sub-pages — all self-hosted as
-   latin variable woff2 subsets (~97KB total) so builds never depend
-   on the Google Fonts CDN. */
+/* Marketing pages use self-hosted Archivo and Atkinson Hyperlegible Next.
+   Porcelain case studies and the two demo systems keep their own scoped
+   typography. All font assets ship with the application. */
 
 const syne = localFont({
   src: "../fonts/syne-latin-var.woff2",
@@ -33,8 +34,8 @@ const jbMono = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
-    template: `%s — ${site.studio}`,
+    default: `${site.studio}: Digital delivery for organisations people rely on`,
+    template: `%s: ${site.studio}`,
   },
   description: site.description,
   applicationName: site.studio,
@@ -64,20 +65,20 @@ export const metadata: Metadata = {
     url: site.url,
     siteName: site.studio,
     locale: site.locale,
-    title: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
+    title: `${site.studio}: Digital delivery for organisations people rely on`,
     description: site.description,
     images: [
       {
         url: site.ogImage,
         width: 1200,
         height: 630,
-        alt: `${site.studio} — websites for GP practices, care homes and ambitious products`,
+        alt: `${site.studio}: websites, digital projects and business technology`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
+    title: `${site.studio}: Digital delivery for organisations people rely on`,
     description: site.description,
     images: [site.ogImage],
   },
@@ -113,7 +114,7 @@ function JsonLd() {
     "@type": "Person",
     "@id": `${site.url}#person`,
     name: site.name,
-    jobTitle: "Developer & Designer",
+    jobTitle: "Founder and Digital Delivery Lead",
     url: site.url,
     email: site.email,
     image: `${site.url}/anoop-jose.jpg`,
@@ -147,7 +148,7 @@ function JsonLd() {
       height: 900,
     },
     description:
-      "Flutterly is a UK product studio designing and engineering accessible websites for GP practices and care homes, plus fast, polished web and mobile apps.",
+      "Flutterly Limited is a UK digital delivery company providing accessible websites, web and mobile products, business email setup and social media campaign support.",
     address: { "@type": "PostalAddress", ...site.address },
     contactPoint: {
       "@type": "ContactPoint",
@@ -174,7 +175,7 @@ function JsonLd() {
           "@type": "Service",
           name: "Care Home Website Design",
           description:
-            "Warm, trustworthy websites for care homes — designed for families, with CQC transparency, admissions journeys and recruitment built in.",
+            "Warm, trustworthy websites for care homes: designed for families, with CQC transparency, admissions journeys and recruitment built in.",
         },
       },
       {
@@ -199,6 +200,24 @@ function JsonLd() {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
+          name: "Business Email and Collaboration Setup",
+          description:
+            "Microsoft 365, Outlook, Google Workspace and Zoho setup, including domains, migration, security and staff handover.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Social Media Marketing",
+          description:
+            "Campaign planning, content support and performance review for healthcare, care and other organisations.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
           name: "Product Design & Strategy",
           description: "UI/UX design, design systems and product strategy.",
         },
@@ -211,7 +230,7 @@ function JsonLd() {
     "@type": "WebSite",
     "@id": `${site.url}#website`,
     url: site.url,
-    name: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
+    name: `${site.studio}: Digital delivery for organisations people rely on`,
     description: site.description,
     publisher: { "@id": `${site.url}#organization` },
     inLanguage: "en-GB",
@@ -241,6 +260,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
     >
@@ -255,6 +275,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

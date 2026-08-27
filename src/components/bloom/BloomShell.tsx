@@ -4,7 +4,7 @@ import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 
 /**
- * Shared chrome for every Bloom marketing page — sticky nav on top,
+ * Shared chrome for every Bloom marketing page: sticky nav on top,
  * pine footer below, `.bloom-root` scoping the design language so
  * Porcelain case-study pages stay untouched.
  */

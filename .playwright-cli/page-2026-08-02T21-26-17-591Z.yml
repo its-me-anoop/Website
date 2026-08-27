@@ -1,0 +1,83 @@
+- generic [active] [ref=f4e1]:
+  - link "Skip to main content" [ref=f4e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f4e4]:
+    - complementary [ref=f4e5]:
+      - generic [ref=f4e6]:
+        - link "F GP Websites" [ref=f4e7] [cursor=pointer]:
+          - /url: /cms
+          - generic [ref=f4e8]: F
+          - generic [ref=f4e9]: GP Websites
+        - generic [ref=f4e10]: Demo
+      - group [ref=f4e11]
+    - generic [ref=f4e17]:
+      - banner [ref=f4e18]:
+        - generic [ref=f4e19]:
+          - generic [ref=f4e20]:
+            - generic [ref=f4e21]: WS
+            - generic [ref=f4e22]:
+              - paragraph [ref=f4e23]: Willowbrook Surgery
+              - paragraph [ref=f4e24]: Browser-local demonstration · Core 0.1.0
+          - link "Preview website" [ref=f4e25] [cursor=pointer]:
+            - /url: /practice/willowbrook
+      - main [ref=f4e30]:
+        - generic [ref=f4e31]:
+          - generic [ref=f4e34]:
+            - paragraph [ref=f4e35]: Workspace home
+            - heading "Good morning. What would you like to update?" [level=1] [ref=f4e36]
+            - paragraph [ref=f4e37]: Manage Willowbrook in small, clear steps. Changes stay in this browser until production storage and sign-in are connected.
+          - generic [ref=f4e38]:
+            - region [ref=f4e39]:
+              - generic [ref=f4e40]: Suggested next step
+              - heading "Review 3 items before publishing" [level=2] [ref=f4e44]
+              - paragraph [ref=f4e45]: Drafts are private to this demo workspace. Open an item, check the wording, preview it and publish when it is ready.
+              - link "Review first draft" [ref=f4e46] [cursor=pointer]:
+                - /url: /cms/willowbrook/pages
+            - region [ref=f4e49]:
+              - generic [ref=f4e50]: Website available
+              - heading "6 published items" [level=2] [ref=f4e54]
+              - paragraph [ref=f4e55]: The preview only shows content marked Published.
+              - link "Open website preview" [ref=f4e56] [cursor=pointer]:
+                - /url: /practice/willowbrook
+          - region [ref=f4e61]:
+            - heading "Common tasks" [level=2] [ref=f4e62]
+            - generic [ref=f4e63]:
+              - link "Update a website page Change patient-facing wording, save a draft and preview it before publishing." [ref=f4e64] [cursor=pointer]:
+                - /url: /cms/willowbrook/pages
+                - generic [ref=f4e69]:
+                  - generic [ref=f4e70]: Update a website page
+                  - generic [ref=f4e71]: Change patient-facing wording, save a draft and preview it before publishing.
+              - link "Add or review a notice Prepare closures, service changes and other time-sensitive messages." [ref=f4e74] [cursor=pointer]:
+                - /url: /cms/willowbrook/notices
+                - generic [ref=f4e79]:
+                  - generic [ref=f4e80]: Add or review a notice
+                  - generic [ref=f4e81]: Prepare closures, service changes and other time-sensitive messages.
+              - link "Check contact details and opening times Keep the information patients rely on accurate." [ref=f4e84] [cursor=pointer]:
+                - /url: /cms/willowbrook/practice
+                - generic [ref=f4e89]:
+                  - generic [ref=f4e90]: Check contact details and opening times
+                  - generic [ref=f4e91]: Keep the information patients rely on accurate.
+              - link "Update the practice team Add clear roles and choose who appears on the public website." [ref=f4e94] [cursor=pointer]:
+                - /url: /cms/willowbrook/people
+                - generic [ref=f4e101]:
+                  - generic [ref=f4e102]: Update the practice team
+                  - generic [ref=f4e103]: Add clear roles and choose who appears on the public website.
+          - region [ref=f4e106]:
+            - generic [ref=f4e107]:
+              - heading "Recent activity" [level=2] [ref=f4e108]
+              - list [ref=f4e109]:
+                - listitem [ref=f4e110]:
+                  - time [ref=f4e111]: 1 Aug 2026
+                  - generic [ref=f4e112]:
+                    - paragraph [ref=f4e113]: Published home page
+                    - paragraph [ref=f4e114]: Updated the welcome message and accessibility information. · Lisa Morton
+                - listitem [ref=f4e115]:
+                  - time [ref=f4e116]: 1 Aug 2026
+                  - generic [ref=f4e117]:
+                    - paragraph [ref=f4e118]: Saved a draft
+                    - paragraph [ref=f4e119]: Started the new-patient registration page. · Reception leads
+            - complementary [ref=f4e120]:
+              - generic [ref=f4e121]: About this demo
+              - paragraph [ref=f4e124]: Your changes are saved only in this browser. Resetting returns this practice to its fictional sample data.
+              - button "Reset demo data" [ref=f4e125]
+  - alert [ref=f4e129]

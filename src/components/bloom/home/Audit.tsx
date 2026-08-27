@@ -3,7 +3,7 @@
 import { auditChecks } from "../data";
 import { BtnLink, Eyebrow, RevealWords, Rise } from "../primitives";
 
-/** Decorative report bars — purely illustrative, hidden from AT. */
+/** Decorative report bars: purely illustrative, hidden from AT. */
 const reportBars = [
   { label: "Accessibility", width: "42%" },
   { label: "Speed", width: "58%" },
@@ -27,8 +27,8 @@ export function Audit() {
         <Rise delay={0.15}>
           <p className="mt-4 max-w-[520px] text-[16px] leading-relaxed text-bl-ink-soft">
             Before you spend anything, get a written review of your existing
-            website — scored against the standards that matter for GP practices
-            and care homes, with the fixes ranked by impact.
+            website, scored against the standards that matter for your users and
+            organisation, with the fixes ranked by impact.
           </p>
         </Rise>
         <Rise delay={0.25}>
@@ -77,7 +77,7 @@ export function Audit() {
             ))}
           </div>
           <div className="mt-7 rounded-2xl bg-bl-band p-4 text-[13px] leading-relaxed text-bl-ink-soft">
-            12 prioritised recommendations, in plain English — free, whether or
+            12 prioritised recommendations, in plain English. Free, whether or
             not you work with Flutterly afterwards.
           </div>
         </div>

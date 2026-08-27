@@ -50,7 +50,7 @@ function PackageCard({
         <div className="mt-auto pt-8">
           <BtnLink
             href={`mailto:${site.email}?subject=${encodeURIComponent(
-              `Quote request — ${pkg.name} package`
+              `Quote request: ${pkg.name} package`
             )}`}
             tone={pkg.featured ? "teal" : "outline"}
             className="w-full"
@@ -71,7 +71,7 @@ export function PackagesPage() {
         <div className="relative mx-auto w-full max-w-[1240px] px-5 pb-14 pt-14 text-center sm:px-8 sm:pt-20">
           <Rise>
             <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-bl-teal">
-              Packages
+              Website delivery packages
             </p>
           </Rise>
           <RevealWords
@@ -85,7 +85,7 @@ export function PackagesPage() {
           />
           <Rise delay={0.2}>
             <p className="mx-auto mt-5 max-w-[560px] text-[16.5px] leading-relaxed text-bl-ink-soft">
-              Every organisation is different, so pricing is tailored — but
+              Every organisation is different, so pricing is tailored: but
               never vague. After a short call you get a written, fixed quote
               within two working days, and it does not change afterwards.
             </p>
@@ -105,7 +105,7 @@ export function PackagesPage() {
             <a href="/free-audit" className="font-medium text-bl-teal underline-offset-2 hover:underline">
               free website audit
             </a>{" "}
-            — it ends with a recommendation either way, including “keep what
+           : it ends with a recommendation either way, including “keep what
             you have” when that is the honest answer.
           </p>
         </Rise>
@@ -128,7 +128,9 @@ export function PackagesPage() {
 
       <CtaBand
         title="Tell Flutterly what you need"
-        copy="A short call or email is enough to scope most projects — and every conversation ends with a clear, written next step."
+        copy="A short call or email is enough to scope most projects: and every conversation ends with a clear, written next step."
+        secondaryLabel="Review all services"
+        secondaryHref="/services"
         id="contact"
       />
     </BloomShell>

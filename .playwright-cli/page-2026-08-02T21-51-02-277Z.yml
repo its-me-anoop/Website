@@ -1,0 +1,140 @@
+- generic [active] [ref=f5e1]:
+  - link "Skip to main content" [ref=f5e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f5e4]:
+    - banner [ref=f5e5]:
+      - generic [ref=f5e7]:
+        - link "KF Kingsway Family Practice" [ref=f5e8] [cursor=pointer]:
+          - /url: /practice/kingsway
+          - generic [ref=f5e9]: KF
+          - generic [ref=f5e10]: Kingsway Family Practice
+        - link "0118 496 0246" [ref=f5e12] [cursor=pointer]:
+          - /url: tel:+441184960246
+      - group [ref=f5e15]:
+        - generic "Website menu" [ref=f5e16] [cursor=pointer]
+    - main [ref=f5e18]:
+      - generic [ref=f5e20]:
+        - img "Accessible seating in the Kingsway Family Practice waiting room" [ref=f5e21]
+        - generic [ref=f5e22]:
+          - paragraph [ref=f5e23]: Serving our neighbourhood since 1986
+          - heading "Care that knows your community" [level=1] [ref=f5e24]
+          - paragraph [ref=f5e25]: Find the care, support and practical information you need from a practice team rooted in Kingsway and Parkside.
+          - generic [ref=f5e26]:
+            - link "Find the right service" [ref=f5e27] [cursor=pointer]:
+              - /url: "#services"
+            - link "Check opening times" [ref=f5e30] [cursor=pointer]:
+              - /url: "#contact"
+      - region "Practice notices" [ref=f5e31]:
+        - article [ref=f5e32]:
+          - generic [ref=f5e35]:
+            - heading "Autumn flu clinics" [level=2] [ref=f5e36]
+            - paragraph [ref=f5e37]: We will contact eligible patients when appointments are ready to book. Please wait for your invitation.
+      - region [ref=f5e38]:
+        - heading "Common requests" [level=2] [ref=f5e39]
+        - generic [ref=f5e40]:
+          - link [ref=f5e41] [cursor=pointer]:
+            - /url: https://www.nhs.uk/nhs-app/
+            - heading "Appointments" [level=3] [ref=f5e44]
+            - paragraph [ref=f5e45]: Request routine care or find urgent help.
+          - link [ref=f5e50] [cursor=pointer]:
+            - /url: https://www.nhs.uk/nhs-app/
+            - heading "Repeat prescriptions" [level=3] [ref=f5e54]
+            - paragraph [ref=f5e55]: Order safely through the NHS App.
+          - link [ref=f5e60] [cursor=pointer]:
+            - /url: https://111.nhs.uk/
+            - heading "Health advice" [level=3] [ref=f5e65]
+            - paragraph [ref=f5e66]: Check symptoms and get trusted NHS information.
+      - generic [ref=f5e72]:
+        - generic [ref=f5e73]:
+          - paragraph [ref=f5e74]: Care at the practice
+          - heading "Services and clinics" [level=2] [ref=f5e75]
+          - paragraph [ref=f5e76]: Clear information about the care available and how to access it.
+        - generic [ref=f5e77]:
+          - article [ref=f5e78]:
+            - heading "Care with your usual team" [level=3] [ref=f5e79]
+            - generic [ref=f5e80]:
+              - paragraph [ref=f5e81]: We will try to book you with a clinician who knows your care.
+              - paragraph [ref=f5e82]: Tell reception if continuity matters for your request and we will explain the next available options.
+          - article [ref=f5e83]:
+            - heading "Children and family health" [level=3] [ref=f5e84]
+            - generic [ref=f5e85]:
+              - paragraph [ref=f5e86]: Routine childhood care, vaccinations and support for parents and carers.
+              - paragraph [ref=f5e87]: Our nursing team can help you understand which clinic or local service is right for your family.
+          - article [ref=f5e88]:
+            - heading "Support for carers" [level=3] [ref=f5e89]
+            - generic [ref=f5e90]:
+              - paragraph [ref=f5e91]: Tell us if you care for someone, so we can record it and signpost support.
+              - paragraph [ref=f5e92]: We can discuss practical support, annual health checks and local carer services.
+      - generic [ref=f5e93]:
+        - generic [ref=f5e94]:
+          - heading "Opening times" [level=2] [ref=f5e99]
+          - generic [ref=f5e100]:
+            - generic [ref=f5e101]:
+              - term [ref=f5e102]: Monday
+              - definition [ref=f5e103]: 8:00am – 6:30pm
+            - generic [ref=f5e104]:
+              - term [ref=f5e105]: Tuesday
+              - definition [ref=f5e106]: 8:00am – 6:30pm
+            - generic [ref=f5e107]:
+              - term [ref=f5e108]: Wednesday
+              - definition [ref=f5e109]: 8:00am – 6:30pm
+            - generic [ref=f5e110]:
+              - term [ref=f5e111]: Thursday
+              - definition [ref=f5e112]: 8:00am – 6:30pm
+            - generic [ref=f5e113]:
+              - term [ref=f5e114]: Friday
+              - definition [ref=f5e115]: 8:00am – 6:30pm
+            - generic [ref=f5e116]:
+              - term [ref=f5e117]: Saturday
+              - definition [ref=f5e118]:
+                - text: Closed
+                - generic [ref=f5e119]: Use NHS 111 when we are closed
+            - generic [ref=f5e120]:
+              - term [ref=f5e121]: Sunday
+              - definition [ref=f5e122]:
+                - text: Closed
+                - generic [ref=f5e123]: Use NHS 111 when we are closed
+        - generic [ref=f5e124]:
+          - heading "Find and contact us" [level=2] [ref=f5e129]
+          - generic [ref=f5e130]: 8 Kingsway Parade, Parkside, ReadingRG3 7YY
+          - link "0118 496 0246" [ref=f5e131] [cursor=pointer]:
+            - /url: tel:+441184960246
+          - paragraph [ref=f5e134]: The practice is beside Kingsway Library, with a drop-off point outside and step-free access from Parkside Road.
+          - paragraph [ref=f5e136]: Step-free entrance, quiet waiting area, hearing loop and interpreter support are available on request.
+      - generic [ref=f5e141]:
+        - heading "Meet the practice team" [level=2] [ref=f5e148]
+        - generic [ref=f5e149]:
+          - article [ref=f5e150]:
+            - heading "Dr Emily Hughes" [level=3] [ref=f5e151]
+            - paragraph [ref=f5e152]: GP Partner
+            - paragraph [ref=f5e153]: Special interests in family medicine and older people’s care.
+          - article [ref=f5e154]:
+            - heading "Noah Grant" [level=3] [ref=f5e155]
+            - paragraph [ref=f5e156]: Care Navigator
+            - paragraph [ref=f5e157]: Helps patients find the right local or practice service first time.
+    - contentinfo [ref=f5e158]:
+      - generic [ref=f5e159]:
+        - generic [ref=f5e160]:
+          - heading "Kingsway Family Practice" [level=2] [ref=f5e161]
+          - paragraph [ref=f5e162]: 8 Kingsway Parade, Parkside, ReadingRG3 7YY
+        - generic [ref=f5e163]:
+          - heading "When we are closed" [level=2] [ref=f5e164]
+          - paragraph [ref=f5e165]: Use NHS 111 online or call 111. In a life-threatening emergency, call 999.
+        - generic [ref=f5e166]:
+          - heading "About this website" [level=2] [ref=f5e167]
+          - paragraph [ref=f5e168]: Fictional practice and demo content only. No patient services or clinical systems are connected.
+      - paragraph [ref=f5e170]: Custom GP website platform demonstration by Flutterly Limited.
+  - button "Open Next.js Dev Tools" [ref=f5e176] [cursor=pointer]
+  - alert [ref=f5e180]
+  - region "Cookie preferences" [ref=f5e181]:
+    - generic [ref=f5e182]:
+      - generic [ref=f5e183]:
+        - paragraph [ref=f5e184]: Privacy choices
+        - heading "This site currently uses no analytics or marketing cookies" [level=2] [ref=f5e185]
+        - paragraph [ref=f5e186]: We store your choice in this browser so we do not ask on every visit. You can accept optional categories, reject them, or review the plain-language details first.
+        - link "Read the cookie policy" [ref=f5e187] [cursor=pointer]:
+          - /url: /cookie-policy
+      - generic [ref=f5e188]:
+        - button "Accept all" [ref=f5e189]
+        - button "Reject non-essential" [ref=f5e190]
+        - button "Manage preferences" [ref=f5e191]

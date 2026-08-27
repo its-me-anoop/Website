@@ -1,9 +1,22 @@
 import type { MetadataRoute } from "next";
+import { eventTypes } from "@/features/booking/core/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://flutterly.uk";
 
   return [
+    {
+      url: `${baseUrl}/book`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
+    ...eventTypes.map((eventType) => ({
+      url: `${baseUrl}/book/${eventType.id}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     {
       url: `${baseUrl}/`,
       lastModified: new Date(),
@@ -21,6 +34,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/business-email`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/social-media-marketing`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/packages`,
@@ -48,6 +79,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/accessibility`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.4,
+    },
+    {
+      url: `${baseUrl}/cookie-policy`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.4,

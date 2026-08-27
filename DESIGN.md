@@ -2,12 +2,14 @@
 
 Six scoped design systems coexist. Never leak tokens across scopes.
 
-## 1. Bloom (marketing: home, sector pages, packages, audit)
+## 1. Bloom (marketing: home, services, sector pages, packages, audit)
 
-See docs/BLOOM.md. Near-white canvas `#fafcfb`, soft mint bands, deep pine
-ink, **teal as the only action colour**, NHS-blue accent for GP content,
-amber for care homes. Motion: shared `EASE` curve, `Rise` / `RevealWords`
-entrances, reduced-motion fallbacks. `.bloom-root` scope.
+See docs/BLOOM.md. Tinted near-white canvas, soft mint bands, deep pine ink,
+**teal as the only action colour**, NHS-blue accent for GP content and amber
+for care homes. Archivo display type pairs with Atkinson Hyperlegible Next
+body type. Below-fold content stays static for stable scrolling; route and
+menu motion use opacity and transform with reduced-motion fallbacks.
+`.bloom-root` scope.
 
 ## 2. Porcelain (case studies `/projects/*`)
 

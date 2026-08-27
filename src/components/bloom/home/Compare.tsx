@@ -9,27 +9,63 @@ export function Compare() {
     <section className="border-y border-bl-line bg-bl-band">
       <div className="mx-auto w-full max-w-[1240px] px-5 py-20 sm:px-8 sm:py-28">
         <SectionHead
-          eyebrow="Never a page builder"
+          align="left"
+          eyebrow="A joined-up delivery model"
           title={[
-            { text: "No templates." },
-            { text: "No plugins.", tone: "teal" },
-            { text: "No excuses.", tone: "muted" },
+            { text: "Fewer gaps between" },
+            { text: "the plan and the outcome.", tone: "muted" },
           ]}
-          copy="Most small-organisation websites sit on a page builder someone has to keep patching. Flutterly builds a different way."
+          copy="Websites, business systems and campaigns work better when someone understands how they connect. Flutterly keeps responsibility clear from first decision through support."
         />
 
         <Rise className="mt-14">
-          {/* tabIndex + region: the table scrolls sideways on small screens,
-              so keyboard users need a way to reach and scroll it. */}
           <div
-            tabIndex={0}
+            data-comparison-mobile
             role="region"
-            aria-label="Comparison table"
-            className="overflow-x-auto focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bl-teal"
+            aria-label="Comparison of fragmented digital delivery against Flutterly Limited"
+            className="overflow-hidden rounded-[26px] border border-bl-line bg-bl-surface md:hidden"
           >
-            <table className="bl-card w-full min-w-[640px] border-separate border-spacing-0 overflow-hidden rounded-[26px] border border-bl-line bg-bl-surface text-left">
+            {comparison.rows.map((row) => (
+              <article
+                key={row.label}
+                className="border-b border-bl-line last:border-b-0"
+              >
+                <h3 className="px-5 pb-0 pt-5 text-[12px] font-semibold uppercase tracking-[0.16em] text-bl-muted">
+                  {row.label}
+                </h3>
+                <div className="px-5 py-4">
+                  <p className="flex items-center gap-2 text-[12.5px] font-semibold text-bl-ink-soft">
+                    <X size={15} aria-hidden className="shrink-0 text-bl-muted" />
+                    {comparison.them}
+                  </p>
+                  <p className="mt-2 text-[14px] leading-[1.6] text-bl-ink-soft">
+                    {row.them}
+                  </p>
+                </div>
+                <div className="bg-bl-teal-soft/60 px-5 py-4">
+                  <p className="flex items-center gap-2 text-[12.5px] font-semibold text-bl-teal">
+                    <Check
+                      size={15}
+                      strokeWidth={2.6}
+                      aria-hidden
+                      className="shrink-0"
+                    />
+                    {comparison.us}
+                  </p>
+                  <p className="mt-2 text-[14px] font-medium leading-[1.6] text-bl-ink">
+                    {row.us}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <table
+            data-comparison-desktop
+            className="bl-card hidden w-full border-separate border-spacing-0 overflow-hidden rounded-[26px] border border-bl-line bg-bl-surface text-left md:table"
+          >
             <caption className="sr-only">
-              Comparison of typical template builders against a Flutterly build
+              Comparison of fragmented digital delivery against Flutterly Limited
             </caption>
             <thead>
               <tr>
@@ -69,8 +105,7 @@ export function Compare() {
                 );
               })}
             </tbody>
-            </table>
-          </div>
+          </table>
         </Rise>
       </div>
     </section>
