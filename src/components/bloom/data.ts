@@ -24,10 +24,9 @@ export const projects: readonly Project[] = [
     name: "Pembroke Care",
     type: "Care web",
     year: "2026",
-    status: "In development",
     description:
-      "A boutique residential, respite and transitional-living provider in Reading: a calm, warm site that will replace pembrokecare.com at launch.",
-    href: "https://pembroke-care.vercel.app/",
+      "A boutique residential, respite and transitional-living provider in Reading: a calm, warm site shaped around recovery and the journey home.",
+    href: "https://pembrokecare.com/",
     internal: false,
     image: "/project-pembroke.png",
     tint: "#edf1e6",

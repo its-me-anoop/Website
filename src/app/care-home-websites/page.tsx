@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { careSector } from "@/components/bloom/data";
-import { SectorPage } from "@/components/bloom/sectors/SectorPage";
+import { SectorScreen } from "@/components/bloom/redesign/SectorScreen";
 
 export const metadata: Metadata = {
   title: careSector.metaTitle,
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fafcfb",
+  themeColor: "#FDF8F1",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -44,14 +44,13 @@ export default function CareHomeWebsitesPage() {
             path: "/care-home-websites",
             serviceType: "Website design and development",
           }),
-          faqJsonLd(careSector.faqs),
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
             { name: "Care home websites", path: "/care-home-websites" },
           ]),
         ]}
       />
-      <SectorPage sector={careSector} />
+      <SectorScreen sector="care" />
     </>
   );
 }

@@ -1,10 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { gpSector } from "@/components/bloom/data";
-import { SectorPage } from "@/components/bloom/sectors/SectorPage";
-import { GpDemoPortfolio } from "@/components/bloom/sectors/GpDemoPortfolio";
+import { SectorScreen } from "@/components/bloom/redesign/SectorScreen";
 
 export const metadata: Metadata = {
   title: gpSector.metaTitle,
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fafcfb",
+  themeColor: "#FDF8F1",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -45,14 +44,13 @@ export default function GpWebsitesPage() {
             path: "/gp-websites",
             serviceType: "Website design and development",
           }),
-          faqJsonLd(gpSector.faqs),
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
             { name: "GP practice websites", path: "/gp-websites" },
           ]),
         ]}
       />
-      <SectorPage sector={gpSector} extra={<GpDemoPortfolio />} />
+      <SectorScreen sector="gp" />
     </>
   );
 }
