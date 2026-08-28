@@ -125,6 +125,27 @@
   line-height: 1.6;
 }
 
+.packagePrice {
+  margin-top: 1.25rem;
+}
+
+.packagePriceAmount {
+  display: block;
+  font-family: var(--fl-display);
+  font-size: 1.5rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.packagePriceNote {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--fl-soft-ink);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
 .featureList {
   display: grid;
   flex: 1;
