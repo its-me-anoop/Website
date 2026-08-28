@@ -29,7 +29,7 @@ export function PackagesScreen() {
           </h1>
           <p className={styles.intro}>
             After a short call: a written fixed quote within two working days.
-            No currency on this page.
+            Published prices are +VAT. Complete is quote-only.
           </p>
 
           <div className={styles.projectStrip} aria-label="A selection of Flutterly projects">
@@ -67,6 +67,12 @@ export function PackagesScreen() {
 
               <h2 className={styles.packageTitle}>{pkg.strap}</h2>
               <p className={styles.packageCopy}>{pkg.copy}</p>
+              {pkg.price ? (
+                <p className={styles.packagePrice}>
+                  <span className={styles.packagePriceAmount}>{pkg.price.amount}</span>
+                  <span className={styles.packagePriceNote}>{pkg.price.note}</span>
+                </p>
+              ) : null}
               <ul className={styles.featureList}>
                 {pkg.features.map((feature) => (
                   <li key={feature}>

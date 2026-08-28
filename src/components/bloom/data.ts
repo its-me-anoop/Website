@@ -311,9 +311,17 @@ export const processSteps = [
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────
-   Packages: presented without hard prices (quotes are tailored
-   after a short scoping call, mirroring how the company works).
+   Packages: Essentials and Standard publish locked prices
+   (+VAT). The same figures apply to GP and care. Complete is
+   not sold at a list price — do not invent one.
    ───────────────────────────────────────────────────────────── */
+
+export type PackagePrice = {
+  /** Visible amount line, using only the locked figures. */
+  amount: string;
+  /** Hosting / monthly follow-on. Always include +VAT. */
+  note: string;
+};
 
 export type Package = {
   name: string;
@@ -321,6 +329,8 @@ export type Package = {
   copy: string;
   features: readonly string[];
   featured?: boolean;
+  /** Locked published price. Omitted when the package is quote-only. */
+  price?: PackagePrice;
 };
 
 export const packages: readonly Package[] = [
@@ -336,6 +346,10 @@ export const packages: readonly Package[] = [
       "Local SEO foundations and Google Business guidance",
       "Training so your team can edit with confidence",
     ],
+    price: {
+      amount: "£995 one-off",
+      note: "Hosting year 1 included. Then £10/month if you stay. +VAT.",
+    },
   },
   {
     name: "Standard",
@@ -350,6 +364,10 @@ export const packages: readonly Package[] = [
       "Same-week response on support requests",
     ],
     featured: true,
+    price: {
+      amount: "£1,490 + £49/month",
+      note: "+VAT.",
+    },
   },
   {
     name: "Complete",

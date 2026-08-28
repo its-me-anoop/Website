@@ -81,13 +81,35 @@ describe("Flutterly redesign screens", () => {
     ).toBe(true);
   });
 
-  it("renders Packages with three tailored quote actions", () => {
+  it("publishes locked Essentials and Standard prices +VAT and keeps Complete quote-only", () => {
     render(<PackagesScreen />);
 
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "Clear packages. Honest quotes.",
     );
+    expect(screen.queryByText("No currency on this page.")).not.toBeInTheDocument();
+    expect(screen.getByText(/published prices are \+VAT/i)).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: "Get a tailored quote" })).toHaveLength(3);
+
+    const essentials = screen
+      .getByRole("heading", { name: "A focused site, done properly" })
+      .closest("article");
+    expect(essentials).toHaveTextContent("£995");
+    expect(essentials).toHaveTextContent("£10");
+    expect(essentials).toHaveTextContent("+VAT");
+
+    const standard = screen
+      .getByRole("heading", { name: "Build plus a care plan" })
+      .closest("article");
+    expect(standard).toHaveTextContent("£1,490");
+    expect(standard).toHaveTextContent("£49");
+    expect(standard).toHaveTextContent("+VAT");
+    expect(within(standard as HTMLElement).getByText("Most popular")).toBeInTheDocument();
+
+    const complete = screen
+      .getByRole("heading", { name: "An ongoing digital partner" })
+      .closest("article");
+    expect(complete?.textContent).not.toMatch(/£/);
   });
 
   it("marks the current route and keeps the mobile menu keyboard-dismissible", () => {
