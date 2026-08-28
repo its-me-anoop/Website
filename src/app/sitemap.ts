@@ -1,8 +1,21 @@
 import type { MetadataRoute } from "next";
-import { eventTypes } from "@/features/booking/core/config";
+
+/**
+ * Keep this metadata route self-contained. Importing booking config (or
+ * any feature module shared with client components) can pull that graph
+ * into the sitemap bundle and 500 /sitemap.xml in production.
+ *
+ * Bookable event-type paths are listed here so the sitemap stays aligned
+ * with the live /book routes without importing booking code.
+ */
+const BOOK_EVENT_TYPE_IDS = [
+  "intro-call",
+  "consultation",
+  "project-scoping",
+] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://flutterly.uk";
+  const baseUrl = "https://www.flutterly.co.uk";
 
   return [
     {
@@ -11,8 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.9,
     },
-    ...eventTypes.map((eventType) => ({
-      url: `${baseUrl}/book/${eventType.id}`,
+    ...BOOK_EVENT_TYPE_IDS.map((eventTypeId) => ({
+      url: `${baseUrl}/book/${eventTypeId}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,
