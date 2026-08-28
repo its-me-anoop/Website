@@ -7,10 +7,14 @@ Jose in Reading, UK. Flutterly plans, builds and supports accessible websites,
 web and mobile products, business email and collaboration services, and social
 media campaigns. Websites for **GP practices and care homes** are core
 specialisms. The marketing site runs the "Bloom" design language
-(docs/BLOOM.md). Two demo sites live under `/demo/*` as proof of delivery:
+(docs/BLOOM.md). Five demo sites live under `/demo/*` as proof of delivery:
 
 - `/demo/gp-practice` — **Willowbrook Surgery**, a fictional NHS GP practice.
-- `/demo/care-home` — a fictional care home.
+- `/demo/care-home` — **Oakfield House**, a fictional care home.
+- `/demo/dental-practice` — **Kennet Bridge Dental**, fictional mixed NHS/private.
+- `/demo/pharmacy` — **Willowbrook Pharmacy**, fictional independent, two doors
+  from the GP demo (the two cross-reference).
+- `/demo/physio-clinic` — **Forbury Physiotherapy**, fictional private clinic.
 
 The demos are sales artefacts: a prospective practice manager should look at
 them and think "I want our site to work like this."

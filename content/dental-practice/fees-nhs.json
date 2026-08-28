@@ -1,0 +1,45 @@
+{
+  "reviewed": "2026-08-04",
+  "effectiveFrom": "2026-04-01",
+  "bands": [
+    {
+      "band": "Band 1",
+      "price": "£27.90",
+      "covers": "An examination, diagnosis and advice. Includes any X-rays you need, a scale and polish if it is clinically necessary, and preventive care such as fluoride varnish."
+    },
+    {
+      "band": "Band 2",
+      "price": "£76.60",
+      "covers": "Everything in Band 1, plus further treatment such as fillings, root canal work, or taking out a tooth."
+    },
+    {
+      "band": "Band 3",
+      "price": "£332.10",
+      "covers": "Everything in Band 1 and 2, plus more complex work such as crowns, dentures, bridges and other laboratory-made items."
+    }
+  ],
+  "urgentPrice": "£27.90",
+  "rules": [
+    {
+      "title": "One charge per course of treatment",
+      "copy": "You pay once for a complete course of treatment, however many visits it takes to finish. Two fillings agreed at the same appointment are one Band 2 charge, not two."
+    },
+    {
+      "title": "Free repeat within 2 months",
+      "copy": "If treatment we provide fails within 2 months, we put it right at no extra charge, as long as you come back to us to have it fixed."
+    },
+    {
+      "title": "Always-free items",
+      "copy": "Some items never carry an NHS charge, whatever else you are having done. See the list below."
+    }
+  ],
+  "alwaysFreeItems": [
+    "Repairing a denture",
+    "Removing stitches",
+    "Writing a prescription",
+    "Urgent advice given over the phone that does not need a visit"
+  ],
+  "exemptionsSummary": "You do not pay NHS dental charges if you are under 18, under 19 and in full-time education, pregnant or had a baby in the last 12 months, or receiving certain benefits such as Universal Credit with qualifying earnings or Pension Credit Guarantee Credit. Bring your evidence with you, or we may ask you to pay and claim a refund.",
+  "exemptionsLink": "https://www.nhs.uk/nhs-services/dentists/dental-costs/",
+  "englandOnlyNote": "These charges apply to NHS dental treatment in England only. Scotland, Wales and Northern Ireland each set their own NHS dental charges."
+}

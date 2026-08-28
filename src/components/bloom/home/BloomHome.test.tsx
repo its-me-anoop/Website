@@ -70,6 +70,19 @@ describe("BloomHome", () => {
     });
   });
 
+  it("links the dental, pharmacy and physio sample sites from the samples strip", () => {
+    renderHome();
+
+    ["/demo/dental-practice", "/demo/pharmacy", "/demo/physio-clinic"].forEach(
+      (href) => {
+        const links = screen
+          .getAllByRole("link")
+          .filter((a) => a.getAttribute("href") === href);
+        expect(links.length).toBeGreaterThan(0);
+      }
+    );
+  });
+
   it("links case studies internally and client sites externally", () => {
     renderHome();
 

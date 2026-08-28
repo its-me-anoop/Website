@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "test:browser": "node scripts/browser-workflow.mjs"
+    "test": "vitest run",
+    "cms:validate": "vitest run src/lib/cms/shipped-content.test.ts",
+    "test:browser": "node scripts/browser-workflow.mjs",
+    "test:a11y": "node scripts/a11y-audit.mjs"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.3.0",
@@ -18,7 +21,8 @@
     "next": "16.0.10",
     "react": "19.2.1",
     "react-dom": "19.2.1",
-    "tailwind-merge": "^3.4.1"
+    "tailwind-merge": "^3.4.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -28,6 +32,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6.0.2",
+    "axe-core": "^4.12.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.10",
     "jsdom": "^29.1.1",

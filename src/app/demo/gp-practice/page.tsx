@@ -1,23 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  GpCallout,
   GpCard,
   GpMiniMap,
+  GpNotificationBanner,
   GpPrimaryCard,
   GpSection,
 } from "@/components/demos/gp/GpShell";
-import {
-  alert,
-  faqs,
-  moreTasks,
-  news,
-  openingTimes,
-  practice,
-  primaryTasks,
-} from "@/components/demos/gp/data";
+import { loadGpContent } from "@/lib/cms";
 
 export default function GpDemoHome() {
+  const { home, news, faqs, practice } = loadGpContent();
+
   return (
     <>
       {/* Practice welcome */}
@@ -31,6 +25,18 @@ export default function GpDemoHome() {
               Book appointments, order prescriptions and get advice right
               here, without waiting on the phone.
             </p>
+            {practice.acceptingNewPatients ? (
+              <p className="mt-4 text-base font-semibold">
+                We are welcoming new patients —{" "}
+                <Link
+                  href="/demo/gp-practice/register"
+                  className="text-[var(--dgp-blue)] underline"
+                >
+                  join the surgery online
+                </Link>
+                .
+              </p>
+            ) : null}
           </div>
           {/* No `priority`: the image is display:none below lg, and the
               unconditional preload would cost phones ~170KB for nothing. */}
@@ -45,16 +51,20 @@ export default function GpDemoHome() {
       </div>
 
       <GpSection className="pt-8">
-        <GpCallout title={alert.title}>{alert.copy}</GpCallout>
+        {home.alert ? (
+          <GpNotificationBanner title={home.alert.title}>
+            {home.alert.copy}
+          </GpNotificationBanner>
+        ) : null}
 
         <h2 className="sr-only">Common tasks</h2>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {primaryTasks.map((task) => (
+          {home.primaryTasks.map((task) => (
             <GpPrimaryCard key={task.title} {...task} />
           ))}
         </div>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {moreTasks.map((task) => (
+          {home.moreTasks.map((task) => (
             <GpCard key={task.title} {...task} />
           ))}
         </div>
@@ -97,7 +107,7 @@ export default function GpDemoHome() {
                 Surgery opening times by day of the week
               </caption>
               <tbody>
-                {openingTimes.map(([day, hours]) => (
+                {practice.openingTimes.map(({ day, hours }) => (
                   <tr key={day} className="border-b border-[var(--dgp-line)]">
                     <th scope="row" className="py-2.5 pr-4 text-left font-semibold">
                       {day}
@@ -108,8 +118,14 @@ export default function GpDemoHome() {
               </tbody>
             </table>
             <p className="mt-3 text-sm text-[var(--dgp-ink-soft)]">
-              Phone lines open at 8:00am. The quietest time to call is after
+              Phone lines open at 8am. The quietest time to call is after
               10:30am.
+            </p>
+            <h3 className="mt-6 text-lg font-bold">
+              Evening and Saturday appointments
+            </h3>
+            <p className="mt-2 max-w-[520px] text-base leading-relaxed text-[var(--dgp-ink-soft)]">
+              {practice.enhancedAccess}
             </p>
           </div>
           <div>
@@ -134,18 +150,18 @@ export default function GpDemoHome() {
       {/* News */}
       <div className="bg-[var(--dgp-tint)]">
         <GpSection>
-          <h2 className="text-2xl font-bold tracking-tight">Practice news</h2>
+          <h2 className="text-2xl font-bold tracking-tight">Surgery news</h2>
           <div className="mt-2 divide-y divide-[var(--dgp-line)]">
-            {news.map((item) => (
+            {news.items.map((item) => (
               <article
                 key={item.title}
                 className="grid gap-1 py-5 sm:grid-cols-[150px_1fr] sm:gap-6"
               >
                 <time
-                  dateTime={item.iso}
+                  dateTime={item.date}
                   className="pt-0.5 text-sm font-semibold text-[var(--dgp-ink-soft)]"
                 >
-                  {item.date}
+                  {item.display}
                 </time>
                 <div>
                   <h3 className="text-lg font-bold">{item.title}</h3>
@@ -170,12 +186,7 @@ export default function GpDemoHome() {
           to, no appointment needed.
         </p>
         <ul className="mt-6 grid gap-x-10 sm:grid-cols-2">
-          {[
-            ["Health A to Z", "Check symptoms and conditions", "https://www.nhs.uk/conditions/"],
-            ["Medicines A to Z", "How your medicines work", "https://www.nhs.uk/medicines/"],
-            ["Live Well", "Sleep, exercise, food and quitting smoking", "https://www.nhs.uk/live-well/"],
-            ["Every Mind Matters", "Practical mental-health support", "https://www.nhs.uk/every-mind-matters/"],
-          ].map(([title, copy, href]) => (
+          {home.wellbeing.map(({ title, copy, href }) => (
             <li key={title} className="border-b border-[var(--dgp-line)]">
               <a
                 href={href}
@@ -214,7 +225,7 @@ export default function GpDemoHome() {
       <GpSection pad="flush">
         <h2 className="text-2xl font-bold tracking-tight">How do I…?</h2>
         <div className="mt-5 divide-y divide-[var(--dgp-line)] rounded-md border border-[var(--dgp-line)] bg-white">
-          {faqs.map((faq) => (
+          {faqs.items.map((faq) => (
             <details key={faq.q} className="group p-5">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-[var(--dgp-blue)] underline-offset-2 hover:underline [&::-webkit-details-marker]:hidden">
                 {faq.q}

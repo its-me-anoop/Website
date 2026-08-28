@@ -1,0 +1,51 @@
+{
+  "reviewed": "2026-08-04",
+  "duration": "45–60 minutes",
+  "beats": [
+    {
+      "title": "A conversation and your history",
+      "copy": "We'll talk through what's going on, how it started, what makes it better or worse, and what you want to get back to."
+    },
+    {
+      "title": "A physical assessment",
+      "copy": "We'll look at how you move, test strength and range of movement, and work out what's likely driving your symptoms."
+    },
+    {
+      "title": "Treatment usually starts the same visit",
+      "copy": "Most people leave their first appointment having already had some hands-on treatment, not just an assessment."
+    },
+    {
+      "title": "A plain-English plan to take away",
+      "copy": "We'll explain what we think is going on, how long it's likely to take, and set you up with a home exercise plan."
+    }
+  ],
+  "whatToWear": [
+    { "bodyArea": "Knee, hip or ankle", "suggestion": "Shorts, or trousers that roll up above the knee" },
+    { "bodyArea": "Shoulder or neck", "suggestion": "A vest top, or something with straps we can move aside" },
+    { "bodyArea": "Back", "suggestion": "Comfortable, loose-fitting clothing you can move freely in" },
+    { "bodyArea": "General", "suggestion": "Flat, comfortable shoes if we're assessing your walking or running" }
+  ],
+  "whatToBring": [
+    "A timeline of when your symptoms started and what's changed since",
+    "Any GP letters, referral letters or clinic correspondence about this problem",
+    "Scan or X-ray results, if you've had any",
+    "A list of any medication you're currently taking",
+    "Your insurance details, if you're claiming through a health insurer"
+  ],
+  "selfPay": {
+    "steps": [
+      { "title": "Book directly", "copy": "Call or book online — no referral or authorisation needed. You pay for each session as you go." },
+      { "title": "Pay after your visit", "copy": "We take payment by card at the end of each appointment; a receipt is available if you'd like to claim it back yourself." }
+    ]
+  },
+  "insured": {
+    "steps": [
+      { "title": "Check your policy first", "copy": "Call your insurer before booking to confirm physiotherapy is covered and get an authorisation reference." },
+      { "title": "Give us your details", "copy": "Bring your policy number, authorisation reference and insurer's claims-line number to your first visit." },
+      { "title": "We invoice your insurer where we can", "copy": "Where your insurer allows direct billing we invoice them for you; otherwise you pay us and reclaim the cost yourself." }
+    ],
+    "preAuthCopy": "Most insurers ask you to call them for a pre-authorisation reference before your first session — without it, they may decline the claim. We're happy to give you anything we can to help that call.",
+    "excessCopy": "Many policies carry an excess — an amount you pay yourself before your insurer contributes. Check your policy documents or call your insurer to confirm yours.",
+    "gpReferralCopy": "Some insurers need a GP referral letter before they'll approve physiotherapy; others accept self-referral. This varies by insurer and policy, so it's worth checking before you book."
+  }
+}

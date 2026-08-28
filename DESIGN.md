@@ -1,19 +1,30 @@
 # Flutterly — Design Context
 
-Three scoped design systems coexist. Never leak tokens across scopes.
+Six scoped design systems coexist. Never leak tokens across scopes.
 
-## 1. Bloom (marketing: home, services, sector pages, packages, audit)
+## 1. Field Notes + Bloom (marketing)
 
-See docs/BLOOM.md. Tinted near-white canvas, soft mint bands, deep pine ink,
-**teal as the only action colour**, NHS-blue accent for GP content and amber
-for care homes. Archivo display type pairs with Atkinson Hyperlegible Next
-body type. Below-fold content stays static for stable scrolling; route and
-menu motion use opacity and transform with reduced-motion fallbacks.
-`.bloom-root` scope.
+The primary buyer journey (`/`, `/gp-websites`, `/care-home-websites`,
+`/packages`, `/about`, `/contact`) uses the **Field Notes** redesign under
+`RedesignShell`. It is a warm, direct and evidence-led system: cream canvas,
+brown ink, rust-orange actions, near-black footer, Syne display type, Space
+Grotesk body type and JetBrains Mono only for short technical labels. Local
+project stills carry the visual hierarchy. Corners are compact, shadows are
+quiet, and the 1140px grid stays deliberately visible. Entrance and hover
+motion use opacity and transform only, with reduced-motion fallbacks.
+
+The remaining service, audit, policy and booking routes retain the original
+**Bloom** scope documented in `docs/BLOOM.md`: mint canvas, pine ink, teal
+actions, Archivo display and Atkinson Hyperlegible Next body. Never mix the
+two token sets inside one screen.
 
 ## 2. Porcelain (case studies `/projects/*`)
 
 See docs/DESIGN-SYSTEM.md. Light editorial system, system font stacks.
+
+Demo content is CMS-fed: JSON under `content/`, Zod-validated by
+`src/lib/cms` at build time (see docs/CMS.md). Pages never hardcode
+practice facts — edit the JSON, not the JSX.
 
 ## 3. Demo GP — "Willowbrook" (`/demo/gp-practice`, `.demo-gp-root`)
 
@@ -39,6 +50,19 @@ NHS-service-manual flavoured, deliberately familiar to NHS patients:
   background tints and icons instead; no gradient text; no pure #000/#fff
   pairings for large surfaces (NHS palette colours are exempt as brand
   colours).
+
+## 4–6. New sector demos (2026-08)
+
+- **Dental — "Kennet Bridge"** (`/demo/dental-practice`, `.demo-dental-root`,
+  `--ddt-*`): porcelain canvas, graphite ink, petrol actions, sand fee
+  bands. System stack; hierarchy by weight. Quietly premium.
+- **Pharmacy — "Willowbrook"** (`/demo/pharmacy`, `.demo-pharm-root`,
+  `--dph-*`): white + mint, deep pharmacy-green actions, NHS-blue service
+  badges, amber seasonal notices. Task-first; same fictional village as
+  the GP demo. GPhC footer regulatory block on every page.
+- **Physio — "Forbury"** (`/demo/physio-clinic`, `.demo-physio-root`,
+  `--dpy-*`): warm paper, slate bands, coral actions, Space Grotesk
+  display (`.dpy-display`). Athletic editorial, oversized condition index.
 
 ## Imagery (demos)
 

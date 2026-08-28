@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { loadGpContent } from "@/lib/cms";
 import { SampleRibbon } from "../SampleRibbon";
 import { GpNav } from "./GpNav";
-import { navLinks, practice } from "./data";
+import { navLinks } from "./links";
 
 /**
  * Chrome for the Willowbrook Surgery demo — NHS-service-manual
@@ -13,6 +14,7 @@ import { navLinks, practice } from "./data";
  * body · text-lg 18 card titles/h3 · text-2xl 24 h2 · clamp h1.
  */
 export function GpShell({ children }: { children: React.ReactNode }) {
+  const { practice } = loadGpContent();
   return (
     <div className="demo-gp-root relative min-h-screen">
       <SampleRibbon
@@ -76,7 +78,7 @@ export function GpShell({ children }: { children: React.ReactNode }) {
                 {practice.phone}
               </a>
               <br />
-              Open 8:00am – 6:30pm, Monday to Friday
+              {practice.hoursSummary}
             </p>
           </div>
           <div>
@@ -97,7 +99,7 @@ export function GpShell({ children }: { children: React.ReactNode }) {
                   href="/demo/gp-practice/practice-information"
                   className="block py-1.5 text-[var(--dgp-blue)] underline"
                 >
-                  Practice information & policies
+                  About the surgery — policies & ratings
                 </Link>
               </li>
               <li>
@@ -108,15 +110,20 @@ export function GpShell({ children }: { children: React.ReactNode }) {
                   Accessibility statement
                 </Link>
               </li>
+              <li>
+                <a
+                  href="https://www.england.nhs.uk/publication/you-and-your-general-practice/"
+                  className="block py-1.5 text-[var(--dgp-blue)] underline"
+                >
+                  You and your general practice (NHS England)
+                </a>
+              </li>
             </ul>
           </div>
           <div>
             <h2 className="text-base font-bold">Urgent help</h2>
             <p className="mt-2 text-sm leading-relaxed text-[var(--dgp-ink-soft)]">
-              When the surgery is closed, call{" "}
-              <strong className="text-[var(--dgp-ink)]">NHS 111</strong>. In a
-              life-threatening emergency, always call{" "}
-              <strong className="text-[var(--dgp-ink)]">999</strong>.
+              {practice.outOfHours}
             </p>
           </div>
         </div>
@@ -293,7 +300,9 @@ export function GpAction({
   );
 }
 
-/** Amber information callout — full border and tint, no side stripe. */
+/** Amber warning callout — full border and tint, no side stripe. The
+    visually hidden "Important:" prefix is the NHS pattern for users who
+    cannot rely on the colour. */
 export function GpCallout({
   title,
   children,
@@ -315,12 +324,66 @@ export function GpCallout({
           <path strokeLinecap="round" d="M12 8v5" />
           <circle cx="12" cy="16.5" r="0.5" className="fill-[#9a6b00]" />
         </svg>
-        {title}
+        <span>
+          <span className="sr-only">Important: </span>
+          {title}
+        </span>
       </p>
       <div className="mt-1.5 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
         {children}
       </div>
     </div>
+  );
+}
+
+/** Blue notification banner for service-wide announcements — the NHS
+    pattern for news that applies to every visitor, distinct from the
+    amber callout reserved for time- or health-critical warnings. */
+export function GpNotificationBanner({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-md bg-[var(--dgp-blue)] p-5 text-white">
+      <p className="text-base font-bold">{title}</p>
+      <div className="mt-1.5 text-base leading-relaxed text-white/90">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/** Inset text for mild wayfinding emphasis. The NHS component uses a
+    side stripe; the house rules replace that with a full border. */
+export function GpInset({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="rounded-md border border-[var(--dgp-line)] bg-[var(--dgp-tint)] p-5 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
+      {children}
+    </div>
+  );
+}
+
+/** "Page last reviewed / Next review due" — the NHS freshness pattern
+    that backs the contractual 12-month content review. */
+export function GpReviewDate({ reviewed }: { reviewed: string }) {
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+  const [year, month, day] = reviewed.split("-").map(Number);
+  const reviewedDate = new Date(Date.UTC(year, month - 1, day));
+  const dueDate = new Date(Date.UTC(year + 1, month - 1, day));
+  return (
+    <p className="mt-10 border-t border-[var(--dgp-line)] pt-4 text-sm text-[var(--dgp-ink-soft)]">
+      Page last reviewed: {formatter.format(reviewedDate)}
+      <br />
+      Next review due: {formatter.format(dueDate)}
+    </p>
   );
 }
 
@@ -341,10 +404,19 @@ export function GpCareCard({
       : variant === "emergency"
         ? "bg-[#1c2b39]"
         : "bg-[var(--dgp-blue)]";
+  /* Hidden urgency prefix: colour-blind and screen-reader users cannot
+     rely on the band colour to read the triage level. */
+  const prefix =
+    variant === "urgent"
+      ? "Urgent advice: "
+      : variant === "emergency"
+        ? "Immediate action required: "
+        : "Non-urgent advice: ";
   return (
     <div className="overflow-hidden rounded-md border border-[var(--dgp-line)] bg-white">
       {/* h3: every current use sits inside a section already headed by an h2. */}
       <h3 className={`${header} px-5 py-3 text-lg font-bold text-white`}>
+        <span className="sr-only">{prefix}</span>
         {title}
       </h3>
       <div className="p-5 text-base leading-relaxed text-[var(--dgp-ink-soft)]">

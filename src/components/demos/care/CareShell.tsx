@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { loadCareContent } from "@/lib/cms";
 import { SampleRibbon } from "../SampleRibbon";
-import { home, navLinks } from "./data";
+import { navLinks } from "./links";
 
 /**
  * Chrome for the Oakfield House demo — warm cream canvas, Syne
@@ -10,6 +11,7 @@ import { home, navLinks } from "./data";
  * hydration.
  */
 export function CareShell({ children }: { children: React.ReactNode }) {
+  const { home } = loadCareContent();
   return (
     <div className="demo-care-root min-h-screen">
       <SampleRibbon

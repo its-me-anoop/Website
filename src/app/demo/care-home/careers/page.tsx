@@ -4,7 +4,7 @@ import {
   CarePageHero,
   CareSection,
 } from "@/components/demos/care/CareShell";
-import { home, roles } from "@/components/demos/care/data";
+import { loadCareContent } from "@/lib/cms";
 
 export const metadata: Metadata = { title: "Careers" };
 
@@ -15,6 +15,8 @@ const promises = [
 ] as const;
 
 export default function CareersPage() {
+  const { home, careers } = loadCareContent();
+  const roles = careers.roles;
   return (
     <>
       <CarePageHero

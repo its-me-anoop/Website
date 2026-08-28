@@ -1,0 +1,327 @@
+.root {
+  --fl-canvas: oklch(97.9% 0.014 75);
+  --fl-surface: oklch(99.3% 0.007 75);
+  --fl-muted-surface: oklch(96.1% 0.025 75);
+  --fl-ink: oklch(23.5% 0.05 55);
+  --fl-soft-ink: oklch(34.5% 0.04 58);
+  --fl-muted: oklch(46% 0.04 60);
+  --fl-accent: oklch(53% 0.16 53);
+  --fl-accent-hover: oklch(47% 0.15 53);
+  --fl-accent-soft: oklch(92.5% 0.055 68);
+  --fl-line: oklch(88% 0.025 70);
+  --fl-footer: oklch(22% 0.012 55);
+  --fl-footer-ink: oklch(96% 0.009 75);
+  --fl-footer-soft: oklch(81% 0.012 75);
+  --fl-site: 1140px;
+  --fl-gutter: clamp(1.25rem, 4vw, 2rem);
+  --fl-display: var(--font-syne), "Syne", sans-serif;
+  --fl-body: var(--font-grotesk), "Space Grotesk", sans-serif;
+  --fl-mono: var(--font-jb), "JetBrains Mono", monospace;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--fl-canvas);
+  color: var(--fl-ink);
+  font-family: var(--fl-body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.root :global(h1),
+.root :global(h2),
+.root :global(h3),
+.root :global(h4) {
+  font-family: var(--fl-display);
+}
+
+.root :global(::selection) {
+  background: var(--fl-accent-soft);
+  color: var(--fl-ink);
+}
+
+.root :global(:focus-visible) {
+  outline: 3px solid var(--fl-accent);
+  outline-offset: 3px;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 120;
+  border-bottom: 1px solid var(--fl-line);
+  background: var(--fl-canvas);
+}
+
+.navInner {
+  width: min(100%, var(--fl-site));
+  height: 5rem;
+  margin-inline: auto;
+  padding-inline: var(--fl-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.brand,
+.footerBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.brandMark {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+}
+
+.brandWords {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandName,
+.footerBrandName {
+  font-family: var(--fl-display);
+  font-size: 1.25rem;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.brandDescriptor,
+.footerBrandDescriptor {
+  margin-top: 0.3rem;
+  color: var(--fl-muted);
+  font-family: var(--fl-mono);
+  font-size: 0.56rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: clamp(1.1rem, 2vw, 1.75rem);
+}
+
+.navLink {
+  border-bottom: 1px solid transparent;
+  padding-block: 0.5rem;
+  color: var(--fl-soft-ink);
+  font-size: 0.875rem;
+  font-weight: 550;
+  line-height: 1;
+  transition: color 180ms ease-out, border-color 180ms ease-out;
+}
+
+.navLink:hover,
+.navLinkActive {
+  border-color: var(--fl-ink);
+  color: var(--fl-ink);
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bookButton,
+.mobileBookButton {
+  display: none;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: var(--fl-accent);
+  color: var(--fl-footer-ink);
+  padding-inline: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 1px 3px oklch(53% 0.16 53 / 0.24);
+  transition: background-color 180ms ease-out, transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bookButton:hover,
+.mobileBookButton:hover {
+  transform: translateY(-1px);
+  background: var(--fl-accent-hover);
+}
+
+.menuButton {
+  width: 3rem;
+  height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--fl-line);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--fl-ink);
+}
+
+.mobileNav {
+  width: min(calc(100% - 2rem), var(--fl-site));
+  margin: 0 auto 1rem;
+  border: 1px solid var(--fl-line);
+  border-radius: 0.75rem;
+  background: var(--fl-surface);
+  padding: 0.65rem;
+  box-shadow: 0 18px 44px oklch(23.5% 0.05 55 / 0.12);
+}
+
+.mobileNavOpen {
+  animation: menu-in 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.mobileLink {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-height: 3rem;
+  border-radius: 0.45rem;
+  padding: 0.8rem 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.mobileLink span {
+  color: var(--fl-muted);
+  font-family: var(--fl-mono);
+  font-size: 0.62rem;
+}
+
+.mobileLink:hover,
+.mobileLink[aria-current="page"] {
+  background: var(--fl-muted-surface);
+}
+
+.mobileBookButton {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+.footer {
+  border-top: 1px solid var(--fl-soft-ink);
+  background: var(--fl-footer);
+  color: var(--fl-footer-ink);
+}
+
+.footerInner {
+  width: min(100%, var(--fl-site));
+  margin-inline: auto;
+  padding: 3.5rem var(--fl-gutter) 2rem;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.footerBrandName {
+  font-size: 1.5rem;
+}
+
+.footerBrandDescriptor {
+  color: var(--fl-footer-soft);
+}
+
+.footerIntro p {
+  max-width: 24rem;
+  margin-top: 1.5rem;
+  color: var(--fl-footer-soft);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.footerIntro a,
+.footerColumn a {
+  text-decoration-color: var(--fl-muted);
+  text-underline-offset: 0.25rem;
+}
+
+.footerIntro a:hover,
+.footerColumn a:hover {
+  text-decoration-line: underline;
+}
+
+.footerLabel {
+  font-family: var(--fl-mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.footerColumn ul {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 0.75rem;
+  color: var(--fl-footer-soft);
+  font-size: 0.875rem;
+}
+
+.footerLegal {
+  margin-top: 3.5rem;
+  border-top: 1px solid var(--fl-soft-ink);
+  padding-top: 1.5rem;
+  color: var(--fl-footer-soft);
+  font-family: var(--fl-mono);
+  font-size: 0.625rem;
+  line-height: 1.7;
+  letter-spacing: 0.08em;
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 40rem) {
+  .bookButton {
+    display: inline-flex;
+  }
+
+  .footerGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .desktopNav {
+    display: flex;
+  }
+
+  .menuButton,
+  .mobileNav {
+    display: none;
+  }
+
+  .footerGrid {
+    grid-template-columns: 5fr 3fr 2fr 2fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileNavOpen {
+    animation: none;
+  }
+
+  .bookButton,
+  .mobileBookButton {
+    transition: none;
+  }
+}

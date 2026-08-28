@@ -1,0 +1,12 @@
+{
+  "reviewed": "2026-08-04",
+  "sameDayPolicy": "We hold same-day emergency slots every weekday morning for anyone in dental pain, whether or not you are already registered with us. Call as early as you can — slots go quickly, and reception will ask a few questions to make sure you're seen by the right person.",
+  "whenWeAreClosed": "When the practice is closed, call NHS 111. They can advise you over the phone and, if you need to be seen, direct you to the local urgent dental service, which runs evenings, weekends and bank holidays.",
+  "urgentBandPrice": "£27.90",
+  "goToAeIf": [
+    "You have uncontrolled bleeding from your mouth that will not stop with firm pressure",
+    "Swelling in your mouth, face or neck is affecting your breathing or swallowing",
+    "You have a facial injury with a possible broken jaw, or teeth knocked out after an accident",
+    "You have a high temperature alongside facial swelling"
+  ]
+}

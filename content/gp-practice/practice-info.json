@@ -1,0 +1,63 @@
+{
+  "reviewed": "2026-08-04",
+  "cqc": {
+    "rating": "Good",
+    "copy": "The Care Quality Commission inspected Willowbrook Surgery in March 2026 and rated it Good overall. Sample rating for demonstration — a real site links this block directly to the practice's page on cqc.org.uk."
+  },
+  "fft": {
+    "headline": "94% of patients would recommend this surgery",
+    "copy": "From 212 Friends and Family Test responses in June 2026 (sample figures for demonstration). The results are displayed in our waiting room and updated here every month — and every comment is read by the practice manager."
+  },
+  "policies": [
+    {
+      "id": "named-gp",
+      "title": "Your named GP",
+      "copy": "Every patient has a named, accountable GP responsible for overseeing their care — including all patients aged 75 and over. Your named GP appears in the NHS App; you can ask reception who yours is at any time, and you can express a preference to see any practitioner at the surgery. Continuity matters — tell us who you would like to see when booking."
+    },
+    {
+      "id": "partnership",
+      "title": "Who runs the surgery",
+      "copy": "Willowbrook Surgery is a partnership between Dr Sarah Patel and Dr James Okafor, who hold a General Medical Services contract with the NHS. We are an accredited training practice: GP registrars, medical students and student nurses regularly work here under supervision — we will always tell you when a student is present, and you can say no."
+    },
+    {
+      "id": "feedback",
+      "title": "Feedback and complaints",
+      "copy": "Tell us when something goes wrong — or right. Speak to any member of staff, or write to our practice manager, Lisa Morton, and you will receive an acknowledgement within three working days. If you are not happy with our response, you can take your complaint to the Parliamentary and Health Service Ombudsman. We also take part in the NHS Friends and Family Test — the results are published on this page and displayed in our waiting room."
+    },
+    {
+      "id": "records",
+      "title": "Your records and privacy",
+      "copy": "Your medical record is confidential and handled under UK GDPR. You can read our full privacy notice at reception or on this page, see your own record through the NHS App, and ask for information we hold to be corrected. We never share your record outside your care without your consent, unless the law requires it. Only the clinical and administrative staff involved in your care can see your record, and every access is logged."
+    },
+    {
+      "id": "your-rights",
+      "title": "Your rights and responsibilities",
+      "copy": "You have the right to be treated with respect, to see your own record, to a chaperone, to an interpreter, and to a second opinion. In return we ask that you keep your appointments or cancel them in good time — every missed slot is one another patient needed — that you tell us when your contact details change, and that you treat our team as you would want to be treated."
+    },
+    {
+      "id": "everyone-welcome",
+      "title": "Everyone is welcome here",
+      "copy": "You do not need proof of address, identification or immigration status to register with the surgery. We are a veteran-friendly practice, we support registration for people experiencing homelessness, and free interpreters — including British Sign Language — can be arranged for any appointment. Just tell us what you need when you book."
+    },
+    {
+      "id": "carers",
+      "title": "Are you a carer?",
+      "copy": "If you look after a family member, friend or neighbour, tell us — we will note it on your record, offer you an annual flu jab and health check, and connect you with local carer support services."
+    },
+    {
+      "id": "chaperones",
+      "title": "Chaperones",
+      "copy": "You are welcome to have a chaperone present for any examination — a trained member of staff, or someone you bring with you. Just ask when booking or at any point during your appointment."
+    },
+    {
+      "id": "zero-tolerance",
+      "title": "Respect for our team",
+      "copy": "Our staff come to work to care for people. In line with the NHS zero-tolerance policy, violence or abuse towards any member of the team may lead to removal from the practice list."
+    },
+    {
+      "id": "ppg",
+      "title": "Patient Participation Group",
+      "copy": "Our PPG is a group of patients who meet quarterly with the practice team to help shape how the surgery works — from phone systems to clinic times. Recent PPG-led changes include the quieter waiting-room layout and the 10:30am quiet-call guidance. Everyone registered here is welcome; ask at reception or mention it in any message to join."
+    }
+  ]
+}

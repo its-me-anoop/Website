@@ -1,10 +1,33 @@
 import type { Metadata } from "next";
-import { GpPageHero, GpSection } from "@/components/demos/gp/GpShell";
-import { practice } from "@/components/demos/gp/data";
+import {
+  GpPageHero,
+  GpReviewDate,
+  GpSection,
+} from "@/components/demos/gp/GpShell";
+import { loadGpContent } from "@/lib/cms";
 
 export const metadata: Metadata = { title: "Accessibility statement" };
 
+function StatementSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section>
+      <h2 className="text-[20px] font-bold tracking-tight text-[var(--dgp-ink)]">
+        {title}
+      </h2>
+      <div className="mt-2 space-y-3">{children}</div>
+    </section>
+  );
+}
+
 export default function GpAccessibilityPage() {
+  const { accessibility, practice } = loadGpContent();
+
   return (
     <>
       <GpPageHero
@@ -13,48 +36,66 @@ export default function GpAccessibilityPage() {
       />
 
       <GpSection className="max-w-[820px]">
-        <div className="space-y-7 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
-          <section>
-            <h2 className="text-[20px] font-bold tracking-tight text-[var(--dgp-ink)]">
-              Our commitment
-            </h2>
-            <p className="mt-2">
-              {practice.name}&rsquo;s website aims to meet the Web Content
-              Accessibility Guidelines (WCAG) 2.2 at level AA, in line with the
-              Public Sector Bodies (Websites and Mobile Applications) (No.&nbsp;2)
-              Accessibility Regulations 2018.
-            </p>
-          </section>
-          <section>
-            <h2 className="text-[20px] font-bold tracking-tight text-[var(--dgp-ink)]">
-              What that means for you
-            </h2>
-            <ul className="mt-2 list-disc space-y-1.5 pl-5">
-              <li>Every page works with a keyboard alone, with a clear focus indicator</li>
-              <li>Text and background colours meet AA contrast standards</li>
-              <li>Content is written in plain English and structured with headings</li>
-              <li>The site works with screen readers and text magnification</li>
-              <li>Pages load quickly, even on a slow mobile connection</li>
+        <div className="space-y-8 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
+          <StatementSection title="Compliance status">
+            <p>{accessibility.compliance}</p>
+          </StatementSection>
+
+          <StatementSection title="What that means for you">
+            <ul className="list-disc space-y-1.5 pl-5">
+              {accessibility.features.map((feature) => (
+                <li key={feature}>{feature}</li>
+              ))}
             </ul>
-          </section>
-          <section>
-            <h2 className="text-[20px] font-bold tracking-tight text-[var(--dgp-ink)]">
-              Tell us if something isn&rsquo;t working
-            </h2>
-            <p className="mt-2">
-              If any part of this website is difficult to use with assistive
-              technology, please tell reception on{" "}
+          </StatementSection>
+
+          <StatementSection title="Content that is not fully accessible">
+            <ul className="list-disc space-y-1.5 pl-5">
+              {accessibility.nonAccessible.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </StatementSection>
+
+          <StatementSection title="How this statement was prepared">
+            <p>{accessibility.testing}</p>
+          </StatementSection>
+
+          <StatementSection title="Tell us if something isn't working">
+            <p>{accessibility.reporting.copy}</p>
+            <p>
+              Email{" "}
+              <a
+                href={`mailto:${accessibility.reporting.email}`}
+                className="text-[var(--dgp-blue)] underline"
+              >
+                {accessibility.reporting.email}
+              </a>{" "}
+              or call reception on{" "}
               <a href={practice.phoneHref} className="text-[var(--dgp-blue)] underline">
                 {practice.phone}
-              </a>{" "}
-              and it will be treated as a fault to fix, not feedback to file.
+              </a>
+              .
             </p>
-          </section>
+          </StatementSection>
+
+          <StatementSection title="Enforcement procedure">
+            <p>{accessibility.enforcement}</p>
+          </StatementSection>
+
+          <StatementSection title="Content we do not control">
+            <p>{accessibility.thirdParty}</p>
+          </StatementSection>
+
+          <StatementSection title="Why there is no accessibility toolbar">
+            <p>{accessibility.noOverlay}</p>
+          </StatementSection>
+
           <p className="border-t border-[var(--dgp-line)] pt-5 text-sm">
-            This statement is part of a sample website built by Flutterly and
-            was last reviewed in July 2026.
+            This statement is part of a sample website built by Flutterly.
           </p>
         </div>
+        <GpReviewDate reviewed={accessibility.reviewed} />
       </GpSection>
     </>
   );

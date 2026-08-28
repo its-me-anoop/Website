@@ -14,6 +14,12 @@
 import { chromium, devices } from "playwright";
 
 const BASE = process.env.BASE_URL || "http://localhost:3100";
+const baseHostname = new URL(BASE).hostname;
+if (!["localhost", "127.0.0.1", "::1", "[::1]"].includes(baseHostname)) {
+  throw new Error(
+    `Browser workflow is restricted to loopback hosts; received ${baseHostname}.`,
+  );
+}
 const ROUTES = [
   "/",
   "/gp-websites",
@@ -22,6 +28,8 @@ const ROUTES = [
   "/business-email",
   "/social-media-marketing",
   "/packages",
+  "/about",
+  "/contact",
   "/free-audit",
   "/book",
   "/book/intro-call",
@@ -33,6 +41,7 @@ const ROUTES = [
   "/demo/gp-practice/appointments",
   "/demo/gp-practice/prescriptions",
   "/demo/gp-practice/services",
+  "/demo/gp-practice/register",
   "/demo/gp-practice/team",
   "/demo/gp-practice/practice-information",
   "/demo/gp-practice/contact",
@@ -50,6 +59,27 @@ const ROUTES = [
   "/demo/care-home/careers",
   "/demo/care-home/contact",
   "/demo/care-home/accessibility",
+  "/demo/dental-practice",
+  "/demo/dental-practice/fees",
+  "/demo/dental-practice/treatments",
+  "/demo/dental-practice/new-patients",
+  "/demo/dental-practice/urgent",
+  "/demo/dental-practice/about",
+  "/demo/dental-practice/accessibility",
+  "/demo/pharmacy",
+  "/demo/pharmacy/pharmacy-first",
+  "/demo/pharmacy/services",
+  "/demo/pharmacy/prescriptions",
+  "/demo/pharmacy/about",
+  "/demo/pharmacy/contact",
+  "/demo/pharmacy/accessibility",
+  "/demo/physio-clinic",
+  "/demo/physio-clinic/conditions",
+  "/demo/physio-clinic/first-appointment",
+  "/demo/physio-clinic/pricing",
+  "/demo/physio-clinic/team",
+  "/demo/physio-clinic/trust",
+  "/demo/physio-clinic/accessibility",
   "/projects/sipli",
   "/projects/artling",
   "/projects/sipli/privacy-policy",
@@ -179,7 +209,8 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
 
   const clippedElements = await page.evaluate(() => {
     const tolerance = 1;
-    const selectors = "header a, header button, #top h1, #top p, #top a";
+    const selectors =
+      "header a, header button, main h1, main h2, main p, main a, main button, [data-project-card]";
     return [...document.querySelectorAll(selectors)]
       .filter((element) => {
         const rect = element.getBoundingClientRect();
@@ -202,20 +233,30 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 6) note("home", `expected 6 project cards, found ${projects}`);
 
+  const contact = page.locator('a[href^="mailto:"]').first();
+  if (!(await contact.isVisible().catch(() => false)))
+    note("home", "contact email link is not visible");
+
   await page.getByRole("button", { name: /open menu/i }).click();
   const menu = page.getByRole("navigation", { name: /mobile/i });
   if (!(await menu.isVisible().catch(() => false))) {
     note("home", "mobile navigation did not open");
   } else {
-    await menu.locator('a[href="/services"]').click();
-    await page.waitForTimeout(250);
-    if (await menu.isVisible().catch(() => false))
-      note("home", "mobile navigation did not close after selecting a link");
+    await menu.locator('a[href="/"]').click();
+    await menu.waitFor({ state: "hidden" }).catch(() =>
+      note("home", "mobile navigation did not close after selecting a same-route link")
+    );
   }
 
-  const contact = page.locator('a[href^="mailto:"]').first();
-  if (!(await contact.isVisible().catch(() => false)))
-    note("home", "contact email link is not visible");
+  await page.getByRole("button", { name: /open menu/i }).click();
+  await page.keyboard.press("Escape");
+  await menu.waitFor({ state: "hidden" }).catch(() =>
+    note("home", "mobile navigation did not close with Escape")
+  );
+
+  await page.getByRole("button", { name: /open menu/i }).click();
+  await menu.locator('a[href="/gp-websites"]').click();
+  await page.waitForURL(`${BASE}/gp-websites`);
 
   await page.close();
 
@@ -313,26 +354,60 @@ const cmsJourney = await browser.newContext({ viewport: { width: 1280, height: 9
 }
 await cmsJourney.close();
 
-// The booking journey. Availability defaults to CLOSED, so first verify the
-// paused state, then open windows through the owner admin API (what
-// /book/manage does), book the first open slot, and close availability
-// again. Exercises the paused UX, the admin platform, the availability API
-// and the booking store end to end. Needs BOOKING_ADMIN_TOKEN on the server.
-const putAvailability = (token, weeklyWindows) =>
-  fetch(BASE + "/api/booking/admin/availability", {
-    method: "PUT",
-    headers: { authorization: `Bearer ${token}`, "content-type": "application/json" },
-    body: JSON.stringify({
-      timeZone: "Europe/London",
-      weeklyWindows,
-      minNoticeHours: 18,
-      horizonDays: 60,
-      bufferMinutes: 15,
-    }),
-  }).then((response) => response.status);
-
+// Exercise the paused, selection and confirmation states without touching the
+// configured availability, booking store or notification webhook. Real API and
+// persistence behaviour is covered separately by the route and server tests.
 const bookingJourney = await browser.newContext({ viewport: { width: 1280, height: 900 } });
 {
+  let bookingOpen = false;
+  let bookingPosts = 0;
+
+  await bookingJourney.route("**/api/booking/availability?*", async (route) => {
+    const url = new URL(route.request().url());
+    const from = Date.parse(url.searchParams.get("from") ?? "");
+    const to = Date.parse(url.searchParams.get("to") ?? "");
+    const hour = 60 * 60 * 1000;
+    const candidate = Math.ceil(Math.max(from + 12 * hour, Date.now() + 72 * hour) / hour) * hour;
+    const slots = bookingOpen && candidate + hour < to ? [new Date(candidate).toISOString()] : [];
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        slots,
+        bookingOpen,
+        durationMinutes: 30,
+        hostTimeZone: "Europe/London",
+        horizonDays: 60,
+      }),
+    });
+  });
+
+  await bookingJourney.route("**/api/booking/bookings", async (route) => {
+    if (route.request().method() !== "POST") {
+      await route.continue();
+      return;
+    }
+    bookingPosts += 1;
+    const request = route.request().postDataJSON();
+    const start = new Date(request.startIso);
+    await route.fulfill({
+      status: 201,
+      contentType: "application/json",
+      body: JSON.stringify({
+        booking: {
+          reference: "FL-TEST2345",
+          eventTypeId: request.eventTypeId,
+          startIso: start.toISOString(),
+          endIso: new Date(start.getTime() + 30 * 60 * 1000).toISOString(),
+          name: request.name,
+          email: request.email,
+          timeZone: request.timeZone,
+        },
+        ics: "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nEND:VCALENDAR",
+      }),
+    });
+  });
+
   const page = await bookingJourney.newPage();
   await page.goto(BASE + "/book/consultation", { waitUntil: "networkidle" });
   const pausedShown = await page
@@ -343,16 +418,7 @@ const bookingJourney = await browser.newContext({ viewport: { width: 1280, heigh
     note("booking journey", "scheduler did not show the paused state while no availability is configured");
   }
 
-  const adminToken = process.env.BOOKING_ADMIN_TOKEN;
-  if (!adminToken) {
-    console.log("• Booking journey ran the paused check only: BOOKING_ADMIN_TOKEN is not set");
-  } else {
-  const opened = await putAvailability(
-    adminToken,
-    [1, 2, 3, 4, 5, 6, 7].map((day) => ({ day, start: "09:00", end: "17:00" }))
-  );
-  if (opened !== 200) note("booking journey", `admin availability PUT failed with status ${opened}`);
-
+  bookingOpen = true;
   await page.goto(BASE + "/book", { waitUntil: "networkidle" });
   await page
     .locator('article:has-text("Consultation")')
@@ -379,7 +445,7 @@ const bookingJourney = await browser.newContext({ viewport: { width: 1280, heigh
 
     await page.getByLabel("Your name").fill("Browser Workflow");
     await page.getByLabel("Email address").fill("browser-workflow@example.com");
-    await page.getByLabel("Anything worth knowing").fill("Automated CI journey booking.");
+    await page.getByLabel("Anything worth knowing").fill("Automated UI-only journey.");
     await page.getByRole("button", { name: "Confirm booking" }).click();
 
     const confirmed = await page
@@ -403,10 +469,8 @@ const bookingJourney = await browser.newContext({ viewport: { width: 1280, heigh
       }
     }
   }
-
-  // Close the diary again so the audit leaves availability as it found it.
-  const closed = await putAvailability(adminToken, []);
-  if (closed !== 200) note("booking journey", `closing availability failed with status ${closed}`);
+  if (bookingPosts !== 1) {
+    note("booking journey", `expected one booking POST, observed ${bookingPosts}`);
   }
   await page.close();
 }
@@ -425,11 +489,48 @@ const reducedMotion = await browser.newContext({
   reducedMotion: "reduce",
   ...devices["iPhone 13"],
 });
-for (const route of ["/", "/gp-websites", "/packages", "/projects/sipli", "/projects/artling"]) {
+for (const route of [
+  "/",
+  "/gp-websites",
+  "/care-home-websites",
+  "/packages",
+  "/about",
+  "/contact",
+]) {
   const page = await reducedMotion.newPage();
   await page.goto(BASE + route, { waitUntil: "networkidle" });
   const visible = await page.locator("h1").isVisible().catch(() => false);
   if (!visible) note(`reduced-motion ${route}`, "h1 is not visible");
+  await page.getByRole("button", { name: /open menu/i }).click();
+  const activeMotion = await page.evaluate(() => {
+    const hasDuration = (value) =>
+      value
+        .split(",")
+        .map((duration) => duration.trim())
+        .some((duration) => {
+          const milliseconds = duration.endsWith("ms")
+            ? Number.parseFloat(duration)
+            : Number.parseFloat(duration) * 1000;
+          return milliseconds > 1;
+        });
+
+    return [...document.querySelectorAll("[data-flutterly-redesign] *")]
+      .filter((element) => {
+        const style = getComputedStyle(element);
+        return hasDuration(style.animationDuration) || hasDuration(style.transitionDuration);
+      })
+      .slice(0, 5)
+      .map((element) => {
+        const style = getComputedStyle(element);
+        return `${element.tagName.toLowerCase()} animation=${style.animationDuration} transition=${style.transitionDuration}`;
+      });
+  });
+  if (activeMotion.length) {
+    note(
+      `reduced-motion ${route}`,
+      `active animation or transition remains: ${activeMotion.join(" | ")}`,
+    );
+  }
   await page.close();
 }
 await reducedMotion.close();

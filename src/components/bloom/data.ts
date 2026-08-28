@@ -24,10 +24,9 @@ export const projects: readonly Project[] = [
     name: "Pembroke Care",
     type: "Care web",
     year: "2026",
-    status: "In development",
     description:
-      "A boutique residential, respite and transitional-living provider in Reading: a calm, warm site that will replace pembrokecare.com at launch.",
-    href: "https://pembroke-care.vercel.app/",
+      "A boutique residential, respite and transitional-living provider in Reading: a calm, warm site shaped around recovery and the journey home.",
+    href: "https://pembrokecare.com/",
     internal: false,
     image: "/project-pembroke.png",
     tint: "#edf1e6",
@@ -197,6 +196,28 @@ export const sectorCards = [
     cta: "Care home websites",
     demoHref: "/demo/care-home",
     demoLabel: "Preview a sample home site",
+  },
+] as const;
+
+/** Compact strip of further hosted sample sites below the sector cards. */
+export const moreSamples = [
+  {
+    href: "/demo/dental-practice",
+    name: "Kennet Bridge Dental",
+    sector: "Dental practice",
+    note: "NHS bands, private fees and nervous-patient care done properly",
+  },
+  {
+    href: "/demo/pharmacy",
+    name: "Willowbrook Pharmacy",
+    sector: "Community pharmacy",
+    note: "Pharmacy First, repeat prescriptions and honest opening hours",
+  },
+  {
+    href: "/demo/physio-clinic",
+    name: "Forbury Physiotherapy",
+    sector: "Physio clinic",
+    note: "Public pricing, first-visit guidance and the trust page most clinics skip",
   },
 ] as const;
 

@@ -37,10 +37,6 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Browser workflow (all routes, a11y anchors, interactions)
-        env:
-          # Lets the booking journey drive the owner availability API;
-          # a throwaway value scoped to this CI server only.
-          BOOKING_ADMIN_TOKEN: ci-browser-workflow-token
         run: |
           PORT=3100 npm start &
           SERVER_PID=$!

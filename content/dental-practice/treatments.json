@@ -1,0 +1,85 @@
+{
+  "reviewed": "2026-08-04",
+  "treatments": [
+    {
+      "slug": "nhs-check-up",
+      "title": "Check-up and examination",
+      "category": "nhs",
+      "summary": "A full look at your teeth, gums and mouth, with advice on how often you need to come back.",
+      "whatHappens": "Your dentist examines your teeth and gums, takes X-rays if you need them, and talks you through anything they find before agreeing next steps with you.",
+      "priceFrom": "£27.90",
+      "priceTo": "£27.90",
+      "priceNote": "Charged as an NHS Band 1 course of treatment."
+    },
+    {
+      "slug": "fillings",
+      "title": "Fillings",
+      "category": "nhs",
+      "summary": "Repairing a tooth damaged by decay, using a tooth-coloured or silver amalgam filling.",
+      "whatHappens": "We numb the area, remove the decayed part of the tooth, and fill the space. Most fillings take one visit.",
+      "priceFrom": "£76.60",
+      "priceTo": "£76.60",
+      "priceNote": "NHS Band 2 — covers one or more fillings agreed in the same course of treatment."
+    },
+    {
+      "slug": "tooth-extraction",
+      "title": "Tooth extraction",
+      "category": "nhs",
+      "summary": "Removing a tooth that is too damaged or infected to save.",
+      "whatHappens": "We numb the tooth and the surrounding gum, then remove the tooth. We explain aftercare and, where relevant, options for replacing it.",
+      "priceFrom": "£76.60",
+      "priceTo": "£76.60",
+      "priceNote": "NHS Band 2."
+    },
+    {
+      "slug": "root-canal-treatment",
+      "title": "Root canal treatment",
+      "category": "nhs",
+      "summary": "Treating infection inside a tooth so it can be saved rather than removed.",
+      "whatHappens": "We remove the infected tissue from inside the tooth, clean and seal the space, usually over one or two visits.",
+      "priceFrom": "£76.60",
+      "priceTo": "£76.60",
+      "priceNote": "NHS Band 2, whichever tooth is treated."
+    },
+    {
+      "slug": "crowns-and-bridges",
+      "title": "Crowns and bridges",
+      "category": "both",
+      "summary": "A crown covers a weakened tooth; a bridge replaces one or more missing teeth using the teeth either side for support.",
+      "whatHappens": "We shape the tooth, take an impression, and fit a temporary crown or bridge while your permanent one is made in a laboratory, then fit it at a second visit.",
+      "priceFrom": "£332.10",
+      "priceTo": "£850",
+      "priceNote": "£332.10 on the NHS (Band 3); from £550 privately, depending on material."
+    },
+    {
+      "slug": "clear-aligners",
+      "title": "Clear aligners",
+      "category": "private",
+      "summary": "Gradually straighten your teeth using a series of clear, removable aligners rather than fixed braces.",
+      "whatHappens": "We scan your teeth and plan the full course of movement, then you wear a new aligner roughly every two weeks, with check-ins every six to eight weeks.",
+      "priceFrom": "£2,200",
+      "priceTo": "£3,800",
+      "priceNote": "Not available on the NHS for adults. Price depends on how much movement your teeth need."
+    },
+    {
+      "slug": "teeth-whitening",
+      "title": "Professional teeth whitening",
+      "category": "private",
+      "summary": "Lightening the natural colour of your teeth using a dentist-supervised whitening gel.",
+      "whatHappens": "We check your teeth and gums are healthy enough for whitening, then either fit custom trays for home use or whiten in the surgery, depending on which you choose.",
+      "priceFrom": "£280",
+      "priceTo": "£450",
+      "priceNote": "Cosmetic treatment — not available on the NHS."
+    },
+    {
+      "slug": "dental-implants",
+      "title": "Dental implants",
+      "category": "private",
+      "summary": "Replacing a missing tooth with a titanium post fixed in the jaw, topped with a crown.",
+      "whatHappens": "We assess your jawbone with a scan, place the implant under local anaesthetic, then fit the crown once it has fully bonded with the bone, usually after three to six months.",
+      "priceFrom": "£2,400",
+      "priceTo": "£3,200",
+      "priceNote": "Not available on the NHS except in rare clinical circumstances. Bone grafting, if needed, is quoted separately."
+    }
+  ]
+}

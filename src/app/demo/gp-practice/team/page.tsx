@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { GpPageHero, GpSection } from "@/components/demos/gp/GpShell";
-import { team } from "@/components/demos/gp/data";
+import { GpPageHero, GpReviewDate, GpSection } from "@/components/demos/gp/GpShell";
+import { loadGpContent } from "@/lib/cms";
 
 export const metadata: Metadata = { title: "Our team" };
 
 export default function TeamPage() {
+  const { team } = loadGpContent();
+
   return (
     <>
       <GpPageHero
@@ -30,17 +32,17 @@ export default function TeamPage() {
         </figure>
 
         <div className="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
-          {team.map((group) => (
+          {team.groups.map((group) => (
             <section key={group.group}>
               <h2 className="border-b-2 border-[var(--dgp-blue)] pb-2 text-lg font-bold">
                 {group.group}
               </h2>
               <ul className="divide-y divide-[var(--dgp-line)]">
-                {group.members.map(([name, role]) => (
-                  <li key={name} className="py-3">
-                    <p className="text-base font-semibold">{name}</p>
+                {group.members.map((member) => (
+                  <li key={member.name} className="py-3">
+                    <p className="text-base font-semibold">{member.name}</p>
                     <p className="mt-0.5 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
-                      {role}
+                      {member.role}
                     </p>
                   </li>
                 ))}
@@ -58,7 +60,7 @@ export default function TeamPage() {
           <p className="mt-2 max-w-[680px] text-base leading-relaxed text-[var(--dgp-ink-soft)]">
             Our reception team are trained care navigators. When you tell them
             briefly what you need, they can book you with the physiotherapist
-            for joint pain, the pharmacist for medication questions, or the
+            for joint pain, the pharmacist for medicine questions, or the
             nursing team for reviews — usually sooner than a GP appointment,
             and with the person best qualified to help. Anything they hear is
             treated with the same confidentiality as the consulting room.
@@ -78,11 +80,9 @@ export default function TeamPage() {
           GP average earnings
         </h2>
         <p className="mt-2 max-w-[680px] text-base leading-relaxed text-[var(--dgp-ink-soft)]">
-          NHS England requires practices to publish the mean earnings of GPs
-          working here. For the last financial year this was £74,600 for the
-          practice&rsquo;s GPs (sample figure for demonstration — a real site
-          publishes the practice&rsquo;s actual declaration).
+          {team.gpEarningsCopy}
         </p>
+        <GpReviewDate reviewed={team.reviewed} />
       </GpSection>
     </>
   );

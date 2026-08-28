@@ -1,0 +1,82 @@
+{
+  "reviewed": "2026-08-04",
+  "conditions": [
+    {
+      "slug": "back-and-neck-pain",
+      "title": "Back and neck pain, including sciatica",
+      "plainSummary": "Persistent or flare-up pain in your back or neck, sometimes travelling down an arm or leg.",
+      "whatWeAssess": "How you move, where movement is limited, and whether nerve symptoms like tingling or numbness are present.",
+      "typicalApproach": "Hands-on treatment alongside a graded exercise programme to build strength and confidence in movement again."
+    },
+    {
+      "slug": "shoulder-problems",
+      "title": "Shoulder problems, including frozen shoulder",
+      "plainSummary": "Pain, stiffness or weakness that makes reaching, lifting or sleeping on that side difficult.",
+      "whatWeAssess": "Your shoulder's range of movement, strength and the pattern of pain, to work out what's driving it.",
+      "typicalApproach": "A staged plan of manual therapy and targeted exercise, paced to how your shoulder is responding."
+    },
+    {
+      "slug": "tennis-and-golfers-elbow",
+      "title": "Tennis elbow and golfer's elbow",
+      "plainSummary": "Pain on the outside or inside of the elbow, often worse when gripping or lifting.",
+      "whatWeAssess": "Which tendons are irritated, and what everyday movements or grips are keeping it flared up.",
+      "typicalApproach": "Loading exercises to build tendon tolerance, plus advice on adapting the activities that aggravate it."
+    },
+    {
+      "slug": "knee-problems",
+      "title": "Knee problems",
+      "plainSummary": "Pain, swelling or a sense of instability affecting how your knee copes with walking, stairs or sport.",
+      "whatWeAssess": "Knee alignment, muscle control around the joint, and how it behaves under load.",
+      "typicalApproach": "A structured strengthening programme, often alongside manual therapy to ease pain in the early stages."
+    },
+    {
+      "slug": "hip-problems",
+      "title": "Hip problems",
+      "plainSummary": "Groin, buttock or outer-hip pain that limits walking distance, sitting or sleeping position.",
+      "whatWeAssess": "Hip and pelvis movement, muscle strength, and how the hip relates to your back and knee.",
+      "typicalApproach": "Manual therapy for early relief, moving into a hip and pelvis strengthening programme."
+    },
+    {
+      "slug": "ankle-and-foot-problems",
+      "title": "Ankle and foot problems",
+      "plainSummary": "Sprains, persistent ankle pain, or foot pain that changes how you walk or run.",
+      "whatWeAssess": "Ankle stability, foot mechanics and balance, particularly after a sprain or repeated niggles.",
+      "typicalApproach": "Balance and strengthening work to rebuild stability, alongside hands-on treatment where needed."
+    },
+    {
+      "slug": "sports-injuries",
+      "title": "Sports injuries",
+      "plainSummary": "Muscle strains, ligament sprains and overuse injuries from running, gym training or team sport.",
+      "whatWeAssess": "The injured tissue, your training load, and what's realistic for your return-to-sport timeline.",
+      "typicalApproach": "A phased return-to-sport plan combining hands-on treatment with sport-specific strength and conditioning."
+    },
+    {
+      "slug": "post-surgery-rehabilitation",
+      "title": "Post-surgery rehabilitation",
+      "plainSummary": "Regaining movement, strength and confidence after joint or soft-tissue surgery.",
+      "whatWeAssess": "Your surgeon's protocol, your current range of movement, and where you are against expected milestones.",
+      "typicalApproach": "Guided rehabilitation that follows your surgical protocol, building load gradually as you're cleared to."
+    },
+    {
+      "slug": "headaches-and-dizziness",
+      "title": "Headaches and dizziness (vestibular)",
+      "plainSummary": "Headaches linked to neck tension, and dizziness or balance problems affecting daily life.",
+      "whatWeAssess": "Neck movement and muscle tension, and — where relevant — balance and eye-movement tests for vestibular symptoms.",
+      "typicalApproach": "Manual therapy and specific exercises for neck-related headaches, or a vestibular rehabilitation programme where indicated."
+    },
+    {
+      "slug": "womens-and-pelvic-health",
+      "title": "Women's and pelvic health",
+      "plainSummary": "Pelvic pain, bladder or core-related concerns, including during and after pregnancy.",
+      "whatWeAssess": "Pelvic floor and core function, movement patterns, and what matters most for your daily life or return to exercise.",
+      "typicalApproach": "A private, unhurried assessment followed by a tailored exercise and self-management plan."
+    },
+    {
+      "slug": "arthritis-and-long-term-pain",
+      "title": "Arthritis and long-term pain management",
+      "plainSummary": "Ongoing joint pain or a long-term pain condition affecting what you can comfortably do.",
+      "whatWeAssess": "Which movements and activities are affected, and what's realistic to work towards together.",
+      "typicalApproach": "A steady, sustainable exercise and movement plan, adjusted as your symptoms change over time."
+    }
+  ]
+}

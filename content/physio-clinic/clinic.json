@@ -1,0 +1,26 @@
+{
+  "reviewed": "2026-08-04",
+  "name": "Forbury Physiotherapy",
+  "strap": "Private physiotherapy by Forbury Gardens, Reading",
+  "phone": "0118 496 0678",
+  "email": "hello@forburyphysio.example",
+  "address": "5 Garden Court, Forbury, Reading RG1 9XP",
+  "access": [
+    "Step-free entrance directly off Garden Court",
+    "Ground-floor treatment rooms — no stairs to any clinic room",
+    "Pay-and-display parking on Garden Court; the Forbury multi-storey is a three-minute walk",
+    "Reading station is a ten-minute walk, and the number 17 bus stops on Forbury Road"
+  ],
+  "bookingCopy": "Call or email us to book — no GP referral needed. Tell us a little about your problem and we'll match you with the right clinician.",
+  "nhsPositioningLine": "Appointments this week, no GP referral needed — alongside or instead of an NHS wait.",
+  "insurersCopy": "We work with major UK health insurers. Bring your policy and authorisation details to your first visit and we'll take it from there.",
+  "openingTimes": [
+    { "day": "Monday", "hours": "8am – 7pm" },
+    { "day": "Tuesday", "hours": "8am – 7pm" },
+    { "day": "Wednesday", "hours": "8am – 7pm" },
+    { "day": "Thursday", "hours": "8am – 7pm" },
+    { "day": "Friday", "hours": "8am – 6pm" },
+    { "day": "Saturday", "hours": "9am – 1pm" },
+    { "day": "Sunday", "hours": "Closed" }
+  ]
+}

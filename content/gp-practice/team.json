@@ -1,0 +1,38 @@
+{
+  "reviewed": "2026-08-04",
+  "groups": [
+    {
+      "group": "Doctors",
+      "members": [
+        { "name": "Dr Sarah Patel", "role": "GP Partner (MBChB, MRCGP, DFSRH) — women's health, minor surgery" },
+        { "name": "Dr James Okafor", "role": "GP Partner (MBBS, MRCGP) — diabetes and cardiovascular care" },
+        { "name": "Dr Amara Osei", "role": "Salaried GP (MBChB, MRCGP) — women's health and long-term conditions" },
+        { "name": "Dr Tom Bradley", "role": "GP Registrar (MBBS) — a qualified doctor training in general practice" }
+      ]
+    },
+    {
+      "group": "Nursing team",
+      "members": [
+        { "name": "Helen Carter", "role": "Lead Practice Nurse (RGN) — asthma, COPD and travel clinics" },
+        { "name": "Priya Sharma", "role": "Practice Nurse (RGN) — immunisations and cervical screening" },
+        { "name": "Mark Davies", "role": "Healthcare Assistant — blood tests, blood pressure and health checks" }
+      ]
+    },
+    {
+      "group": "Wider clinical team",
+      "members": [
+        { "name": "Fatima Khan", "role": "Clinical Pharmacist (MPharm) — medicine reviews and prescription queries" },
+        { "name": "Rob Jenkins", "role": "First-Contact Physiotherapist — muscle and joint problems, no GP referral needed" },
+        { "name": "Grace Adeyemi", "role": "Social Prescriber — practical support with money, housing, loneliness and more" }
+      ]
+    },
+    {
+      "group": "Practice team",
+      "members": [
+        { "name": "Lisa Morton", "role": "Practice Manager" },
+        { "name": "Our reception team", "role": "Trained care navigators — they ask what you need so you reach the right person first time" }
+      ]
+    }
+  ],
+  "gpEarningsCopy": "NHS England requires practices to publish the mean earnings of GPs working here. For the last financial year this was £74,600 for the practice's GPs (sample figure for demonstration — a real site publishes the practice's actual declaration)."
+}

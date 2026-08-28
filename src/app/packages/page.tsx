@@ -1,19 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { site } from "@/lib/site";
-import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { packagesFaq } from "@/components/bloom/data";
-import { PackagesPage } from "@/components/bloom/packages/PackagesPage";
+import { PackagesScreen } from "@/components/bloom/redesign/PackagesScreen";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
+import { site } from "@/lib/site";
 
 const description =
-  "Website packages for GP practices, care homes and growing organisations — custom design and build, managed care plans and ongoing partnership, with fixed written quotes.";
+  "Clear website delivery packages for GP practices, care homes and other organisations, with tailored scope and a fixed written quote.";
 
 export const metadata: Metadata = {
-  title: "Packages & pricing",
+  title: "Website packages and tailored quotes",
   description,
   alternates: { canonical: "/packages" },
   openGraph: {
-    title: `Packages & pricing — ${site.studio}`,
+    title: `Website packages and tailored quotes: ${site.studio}`,
     description,
     url: `${site.url}/packages`,
     siteName: site.studio,
@@ -23,32 +22,37 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Packages & pricing — ${site.studio}`,
+    title: `Website packages and tailored quotes: ${site.studio}`,
     description,
     images: [site.ogImage],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fafcfb",
+  themeColor: "#FDF8F1",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
 
-export default function Packages() {
+export default function PackagesPage() {
   return (
     <>
       <JsonLd
         data={[
-          faqJsonLd(packagesFaq),
+          serviceJsonLd({
+            name: "Website delivery packages",
+            description,
+            path: "/packages",
+            serviceType: "Website design, development and ongoing support",
+          }),
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
             { name: "Packages", path: "/packages" },
           ]),
         ]}
       />
-      <PackagesPage />
+      <PackagesScreen />
     </>
   );
 }

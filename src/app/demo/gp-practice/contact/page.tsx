@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import {
   GpPageHero,
-  GpSampleNote,
+  GpReviewDate,
   GpSection,
 } from "@/components/demos/gp/GpShell";
-import { openingTimes, practice } from "@/components/demos/gp/data";
+import { loadGpContent } from "@/lib/cms";
 
 export const metadata: Metadata = { title: "Contact & opening times" };
 
 export default function ContactPage() {
+  const { practice } = loadGpContent();
+
   return (
     <>
       <GpPageHero
         title="Contact & opening times"
-        lede="How to reach us, when we're open, and how to register with the practice."
+        lede="How to reach us, when we're open, and how to find the surgery."
       />
 
       <GpSection>
@@ -28,7 +31,7 @@ export default function ContactPage() {
                   {practice.phone}
                 </a>{" "}
                 <span className="text-[var(--dgp-ink-soft)]">
-                  (lines open 8:00am – 6:30pm, Monday to Friday)
+                  (lines open 8am to 6:30pm, Monday to Friday)
                 </span>
               </li>
               <li>
@@ -41,10 +44,9 @@ export default function ContactPage() {
               Getting here
             </h2>
             <ul className="mt-3 list-disc space-y-1.5 pl-5 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
-              <li>Free patient parking, including four accessible bays by the door</li>
-              <li>Step-free access throughout the ground floor</li>
-              <li>Hearing loop at reception — just ask</li>
-              <li>The number 12 bus stops directly outside</li>
+              {practice.access.map((note) => (
+                <li key={note}>{note}</li>
+              ))}
             </ul>
 
             <figure className="mt-8">
@@ -70,7 +72,7 @@ export default function ContactPage() {
                 Surgery opening times by day of the week
               </caption>
               <tbody>
-                {openingTimes.map(([day, hours]) => (
+                {practice.openingTimes.map(({ day, hours }) => (
                   <tr key={day} className="border-b border-[var(--dgp-line)]">
                     <th scope="row" className="py-2.5 pr-4 text-left font-semibold">
                       {day}
@@ -80,9 +82,17 @@ export default function ContactPage() {
                 ))}
               </tbody>
             </table>
-            <p className="mt-3 text-sm leading-relaxed text-[var(--dgp-ink-soft)]">
-              When we are closed, call NHS 111 or visit 111.nhs.uk. In a
-              life-threatening emergency, always call 999.
+
+            <h3 className="mt-6 text-lg font-bold">
+              Evening and Saturday appointments
+            </h3>
+            <p className="mt-2 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
+              {practice.enhancedAccess}
+            </p>
+
+            <h3 className="mt-6 text-lg font-bold">When we are closed</h3>
+            <p className="mt-2 text-base leading-relaxed text-[var(--dgp-ink-soft)]">
+              {practice.outOfHours}
             </p>
           </div>
         </div>
@@ -94,17 +104,20 @@ export default function ContactPage() {
             Register as a new patient
           </h2>
           <p className="mt-2 max-w-[680px] text-base leading-relaxed text-[var(--dgp-ink-soft)]">
-            If you live in our catchment area, we would be glad to have you.
-            Registration is done online in about ten minutes — you do not need
-            proof of address or immigration status, and you do not need to
-            visit the surgery. Your medical records transfer automatically
-            from your previous practice.
+            Joining the surgery takes about ten minutes online — no proof of
+            address, no ID, no visit needed. Check you live in our practice
+            area and start on the registration page.
           </p>
-          <GpSampleNote>
-            Sample site — on a live build this links to the practice&rsquo;s
-            online registration form.
-          </GpSampleNote>
+          <p className="mt-3">
+            <Link
+              href="/demo/gp-practice/register"
+              className="text-base font-semibold text-[var(--dgp-blue)] underline"
+            >
+              Register with the surgery
+            </Link>
+          </p>
         </div>
+        <GpReviewDate reviewed={practice.reviewed} />
       </GpSection>
     </>
   );

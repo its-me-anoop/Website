@@ -1,0 +1,34 @@
+{
+  "reviewed": "2026-08-04",
+  "nhsAppSteps": [
+    {
+      "title": "Open the NHS App and sign in",
+      "copy": "Use your NHS login, or verify your identity first if this is the first time you've used the app."
+    },
+    {
+      "title": "Find your nominated pharmacy",
+      "copy": "From your profile, choose \"Your GP health record\" or \"Nominated pharmacy\" — the exact wording depends on your app version."
+    },
+    {
+      "title": "Search for Willowbrook Pharmacy",
+      "copy": "Search by name or postcode RG1 9ZZ, then select us from the list of nearby pharmacies."
+    },
+    {
+      "title": "Confirm — that's it",
+      "copy": "From then on, every repeat your GP approves comes straight to us automatically. No forms, no phone calls, and you can change your nomination again at any time."
+    }
+  ],
+  "otherWaysToOrder": [
+    {
+      "title": "By phone",
+      "copy": "Call us on 0118 496 0567 with your name, date of birth and what you need, and we'll get it started."
+    },
+    {
+      "title": "In person",
+      "copy": "Drop off your paper repeat slip, or simply tell us at the counter what you're running low on."
+    }
+  ],
+  "readyTimescaleCopy": "Most repeat prescriptions are ready to collect within two working days of us receiving your request from your GP — often sooner. If you've given us your mobile number, we'll text you the moment it's ready, so you're not making a wasted trip.",
+  "deliveryCopy": "Free local delivery for repeat prescriptions to Willowbrook addresses, usually the same day your medicines are ready. Ask at the counter to set it up, or mention it when you nominate us — it's especially useful if you're housebound or can't easily get to us.",
+  "emergencySupplyCopy": "Run out of a regular medicine unexpectedly — lost a bag while travelling, or can't reach your GP over a bank holiday? A pharmacist can often supply a limited amount using professional judgement, within legal limits. See our emergency supply service on the Services page for what that covers and when there's a charge."
+}

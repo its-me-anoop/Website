@@ -25,6 +25,10 @@ const mondayRules = {
 let dir: string;
 
 beforeEach(async () => {
+  vi.useFakeTimers({
+    now: new Date("2026-08-08T00:00:00Z"),
+    toFake: ["Date"],
+  });
   dir = await mkdtemp(path.join(tmpdir(), "booking-admin-"));
   vi.stubEnv("BOOKING_STORE_FILE", path.join(dir, "bookings.json"));
   vi.stubEnv("BOOKING_AVAILABILITY_FILE", path.join(dir, "availability.json"));
@@ -32,6 +36,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
+  vi.useRealTimers();
   vi.unstubAllEnvs();
   await rm(dir, { recursive: true, force: true });
 });

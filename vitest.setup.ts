@@ -6,7 +6,10 @@ if (typeof globalThis.IntersectionObserver === "undefined") {
     readonly root: Element | Document | null = null;
     readonly rootMargin: string = "";
     readonly thresholds: ReadonlyArray<number> = [];
-    constructor(_cb: IntersectionObserverCallback, _opts?: IntersectionObserverInit) {}
+    constructor(cb: IntersectionObserverCallback, opts?: IntersectionObserverInit) {
+      void cb;
+      void opts;
+    }
     observe() {}
     unobserve() {}
     disconnect() {}
