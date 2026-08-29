@@ -12,10 +12,21 @@ const projectStills = [
   { src: "/project-pembroke.png", alt: "Pembroke Care website" },
 ] as const;
 
-function quoteHref(packageName: string) {
-  return `mailto:${site.email}?subject=${encodeURIComponent(
-    `Quote request: ${packageName} package`,
-  )}`;
+function packageCta(packageName: string) {
+  if (packageName === "Essentials") {
+    return { label: "Start Essentials", subject: "Start Essentials" };
+  }
+  if (packageName === "Standard") {
+    return { label: "Start Standard", subject: "Start Standard" };
+  }
+  return {
+    label: "Get a tailored quote",
+    subject: `Quote request: ${packageName} package`,
+  };
+}
+
+function packageMailto(subject: string) {
+  return `mailto:${site.email}?subject=${encodeURIComponent(subject)}`;
 }
 
 export function PackagesScreen() {
@@ -28,8 +39,8 @@ export function PackagesScreen() {
             Clear packages. Honest quotes.
           </h1>
           <p className={styles.intro}>
-            After a short call: a written fixed quote within two working days.
-            Published prices are +VAT. Complete is quote-only.
+            Essentials and Standard are priced. Complete is quote-only.
+            Published prices are +VAT.
           </p>
 
           <div className={styles.projectStrip} aria-label="A selection of Flutterly projects">
@@ -51,42 +62,45 @@ export function PackagesScreen() {
 
       <section className={styles.packagesSection} aria-label="Website delivery packages">
         <div className={styles.packagesGrid}>
-          {packages.map((pkg, index) => (
-            <article
-              key={pkg.name}
-              className={`${styles.packageCard} ${pkg.featured ? styles.featuredCard : ""}`}
-            >
-              <div className={styles.packageLabelRow}>
-                <p className={styles.packageLabel}>
-                  {String(index + 1).padStart(2, "0")} · {pkg.name}
-                </p>
-                {pkg.featured ? (
-                  <span className={styles.popularLabel}>Most popular</span>
+          {packages.map((pkg, index) => {
+            const cta = packageCta(pkg.name);
+            return (
+              <article
+                key={pkg.name}
+                className={`${styles.packageCard} ${pkg.featured ? styles.featuredCard : ""}`}
+              >
+                <div className={styles.packageLabelRow}>
+                  <p className={styles.packageLabel}>
+                    {String(index + 1).padStart(2, "0")} · {pkg.name}
+                  </p>
+                  {pkg.featured ? (
+                    <span className={styles.popularLabel}>Most popular</span>
+                  ) : null}
+                </div>
+
+                <h2 className={styles.packageTitle}>{pkg.strap}</h2>
+                <p className={styles.packageCopy}>{pkg.copy}</p>
+                {pkg.price ? (
+                  <p className={styles.packagePrice}>
+                    <span className={styles.packagePriceAmount}>{pkg.price.amount}</span>
+                    <span className={styles.packagePriceNote}>{pkg.price.note}</span>
+                  </p>
                 ) : null}
-              </div>
+                <ul className={styles.featureList}>
+                  {pkg.features.map((feature) => (
+                    <li key={feature}>
+                      <Check className={styles.checkIcon} size={16} strokeWidth={2.5} aria-hidden />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
 
-              <h2 className={styles.packageTitle}>{pkg.strap}</h2>
-              <p className={styles.packageCopy}>{pkg.copy}</p>
-              {pkg.price ? (
-                <p className={styles.packagePrice}>
-                  <span className={styles.packagePriceAmount}>{pkg.price.amount}</span>
-                  <span className={styles.packagePriceNote}>{pkg.price.note}</span>
-                </p>
-              ) : null}
-              <ul className={styles.featureList}>
-                {pkg.features.map((feature) => (
-                  <li key={feature}>
-                    <Check className={styles.checkIcon} size={16} strokeWidth={2.5} aria-hidden />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <a className={styles.quoteButton} href={quoteHref(pkg.name)}>
-                Get a tailored quote
-              </a>
-            </article>
-          ))}
+                <a className={styles.quoteButton} href={packageMailto(cta.subject)}>
+                  {cta.label}
+                </a>
+              </article>
+            );
+          })}
         </div>
       </section>
 

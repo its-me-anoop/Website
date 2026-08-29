@@ -88,8 +88,11 @@ describe("Flutterly redesign screens", () => {
       "Clear packages. Honest quotes.",
     );
     expect(screen.queryByText("No currency on this page.")).not.toBeInTheDocument();
+    expect(
+      screen.getByText(/Essentials and Standard are priced\. Complete is quote-only\./i),
+    ).toBeInTheDocument();
     expect(screen.getByText(/published prices are \+VAT/i)).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "Get a tailored quote" })).toHaveLength(3);
+    expect(screen.getAllByRole("link", { name: "Get a tailored quote" })).toHaveLength(1);
 
     const essentials = screen
       .getByRole("heading", { name: "A focused site, done properly" })
@@ -97,6 +100,10 @@ describe("Flutterly redesign screens", () => {
     expect(essentials).toHaveTextContent("£995");
     expect(essentials).toHaveTextContent("£10");
     expect(essentials).toHaveTextContent("+VAT");
+    expect(within(essentials as HTMLElement).getByRole("link", { name: "Start Essentials" })).toHaveAttribute(
+      "href",
+      "mailto:anoop@flutterly.co.uk?subject=Start%20Essentials",
+    );
 
     const standard = screen
       .getByRole("heading", { name: "Build plus a care plan" })
@@ -105,11 +112,18 @@ describe("Flutterly redesign screens", () => {
     expect(standard).toHaveTextContent("£49");
     expect(standard).toHaveTextContent("+VAT");
     expect(within(standard as HTMLElement).getByText("Most popular")).toBeInTheDocument();
+    expect(within(standard as HTMLElement).getByRole("link", { name: "Start Standard" })).toHaveAttribute(
+      "href",
+      "mailto:anoop@flutterly.co.uk?subject=Start%20Standard",
+    );
 
     const complete = screen
       .getByRole("heading", { name: "An ongoing digital partner" })
       .closest("article");
     expect(complete?.textContent).not.toMatch(/£/);
+    expect(
+      within(complete as HTMLElement).getByRole("link", { name: "Get a tailored quote" }),
+    ).toBeInTheDocument();
   });
 
   it("marks the current route and keeps the mobile menu keyboard-dismissible", () => {
