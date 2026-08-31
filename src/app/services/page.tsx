@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ServicesPage } from "@/components/bloom/services/ServicesPage";
+import { ServicesScreen } from "@/components/bloom/redesign/ServicesScreen";
 
 const description =
   "Digital delivery services for GP practices, care homes and other organisations: accessible websites, web and mobile products, business email, social media campaigns and ongoing support.";
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7faf8",
+  themeColor: "#FDF8F1",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -46,7 +46,7 @@ export default function Services() {
           ]),
         ]}
       />
-      <ServicesPage />
+      <ServicesScreen />
     </>
   );
 }

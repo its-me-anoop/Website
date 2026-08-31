@@ -1,32 +1,29 @@
-import Image from "next/image";
-import { Check } from "lucide-react";
 import { site } from "@/lib/site";
 import { packages } from "../data";
 import { RedesignShell } from "./RedesignShell";
 import styles from "./packages.module.css";
 
-const projectStills = [
-  { src: "/project-sandbourne.png", alt: "Sandbourne Care website" },
-  { src: "/project-greenmead.png", alt: "Greenmead website" },
-  { src: "/project-jjpaper.png", alt: "JJ Paper website" },
-  { src: "/project-pembroke.png", alt: "Pembroke Care website" },
-] as const;
-
 function packageCta(packageName: string) {
   if (packageName === "Essentials") {
-    return { label: "Start Essentials", subject: "Start Essentials" };
+    return { label: "Start Essentials", subject: "Start Essentials", featured: false };
   }
   if (packageName === "Standard") {
-    return { label: "Start Standard", subject: "Start Standard" };
+    return { label: "Start Standard", subject: "Start Standard", featured: true };
   }
   return {
     label: "Get a tailored quote",
     subject: `Quote request: ${packageName} package`,
+    featured: false,
   };
 }
 
 function packageMailto(subject: string) {
   return `mailto:${site.email}?subject=${encodeURIComponent(subject)}`;
+}
+
+function packageDisplay(pkg: (typeof packages)[number]) {
+  if (pkg.price) return pkg.price;
+  return { amount: "Quote-only", note: "Priced on scope. +VAT." };
 }
 
 export function PackagesScreen() {
@@ -42,28 +39,13 @@ export function PackagesScreen() {
             Essentials and Standard are priced. Complete is quote-only.
             Published prices are +VAT.
           </p>
-
-          <div className={styles.projectStrip} aria-label="A selection of Flutterly projects">
-            {projectStills.map((project, index) => (
-              <Image
-                key={project.src}
-                src={project.src}
-                alt={project.alt}
-                width={320}
-                height={192}
-                className={styles.projectStill}
-                sizes="160px"
-                priority={index < 2}
-              />
-            ))}
-          </div>
         </div>
       </section>
 
       <section className={styles.packagesSection} aria-label="Website delivery packages">
-        <div className={styles.packagesGrid}>
+        <div className={styles.priceGrid}>
           {packages.map((pkg, index) => {
-            const cta = packageCta(pkg.name);
+            const display = packageDisplay(pkg);
             return (
               <article
                 key={pkg.name}
@@ -77,28 +59,34 @@ export function PackagesScreen() {
                     <span className={styles.popularLabel}>Most popular</span>
                   ) : null}
                 </div>
-
                 <h2 className={styles.packageTitle}>{pkg.strap}</h2>
+                <p className={styles.packagePrice}>
+                  <span className={styles.packagePriceAmount}>{display.amount}</span>
+                  <span className={styles.packagePriceNote}>{display.note}</span>
+                </p>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className={styles.detailGrid}>
+          {packages.map((pkg) => {
+            const cta = packageCta(pkg.name);
+            return (
+              <div key={`${pkg.name}-detail`} className={styles.detailColumn}>
                 <p className={styles.packageCopy}>{pkg.copy}</p>
-                {pkg.price ? (
-                  <p className={styles.packagePrice}>
-                    <span className={styles.packagePriceAmount}>{pkg.price.amount}</span>
-                    <span className={styles.packagePriceNote}>{pkg.price.note}</span>
-                  </p>
-                ) : null}
                 <ul className={styles.featureList}>
                   {pkg.features.map((feature) => (
-                    <li key={feature}>
-                      <Check className={styles.checkIcon} size={16} strokeWidth={2.5} aria-hidden />
-                      <span>{feature}</span>
-                    </li>
+                    <li key={feature}>{feature}</li>
                   ))}
                 </ul>
-
-                <a className={styles.quoteButton} href={packageMailto(cta.subject)}>
+                <a
+                  className={`${styles.quoteButton} ${cta.featured ? styles.quoteFeatured : styles.quoteOutline}`}
+                  href={packageMailto(cta.subject)}
+                >
                   {cta.label}
                 </a>
-              </article>
+              </div>
             );
           })}
         </div>

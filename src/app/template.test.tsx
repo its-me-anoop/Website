@@ -28,7 +28,7 @@ afterEach(() => {
 
 describe("app template motion wrapper", () => {
   it("skips the Framer enter on Field Notes and demo routes", () => {
-    for (const path of ["/", "/packages", "/gp-websites", "/demo/gp-practice"]) {
+    for (const path of ["/", "/packages", "/gp-websites", "/services", "/book", "/demo/gp-practice"]) {
       pathname = path;
       const { container, unmount } = render(
         <Template>
@@ -43,7 +43,7 @@ describe("app template motion wrapper", () => {
   });
 
   it("still wraps Bloom routes so existing m components keep LazyMotion", () => {
-    pathname = "/services";
+    pathname = "/free-audit";
     const { container } = render(
       <Template>
         <em>page</em>

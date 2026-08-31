@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { BookingLanding } from "@/features/booking/ui/BookingLanding";
+import { BookScreen } from "@/components/bloom/redesign/BookScreen";
 
 const description =
   "Book a free intro call, consultation or project scoping session with Flutterly directly: pick a time, get an instant confirmation and a calendar invite.";
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fafcfb",
+  themeColor: "#FDF8F1",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -46,7 +46,7 @@ export default function Book() {
           ]),
         ]}
       />
-      <BookingLanding />
+      <BookScreen />
     </>
   );
 }

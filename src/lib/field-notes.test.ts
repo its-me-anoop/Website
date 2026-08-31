@@ -10,6 +10,8 @@ describe("isFieldNotesPath", () => {
       "/packages",
       "/about",
       "/contact",
+      "/services",
+      "/book",
     ]);
 
     for (const path of FIELD_NOTES_PATHS) {
@@ -19,7 +21,7 @@ describe("isFieldNotesPath", () => {
   });
 
   it("leaves Bloom, book, demo and unknown routes alone", () => {
-    ["", null, undefined, "/services", "/book", "/free-audit", "/demo/gp-practice"].forEach(
+    ["", null, undefined, "/free-audit", "/book/intro-call", "/demo/gp-practice"].forEach(
       (path) => {
         expect(isFieldNotesPath(path)).toBe(false);
       },

@@ -1,4 +1,5 @@
-/** Buyer-journey routes that render inside RedesignShell (see DESIGN.md). */
+/** Buyer-journey routes that render inside RedesignShell (see DESIGN.md).
+ *  `/book/[eventType]` and `/book/manage` stay Bloom. */
 export const FIELD_NOTES_PATHS = [
   "/",
   "/gp-websites",
@@ -6,6 +7,8 @@ export const FIELD_NOTES_PATHS = [
   "/packages",
   "/about",
   "/contact",
+  "/services",
+  "/book",
 ] as const;
 
 export function isFieldNotesPath(pathname: string | null | undefined): boolean {
