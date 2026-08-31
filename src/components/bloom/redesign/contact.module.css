@@ -61,12 +61,18 @@
   font-weight: 700;
   line-height: 1.25rem;
   box-shadow: 0 2px 8px oklch(53% 0.16 53 / 0.18);
-  transition: background-color 180ms ease-out, transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color var(--fl-duration-color) ease-out,
+    transform var(--fl-duration-button) var(--fl-ease);
 }
 
 .emailButton:hover {
-  transform: translateY(-1px);
+  transform: translateY(var(--fl-lift-button));
   background: var(--fl-accent-hover);
+}
+
+.emailButton:active {
+  transform: translateY(0);
+  transition-duration: var(--fl-duration-color), var(--fl-duration-press);
 }
 
 .projectFrame {
@@ -103,11 +109,13 @@
   color: var(--fl-ink);
   padding: 2rem;
   box-shadow: 0 1px 2px oklch(23.5% 0.05 55 / 0.06);
-  transition: border-color 180ms ease-out, transform 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms ease-out;
+  transition: border-color var(--fl-duration-color) ease-out,
+    transform var(--fl-duration-button) var(--fl-ease),
+    box-shadow var(--fl-duration-color) ease-out;
 }
 
 .callCard:hover {
-  transform: translateY(-3px);
+  transform: translateY(var(--fl-lift-card));
   border-color: var(--fl-accent);
   box-shadow: 0 12px 28px oklch(23.5% 0.05 55 / 0.1);
 }
@@ -161,5 +169,11 @@
   .emailButton,
   .callCard {
     transition: none;
+  }
+
+  .emailButton:hover,
+  .emailButton:active,
+  .callCard:hover {
+    transform: none;
   }
 }

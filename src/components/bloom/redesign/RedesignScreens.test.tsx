@@ -56,6 +56,23 @@ describe("Flutterly redesign screens", () => {
       "href",
       "/free-audit",
     );
+    expect(container.querySelector("[data-hero-grain]")).toBeTruthy();
+  });
+
+  it("keeps the frozen hero grain on Home only", () => {
+    const screens = [
+      <PackagesScreen key="packages" />,
+      <SectorScreen key="gp" sector="gp" />,
+      <SectorScreen key="care" sector="care" />,
+      <AboutScreen key="about" />,
+      <ContactScreen key="contact" />,
+    ];
+
+    screens.forEach((screen) => {
+      const view = render(screen);
+      expect(view.container.querySelector("[data-hero-grain]")).toBeNull();
+      view.unmount();
+    });
   });
 
   it("keeps both sector samples usable on their production routes", () => {

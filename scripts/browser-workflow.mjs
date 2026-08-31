@@ -233,6 +233,9 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 6) note("home", `expected 6 project cards, found ${projects}`);
 
+  const homeGrain = await page.locator("[data-hero-grain]").count();
+  if (homeGrain !== 1) note("home", `expected a Home hero grain layer, found ${homeGrain}`);
+
   const contact = page.locator('a[href^="mailto:"]').first();
   if (!(await contact.isVisible().catch(() => false)))
     note("home", "contact email link is not visible");
@@ -257,8 +260,20 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   await page.getByRole("button", { name: /open menu/i }).click();
   await menu.locator('a[href="/gp-websites"]').click();
   await page.waitForURL(`${BASE}/gp-websites`);
+  if (await page.locator("[data-hero-grain]").count()) {
+    note("gp-websites", "hero grain leaked onto a non-Home Field Notes route");
+  }
 
   await page.close();
+
+  for (const route of ["/packages", "/about", "/contact", "/book", "/services", "/care-home-websites"]) {
+    const extra = await mobile.newPage();
+    await extra.goto(BASE + route, { waitUntil: "networkidle" });
+    if (await extra.locator("[data-hero-grain]").count()) {
+      note(route, "hero grain leaked onto a non-Home route");
+    }
+    await extra.close();
+  }
 
   const missing = await mobile.newPage();
   const response = await missing.goto(BASE + "/__definitely_missing__", {

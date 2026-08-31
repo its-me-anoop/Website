@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { site } from "@/lib/site";
 import { projects, type Project } from "../data";
+import { HeroGrain } from "./HeroGrain";
 import { RedesignShell } from "./RedesignShell";
 import styles from "./home.module.css";
 
@@ -163,6 +164,7 @@ export function HomeScreen() {
   return (
     <RedesignShell>
       <section className={styles.heroSection} aria-labelledby="home-heading">
+        <HeroGrain />
         <div className={`${styles.site} ${styles.heroInner}`}>
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
@@ -207,12 +209,11 @@ export function HomeScreen() {
           </div>
 
           <div className={styles.audienceGrid}>
-            {audiences.map((audience, index) => (
+            {audiences.map((audience) => (
               <Link
                 key={audience.href}
                 href={audience.href}
                 className={styles.audienceCard}
-                style={{ "--home-delay": `${160 + index * 70}ms` } as React.CSSProperties}
               >
                 <div className={styles.audienceMedia}>
                   <Image
