@@ -2,10 +2,12 @@ import React from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { AboutScreen } from "./AboutScreen";
+import { BookScreen } from "./BookScreen";
 import { ContactScreen } from "./ContactScreen";
 import { HomeScreen } from "./HomeScreen";
 import { PackagesScreen } from "./PackagesScreen";
 import { SectorScreen } from "./SectorScreen";
+import { ServicesScreen } from "./ServicesScreen";
 
 let pathname = "/";
 
@@ -56,6 +58,25 @@ describe("Flutterly redesign screens", () => {
       "href",
       "/free-audit",
     );
+    expect(container.querySelector("[data-hero-grain]")).toBeTruthy();
+  });
+
+  it("keeps the frozen hero grain on Home only", () => {
+    const screens = [
+      <PackagesScreen key="packages" />,
+      <SectorScreen key="gp" sector="gp" />,
+      <SectorScreen key="care" sector="care" />,
+      <AboutScreen key="about" />,
+      <ContactScreen key="contact" />,
+      <ServicesScreen key="services" />,
+      <BookScreen key="book" />,
+    ];
+
+    screens.forEach((screen) => {
+      const view = render(screen);
+      expect(view.container.querySelector("[data-hero-grain]")).toBeNull();
+      view.unmount();
+    });
   });
 
   it("keeps both sector samples usable on their production routes", () => {
@@ -100,7 +121,7 @@ describe("Flutterly redesign screens", () => {
     expect(essentials).toHaveTextContent("£995");
     expect(essentials).toHaveTextContent("£10");
     expect(essentials).toHaveTextContent("+VAT");
-    expect(within(essentials as HTMLElement).getByRole("link", { name: "Start Essentials" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Start Essentials" })).toHaveAttribute(
       "href",
       "mailto:anoop@flutterly.co.uk?subject=Start%20Essentials",
     );
@@ -112,7 +133,7 @@ describe("Flutterly redesign screens", () => {
     expect(standard).toHaveTextContent("£49");
     expect(standard).toHaveTextContent("+VAT");
     expect(within(standard as HTMLElement).getByText("Most popular")).toBeInTheDocument();
-    expect(within(standard as HTMLElement).getByRole("link", { name: "Start Standard" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Start Standard" })).toHaveAttribute(
       "href",
       "mailto:anoop@flutterly.co.uk?subject=Start%20Standard",
     );
@@ -121,9 +142,40 @@ describe("Flutterly redesign screens", () => {
       .getByRole("heading", { name: "An ongoing digital partner" })
       .closest("article");
     expect(complete?.textContent).not.toMatch(/£/);
+    expect(complete).toHaveTextContent("Quote-only");
+    expect(screen.getByRole("link", { name: "Get a tailored quote" })).toBeInTheDocument();
+  });
+
+  it("renders Field Notes Services and Book from live copy", () => {
+    const services = render(<ServicesScreen />);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      "Digital services that work together.",
+    );
+    expect(screen.getByRole("link", { name: "Discuss what you need" })).toHaveAttribute(
+      "href",
+      "mailto:anoop@flutterly.co.uk?subject=Digital%20project%20enquiry",
+    );
+    expect(screen.getByRole("link", { name: "Review website care plans" })).toHaveAttribute(
+      "href",
+      "/packages",
+    );
+    expect(services.container.querySelector("[data-hero-grain]")).toBeNull();
+    services.unmount();
+
+    const book = render(<BookScreen />);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      "Pick a time, skip the email tennis.",
+    );
+    const pickTimes = screen.getAllByRole("link", { name: "Pick a time" });
+    expect(pickTimes).toHaveLength(3);
+    expect(pickTimes[0]).toHaveAttribute("href", "/book/intro-call");
+    const consultation = screen
+      .getByRole("heading", { name: "Consultation" })
+      .closest("article");
     expect(
-      within(complete as HTMLElement).getByRole("link", { name: "Get a tailored quote" }),
-    ).toBeInTheDocument();
+      within(consultation as HTMLElement).getByRole("link", { name: "Pick a time" }),
+    ).toHaveAttribute("href", "/book/consultation");
+    expect(book.container.querySelector("[data-hero-grain]")).toBeNull();
   });
 
   it("marks the current route and keeps the mobile menu keyboard-dismissible", () => {

@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { LazyMotion, m, useReducedMotion } from "framer-motion";
+import { isFieldNotesPath } from "@/lib/field-notes";
 
 /**
  * Loads the Framer Motion feature set as a separate async chunk (see
@@ -21,12 +22,16 @@ const loadFeatures = () =>
  * Demo routes (`/demo/…`) opt out entirely: they showcase static-first
  * builds, so they render without the motion wrapper — content is visible
  * before hydration and the motion feature chunk never loads there.
+ *
+ * Field Notes routes (`RedesignShell`) also skip this wrapper. Home already
+ * has a CSS `home-reveal` enter; stacking a 360ms Framer rise on top of it
+ * doubles the entrance. Bloom and other systems still receive LazyMotion.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
   const reduce = useReducedMotion();
   const pathname = usePathname();
 
-  if (pathname?.startsWith("/demo")) {
+  if (pathname?.startsWith("/demo") || isFieldNotesPath(pathname)) {
     return children;
   }
 

@@ -3,7 +3,8 @@
 A cal.com-style scheduling system so clients book consultations directly
 at `/book`, without email back-and-forth. Dependency-free: availability
 maths and calendar files are hand-rolled on Intl, storage is a JSON
-file, and the UI is plain Bloom components.
+file. The `/book` landing is Field Notes; the scheduler and manage
+pages stay Bloom.
 
 ## Client journey
 

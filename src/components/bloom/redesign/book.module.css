@@ -1,0 +1,257 @@
+.page {
+  width: min(100%, var(--fl-site));
+  margin-inline: auto;
+  padding-inline: var(--fl-gutter);
+}
+
+.head {
+  padding-block: clamp(3rem, 6vw, 4rem) 2.5rem;
+  animation: field-notes-enter var(--fl-duration-enter) var(--fl-ease) both;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--fl-muted);
+  font-family: var(--fl-mono);
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 16ch;
+  margin: 1.25rem 0 0;
+  font-size: clamp(2.5rem, 5.4vw, 3rem);
+  font-weight: 650;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 40rem;
+  margin: 1.25rem 0 0;
+  color: var(--fl-soft-ink);
+  font-size: 1.125rem;
+  line-height: 1.55;
+}
+
+.rule {
+  height: 1px;
+  background: var(--fl-line);
+}
+
+.offer {
+  padding-block: 2.5rem 1.5rem;
+}
+
+.offerTitle {
+  max-width: 18ch;
+  margin: 0.75rem 0 0;
+  font-size: clamp(2rem, 4vw, 2.35rem);
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.875rem;
+  padding-bottom: 2.5rem;
+}
+
+.card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  border: 1px solid var(--fl-line);
+  border-radius: 0.875rem;
+  background: var(--fl-surface);
+  padding: 1.35rem 1.25rem 1.4rem;
+  transition:
+    transform var(--fl-duration-card) var(--fl-ease),
+    border-color var(--fl-duration-card) var(--fl-ease),
+    background var(--fl-duration-card) var(--fl-ease);
+}
+
+.card:hover {
+  transform: translateY(var(--fl-lift-card));
+}
+
+.card:active {
+  transform: translateY(0);
+  transition-duration: var(--fl-duration-press);
+}
+
+/* Intro call is the action: terracotta hover, not a generic card lift. */
+.actionCard:hover {
+  border-color: var(--fl-accent);
+  background: color-mix(in srgb, var(--fl-accent-soft) 72%, var(--fl-surface));
+}
+
+.meta {
+  margin: 0;
+  color: var(--fl-muted);
+  font-family: var(--fl-mono);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cardTitle {
+  margin: 0.7rem 0 0;
+  font-size: 1.35rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  margin: 0.7rem 0 0;
+  color: var(--fl-soft-ink);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.agenda {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agenda li {
+  color: var(--fl-soft-ink);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.cta {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  margin-top: 1.15rem;
+  border-radius: 0.5rem;
+  padding-inline: 1.75rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  text-decoration: none;
+  transition:
+    background-color var(--fl-duration-color) ease-out,
+    color var(--fl-duration-color) ease-out,
+    border-color var(--fl-duration-color) ease-out,
+    transform var(--fl-duration-button) var(--fl-ease);
+}
+
+.cta:hover {
+  transform: translateY(var(--fl-lift-button));
+}
+
+.cta:active {
+  transform: translateY(0);
+  transition-duration: var(--fl-duration-color), var(--fl-duration-color),
+    var(--fl-duration-color), var(--fl-duration-press);
+}
+
+.ctaFilled {
+  background: var(--fl-accent);
+  color: var(--fl-footer-ink);
+  box-shadow: 0 2px 8px oklch(53% 0.16 53 / 0.18);
+}
+
+.ctaFilled:hover {
+  background: var(--fl-accent-hover);
+}
+
+.ctaOutline {
+  border: 1px solid var(--fl-line);
+  color: var(--fl-ink);
+  background: transparent;
+}
+
+.ctaOutline:hover {
+  background: var(--fl-canvas);
+}
+
+.how {
+  padding-block: 2.5rem 4.5rem;
+}
+
+.points {
+  display: grid;
+  gap: 0.55rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.points li {
+  color: var(--fl-soft-ink);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.email {
+  max-width: 44rem;
+  margin: 1.15rem 0 0;
+  color: var(--fl-soft-ink);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.email a {
+  color: var(--fl-accent);
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.email a:hover {
+  color: var(--fl-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+@keyframes field-notes-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--fl-enter-from));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .head {
+    animation: none;
+  }
+
+  .card,
+  .cta {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:active,
+  .cta:hover,
+  .cta:active {
+    transform: none;
+  }
+}

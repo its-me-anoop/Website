@@ -50,8 +50,9 @@ src/components/bloom/
 └── ../privacy/        # Global consent notice and inline preferences
 ```
 
-The `/book` pages (`src/features/booking/ui/`) also render inside
-`BloomShell` — see [BOOKING.md](./BOOKING.md).
+The `/book` landing page now uses Field Notes (`BookScreen`). Scheduler
+and manage routes (`/book/[eventType]`, `/book/manage`) still render
+inside `BloomShell` — see [BOOKING.md](./BOOKING.md).
 
 ## Signature moves
 

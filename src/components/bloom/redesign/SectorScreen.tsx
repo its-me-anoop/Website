@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { site } from "@/lib/site";
 import { projects } from "../data";
 import { RedesignShell } from "./RedesignShell";
@@ -106,8 +105,7 @@ function GpScreen() {
               />
             </Link>
             <Link href="/demo/gp-practice" className={styles.sampleLink}>
-              Open the sample
-              <ArrowUpRight aria-hidden size={16} strokeWidth={1.8} />
+              Willowbrook Surgery · Open the sample
             </Link>
           </div>
         </div>
@@ -121,7 +119,8 @@ function GpScreen() {
           <ul className={styles.faqList}>
             {gpFaqs.map((faq) => (
               <li key={faq.question}>
-                <strong>{faq.question}</strong> {faq.answer}
+                <strong>{faq.question}</strong>
+                <span>{faq.answer}</span>
               </li>
             ))}
           </ul>
@@ -154,7 +153,7 @@ function ProjectImage({
       fill
       priority={priority}
       className={styles.projectImage}
-      sizes="(min-width: 64rem) 50vw, 100vw"
+      sizes="(min-width: 64rem) 33vw, 100vw"
     />
   );
 }
@@ -167,6 +166,24 @@ function CareScreen() {
   if (!pembroke || !sandbourne || !greenmead) {
     throw new Error("Care sector projects are missing from the Bloom project data.");
   }
+
+  const workCards = [
+    {
+      project: pembroke,
+      meta: "Boutique residential, respite and transitional living · Reading",
+      imageAlt: "Pembroke Care website homepage",
+    },
+    {
+      project: sandbourne,
+      meta: `${sandbourne.type} · ${sandbourne.year}`,
+      imageAlt: "Sandbourne Care website homepage",
+    },
+    {
+      project: greenmead,
+      meta: `${greenmead.type} · ${greenmead.year}`,
+      imageAlt: "Greenmead accessible housing website homepage",
+    },
+  ] as const;
 
   return (
     <>
@@ -184,105 +201,49 @@ function CareScreen() {
           </div>
 
           <div className={`${styles.careProjects} ${styles.reveal} ${styles.delay}`}>
-            <a
-              href={pembroke.href}
-              className={`${styles.projectCard} ${styles.projectPrimary}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className={styles.primaryImageWrap}>
-                <ProjectImage
-                  src={pembroke.image}
-                  alt="Pembroke Care website homepage"
-                  priority
-                />
-                <span className={styles.statusBadge}>
-                  {pembroke.status ? `${pembroke.status}, ` : ""}
-                  {pembroke.year}
-                </span>
-              </span>
-              <span className={styles.primaryProjectCopy}>
-                <strong>{pembroke.name}</strong>
-                <span>
-                  Boutique residential, respite and transitional living · Reading
-                </span>
-              </span>
-            </a>
-
-            <div className={styles.supportingProjects}>
+            {workCards.map((card, index) => (
               <a
-                href={sandbourne.href}
-                className={`${styles.projectCard} ${styles.projectSupporting}`}
+                key={card.project.name}
+                href={card.project.href}
+                className={styles.projectCard}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className={styles.supportingImageWrap}>
+                <span className={styles.workImageWrap}>
                   <ProjectImage
-                    src={sandbourne.image}
-                    alt="Sandbourne Care website homepage"
+                    src={card.project.image}
+                    alt={card.imageAlt}
+                    priority={index === 0}
                   />
                 </span>
-                <span className={styles.supportingProjectCopy}>
-                  <strong>{sandbourne.name}</strong>
-                  <span>
-                    {sandbourne.type} · {sandbourne.year}
-                  </span>
+                <span className={styles.workCopy}>
+                  <strong>{card.project.name}</strong>
+                  <span>{card.meta}</span>
                 </span>
               </a>
-
-              <a
-                href={greenmead.href}
-                className={`${styles.projectCard} ${styles.projectSupporting}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className={styles.supportingImageWrap}>
-                  <ProjectImage
-                    src={greenmead.image}
-                    alt="Greenmead accessible housing website homepage"
-                  />
-                </span>
-                <span className={styles.supportingProjectCopy}>
-                  <strong>{greenmead.name}</strong>
-                  <span>
-                    {greenmead.type} · {greenmead.year}
-                  </span>
-                </span>
-              </a>
-            </div>
+            ))}
           </div>
 
-          <p className={styles.cqcNote}>
-            CQC ratings belong on the page as a small, honest fact; never occupancy
-            copy, never “fills beds”.
-          </p>
+          <blockquote className={styles.cqcQuote}>
+            “CQC ratings belong on the page as a small, honest fact; never occupancy
+            copy, never &apos;fills beds&apos;.”
+          </blockquote>
 
           <div className={styles.careSample}>
             <SampleBadge />
             <Link
               href="/demo/care-home"
               className={styles.careSampleLink}
-              aria-label="Open the fictional Oakfield House care home sample website"
             >
-              <span className={styles.careSampleImageWrap}>
-                <Image
-                  src="/demos/care-home.png"
-                  alt="Oakfield House sample care home homepage"
-                  fill
-                  className={styles.projectImage}
-                  sizes="144px"
-                />
-              </span>
-              <span>Oakfield House, quieter than live work.</span>
+              Oakfield House, quieter than live work.
             </Link>
+            <a
+              className={styles.primaryButton}
+              href={enquiryHref("Care home website enquiry")}
+            >
+              Discuss a care home website
+            </a>
           </div>
-
-          <a
-            className={styles.primaryButton}
-            href={enquiryHref("Care home website enquiry")}
-          >
-            Discuss a care home website
-          </a>
         </div>
       </section>
 
