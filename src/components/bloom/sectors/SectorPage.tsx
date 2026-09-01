@@ -198,7 +198,7 @@ export function SectorPage({ sector, extra }: { sector: Sector; extra?: ReactNod
                   <span className="h-2 w-2 rounded-full bg-bl-line-2" />
                 </span>
                 <span className="ml-2 truncate rounded-full bg-bl-band px-3 py-0.5 text-[12px] font-medium text-bl-ink-soft">
-                  flutterly.uk{sector.demo.href}
+                  flutterly.co.uk{sector.demo.href}
                 </span>
               </span>
               <Image

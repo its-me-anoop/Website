@@ -20,6 +20,7 @@ const EXISTING_PATHS = [
   "/free-audit",
   "/projects/sipli",
   "/projects/artling",
+  "/privacy",
   "/accessibility",
   "/cookie-policy",
   "/projects/sipli/privacy-policy",

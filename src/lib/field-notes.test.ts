@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { FIELD_NOTES_PATHS, isFieldNotesPath } from "./field-notes";
 
 describe("isFieldNotesPath", () => {
-  it("matches the locked buyer-journey routes, with or without a trailing slash", () => {
+  it("matches Studio buyer-journey and policy routes", () => {
     expect(FIELD_NOTES_PATHS).toEqual([
       "/",
       "/gp-websites",
@@ -12,6 +12,9 @@ describe("isFieldNotesPath", () => {
       "/contact",
       "/services",
       "/book",
+      "/accessibility",
+      "/cookie-policy",
+      "/privacy",
     ]);
 
     for (const path of FIELD_NOTES_PATHS) {
@@ -20,8 +23,14 @@ describe("isFieldNotesPath", () => {
     }
   });
 
-  it("leaves Bloom, book, demo and unknown routes alone", () => {
-    ["", null, undefined, "/free-audit", "/book/intro-call", "/demo/gp-practice"].forEach(
+  it("treats Cal deep links as Studio chrome", () => {
+    expect(isFieldNotesPath("/book/intro-call")).toBe(true);
+    expect(isFieldNotesPath("/book/consultation")).toBe(true);
+    expect(isFieldNotesPath("/book/project-scoping")).toBe(true);
+  });
+
+  it("leaves Bloom manage, demos and unknown routes alone", () => {
+    ["", null, undefined, "/free-audit", "/book/manage", "/demo/gp-practice"].forEach(
       (path) => {
         expect(isFieldNotesPath(path)).toBe(false);
       },

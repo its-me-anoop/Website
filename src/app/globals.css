@@ -388,6 +388,23 @@ html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
   background: var(--bl-muted);
 }
 
+/* Studio redesign: match iOS overscroll / status-bar chrome to the
+   near-black canvas so Safari does not flash porcelain white. */
+html:has([data-flutterly-redesign]) {
+  background: #050505;
+  color-scheme: dark;
+}
+html:has([data-flutterly-redesign]) body {
+  background: #050505;
+}
+html:has([data-flutterly-redesign])::-webkit-scrollbar-track {
+  background: #050505;
+}
+html:has([data-flutterly-redesign])::-webkit-scrollbar-thumb {
+  background: #3a3a3c;
+  border-color: #050505;
+}
+
 .bloom-root {
   --font-sans: "Atkinson Hyperlegible Next Variable", "Avenir Next", sans-serif;
   --font-display: "Archivo Variable", "Avenir Next", sans-serif;

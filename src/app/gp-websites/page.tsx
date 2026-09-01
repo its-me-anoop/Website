@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
+import { studioViewport } from "@/lib/studio";
 import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { gpSector } from "@/components/bloom/data";
@@ -26,12 +27,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#FDF8F1",
-  colorScheme: "light",
-  width: "device-width",
-  initialScale: 1,
-};
+export const viewport: Viewport = studioViewport;
 
 export default function GpWebsitesPage() {
   return (

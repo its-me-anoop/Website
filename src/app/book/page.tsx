@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/seo";
+import { studioViewport } from "@/lib/studio";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { BookScreen } from "@/components/bloom/redesign/BookScreen";
 
@@ -28,12 +29,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#FDF8F1",
-  colorScheme: "light",
-  width: "device-width",
-  initialScale: 1,
-};
+export const viewport: Viewport = studioViewport;
 
 export default function Book() {
   return (

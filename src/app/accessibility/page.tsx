@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { site } from "@/lib/site";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { RedesignShell } from "@/components/bloom/redesign/RedesignShell";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { BloomShell } from "@/components/bloom/BloomShell";
+import { breadcrumbJsonLd } from "@/lib/seo";
+import { site } from "@/lib/site";
+import { studioViewport } from "@/lib/studio";
+import styles from "@/components/bloom/redesign/legal.module.css";
 
 const description =
-  "Accessibility statement for flutterly.uk — the standards this website aims to meet, how it is tested, and how to report a problem.";
+  "Accessibility statement for Flutterly Digital Delivery — the standards this website aims to meet, how it is tested, and how to report a problem.";
 
 export const metadata: Metadata = {
   title: "Accessibility statement",
@@ -21,46 +23,38 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#fafcfb",
-  colorScheme: "light",
-  width: "device-width",
-  initialScale: 1,
-};
+export const viewport: Viewport = studioViewport;
 
 export default function AccessibilityPage() {
   return (
-    <BloomShell>
+    <RedesignShell>
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
           { name: "Accessibility statement", path: "/accessibility" },
         ])}
       />
-      <article className="mx-auto w-full max-w-[720px] px-5 py-16 sm:px-8 sm:py-20">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-bl-teal">
-          Accessibility
+      <article className={styles.article}>
+        <p className={styles.eyebrow}>Accessibility</p>
+        <h1 className={styles.title}>Accessibility statement</h1>
+        <p className={styles.lead}>
+          Flutterly Digital Delivery builds websites for organisations whose
+          visitors span every age, ability and device — so this site is held to
+          the same standard asked of client work.
         </p>
-        <h1 className="mt-4 text-[clamp(2rem,5vw,3rem)] font-medium leading-[1.08] tracking-[-0.03em] text-bl-ink">
-          Accessibility statement
-        </h1>
-        <div className="mt-8 space-y-8 text-[15.5px] leading-relaxed text-bl-ink-soft">
+        <p className={styles.meta}>Last reviewed: 1 September 2026</p>
+
+        <div className={styles.sections}>
           <section>
-            <h2 className="text-[19px] font-medium tracking-tight text-bl-ink">
-              Our commitment
-            </h2>
-            <p className="mt-2.5">
-              Flutterly builds websites for organisations whose visitors span
-              every age, ability and device — so this site is held to the same
-              standard asked of client work. flutterly.uk aims to meet the Web
-              Content Accessibility Guidelines (WCAG) 2.2 at level AA.
+            <h2>Our commitment</h2>
+            <p>
+              {site.url.replace("https://", "")} aims to meet the Web Content
+              Accessibility Guidelines (WCAG) 2.2 at level AA.
             </p>
           </section>
           <section>
-            <h2 className="text-[19px] font-medium tracking-tight text-bl-ink">
-              What that means in practice
-            </h2>
-            <ul className="mt-2.5 list-disc space-y-1.5 pl-5">
+            <h2>What that means in practice</h2>
+            <ul>
               <li>Semantic HTML with a logical heading structure on every page</li>
               <li>Full keyboard operability, with visible focus styles</li>
               <li>Text and interface colours that meet AA contrast ratios</li>
@@ -73,37 +67,24 @@ export default function AccessibilityPage() {
             </ul>
           </section>
           <section>
-            <h2 className="text-[19px] font-medium tracking-tight text-bl-ink">
-              How this site is tested
-            </h2>
-            <p className="mt-2.5">
+            <h2>How this site is tested</h2>
+            <p>
               The site is checked with automated tooling and by hand — keyboard
               navigation, screen-reader spot checks and mobile-viewport reviews
               — as part of every release, not as an occasional exercise.
             </p>
           </section>
           <section>
-            <h2 className="text-[19px] font-medium tracking-tight text-bl-ink">
-              Found a problem?
-            </h2>
-            <p className="mt-2.5">
+            <h2>Found a problem?</h2>
+            <p>
               If any part of this website is hard to use with assistive
               technology, please say so — it will be treated as a bug, not
-              feedback. Email{" "}
-              <a
-                href={`mailto:${site.email}`}
-                className="font-medium text-bl-teal underline-offset-2 hover:underline"
-              >
-                {site.email}
-              </a>{" "}
+              feedback. Email <a href={`mailto:${site.email}`}>{site.email}</a>{" "}
               and you will get a response within two working days.
             </p>
           </section>
-          <p className="border-t border-bl-line pt-6 text-[13.5px] text-bl-muted">
-            This statement was last reviewed in July 2026.
-          </p>
         </div>
       </article>
-    </BloomShell>
+    </RedesignShell>
   );
 }

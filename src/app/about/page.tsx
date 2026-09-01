@@ -3,6 +3,7 @@ import { AboutScreen } from "@/components/bloom/redesign/AboutScreen";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { studioViewport } from "@/lib/studio";
 
 const description =
   "Meet Anoop Jose, founder of Flutterly Limited in Reading, UK. The person you brief is the person accountable for planning, building and delivering the work.";
@@ -28,12 +29,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#FDF8F1",
-  colorScheme: "light",
-  width: "device-width",
-  initialScale: 1,
-};
+export const viewport: Viewport = studioViewport;
 
 export default function AboutPage() {
   return (

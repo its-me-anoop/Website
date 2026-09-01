@@ -1,10 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { notFound } from "next/navigation";
+import { studioViewport } from "@/lib/studio";
+import { notFound, redirect } from "next/navigation";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  BookUnavailableExperience,
+} from "@/components/bloom/redesign/BookExperience";
+import { RedesignShell } from "@/components/bloom/redesign/RedesignShell";
 import { eventTypes, getEventType } from "@/features/booking/core/config";
-import { Scheduler } from "@/features/booking/ui/Scheduler";
+import { calBookingUrl } from "@/lib/cal";
 
 type Params = { eventType: string };
 
@@ -37,30 +42,35 @@ export async function generateMetadata({
   };
 }
 
-export const viewport: Viewport = {
-  themeColor: "#fafcfb",
-  colorScheme: "light",
-  width: "device-width",
-  initialScale: 1,
-};
+export const viewport: Viewport = studioViewport;
 
-export default async function BookEventType({ params }: { params: Promise<Params> }) {
+export default async function BookEventType({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
   const { eventType: id } = await params;
   const eventType = getEventType(id);
   if (!eventType) notFound();
 
+  const calUrl = calBookingUrl(eventType.id);
+  if (calUrl) redirect(calUrl);
+
+  const crumbs = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Book a call", path: "/book" },
+    { name: eventType.name, path: `/book/${eventType.id}` },
+  ]);
+
   return (
     <>
-      <JsonLd
-        data={[
-          breadcrumbJsonLd([
-            { name: "Home", path: "/" },
-            { name: "Book a call", path: "/book" },
-            { name: eventType.name, path: `/book/${eventType.id}` },
-          ]),
-        ]}
-      />
-      <Scheduler eventType={eventType} />
+      <JsonLd data={[crumbs]} />
+      <RedesignShell>
+        <BookUnavailableExperience
+          name={eventType.name}
+          durationMinutes={eventType.durationMinutes}
+        />
+      </RedesignShell>
     </>
   );
 }

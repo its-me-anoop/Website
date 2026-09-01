@@ -31,8 +31,9 @@ describe("Flutterly redesign screens", () => {
       }),
     ).toBeInTheDocument();
 
+    fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
     const primary = screen.getByRole("navigation", {
-      name: "Primary navigation",
+      name: "Mobile navigation",
     });
     [
       "/",
@@ -166,15 +167,24 @@ describe("Flutterly redesign screens", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "Pick a time, skip the email tennis.",
     );
-    const pickTimes = screen.getAllByRole("link", { name: "Pick a time" });
-    expect(pickTimes).toHaveLength(3);
-    expect(pickTimes[0]).toHaveAttribute("href", "/book/intro-call");
-    const consultation = screen
-      .getByRole("heading", { name: "Consultation" })
-      .closest("article");
-    expect(
-      within(consultation as HTMLElement).getByRole("link", { name: "Pick a time" }),
-    ).toHaveAttribute("href", "/book/consultation");
+    const pickLinks = screen.getAllByRole("link", { name: "Pick a time" });
+    expect(pickLinks).toHaveLength(3);
+    expect(pickLinks[0]).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/intro",
+    );
+    expect(pickLinks[1]).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/consultation",
+    );
+    expect(pickLinks[2]).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/project-scoping",
+    );
+    expect(screen.queryByText(/Not yet bookable online/i)).toBeNull();
+    expect(screen.getByRole("heading", { name: "Intro call" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Consultation" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Project scoping" })).toBeInTheDocument();
     expect(book.container.querySelector("[data-hero-grain]")).toBeNull();
   });
 
@@ -182,29 +192,23 @@ describe("Flutterly redesign screens", () => {
     pathname = "/contact";
     render(<ContactScreen />);
 
-    const primary = screen.getByRole("navigation", {
-      name: "Primary navigation",
-    });
-    expect(within(primary).getByRole("link", { name: "Contact" })).toHaveAttribute(
-      "aria-current",
-      "page",
-    );
-    expect(within(primary).getByRole("link", { name: "Home" })).not.toHaveAttribute(
-      "aria-current",
-    );
-
     const menuButton = screen.getByRole("button", { name: "Open menu" });
     fireEvent.click(menuButton);
     expect(menuButton).toHaveAttribute("aria-expanded", "true");
-    expect(
-      screen.getByRole("navigation", { name: "Mobile navigation" }),
-    ).toBeInTheDocument();
+
+    const primary = screen.getByRole("navigation", {
+      name: "Mobile navigation",
+    });
+    expect(within(primary).getByRole("link", { name: /Contact/ })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+    expect(within(primary).getByRole("link", { name: /Home/ })).not.toHaveAttribute(
+      "aria-current",
+    );
 
     fireEvent.keyDown(window, { key: "Escape" });
     expect(menuButton).toHaveAttribute("aria-expanded", "false");
-    expect(
-      screen.queryByRole("navigation", { name: "Mobile navigation" }),
-    ).not.toBeInTheDocument();
   });
 
   it("renders the new About and Contact routes with direct contact and booking choices", () => {
@@ -223,15 +227,18 @@ describe("Flutterly redesign screens", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "Email Anoop. Or book a call.",
     );
-    [
-      ["Fit check", "/book/intro-call"],
-      ["Scope talk", "/book/consultation"],
-      ["Walkthrough", "/book/project-scoping"],
-    ].forEach(([name, href]) => {
-      expect(screen.getByRole("link", { name: new RegExp(name) })).toHaveAttribute(
-        "href",
-        href,
-      );
-    });
+    expect(screen.getByRole("link", { name: /Fit check/i })).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/intro",
+    );
+    expect(screen.getByRole("link", { name: /Scope talk/i })).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/consultation",
+    );
+    expect(screen.getByRole("link", { name: /Walkthrough/i })).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/project-scoping",
+    );
+    expect(screen.queryByText(/Not yet bookable online/i)).toBeNull();
   });
 });

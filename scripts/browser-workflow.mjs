@@ -32,11 +32,9 @@ const ROUTES = [
   "/contact",
   "/free-audit",
   "/book",
-  "/book/intro-call",
-  "/book/consultation",
-  "/book/project-scoping",
   "/accessibility",
   "/cookie-policy",
+  "/privacy",
   "/demo/gp-practice",
   "/demo/gp-practice/appointments",
   "/demo/gp-practice/prescriptions",
@@ -179,32 +177,39 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const headlineVisible = await page.locator("h1").isVisible().catch(() => false);
   if (!headlineVisible) note("home", "hero headline is not visible");
 
-  const consent = page.getByRole("region", { name: /cookie preferences/i });
-  if (!(await consent.isVisible().catch(() => false))) {
-    note("home", "cookie preference notice is not visible on a first visit");
-  } else {
-    for (const label of ["Accept all", "Reject non-essential", "Manage preferences"]) {
-      if (!(await consent.getByRole("button", { name: label }).isVisible().catch(() => false))) {
-        note("home", `cookie control is missing: ${label}`);
+  // Studio routes intentionally suppress the floating cookie chip. Exercise
+  // consent controls on a Bloom page that still shows the banner.
+  {
+    const bloom = await mobile.newPage();
+    await bloom.goto(BASE + "/free-audit", { waitUntil: "networkidle" });
+    const consent = bloom.getByRole("region", { name: /cookie preferences/i });
+    if (!(await consent.isVisible().catch(() => false))) {
+      note("free-audit", "cookie preference notice is not visible on a first visit");
+    } else {
+      for (const label of ["Accept all", "Reject non-essential", "Manage preferences"]) {
+        if (!(await consent.getByRole("button", { name: label }).isVisible().catch(() => false))) {
+          note("free-audit", `cookie control is missing: ${label}`);
+        }
       }
+      await consent.getByRole("button", { name: "Manage preferences" }).click();
+      const essential = bloom.getByRole("checkbox", { name: /Essential/i });
+      if (!(await essential.isChecked().catch(() => false)) || !(await essential.isDisabled().catch(() => false))) {
+        note("free-audit", "essential cookie category is not fixed on");
+      }
+      await bloom.getByRole("button", { name: "Reject non-essential" }).click();
+      const storedConsent = await bloom.evaluate(() =>
+        JSON.parse(localStorage.getItem("flutterly.cookieConsent") || "{}")
+      );
+      if (storedConsent.analytics !== false || storedConsent.marketing !== false) {
+        note("free-audit", "reject non-essential did not persist both optional categories as false");
+      }
+      if (!(await bloom.getByRole("button", { name: "Cookie settings" }).isVisible().catch(() => false))) {
+        note("free-audit", "cookie settings cannot be reopened after a decision");
+      }
+      const cookies = await mobile.cookies(BASE);
+      if (cookies.length) note("free-audit", `expected no site cookies, found ${cookies.map((cookie) => cookie.name).join(", ")}`);
     }
-    await consent.getByRole("button", { name: "Manage preferences" }).click();
-    const essential = page.getByRole("checkbox", { name: /Essential/i });
-    if (!(await essential.isChecked().catch(() => false)) || !(await essential.isDisabled().catch(() => false))) {
-      note("home", "essential cookie category is not fixed on");
-    }
-    await page.getByRole("button", { name: "Reject non-essential" }).click();
-    const storedConsent = await page.evaluate(() =>
-      JSON.parse(localStorage.getItem("flutterly.cookieConsent") || "{}")
-    );
-    if (storedConsent.analytics !== false || storedConsent.marketing !== false) {
-      note("home", "reject non-essential did not persist both optional categories as false");
-    }
-    if (!(await page.getByRole("button", { name: "Cookie settings" }).isVisible().catch(() => false))) {
-      note("home", "cookie settings cannot be reopened after a decision");
-    }
-    const cookies = await mobile.cookies(BASE);
-    if (cookies.length) note("home", `expected no site cookies, found ${cookies.map((cookie) => cookie.name).join(", ")}`);
+    await bloom.close();
   }
 
   const clippedElements = await page.evaluate(() => {
@@ -212,6 +217,7 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
     const selectors =
       "header a, header button, main h1, main h2, main p, main a, main button, [data-project-card]";
     return [...document.querySelectorAll(selectors)]
+      .filter((element) => !element.closest("[data-marquee]"))
       .filter((element) => {
         const rect = element.getBoundingClientRect();
         return (
@@ -374,119 +380,46 @@ await cmsJourney.close();
 // persistence behaviour is covered separately by the route and server tests.
 const bookingJourney = await browser.newContext({ viewport: { width: 1280, height: 900 } });
 {
-  let bookingOpen = false;
-  let bookingPosts = 0;
-
-  await bookingJourney.route("**/api/booking/availability?*", async (route) => {
-    const url = new URL(route.request().url());
-    const from = Date.parse(url.searchParams.get("from") ?? "");
-    const to = Date.parse(url.searchParams.get("to") ?? "");
-    const hour = 60 * 60 * 1000;
-    const candidate = Math.ceil(Math.max(from + 12 * hour, Date.now() + 72 * hour) / hour) * hour;
-    const slots = bookingOpen && candidate + hour < to ? [new Date(candidate).toISOString()] : [];
-    await route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify({
-        slots,
-        bookingOpen,
-        durationMinutes: 30,
-        hostTimeZone: "Europe/London",
-        horizonDays: 60,
-      }),
-    });
-  });
-
-  await bookingJourney.route("**/api/booking/bookings", async (route) => {
-    if (route.request().method() !== "POST") {
-      await route.continue();
-      return;
-    }
-    bookingPosts += 1;
-    const request = route.request().postDataJSON();
-    const start = new Date(request.startIso);
-    await route.fulfill({
-      status: 201,
-      contentType: "application/json",
-      body: JSON.stringify({
-        booking: {
-          reference: "FL-TEST2345",
-          eventTypeId: request.eventTypeId,
-          startIso: start.toISOString(),
-          endIso: new Date(start.getTime() + 30 * 60 * 1000).toISOString(),
-          name: request.name,
-          email: request.email,
-          timeZone: request.timeZone,
-        },
-        ics: "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nEND:VCALENDAR",
-      }),
-    });
-  });
+  // Public /book now opens Olivia's live Cal.com events. Verify card hrefs and
+  // deep-link redirects without loading the full Cal.com app in CI.
+  const expected = [
+    ["Intro call", "https://cal.com/anoop-jose-jtij1j/intro"],
+    ["Consultation", "https://cal.com/anoop-jose-jtij1j/consultation"],
+    ["Project scoping", "https://cal.com/anoop-jose-jtij1j/project-scoping"],
+  ];
 
   const page = await bookingJourney.newPage();
-  await page.goto(BASE + "/book/consultation", { waitUntil: "networkidle" });
-  const pausedShown = await page
-    .getByRole("heading", { name: /booking is paused/i })
-    .isVisible()
-    .catch(() => false);
-  if (!pausedShown) {
-    note("booking journey", "scheduler did not show the paused state while no availability is configured");
-  }
-
-  bookingOpen = true;
   await page.goto(BASE + "/book", { waitUntil: "networkidle" });
-  await page
-    .locator('article:has-text("Consultation")')
-    .getByRole("link", { name: "Pick a time" })
-    .click();
-  await page.waitForURL(/\/book\/consultation/);
 
-  // Day buttons carry aria-pressed; an enabled one means slots exist. The
-  // current month can be legitimately empty near its end, so try the next.
-  const openDay = page.locator("button[aria-pressed]:not([disabled])").first();
-  try {
-    await openDay.waitFor({ timeout: 15000 });
-  } catch {
-    await page.getByRole("button", { name: "Next month" }).click();
-    await openDay.waitFor({ timeout: 15000 }).catch(() => {
-      note("booking journey", "no bookable day appeared in two months of availability");
-    });
-  }
-  if (await openDay.isVisible().catch(() => false)) {
-    await openDay.click();
-    const slot = page.locator('div[aria-busy="false"] button').first();
-    await slot.waitFor({ timeout: 10000 });
-    await slot.click();
-
-    await page.getByLabel("Your name").fill("Browser Workflow");
-    await page.getByLabel("Email address").fill("browser-workflow@example.com");
-    await page.getByLabel("Anything worth knowing").fill("Automated UI-only journey.");
-    await page.getByRole("button", { name: "Confirm booking" }).click();
-
-    const confirmed = await page
-      .getByRole("heading", { name: /booked in/i })
-      .waitFor({ timeout: 15000 })
-      .then(() => true)
-      .catch(() => false);
-    if (!confirmed) {
-      note("booking journey", "submitting the booking form did not reach the confirmation");
-    } else {
-      const body = await page.textContent("body");
-      if (!/FL-[2-9A-HJKMNP-Z]{8}/.test(body ?? "")) {
-        note("booking journey", "the confirmation did not show a booking reference");
-      }
-      const icsHref = await page
-        .getByRole("link", { name: /Add to calendar/ })
-        .getAttribute("href")
-        .catch(() => null);
-      if (!icsHref?.startsWith("data:text/calendar")) {
-        note("booking journey", "the confirmation did not offer an .ics calendar file");
-      }
+  for (const [label, url] of expected) {
+    const href = await page
+      .locator(`article:has-text("${label}")`)
+      .getByRole("link", { name: "Pick a time" })
+      .getAttribute("href")
+      .catch(() => null);
+    if (href !== url) {
+      note("booking journey", `${label} Pick a time href was ${href ?? "missing"}, expected ${url}`);
     }
   }
-  if (bookingPosts !== 1) {
-    note("booking journey", `expected one booking POST, observed ${bookingPosts}`);
+
+  for (const [label, url] of [
+    ["/book/intro-call", "https://cal.com/anoop-jose-jtij1j/intro"],
+    ["/book/consultation", "https://cal.com/anoop-jose-jtij1j/consultation"],
+    ["/book/project-scoping", "https://cal.com/anoop-jose-jtij1j/project-scoping"],
+  ]) {
+    const response = await bookingJourney.request.get(BASE + label, {
+      maxRedirects: 0,
+    });
+    const location = response.headers()["location"] ?? "";
+    const status = response.status();
+    if (![301, 302, 303, 307, 308].includes(status) || location !== url) {
+      note(
+        "booking journey",
+        `${label} redirect was ${status} -> ${location || "(none)"}, expected ${url}`,
+      );
+    }
   }
+
   await page.close();
 }
 await bookingJourney.close();

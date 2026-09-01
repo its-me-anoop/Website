@@ -42,19 +42,12 @@ export const metadata: Metadata = {
   category: "technology",
   keywords: [
     "GP practice websites",
-    "GP surgery website design",
     "care home websites",
-    "care home web design UK",
-    "healthcare website design",
     "accessible website design",
-    "NHS website standards",
-    "web developer UK",
-    "Next.js developer",
-    "SwiftUI developer",
-    "Flutter developer",
-    "Reading UK developer",
+    "digital delivery UK",
     "Flutterly",
     "Anoop Jose",
+    "Reading UK",
   ],
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
@@ -98,13 +91,27 @@ export const metadata: Metadata = {
     telephone: false,
     address: false,
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: site.studio,
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
-  colorScheme: "light",
+  // Studio marketing is near-black; a white theme-color leaves a white
+  // iOS Safari status-bar strip over the dark header.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#050505" },
+    { media: "(prefers-color-scheme: dark)", color: "#050505" },
+  ],
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 /** Person / Organization / WebSite structured data for rich results. */

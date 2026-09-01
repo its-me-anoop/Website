@@ -3,6 +3,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { PackagesScreen } from "@/components/bloom/redesign/PackagesScreen";
 import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { studioViewport } from "@/lib/studio";
 
 const description =
   "Clear website delivery packages for GP practices, care homes and other organisations, with tailored scope and a fixed written quote.";
@@ -28,12 +29,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#FDF8F1",
-  colorScheme: "light",
-  width: "device-width",
-  initialScale: 1,
-};
+export const viewport: Viewport = studioViewport;
 
 export default function PackagesPage() {
   return (

@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resetRateLimiter } from "@/features/booking/server/rate-limit";
 import { GET, POST } from "./route";
 
-const url = "https://flutterly.uk/api/booking/bookings";
+const url = "https://www.flutterly.co.uk/api/booking/bookings";
 
 function postRequest(body: unknown, headers: Record<string, string> = {}) {
   return new Request(url, {

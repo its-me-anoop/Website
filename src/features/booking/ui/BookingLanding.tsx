@@ -11,6 +11,7 @@ import {
   RevealWords,
   SectionHead,
 } from "@/components/bloom/primitives";
+import { calBookingUrl } from "@/lib/cal";
 import { eventTypes } from "../core/config";
 
 const reassurances = [
@@ -89,9 +90,15 @@ export function BookingLanding() {
                     ))}
                   </ul>
                   <div className="mt-auto pt-7">
-                    <BtnLink href={`/book/${eventType.id}`} tone="teal" arrow className="w-full">
-                      Pick a time
-                    </BtnLink>
+                    {calBookingUrl(eventType.id) ? (
+                      <BtnLink href={calBookingUrl(eventType.id)!} tone="teal" arrow className="w-full">
+                        Pick a time
+                      </BtnLink>
+                    ) : (
+                      <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-bl-muted">
+                        Not yet bookable online
+                      </p>
+                    )}
                   </div>
                 </article>
               </Rise>
@@ -127,7 +134,7 @@ export function BookingLanding() {
         title="Not sure which call fits?"
         copy="Start with the fifteen-minute intro call: if the conversation needs longer, the follow-up gets booked there and then."
         primaryLabel="Book an intro call"
-        primaryHref="/book/intro-call"
+        primaryHref={calBookingUrl("intro-call") ?? "/book"}
         secondaryLabel="Get a free website audit"
         secondaryHref="/free-audit"
         id="contact"

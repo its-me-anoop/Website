@@ -5,9 +5,13 @@ import type { MetadataRoute } from "next";
  * any feature module shared with client components) can pull that graph
  * into the sitemap bundle and 500 /sitemap.xml in production.
  *
+ * Host matches `site.url` / robots.ts (`https://www.flutterly.co.uk`).
+ *
  * Bookable event-type paths are listed here so the sitemap stays aligned
  * with the live /book routes without importing booking code.
  */
+const BASE_URL = "https://www.flutterly.co.uk";
+
 const BOOK_EVENT_TYPE_IDS = [
   "intro-call",
   "consultation",
@@ -15,119 +19,123 @@ const BOOK_EVENT_TYPE_IDS = [
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.flutterly.co.uk";
-
   return [
     {
-      url: `${baseUrl}/book`,
+      url: `${BASE_URL}/book`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.9,
     },
     ...BOOK_EVENT_TYPE_IDS.map((eventTypeId) => ({
-      url: `${baseUrl}/book/${eventTypeId}`,
+      url: `${BASE_URL}/book/${eventTypeId}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
     {
-      url: `${baseUrl}/`,
+      url: `${BASE_URL}/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: `${baseUrl}/gp-websites`,
+      url: `${BASE_URL}/gp-websites`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/care-home-websites`,
+      url: `${BASE_URL}/care-home-websites`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/services`,
+      url: `${BASE_URL}/services`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/business-email`,
+      url: `${BASE_URL}/business-email`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/social-media-marketing`,
+      url: `${BASE_URL}/social-media-marketing`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/packages`,
+      url: `${BASE_URL}/packages`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/about`,
+      url: `${BASE_URL}/about`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/contact`,
+      url: `${BASE_URL}/contact`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/free-audit`,
+      url: `${BASE_URL}/free-audit`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/projects/sipli`,
+      url: `${BASE_URL}/projects/sipli`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/projects/artling`,
+      url: `${BASE_URL}/projects/artling`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/accessibility`,
+      url: `${BASE_URL}/privacy`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.4,
     },
     {
-      url: `${baseUrl}/cookie-policy`,
+      url: `${BASE_URL}/accessibility`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.4,
     },
     {
-      url: `${baseUrl}/projects/sipli/privacy-policy`,
+      url: `${BASE_URL}/cookie-policy`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.4,
+    },
+    {
+      url: `${BASE_URL}/projects/sipli/privacy-policy`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
-      url: `${baseUrl}/projects/artling/privacy-policy`,
+      url: `${BASE_URL}/projects/artling/privacy-policy`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
-      url: `${baseUrl}/little-artist/privacy-policy`,
+      url: `${BASE_URL}/little-artist/privacy-policy`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.3,

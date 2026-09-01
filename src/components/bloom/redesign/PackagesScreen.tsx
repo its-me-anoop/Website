@@ -1,6 +1,9 @@
+import Link from "next/link";
 import { site } from "@/lib/site";
 import { packages } from "../data";
 import { RedesignShell } from "./RedesignShell";
+import { RevealOnScroll } from "./RevealOnScroll";
+import { SectionInView } from "./SectionInView";
 import styles from "./packages.module.css";
 
 function packageCta(packageName: string) {
@@ -36,72 +39,89 @@ export function PackagesScreen() {
             Clear packages. Honest quotes.
           </h1>
           <p className={styles.intro}>
-            Essentials and Standard are priced. Complete is quote-only.
-            Published prices are +VAT.
+            Compare what you get in each plan, then pick the one that fits.
+            Essentials and Standard are priced. Complete is quote-only. All
+            published prices are +VAT.
           </p>
         </div>
       </section>
 
       <section className={styles.packagesSection} aria-label="Website delivery packages">
-        <div className={styles.priceGrid}>
-          {packages.map((pkg, index) => {
-            const display = packageDisplay(pkg);
-            return (
-              <article
-                key={pkg.name}
-                className={`${styles.packageCard} ${pkg.featured ? styles.featuredCard : ""}`}
-              >
-                <div className={styles.packageLabelRow}>
-                  <p className={styles.packageLabel}>
-                    {String(index + 1).padStart(2, "0")} · {pkg.name}
-                  </p>
-                  {pkg.featured ? (
-                    <span className={styles.popularLabel}>Most popular</span>
-                  ) : null}
-                </div>
-                <h2 className={styles.packageTitle}>{pkg.strap}</h2>
-                <p className={styles.packagePrice}>
-                  <span className={styles.packagePriceAmount}>{display.amount}</span>
-                  <span className={styles.packagePriceNote}>{display.note}</span>
-                </p>
-              </article>
-            );
-          })}
-        </div>
-
-        <div className={styles.detailGrid}>
-          {packages.map((pkg) => {
-            const cta = packageCta(pkg.name);
-            return (
-              <div key={`${pkg.name}-detail`} className={styles.detailColumn}>
-                <p className={styles.packageCopy}>{pkg.copy}</p>
-                <ul className={styles.featureList}>
-                  {pkg.features.map((feature) => (
-                    <li key={feature}>{feature}</li>
-                  ))}
-                </ul>
-                <a
-                  className={`${styles.quoteButton} ${cta.featured ? styles.quoteFeatured : styles.quoteOutline}`}
-                  href={packageMailto(cta.subject)}
+        <SectionInView>
+          <div className={styles.planGrid}>
+            {packages.map((pkg, index) => {
+              const display = packageDisplay(pkg);
+              const cta = packageCta(pkg.name);
+              return (
+                <article
+                  key={pkg.name}
+                  data-stagger-item
+                  className={`${styles.planCard} ${pkg.featured ? styles.featuredCard : ""}`}
                 >
-                  {cta.label}
-                </a>
-              </div>
-            );
-          })}
-        </div>
+                  <div className={styles.planTop}>
+                    <div className={styles.packageLabelRow}>
+                      <p className={styles.packageLabel}>
+                        {String(index + 1).padStart(2, "0")} · {pkg.name}
+                      </p>
+                      {pkg.featured ? (
+                        <span className={styles.popularLabel}>Most popular</span>
+                      ) : null}
+                    </div>
+                    <h2 className={styles.packageTitle}>{pkg.strap}</h2>
+                    <p className={styles.packageCopy}>{pkg.copy}</p>
+                  </div>
+
+                  <div className={styles.priceBlock}>
+                    <p className={styles.packagePriceAmount}>{display.amount}</p>
+                    <p className={styles.packagePriceNote}>{display.note}</p>
+                  </div>
+
+                  <ul className={styles.featureList}>
+                    {pkg.features.map((feature) => (
+                      <li key={feature}>
+                        <span className={styles.check} aria-hidden>
+                          +
+                        </span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <a
+                    className={`${styles.quoteButton} ${
+                      cta.featured ? styles.quoteFeatured : styles.quoteOutline
+                    }`}
+                    href={packageMailto(cta.subject)}
+                  >
+                    {cta.label}
+                  </a>
+                </article>
+              );
+            })}
+          </div>
+        </SectionInView>
       </section>
 
       <section className={styles.closingBand} aria-labelledby="packages-closing-title">
-        <div className={styles.closingInner}>
-          <h2 id="packages-closing-title">A clear scope. A fixed quote.</h2>
-          <a
-            href={`mailto:${site.email}?subject=${encodeURIComponent("Discuss a Flutterly project")}`}
-            className={styles.closingButton}
-          >
-            Discuss a project
-          </a>
-        </div>
+        <RevealOnScroll>
+          <div className={styles.closingInner}>
+            <h2 id="packages-closing-title">Not sure which plan fits?</h2>
+            <p className={styles.closingCopy}>
+              Book a short call and we will map the scope before you commit.
+            </p>
+            <div className={styles.closingActions}>
+              <Link href="/book" className={styles.closingButton}>
+                Book a call
+              </Link>
+              <a
+                href={`mailto:${site.email}?subject=${encodeURIComponent("Discuss a Flutterly project")}`}
+                className={styles.closingSecondary}
+              >
+                Discuss a project
+              </a>
+            </div>
+          </div>
+        </RevealOnScroll>
       </section>
     </RedesignShell>
   );

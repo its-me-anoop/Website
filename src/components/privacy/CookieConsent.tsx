@@ -9,6 +9,7 @@ import {
   writeConsent,
   type ConsentPreferences,
 } from "@/lib/consent";
+import { isFieldNotesPath } from "@/lib/field-notes";
 
 type View = "hidden" | "notice" | "manage";
 
@@ -80,7 +81,9 @@ export function CookieConsent() {
   // The CMS is a separate product surface. It does not load optional scripts,
   // and browser-local demo content is explained in-product rather than through
   // the public marketing site's cookie notice.
-  if (pathname?.startsWith("/cms")) return null;
+  // Studio marketing routes keep the hero clear: no floating cookie chip.
+  // Preferences remain available via /cookie-policy.
+  if (pathname?.startsWith("/cms") || isFieldNotesPath(pathname)) return null;
 
   if (view === "hidden") {
     if (!hasDecision) return null;
