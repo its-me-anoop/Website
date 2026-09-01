@@ -1,5 +1,6 @@
 /** Buyer-journey routes that render inside RedesignShell (see DESIGN.md).
- *  `/book/[eventType]` and `/book/manage` stay Bloom. */
+ *  `/book/[eventType]` uses Studio + Cal.com when configured, else Bloom.
+ *  `/book/manage` stays Bloom. */
 export const FIELD_NOTES_PATHS = [
   "/",
   "/gp-websites",

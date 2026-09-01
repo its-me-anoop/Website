@@ -167,15 +167,16 @@ describe("Flutterly redesign screens", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "Pick a time, skip the email tennis.",
     );
-    const pickTimes = screen.getAllByRole("link", { name: "Pick a time" });
-    expect(pickTimes).toHaveLength(3);
-    expect(pickTimes[0]).toHaveAttribute("href", "/book/intro-call");
-    const consultation = screen
-      .getByRole("heading", { name: "Consultation" })
-      .closest("article");
-    expect(
-      within(consultation as HTMLElement).getByRole("link", { name: "Pick a time" }),
-    ).toHaveAttribute("href", "/book/consultation");
+    expect(screen.getByRole("heading", { name: /Book Intro call/i })).toBeInTheDocument();
+    expect(screen.getByTitle("Book Intro call on Cal.com")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Open in Cal.com" })).toHaveAttribute(
+      "href",
+      expect.stringContaining("cal.com"),
+    );
+    const intro = screen.getByRole("button", { name: /Intro call/i });
+    expect(intro).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(screen.getByRole("button", { name: /Consultation/i }));
+    expect(screen.getByRole("heading", { name: /Book Consultation/i })).toBeInTheDocument();
     expect(book.container.querySelector("[data-hero-grain]")).toBeNull();
   });
 

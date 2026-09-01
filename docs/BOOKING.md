@@ -1,23 +1,28 @@
 # Appointment Booking
 
-A cal.com-style scheduling system so clients book consultations directly
-at `/book`, without email back-and-forth. Dependency-free: availability
-maths and calendar files are hand-rolled on Intl, storage is a JSON
-file. The `/book` landing is Field Notes; the scheduler and manage
-pages stay Bloom.
+Public booking on `/book` embeds **Cal.com** (dark theme) so clients
+pick a call type and book into the live Cal.com diary. Set
+`NEXT_PUBLIC_CAL_USERNAME` (and optional event slug overrides) — see
+`.env.example` and `src/lib/cal.ts`.
+
+The built-in scheduler remains as a fallback when Cal.com is not
+configured, and for `/book/manage`. Availability maths and calendar
+files for that path are hand-rolled on Intl with JSON-file storage.
 
 ## Client journey
 
 1. **`/book`** — choose a call type: intro call (15 min), consultation
-   (30 min) or project scoping (60 min). All free video calls.
-2. **`/book/[eventType]`** — a month calendar shows days with open
-   slots; times render in the visitor's own timezone (switchable). Pick
-   a slot, add name/email/notes, confirm. When the owner has no
-   availability configured — the default — the scheduler shows a clear
-   "booking is paused" panel with an email fallback instead.
-3. **Confirmation** — instant booking reference, an `.ics` download, a
-   Google Calendar link, and a note that joining details follow by
-   email. Rescheduling is a reply quoting the reference.
+   (30 min) or project scoping (60 min). All free video calls. The
+   matching Cal.com embed loads below the cards.
+2. **`/book/[eventType]`** — deep link for one call type. With Cal.com
+   configured, the same embed opens for that event; otherwise the
+   on-site month calendar shows open slots in the visitor's timezone.
+   When the owner has no availability configured — the default — the
+   fallback scheduler shows a clear "booking is paused" panel with an
+   email option instead.
+3. **Confirmation** — Cal.com handles confirmation, calendar invites
+   and reschedule links. The fallback path still issues a booking
+   reference, `.ics` download and Google Calendar link.
 
 ## Owner platform: availability
 

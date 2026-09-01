@@ -60,7 +60,15 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.875rem;
-  padding-bottom: 2.5rem;
+  margin: 0;
+  padding: 0 0 2.5rem;
+  list-style: none;
+}
+
+.gridItem {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .card {
@@ -86,10 +94,25 @@
   transition-duration: var(--fl-duration-press);
 }
 
-/* Intro call is the action: terracotta hover, not a generic card lift. */
+.cardSelected {
+  border-color: var(--fl-accent);
+  background: color-mix(in srgb, var(--fl-accent-soft) 55%, var(--fl-surface));
+  box-shadow: inset 0 0 0 1px var(--fl-accent);
+}
+
+/* Intro call is the action: accent hover, not a generic card lift. */
 .actionCard:hover {
   border-color: var(--fl-accent);
   background: color-mix(in srgb, var(--fl-accent-soft) 72%, var(--fl-surface));
+}
+
+.card {
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  appearance: none;
+  color: inherit;
+  font: inherit;
 }
 
 .meta {
@@ -134,13 +157,14 @@
 
 .cta {
   display: inline-flex;
+  width: 100%;
   min-height: 3.25rem;
   align-items: center;
   justify-content: center;
-  align-self: flex-start;
+  align-self: stretch;
   margin-top: 1.15rem;
   border-radius: 0.5rem;
-  padding-inline: 1.75rem;
+  padding-inline: 1.25rem;
   font-size: 0.875rem;
   font-weight: 700;
   line-height: 1.25rem;
@@ -180,6 +204,89 @@
 
 .ctaOutline:hover {
   background: var(--fl-canvas);
+}
+
+.scheduler {
+  display: grid;
+  gap: 1.25rem;
+  padding-block: 0.5rem 2.5rem;
+  scroll-margin-top: 6rem;
+}
+
+.schedulerHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.schedulerTitle {
+  max-width: 18ch;
+  margin: 0.75rem 0 0;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.schedulerLead {
+  max-width: 36rem;
+  margin: 0.75rem 0 0;
+  color: var(--fl-soft-ink);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.externalLink {
+  color: var(--fl-soft-ink);
+  font-family: var(--fl-mono);
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.externalLink:hover {
+  color: var(--fl-ink);
+}
+
+.fallback {
+  display: grid;
+  gap: 1rem;
+  border: 1px dashed var(--fl-line-strong);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  color: var(--fl-soft-ink);
+  line-height: 1.55;
+}
+
+.fallback code {
+  font-family: var(--fl-mono);
+  font-size: 0.85em;
+  color: var(--fl-ink);
+}
+
+.fallback a {
+  color: var(--fl-ink);
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.fallbackButton {
+  display: inline-flex;
+  min-height: 3rem;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--fl-accent);
+  color: var(--fl-light-ink);
+  padding-inline: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 .how {
