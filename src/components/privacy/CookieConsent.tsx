@@ -81,12 +81,9 @@ export function CookieConsent() {
   // The CMS is a separate product surface. It does not load optional scripts,
   // and browser-local demo content is explained in-product rather than through
   // the public marketing site's cookie notice.
-  if (pathname?.startsWith("/cms")) return null;
-
-  const studio = isFieldNotesPath(pathname);
-  const settingsButtonClass = studio
-    ? "cookie-consent fixed bottom-4 left-4 z-[180] rounded-full border border-white/20 bg-[#111114] px-4 py-2 text-[13px] font-semibold text-[#f5f5f7] shadow-[0_12px_34px_-18px_rgba(0,0,0,0.85)] transition-[background-color,color,transform] duration-200 hover:-translate-y-px hover:border-white/40 hover:bg-[#1a1a1e]"
-    : "cookie-consent fixed bottom-4 left-4 z-[180] rounded-full border border-bl-line-2 bg-bl-canvas px-4 py-2 text-[13px] font-semibold text-bl-ink shadow-[0_12px_34px_-22px_rgba(11,47,40,0.55)] transition-[background-color,color] duration-200 hover:bg-bl-pine hover:text-bl-pine-ink";
+  // Studio marketing routes keep the hero clear: no floating cookie chip.
+  // Preferences remain available via /cookie-policy.
+  if (pathname?.startsWith("/cms") || isFieldNotesPath(pathname)) return null;
 
   if (view === "hidden") {
     if (!hasDecision) return null;
@@ -96,22 +93,18 @@ export function CookieConsent() {
         ref={settingsButtonRef}
         type="button"
         onClick={() => setView("manage")}
-        className={settingsButtonClass}
+        className="cookie-consent fixed bottom-4 left-4 z-[180] rounded-full border border-bl-line-2 bg-bl-canvas px-4 py-2 text-[13px] font-semibold text-bl-ink shadow-[0_12px_34px_-22px_rgba(11,47,40,0.55)] transition-[background-color,color] duration-200 hover:bg-bl-pine hover:text-bl-pine-ink"
       >
         Cookie settings
       </button>
     );
   }
 
-  const panelClass = studio
-    ? "cookie-consent fixed inset-x-4 bottom-4 z-[180] mx-auto max-w-[720px] overflow-hidden rounded-[28px] border border-white/15 bg-[#111114] text-[#f5f5f7] shadow-[0_24px_70px_-28px_rgba(0,0,0,0.85)]"
-    : "cookie-consent fixed inset-x-4 bottom-4 z-[180] mx-auto max-w-[720px] overflow-hidden rounded-[28px] border border-bl-line-2 bg-bl-canvas text-bl-ink shadow-[0_24px_70px_-28px_rgba(11,47,40,0.5)]";
-
   return (
     <section
       aria-label="Cookie preferences"
       aria-live="polite"
-      className={panelClass}
+      className="cookie-consent fixed inset-x-4 bottom-4 z-[180] mx-auto max-w-[720px] overflow-hidden rounded-[28px] border border-bl-line-2 bg-bl-canvas text-bl-ink shadow-[0_24px_70px_-28px_rgba(11,47,40,0.5)]"
     >
       {view === "notice" ? (
         <div className="grid gap-6 p-5 sm:p-7 lg:grid-cols-[1fr_auto] lg:items-end">

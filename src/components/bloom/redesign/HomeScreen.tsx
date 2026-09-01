@@ -15,6 +15,7 @@ import { site } from "@/lib/site";
 import { FaqAccordion } from "./FaqAccordion";
 import { HeroGrain } from "./HeroGrain";
 import { HeroMotion } from "./HeroMotion";
+import { NeuralField } from "./NeuralField";
 import { RedesignShell } from "./RedesignShell";
 import { RevealOnScroll } from "./RevealOnScroll";
 import { RotatingWords } from "./RotatingWords";
@@ -162,6 +163,7 @@ export function HomeScreen() {
   return (
     <RedesignShell>
       <section className={styles.heroSection} aria-labelledby="home-heading">
+        <NeuralField />
         <HeroGrain />
         <HeroMotion
           gridClassName={styles.gridOverlay}
@@ -223,7 +225,7 @@ export function HomeScreen() {
             </div>
           </SectionInView>
           <div className={styles.sampleLinks}>
-            <span className={styles.sampleBadge}>Sample · fictional</span>
+            <span className={styles.sampleInline}>Sample · fictional</span>
             <Link href="/demo/gp-practice">Willowbrook Surgery</Link>
             <Link href="/demo/care-home">Oakfield House</Link>
           </div>
@@ -260,52 +262,60 @@ export function HomeScreen() {
 
       <section className={styles.servicesSection} aria-labelledby="services-heading">
         <div className={styles.site}>
-          <p className={styles.eyebrow}>Services</p>
-          <h2 id="services-heading">Start with the need, then choose the technology.</h2>
-          <div className={styles.serviceList}>
-            {services.slice(0, 3).map((service) => (
-              <article key={service.id} className={styles.serviceRow}>
-                <span className={styles.number}>{service.number}</span>
-                <div>
-                  <p className={styles.serviceKind}>{service.label}</p>
-                  <h3>{service.title}</h3>
-                  <p>{service.copy}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-          <Link href="/services" className={styles.inlineLink}>
-            View all services
-          </Link>
+          <RevealOnScroll>
+            <p className={styles.eyebrow}>Services</p>
+            <h2 id="services-heading">Start with the need, then choose the technology.</h2>
+          </RevealOnScroll>
+          <SectionInView>
+            <div className={styles.serviceList}>
+              {services.slice(0, 3).map((service) => (
+                <article key={service.id} className={styles.serviceRow} data-stagger-item>
+                  <span className={styles.number}>{service.number}</span>
+                  <div>
+                    <p className={styles.serviceKind}>{service.label}</p>
+                    <h3>{service.title}</h3>
+                    <p>{service.copy}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </SectionInView>
+          <RevealOnScroll delay={80}>
+            <Link href="/services" className={styles.inlineLink}>
+              View all services
+            </Link>
+          </RevealOnScroll>
         </div>
       </section>
 
       <section className={styles.highlightSection} aria-labelledby="highlight-heading">
         <div className={styles.site}>
-          <div className={styles.highlightGrid}>
-            <div>
-              <p className={styles.eyebrowLight}>Accessibility</p>
-              <h2 id="highlight-heading">WCAG 2.2 AA is the floor, not a stretch goal.</h2>
-              <p className={styles.highlightCopy}>
-                Every website build targets accessible structure, contrast,
-                keyboard use and screen-reader labelling from the first wireframe —
-                the standard expected of NHS and public-sector sites.
-              </p>
+          <RevealOnScroll>
+            <div className={styles.highlightGrid}>
+              <div>
+                <p className={styles.eyebrowLight}>Accessibility</p>
+                <h2 id="highlight-heading">WCAG 2.2 AA is the floor, not a stretch goal.</h2>
+                <p className={styles.highlightCopy}>
+                  Every website build targets accessible structure, contrast,
+                  keyboard use and screen-reader labelling from the first wireframe —
+                  the standard expected of NHS and public-sector sites.
+                </p>
+              </div>
+              <div className={styles.auditPanel}>
+                <ul className={styles.auditGrid}>
+                  {auditChecks.map(({ label, icon: Icon }) => (
+                    <li key={label}>
+                      <Icon aria-hidden size={21} strokeWidth={1.8} />
+                      <span>{label}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/free-audit" className={styles.auditLink}>
+                  Request a free audit
+                </Link>
+              </div>
             </div>
-            <div className={styles.auditPanel}>
-              <ul className={styles.auditGrid}>
-                {auditChecks.map(({ label, icon: Icon }) => (
-                  <li key={label}>
-                    <Icon aria-hidden size={21} strokeWidth={1.8} />
-                    <span>{label}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link href="/free-audit" className={styles.auditLink}>
-                Request a free audit
-              </Link>
-            </div>
-          </div>
+          </RevealOnScroll>
         </div>
       </section>
 
@@ -337,36 +347,42 @@ export function HomeScreen() {
 
       <section className={styles.testimonialSection} aria-labelledby="testimonial-heading">
         <div className={styles.site}>
-          <p className={styles.eyebrow}>They say it better than we do</p>
-          <h2 id="testimonial-heading" className={styles.visuallyHidden}>
-            Client feedback
-          </h2>
-          <TestimonialCarousel items={testimonials} />
+          <RevealOnScroll>
+            <p className={styles.eyebrow}>They say it better than we do</p>
+            <h2 id="testimonial-heading" className={styles.visuallyHidden}>
+              Client feedback
+            </h2>
+            <TestimonialCarousel items={testimonials} />
+          </RevealOnScroll>
         </div>
       </section>
 
       <section className={styles.faqSection} aria-labelledby="faq-heading">
         <div className={styles.site}>
-          <p className={styles.eyebrow}>Frequently asked questions</p>
-          <h2 id="faq-heading">Straight answers before you commit.</h2>
-          <FaqAccordion items={packagesFaq.slice(0, 5)} />
+          <RevealOnScroll>
+            <p className={styles.eyebrow}>Frequently asked questions</p>
+            <h2 id="faq-heading">Straight answers before you commit.</h2>
+            <FaqAccordion items={packagesFaq.slice(0, 5)} />
+          </RevealOnScroll>
         </div>
       </section>
 
       <section className={styles.closingSection} aria-labelledby="closing-heading">
         <div className={`${styles.site} ${styles.closingInner}`}>
-          <h2 id="closing-heading">Ready when you are.</h2>
-          <div className={styles.closingActions}>
-            <a
-              href={`mailto:${site.email}?subject=${encodeURIComponent("Project enquiry")}`}
-              className={styles.primaryButton}
-            >
-              Discuss a project
-            </a>
-            <Link href="/book" className={styles.secondaryButton}>
-              Book a call
-            </Link>
-          </div>
+          <RevealOnScroll>
+            <h2 id="closing-heading">Ready when you are.</h2>
+            <div className={styles.closingActions}>
+              <a
+                href={`mailto:${site.email}?subject=${encodeURIComponent("Project enquiry")}`}
+                className={styles.primaryButton}
+              >
+                Discuss a project
+              </a>
+              <Link href="/book" className={styles.secondaryButton}>
+                Book a call
+              </Link>
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
     </RedesignShell>

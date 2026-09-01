@@ -101,6 +101,11 @@
   height: 2rem;
   object-fit: contain;
   filter: brightness(0) invert(1);
+  transition: transform 420ms var(--fl-ease);
+}
+
+.brand:hover .brandMark {
+  transform: rotate(-8deg) scale(1.06);
 }
 
 .brandWords {
