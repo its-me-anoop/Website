@@ -17,173 +17,201 @@
 }
 
 .heroSection {
+  --fl-hero-accent: #c7366e;
+  --fl-hero-accent-hover: #b02f61;
   position: relative;
   min-height: calc(100svh - var(--fl-header));
   display: flex;
-  align-items: flex-end;
-  border-bottom: 1px solid var(--fl-line);
-  background: var(--fl-canvas);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--fl-light-line);
+  background: var(--fl-light-band);
+  color: var(--fl-light-ink);
   isolation: isolate;
 }
 
-.neuralField {
+.heroLumaPath {
   position: absolute;
   inset: 0;
   z-index: 0;
+  pointer-events: none;
+}
+
+.heroLumaWave {
+  position: absolute;
+  inset: auto 0 42%;
+  width: 100%;
+  height: min(42vw, 18rem);
+  overflow: visible;
+}
+
+.heroLumaWave path {
+  fill: none;
+  stroke: rgba(17, 17, 20, 0.12);
+  stroke-dasharray: 6 10;
+  stroke-linecap: round;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.heroLumaOrbs {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.heroLumaOrb {
+  --orb-size: clamp(2.75rem, 6vw, 3.5rem);
+  position: absolute;
+  width: var(--orb-size);
+  height: var(--orb-size);
+  animation: hero-orb-float 5.5s ease-in-out infinite;
+}
+
+.heroLumaOrb[data-tone="mint"] {
+  left: clamp(8%, 14vw, 18%);
+  top: 34%;
+  animation-delay: 0s;
+}
+
+.heroLumaOrb[data-tone="violet"] {
+  left: 50%;
+  top: 24%;
+  margin-left: calc(var(--orb-size) / -2);
+  animation-delay: -1.8s;
+}
+
+.heroLumaOrb[data-tone="amber"] {
+  right: clamp(8%, 14vw, 18%);
+  top: 36%;
+  animation-delay: -3.2s;
+}
+
+.heroLumaOrbHalo {
+  position: absolute;
+  inset: -45%;
+  border-radius: 50%;
+  opacity: 0.55;
+  filter: blur(18px);
+}
+
+.heroLumaOrb[data-tone="mint"] .heroLumaOrbHalo {
+  background: radial-gradient(circle, rgba(52, 199, 159, 0.75) 0%, transparent 70%);
+}
+
+.heroLumaOrb[data-tone="violet"] .heroLumaOrbHalo {
+  background: radial-gradient(circle, rgba(142, 124, 255, 0.75) 0%, transparent 70%);
+}
+
+.heroLumaOrb[data-tone="amber"] .heroLumaOrbHalo {
+  background: radial-gradient(circle, rgba(255, 168, 92, 0.78) 0%, transparent 70%);
+}
+
+.heroLumaOrbIcon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
   width: 100%;
   height: 100%;
-  pointer-events: auto;
-  opacity: 0.85;
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 12%,
-    black 72%,
-    transparent 100%
-  );
-}
-
-.gridOverlay {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(to right, var(--fl-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--fl-line) 1px, transparent 1px);
-  background-size: calc(100% / 4) calc(100% / 3);
-  mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-  transform-origin: 50% 20%;
-  will-change: transform;
-  opacity: 0.55;
-}
-
-.heroGrain {
-  --grain-x: 0px;
-  --grain-y: 0px;
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  opacity: var(--fl-grain-opacity);
-  mix-blend-mode: soft-light;
-  pointer-events: none;
-}
-
-.heroGrainShift {
-  position: absolute;
-  inset: calc(-1 * var(--fl-grain-shift));
-  transform: translate3d(var(--grain-x), var(--grain-y), 0);
-  transition: transform var(--fl-duration-media) var(--fl-ease);
-}
-
-.heroGrainTile {
-  position: absolute;
-  inset: -256px;
-  background-image: url("/field-notes-hero-grain.png");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-  animation: grain-drift var(--fl-grain-period) linear infinite;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--fl-light-ink);
+  box-shadow:
+    0 0 0 1px rgba(17, 17, 20, 0.06),
+    0 16px 36px -22px rgba(17, 17, 20, 0.35);
 }
 
 .heroInner {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: min(100%, var(--fl-site));
   margin-inline: auto;
-  padding: clamp(2rem, 5vw, 3rem) var(--fl-gutter) clamp(3rem, 8vw, 5rem);
-  transform-origin: 50% 80%;
-  will-change: transform;
-  pointer-events: none;
-}
-
-.heroInner a,
-.heroInner button {
-  pointer-events: auto;
-}
-
-.rotatingWords {
-  position: relative;
-  height: 1.5rem;
-  margin: 0 0 1.5rem;
-  perspective: 600px;
-}
-
-.rotatingWord {
-  display: inline-block;
-  color: var(--fl-muted);
-  font-family: var(--fl-mono);
-  font-size: 0.75rem;
-  font-weight: 650;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  transform-origin: 50% 100%;
-  animation: word-flip-in 420ms var(--fl-ease) both;
-}
-
-.rotatingWordOut {
-  animation: word-flip-out 280ms var(--fl-ease) both;
-}
-
-.rotatingWordActive {
-  opacity: 1;
-}
-
-.plusFrame {
-  position: relative;
-  display: inline-block;
-  max-width: 100%;
-  padding: 1.25rem 1.5rem;
-}
-
-.plusCorner {
-  position: absolute;
-  color: var(--fl-muted);
-  font-family: var(--fl-mono);
-  font-size: 0.625rem;
-  line-height: 1;
-  animation: plus-pulse 3.2s ease-in-out infinite;
-}
-
-.plusCorner[data-pos="tl"] {
-  top: 0;
-  left: 0;
-}
-
-.plusCorner[data-pos="tr"] {
-  top: 0;
-  right: 0;
-}
-
-.plusCorner[data-pos="bl"] {
-  bottom: 0;
-  left: 0;
-}
-
-.plusCorner[data-pos="br"] {
-  right: 0;
-  bottom: 0;
+  padding: clamp(3rem, 8vw, 5rem) var(--fl-gutter);
+  text-align: center;
 }
 
 .heroInner h1 {
   margin: 0;
-  max-width: 14ch;
-  font-size: clamp(2.75rem, 8vw, 5.5rem);
+  max-width: 15ch;
+  font-size: clamp(2.5rem, 7vw, 4.75rem);
   font-weight: 650;
-  line-height: 0.98;
+  line-height: 1.02;
   letter-spacing: -0.045em;
   text-wrap: balance;
+  color: var(--fl-light-ink);
 }
 
 .heroLead {
-  max-width: 38rem;
-  margin: 1.5rem 0 0;
-  color: var(--fl-soft-ink);
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  line-height: 1.6;
+  max-width: 34rem;
+  margin: 1.35rem 0 0;
+  color: var(--fl-light-soft);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.65;
 }
 
-.heroActions,
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.heroPrimaryButton,
+.heroSecondaryButton {
+  display: inline-flex;
+  min-height: 2.85rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding-inline: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    background-color var(--fl-duration-color) ease-out,
+    border-color var(--fl-duration-color) ease-out,
+    color var(--fl-duration-color) ease-out,
+    transform 320ms var(--fl-ease),
+    box-shadow 320ms var(--fl-ease);
+}
+
+.heroPrimaryButton {
+  background: var(--fl-hero-accent);
+  color: #ffffff;
+  box-shadow: 0 14px 34px -20px rgba(199, 54, 110, 0.75);
+}
+
+.heroPrimaryButton:hover {
+  transform: translateY(-2px);
+  background: var(--fl-hero-accent-hover);
+  box-shadow: 0 18px 38px -18px rgba(199, 54, 110, 0.85);
+}
+
+.heroPrimaryButton:active {
+  transform: translateY(0);
+}
+
+.heroSecondaryButton {
+  border: 1px solid rgba(17, 17, 20, 0.14);
+  color: var(--fl-light-ink);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.heroSecondaryButton:hover {
+  transform: translateY(-2px);
+  border-color: rgba(17, 17, 20, 0.28);
+  background: #ffffff;
+}
+
 .closingActions {
   display: flex;
   flex-wrap: wrap;
@@ -868,6 +896,17 @@
   }
 }
 
+@keyframes hero-orb-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
 @keyframes grain-drift {
   0% {
     transform: translate3d(0, 0, 0);
@@ -977,36 +1016,47 @@
   }
 }
 
+@media (max-width: 640px) {
+  .heroLumaOrb[data-tone="mint"] {
+    left: 4%;
+    top: 30%;
+  }
+
+  .heroLumaOrb[data-tone="violet"] {
+    top: 18%;
+  }
+
+  .heroLumaOrb[data-tone="amber"] {
+    right: 4%;
+    top: 32%;
+  }
+
+  .heroLumaWave {
+    bottom: 38%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .heroInner,
+  .heroLumaOrb,
   .faqPanelOpen,
-  .heroGrainTile,
   .taglineTrack,
-  .rotatingWord,
   .workImage,
   .workImageProduct,
-  .plusCorner,
   .testimonialLeave,
   .testimonialEnter {
     animation: none;
     transition: none;
   }
 
-  .gridOverlay,
-  .heroInner,
-  .neuralField {
-    transform: none !important;
-  }
-
-  .neuralField {
-    pointer-events: none;
-  }
-
-  .rotatingWord {
-    opacity: 1;
+  .heroLumaOrb[data-tone="violet"] {
+    margin-left: calc(var(--orb-size) / -2);
   }
 
   .primaryButton,
+  .secondaryButton,
+  .heroPrimaryButton,
+  .heroSecondaryButton,
   .secondaryButton,
   .auditLink,
   .inlineLink,

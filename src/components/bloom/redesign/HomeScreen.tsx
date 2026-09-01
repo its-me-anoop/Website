@@ -13,12 +13,9 @@ import {
 import { packagesFaq, projects, services, type Project } from "../data";
 import { site } from "@/lib/site";
 import { FaqAccordion } from "./FaqAccordion";
-import { HeroGrain } from "./HeroGrain";
-import { HeroMotion } from "./HeroMotion";
-import { NeuralField } from "./NeuralField";
+import { HeroLumaPath } from "./HeroLumaPath";
 import { RedesignShell } from "./RedesignShell";
 import { RevealOnScroll } from "./RevealOnScroll";
-import { RotatingWords } from "./RotatingWords";
 import { SectionInView } from "./SectionInView";
 import { TestimonialCarousel } from "./TestimonialCarousel";
 import { TiltSurface } from "./TiltSurface";
@@ -74,26 +71,6 @@ const auditChecks: readonly { label: string; icon: LucideIcon }[] = [
   { label: "Local search", icon: Search },
   { label: "Security basics", icon: Shield },
 ];
-
-function PlusFrame({ children }: { children: React.ReactNode }) {
-  return (
-    <span className={styles.plusFrame}>
-      <span className={styles.plusCorner} data-pos="tl" aria-hidden>
-        +
-      </span>
-      <span className={styles.plusCorner} data-pos="tr" aria-hidden>
-        +
-      </span>
-      <span className={styles.plusCorner} data-pos="bl" aria-hidden>
-        +
-      </span>
-      <span className={styles.plusCorner} data-pos="br" aria-hidden>
-        +
-      </span>
-      {children}
-    </span>
-  );
-}
 
 function ProjectAnchor({
   project,
@@ -163,18 +140,11 @@ export function HomeScreen() {
   return (
     <RedesignShell>
       <section className={styles.heroSection} aria-labelledby="home-heading">
-        <NeuralField />
-        <HeroGrain />
-        <HeroMotion
-          gridClassName={styles.gridOverlay}
-          innerClassName={`${styles.site} ${styles.heroInner}`}
-        >
-          <RotatingWords />
-          <PlusFrame>
-            <h1 id="home-heading">
-              Digital delivery for organisations people rely on.
-            </h1>
-          </PlusFrame>
+        <HeroLumaPath />
+        <div className={`${styles.site} ${styles.heroInner}`}>
+          <h1 id="home-heading">
+            Digital delivery for organisations people rely on.
+          </h1>
           <p className={styles.heroLead}>
             Accessible websites and products, built directly in Reading for GP
             practices, care homes and other trusted organisations.
@@ -182,15 +152,15 @@ export function HomeScreen() {
           <div className={styles.heroActions}>
             <a
               href={`mailto:${site.email}?subject=${encodeURIComponent("Project enquiry")}`}
-              className={styles.primaryButton}
+              className={styles.heroPrimaryButton}
             >
               Discuss a project <ArrowUpRight aria-hidden size={17} />
             </a>
-            <Link href="/book" className={styles.secondaryButton}>
+            <Link href="/book" className={styles.heroSecondaryButton}>
               Book a call
             </Link>
           </div>
-        </HeroMotion>
+        </div>
       </section>
 
       <section className={styles.taglineBand} data-marquee aria-label="Flutterly delivery principle">
