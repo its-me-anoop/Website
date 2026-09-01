@@ -820,6 +820,7 @@ export const footerColumns = [
   {
     title: "Resources",
     links: [
+      { label: "Privacy notice", href: "/privacy" },
       { label: "Accessibility statement", href: "/accessibility" },
       { label: "Cookie policy", href: "/cookie-policy" },
       { label: "Artling privacy", href: "/projects/artling/privacy-policy" },

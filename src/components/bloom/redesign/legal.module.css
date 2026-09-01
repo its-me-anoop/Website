@@ -1,0 +1,135 @@
+.article {
+  width: min(100%, 44rem);
+  margin-inline: auto;
+  padding-block: clamp(3rem, 6vw, 4.5rem) clamp(4rem, 8vw, 6rem);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--fl-muted);
+  font-family: var(--fl-mono);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 1.25rem 0 0;
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 40rem;
+  margin: 1.25rem 0 0;
+  color: var(--fl-soft-ink);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.meta {
+  margin: 1rem 0 0;
+  color: var(--fl-muted);
+  font-size: 0.875rem;
+}
+
+.sections {
+  display: grid;
+  gap: 2.5rem;
+  margin-top: 2.75rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--fl-line);
+}
+
+.sections h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.sections p,
+.sections li {
+  margin: 0.75rem 0 0;
+  color: var(--fl-soft-ink);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.sections ul {
+  margin: 0.75rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.sections a {
+  color: var(--fl-ink);
+  text-decoration: underline;
+  text-underline-offset: 0.18rem;
+}
+
+.sections a:hover {
+  color: var(--fl-accent-hover);
+}
+
+.sections code {
+  font-family: var(--fl-mono);
+  font-size: 0.85em;
+  color: var(--fl-ink);
+}
+
+.categories {
+  display: grid;
+  gap: 0;
+  margin: 1rem 0 0;
+  border-top: 1px solid var(--fl-line);
+  border-bottom: 1px solid var(--fl-line);
+}
+
+.category {
+  display: grid;
+  gap: 0.35rem;
+  padding-block: 1.15rem;
+  border-top: 1px solid var(--fl-line);
+}
+
+.category:first-child {
+  border-top: 0;
+}
+
+.categoryName {
+  margin: 0;
+  font-weight: 650;
+}
+
+.categoryStatus {
+  margin: 0;
+  color: var(--fl-muted);
+  font-family: var(--fl-mono);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.categoryCopy {
+  margin: 0.35rem 0 0;
+  color: var(--fl-soft-ink);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 720px) {
+  .category {
+    grid-template-columns: 8rem 9rem 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .categoryCopy {
+    margin: 0;
+  }
+}

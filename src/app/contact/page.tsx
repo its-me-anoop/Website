@@ -3,6 +3,7 @@ import { ContactScreen } from "@/components/bloom/redesign/ContactScreen";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { studioViewport } from "@/lib/studio";
 
 const description =
   "Contact Flutterly Limited in Reading, UK. Email Anoop Jose or book a 15, 30 or 60 minute call about your website or digital delivery project.";
@@ -28,12 +29,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#FDF8F1",
-  colorScheme: "light",
-  width: "device-width",
-  initialScale: 1,
-};
+export const viewport: Viewport = studioViewport;
 
 export default function ContactPage() {
   return (

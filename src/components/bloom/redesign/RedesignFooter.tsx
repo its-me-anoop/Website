@@ -7,6 +7,7 @@ const pageLinks = [
   ["Home", "/"],
   ["GP practices", "/gp-websites"],
   ["Care homes", "/care-home-websites"],
+  ["Services", "/services"],
   ["Packages", "/packages"],
 ] as const;
 
@@ -17,8 +18,9 @@ const companyLinks = [
 ] as const;
 
 const policyLinks = [
-  ["Accessibility statement", "/accessibility"],
+  ["Privacy notice", "/privacy"],
   ["Cookie policy", "/cookie-policy"],
+  ["Accessibility statement", "/accessibility"],
 ] as const;
 
 function FooterColumn({

@@ -1,5 +1,5 @@
-/** Buyer-journey routes that render inside RedesignShell (see DESIGN.md).
- *  `/book/[eventType]` uses Studio + Cal.com when configured, else Bloom.
+/** Buyer-journey and Studio chrome routes (see DESIGN.md).
+ *  Cookie banner is suppressed here; policy remains at /cookie-policy.
  *  `/book/manage` stays Bloom. */
 export const FIELD_NOTES_PATHS = [
   "/",
@@ -10,11 +10,17 @@ export const FIELD_NOTES_PATHS = [
   "/contact",
   "/services",
   "/book",
+  "/accessibility",
+  "/cookie-policy",
+  "/privacy",
 ] as const;
 
 export function isFieldNotesPath(pathname: string | null | undefined): boolean {
   if (!pathname) return false;
   const path =
     pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-  return (FIELD_NOTES_PATHS as readonly string[]).includes(path);
+  if ((FIELD_NOTES_PATHS as readonly string[]).includes(path)) return true;
+  // Studio Cal deep links share the dark shell; keep the cookie chip off them.
+  if (path.startsWith("/book/") && path !== "/book/manage") return true;
+  return false;
 }

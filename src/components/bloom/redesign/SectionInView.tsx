@@ -17,9 +17,8 @@ export function SectionInView({
     const node = ref.current;
     if (!node) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reduced.matches) {
-      setVisible(true);
+    // Reduced motion is handled in CSS (forces visible stagger items).
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 

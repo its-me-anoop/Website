@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
+import { studioViewport } from "@/lib/studio";
 import { notFound, redirect } from "next/navigation";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
   BookUnavailableExperience,
-} from "@/components/bloom/redesign/BookExperience";import { RedesignShell } from "@/components/bloom/redesign/RedesignShell";
+} from "@/components/bloom/redesign/BookExperience";
+import { RedesignShell } from "@/components/bloom/redesign/RedesignShell";
 import { eventTypes, getEventType } from "@/features/booking/core/config";
 import { calBookingUrl } from "@/lib/cal";
 
@@ -40,12 +42,7 @@ export async function generateMetadata({
   };
 }
 
-export const viewport: Viewport = {
-  themeColor: "#050505",
-  colorScheme: "dark",
-  width: "device-width",
-  initialScale: 1,
-};
+export const viewport: Viewport = studioViewport;
 
 export default async function BookEventType({
   params,

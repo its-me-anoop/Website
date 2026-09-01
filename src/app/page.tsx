@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
+import { studioViewport } from "@/lib/studio";
 import { HomeScreen } from "@/components/bloom/redesign/HomeScreen";
 
 export const metadata: Metadata = {
@@ -33,12 +34,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#050505",
-  colorScheme: "dark",
-  width: "device-width",
-  initialScale: 1,
-};
+export const viewport: Viewport = studioViewport;
 
 export default function Home() {
   return <HomeScreen />;

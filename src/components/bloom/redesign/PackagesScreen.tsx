@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site } from "@/lib/site";
 import { packages } from "../data";
 import { RedesignShell } from "./RedesignShell";
@@ -109,9 +110,9 @@ export function PackagesScreen() {
               Book a short call and we will map the scope before you commit.
             </p>
             <div className={styles.closingActions}>
-              <a href="/book" className={styles.closingButton}>
+              <Link href="/book" className={styles.closingButton}>
                 Book a call
-              </a>
+              </Link>
               <a
                 href={`mailto:${site.email}?subject=${encodeURIComponent("Discuss a Flutterly project")}`}
                 className={styles.closingSecondary}
