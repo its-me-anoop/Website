@@ -73,7 +73,18 @@
   inset: 0 0 auto;
   z-index: 120;
   height: var(--fl-header);
+  /* Keep logo/menu readable over light bands (e.g. home accessibility). */
+  background: color-mix(in srgb, var(--fl-canvas) 92%, transparent);
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  border-bottom: 1px solid var(--fl-line);
   pointer-events: none;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .header {
+    background: var(--fl-canvas);
+  }
 }
 
 .navInner {
