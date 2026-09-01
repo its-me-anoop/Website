@@ -1,0 +1,115 @@
+.sectionInView :global([data-stagger-item]) {
+  opacity: 0;
+  transform: perspective(1000px) rotateX(10deg) translateY(1.75rem);
+  transform-origin: 50% 100%;
+}
+
+.sectionVisible :global([data-stagger-item]) {
+  animation: studio-stagger-in 720ms var(--fl-ease) forwards;
+}
+
+.sectionVisible :global([data-stagger-item]:nth-child(1)) {
+  animation-delay: 0ms;
+}
+
+.sectionVisible :global([data-stagger-item]:nth-child(2)) {
+  animation-delay: 70ms;
+}
+
+.sectionVisible :global([data-stagger-item]:nth-child(3)) {
+  animation-delay: 140ms;
+}
+
+.sectionVisible :global([data-stagger-item]:nth-child(4)) {
+  animation-delay: 210ms;
+}
+
+.sectionVisible :global([data-stagger-item]:nth-child(5)) {
+  animation-delay: 280ms;
+}
+
+.sectionVisible :global([data-stagger-item]:nth-child(6)) {
+  animation-delay: 350ms;
+}
+
+@keyframes studio-stagger-in {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateX(10deg) translateY(1.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0deg) translateY(0);
+  }
+}
+
+.reveal {
+  --reveal-y: 2.5rem;
+  --reveal-rotate: 8deg;
+  --reveal-duration: 760ms;
+  opacity: 0;
+  transform: perspective(1200px) rotateX(var(--reveal-rotate)) translateY(var(--reveal-y));
+  transform-origin: 50% 100%;
+  transition:
+    opacity var(--reveal-duration) var(--fl-ease),
+    transform var(--reveal-duration) var(--fl-ease);
+  will-change: opacity, transform;
+}
+
+.revealVisible {
+  opacity: 1;
+  transform: perspective(1200px) rotateX(0deg) translateY(0);
+}
+
+.revealLeft {
+  --reveal-y: 0;
+  transform: perspective(1200px) rotateY(12deg) translateX(2rem);
+  transform-origin: 0% 50%;
+}
+
+.revealLeft.revealVisible {
+  transform: perspective(1200px) rotateY(0deg) translateX(0);
+}
+
+.tilt {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --tilt-lift: 0px;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y))
+    translateY(var(--tilt-lift));
+  transform-style: preserve-3d;
+  transition:
+    transform 120ms linear,
+    box-shadow var(--fl-duration-card) var(--fl-ease);
+  will-change: transform;
+}
+
+.tiltInner {
+  transform: translateZ(24px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .revealLeft {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .tilt {
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .tiltInner {
+    transform: none;
+  }
+
+  .sectionInView :global([data-stagger-item]) {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

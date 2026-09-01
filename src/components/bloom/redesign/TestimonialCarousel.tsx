@@ -16,9 +16,20 @@ export function TestimonialCarousel({
   items: readonly Testimonial[];
 }) {
   const [index, setIndex] = useState(0);
+  const [phase, setPhase] = useState<"idle" | "leave" | "enter">("idle");
   const item = items[index];
 
   if (!item) return null;
+
+  function go(nextIndex: number) {
+    if (phase !== "idle" || nextIndex === index) return;
+    setPhase("leave");
+    window.setTimeout(() => {
+      setIndex(nextIndex);
+      setPhase("enter");
+      window.setTimeout(() => setPhase("idle"), 420);
+    }, 220);
+  }
 
   return (
     <div className={styles.testimonialWrap}>
@@ -31,7 +42,7 @@ export function TestimonialCarousel({
             type="button"
             className={styles.testimonialControl}
             aria-label="Previous testimonial"
-            onClick={() => setIndex((current) => (current - 1 + items.length) % items.length)}
+            onClick={() => go((index - 1 + items.length) % items.length)}
           >
             ←
           </button>
@@ -39,13 +50,21 @@ export function TestimonialCarousel({
             type="button"
             className={styles.testimonialControl}
             aria-label="Next testimonial"
-            onClick={() => setIndex((current) => (current + 1) % items.length)}
+            onClick={() => go((index + 1) % items.length)}
           >
             →
           </button>
         </div>
       </div>
-      <blockquote className={styles.testimonialQuote}>
+      <blockquote
+        className={`${styles.testimonialQuote} ${
+          phase === "leave"
+            ? styles.testimonialLeave
+            : phase === "enter"
+              ? styles.testimonialEnter
+              : ""
+        }`}
+      >
         <p>{item.quote}</p>
         <footer>
           <strong>{item.name}</strong>

@@ -78,7 +78,7 @@ export function RedesignNav() {
             </Link>
             <button
               type="button"
-              className={styles.menuButton}
+              className={`${styles.menuButton} ${open ? styles.menuButtonOpen : ""}`}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               aria-controls="flutterly-navigation"

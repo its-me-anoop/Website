@@ -14,9 +14,13 @@ import { packagesFaq, projects, services, type Project } from "../data";
 import { site } from "@/lib/site";
 import { FaqAccordion } from "./FaqAccordion";
 import { HeroGrain } from "./HeroGrain";
+import { HeroMotion } from "./HeroMotion";
 import { RedesignShell } from "./RedesignShell";
+import { RevealOnScroll } from "./RevealOnScroll";
 import { RotatingWords } from "./RotatingWords";
+import { SectionInView } from "./SectionInView";
 import { TestimonialCarousel } from "./TestimonialCarousel";
+import { TiltSurface } from "./TiltSurface";
 import styles from "./home.module.css";
 
 const pillars = [
@@ -99,7 +103,7 @@ function ProjectAnchor({
 }) {
   if (project.internal) {
     return (
-      <Link href={project.href} className={styles.workCard} data-project-card>
+      <Link href={project.href} className={styles.workCard} data-project-card data-stagger-item>
         {children}
       </Link>
     );
@@ -110,6 +114,7 @@ function ProjectAnchor({
       href={project.href}
       className={styles.workCard}
       data-project-card
+      data-stagger-item
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -123,24 +128,26 @@ function WorkCard({ project }: { project: Project }) {
 
   return (
     <ProjectAnchor project={project}>
-      <div
-        className={`${styles.workMedia} ${isProduct ? styles.workMediaProduct : ""} ${
-          project.name === "Artling" ? styles.workMediaArtling : ""
-        }`}
-      >
-        <Image
-          src={project.image}
-          alt={`${project.name} project preview`}
-          fill
-          sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw"
-          className={isProduct ? styles.workImageProduct : styles.workImage}
-        />
-        {project.status ? (
-          <span className={styles.statusBadge}>
-            {project.status} · {project.year}
-          </span>
-        ) : null}
-      </div>
+      <TiltSurface className={styles.workTilt}>
+        <div
+          className={`${styles.workMedia} ${isProduct ? styles.workMediaProduct : ""} ${
+            project.name === "Artling" ? styles.workMediaArtling : ""
+          }`}
+        >
+          <Image
+            src={project.image}
+            alt={`${project.name} project preview`}
+            fill
+            sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw"
+            className={isProduct ? styles.workImageProduct : styles.workImage}
+          />
+          {project.status ? (
+            <span className={styles.statusBadge}>
+              {project.status} · {project.year}
+            </span>
+          ) : null}
+        </div>
+      </TiltSurface>
       <div className={styles.workCardBody}>
         <h3>{project.name}</h3>
         <p>
@@ -156,8 +163,10 @@ export function HomeScreen() {
     <RedesignShell>
       <section className={styles.heroSection} aria-labelledby="home-heading">
         <HeroGrain />
-        <div className={styles.gridOverlay} aria-hidden />
-        <div className={`${styles.site} ${styles.heroInner}`}>
+        <HeroMotion
+          gridClassName={styles.gridOverlay}
+          innerClassName={`${styles.site} ${styles.heroInner}`}
+        >
           <RotatingWords />
           <PlusFrame>
             <h1 id="home-heading">
@@ -179,7 +188,7 @@ export function HomeScreen() {
               Book a call
             </Link>
           </div>
-        </div>
+        </HeroMotion>
       </section>
 
       <section className={styles.taglineBand} aria-label="Flutterly delivery principle">
@@ -197,18 +206,22 @@ export function HomeScreen() {
 
       <section id="work" className={styles.workSection} aria-labelledby="work-heading">
         <div className={styles.site}>
-          <div className={styles.sectionHead}>
-            <div>
-              <p className={styles.eyebrow}>Selected delivery</p>
-              <h2 id="work-heading">Work you can open</h2>
+          <RevealOnScroll>
+            <div className={styles.sectionHead}>
+              <div>
+                <p className={styles.eyebrow}>Selected delivery</p>
+                <h2 id="work-heading">Work you can open</h2>
+              </div>
+              <span className={styles.workCount}>{projects.length}</span>
             </div>
-            <span className={styles.workCount}>{projects.length}</span>
-          </div>
-          <div className={styles.workGrid}>
-            {projects.map((project) => (
-              <WorkCard key={project.name} project={project} />
-            ))}
-          </div>
+          </RevealOnScroll>
+          <SectionInView>
+            <div className={styles.workGrid}>
+              {projects.map((project) => (
+                <WorkCard key={project.name} project={project} />
+              ))}
+            </div>
+          </SectionInView>
           <div className={styles.sampleLinks}>
             <span className={styles.sampleBadge}>Sample · fictional</span>
             <Link href="/demo/gp-practice">Willowbrook Surgery</Link>
@@ -219,25 +232,29 @@ export function HomeScreen() {
 
       <section className={styles.aboutSection} aria-labelledby="about-heading">
         <div className={styles.site}>
-          <p className={styles.eyebrow}>How we work</p>
-          <h2 id="about-heading">
-            A Reading team with one habit: make digital things people can actually
-            use.
-          </h2>
-          <p className={styles.aboutLead}>
-            Creative enough to earn attention, practical enough to ship. Every
-            project is built in-house by the person you brief — no templates, no
-            offshore handoffs, no beige.
-          </p>
-          <div className={styles.pillarGrid}>
-            {pillars.map((pillar) => (
-              <article key={pillar.number} className={styles.pillarCard}>
-                <span className={styles.number}>{pillar.number}</span>
-                <h3>{pillar.title}</h3>
-                <p>{pillar.copy}</p>
-              </article>
-            ))}
-          </div>
+          <RevealOnScroll>
+            <p className={styles.eyebrow}>How we work</p>
+            <h2 id="about-heading">
+              A Reading team with one habit: make digital things people can actually
+              use.
+            </h2>
+            <p className={styles.aboutLead}>
+              Creative enough to earn attention, practical enough to ship. Every
+              project is built in-house by the person you brief — no templates, no
+              offshore handoffs, no beige.
+            </p>
+          </RevealOnScroll>
+          <SectionInView>
+            <div className={styles.pillarGrid}>
+              {pillars.map((pillar) => (
+                <article key={pillar.number} className={styles.pillarCard} data-stagger-item>
+                  <span className={styles.number}>{pillar.number}</span>
+                  <h3>{pillar.title}</h3>
+                  <p>{pillar.copy}</p>
+                </article>
+              ))}
+            </div>
+          </SectionInView>
         </div>
       </section>
 
@@ -294,21 +311,27 @@ export function HomeScreen() {
 
       <section className={styles.founderSection} aria-labelledby="founder-heading">
         <div className={`${styles.site} ${styles.founderGrid}`}>
-          <div className={styles.founderCopy}>
-            <p className={styles.eyebrow}>Founder</p>
-            <h2 id="founder-heading">Anoop Jose</h2>
-            <p>The person you brief is the person who builds.</p>
-            <small>Reading, UK · Designer and engineer</small>
-          </div>
-          <div className={styles.portrait}>
-            <Image
-              src="/anoop-jose.jpg"
-              alt="Anoop Jose, founder of Flutterly"
-              fill
-              sizes="(min-width: 1024px) 260px, 100vw"
-              unoptimized
-            />
-          </div>
+          <RevealOnScroll variant="left">
+            <div className={styles.founderCopy}>
+              <p className={styles.eyebrow}>Founder</p>
+              <h2 id="founder-heading">Anoop Jose</h2>
+              <p>The person you brief is the person who builds.</p>
+              <small>Reading, UK · Designer and engineer</small>
+            </div>
+          </RevealOnScroll>
+          <RevealOnScroll delay={120}>
+            <TiltSurface className={styles.portraitTilt}>
+              <div className={styles.portrait}>
+                <Image
+                  src="/anoop-jose.jpg"
+                  alt="Anoop Jose, founder of Flutterly"
+                  fill
+                  sizes="(min-width: 1024px) 260px, 100vw"
+                  unoptimized
+                />
+              </div>
+            </TiltSurface>
+          </RevealOnScroll>
         </div>
       </section>
 
