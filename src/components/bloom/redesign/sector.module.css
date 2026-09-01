@@ -114,9 +114,10 @@
 
 .primaryButton {
   margin-top: 2rem;
+  border-radius: 999px;
   background: var(--fl-accent);
-  color: var(--fl-footer-ink);
-  box-shadow: 0 1px 3px oklch(53% 0.16 53 / 0.24);
+  color: var(--fl-light-ink);
+  box-shadow: none;
 }
 
 .primaryButton:hover,
@@ -278,12 +279,14 @@
 }
 
 .closingPrimaryButton {
+  border-radius: 999px;
   background: var(--fl-accent);
-  color: var(--fl-footer-ink);
+  color: var(--fl-light-ink);
 }
 
 .closingSecondaryButton {
-  border: 1px solid var(--fl-line);
+  border: 1px solid var(--fl-line-strong);
+  border-radius: 999px;
   color: var(--fl-ink);
   background: transparent;
 }

@@ -53,14 +53,13 @@
   align-items: center;
   justify-content: center;
   margin-top: 2rem;
-  border-radius: 0.5rem;
+  border-radius: 999px;
   background: var(--fl-accent);
-  color: var(--fl-footer-ink);
+  color: var(--fl-light-ink);
   padding-inline: 1.75rem;
   font-size: 0.875rem;
   font-weight: 700;
   line-height: 1.25rem;
-  box-shadow: 0 2px 8px oklch(53% 0.16 53 / 0.18);
   transition: background-color var(--fl-duration-color) ease-out,
     transform var(--fl-duration-button) var(--fl-ease);
 }

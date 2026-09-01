@@ -2,17 +2,18 @@
 
 Six scoped design systems coexist. Never leak tokens across scopes.
 
-## 1. Field Notes + Bloom (marketing)
+## 1. Studio (marketing)
 
 The primary buyer journey (`/`, `/services`, `/packages`, `/book`,
 `/gp-websites`, `/care-home-websites`, `/about`, `/contact`) uses the
-**Field Notes** redesign under `RedesignShell`. It is a warm, direct and
-evidence-led system: cream canvas, brown ink, rust-orange actions, near-black
-footer, Syne display type, Space Grotesk body type and JetBrains Mono only
-for short technical labels. Local project stills carry the visual hierarchy.
-Corners are compact, shadows are quiet, and the 1140px grid stays deliberately
-visible. Entrance and hover motion use opacity and transform only, with
-reduced-motion fallbacks. Paper grain stays on Home only.
+**Studio** redesign under `RedesignShell`, inspired by editorial dark-mode
+agency sites: near-black canvas (`#050505`), light ink, hairline grid lines,
+pill navigation controls, mono supertitles, large Syne display type and Space
+Grotesk body type. Light bands (`#f5f5f7`) alternate for contrast sections
+such as the accessibility highlight. Corner `+` markers frame the hero
+headline; a marquee tagline band, numbered service rows, portfolio grid,
+testimonial carousel and FAQ accordion carry the page rhythm. JetBrains Mono is
+reserved for labels and indices only.
 
 Scheduler, manage, audit, policy and remaining service-detail routes retain
 the original **Bloom** scope documented in `docs/BLOOM.md`: mint canvas, pine

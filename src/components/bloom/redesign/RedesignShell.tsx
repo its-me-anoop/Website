@@ -6,8 +6,10 @@ export function RedesignShell({ children }: { children: React.ReactNode }) {
   return (
     <div className={styles.root} data-flutterly-redesign>
       <RedesignNav />
-      <main id="main">{children}</main>
-      <RedesignFooter />
+      <div className={styles.pagePad}>
+        <main id="main">{children}</main>
+        <RedesignFooter />
+      </div>
     </div>
   );
 }

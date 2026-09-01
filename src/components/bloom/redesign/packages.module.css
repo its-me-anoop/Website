@@ -103,7 +103,7 @@
   flex: 0 0 auto;
   border-radius: 999px;
   background: var(--fl-accent);
-  color: var(--fl-footer-ink);
+  color: var(--fl-light-ink);
   padding: 0.32rem 0.75rem;
   font-size: 0.625rem;
   letter-spacing: 0.1em;
@@ -196,8 +196,8 @@
 .quoteFeatured,
 .closingButton {
   background: var(--fl-accent);
-  color: var(--fl-footer-ink);
-  box-shadow: 0 2px 8px oklch(53% 0.16 53 / 0.18);
+  color: var(--fl-light-ink);
+  box-shadow: none;
 }
 
 .quoteOutline {

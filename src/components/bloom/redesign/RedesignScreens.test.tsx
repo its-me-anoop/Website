@@ -31,6 +31,7 @@ describe("Flutterly redesign screens", () => {
       }),
     ).toBeInTheDocument();
 
+    fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
     const primary = screen.getByRole("navigation", {
       name: "Primary navigation",
     });
@@ -182,29 +183,23 @@ describe("Flutterly redesign screens", () => {
     pathname = "/contact";
     render(<ContactScreen />);
 
-    const primary = screen.getByRole("navigation", {
-      name: "Primary navigation",
-    });
-    expect(within(primary).getByRole("link", { name: "Contact" })).toHaveAttribute(
-      "aria-current",
-      "page",
-    );
-    expect(within(primary).getByRole("link", { name: "Home" })).not.toHaveAttribute(
-      "aria-current",
-    );
-
     const menuButton = screen.getByRole("button", { name: "Open menu" });
     fireEvent.click(menuButton);
     expect(menuButton).toHaveAttribute("aria-expanded", "true");
-    expect(
-      screen.getByRole("navigation", { name: "Mobile navigation" }),
-    ).toBeInTheDocument();
+
+    const primary = screen.getByRole("navigation", {
+      name: "Primary navigation",
+    });
+    expect(within(primary).getByRole("link", { name: /Contact/ })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+    expect(within(primary).getByRole("link", { name: /Home/ })).not.toHaveAttribute(
+      "aria-current",
+    );
 
     fireEvent.keyDown(window, { key: "Escape" });
     expect(menuButton).toHaveAttribute("aria-expanded", "false");
-    expect(
-      screen.queryByRole("navigation", { name: "Mobile navigation" }),
-    ).not.toBeInTheDocument();
   });
 
   it("renders the new About and Contact routes with direct contact and booking choices", () => {

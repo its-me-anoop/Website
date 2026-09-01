@@ -75,8 +75,8 @@
 
 .filled {
   background: var(--fl-accent);
-  color: var(--fl-footer-ink);
-  box-shadow: 0 2px 8px oklch(53% 0.16 53 / 0.18);
+  color: var(--fl-light-ink);
+  box-shadow: none;
 }
 
 .filled:hover {
