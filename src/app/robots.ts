@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://flutterly.uk";
+  const baseUrl = "https://www.flutterly.co.uk";
 
   return {
     rules: {

@@ -4,7 +4,7 @@
  * details never drift between files.
  */
 export const site = {
-  url: "https://flutterly.uk",
+  url: "https://www.flutterly.co.uk",
   name: "Anoop Jose",
   legalName: "Flutterly Ltd",
   studio: "Flutterly",

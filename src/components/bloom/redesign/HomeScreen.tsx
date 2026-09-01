@@ -193,7 +193,7 @@ export function HomeScreen() {
         </HeroMotion>
       </section>
 
-      <section className={styles.taglineBand} aria-label="Flutterly delivery principle">
+      <section className={styles.taglineBand} data-marquee aria-label="Flutterly delivery principle">
         <div className={styles.taglineTrack}>
           <p className={styles.taglineText}>
             THE PERSON YOU BRIEF IS THE PERSON WHO BUILDS™ · DIRECT DELIVERY ·

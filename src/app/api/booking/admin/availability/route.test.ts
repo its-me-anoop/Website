@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { GET as getAvailability } from "@/app/api/booking/availability/route";
 import { GET, PUT } from "./route";
 
-const url = "https://flutterly.uk/api/booking/admin/availability";
+const url = "https://www.flutterly.co.uk/api/booking/admin/availability";
 
 function withToken(init: RequestInit = {}, token = "manage-token-1234567890"): Request {
   return new Request(url, {
@@ -71,7 +71,7 @@ describe("admin availability API", () => {
     // The public availability API now offers Monday slots.
     const publicResponse = await getAvailability(
       new Request(
-        "https://flutterly.uk/api/booking/availability?eventType=consultation&from=2026-08-09T00:00:00Z&to=2026-08-11T00:00:00Z"
+        "https://www.flutterly.co.uk/api/booking/availability?eventType=consultation&from=2026-08-09T00:00:00Z&to=2026-08-11T00:00:00Z"
       )
     );
     const publicPayload = await publicResponse.json();
@@ -92,7 +92,7 @@ describe("admin availability API", () => {
 
     const publicResponse = await getAvailability(
       new Request(
-        "https://flutterly.uk/api/booking/availability?eventType=consultation&from=2026-08-09T00:00:00Z&to=2026-08-11T00:00:00Z"
+        "https://www.flutterly.co.uk/api/booking/availability?eventType=consultation&from=2026-08-09T00:00:00Z&to=2026-08-11T00:00:00Z"
       )
     );
     const publicPayload = await publicResponse.json();

@@ -96,7 +96,7 @@ export function RedesignNav() {
 
       <nav
         id="flutterly-navigation"
-        aria-label="Primary navigation"
+        aria-label="Mobile navigation"
         aria-hidden={open ? undefined : true}
         inert={open ? undefined : true}
         className={`${styles.menuOverlay} ${open ? styles.menuOverlayOpen : ""}`}

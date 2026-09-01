@@ -33,7 +33,7 @@ describe("Flutterly redesign screens", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
     const primary = screen.getByRole("navigation", {
-      name: "Primary navigation",
+      name: "Mobile navigation",
     });
     [
       "/",
@@ -197,7 +197,7 @@ describe("Flutterly redesign screens", () => {
     expect(menuButton).toHaveAttribute("aria-expanded", "true");
 
     const primary = screen.getByRole("navigation", {
-      name: "Primary navigation",
+      name: "Mobile navigation",
     });
     expect(within(primary).getByRole("link", { name: /Contact/ })).toHaveAttribute(
       "aria-current",

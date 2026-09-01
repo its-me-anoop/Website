@@ -25,7 +25,7 @@ describe("buildIcs", () => {
     expect(ics).toContain("DTSTART:20260812T083000Z");
     expect(ics).toContain("DTEND:20260812T090000Z");
     expect(ics).toContain("DTSTAMP:20260806T090000Z");
-    expect(ics).toContain("UID:fl-7k2m9qdw@flutterly.uk");
+    expect(ics).toContain("UID:fl-7k2m9qdw@flutterly.co.uk");
   });
 
   it("escapes text values and references the booking", () => {

@@ -69,7 +69,8 @@ export default async function BookEventType({
         <BookUnavailableExperience
           name={eventType.name}
           durationMinutes={eventType.durationMinutes}
-        />      </RedesignShell>
+        />
+      </RedesignShell>
     </>
   );
 }

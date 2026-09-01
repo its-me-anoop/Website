@@ -57,7 +57,7 @@ export function buildIcs(booking: Booking, eventType: EventType): string {
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VEVENT",
-    `UID:${booking.reference.toLowerCase()}@flutterly.uk`,
+    `UID:${booking.reference.toLowerCase()}@flutterly.co.uk`,
     `DTSTAMP:${icsUtcStamp(booking.createdAtIso)}`,
     `DTSTART:${icsUtcStamp(booking.startIso)}`,
     `DTEND:${icsUtcStamp(booking.endIso)}`,

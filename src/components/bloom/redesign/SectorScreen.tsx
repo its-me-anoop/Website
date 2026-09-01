@@ -91,7 +91,7 @@ function GpScreen() {
                   <i />
                 </span>
                 <span className={styles.browserAddress}>
-                  flutterly.uk/demo/gp-practice · Willowbrook Surgery
+                  flutterly.co.uk/demo/gp-practice · Willowbrook Surgery
                 </span>
               </span>
               <Image

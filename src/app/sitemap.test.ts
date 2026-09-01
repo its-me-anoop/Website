@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import sitemap from "./sitemap";
 
-const LIVE_HOST = "https://flutterly.uk";
+const LIVE_HOST = "https://www.flutterly.co.uk";
 
 const EXISTING_PATHS = [
   "/book",
@@ -35,6 +35,7 @@ describe("sitemap", () => {
 
     expect(urls).toEqual(EXISTING_PATHS.map((path) => `${LIVE_HOST}${path}`));
     expect(urls.every((url) => url.startsWith(LIVE_HOST))).toBe(true);
+    expect(urls.some((url) => url.includes("flutterly.uk"))).toBe(false);
     expect(entries.every((entry) => entry.lastModified instanceof Date)).toBe(
       true,
     );

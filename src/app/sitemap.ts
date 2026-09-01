@@ -5,12 +5,12 @@ import type { MetadataRoute } from "next";
  * any feature module shared with client components) can pull that graph
  * into the sitemap bundle and 500 /sitemap.xml in production.
  *
- * Host matches `site.url` / robots.ts (`https://flutterly.uk`).
+ * Host matches `site.url` / robots.ts (`https://www.flutterly.co.uk`).
  *
  * Bookable event-type paths are listed here so the sitemap stays aligned
  * with the live /book routes without importing booking code.
  */
-const BASE_URL = "https://flutterly.uk";
+const BASE_URL = "https://www.flutterly.co.uk";
 
 const BOOK_EVENT_TYPE_IDS = [
   "intro-call",
