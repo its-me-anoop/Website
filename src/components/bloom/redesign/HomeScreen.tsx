@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import {
   Accessibility,
-  ArrowUpRight,
   Gauge,
   Map,
   Search,
@@ -13,7 +12,7 @@ import {
 import { packagesFaq, projects, services, type Project } from "../data";
 import { site } from "@/lib/site";
 import { FaqAccordion } from "./FaqAccordion";
-import { HeroLumaPath } from "./HeroLumaPath";
+import { HeroLuma } from "./HeroLuma";
 import { RedesignShell } from "./RedesignShell";
 import { RevealOnScroll } from "./RevealOnScroll";
 import { SectionInView } from "./SectionInView";
@@ -140,27 +139,7 @@ export function HomeScreen() {
   return (
     <RedesignShell>
       <section className={styles.heroSection} aria-labelledby="home-heading">
-        <HeroLumaPath />
-        <div className={`${styles.site} ${styles.heroInner}`}>
-          <h1 id="home-heading">
-            Digital delivery for organisations people rely on.
-          </h1>
-          <p className={styles.heroLead}>
-            Accessible websites and products, built directly in Reading for GP
-            practices, care homes and other trusted organisations.
-          </p>
-          <div className={styles.heroActions}>
-            <a
-              href={`mailto:${site.email}?subject=${encodeURIComponent("Project enquiry")}`}
-              className={styles.heroPrimaryButton}
-            >
-              Discuss a project <ArrowUpRight aria-hidden size={17} />
-            </a>
-            <Link href="/book" className={styles.heroSecondaryButton}>
-              Book a call
-            </Link>
-          </div>
-        </div>
+        <HeroLuma />
       </section>
 
       <section className={styles.taglineBand} data-marquee aria-label="Flutterly delivery principle">

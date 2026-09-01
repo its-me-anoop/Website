@@ -27,7 +27,7 @@ describe("Flutterly redesign screens", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: "Digital delivery for organisations people rely on.",
+        name: "What will you ship?",
       }),
     ).toBeInTheDocument();
 

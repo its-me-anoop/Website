@@ -17,39 +17,42 @@
 }
 
 .heroSection {
-  --fl-hero-accent: #c7366e;
-  --fl-hero-accent-hover: #b02f61;
+  --fl-hero-accent: #d8476d;
+  --fl-hero-accent-hover: #c73d62;
+  --fl-hero-ink: #111111;
+  --fl-hero-soft: #666666;
   position: relative;
   min-height: calc(100svh - var(--fl-header));
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  border-bottom: 1px solid var(--fl-light-line);
-  background: var(--fl-light-band);
-  color: var(--fl-light-ink);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  background: #ffffff;
+  color: var(--fl-hero-ink);
   isolation: isolate;
 }
 
-.heroLumaPath {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+.heroLumaScene {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100svh - var(--fl-header));
+  width: 100%;
 }
 
 .heroLumaWave {
   position: absolute;
-  inset: auto 0 42%;
+  inset: 18% 0 auto;
+  z-index: 0;
   width: 100%;
-  height: min(42vw, 18rem);
+  height: clamp(10rem, 34vw, 16rem);
   overflow: visible;
+  pointer-events: none;
 }
 
 .heroLumaWave path {
   fill: none;
-  stroke: rgba(17, 17, 20, 0.12);
-  stroke-dasharray: 6 10;
+  stroke: rgba(17, 17, 17, 0.1);
+  stroke-dasharray: 1;
   stroke-linecap: round;
   stroke-width: 1.5;
   vector-effect: non-scaling-stroke;
@@ -58,56 +61,55 @@
 .heroLumaOrbs {
   position: absolute;
   inset: 0;
+  z-index: 1;
   margin: 0;
   padding: 0;
   list-style: none;
+  pointer-events: none;
 }
 
 .heroLumaOrb {
-  --orb-size: clamp(2.75rem, 6vw, 3.5rem);
+  --orb-size: 3.25rem;
   position: absolute;
   width: var(--orb-size);
   height: var(--orb-size);
-  animation: hero-orb-float 5.5s ease-in-out infinite;
+  transform: translate(-50%, -50%);
 }
 
-.heroLumaOrb[data-tone="mint"] {
-  left: clamp(8%, 14vw, 18%);
-  top: 34%;
-  animation-delay: 0s;
+.heroLumaOrbFloat {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.heroLumaOrb[data-tone="violet"] {
-  left: 50%;
-  top: 24%;
-  margin-left: calc(var(--orb-size) / -2);
-  animation-delay: -1.8s;
+.heroLumaOrblg {
+  --orb-size: clamp(3.25rem, 5.6vw, 3.85rem);
 }
 
-.heroLumaOrb[data-tone="amber"] {
-  right: clamp(8%, 14vw, 18%);
-  top: 36%;
-  animation-delay: -3.2s;
+.heroLumaOrbsm {
+  --orb-size: clamp(2.35rem, 4.2vw, 2.75rem);
 }
 
 .heroLumaOrbHalo {
   position: absolute;
-  inset: -45%;
+  inset: -70%;
   border-radius: 50%;
-  opacity: 0.55;
-  filter: blur(18px);
+  animation: hero-halo-pulse 4.8s ease-in-out infinite;
 }
 
 .heroLumaOrb[data-tone="mint"] .heroLumaOrbHalo {
-  background: radial-gradient(circle, rgba(52, 199, 159, 0.75) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(95, 212, 160, 0.72) 0%, transparent 72%);
+  animation-delay: 0s;
 }
 
 .heroLumaOrb[data-tone="violet"] .heroLumaOrbHalo {
-  background: radial-gradient(circle, rgba(142, 124, 255, 0.75) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.62) 0%, transparent 72%);
+  animation-delay: -1.6s;
 }
 
 .heroLumaOrb[data-tone="amber"] .heroLumaOrbHalo {
-  background: radial-gradient(circle, rgba(255, 168, 92, 0.78) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 171, 115, 0.74) 0%, transparent 72%);
+  animation-delay: -3.1s;
 }
 
 .heroLumaOrbIcon {
@@ -118,11 +120,20 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #ffffff;
-  color: var(--fl-light-ink);
-  box-shadow:
-    0 0 0 1px rgba(17, 17, 20, 0.06),
-    0 16px 36px -22px rgba(17, 17, 20, 0.35);
+  color: #ffffff;
+  box-shadow: 0 10px 28px -18px rgba(17, 17, 17, 0.35);
+}
+
+.heroLumaOrb[data-tone="mint"] .heroLumaOrbIcon {
+  background: #5fd4a0;
+}
+
+.heroLumaOrb[data-tone="violet"] .heroLumaOrbIcon {
+  background: #a78bfa;
+}
+
+.heroLumaOrb[data-tone="amber"] .heroLumaOrbIcon {
+  background: #ffab73;
 }
 
 .heroInner {
@@ -131,85 +142,82 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(100%, var(--fl-site));
+  width: min(100%, 42rem);
   margin-inline: auto;
-  padding: clamp(3rem, 8vw, 5rem) var(--fl-gutter);
+  padding: clamp(4rem, 12vw, 6.5rem) var(--fl-gutter);
   text-align: center;
 }
 
 .heroInner h1 {
   margin: 0;
-  max-width: 15ch;
-  font-size: clamp(2.5rem, 7vw, 4.75rem);
-  font-weight: 650;
-  line-height: 1.02;
-  letter-spacing: -0.045em;
+  max-width: 11ch;
+  font-family: var(--fl-body);
+  font-size: clamp(2.125rem, 5.4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   text-wrap: balance;
-  color: var(--fl-light-ink);
+  color: var(--fl-hero-ink);
 }
 
 .heroLead {
-  max-width: 34rem;
-  margin: 1.35rem 0 0;
-  color: var(--fl-light-soft);
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  line-height: 1.65;
+  max-width: 30rem;
+  margin: 1rem 0 0;
+  color: var(--fl-hero-soft);
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
+  line-height: 1.55;
 }
 
 .heroActions {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 2rem;
-}
-
-.heroPrimaryButton,
-.heroSecondaryButton {
-  display: inline-flex;
-  min-height: 2.85rem;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  border-radius: 999px;
-  padding-inline: 1.5rem;
-  font-size: 0.875rem;
-  font-weight: 700;
-  line-height: 1;
-  transition:
-    background-color var(--fl-duration-color) ease-out,
-    border-color var(--fl-duration-color) ease-out,
-    color var(--fl-duration-color) ease-out,
-    transform 320ms var(--fl-ease),
-    box-shadow 320ms var(--fl-ease);
+  gap: 0.85rem;
+  margin-top: 1.65rem;
 }
 
 .heroPrimaryButton {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  padding-inline: 1.4rem;
   background: var(--fl-hero-accent);
   color: #ffffff;
-  box-shadow: 0 14px 34px -20px rgba(199, 54, 110, 0.75);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 16px 34px -22px rgba(216, 71, 109, 0.85);
+  transition:
+    background-color var(--fl-duration-color) ease-out,
+    transform 280ms var(--fl-ease),
+    box-shadow 280ms var(--fl-ease);
 }
 
 .heroPrimaryButton:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
   background: var(--fl-hero-accent-hover);
-  box-shadow: 0 18px 38px -18px rgba(199, 54, 110, 0.85);
+  box-shadow: 0 20px 38px -20px rgba(216, 71, 109, 0.95);
 }
 
 .heroPrimaryButton:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.99);
 }
 
-.heroSecondaryButton {
-  border: 1px solid rgba(17, 17, 20, 0.14);
-  color: var(--fl-light-ink);
-  background: rgba(255, 255, 255, 0.72);
+.heroSecondaryLink {
+  color: var(--fl-hero-soft);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(102, 102, 102, 0.45);
+  text-underline-offset: 0.2rem;
+  transition: color var(--fl-duration-color) ease-out;
 }
 
-.heroSecondaryButton:hover {
-  transform: translateY(-2px);
-  border-color: rgba(17, 17, 20, 0.28);
-  background: #ffffff;
+.heroSecondaryLink:hover {
+  color: var(--fl-hero-ink);
 }
 
 .closingActions {
@@ -896,14 +904,16 @@
   }
 }
 
-@keyframes hero-orb-float {
+@keyframes hero-halo-pulse {
   0%,
   100% {
-    transform: translate3d(0, 0, 0);
+    opacity: 0.45;
+    transform: scale(0.92);
   }
 
   50% {
-    transform: translate3d(0, -10px, 0);
+    opacity: 0.85;
+    transform: scale(1.08);
   }
 }
 
@@ -1017,28 +1027,29 @@
 }
 
 @media (max-width: 640px) {
+  .heroLumaWave {
+    inset: 14% 0 auto;
+    height: clamp(8rem, 38vw, 11rem);
+  }
+
   .heroLumaOrb[data-tone="mint"] {
-    left: 4%;
-    top: 30%;
+    left: 10% !important;
+    top: 40% !important;
   }
 
   .heroLumaOrb[data-tone="violet"] {
-    top: 18%;
+    top: 22% !important;
   }
 
   .heroLumaOrb[data-tone="amber"] {
-    right: 4%;
-    top: 32%;
-  }
-
-  .heroLumaWave {
-    bottom: 38%;
+    left: 90% !important;
+    top: 38% !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .heroInner,
-  .heroLumaOrb,
+  .heroLumaOrbHalo,
   .faqPanelOpen,
   .taglineTrack,
   .workImage,
@@ -1049,14 +1060,14 @@
     transition: none;
   }
 
-  .heroLumaOrb[data-tone="violet"] {
-    margin-left: calc(var(--orb-size) / -2);
+  .heroLumaOrbHalo {
+    animation: none;
+    opacity: 0.65;
   }
 
   .primaryButton,
   .secondaryButton,
   .heroPrimaryButton,
-  .heroSecondaryButton,
   .secondaryButton,
   .auditLink,
   .inlineLink,
