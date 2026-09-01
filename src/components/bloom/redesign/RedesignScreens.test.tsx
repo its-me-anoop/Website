@@ -27,7 +27,7 @@ describe("Flutterly redesign screens", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: "Digital delivery for organisations people rely on.",
+        name: "What will you ship?",
       }),
     ).toBeInTheDocument();
 
@@ -59,10 +59,10 @@ describe("Flutterly redesign screens", () => {
       "href",
       "/free-audit",
     );
-    expect(container.querySelector("[data-hero-grain]")).toBeTruthy();
+    expect(container.querySelector("[data-hero-luma-path]")).toBeTruthy();
   });
 
-  it("keeps the frozen hero grain on Home only", () => {
+  it("keeps the Luma path decoration on Home only", () => {
     const screens = [
       <PackagesScreen key="packages" />,
       <SectorScreen key="gp" sector="gp" />,
@@ -75,7 +75,7 @@ describe("Flutterly redesign screens", () => {
 
     screens.forEach((screen) => {
       const view = render(screen);
-      expect(view.container.querySelector("[data-hero-grain]")).toBeNull();
+      expect(view.container.querySelector("[data-hero-luma-path]")).toBeNull();
       view.unmount();
     });
   });
