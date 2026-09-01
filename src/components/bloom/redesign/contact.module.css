@@ -102,22 +102,38 @@
 }
 
 .callCard {
+  display: block;
   min-width: 0;
   border: 1px solid var(--fl-line);
   border-radius: 0.75rem;
   background: var(--fl-surface);
   color: var(--fl-ink);
   padding: 2rem;
+  text-decoration: none;
   box-shadow: 0 1px 2px oklch(23.5% 0.05 55 / 0.06);
   transition: border-color var(--fl-duration-color) ease-out,
     transform var(--fl-duration-button) var(--fl-ease),
     box-shadow var(--fl-duration-color) ease-out;
 }
 
-.callCard:hover {
+a.callCard:hover {
   transform: translateY(var(--fl-lift-card));
   border-color: var(--fl-accent);
   box-shadow: 0 12px 28px oklch(23.5% 0.05 55 / 0.1);
+}
+
+.callCardStatic {
+  box-shadow: none;
+}
+
+.unavailable {
+  margin-top: 1rem;
+  color: var(--fl-muted);
+  font-family: var(--fl-mono);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .callCard h2 {

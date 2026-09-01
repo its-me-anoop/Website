@@ -167,14 +167,25 @@ describe("Flutterly redesign screens", () => {
       "Pick a time, skip the email tennis.",
     );
     const pickTimes = screen.getAllByRole("link", { name: "Pick a time" });
-    expect(pickTimes).toHaveLength(3);
-    expect(pickTimes[0]).toHaveAttribute("href", "/book/intro-call");
+    expect(pickTimes).toHaveLength(2);
+    expect(pickTimes[0]).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/short-discovery-meeting",
+    );
     const consultation = screen
       .getByRole("heading", { name: "Consultation" })
       .closest("article");
     expect(
       within(consultation as HTMLElement).getByRole("link", { name: "Pick a time" }),
-    ).toHaveAttribute("href", "/book/consultation");
+    ).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/30-minutes-meeting",
+    );
+    const scoping = screen
+      .getByRole("heading", { name: "Project scoping" })
+      .closest("article");
+    expect(within(scoping as HTMLElement).queryByRole("link")).toBeNull();
+    expect(scoping).toHaveTextContent("Not yet bookable online");
     expect(book.container.querySelector("[data-hero-grain]")).toBeNull();
   });
 
@@ -223,15 +234,17 @@ describe("Flutterly redesign screens", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "Email Anoop. Or book a call.",
     );
-    [
-      ["Fit check", "/book/intro-call"],
-      ["Scope talk", "/book/consultation"],
-      ["Walkthrough", "/book/project-scoping"],
-    ].forEach(([name, href]) => {
-      expect(screen.getByRole("link", { name: new RegExp(name) })).toHaveAttribute(
-        "href",
-        href,
-      );
-    });
+    expect(screen.getByRole("link", { name: /Fit check/ })).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/short-discovery-meeting",
+    );
+    expect(screen.getByRole("link", { name: /Scope talk/ })).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/30-minutes-meeting",
+    );
+    expect(screen.queryByRole("link", { name: /Walkthrough/ })).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Walkthrough" }).closest("div")).toHaveTextContent(
+      "Not yet bookable online",
+    );
   });
 });

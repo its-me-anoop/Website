@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { eventTypes } from "@/features/booking/core/config";
+import { calBookingUrl } from "@/lib/cal";
 import { RedesignShell } from "./RedesignShell";
 import styles from "./book.module.css";
 
@@ -10,7 +11,7 @@ const reassurances = [
   "No cost and no obligation for any first call",
   "Video link sent by email once you book",
   "Times shown in your own timezone",
-  "Reschedule any time by replying to the confirmation",
+  "Reschedule from the Cal.com confirmation",
 ] as const;
 
 function locationLabel(location: string) {
@@ -26,7 +27,7 @@ export function BookScreen() {
           <h1 className={styles.title}>Pick a time, skip the email tennis.</h1>
           <p className={styles.lead}>
             Choose the kind of conversation you need and book it straight into{" "}
-            {founderFirstName}&apos;s diary. You&apos;ll get an instant confirmation
+            {founderFirstName}&apos;s diary. You&rsquo;ll get an instant confirmation
             and a calendar file for your own diary.
           </p>
         </header>
@@ -43,6 +44,7 @@ export function BookScreen() {
         <div className={styles.grid}>
           {eventTypes.map((eventType, index) => {
             const featured = index === 0;
+            const href = calBookingUrl(eventType.id);
             return (
               <article
                 key={eventType.id}
@@ -58,12 +60,16 @@ export function BookScreen() {
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-                <Link
-                  className={`${styles.cta} ${featured ? styles.ctaFilled : styles.ctaOutline}`}
-                  href={`/book/${eventType.id}`}
-                >
-                  Pick a time
-                </Link>
+                {href ? (
+                  <a
+                    className={`${styles.cta} ${featured ? styles.ctaFilled : styles.ctaOutline}`}
+                    href={href}
+                  >
+                    Pick a time
+                  </a>
+                ) : (
+                  <p className={styles.unavailable}>Not yet bookable online</p>
+                )}
               </article>
             );
           })}
@@ -81,13 +87,43 @@ export function BookScreen() {
             ))}
           </ul>
           <p className={styles.email}>
-            Open times appear in the scheduler in your own timezone; when the
-            diary is paused, none are shown. Prefer email — or no times suit?
-            Write to{" "}
+            Intro and consultation times open on Cal.com in your own timezone.
+            The 60-minute project scoping session is not on Cal.com yet. Prefer
+            email — or that longer slot? Write to{" "}
             <a href={`mailto:${site.email}`}>{site.email}</a> instead: both
             routes get the same attention.
           </p>
         </section>
+      </div>
+    </RedesignShell>
+  );
+}
+
+export function BookUnavailableScreen({
+  name,
+  durationMinutes,
+}: {
+  name: string;
+  durationMinutes: number;
+}) {
+  return (
+    <RedesignShell>
+      <div className={styles.page}>
+        <header className={styles.head}>
+          <p className={styles.eyebrow}>Book a call</p>
+          <h1 className={styles.title}>
+            {name} is not yet bookable online.
+          </h1>
+          <p className={styles.lead}>
+            The {durationMinutes}-minute {name.toLowerCase()} session does not
+            have a Cal.com event yet, so this page is not a booking link. Email{" "}
+            <a href={`mailto:${site.email}`}>{site.email}</a> to arrange it, or
+            book a shorter call from the list.
+          </p>
+          <Link className={`${styles.cta} ${styles.ctaFilled}`} href="/book">
+            See call types
+          </Link>
+        </header>
       </div>
     </RedesignShell>
   );

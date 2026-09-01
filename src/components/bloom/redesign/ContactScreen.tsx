@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import { eventTypes } from "@/features/booking/core/config";
+import { calBookingUrl } from "@/lib/cal";
 import { site } from "@/lib/site";
 import { RedesignShell } from "./RedesignShell";
 import styles from "./contact.module.css";
@@ -58,16 +58,26 @@ export function ContactScreen() {
           <div className={styles.callGrid}>
             {eventTypes.map((eventType) => {
               const copy = callCopy[eventType.id];
+              const href = calBookingUrl(eventType.id);
+              if (href) {
+                return (
+                  <a key={eventType.id} href={href} className={styles.callCard}>
+                    <p className={styles.duration}>{eventType.durationMinutes} min</p>
+                    <h2>{copy.title}</h2>
+                    <p className={styles.callDescription}>{copy.description}</p>
+                  </a>
+                );
+              }
               return (
-                <Link
+                <div
                   key={eventType.id}
-                  href={`/book/${eventType.id}`}
-                  className={styles.callCard}
+                  className={`${styles.callCard} ${styles.callCardStatic}`}
                 >
                   <p className={styles.duration}>{eventType.durationMinutes} min</p>
                   <h2>{copy.title}</h2>
                   <p className={styles.callDescription}>{copy.description}</p>
-                </Link>
+                  <p className={styles.unavailable}>Not yet bookable online</p>
+                </div>
               );
             })}
           </div>

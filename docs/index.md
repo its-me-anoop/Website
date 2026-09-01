@@ -19,8 +19,8 @@ pages run the light "Porcelain" system with Framer Motion.
   the GP and care-home demos (`content/` + `src/lib/cms/`).
 - [Research](./research/) — NHS standards checklist, GP-website supplier
   comparison, exemplar analysis, and the Willowbrook gap analysis.
-- [Appointment Booking](./BOOKING.md) — the `/book` scheduling system:
-  availability engine, storage, API and scheduler UI.
+- [Appointment Booking](./BOOKING.md) — Cal.com public links on `/book`,
+  plus the remaining in-house scheduler/API for `/book/manage`.
 
 ## Architecture at a glance
 

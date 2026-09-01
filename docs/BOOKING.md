@@ -1,23 +1,41 @@
 # Appointment Booking
 
-A cal.com-style scheduling system so clients book consultations directly
-at `/book`, without email back-and-forth. Dependency-free: availability
-maths and calendar files are hand-rolled on Intl, storage is a JSON
-file. The `/book` landing is Field Notes; the scheduler and manage
-pages stay Bloom.
+Public booking on `/book` uses **Cal.com public links**
+(`cal.com/{username}/{event-slug}`). There is no Cal.com API or embed.
+
+Username is `anoop-jose-jtij1j` (`NEXT_PUBLIC_CAL_USERNAME`). Do not
+use `flutterly` — `cal.com/flutterly` is a 404.
+
+Verified live events (2026-09-01):
+
+| Site call type | Duration | Cal.com URL |
+|---|---|---|
+| Intro call | 15 min | https://cal.com/anoop-jose-jtij1j/short-discovery-meeting |
+| Consultation | 30 min | https://cal.com/anoop-jose-jtij1j/30-minutes-meeting |
+| Project scoping | 60 min | **none** — no Cal event yet; card is not a booking link |
+
+The named Cal event types “Intro”, “Consultation” and “Project scoping”
+do not exist. The 30-minute event is titled “Domain transfer meeting”
+on Cal.com; it is still the live 30-minute slot. A 60-minute slug must
+not be invented — set `NEXT_PUBLIC_CAL_EVENT_SCOPING` only after a real
+event exists.
+
+The in-house scheduler remains at `/book/manage` for owner availability.
+Deep links `/book/intro-call` and `/book/consultation` redirect to the
+matching Cal.com URL. `/book/project-scoping` stays on-site as
+not-yet-bookable.
 
 ## Client journey
 
-1. **`/book`** — choose a call type: intro call (15 min), consultation
-   (30 min) or project scoping (60 min). All free video calls.
-2. **`/book/[eventType]`** — a month calendar shows days with open
-   slots; times render in the visitor's own timezone (switchable). Pick
-   a slot, add name/email/notes, confirm. When the owner has no
-   availability configured — the default — the scheduler shows a clear
-   "booking is paused" panel with an email fallback instead.
-3. **Confirmation** — instant booking reference, an `.ics` download, a
-   Google Calendar link, and a note that joining details follow by
-   email. Rescheduling is a reply quoting the reference.
+1. **`/book`** — choose a call type. Intro (15 min) and consultation
+   (30 min) open the matching Cal.com event. Project scoping (60 min)
+   is labelled “not yet bookable online” until a real Cal event exists.
+2. **`/book/intro-call`** and **`/book/consultation`** redirect to those
+   Cal.com URLs. **`/book/project-scoping`** stays on-site with an email
+   fallback.
+3. **Confirmation** — Cal.com sends the confirmation, calendar invite
+   and reschedule link. Email `anoop@flutterly.co.uk` for the unwired
+   60-minute session.
 
 ## Owner platform: availability
 
@@ -93,6 +111,11 @@ durable shared backend (e.g. Vercel KV/Upstash Redis or Postgres) behind
 
 | Env var | Purpose |
 |---|---|
+| `NEXT_PUBLIC_CAL_USERNAME` | Cal.com username. Default `anoop-jose-jtij1j`. Never `flutterly`. |
+| `NEXT_PUBLIC_CAL_ORIGIN` | Origin for public links. Default `https://cal.com`. |
+| `NEXT_PUBLIC_CAL_EVENT_INTRO` | 15-min event slug. Default `short-discovery-meeting`. |
+| `NEXT_PUBLIC_CAL_EVENT_CONSULTATION` | 30-min event slug. Default `30-minutes-meeting`. |
+| `NEXT_PUBLIC_CAL_EVENT_SCOPING` | 60-min event slug. **Unset** — no live event. Set only after one exists. |
 | `BOOKING_ADMIN_TOKEN` | Enables the owner platform at `/book/manage` and the admin APIs (`GET /api/booking/bookings`, `GET/PUT /api/booking/admin/availability`), presented as a bearer token. Unset ⇒ they answer 503. |
 | `BOOKING_AVAILABILITY_JSON` | Durable availability rules for serverless hosting; `/book/manage` shows the exact value to paste after saving. |
 | `BOOKING_AVAILABILITY_FILE` | Rules-file path override (default `.data/availability.json` locally, `/tmp/flutterly-availability.json` on Vercel). |

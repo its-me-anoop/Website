@@ -32,8 +32,6 @@ const ROUTES = [
   "/contact",
   "/free-audit",
   "/book",
-  "/book/intro-call",
-  "/book/consultation",
   "/book/project-scoping",
   "/accessibility",
   "/cookie-policy",
@@ -369,123 +367,44 @@ const cmsJourney = await browser.newContext({ viewport: { width: 1280, height: 9
 }
 await cmsJourney.close();
 
-// Exercise the paused, selection and confirmation states without touching the
-// configured availability, booking store or notification webhook. Real API and
-// persistence behaviour is covered separately by the route and server tests.
+// Public /book hands 15- and 30-minute CTAs to live Cal.com events. The
+// 60-minute project scoping type has no Cal event yet and must stay unwired.
 const bookingJourney = await browser.newContext({ viewport: { width: 1280, height: 900 } });
 {
-  let bookingOpen = false;
-  let bookingPosts = 0;
-
-  await bookingJourney.route("**/api/booking/availability?*", async (route) => {
-    const url = new URL(route.request().url());
-    const from = Date.parse(url.searchParams.get("from") ?? "");
-    const to = Date.parse(url.searchParams.get("to") ?? "");
-    const hour = 60 * 60 * 1000;
-    const candidate = Math.ceil(Math.max(from + 12 * hour, Date.now() + 72 * hour) / hour) * hour;
-    const slots = bookingOpen && candidate + hour < to ? [new Date(candidate).toISOString()] : [];
-    await route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify({
-        slots,
-        bookingOpen,
-        durationMinutes: 30,
-        hostTimeZone: "Europe/London",
-        horizonDays: 60,
-      }),
-    });
-  });
-
-  await bookingJourney.route("**/api/booking/bookings", async (route) => {
-    if (route.request().method() !== "POST") {
-      await route.continue();
-      return;
-    }
-    bookingPosts += 1;
-    const request = route.request().postDataJSON();
-    const start = new Date(request.startIso);
-    await route.fulfill({
-      status: 201,
-      contentType: "application/json",
-      body: JSON.stringify({
-        booking: {
-          reference: "FL-TEST2345",
-          eventTypeId: request.eventTypeId,
-          startIso: start.toISOString(),
-          endIso: new Date(start.getTime() + 30 * 60 * 1000).toISOString(),
-          name: request.name,
-          email: request.email,
-          timeZone: request.timeZone,
-        },
-        ics: "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nEND:VCALENDAR",
-      }),
-    });
-  });
-
   const page = await bookingJourney.newPage();
-  await page.goto(BASE + "/book/consultation", { waitUntil: "networkidle" });
-  const pausedShown = await page
-    .getByRole("heading", { name: /booking is paused/i })
+  await page.goto(BASE + "/book", { waitUntil: "networkidle" });
+  const introHref = await page
+    .locator("article:has-text(\"Intro call\")")
+    .getByRole("link", { name: "Pick a time" })
+    .getAttribute("href");
+  if (introHref !== "https://cal.com/anoop-jose-jtij1j/short-discovery-meeting") {
+    note("booking journey", `intro CTA did not point at the live 15-min Cal event (${introHref})`);
+  }
+  const consultationHref = await page
+    .locator("article:has-text(\"Consultation\")")
+    .getByRole("link", { name: "Pick a time" })
+    .getAttribute("href");
+  if (consultationHref !== "https://cal.com/anoop-jose-jtij1j/30-minutes-meeting") {
+    note(
+      "booking journey",
+      `consultation CTA did not point at the live 30-min Cal event (${consultationHref})`,
+    );
+  }
+  const scopingLinks = await page
+    .locator("article:has-text(\"Project scoping\")")
+    .getByRole("link")
+    .count();
+  if (scopingLinks > 0) {
+    note("booking journey", "project scoping must stay unwired until a real 60-min Cal event exists");
+  }
+
+  await page.goto(BASE + "/book/project-scoping", { waitUntil: "networkidle" });
+  const unavailableShown = await page
+    .getByRole("heading", { name: /not yet bookable/i })
     .isVisible()
     .catch(() => false);
-  if (!pausedShown) {
-    note("booking journey", "scheduler did not show the paused state while no availability is configured");
-  }
-
-  bookingOpen = true;
-  await page.goto(BASE + "/book", { waitUntil: "networkidle" });
-  await page
-    .locator('article:has-text("Consultation")')
-    .getByRole("link", { name: "Pick a time" })
-    .click();
-  await page.waitForURL(/\/book\/consultation/);
-
-  // Day buttons carry aria-pressed; an enabled one means slots exist. The
-  // current month can be legitimately empty near its end, so try the next.
-  const openDay = page.locator("button[aria-pressed]:not([disabled])").first();
-  try {
-    await openDay.waitFor({ timeout: 15000 });
-  } catch {
-    await page.getByRole("button", { name: "Next month" }).click();
-    await openDay.waitFor({ timeout: 15000 }).catch(() => {
-      note("booking journey", "no bookable day appeared in two months of availability");
-    });
-  }
-  if (await openDay.isVisible().catch(() => false)) {
-    await openDay.click();
-    const slot = page.locator('div[aria-busy="false"] button').first();
-    await slot.waitFor({ timeout: 10000 });
-    await slot.click();
-
-    await page.getByLabel("Your name").fill("Browser Workflow");
-    await page.getByLabel("Email address").fill("browser-workflow@example.com");
-    await page.getByLabel("Anything worth knowing").fill("Automated UI-only journey.");
-    await page.getByRole("button", { name: "Confirm booking" }).click();
-
-    const confirmed = await page
-      .getByRole("heading", { name: /booked in/i })
-      .waitFor({ timeout: 15000 })
-      .then(() => true)
-      .catch(() => false);
-    if (!confirmed) {
-      note("booking journey", "submitting the booking form did not reach the confirmation");
-    } else {
-      const body = await page.textContent("body");
-      if (!/FL-[2-9A-HJKMNP-Z]{8}/.test(body ?? "")) {
-        note("booking journey", "the confirmation did not show a booking reference");
-      }
-      const icsHref = await page
-        .getByRole("link", { name: /Add to calendar/ })
-        .getAttribute("href")
-        .catch(() => null);
-      if (!icsHref?.startsWith("data:text/calendar")) {
-        note("booking journey", "the confirmation did not offer an .ics calendar file");
-      }
-    }
-  }
-  if (bookingPosts !== 1) {
-    note("booking journey", `expected one booking POST, observed ${bookingPosts}`);
+  if (!unavailableShown) {
+    note("booking journey", "project scoping did not show the not-yet-bookable state");
   }
   await page.close();
 }
