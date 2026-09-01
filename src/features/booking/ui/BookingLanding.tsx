@@ -11,6 +11,7 @@ import {
   RevealWords,
   SectionHead,
 } from "@/components/bloom/primitives";
+import { calBookingUrl } from "@/lib/cal";
 import { eventTypes } from "../core/config";
 
 const reassurances = [
@@ -21,8 +22,8 @@ const reassurances = [
 ] as const;
 
 /**
- * /book — choose a call type. Each card hands over to the scheduler at
- * /book/[eventType], which handles dates, times and details.
+ * Bloom /book landing (unused by the Field Notes /book route).
+ * Bookable cards hand off to Cal.com public event URLs.
  */
 export function BookingLanding() {
   return (
@@ -64,7 +65,9 @@ export function BookingLanding() {
             ]}
           />
           <div className="mt-14 grid gap-5 md:grid-cols-3">
-            {eventTypes.map((eventType, i) => (
+            {eventTypes.map((eventType, i) => {
+              const href = calBookingUrl(eventType.id);
+              return (
               <Rise key={eventType.id} delay={i * 0.08}>
                 <article className="bl-card flex h-full flex-col rounded-[26px] border border-bl-line bg-bl-surface p-7 sm:p-8">
                   <div className="flex items-center gap-2 text-bl-teal">
@@ -89,13 +92,20 @@ export function BookingLanding() {
                     ))}
                   </ul>
                   <div className="mt-auto pt-7">
-                    <BtnLink href={`/book/${eventType.id}`} tone="teal" arrow className="w-full">
-                      Pick a time
-                    </BtnLink>
+                    {href ? (
+                      <BtnLink href={href} tone="teal" arrow className="w-full">
+                        Pick a time
+                      </BtnLink>
+                    ) : (
+                      <p className="text-[13.5px] font-semibold uppercase tracking-[0.12em] text-bl-muted">
+                        Not yet bookable online
+                      </p>
+                    )}
                   </div>
                 </article>
               </Rise>
-            ))}
+              );
+            })}
           </div>
 
           <Rise className="mx-auto mt-12 max-w-[720px]">
@@ -110,9 +120,9 @@ export function BookingLanding() {
                 ))}
               </ul>
               <p className="mt-5 text-[13.5px] leading-relaxed text-bl-muted">
-                Open times appear in the scheduler in your own timezone; when
-                the diary is paused, none are shown. Prefer email — or no
-                times suit? Write to{" "}
+                Intro and consultation times open on Cal.com. The 60-minute
+                project scoping session is not on Cal.com yet. Prefer email?
+                Write to{" "}
                 <a className="font-medium text-bl-teal hover:text-bl-teal-hover" href={`mailto:${site.email}`}>
                   {site.email}
                 </a>{" "}
@@ -127,7 +137,7 @@ export function BookingLanding() {
         title="Not sure which call fits?"
         copy="Start with the fifteen-minute intro call: if the conversation needs longer, the follow-up gets booked there and then."
         primaryLabel="Book an intro call"
-        primaryHref="/book/intro-call"
+        primaryHref={calBookingUrl("intro-call") ?? "/book"}
         secondaryLabel="Get a free website audit"
         secondaryHref="/free-audit"
         id="contact"

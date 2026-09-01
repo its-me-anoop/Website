@@ -68,7 +68,8 @@ inside `BloomShell` — see [BOOKING.md](./BOOKING.md).
 - **Free audit**: recurring offer; the audit page requests via a
   prefilled `mailto:` (no backend form).
 - **Direct booking**: the nav's primary action is "Book a call" —
-  a cal.com-style scheduler at `/book` (see [BOOKING.md](./BOOKING.md)).
+  `/book` hands 15- and 30-minute CTAs to live Cal.com public links
+  (see [BOOKING.md](./BOOKING.md)).
 - **Native disclosure FAQs**: `<details>/<summary>`, no JS state.
 - **Proportionate consent**: the site currently sets no cookies or trackers;
   a non-modal preference panel records the choice in local storage and exposes

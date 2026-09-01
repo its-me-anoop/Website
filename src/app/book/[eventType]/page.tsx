@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { BookUnavailableScreen } from "@/components/bloom/redesign/BookScreen";
 import { eventTypes, getEventType } from "@/features/booking/core/config";
-import { Scheduler } from "@/features/booking/ui/Scheduler";
+import { calBookingUrl } from "@/lib/cal";
 
 type Params = { eventType: string };
 
@@ -38,7 +39,7 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: "#fafcfb",
+  themeColor: "#FDF8F1",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -48,6 +49,9 @@ export default async function BookEventType({ params }: { params: Promise<Params
   const { eventType: id } = await params;
   const eventType = getEventType(id);
   if (!eventType) notFound();
+
+  const calUrl = calBookingUrl(eventType.id);
+  if (calUrl) redirect(calUrl);
 
   return (
     <>
@@ -60,7 +64,10 @@ export default async function BookEventType({ params }: { params: Promise<Params
           ]),
         ]}
       />
-      <Scheduler eventType={eventType} />
+      <BookUnavailableScreen
+        name={eventType.name}
+        durationMinutes={eventType.durationMinutes}
+      />
     </>
   );
 }

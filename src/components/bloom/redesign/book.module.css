@@ -38,6 +38,18 @@
   line-height: 1.55;
 }
 
+.lead a {
+  color: var(--fl-accent);
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.lead a:hover {
+  color: var(--fl-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
 .rule {
   height: 1px;
   background: var(--fl-line);
@@ -180,6 +192,20 @@
 
 .ctaOutline:hover {
   background: var(--fl-canvas);
+}
+
+.unavailable {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  align-self: flex-start;
+  margin: 1.15rem 0 0;
+  color: var(--fl-muted);
+  font-family: var(--fl-mono);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .how {

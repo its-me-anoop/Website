@@ -24,8 +24,6 @@ const ROUTES = [
   "/about",
   "/contact",
   "/book",
-  "/book/intro-call",
-  "/book/consultation",
   "/book/project-scoping",
   "/free-audit",
   "/accessibility",
