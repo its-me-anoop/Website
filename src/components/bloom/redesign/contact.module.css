@@ -119,6 +119,26 @@
   box-shadow: 0 12px 28px oklch(23.5% 0.05 55 / 0.1);
 }
 
+.callCardStatic {
+  box-shadow: none;
+}
+
+.callCardStatic:hover {
+  transform: none;
+  border-color: var(--fl-line);
+  box-shadow: none;
+}
+
+.unavailable {
+  margin-top: 1rem;
+  color: var(--fl-muted);
+  font-family: var(--fl-mono);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .callCard h2 {
   margin-top: 0.75rem;
   font-size: 1.5rem;

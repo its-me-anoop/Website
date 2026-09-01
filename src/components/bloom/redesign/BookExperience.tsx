@@ -1,19 +1,14 @@
-"use client";
-
-import { useMemo, useState } from "react";
 import Link from "next/link";
 import { eventTypes } from "@/features/booking/core/config";
-import type { EventTypeId } from "@/features/booking/core/types";
 import { site } from "@/lib/site";
-import { cal, calBookingUrl } from "@/lib/cal";
-import { CalEmbed } from "./CalEmbed";
+import { calBookingUrl } from "@/lib/cal";
 import styles from "./book.module.css";
 
 const founderFirstName = site.founder.split(" ")[0];
 
 const reassurances = [
   "No cost and no obligation for any first call",
-  "Powered by Cal.com — confirmation and calendar invite are instant",
+  "Video link sent by email once you book on Cal.com",
   "Times shown in your own timezone",
   "Reschedule from the Cal.com confirmation email whenever you need",
 ] as const;
@@ -23,26 +18,6 @@ function locationLabel(location: string) {
 }
 
 export function BookExperience() {
-  const [selectedId, setSelectedId] = useState<EventTypeId>(eventTypes[0]!.id);
-  const selected = useMemo(
-    () => eventTypes.find((eventType) => eventType.id === selectedId) ?? eventTypes[0]!,
-    [selectedId],
-  );
-
-  function selectCallType(id: EventTypeId) {
-    setSelectedId(id);
-    // Mobile: bring the Cal.com calendar into view after choosing a plan.
-    requestAnimationFrame(() => {
-      const reduceMotion =
-        typeof window !== "undefined" &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      document.getElementById("scheduler")?.scrollIntoView({
-        behavior: reduceMotion ? "auto" : "smooth",
-        block: "start",
-      });
-    });
-  }
-
   return (
     <div className={styles.page}>
       <header className={styles.head}>
@@ -67,16 +42,11 @@ export function BookExperience() {
       <ul className={styles.grid} aria-label="Call types">
         {eventTypes.map((eventType, index) => {
           const featured = index === 0;
-          const isSelected = eventType.id === selectedId;
+          const href = calBookingUrl(eventType.id);
           return (
             <li key={eventType.id} className={styles.gridItem}>
-              <button
-                type="button"
-                className={`${styles.card} ${featured ? styles.actionCard : ""} ${
-                  isSelected ? styles.cardSelected : ""
-                }`}
-                aria-pressed={isSelected}
-                onClick={() => selectCallType(eventType.id)}
+              <article
+                className={`${styles.card} ${featured ? styles.actionCard : ""}`}
               >
                 <p className={styles.meta}>
                   {eventType.durationMinutes} min · {locationLabel(eventType.location)}
@@ -88,65 +58,23 @@ export function BookExperience() {
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-                <span
-                  className={`${styles.cta} ${
-                    isSelected || featured ? styles.ctaFilled : styles.ctaOutline
-                  }`}
-                >
-                  {isSelected ? "Selected — pick a time below" : "Select"}
-                </span>
-              </button>
+                {href ? (
+                  <a
+                    className={`${styles.cta} ${
+                      featured ? styles.ctaFilled : styles.ctaOutline
+                    }`}
+                    href={href}
+                  >
+                    Pick a time
+                  </a>
+                ) : (
+                  <p className={styles.unavailable}>Not yet bookable online</p>
+                )}
+              </article>
             </li>
           );
         })}
       </ul>
-
-      <section
-        className={styles.scheduler}
-        aria-labelledby="scheduler-heading"
-        id="scheduler"
-      >
-        <div className={styles.schedulerHead}>
-          <div>
-            <p className={styles.eyebrow}>Cal.com</p>
-            <h2 id="scheduler-heading" className={styles.schedulerTitle}>
-              Book {selected.name}
-            </h2>
-            <p className={styles.schedulerLead}>
-              {selected.durationMinutes} minutes · {locationLabel(selected.location)}.
-              Pick a slot below — Cal.com confirms immediately.
-            </p>
-          </div>
-          {cal.enabled ? (
-            <a
-              className={styles.externalLink}
-              href={calBookingUrl(selected.id)}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open in Cal.com
-            </a>
-          ) : null}
-        </div>
-
-        {cal.enabled ? (
-          <CalEmbed
-            eventTypeId={selected.id}
-            title={`Book ${selected.name} on Cal.com`}
-          />
-        ) : (
-          <div className={styles.fallback}>
-            <p>
-              Live Cal.com booking needs <code>NEXT_PUBLIC_CAL_USERNAME</code>.
-              Until then you can use the on-site scheduler or email{" "}
-              <a href={`mailto:${site.email}`}>{site.email}</a>.
-            </p>
-            <Link href={`/book/${selected.id}`} className={styles.fallbackButton}>
-              Pick a time
-            </Link>
-          </div>
-        )}
-      </section>
 
       <div className={styles.rule} />
 
@@ -160,11 +88,38 @@ export function BookExperience() {
           ))}
         </ul>
         <p className={styles.email}>
-          Prefer email — or no times suit? Write to{" "}
-          <a href={`mailto:${site.email}`}>{site.email}</a> instead: both routes
-          get the same attention.
+          All three call types open on Cal.com in your own timezone. Prefer
+          email instead? Write to{" "}
+          <a href={`mailto:${site.email}`}>{site.email}</a>: both routes get
+          the same attention.
         </p>
       </section>
+    </div>
+  );
+}
+
+export function BookUnavailableExperience({
+  name,
+  durationMinutes,
+}: {
+  name: string;
+  durationMinutes: number;
+}) {
+  return (
+    <div className={styles.page}>
+      <header className={styles.head}>
+        <p className={styles.eyebrow}>Book a call</p>
+        <h1 className={styles.title}>{name} is not yet bookable online.</h1>
+        <p className={styles.lead}>
+          The {durationMinutes}-minute {name.toLowerCase()} session does not
+          have a Cal.com event yet, so this page is not a booking link. Email{" "}
+          <a href={`mailto:${site.email}`}>{site.email}</a> to arrange it, or
+          book a shorter call from the list.
+        </p>
+        <Link className={`${styles.cta} ${styles.ctaFilled}`} href="/book">
+          See call types
+        </Link>
+      </header>
     </div>
   );
 }

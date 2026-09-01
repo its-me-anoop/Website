@@ -167,16 +167,24 @@ describe("Flutterly redesign screens", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "Pick a time, skip the email tennis.",
     );
-    expect(screen.getByRole("heading", { name: /Book Intro call/i })).toBeInTheDocument();
-    expect(screen.getByTitle("Book Intro call on Cal.com")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Open in Cal.com" })).toHaveAttribute(
+    const pickLinks = screen.getAllByRole("link", { name: "Pick a time" });
+    expect(pickLinks).toHaveLength(3);
+    expect(pickLinks[0]).toHaveAttribute(
       "href",
-      expect.stringContaining("cal.com"),
+      "https://cal.com/anoop-jose-jtij1j/intro",
     );
-    const intro = screen.getByRole("button", { name: /Intro call/i });
-    expect(intro).toHaveAttribute("aria-pressed", "true");
-    fireEvent.click(screen.getByRole("button", { name: /Consultation/i }));
-    expect(screen.getByRole("heading", { name: /Book Consultation/i })).toBeInTheDocument();
+    expect(pickLinks[1]).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/consultation",
+    );
+    expect(pickLinks[2]).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/project-scoping",
+    );
+    expect(screen.queryByText(/Not yet bookable online/i)).toBeNull();
+    expect(screen.getByRole("heading", { name: "Intro call" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Consultation" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Project scoping" })).toBeInTheDocument();
     expect(book.container.querySelector("[data-hero-grain]")).toBeNull();
   });
 
@@ -219,15 +227,18 @@ describe("Flutterly redesign screens", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "Email Anoop. Or book a call.",
     );
-    [
-      ["Fit check", "/book/intro-call"],
-      ["Scope talk", "/book/consultation"],
-      ["Walkthrough", "/book/project-scoping"],
-    ].forEach(([name, href]) => {
-      expect(screen.getByRole("link", { name: new RegExp(name) })).toHaveAttribute(
-        "href",
-        href,
-      );
-    });
+    expect(screen.getByRole("link", { name: /Fit check/i })).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/intro",
+    );
+    expect(screen.getByRole("link", { name: /Scope talk/i })).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/consultation",
+    );
+    expect(screen.getByRole("link", { name: /Walkthrough/i })).toHaveAttribute(
+      "href",
+      "https://cal.com/anoop-jose-jtij1j/project-scoping",
+    );
+    expect(screen.queryByText(/Not yet bookable online/i)).toBeNull();
   });
 });

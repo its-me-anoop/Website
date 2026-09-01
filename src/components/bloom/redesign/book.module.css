@@ -73,12 +73,14 @@
 
 .card {
   display: flex;
+  width: 100%;
   min-width: 0;
   flex-direction: column;
   border: 1px solid var(--fl-line);
   border-radius: 0.875rem;
   background: var(--fl-surface);
   padding: 1.35rem 1.25rem 1.4rem;
+  color: inherit;
   transition:
     transform var(--fl-duration-card) var(--fl-ease),
     border-color var(--fl-duration-card) var(--fl-ease),
@@ -89,30 +91,10 @@
   transform: translateY(var(--fl-lift-card));
 }
 
-.card:active {
-  transform: translateY(0);
-  transition-duration: var(--fl-duration-press);
-}
-
-.cardSelected {
-  border-color: var(--fl-accent);
-  background: color-mix(in srgb, var(--fl-accent-soft) 55%, var(--fl-surface));
-  box-shadow: inset 0 0 0 1px var(--fl-accent);
-}
-
 /* Intro call is the action: accent hover, not a generic card lift. */
 .actionCard:hover {
   border-color: var(--fl-accent);
   background: color-mix(in srgb, var(--fl-accent-soft) 72%, var(--fl-surface));
-}
-
-.card {
-  width: 100%;
-  cursor: pointer;
-  text-align: left;
-  appearance: none;
-  color: inherit;
-  font: inherit;
 }
 
 .meta {
@@ -204,6 +186,20 @@
 
 .ctaOutline:hover {
   background: var(--fl-canvas);
+}
+
+.unavailable {
+  display: inline-flex;
+  width: 100%;
+  min-height: 3.25rem;
+  align-items: center;
+  margin: 1.15rem 0 0;
+  color: var(--fl-muted);
+  font-family: var(--fl-mono);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .scheduler {

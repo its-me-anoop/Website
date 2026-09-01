@@ -1,33 +1,40 @@
 # Appointment Booking
 
-Public booking on `/book` embeds **Cal.com** (dark theme) so clients
-pick a call type and book into the live Cal.com diary. Set
-`NEXT_PUBLIC_CAL_USERNAME` (and optional event slug overrides) — see
-`.env.example` and `src/lib/cal.ts`.
+Public `/book` (and matching Contact cards) open **Cal.com public event
+URLs**. No Cal.com API, embed, or invented slugs.
 
-The built-in scheduler remains as a fallback when Cal.com is not
-configured, and for `/book/manage`. Availability maths and calendar
-files for that path are hand-rolled on Intl with JSON-file storage.
+Username defaults to **`anoop-jose-jtij1j`**. `cal.com/flutterly` is a
+404 and is not used. Override via `NEXT_PUBLIC_CAL_USERNAME` and
+`NEXT_PUBLIC_CAL_EVENT_*` — see `.env.example` and `src/lib/cal.ts`.
+
+### Live wiring (Olivia’s product events, verified 2026-09-01)
+
+| Site call type | Duration | Wired URL |
+|---|---|---|
+| Intro call | 15 min | https://cal.com/anoop-jose-jtij1j/intro |
+| Consultation | 30 min | https://cal.com/anoop-jose-jtij1j/consultation |
+| Project scoping | 60 min | https://cal.com/anoop-jose-jtij1j/project-scoping |
+
+Do **not** use `short-discovery-meeting` or `30-minutes-meeting` for
+Flutterly `/book` — those are not the product booking types.
+
+The built-in scheduler remains for `/book/manage` and as a last-resort
+fallback. Availability maths and calendar files for that path are
+hand-rolled on Intl with JSON-file storage.
 
 ## Client journey
 
-1. **`/book`** — choose a call type: intro call (15 min), consultation
-   (30 min) or project scoping (60 min). All free video calls. The
-   matching Cal.com embed loads below the cards.
-2. **`/book/[eventType]`** — deep link for one call type. With Cal.com
-   configured, the same embed opens for that event; otherwise the
-   on-site month calendar shows open slots in the visitor's timezone.
-   When the owner has no availability configured — the default — the
-   fallback scheduler shows a clear "booking is paused" panel with an
-   email option instead.
+1. **`/book`** — choose a call type. Each “Pick a time” CTA opens the
+   matching live Cal.com URL above.
+2. **`/book/[eventType]`** — deep links redirect to the matching
+   Cal.com event.
 3. **Confirmation** — Cal.com handles confirmation, calendar invites
-   and reschedule links. The fallback path still issues a booking
-   reference, `.ics` download and Google Calendar link.
+   and reschedule links.
 
 ## Owner platform: availability
 
-Booking ships **closed**: there are no built-in working hours, so
-nobody can book until the owner opens some. Availability is managed at
+Booking ships **closed** for the on-site fallback scheduler: there are
+no built-in working hours. Availability for that path is managed at
 **`/book/manage`** (sign in with `BOOKING_ADMIN_TOKEN`):
 
 - add or remove recurring weekly windows (day + start/end, host
