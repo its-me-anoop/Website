@@ -42,7 +42,8 @@ export function CalEmbed({ className }: { className?: string }) {
 
   return (
     <div className={cn("w-full", className)}>
-      <div className="min-h-[560px] overflow-hidden rounded-[18px] bg-k-paper ring-1 ring-k-line sm:min-h-[640px]">
+      {/* Cal draws its own bordered card; reserve height around it only. */}
+      <div className="min-h-[560px] overflow-hidden rounded-[18px] sm:min-h-[600px]">
         <Cal
           namespace={NAMESPACE}
           calLink={site.booking.calLink}
