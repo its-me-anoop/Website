@@ -39,7 +39,7 @@ export function KilnHome() {
               Ready to give the people you serve a better <em>front door</em>?
             </>
           }
-          copy="A practice website, a care home, a clinic or a product idea: start with a conversation, or a free written audit of what you have today."
+          copy="A GP practice website, a care home website or a product idea: start with a conversation, or a free written audit of what you have today."
         />
       </div>
     </KilnShell>

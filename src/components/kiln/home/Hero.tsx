@@ -202,10 +202,9 @@ export function Hero() {
       <div className="mx-auto mt-10 flex w-full max-w-[1280px] flex-col items-center px-5 pb-16 text-center sm:mt-14 sm:px-8 sm:pb-24 lg:mt-16">
         <Rise delay={0.35}>
           <p className="mx-auto max-w-[600px] text-[16px] leading-[1.6] text-k-ink-soft sm:text-[17.5px]">
-            Flutterly designs and builds websites for GP practices, care homes,
-            dental practices, pharmacies and clinics. Custom-coded in Reading,
-            accessible to WCAG 2.2 AA, and looked after by the person who built
-            them.
+            Flutterly designs and builds websites for GP practices and care
+            homes. Custom-coded in Reading, Berkshire, accessible to WCAG 2.2
+            AA, and looked after by the person who built them.
           </p>
         </Rise>
         <Rise delay={0.45} className="mt-8 flex w-full justify-center sm:mt-9">

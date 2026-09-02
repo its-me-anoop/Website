@@ -18,9 +18,8 @@ export function Footer() {
               <span className="k-display text-[26px] leading-none">Flutterly</span>
             </div>
             <p className="mt-5 max-w-[320px] text-[15px] leading-[1.6] text-k-coal-soft">
-              An independent product studio in Reading, UK. Websites for GP
-              practices, care homes, dental practices, pharmacies and clinics,
-              plus the occasional app.
+              An independent product studio in Reading, Berkshire. Websites
+              for GP practices and care homes, plus web and mobile products.
             </p>
             <ul className="mt-7 space-y-2 text-[15px]">
               {[
