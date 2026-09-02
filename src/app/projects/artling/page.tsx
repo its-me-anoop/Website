@@ -13,9 +13,10 @@ export const metadata: Metadata = {
     canonical: "/projects/artling",
   },
   openGraph: {
-    title: `${title} | Flutterly Ltd`,
+    title: `${title} — ${site.studio}`,
     description,
     url: "/projects/artling",
+    type: "website",
     images: [
       {
         url: "/projects/artling/fox-painter.png",
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${title} | Flutterly Ltd`,
+    title: `${title} — ${site.studio}`,
     description,
     images: ["/projects/artling/fox-painter.png"],
   },

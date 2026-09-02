@@ -4,12 +4,26 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/lib/site";
 
+const title = "Artling — Privacy Policy";
+const description =
+  "Privacy policy for Artling, the iOS app for preserving children's artwork. No accounts, no developer servers — everything stays on your device and in your private iCloud.";
+
 export const metadata: Metadata = {
-  title: "Artling — Privacy Policy",
-  description:
-    "Privacy policy for Artling, the iOS app for preserving children's artwork. No accounts, no developer servers — everything stays on your device and in your private iCloud.",
+  title,
+  description,
   alternates: {
     canonical: "/projects/artling/privacy-policy",
+  },
+  openGraph: {
+    title: `${title} — ${site.studio}`,
+    description,
+    url: "/projects/artling/privacy-policy",
+    type: "article",
+  },
+  twitter: {
+    card: "summary",
+    title: `${title} — ${site.studio}`,
+    description,
   },
 };
 

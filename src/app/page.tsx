@@ -2,12 +2,14 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { KilnHome } from "@/components/kiln/home/KilnHome";
 
-const title = "Websites for GP practices, care homes and clinics";
+const title = "Websites for GP practices and care homes";
 const description =
-  "Flutterly designs and builds accessible, fast websites for GP practices, care homes, dental practices, pharmacies and clinics. Custom-coded in Reading, UK, never a template, and looked after by the person who built them.";
+  "Flutterly designs and builds accessible, fast websites for GP practices and care homes. Custom-coded in Reading, Berkshire, never a template, and looked after by the person who built them.";
 
 export const metadata: Metadata = {
-  title,
+  /* The root layout's title template only applies to child segments, so
+     the homepage sets its full title itself to keep the brand in it. */
+  title: { absolute: `Flutterly — ${title}` },
   description,
   alternates: { canonical: "/" },
   openGraph: {
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
         url: site.ogImage,
         width: 1200,
         height: 630,
-        alt: "Flutterly: websites for GP practices, care homes and clinics",
+        alt: "Flutterly: websites for GP practices and care homes",
       },
     ],
   },

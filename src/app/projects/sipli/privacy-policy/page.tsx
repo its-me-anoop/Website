@@ -4,12 +4,26 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/lib/site";
 
+const title = "Sipli — Privacy Policy";
+const description =
+  "Privacy policy for Sipli, the iOS hydration tracking app with on-device AI.";
+
 export const metadata: Metadata = {
-  title: "Sipli — Privacy Policy",
-  description:
-    "Privacy policy for Sipli, the iOS hydration tracking app with on-device AI.",
+  title,
+  description,
   alternates: {
     canonical: "/projects/sipli/privacy-policy",
+  },
+  openGraph: {
+    title: `${title} — ${site.studio}`,
+    description,
+    url: "/projects/sipli/privacy-policy",
+    type: "article",
+  },
+  twitter: {
+    card: "summary",
+    title: `${title} — ${site.studio}`,
+    description,
   },
 };
 

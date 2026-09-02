@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { site } from "@/lib/site";
 import { DentalShell } from "@/components/demos/dental/DentalShell";
 
 export const metadata: Metadata = {
@@ -11,6 +12,21 @@ export const metadata: Metadata = {
   /* Demo pages are linked from the site but kept out of search results
      so a fictional practice never appears in local search. */
   robots: { index: false, follow: true },
+  /* Own Open Graph URL and title so a shared demo link does not
+     inherit the homepage card from the root layout. */
+  openGraph: {
+    title: `Kennet Bridge Dental — sample dental practice website — ${site.studio}`,
+    url: "/demo/dental-practice",
+    type: "website",
+    siteName: site.studio,
+    locale: site.locale,
+    images: [{ url: site.ogImage, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Kennet Bridge Dental — sample dental practice website — ${site.studio}`,
+    images: [site.ogImage],
+  },
 };
 
 export const viewport: Viewport = {

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     canonical: "/projects/sipli",
   },
   openGraph: {
-    title: `${title} | Flutterly Ltd`,
+    title: `${title} — ${site.studio}`,
     description,
     url: "/projects/sipli",
     type: "website",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${title} | Flutterly Ltd`,
+    title: `${title} — ${site.studio}`,
     description,
     images: [heroImage],
   },

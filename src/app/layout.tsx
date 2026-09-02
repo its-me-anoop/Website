@@ -32,11 +32,18 @@ const switzer = localFont({
   adjustFontFallback: "Arial",
 });
 
+/* Syne and Space Grotesk are only used by the care-home and physio demo
+   display styles, and JetBrains Mono only sits behind a CSS variable, so
+   none of them should be preloaded on every marketing page: the extra
+   font requests compete with the hero images for bandwidth before LCP.
+   The @font-face rules still ship, so the demos load them on demand. */
+
 const syne = localFont({
   src: "../fonts/syne-latin-var.woff2",
   weight: "400 800",
   variable: "--font-syne-v",
   display: "swap",
+  preload: false,
 });
 
 const grotesk = localFont({
@@ -44,6 +51,7 @@ const grotesk = localFont({
   weight: "300 700",
   variable: "--font-grotesk-v",
   display: "swap",
+  preload: false,
 });
 
 const jbMono = localFont({
@@ -51,56 +59,46 @@ const jbMono = localFont({
   weight: "100 800",
   variable: "--font-jb-v",
   display: "swap",
+  preload: false,
 });
+
+const siteTitle = `${site.studio} — Websites for GP practices and care homes`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
+    default: siteTitle,
     template: `%s — ${site.studio}`,
   },
   description: site.description,
   applicationName: site.studio,
   category: "technology",
-  keywords: [
-    "GP practice websites",
-    "GP surgery website design",
-    "care home websites",
-    "care home web design UK",
-    "healthcare website design",
-    "accessible website design",
-    "NHS website standards",
-    "web developer UK",
-    "Next.js developer",
-    "SwiftUI developer",
-    "Flutter developer",
-    "Reading UK developer",
-    "Flutterly",
-    "Anoop Jose",
-  ],
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   publisher: site.legalName,
-  alternates: { canonical: "/" },
+  /* No site-wide `alternates.canonical`: a root value cascades to every
+     route that does not override it, which previously gave the noindex
+     demo pages a canonical pointing at the homepage. Each indexable page
+     declares its own canonical instead. */
   openGraph: {
     type: "website",
     url: site.url,
     siteName: site.studio,
     locale: site.locale,
-    title: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
+    title: siteTitle,
     description: site.description,
     images: [
       {
         url: site.ogImage,
         width: 1200,
         height: 630,
-        alt: `${site.studio} — websites for GP practices, care homes and ambitious products`,
+        alt: `${site.studio} — websites for GP practices and care homes`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
+    title: siteTitle,
     description: site.description,
     images: [site.ogImage],
   },
@@ -156,9 +154,13 @@ function JsonLd() {
     ],
   };
 
+  /* A ProfessionalService is a LocalBusiness, which fits a studio serving
+     clients from a fixed base in Reading; Organization is kept alongside
+     so `@id` references from Service and Person nodes stay valid. Only
+     services visible on the site are offered here. */
   const organization = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "ProfessionalService"],
     "@id": `${site.url}#organization`,
     name: site.legalName,
     alternateName: site.studio,
@@ -169,8 +171,9 @@ function JsonLd() {
       width: 900,
       height: 900,
     },
+    image: `${site.url}${site.ogImage}`,
     description:
-      "Flutterly is a UK product studio designing and engineering accessible websites for GP practices and care homes, plus fast, polished web and mobile apps.",
+      "Flutterly is an independent studio in Reading, Berkshire, designing and building accessible websites for GP practices and care homes, plus web and mobile products.",
     address: { "@type": "PostalAddress", ...site.address },
     contactPoint: [
       {
@@ -194,44 +197,29 @@ function JsonLd() {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "GP Practice Website Design",
+          name: "GP practice website design",
+          url: `${site.url}/gp-websites`,
           description:
-            "Accessible, fast websites for GP practices with NHS signposting, self-serve patient journeys and a WCAG 2.2 AA accessibility target.",
+            "Accessible, fast websites for GP practices with clear signposting, self-serve patient journeys and a WCAG 2.2 AA accessibility target.",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Care Home Website Design",
+          name: "Care home website design",
+          url: `${site.url}/care-home-websites`,
           description:
-            "Warm, trustworthy websites for care homes — designed for families, with CQC transparency, admissions journeys and recruitment built in.",
+            "Warm, trustworthy websites for care homes, designed for families, with CQC transparency, admissions journeys and recruitment built in.",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Web Application Development",
+          name: "Web and mobile product development",
           description:
-            "Production-ready web apps with Next.js, React and TypeScript.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Mobile App Development",
-          description:
-            "Native and cross-platform mobile apps with SwiftUI and Flutter.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Product Design & Strategy",
-          description: "UI/UX design, design systems and product strategy.",
+            "Web apps with Next.js, React and TypeScript, and iOS apps with SwiftUI, such as Sipli and Artling.",
         },
       },
     ],
@@ -242,7 +230,8 @@ function JsonLd() {
     "@type": "WebSite",
     "@id": `${site.url}#website`,
     url: site.url,
-    name: `${site.studio} — Websites for GP practices, care homes & ambitious products`,
+    name: site.studio,
+    alternateName: site.legalName,
     description: site.description,
     publisher: { "@id": `${site.url}#organization` },
     inLanguage: "en-GB",
