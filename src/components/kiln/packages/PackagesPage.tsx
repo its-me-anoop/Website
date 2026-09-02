@@ -23,14 +23,15 @@ export function PackagesPage() {
           </Rise>
           <Rise delay={0.06}>
             <Display as="h1" size="xl" className="mt-6 max-w-[16ch]">
-              Clear packages. <em>Honest</em> quotes.
+              Clear packages. <em>Honest</em> prices.
             </Display>
           </Rise>
           <Rise delay={0.14}>
             <p className="mx-auto mt-7 max-w-[600px] text-[17.5px] leading-[1.6] text-k-coal-soft">
-              Every organisation is different, so pricing is tailored, never
-              vague. After a short call you get a written, fixed quote within
-              two working days, and it does not change afterwards.
+              Essentials is a one-off build with year-one hosting included.
+              Standard adds a monthly care plan. Partnership is for
+              organisations that want a digital partner, quoted after a short
+              call. All prices exclude VAT.
             </p>
           </Rise>
         </div>
@@ -62,7 +63,7 @@ export function PackagesPage() {
       <section className="mx-auto w-full max-w-[860px] px-5 py-24 sm:px-8 sm:py-32">
         <SectionHead
           eyebrow="Questions"
-          title="Before you ask for a quote."
+          title="Before you get in touch."
           align="left"
           size="md"
         />

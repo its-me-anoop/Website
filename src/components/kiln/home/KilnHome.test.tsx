@@ -122,7 +122,15 @@ describe("KilnHome", () => {
       expect(screen.getByRole("heading", { level: 3, name: step })).toBeInTheDocument();
     });
 
-    expect(screen.getAllByRole("link", { name: /get a tailored quote/i })).toHaveLength(3);
+    expect(screen.getByRole("heading", { name: "Essentials" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Standard" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Partnership" })).toBeInTheDocument();
+    expect(screen.getByText("£995")).toBeInTheDocument();
+    expect(screen.getByText("£1,490")).toBeInTheDocument();
+    expect(screen.getByText("Most popular")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /enquire about essentials/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /enquire about standard/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /talk about partnership/i })).toBeInTheDocument();
 
     expect(
       screen.getAllByText(new RegExp(`© ${new Date().getFullYear()}`)).length

@@ -6,7 +6,7 @@ import { packagesFaq } from "@/components/kiln/data";
 import { PackagesPage } from "@/components/kiln/packages/PackagesPage";
 
 const description =
-  "Website packages for GP practices, care homes and growing organisations — custom design and build, managed care plans and ongoing partnership, with fixed written quotes.";
+  "Website packages for GP practices and care homes. Essentials from £995 plus VAT with year-one hosting. Standard from £1,490 plus £49 a month. Partnership quoted after a short call.";
 
 export const metadata: Metadata = {
   title: "Packages & pricing",

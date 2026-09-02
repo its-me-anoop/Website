@@ -376,8 +376,8 @@ export const auditPromises = [
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────
-   Packages. Presented without hard prices: quotes are tailored
-   after a short scoping call, mirroring how the studio works.
+   Packages. Essentials and Standard publish a figure; Partnership
+   is scoped after a short call. All prices exclude VAT.
    ───────────────────────────────────────────────────────────── */
 
 export type Package = {
@@ -386,6 +386,13 @@ export type Package = {
   copy: string;
   features: readonly string[];
   featured?: boolean;
+  /** Large figure, or a short stand-in for quoted work. */
+  price: string;
+  /** Cadence / VAT line under the figure. */
+  pricePeriod: string;
+  /** Optional extra, e.g. year-1 hosting. */
+  priceNote?: string;
+  cta: string;
 };
 
 export const packages: readonly Package[] = [
@@ -393,11 +400,15 @@ export const packages: readonly Package[] = [
     name: "Essentials",
     strap: "A focused site, done properly",
     copy: "For a practice or home that needs a clear, accessible website without ongoing extras.",
+    price: "£995",
+    pricePeriod: "one-off + VAT",
+    priceNote: "Hosting year 1 included. Then £10/month if you stay.",
+    cta: "Enquire about Essentials",
     features: [
       "Custom design and build, no themes or page builders",
       "Up to eight core pages, written in plain English",
       "WCAG 2.2 AA accessibility target with a published statement",
-      "UK-served hosting, SSL and daily backups set up",
+      "UK-served hosting, SSL and daily backups included for year 1",
       "Local SEO foundations and Google Business guidance",
       "Training so your team can edit with confidence",
     ],
@@ -406,6 +417,9 @@ export const packages: readonly Package[] = [
     name: "Standard",
     strap: "Build plus a care plan",
     copy: "The full build with Flutterly looking after hosting, updates and small changes month to month.",
+    price: "£1,490",
+    pricePeriod: "+ £49/month + VAT",
+    cta: "Enquire about Standard",
     features: [
       "Everything in Essentials",
       "Larger sitemap with news, vacancies and forms",
@@ -417,9 +431,12 @@ export const packages: readonly Package[] = [
     featured: true,
   },
   {
-    name: "Complete",
+    name: "Partnership",
     strap: "An ongoing digital partner",
     copy: "For organisations that want the website continuously improved, not just maintained.",
+    price: "Quoted",
+    pricePeriod: "After a short scoping call",
+    cta: "Talk about Partnership",
     features: [
       "Everything in Standard",
       "Content writing and photography direction",
@@ -434,7 +451,7 @@ export const packages: readonly Package[] = [
 export const packagesFaq = [
   {
     q: "How much does a website cost?",
-    a: "It depends on the size of the site and how much ongoing help you want, so every quote is prepared individually after a short call. You will have a written, fixed quote within two working days, and it does not change afterwards.",
+    a: "Essentials is £995 one-off plus VAT, with hosting included for the first year and £10 a month if you stay afterwards. Standard is £1,490 plus £49 a month, plus VAT. Partnership is scoped after a short call, with a written quote within two working days.",
   },
   {
     q: "How long does a build take?",
@@ -454,7 +471,7 @@ export const packagesFaq = [
   },
   {
     q: "Where is the website hosted?",
-    a: "On UK-served edge infrastructure with SSL, daily backups and monitoring included. There is no plugin stack to patch, which removes the most common source of small-site security incidents.",
+    a: "On UK-served edge infrastructure with SSL, daily backups and monitoring. Essentials includes hosting for the first year, then £10 a month if you stay. Standard and Partnership include managed hosting in the monthly fee. There is no plugin stack to patch, which removes the most common source of small-site security incidents.",
   },
 ] as const;
 

@@ -7,8 +7,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Three ways to work together. Paper cards on coal, serif names,
- * plain lists. Quotes are tailored, so the number that would sit in
- * a price slot is replaced by what each package is for.
+ * a published figure, then a plain list.
  */
 export function PackageCard({
   pkg,
@@ -38,16 +37,19 @@ export function PackageCard({
       >
         <div className="flex items-start justify-between gap-3">
           <Heading className="k-display text-[32px] leading-none">{pkg.name}</Heading>
-          {pkg.featured ? <Tag tone="fire">Most chosen</Tag> : null}
+          {pkg.featured ? <Tag tone="fire">Most popular</Tag> : null}
         </div>
         <p className="mt-2 text-[15px] text-k-ink-soft">{pkg.strap}</p>
-        <p className="k-display mt-8 text-[clamp(1.35rem,1.9vw,1.6rem)] leading-[1.2] text-k-ink">
-          {pkg.copy}
+        <p className="k-display mt-8 text-[clamp(2.1rem,3.4vw,2.75rem)] leading-none text-k-ink">
+          {pkg.price}
         </p>
-        <div className="mt-7 flex items-center gap-2">
-          <Tag>Quoted individually</Tag>
-          <Tag tone="butter">Fixed price</Tag>
-        </div>
+        <p className="mt-2 text-[15px] leading-[1.45] text-k-ink-soft">{pkg.pricePeriod}</p>
+        {pkg.priceNote ? (
+          <p className="mt-2 max-w-[38ch] text-[14.5px] leading-[1.5] text-k-ink-soft">
+            {pkg.priceNote}
+          </p>
+        ) : null}
+        <p className="mt-5 text-[15.5px] leading-[1.55] text-k-ink">{pkg.copy}</p>
         <ul className="mt-6 space-y-2.5 border-t border-k-line pt-6">
           {pkg.features.map((feature) => (
             <CheckItem key={feature}>{feature}</CheckItem>
@@ -56,12 +58,12 @@ export function PackageCard({
         <div className="mt-auto pt-8">
           <BtnLink
             href={`mailto:${site.email}?subject=${encodeURIComponent(
-              `Quote request: ${pkg.name} package`
+              `Enquiry: ${pkg.name} package`
             )}`}
             tone={pkg.featured ? "fire" : "coal"}
             className="w-full"
           >
-            Get a tailored quote
+            {pkg.cta}
           </BtnLink>
         </div>
       </article>
@@ -82,8 +84,8 @@ export function PackagesTeaser() {
           </Rise>
           <Rise delay={0.08}>
             <p className="max-w-[380px] text-[15px] leading-[1.55] text-k-coal-soft sm:text-[15.5px] sm:text-right">
-              Every quote is written and fixed within two working days of a
-              short call. Nothing changes afterwards.
+              Published prices, plus VAT. Partnership is scoped after a short
+              call, with a written quote within two working days.
             </p>
           </Rise>
         </div>
