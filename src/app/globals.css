@@ -87,31 +87,34 @@
   --signal: var(--accent);
   --signal-ink: var(--accent-ink);
 
-  /* ── "Bloom" service-site palette ─────────────────────────────
-     The marketing routes (home, sectors, packages, audit) run a
-     clean healthcare language: near-white canvas with soft mint
-     bands, deep pine ink, one teal action colour, plus an NHS
-     blue accent for GP practices and a warm amber accent for
-     care homes. Case-study pages stay on the Porcelain ramp. */
-  --bl-canvas: #fafcfb; /* page */
-  --bl-band: #eff6f2; /* soft mint section band */
-  --bl-band-2: #f5faf7; /* barely-raised band */
-  --bl-surface: #ffffff; /* cards */
-  --bl-ink: #10312a; /* primary text */
-  --bl-ink-soft: #48635b; /* secondary text */
-  --bl-muted: #5e7268; /* captions / labels — AA on canvas & bands */
-  --bl-line: rgba(16, 49, 42, 0.09);
-  --bl-line-2: rgba(16, 49, 42, 0.16);
-  --bl-pine: #0b2f28; /* dark bands, footer */
-  --bl-pine-2: #123f36; /* raised cards on pine */
-  --bl-pine-ink: #eaf3ef; /* text on pine */
-  --bl-teal: #0e7a63; /* the one action colour */
-  --bl-teal-hover: #0c6a56;
-  --bl-teal-soft: #dcefe7;
-  --bl-nhs: #005eb8; /* GP practice accent */
-  --bl-nhs-soft: #e8f1fa;
-  --bl-amber: #a96417; /* care home accent */
-  --bl-amber-soft: #f7efe1;
+  /* ── "Kiln" marketing palette ───────────────────────────────────
+     The marketing routes (home, sectors, packages, audit,
+     accessibility) run a two-tone editorial language: a warm bone
+     canvas, deep coal bands, Zodiak serif display type, and one
+     fired vermilion for actions with butter yellow as the quiet
+     second highlight. Case-study pages stay on the Porcelain ramp;
+     demo sites have their own scopes further down. Every pairing
+     below is measured against WCAG 2.2 AA. */
+  --k-bone: #f3f0ea; /* page canvas */
+  --k-bone-2: #e9e4db; /* deeper band on bone */
+  --k-paper: #faf8f4; /* raised surfaces on bone */
+  --k-ink: #17140f; /* primary text on bone */
+  --k-ink-soft: #4a443c; /* secondary text on bone (≈8.5:1) */
+  --k-muted: #6b645a; /* captions on bone (≈5.1:1) */
+  --k-line: rgba(23, 20, 15, 0.1);
+  --k-line-2: rgba(23, 20, 15, 0.2);
+  --k-coal: #141210; /* dark bands and footer */
+  --k-coal-2: #211e1a; /* raised surfaces on coal */
+  --k-coal-3: #2c2823; /* hover / pressed on coal */
+  --k-coal-ink: #f3f0ea; /* text on coal */
+  --k-coal-soft: #b9b2a6; /* secondary text on coal (≈9:1) */
+  --k-coal-line: rgba(243, 240, 234, 0.12);
+  --k-fire: #bf3a15; /* the action colour; bone text on it ≈4.8:1 */
+  --k-fire-hover: #a83210;
+  --k-fire-soft: #f6dccf; /* tint behind fire accents on bone */
+  --k-fire-lite: #ff8a5b; /* fire as text on coal (≈8:1) */
+  --k-butter: #f1e27c; /* second highlight: tags, secondary action */
+  --k-butter-soft: #f8f1c4;
 }
 
 /* Sipli case study: light aqua product palette */
@@ -189,25 +192,26 @@
   --color-pink: var(--pink);
   --color-green: var(--green);
 
-  --color-bl-canvas: var(--bl-canvas);
-  --color-bl-band: var(--bl-band);
-  --color-bl-band-2: var(--bl-band-2);
-  --color-bl-surface: var(--bl-surface);
-  --color-bl-ink: var(--bl-ink);
-  --color-bl-ink-soft: var(--bl-ink-soft);
-  --color-bl-muted: var(--bl-muted);
-  --color-bl-line: var(--bl-line);
-  --color-bl-line-2: var(--bl-line-2);
-  --color-bl-pine: var(--bl-pine);
-  --color-bl-pine-2: var(--bl-pine-2);
-  --color-bl-pine-ink: var(--bl-pine-ink);
-  --color-bl-teal: var(--bl-teal);
-  --color-bl-teal-hover: var(--bl-teal-hover);
-  --color-bl-teal-soft: var(--bl-teal-soft);
-  --color-bl-nhs: var(--bl-nhs);
-  --color-bl-nhs-soft: var(--bl-nhs-soft);
-  --color-bl-amber: var(--bl-amber);
-  --color-bl-amber-soft: var(--bl-amber-soft);
+  --color-k-bone: var(--k-bone);
+  --color-k-bone-2: var(--k-bone-2);
+  --color-k-paper: var(--k-paper);
+  --color-k-ink: var(--k-ink);
+  --color-k-ink-soft: var(--k-ink-soft);
+  --color-k-muted: var(--k-muted);
+  --color-k-line: var(--k-line);
+  --color-k-line-2: var(--k-line-2);
+  --color-k-coal: var(--k-coal);
+  --color-k-coal-2: var(--k-coal-2);
+  --color-k-coal-3: var(--k-coal-3);
+  --color-k-coal-ink: var(--k-coal-ink);
+  --color-k-coal-soft: var(--k-coal-soft);
+  --color-k-coal-line: var(--k-coal-line);
+  --color-k-fire: var(--k-fire);
+  --color-k-fire-hover: var(--k-fire-hover);
+  --color-k-fire-soft: var(--k-fire-soft);
+  --color-k-fire-lite: var(--k-fire-lite);
+  --color-k-butter: var(--k-butter);
+  --color-k-butter-soft: var(--k-butter-soft);
 
   /* Semantic + legacy aliases */
   --color-background: var(--background);
@@ -230,6 +234,9 @@
   --font-syne: var(--font-syne-v), "Syne", var(--font-display);
   --font-grotesk: var(--font-grotesk-v), "Space Grotesk", var(--font-sans);
   --font-jb: var(--font-jb-v), "JetBrains Mono", var(--font-mono);
+  /* Kiln marketing pages: Zodiak serif display over Switzer body. */
+  --font-zodiak: var(--font-zodiak-v), "Zodiak", Georgia, "Times New Roman", serif;
+  --font-switzer: var(--font-switzer-v), "Switzer", var(--font-sans);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -365,67 +372,199 @@ p {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Bloom — marketing-site design language
-   Clean near-white canvas with mint bands, deep pine ink, teal
-   actions, generous card geometry and calm rise-in motion. Used
-   by the home, sector, packages, audit and accessibility routes
-   via `.bloom-root` so Porcelain case-study pages are untouched.
+   Kiln — marketing-site design language
+   Warm bone canvas, deep coal bands, Zodiak serif display over a
+   Switzer body, one fired vermilion for actions and butter yellow
+   as the second highlight. Used by the home, sector, packages,
+   audit and accessibility routes via `.kiln-root`, so Porcelain
+   case-study pages and the demo sites are untouched.
    ───────────────────────────────────────────────────────────── */
 
-/* Canvas chrome (overscroll, scrollbars) while a Bloom page is
-   mounted. */
-html:has(.bloom-root) {
-  background: var(--bl-canvas);
+/* Canvas chrome (overscroll, scrollbars) while a Kiln page is
+   mounted. The footer is coal, so overscroll past the bottom is
+   coal too. */
+html:has(.kiln-root) {
+  background: var(--k-coal);
 }
-html:has(.bloom-root)::-webkit-scrollbar-track {
-  background: var(--bl-canvas);
+html:has(.kiln-root)::-webkit-scrollbar-track {
+  background: var(--k-bone);
 }
-html:has(.bloom-root)::-webkit-scrollbar-thumb {
-  background: #cfdcd6;
-  border-color: var(--bl-canvas);
+html:has(.kiln-root)::-webkit-scrollbar-thumb {
+  background: #cdc6ba;
+  border-color: var(--k-bone);
 }
-html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
-  background: var(--bl-muted);
-}
-
-.bloom-root {
-  font-family: var(--font-grotesk);
-  letter-spacing: -0.01em;
-}
-.bloom-root ::selection {
-  background: var(--bl-teal);
-  color: #fff;
-}
-.bloom-root :focus-visible {
-  outline-color: var(--bl-teal);
+html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
+  background: var(--k-muted);
 }
 
-/* Frosted chrome for the Bloom sticky nav. */
-.bl-frost {
-  background: rgba(250, 252, 251, 0.82);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
+.kiln-root {
+  font-family: var(--font-switzer);
+  letter-spacing: 0;
+  font-feature-settings: "ss01", "cv01";
+}
+.kiln-root ::selection {
+  background: var(--k-fire);
+  color: var(--k-bone);
+}
+.kiln-root :focus-visible {
+  outline: 2px solid var(--k-fire);
+  outline-offset: 3px;
+}
+.kiln-root .on-coal :focus-visible,
+.kiln-root.on-coal :focus-visible {
+  outline-color: var(--k-fire-lite);
+}
+
+/* Display type. Zodiak is drawn for large sizes: regular weight,
+   tight tracking, line-height close to 1. Emphasis is italic, not
+   bold. */
+.k-display {
+  font-family: var(--font-zodiak);
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  line-height: 1.02;
+  text-wrap: balance;
+  font-feature-settings: "kern", "liga";
+}
+.k-display em,
+.k-display i {
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Tiny tracked label used as a section opener. */
+.k-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Dark floating chrome (nav pill, menu sheet). Saturated blur with
+   a solid fallback under reduced transparency. */
+.k-frost {
+  background: rgba(20, 18, 16, 0.86);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+.k-frost-light {
+  background: rgba(243, 240, 234, 0.86);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
 }
 @media (prefers-reduced-transparency: reduce) {
-  .bl-frost {
+  .k-frost {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    background: var(--bl-canvas);
+    background: var(--k-coal);
+  }
+  .k-frost-light {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--k-bone);
   }
 }
 
-/* Soft card elevation used across Bloom surfaces. */
-.bl-card {
-  box-shadow:
-    0 1px 0 var(--bl-line),
-    0 18px 44px -28px rgba(11, 47, 40, 0.28);
+/* Concave edges — the signature Melius-style cut where a light
+   panel bows into a photograph. Applied to the image container; the
+   mask carves an ellipse out of the named edge. */
+.k-bite-top {
+  -webkit-mask-image: radial-gradient(
+    ellipse 62% 34% at 50% -8%,
+    transparent 99%,
+    #000 100%
+  );
+  mask-image: radial-gradient(ellipse 62% 34% at 50% -8%, transparent 99%, #000 100%);
+}
+.k-bite-bottom {
+  -webkit-mask-image: radial-gradient(
+    ellipse 62% 34% at 50% 108%,
+    transparent 99%,
+    #000 100%
+  );
+  mask-image: radial-gradient(ellipse 62% 34% at 50% 108%, transparent 99%, #000 100%);
+}
+.k-bite-both {
+  -webkit-mask-image:
+    radial-gradient(ellipse 62% 34% at 50% -8%, transparent 99%, #000 100%),
+    radial-gradient(ellipse 62% 34% at 50% 108%, transparent 99%, #000 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(ellipse 62% 34% at 50% -8%, transparent 99%, #000 100%),
+    radial-gradient(ellipse 62% 34% at 50% 108%, transparent 99%, #000 100%);
+  mask-composite: intersect;
+}
+
+/* Perspective context for the hero strip; panels keep a light yaw. */
+.k-fan {
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+}
+.k-fan li {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Soft edge fade so the continuous slider dissolves at the sides.
+   Applied to the padded .k-fan box (not the track): a mask clips to its
+   own border-box, so the arch's sunk and tilted cards must sit inside
+   the masked element's padding to stay visible. */
+.k-fan-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+/* Pause the loop when the visitor is interacting with a card. */
+.k-fan-track:hover,
+.k-fan-track:focus-within {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .k-fan-track {
+    animation: none !important;
+  }
+}
+
+/* Marquee ticker on bone: fades the ends so the loop has no seam. */
+.k-ticker {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Horizontal tab chips on phone: soft edge fades so scroll is obvious. */
+.k-tabs-scroll {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 92%, transparent);
+}
+@media (min-width: 768px) {
+  .k-tabs-scroll {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* Fine dotted grid used behind coal bands (pricing, audit). */
+.k-dots {
+  background-image: radial-gradient(rgba(243, 240, 234, 0.1) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+/* Hairline dividers inside definition lists on bone / coal. */
+.k-rule {
+  border-color: var(--k-line);
+}
+.on-coal .k-rule {
+  border-color: var(--k-coal-line);
 }
 
 /* ─────────────────────────────────────────────────────────────
    Demo sites — two self-contained sample-client languages.
    These routes exist to show prospective GP practices and care
    homes a finished site, so each gets its own scope and palette
-   and deliberately does NOT reuse Bloom styling.
+   and deliberately does NOT reuse Kiln styling.
    ───────────────────────────────────────────────────────────── */
 
 /* "Willowbrook Surgery" — NHS-service-manual-inspired GP demo:
@@ -453,7 +592,7 @@ html:has(.bloom-root)::-webkit-scrollbar-thumb:hover {
   color: var(--dgp-ink);
 }
 
-/* Inside the GP demo the global skip link swaps its Bloom pill for
+/* Inside the GP demo the global skip link swaps its Kiln pill for
    the NHS yellow-on-ink focus treatment. Literal values: the link is
    a sibling of .demo-gp-root, so --dgp-* tokens do not reach it. */
 body:has(.demo-gp-root) > a[href="#main"]:focus {
@@ -620,16 +759,6 @@ body:has(.demo-physio-root) > a[href="#main"]:focus {
   outline-offset: 2px;
   box-shadow: 0 0 0 2px var(--dpy-canvas);
   border-radius: 2px;
-}
-
-/* Faint clinical grid for the hero backdrop. */
-.bl-grid {
-  background-image:
-    linear-gradient(var(--bl-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--bl-line) 1px, transparent 1px);
-  background-size: 44px 44px;
-  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 30%, transparent 75%);
-  mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 30%, transparent 75%);
 }
 
 @media (prefers-reduced-motion: reduce) {

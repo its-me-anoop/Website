@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { gpSector } from "@/components/bloom/data";
-import { SectorPage } from "@/components/bloom/sectors/SectorPage";
+import { gpSector } from "@/components/kiln/data";
+import { SectorPage } from "@/components/kiln/sectors/SectorPage";
 
 export const metadata: Metadata = {
   title: gpSector.metaTitle,
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fafcfb",
+  themeColor: "#f3f0ea",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,

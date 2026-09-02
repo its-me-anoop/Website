@@ -178,14 +178,14 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   if (projects !== 6) note("home", `expected 6 project cards, found ${projects}`);
 
   await page.getByRole("button", { name: /open menu/i }).click();
-  const menu = page.getByRole("navigation", { name: /mobile/i });
+  const menu = page.getByRole("navigation", { name: /site menu/i });
   if (!(await menu.isVisible().catch(() => false))) {
-    note("home", "mobile navigation did not open");
+    note("home", "site menu did not open");
   } else {
     await menu.locator('a[href="/#services"]').click();
-    await page.waitForTimeout(250);
+    await page.waitForTimeout(400);
     if (await menu.isVisible().catch(() => false))
-      note("home", "mobile navigation did not close after selecting a link");
+      note("home", "site menu did not close after selecting a link");
   }
 
   const contact = page.locator('a[href^="mailto:"]').first();
