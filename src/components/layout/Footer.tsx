@@ -12,8 +12,8 @@ const cols = [
     links: [
       { href: "#services", label: "Services" },
       { href: "#work", label: "Work" },
-      { href: "#practice", label: "Process" },
-      { href: "#studio", label: "About" },
+      { href: "#process", label: "Process" },
+      { href: "#about", label: "About" },
     ],
   },
   {
@@ -22,6 +22,8 @@ const cols = [
       { href: "/projects/sipli", label: "Sipli" },
       { href: "/projects/artling", label: "Artling" },
       { href: "#work", label: "All projects" },
+      { href: "/projects/sipli/privacy-policy", label: "Sipli privacy policy" },
+      { href: "/projects/artling/privacy-policy", label: "Artling privacy policy" },
     ],
   },
   {

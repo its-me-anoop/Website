@@ -17,12 +17,12 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { name: "Work", href: "#work" },
   { name: "Services", href: "#services" },
-  { name: "Process", href: "#practice" },
-  { name: "About", href: "#studio" },
+  { name: "Process", href: "#process" },
+  { name: "About", href: "#about" },
 ];
 
 /** Section ids observed to drive the active-link state. */
-const sectionIds = ["work", "services", "practice", "oss", "studio"];
+const sectionIds = ["work", "services", "process", "about", "contact"];
 
 /**
  * Apple-style fixed navigation: a slim frosted bar with a hairline that
@@ -122,7 +122,7 @@ export function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <Link href={pathname === "/" ? "#brief" : "/#brief"}>
+            <Link href={pathname === "/" ? "#contact" : "/#contact"}>
               <Button variant="primary" size="sm">
                 Get in touch
               </Button>
@@ -194,7 +194,7 @@ export function Navbar() {
               ))}
               <hr className="my-2 border-line" />
               <Link
-                href={pathname === "/" ? "#brief" : "/#brief"}
+                href={pathname === "/" ? "#contact" : "/#contact"}
                 onClick={() => setMenuOpen(false)}
                 className="block"
               >
