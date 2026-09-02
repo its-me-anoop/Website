@@ -71,8 +71,29 @@ src/components/kiln/
 │                      # Compare, Process, PackagesTeaser, KilnHome
 ├── sectors/           # SectorPage template (GP practices / care homes)
 ├── packages/          # PackagesPage
-└── audit/             # AuditPage (free website audit)
+├── audit/             # AuditPage (free website audit)
+└── booking/           # BookPage + CalEmbed (Cal.com discovery call)
 ```
+
+## Booking
+
+`/book` (`src/app/book/page.tsx` → `booking/BookPage.tsx`) is the
+site's "talk to a person" route: eyebrow, serif heading, two short
+paragraphs (what the call is, the email alternative), then an inline
+Cal.com booker (`booking/CalEmbed.tsx`, built on `@calcom/embed-react`).
+The embed is themed light with `cal-brand` set to fire, requests
+`month_view` on desktop and lets Cal switch to its own mobile layout;
+the container reserves height so the page does not jump, and a plain
+`target="_blank"` link to the public Cal.com page sits beneath it in
+case the embed is blocked.
+
+The Cal.com details live in one place, `site.booking` in
+`src/lib/site.ts` (`calLink` for the embed, `url` for fallback links,
+`durationMinutes` for copy). The nav's fire action, the menu sheet's
+action, the "Book a 15-minute call" button in every `CtaBand` (hidden
+on `/book` itself via `showBooking={false}`) and the footer's Services
+column all route to `/book`. Free-audit actions keep pointing at
+`/free-audit`.
 
 ## Signature moves
 

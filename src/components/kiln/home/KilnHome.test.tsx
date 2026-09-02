@@ -38,7 +38,19 @@ describe("KilnHome", () => {
     ["/gp-websites", "/care-home-websites", "/packages"].forEach((href) => {
       expect(linksTo(href).length).toBeGreaterThan(0);
     });
-    expect(screen.getAllByRole("link", { name: /get in touch/i }).length).toBeGreaterThan(0);
+  });
+
+  it("links to the booking page from the nav, closing band and footer", () => {
+    renderHome();
+
+    /* Header action, menu-sheet action (closed, so not rendered), closing
+       band button and footer column: at least three routes in. */
+    expect(linksTo("/book").length).toBeGreaterThanOrEqual(3);
+    expect(screen.getAllByRole("link", { name: /^Book a call$/i }).length).toBeGreaterThan(0);
+    expect(screen.getByRole("link", { name: /Book a 15-minute call/i })).toHaveAttribute(
+      "href",
+      "/book"
+    );
   });
 
   it("offers the free website audit as a form and as a route", () => {
