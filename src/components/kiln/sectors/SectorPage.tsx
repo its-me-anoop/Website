@@ -13,6 +13,7 @@ import {
   Rise,
   SectionHead,
 } from "../primitives";
+import { site } from "@/lib/site";
 
 /**
  * Shared landing-page template for the GP-practice and care-home
@@ -58,7 +59,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
           <BrowserFrame
             src={sector.demo.image}
             alt={sector.demo.imageAlt}
-            url={`flutterly.uk${sector.demo.href}`}
+            url={`${site.domain}${sector.demo.href}`}
             priority
             sizes="(min-width: 1200px) 1120px, 92vw"
           />
@@ -137,7 +138,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
             <BrowserFrame
               src={sector.demo.innerImage}
               alt={sector.demo.innerImageAlt}
-              url={`flutterly.uk${sector.demo.innerPath}`}
+              url={`${site.domain}${sector.demo.innerPath}`}
               className="transition-transform duration-500 ease-out group-hover:-translate-y-1"
             />
             <span className="mt-3 block text-center text-[13px] text-k-muted">

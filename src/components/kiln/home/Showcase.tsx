@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { samples } from "../data";
 import { BrowserFrame, BtnLink, CheckItem, Display, EASE, Eyebrow, Rise } from "../primitives";
 import { cn } from "@/lib/utils";
+import { site } from "@/lib/site";
 
 /**
  * Five sectors, five finished sample sites. A proper tab interface:
@@ -140,7 +141,7 @@ export function Showcase() {
                 <BrowserFrame
                   src={active.image}
                   alt={active.imageAlt}
-                  url={`flutterly.uk${active.href}`}
+                  url={`${site.domain}${active.href}`}
                 />
                 <div className="mt-6 grid gap-6 sm:mt-7 sm:grid-cols-[1fr_auto] sm:items-start">
                   <div>

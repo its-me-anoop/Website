@@ -9,6 +9,18 @@ const nextConfig: NextConfig = {
     // by path, so a long TTL is safe and saves repeat optimisation work.
     minimumCacheTTL: 31536000,
   },
+  async redirects() {
+    return [
+      // Artling shipped as "Little Artist"; the App Store still links the
+      // old policy URL. A 308 (not a rendered 307) so search engines pass
+      // the equity on and drop the legacy URL.
+      {
+        source: "/little-artist/privacy-policy",
+        destination: "/projects/artling/privacy-policy",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

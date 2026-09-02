@@ -4,7 +4,15 @@
  * details never drift between files.
  */
 export const site = {
-  url: "https://flutterly.uk",
+  /**
+   * Canonical origin. Vercel serves the site on the www host and 307s the
+   * apex (flutterly.co.uk) to it; flutterly.uk is a parked domain and must
+   * never be advertised as canonical. Every absolute URL (canonical, Open
+   * Graph, JSON-LD, sitemap, robots) derives from this value.
+   */
+  url: "https://www.flutterly.co.uk",
+  /** Bare host, for on-page display such as the sample-site browser chrome. */
+  domain: "www.flutterly.co.uk",
   name: "Anoop Jose",
   legalName: "Flutterly Ltd",
   studio: "Flutterly",

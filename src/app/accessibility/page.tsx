@@ -4,8 +4,7 @@ import { breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { KilnShell } from "@/components/kiln/KilnShell";
 
-const description =
-  "Accessibility statement for flutterly.uk: the standards this website aims to meet, how it is tested, and how to report a problem.";
+const description = `Accessibility statement for ${site.domain}: the standards this website aims to meet, how it is tested, and how to report a problem.`;
 
 export const metadata: Metadata = {
   title: "Accessibility statement",
@@ -18,6 +17,13 @@ export const metadata: Metadata = {
     siteName: site.studio,
     locale: site.locale,
     type: "website",
+    images: [{ url: site.ogImage, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Accessibility statement — ${site.studio}`,
+    description,
+    images: [site.ogImage],
   },
 };
 
@@ -35,7 +41,7 @@ const sections = [
       <p>
         Flutterly builds websites for organisations whose visitors span every
         age, ability and device, so this site is held to the same standard
-        asked of client work. flutterly.uk aims to meet the Web Content
+        asked of client work. {site.domain} aims to meet the Web Content
         Accessibility Guidelines (WCAG) 2.2 at level AA.
       </p>
     ),
