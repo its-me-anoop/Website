@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Artling — Privacy Policy",
@@ -262,10 +263,10 @@ export default function ArtlingPrivacyPolicyPage() {
           If you have questions about this privacy policy or Artling&rsquo;s
           data practices, contact{" "}
           <a
-            href="mailto:anoop@flutterly.co.uk"
+            href={`mailto:${site.supportEmail}`}
             className="font-medium text-accent underline-offset-4 hover:underline"
           >
-            anoop@flutterly.co.uk
+            {site.supportEmail}
           </a>
           .
         </p>

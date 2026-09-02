@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/Button";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
+import { site } from "@/lib/site";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -639,7 +640,7 @@ export function ArtlingLanding() {
                 <Button variant="outline">Privacy Policy</Button>
               </Link>
               <Link
-                href="mailto:anoop@flutterly.co.uk"
+                href={`mailto:${site.email}`}
                 aria-label="Enquire about the app"
               >
                 <Button variant="primary">Enquire About the App</Button>

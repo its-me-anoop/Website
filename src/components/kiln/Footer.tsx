@@ -23,14 +23,20 @@ export function Footer() {
               plus the occasional app.
             </p>
             <ul className="mt-7 space-y-2 text-[15px]">
-              <li>
-                <a
-                  href={`mailto:${site.email}`}
-                  className="text-k-coal-ink underline decoration-k-coal-line underline-offset-4 transition-colors hover:decoration-k-coal-ink"
-                >
-                  {site.email}
-                </a>
-              </li>
+              {[
+                { label: "New projects", email: site.email },
+                { label: "Existing clients", email: site.supportEmail },
+              ].map((row) => (
+                <li key={row.email} className="flex flex-wrap gap-x-3">
+                  <span className="text-k-coal-soft">{row.label}</span>
+                  <a
+                    href={`mailto:${row.email}`}
+                    className="text-k-coal-ink underline decoration-k-coal-line underline-offset-4 transition-colors hover:decoration-k-coal-ink"
+                  >
+                    {row.email}
+                  </a>
+                </li>
+              ))}
               <li className="text-k-coal-soft">
                 {site.address.addressLocality}, {site.address.addressRegion}, UK
               </li>

@@ -172,12 +172,20 @@ function JsonLd() {
     description:
       "Flutterly is a UK product studio designing and engineering accessible websites for GP practices and care homes, plus fast, polished web and mobile apps.",
     address: { "@type": "PostalAddress", ...site.address },
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "customer service",
-      email: site.email,
-      availableLanguage: ["English"],
-    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        email: site.email,
+        availableLanguage: ["English"],
+      },
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: site.supportEmail,
+        availableLanguage: ["English"],
+      },
+    ],
     founder: { "@id": `${site.url}#person` },
     sameAs: [site.social.linkedin, site.social.github],
     areaServed: { "@type": "Country", name: "United Kingdom" },

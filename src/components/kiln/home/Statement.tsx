@@ -10,7 +10,6 @@ import { BtnLink, Display, Eyebrow, Rise } from "../primitives";
  * canvas bows into it. One person, one accountable pair of hands.
  */
 export function Statement() {
-  const first = site.founder.split(" ")[0];
   return (
     <section id="about" className="scroll-mt-24">
       {/* The bone canvas bows down into the deeper band. */}
@@ -57,7 +56,7 @@ export function Statement() {
           </Rise>
           <Rise delay={0.18} className="mt-9 flex flex-wrap gap-3">
             <BtnLink href={`mailto:${site.email}`} tone="fire">
-              Email {first}
+              Email the studio
             </BtnLink>
             <BtnLink href={site.social.linkedin} tone="outline" external arrow="up">
               LinkedIn

@@ -128,7 +128,7 @@ describe("KilnHome", () => {
       screen.getAllByText(new RegExp(`© ${new Date().getFullYear()}`)).length
     ).toBeGreaterThan(0);
     expect(
-      screen.getAllByRole("link", { name: /anoop@flutterly\.co\.uk/i }).length
+      screen.getAllByRole("link", { name: /sales@flutterly\.co\.uk/i }).length
     ).toBeGreaterThan(0);
   });
 });

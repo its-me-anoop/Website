@@ -70,10 +70,10 @@ const sections = [
         If any part of this website is hard to use with assistive technology,
         please say so. It will be treated as a bug, not feedback. Email{" "}
         <a
-          href={`mailto:${site.email}`}
+          href={`mailto:${site.supportEmail}`}
           className="font-medium text-k-fire underline-offset-4 hover:underline"
         >
-          {site.email}
+          {site.supportEmail}
         </a>{" "}
         and you will get a response within two working days.
       </p>

@@ -12,7 +12,10 @@ export const site = {
   role: "Developer & Designer · Founder of Flutterly",
   description:
     "Flutterly is an independent product studio in Reading, UK — designing and building accessible websites for GP practices and care homes, plus web and mobile products with Next.js, SwiftUI and Flutter.",
-  email: "anoop@flutterly.co.uk",
+  /** New business and general enquiries: quotes, audits, bookings. */
+  email: "sales@flutterly.co.uk",
+  /** Existing clients and issues: accessibility reports, privacy, app support. */
+  supportEmail: "support@flutterly.co.uk",
   founder: "Anoop Jose",
   locale: "en_GB",
   address: {
