@@ -6,15 +6,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { site } from "@/lib/site";
 import { navLinks, samples } from "./data";
 import { EASE } from "./primitives";
 
 /**
  * Floating chrome: a coal pill top-left (wordmark, inline links from
- * `lg`, menu button) and two actions top-right. The menu opens a
- * coal sheet beneath the pill with every route on the site, so the
- * inline links can stay short.
+ * `lg`, menu button) and two actions top-right: the free audit and
+ * booking a call. The menu opens a coal sheet beneath the pill with
+ * every route on the site, so the inline links can stay short.
  */
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -151,13 +150,13 @@ export function Nav() {
                   >
                     Free website audit
                   </Link>
-                  <a
-                    href={`mailto:${site.email}`}
+                  <Link
+                    href="/book"
                     onClick={() => setOpen(false)}
                     className="rounded-[10px] bg-k-fire px-4 py-2.5 text-center text-[14.5px] font-medium text-k-bone transition-colors hover:bg-k-fire-hover"
                   >
-                    Get in touch
-                  </a>
+                    Book a call
+                  </Link>
                 </div>
               </m.nav>
             )}
@@ -172,12 +171,12 @@ export function Nav() {
           >
             Free audit
           </Link>
-          <a
-            href={`mailto:${site.email}`}
+          <Link
+            href="/book"
             className="inline-flex h-9 items-center rounded-[10px] bg-k-fire px-3.5 text-[13.5px] font-medium text-k-bone shadow-[0_12px_30px_-16px_rgba(191,58,21,0.6)] transition-colors hover:bg-k-fire-hover"
           >
-            Get in touch
-          </a>
+            Book a call
+          </Link>
         </div>
       </div>
     </m.header>

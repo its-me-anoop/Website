@@ -5,17 +5,20 @@ import { AuditBar, BtnLink, Display, Rise } from "./primitives";
 
 /**
  * Closing band above the footer on every Kiln page: a serif
- * statement, the audit bar, and a direct email. Copy is configurable
- * per page; the actions are constant.
+ * statement, the audit bar, then a booking link and a direct email.
+ * Copy is configurable per page; the actions are constant, except the
+ * booking page hides the link to itself.
  */
 export function CtaBand({
   title,
   copy,
   id,
+  showBooking = true,
 }: {
   title: React.ReactNode;
   copy: string;
   id?: string;
+  showBooking?: boolean;
 }) {
   return (
     <section
@@ -35,8 +38,13 @@ export function CtaBand({
         <Rise delay={0.1} className="mt-10 flex w-full justify-center">
           <AuditBar onCoal />
         </Rise>
-        <Rise delay={0.18} className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[15px] text-k-coal-soft">
-          <span>Or write directly:</span>
+        <Rise delay={0.18} className="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-[15px] text-k-coal-soft">
+          <span>{showBooking ? "Or talk it through:" : "Or write directly:"}</span>
+          {showBooking ? (
+            <BtnLink href="/book" tone="outline-coal" size="sm" arrow="right">
+              Book a {site.booking.durationMinutes}-minute call
+            </BtnLink>
+          ) : null}
           <BtnLink href={`mailto:${site.email}`} tone="outline-coal" size="sm">
             {site.email}
           </BtnLink>

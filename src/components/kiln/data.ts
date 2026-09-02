@@ -591,7 +591,7 @@ export const gpSector: Sector = {
     },
   ],
   ctaTitle: "Ready to give your patients a better front door?",
-  ctaCopy: "Start with the free audit, a written review of your current site against NHS accessibility and content standards, or get in touch for a quote.",
+  ctaCopy: "Start with the free audit, a written review of your current site against NHS accessibility and content standards, or book a short call to talk about a quote.",
 };
 
 export const careSector: Sector = {
@@ -687,7 +687,7 @@ export const careSector: Sector = {
     },
   ],
   ctaTitle: "Ready to give families a better first visit?",
-  ctaCopy: "Start with the free audit, a written review of how your current site serves families, or get in touch to talk about your home.",
+  ctaCopy: "Start with the free audit, a written review of how your current site serves families, or book a short call to talk about your home.",
 };
 
 export const sectors = [gpSector, careSector] as const;
@@ -712,6 +712,7 @@ export const footerColumns = [
       { label: "Care home websites", href: "/care-home-websites" },
       { label: "Packages", href: "/packages" },
       { label: "Free website audit", href: "/free-audit" },
+      { label: "Book a call", href: "/book" },
     ],
   },
   {
