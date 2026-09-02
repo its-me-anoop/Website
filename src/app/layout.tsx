@@ -4,10 +4,33 @@ import "./globals.css";
 import { site } from "@/lib/site";
 
 /* Porcelain pages render on the native SF-style system stack (see
-   globals.css). The Atelier homepage sets Space Grotesk; Syne and
-   JetBrains Mono stay available to sub-pages — all self-hosted as
-   latin variable woff2 subsets (~97KB total) so builds never depend
-   on the Google Fonts CDN. */
+   globals.css). The Kiln marketing pages set Zodiak (display) and
+   Switzer (body); Syne and Space Grotesk stay available to the demo
+   sites — all self-hosted woff2 so builds never depend on a font CDN.
+   Zodiak and Switzer are from Fontshare (ITF Free Font Licence). */
+
+const zodiak = localFont({
+  src: [
+    { path: "../fonts/zodiak-regular.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/zodiak-italic.woff2", weight: "400", style: "italic" },
+  ],
+  variable: "--font-zodiak-v",
+  display: "swap",
+  fallback: ["Georgia", "Times New Roman", "serif"],
+  adjustFontFallback: "Times New Roman",
+});
+
+const switzer = localFont({
+  src: [
+    { path: "../fonts/switzer-regular.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/switzer-medium.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/switzer-semibold.woff2", weight: "600", style: "normal" },
+  ],
+  variable: "--font-switzer-v",
+  display: "swap",
+  fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "sans-serif"],
+  adjustFontFallback: "Arial",
+});
 
 const syne = localFont({
   src: "../fonts/syne-latin-var.woff2",
@@ -242,7 +265,7 @@ export default function RootLayout({
     <html
       lang="en-GB"
       suppressHydrationWarning
-      className={`${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
+      className={`${zodiak.variable} ${switzer.variable} ${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
     >
       <head>
         <JsonLd />
@@ -250,7 +273,7 @@ export default function RootLayout({
       <body className="antialiased bg-canvas text-ink font-sans min-h-screen">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-ink focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-k-fire focus:px-4 focus:py-2 focus:text-k-bone focus:shadow-lg"
         >
           Skip to main content
         </a>

@@ -2,12 +2,15 @@
 
 Six scoped design systems coexist. Never leak tokens across scopes.
 
-## 1. Bloom (marketing: home, sector pages, packages, audit)
+## 1. Kiln (marketing: home, sector pages, packages, audit, accessibility)
 
-See docs/BLOOM.md. Near-white canvas `#fafcfb`, soft mint bands, deep pine
-ink, **teal as the only action colour**, NHS-blue accent for GP content,
-amber for care homes. Motion: shared `EASE` curve, `Rise` / `RevealWords`
-entrances, reduced-motion fallbacks. `.bloom-root` scope.
+See docs/KILN.md. Warm bone canvas `#f3f0ea`, deep coal bands `#141210`,
+Zodiak serif display (italic for emphasis) over Switzer body, **vermilion
+`#bf3a15` as the only action colour**, butter yellow as the quiet second
+highlight. Floating pill nav, audit bar as the hero action, curved section
+joins, editorial rows over cards. Motion: shared `EASE` curve, `Rise`
+entrances, reduced-motion fallbacks. `.kiln-root` scope, `.on-coal` for dark
+bands.
 
 ## 2. Porcelain (case studies `/projects/*`)
 

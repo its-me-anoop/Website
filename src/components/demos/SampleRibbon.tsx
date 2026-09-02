@@ -16,22 +16,22 @@ export function SampleRibbon({
   return (
     <aside
       aria-label="About this sample website"
-      className="bg-[#0b2f28] text-[#eaf3ef]"
+      className="bg-[#141210] text-[#f3f0ea]"
     >
       <div className="mx-auto flex w-full max-w-[1100px] flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-2 text-sm sm:px-6">
         <p className="flex items-center gap-2">
           <Image src="/flutterly-logo.png" alt="" width={16} height={16} />
           <span>
             Sample website by{" "}
-            <Link href="/" className="font-semibold underline underline-offset-2 hover:text-white">
+            <Link href="/" className="font-semibold underline underline-offset-2 hover:text-[#ffffff]">
               Flutterly
-            </Link>{" "}
-            — the organisation shown is fictional.
+            </Link>
+            . The organisation shown is fictional.
           </span>
         </p>
         <Link
           href={sectorHref}
-          className="font-semibold underline underline-offset-2 hover:text-white"
+          className="font-semibold underline underline-offset-2 hover:text-[#ffffff]"
         >
           {sectorLabel} →
         </Link>
