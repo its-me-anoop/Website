@@ -29,6 +29,18 @@ export const site = {
   },
   ogImage: "/og-image.png",
   logo: "/flutterly-logo.png",
+  /**
+   * Cal.com booking. `calLink` is what the embed takes (username/event
+   * slug); `url` is the public page used by fallback links. The event
+   * is "Short Discovery Meeting", 15 minutes, on cal.com.
+   */
+  booking: {
+    calLink: "anoop-jose-jtij1j/short-discovery-meeting",
+    url: "https://cal.com/anoop-jose-jtij1j/short-discovery-meeting",
+    label: "Book a short discovery call",
+    eventName: "Short Discovery Meeting",
+    durationMinutes: 15,
+  },
 } as const;
 
 export type Site = typeof site;

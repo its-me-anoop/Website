@@ -13,6 +13,7 @@
     "test:a11y": "node scripts/a11y-audit.mjs"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.561.0",
