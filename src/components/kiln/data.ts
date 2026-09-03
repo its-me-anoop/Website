@@ -138,10 +138,9 @@ export const projects: readonly Project[] = [
     name: "Pembroke Care",
     type: "Care home website",
     year: "2026",
-    status: "In development",
     description:
-      "A boutique residential, respite and transitional-living provider in Reading. A calm, warm site that replaces pembrokecare.com at launch.",
-    href: "https://pembroke-care.vercel.app/",
+      "A boutique residential, respite and transitional-living provider in Reading. A calm, warm site built for families choosing care.",
+    href: "https://pembrokecare.com/",
     internal: false,
     image: "/project-pembroke.png",
     tint: "#e6e2d6",
@@ -751,7 +750,7 @@ export const footerColumns = [
   {
     title: "Work",
     links: [
-      { label: "Pembroke Care", href: "https://pembroke-care.vercel.app/" },
+      { label: "Pembroke Care", href: "https://pembrokecare.com/" },
       { label: "Sandbourne", href: "https://sandbournecare.co.uk/" },
       { label: "Greenmead", href: "https://www.greenmead.co.uk/" },
       { label: "JJ Paper", href: "https://www.jjpaperessential.com/" },
