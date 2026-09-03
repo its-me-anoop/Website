@@ -38,7 +38,12 @@ export const site = {
     githubHandle: "its-me-anoop",
     linkedin: "https://www.linkedin.com/in/anoop-jose-0b308a296/",
   },
-  ogImage: "/og-image.png",
+  /**
+   * 1200×630 social card in the Kiln language. The filename carries the
+   * design name so scrapers that cached the previous card (LinkedIn,
+   * Facebook, Slack) fetch the new one instead of serving the stale image.
+   */
+  ogImage: "/og-kiln.png",
   logo: "/flutterly-logo.png",
   /**
    * Cal.com booking. `calLink` is what the embed takes (username/event
