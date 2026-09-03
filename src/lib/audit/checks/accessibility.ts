@@ -59,7 +59,7 @@ export const accessibilityChecks: CheckModule = ({ page }) => {
         contentImages.length === 0
           ? "No images were found in the HTML, so there is nothing to check here."
           : missingAlt.length === 0
-            ? `All ${contentImages.length} images carry an alt attribute${emptyAltCount ? ` (${emptyAltCount} marked decorative)` : ""}.`
+            ? `${contentImages.length === 1 ? "The one image carries" : `All ${contentImages.length} images carry`} an alt attribute${emptyAltCount ? ` (${emptyAltCount} marked decorative)` : ""}.`
             : `${plural(missingAlt.length, "image")} of ${contentImages.length} have no alt attribute at all, so screen readers announce the file name or nothing.`,
       fix: 'Give every meaningful image a short description in alt="…", and mark purely decorative images with alt="". WCAG 1.1.1, level A.',
       evidence: missingAlt.map((img) => trim(img.getAttribute("src") ?? "(no src)", 90)),
@@ -92,19 +92,25 @@ export const accessibilityChecks: CheckModule = ({ page }) => {
     last = h.level;
   }
   const emptyHeadings = headings.filter((h) => !h.text).length;
+  const startsBelowH1 = headings.length > 0 && headings[0].level !== 1;
+  const orderProblems = [
+    startsBelowH1 ? `the first heading is an <h${headings[0].level}> rather than the <h1>` : "",
+    skipped ? `${plural(skipped, "heading")} skip a level (for example h2 straight to h4)` : "",
+    emptyHeadings ? `${plural(emptyHeadings, "heading is", "headings are")} empty` : "",
+  ].filter(Boolean);
   checks.push(
     c({
       id: "a11y-heading-order",
       title: "Headings follow a logical order",
       impact: "low",
-      status: headings.length === 0 ? "info" : skipped === 0 && emptyHeadings === 0 ? "pass" : "warn",
+      status: headings.length === 0 ? "info" : orderProblems.length === 0 ? "pass" : "warn",
       detail:
         headings.length === 0
           ? "No headings were found, so the page has no navigable structure."
-          : skipped === 0 && emptyHeadings === 0
+          : orderProblems.length === 0
             ? `${plural(headings.length, "heading")} step down one level at a time.`
-            : `${skipped ? `${plural(skipped, "heading")} skip a level (for example h2 straight to h4)` : ""}${skipped && emptyHeadings ? " and " : ""}${emptyHeadings ? `${plural(emptyHeadings, "heading is", "headings are")} empty` : ""}.`,
-      fix: "Headings are the table of contents for screen-reader users: keep them in order and never leave one empty.",
+            : `${orderProblems.join("; ")}.`.replace(/^./, (ch) => ch.toUpperCase()),
+      fix: "Headings are the table of contents for screen-reader users: start with the <h1>, keep them in order and never leave one empty.",
     })
   );
 
@@ -135,7 +141,9 @@ export const accessibilityChecks: CheckModule = ({ page }) => {
         inputs.length === 0
           ? "No form fields were found on this page."
           : unlabelled.length === 0
-            ? `All ${plural(inputs.length, "form field")} have a label.`
+            ? inputs.length === 1
+              ? "The one form field has a label."
+              : `All ${inputs.length} form fields have a label.`
             : `${plural(unlabelled.length, "form field")} of ${inputs.length} have no label, so assistive technology cannot say what to type.`,
       fix: "Pair every field with a visible <label for>, or an aria-label where a visible label is impossible. Placeholder text is not a label. WCAG 1.3.1 and 3.3.2.",
       evidence: unlabelled.map((el) => trim(`<${el.tagName.toLowerCase()} name="${el.getAttribute("name") ?? ""}" type="${el.getAttribute("type") ?? "text"}">`)),
@@ -159,7 +167,9 @@ export const accessibilityChecks: CheckModule = ({ page }) => {
       status: emptyLinks.length === 0 ? "pass" : emptyLinks.length <= 2 ? "warn" : "fail",
       detail:
         emptyLinks.length === 0
-          ? `All ${plural(visibleAnchors.length, "link")} have text or a label.`
+          ? visibleAnchors.length === 1
+            ? "The one link has text or a label."
+            : `All ${visibleAnchors.length} links have text or a label.`
           : `${plural(emptyLinks.length, "link")} have no text, alt or label. Screen readers announce them as just "link".`,
       fix: "Give icon and image links an aria-label or alt text that says where they go. WCAG 2.4.4 and 4.1.2.",
       evidence: emptyLinks.map((a) => trim(a.href || "(no href)", 90)),

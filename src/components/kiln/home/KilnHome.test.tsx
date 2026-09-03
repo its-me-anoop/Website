@@ -58,11 +58,19 @@ describe("KilnHome", () => {
 
     expect(linksTo("/free-audit").length).toBeGreaterThan(0);
     expect(
-      screen.getAllByRole("button", { name: /request a free website audit/i }).length
+      screen.getAllByRole("button", { name: /run the free website audit/i }).length
     ).toBeGreaterThan(0);
-    expect(
-      screen.getAllByRole("textbox", { name: /your website address/i }).length
-    ).toBeGreaterThan(0);
+    const inputs = screen.getAllByRole("textbox", { name: /your website address/i });
+    expect(inputs.length).toBeGreaterThan(0);
+
+    /* A plain GET form to /audit: works before hydration and yields a
+       shareable report address. */
+    inputs.forEach((input) => {
+      expect(input).toHaveAttribute("name", "url");
+      const form = input.closest("form");
+      expect(form).toHaveAttribute("action", "/audit");
+      expect(form?.getAttribute("method")?.toLowerCase()).toBe("get");
+    });
   });
 
   it("links to all five hosted sample sites", () => {

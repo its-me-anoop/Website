@@ -15,16 +15,39 @@ import {
 
 const steps = [
   {
-    title: "Send your website address",
-    copy: "One email is all it takes. No forms, no calls unless you want one. Just say who you are and where the site lives.",
+    title: "Paste your website address",
+    copy: "Press the arrow and the instant audit runs in a few seconds. No form, no sign-up, nothing stored.",
   },
   {
-    title: "Flutterly reviews it properly",
-    copy: "Automated checks plus a manual review of accessibility, speed, mobile experience, content and local search: the same lens used on paid projects.",
+    title: "Read the scored report",
+    copy: "An overall score, seven area scores and every check explained: what was found, why it matters to your visitors, and how to fix it.",
   },
   {
-    title: "You get a written report",
-    copy: "A scored, plain-English review with prioritised recommendations, usually within a week. Yours to act on with anyone, no obligation.",
+    title: "Ask for the written review",
+    copy: "One click opens a prefilled email. Flutterly then reviews the site by hand, covering design, content and real-device speed, usually within a week.",
+  },
+] as const;
+
+const instantVsWritten = [
+  {
+    label: "Instant audit",
+    points: [
+      "Runs in seconds, in your browser",
+      "Reads the page\u2019s HTML and response headers",
+      "Around sixty checks across seven areas",
+      "Sector-aware: GP, care home, dental, pharmacy, physio",
+      "Shareable, printable link",
+    ],
+  },
+  {
+    label: "Written audit",
+    points: [
+      "Reviewed by hand, usually within a week",
+      "Real devices, real connections, JavaScript included",
+      "Design, content quality and the journeys visitors take",
+      "Set against the standards NHS and CQC-regulated sites are held to",
+      "A scored, written report with fixes in priority order",
+    ],
   },
 ] as const;
 
@@ -43,14 +66,13 @@ export function AuditPage() {
           </Rise>
           <Rise delay={0.14}>
             <p className="mx-auto mt-7 max-w-[600px] text-[17.5px] leading-[1.6] text-k-ink-soft">
-              A written review of your current site against the standards that
-              matter for GP practices and care homes: accessibility, speed,
-              mobile experience, content and local search. Free, honest and
-              yours to keep.
+              Paste your address and get a scored report in seconds: accessibility, speed, search,
+              content, mobile, security and local presence, each explained in plain English with the
+              fix. Then, if you want it, a written review by a person. Both free.
             </p>
           </Rise>
           <Rise delay={0.24} className="mt-10 flex w-full justify-center">
-            <AuditBar hint="Paste your address and press the arrow. A prefilled email opens; send it and the audit is underway." />
+            <AuditBar hint="Paste your address and press the arrow. The report appears in a few seconds." />
           </Rise>
           <Rise delay={0.3} className="mt-6">
             <BtnLink href="/packages" tone="ghost" size="sm">
@@ -60,15 +82,20 @@ export function AuditPage() {
         </div>
       </section>
 
-      {/* Six areas: numbered rows on the deeper bone band. */}
+      {/* Seven areas: numbered rows on the deeper bone band. */}
       <section className="border-t border-k-line bg-k-bone-2/60">
         <div className="mx-auto w-full max-w-[1280px] px-5 py-24 sm:px-8 sm:py-32">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,300px)_1fr] lg:gap-14">
             <Rise>
               <Eyebrow className="text-k-muted">What gets checked</Eyebrow>
               <Display as="h2" size="md" className="mt-5 text-k-ink">
-                Six areas, no stone unturned.
+                Seven areas, scored and <em>explained</em>.
               </Display>
+              <p className="mt-5 text-[15.5px] leading-[1.6] text-k-ink-soft">
+                Each area is weighted by how much it affects the people your website serves.
+                Accessibility and content count most, because those are what patients and families
+                feel first.
+              </p>
             </Rise>
             <ol className="grid gap-x-10 sm:grid-cols-2">
               {auditChecks.map((check, i) => (
@@ -94,7 +121,7 @@ export function AuditPage() {
             eyebrow="How it works"
             title={
               <>
-                Three steps, <em>one email</em>.
+                Seconds now, a <em>written review</em> within a week.
               </>
             }
             onCoal
@@ -112,6 +139,27 @@ export function AuditPage() {
               </Rise>
             ))}
           </ol>
+
+          {/* Instant vs written: two hairline columns. */}
+          <Rise className="mx-auto mt-20 max-w-[900px] border-t border-k-coal-line pt-10">
+            <h2 className="k-display text-center text-[clamp(1.5rem,2.6vw,2.1rem)] text-k-coal-ink">
+              What each audit can <em>see</em>
+            </h2>
+            <div className="mt-8 grid gap-8 sm:grid-cols-2 sm:gap-10">
+              {instantVsWritten.map((col) => (
+                <div key={col.label}>
+                  <p className="k-eyebrow text-k-coal-soft">{col.label}</p>
+                  <ul className="mt-4 grid gap-3">
+                    {col.points.map((p) => (
+                      <CheckItem key={p} onCoal>
+                        {p}
+                      </CheckItem>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </Rise>
 
           <Rise className="mx-auto mt-20 max-w-[760px] border-t border-k-coal-line pt-10">
             <h2 className="k-display text-center text-[clamp(1.5rem,2.6vw,2.1rem)] text-k-coal-ink">
@@ -131,10 +179,10 @@ export function AuditPage() {
       <CtaBand
         title={
           <>
-            Two minutes now, a clear picture within a <em>week</em>.
+            A few seconds now, a clear picture within a <em>week</em>.
           </>
         }
-        copy="Send your website address and Flutterly will do the rest: a written, scored review with the fixes that matter most, whoever ends up making them."
+        copy="Paste your website address for the instant report. Ask for the written review from the results page, and Flutterly will do the rest: whoever ends up making the fixes."
         id="contact"
       />
     </KilnShell>

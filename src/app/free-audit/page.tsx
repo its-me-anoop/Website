@@ -5,7 +5,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { AuditPage } from "@/components/kiln/audit/AuditPage";
 
 const description =
-  "Get a free written audit of your GP practice or care home website — accessibility, speed, mobile experience, content and local search, reviewed in plain English with no obligation.";
+  "Free instant website audit for GP practices, care homes and clinics: paste your address for a scored report on accessibility, speed, search, content, mobile, security and local presence, with plain-English fixes. Then a written review by a person, if you want one.";
 
 export const metadata: Metadata = {
   title: "Free website audit",

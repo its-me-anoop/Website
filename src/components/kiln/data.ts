@@ -341,30 +341,35 @@ export const comparison = {
    Free website audit.
    ───────────────────────────────────────────────────────────── */
 
+/** The seven scored areas, in the order the report shows them. */
 export const auditChecks = [
   {
     title: "Accessibility",
-    copy: "Automated and manual checks against WCAG 2.2 AA: contrast, keyboard use, screen-reader labelling and focus order.",
+    copy: "Language, alt text, labels, headings, landmarks, zoom and a published statement: the WCAG 2.2 basics every NHS-facing site is held to.",
   },
   {
-    title: "Speed and Core Web Vitals",
-    copy: "Lab and field performance on a mid-range phone over 4G, with the fixes ranked by impact.",
+    title: "Speed",
+    copy: "Server response, document weight, compression, render-blocking scripts, third parties and image handling, as a mid-range phone experiences them.",
   },
   {
-    title: "Mobile experience",
-    copy: "Layout, tap targets and readability at the sizes most patients and families actually browse on.",
+    title: "Search",
+    copy: "Titles, descriptions, indexability, canonical addresses, sitemap, social previews and structured data.",
   },
   {
     title: "Content and signposting",
-    copy: "Can visitors complete the top tasks (book, enquire, find opening hours) without phoning you?",
+    copy: "Can visitors complete the top tasks (book, order, enquire, find opening hours) without phoning you? Checked against what your sector\u2019s visitors actually arrive for.",
   },
   {
-    title: "Local search",
-    copy: "How you appear on Google for the searches that matter locally, and what is holding rankings back.",
+    title: "Mobile experience",
+    copy: "Viewport setup, fixed-width layouts, tap-to-call numbers, readable type and responsive images.",
   },
   {
-    title: "Security basics",
-    copy: "HTTPS, security headers, stale platform software and anything leaking more than it should.",
+    title: "Security",
+    copy: "HTTPS and its redirect, HSTS, protective headers, mixed content, leaked software versions and outdated libraries.",
+  },
+  {
+    title: "Local presence",
+    copy: "Whether Google can tell who you are, where you are, when you are open and what people think of you.",
   },
 ] as const;
 
@@ -373,6 +378,7 @@ export const auditPromises = [
   "Prioritised fixes you can hand to any developer",
   "Includes \u201ckeep what you have\u201d when that is the honest answer",
   "Free, with no follow-up pressure",
+  "Nothing you enter is stored or shared",
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────

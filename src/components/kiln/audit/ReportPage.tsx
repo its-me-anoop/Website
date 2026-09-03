@@ -98,7 +98,7 @@ export function ReportPage() {
 
   return (
     <KilnShell>
-      <div aria-live="polite" className="sr-only">
+      <div aria-live="polite" className="sr-only" data-audit-state={state.kind}>
         {state.kind === "loading"
           ? `Auditing ${hostOf(url)}.`
           : state.kind === "done"

@@ -172,7 +172,7 @@ export const performanceChecks: CheckModule = ({ page }) => {
         contentImages.length === 0
           ? "No images in the HTML to check."
           : unsized.length === 0
-            ? `All ${plural(contentImages.length, "image")} declare width and height, so the layout does not jump while they load.`
+            ? `${contentImages.length === 1 ? "The one image declares" : `All ${contentImages.length} images declare`} width and height, so the layout does not jump while ${contentImages.length === 1 ? "it loads" : "they load"}.`
             : `${plural(unsized.length, "image")} of ${contentImages.length} have no width and height. The page shifts as they load, which is what makes people tap the wrong thing.`,
       fix: "Add width and height attributes (or CSS aspect-ratio) to every <img>. This is the main fix for Cumulative Layout Shift.",
       evidence: unsized.map((img) => trim(img.getAttribute("src") ?? "", 90)),

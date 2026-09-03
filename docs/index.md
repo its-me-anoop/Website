@@ -14,6 +14,9 @@ pages run the light "Porcelain" system with Framer Motion.
   primitives, motion, and accessibility rules for case-study pages.
 - [Demo-site CMS](./CMS.md) — schema-validated content layer feeding
   the GP and care-home demos (`content/` + `src/lib/cms/`).
+- [Instant website audit](./AUDIT.md) — the `/audit` engine: safe
+  fetching, the seven check categories, scoring, the API route and the
+  report UI.
 - [Research](./research/) — NHS standards checklist, GP-website supplier
   comparison, exemplar analysis, and the Willowbrook gap analysis.
 
@@ -31,7 +34,9 @@ src/
 │   ├── gp-websites/        # GP practice sector page
 │   ├── care-home-websites/ # Care home sector page
 │   ├── packages/           # Packages page
-│   ├── free-audit/         # Free website audit page
+│   ├── free-audit/         # Free website audit landing page
+│   ├── audit/              # Instant audit report (?url=…&sector=…), noindex
+│   ├── api/audit/          # GET /api/audit — runs the audit engine
 │   ├── accessibility/      # Accessibility statement
 │   └── projects/           # Case-study subpages (sipli, artling)
 ├── components/
@@ -42,6 +47,7 @@ src/
 │   └── projects/           # Per-product landing UIs
 ├── fonts/                  # Self-hosted variable woff2 subsets
 └── lib/
+    ├── audit/              # Audit engine: url, guard, fetch, page, checks/, score, run
     ├── site.ts             # Single source of truth for SEO/site constants
     └── utils.ts            # cn() class merger
 ```

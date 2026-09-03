@@ -71,7 +71,9 @@ src/components/kiln/
 │                      # Compare, Process, PackagesTeaser, KilnHome
 ├── sectors/           # SectorPage template (GP practices / care homes)
 ├── packages/          # PackagesPage
-├── audit/             # AuditPage (free website audit)
+├── audit/             # AuditPage (/free-audit landing), ReportPage (/audit)
+│   └── report/        # ScoreDial, ReportHeader, CategoryList, Priorities,
+│                      # Pitch, Progress, ErrorState, StatusMark
 └── booking/           # BookPage + CalEmbed (Cal.com discovery call)
 ```
 
@@ -98,8 +100,12 @@ column all route to `/book`. Free-audit actions keep pointing at
 ## Signature moves
 
 - **The audit bar** is the hero action on every page: type a web
-  address, press the arrow, and a prefilled `mailto:` opens. No backend,
-  nothing stored. It reappears in the closing band.
+  address, press the arrow, and a native GET form lands on `/audit`,
+  which runs the instant audit and renders the scored report (see
+  [`AUDIT.md`](./AUDIT.md)). Nothing is stored. It reappears in the
+  closing band and on the report itself. The written audit is still a
+  prefilled `mailto:` (`auditMailto`), now offered as the follow-up from
+  the report's next-steps section and from the error state.
 - **Cycling audience word** in the hero headline (`RotatingWord`): the
   italic word rotates through `heroAudiences` in `data.ts`, each in its
   own glaze colour (all ≥ 3:1 on bone). The visual copy is `aria-hidden`

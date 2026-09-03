@@ -20,6 +20,7 @@ const ROUTES = [
   "/care-home-websites",
   "/packages",
   "/free-audit",
+  "/audit",
   "/accessibility",
   "/demo/gp-practice",
   "/demo/gp-practice/appointments",
@@ -193,6 +194,33 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
     note("home", "contact email link is not visible");
 
   await page.close();
+
+  /* The instant audit: the hero form must route to /audit and the report must
+     settle into a result or a plain-English error, never a blank page. The
+     target is the site's own origin so the run does not depend on the outside
+     network being reachable from the test machine. */
+  const audit = await mobile.newPage();
+  await audit.goto(BASE + "/", { waitUntil: "networkidle" });
+  const auditForm = audit.locator('form[action="/audit"]').first();
+  if (!(await auditForm.isVisible().catch(() => false))) {
+    note("audit", "homepage audit bar is missing");
+  } else {
+    await auditForm.getByRole("textbox").fill(new URL(BASE).host);
+    await auditForm.getByRole("button").click();
+    await audit.waitForURL(/\/audit\?url=/, { timeout: 10000 }).catch(() => note("audit", "submitting the audit bar did not reach /audit"));
+    const settled = audit.locator('[data-audit-state="done"], [data-audit-state="error"]');
+    await settled.first().waitFor({ timeout: 45000 }).catch(() => note("audit", "report never settled into a result or error"));
+    const state = await settled.first().getAttribute("data-audit-state").catch(() => null);
+    if (state === "done") {
+      const dial = audit.getByRole("img", { name: /overall score/i });
+      if (!(await dial.isVisible().catch(() => false))) note("audit", "report finished but the score dial is not visible");
+      if ((await audit.locator("#next-steps").count()) !== 1) note("audit", "report is missing the next-steps section");
+    } else if (state === "error") {
+      if (!(await audit.locator('a[href^="mailto:"]').first().isVisible().catch(() => false)))
+        note("audit", "error state has no route to the written audit");
+    }
+  }
+  await audit.close();
 
   const missing = await mobile.newPage();
   const response = await missing.goto(BASE + "/__definitely_missing__", {

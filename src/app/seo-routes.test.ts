@@ -34,6 +34,14 @@ describe("canonical host", () => {
     expect(urls.some((url) => url.includes("/little-artist/"))).toBe(false);
   });
 
+  it("sitemap lists the audit landing page but not the per-site report or the API", () => {
+    const urls = sitemap().map((entry) => entry.url);
+    expect(urls).toContain(`${site.url}/free-audit`);
+    expect(urls).not.toContain(`${site.url}/audit`);
+    expect(urls.some((url) => url.includes("/api/"))).toBe(false);
+    expect(robots().rules).toMatchObject({ disallow: ["/api/"] });
+  });
+
   it("sitemap has no trailing-slash duplicates beyond the root", () => {
     const urls = sitemap().map((entry) => entry.url);
     urls

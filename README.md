@@ -51,9 +51,15 @@ the demo-site scopes.
 
 ## Highlights
 
-- **The audit bar**: paste a website address, press the arrow, and a
-  prefilled audit request opens in your mail client. No backend, nothing
-  stored. It is the hero action and the closing action on every page.
+- **The instant audit**: paste a website address into the audit bar,
+  press the arrow, and `/audit` fetches the page server-side, runs about
+  sixty checks across seven areas (accessibility, speed, search,
+  content, mobile, security, local presence), and renders a scored,
+  prioritised report with a sales section keyed to the weakest areas and
+  a prefilled email for the written follow-up. The engine lives in
+  `src/lib/audit/` (see [`docs/AUDIT.md`](./docs/AUDIT.md)); the API is
+  `GET /api/audit?url=…`, rate-limited, SSRF-guarded, nothing stored.
+  The bar is the hero action and the closing action on every page.
 - **Fanned strip**: seven finished sites swing away from the centre in
   3D, each a real link, the ends bleeding off the viewport.
 - **Showcase tabs**: an accessible tablist of the five sample sites in
