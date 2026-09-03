@@ -99,7 +99,6 @@
   .pill img { width: 5.2mm; height: 5.2mm; display: block; }
   .pill .sep { width: 0.25mm; height: 4mm; background: var(--k-coal-line); margin: 0 0.6mm; }
   .pill .soft { color: var(--k-coal-soft); font-weight: 400; font-size: 9.5pt; }
-  .masthead .url { color: var(--k-muted); }
 
   /* Hero copy */
   .hero { padding: 9mm 14mm 0; }
@@ -245,85 +244,64 @@
   .band > * { position: relative; }
   .band-grid {
     display: grid;
-    grid-template-columns: 1fr 46mm;
-    gap: 12mm;
-    align-items: end;
+    grid-template-columns: 1fr 74mm;
+    gap: 10mm;
+    align-items: center;
   }
   .band .k-eyebrow { color: var(--k-butter); margin-bottom: 3.5mm; }
-  .band h2 { font-size: 20pt; color: var(--k-coal-ink); max-width: 118mm; }
+  .band h2 { font-size: 22pt; color: var(--k-coal-ink); max-width: 100mm; }
   .band .lede {
     margin-top: 4mm;
-    max-width: 118mm;
+    max-width: 98mm;
     font-size: 9.5pt;
     line-height: 1.5;
     color: var(--k-coal-soft);
   }
   .band .lede strong { color: var(--k-coal-ink); font-weight: 500; }
 
-  .auditbar {
-    margin-top: 5mm;
-    display: flex;
-    align-items: stretch;
-    max-width: 118mm;
-    border-radius: 3mm;
-    background: var(--k-coal-2);
-    border: 0.25mm solid var(--k-coal-line);
-    overflow: hidden;
-  }
-  .auditbar .field {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2.8mm 4.5mm;
-  }
-  .auditbar .field .lbl { font-size: 7pt; color: var(--k-coal-soft); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; }
-  .auditbar .field .val { font-size: 12.5pt; font-weight: 500; letter-spacing: -0.01em; color: var(--k-coal-ink); margin-top: 0.4mm; }
-  .auditbar .go {
-    display: flex;
+  .ask {
+    display: grid;
+    grid-template-columns: 30mm 1fr;
+    gap: 3.5mm 5mm;
     align-items: center;
-    gap: 2.5mm;
-    padding: 0 5mm;
-    background: var(--k-fire);
-    color: var(--k-bone);
-    font-weight: 500;
-    font-size: 10pt;
-    white-space: nowrap;
-  }
-  .auditbar .go svg { width: 4.2mm; height: 4.2mm; }
-
-
-  .qr {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 3.2mm;
-  }
-  .qr .code {
-    width: 40mm;
-    height: 40mm;
-    padding: 3.2mm;
-    border-radius: 3mm;
+    padding: 4.5mm;
+    border-radius: 3.5mm;
     background: var(--k-coal-2);
     border: 0.25mm solid var(--k-coal-line);
   }
-  .qr .code img { display: block; width: 100%; height: 100%; }
-  .qr .lbl { font-size: 8.5pt; line-height: 1.4; color: var(--k-coal-soft); max-width: 42mm; }
-  .qr .lbl b { color: var(--k-coal-ink); font-weight: 500; display: block; }
-
-  .colophon {
-    margin-top: 7mm;
+  .ask .code {
+    width: 30mm;
+    height: 30mm;
+    padding: 2.6mm;
+    border-radius: 2.4mm;
+    background: var(--k-coal);
+  }
+  .ask .code img { display: block; width: 100%; height: 100%; }
+  .ask .lbl { font-size: 8.5pt; line-height: 1.45; color: var(--k-coal-soft); }
+  .ask .lbl b { display: block; font-weight: 500; color: var(--k-coal-ink); font-size: 9.5pt; margin-bottom: 1.2mm; }
+  .ask .url {
+    grid-column: 1 / -1;
     padding-top: 3.5mm;
     border-top: 0.25mm solid var(--k-coal-line);
-    display: grid;
-    grid-template-columns: 1.15fr 1fr 1fr;
-    gap: 6mm;
-    font-size: 7.8pt;
+    font-weight: 600;
+    font-size: 15pt;
+    letter-spacing: -0.015em;
+    line-height: 1;
+    color: var(--k-fire-lite);
+    white-space: nowrap;
+  }
+
+  .colophon {
+    margin-top: 8mm;
+    padding-top: 3.5mm;
+    border-top: 0.25mm solid var(--k-coal-line);
+    display: flex;
+    justify-content: space-between;
+    gap: 8mm;
+    font-size: 7.6pt;
     line-height: 1.45;
     color: var(--k-coal-soft);
   }
-  .colophon b { display: block; font-weight: 500; color: var(--k-coal-ink); }
   .colophon .fire { color: var(--k-fire-lite); }
 </style>
 </head>
@@ -337,7 +315,6 @@
       <span class="sep"></span>
       <span class="soft">Websites for GP practices &amp; care homes</span>
     </div>
-    <div class="k-eyebrow url">www.flutterly.co.uk</div>
   </header>
 
   <main>
@@ -371,7 +348,7 @@
           <span class="num">02</span>
           <div>
             <h3>Accessible to every patient</h3>
-            <p>WCAG 2.2 AA designed in from the first wireframe, tested with real assistive technology, and shipped with a published accessibility statement.</p>
+            <p>WCAG 2.2 AA designed in from the first wireframe, tested with keyboards and screen readers, and shipped with a published accessibility statement.</p>
           </div>
         </li>
         <li>
@@ -396,32 +373,23 @@
     <div class="band-grid">
       <div>
         <div class="k-eyebrow">Free website audit</div>
-        <h2 class="k-display">Start with a written review of your <em>current</em> site.</h2>
+        <h2 class="k-display">Start with a free written review of your <em>current</em> site.</h2>
         <p class="lede">A plain-English audit against NHS accessibility and content standards: prioritised fixes you can hand to any developer, and <strong>“keep what you have”</strong> when that is the honest answer. Free, with no follow-up pressure.</p>
-
-        <div class="auditbar" aria-label="Request a free audit">
-          <div class="field">
-            <span class="lbl">Your practice website</span>
-            <span class="val">www.yourpractice.nhs.uk</span>
-          </div>
-          <div class="go">
-            Get the free audit
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </div>
-        </div>
-
       </div>
 
-      <div class="qr">
+      <div class="ask">
         <div class="code"><img src="qr-free-audit.svg" alt="QR code linking to www.flutterly.co.uk/free-audit" /></div>
-        <p class="lbl"><b>Scan for your free audit</b>Opens the audit request page on your phone.</p>
+        <p class="lbl">
+          <b>Scan, or type the address</b>
+          Paste your practice website address and the written review follows.
+        </p>
+        <div class="url">flutterly.co.uk/free-audit</div>
       </div>
     </div>
 
     <div class="colophon">
-      <div><b>www.flutterly.co.uk/free-audit</b>sales@flutterly.co.uk · Book a 15-minute call at www.flutterly.co.uk/book</div>
-      <div><b>Websites from <span class="fire">£995 + VAT</span></b>Hosting for the first year included. Most practice sites launch four to eight weeks after the first call.</div>
-      <div><b>Flutterly Ltd</b>Reading, Berkshire. Designed, built and supported in the UK by Anoop Jose.</div>
+      <span>Websites from <span class="fire">£995 + VAT</span>, hosting for the first year included. Most practice sites launch four to eight weeks after the first call.</span>
+      <span>Flutterly Ltd · Reading, Berkshire</span>
     </div>
   </footer>
 
