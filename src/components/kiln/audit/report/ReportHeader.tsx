@@ -5,8 +5,9 @@ import { ArrowUpRight, Link2, Printer } from "lucide-react";
 import { sectorLabel } from "@/lib/audit/score";
 import { sectors, type AuditReport } from "@/lib/audit/types";
 import { displayUrl } from "@/lib/audit/url";
+import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
-import { Display, Eyebrow, Rise, Tag } from "../../primitives";
+import { auditHref, Display, Eyebrow, Rise, Tag } from "../../primitives";
 import { ScoreDial } from "./ScoreDial";
 
 function kb(bytes: number) {
@@ -124,6 +125,11 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
               Print
             </button>
           </Rise>
+          <p className="k-print-only mt-6 text-[13px] leading-[1.6] text-k-muted">
+            Instant audit by Flutterly, run{" "}
+            {new Date(report.generatedAt).toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short" })}. Re-run or
+            share it at {auditHref(url, report.sector).replace(/^\//, `${site.domain.replace(/^www\./, "")}/`)}
+          </p>
         </div>
 
         <Rise delay={0.1} className="flex flex-col items-center lg:items-end">

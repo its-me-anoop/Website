@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { categoryMeta } from "@/lib/audit/score";
 import type { CategoryScore, Check } from "@/lib/audit/types";
 import { cn } from "@/lib/utils";
@@ -81,9 +82,38 @@ export function CategoryRow({ category, index }: { category: CategoryScore; inde
   );
 }
 
+/**
+ * CSS cannot open a closed <details>, so a printed report would lose
+ * every collapsed row. Open them all when printing starts and put the
+ * reader's state back afterwards.
+ */
+function useOpenDetailsForPrint(ref: React.RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    let closed: HTMLDetailsElement[] = [];
+    const before = () => {
+      /* Some browsers fire beforeprint more than once per print; keep the first snapshot. */
+      if (closed.length) return;
+      closed = Array.from(ref.current?.querySelectorAll<HTMLDetailsElement>("details:not([open])") ?? []);
+      closed.forEach((d) => (d.open = true));
+    };
+    const after = () => {
+      closed.forEach((d) => (d.open = false));
+      closed = [];
+    };
+    window.addEventListener("beforeprint", before);
+    window.addEventListener("afterprint", after);
+    return () => {
+      window.removeEventListener("beforeprint", before);
+      window.removeEventListener("afterprint", after);
+    };
+  }, [ref]);
+}
+
 export function CategoryList({ categories }: { categories: CategoryScore[] }) {
+  const ref = useRef<HTMLElement>(null);
+  useOpenDetailsForPrint(ref);
   return (
-    <section id="categories" aria-labelledby="categories-heading" className="border-t border-k-line bg-k-bone-2/60">
+    <section ref={ref} id="categories" aria-labelledby="categories-heading" className="border-t border-k-line bg-k-bone-2/60">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-20 sm:px-8 sm:py-24">
         <Rise className="max-w-[720px]">
           <Eyebrow className="text-k-muted">Seven areas</Eyebrow>

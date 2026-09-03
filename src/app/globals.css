@@ -585,17 +585,79 @@ html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
   }
 }
 
+/* Print-only content (e.g. the contact line that replaces buttons). */
+.k-print-only {
+  display: none;
+}
+
 /* Audit report: printing keeps the content, drops the chrome. */
 @media print {
-  .kiln-root header,
-  .kiln-root footer,
+  html,
+  body {
+    background: #fff !important;
+  }
+  .kiln-root {
+    /* Browsers drop backgrounds by default, so coal bands would print
+       light text on white. Remap the tokens so every on-coal pairing
+       becomes its on-bone equivalent; @theme inline resolves the vars
+       per element, so this cascades through the Tailwind utilities. */
+    --k-bone: #fff;
+    --k-bone-2: #fff;
+    --k-paper: #fff;
+    --k-coal: #fff;
+    --k-coal-2: #fff;
+    --k-coal-3: #fff;
+    --k-coal-ink: var(--k-ink);
+    --k-coal-soft: var(--k-ink-soft);
+    --k-coal-line: var(--k-line-2);
+    --k-fire-lite: var(--k-fire);
+    --k-moss-lite: var(--k-moss);
+    --k-ochre-lite: var(--k-ochre);
+    min-height: 0;
+  }
+  .kiln-root > header,
+  .kiln-root > footer,
   .k-no-print {
     display: none !important;
   }
-  .kiln-root details {
+  .k-print-only {
+    display: block;
+  }
+  /* Scroll-reveal elements the reader never reached are still at
+     opacity 0 when printing starts; show everything. */
+  .kiln-root [data-rise] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .k-dial-arc {
+    animation: none;
+  }
+  .kiln-root * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  .kiln-root main > section {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+  .kiln-root main > section > div {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .kiln-root details,
+  .kiln-root li,
+  .kiln-root article {
     break-inside: avoid;
   }
-  .kiln-root details > *:not(summary) {
+  .kiln-root h1,
+  .kiln-root h2,
+  .kiln-root h3 {
+    break-after: avoid;
+  }
+  /* Closed rows are opened by a beforeprint handler; this covers
+     browsers that expose the details content pseudo-element too. */
+  .kiln-root details::details-content {
+    content-visibility: visible;
     display: block;
   }
 }

@@ -38,6 +38,11 @@ export function plural(n: number, one: string, many = `${one}s`) {
   return `${n} ${n === 1 ? one : many}`;
 }
 
+/** Verb or pronoun agreement for a count: agree(n, "has", "have"). */
+export function agree(n: number, one: string, many: string) {
+  return n === 1 ? one : many;
+}
+
 export function trim(s: string, max = 80) {
   const clean = s.replace(/\s+/g, " ").trim();
   return clean.length > max ? `${clean.slice(0, max - 1)}…` : clean;

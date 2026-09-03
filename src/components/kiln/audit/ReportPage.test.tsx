@@ -139,6 +139,30 @@ describe("ReportPage", () => {
     expect(within(pitch).getByRole("link", { name: /book a 15-minute call/i })).toHaveAttribute("href", "/book");
   });
 
+  it("opens every collapsed area for printing and restores them afterwards", async () => {
+    search = "url=example-surgery.nhs.uk";
+    mockFetch({ ok: true, report: fakeReport() });
+    renderPage();
+    await waitFor(() => expect(screen.getByRole("heading", { level: 1, name: "www.example-surgery.nhs.uk" })).toBeInTheDocument());
+
+    const closed = () => document.querySelectorAll("details:not([open])").length;
+    const before = closed();
+    expect(before).toBeGreaterThan(0);
+
+    window.dispatchEvent(new Event("beforeprint"));
+    expect(closed()).toBe(0);
+    /* Chrome fires beforeprint again from its own print pipeline. */
+    window.dispatchEvent(new Event("beforeprint"));
+    window.dispatchEvent(new Event("afterprint"));
+    expect(closed()).toBe(before);
+
+    /* Scroll-reveal wrappers are marked so print CSS can force them visible. */
+    expect(document.querySelectorAll("[data-rise]").length).toBeGreaterThan(0);
+    /* Interactive controls give way to a printable contact line. */
+    const printLine = document.querySelector("#next-steps .k-print-only");
+    expect(printLine?.textContent).toMatch(/Email sales@flutterly.co.uk with this report/);
+  });
+
   it("tells a strong site to keep what it has and suggests Essentials", async () => {
     search = "url=example-surgery.nhs.uk";
     const report = fakeReport();

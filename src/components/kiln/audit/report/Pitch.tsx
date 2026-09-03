@@ -103,7 +103,7 @@ export function Pitch({ report }: { report: AuditReport }) {
                 Anoop reviews the site by hand: design, content, real-device speed, the journeys {who} actually take. You get a
                 scored, plain-English report within a week, yours to act on with anyone.
               </p>
-              <div className="mt-6 flex flex-wrap items-center gap-3">
+              <div className="k-no-print mt-6 flex flex-wrap items-center gap-3">
                 <BtnLink href={mailto} tone="fire" arrow="right">
                   Send me the written audit
                 </BtnLink>
@@ -111,8 +111,13 @@ export function Pitch({ report }: { report: AuditReport }) {
                   Book a {site.booking.durationMinutes}-minute call
                 </BtnLink>
               </div>
-              <p className="mt-4 text-[13.5px] text-k-coal-soft">
+              <p className="k-no-print mt-4 text-[13.5px] text-k-coal-soft">
                 The email opens prefilled with this report&rsquo;s summary. No follow-up pressure.
+              </p>
+              <p className="k-print-only mt-5 text-[15px] leading-[1.6] text-k-coal-ink">
+                Email <span className="font-medium">{site.email}</span> with this report&rsquo;s address, or book a{" "}
+                {site.booking.durationMinutes}-minute call at{" "}
+                <span className="font-medium">{site.domain.replace(/^www\./, "")}/book</span>.
               </p>
             </Rise>
           </div>
@@ -132,7 +137,7 @@ export function Pitch({ report }: { report: AuditReport }) {
             <ul className="mt-6 grid">
               <PackageCard pkg={recommended} index={0} headingLevel="h3" />
             </ul>
-            <Rise delay={0.16} className="mt-5">
+            <Rise delay={0.16} className="k-no-print mt-5">
               <BtnLink href="/packages" tone="ghost" arrow="right">
                 Compare all three packages
               </BtnLink>

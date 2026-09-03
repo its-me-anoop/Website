@@ -157,15 +157,17 @@ export function ReportPage() {
           <CategoryList categories={state.report.categories} />
           <Priorities report={state.report} />
           <Pitch report={state.report} />
-          <CtaBand
-            title={
-              <>
-                Audit another site, or <em>talk it through</em>.
-              </>
-            }
-            copy="Paste a different address for another instant report, or get in touch about this one."
-            id="contact"
-          />
+          <div className="k-no-print">
+            <CtaBand
+              title={
+                <>
+                  Audit another site, or <em>talk it through</em>.
+                </>
+              }
+              copy="Paste a different address for another instant report, or get in touch about this one."
+              id="contact"
+            />
+          </div>
         </>
       ) : null}
     </KilnShell>

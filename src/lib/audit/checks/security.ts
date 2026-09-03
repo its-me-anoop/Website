@@ -1,4 +1,4 @@
-import { checker, plural, trim, type CheckModule } from "./context";
+import { agree, checker, plural, trim, type CheckModule } from "./context";
 
 const c = checker("security");
 
@@ -128,7 +128,7 @@ export const securityChecks: CheckModule = ({ page, httpProbe }) => {
         ? "Not applicable on an http site."
         : mixed.length === 0
           ? "Every script, image, stylesheet and frame loads over https."
-          : `${plural(mixed.length, "resource")} load over plain http on an https page. Browsers block or warn about them, and the padlock is lost.`,
+          : `${plural(mixed.length, "resource")} ${agree(mixed.length, "loads", "load")} over plain http on an https page. Browsers block or warn about ${agree(mixed.length, "it", "them")}, and the padlock is lost.`,
       fix: "Change the http:// resource addresses to https:// (or protocol-relative) and re-test.",
       evidence: mixed.map((m) => trim(m, 90)),
     })

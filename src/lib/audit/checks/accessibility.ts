@@ -1,5 +1,5 @@
 import type { HTMLElement } from "node-html-parser";
-import { checker, plural, trim, type CheckModule } from "./context";
+import { agree, checker, plural, trim, type CheckModule } from "./context";
 
 const c = checker("accessibility");
 
@@ -170,7 +170,7 @@ export const accessibilityChecks: CheckModule = ({ page }) => {
           ? visibleAnchors.length === 1
             ? "The one link has text or a label."
             : `All ${visibleAnchors.length} links have text or a label.`
-          : `${plural(emptyLinks.length, "link")} have no text, alt or label. Screen readers announce them as just "link".`,
+          : `${plural(emptyLinks.length, "link")} ${agree(emptyLinks.length, "has", "have")} no text, alt or label. Screen readers announce ${agree(emptyLinks.length, "it", "them")} as just "link".`,
       fix: "Give icon and image links an aria-label or alt text that says where they go. WCAG 2.4.4 and 4.1.2.",
       evidence: emptyLinks.map((a) => trim(a.href || "(no href)", 90)),
     })
@@ -186,7 +186,7 @@ export const accessibilityChecks: CheckModule = ({ page }) => {
       detail:
         generic.length === 0
           ? "No links rely on vague text such as \u201cclick here\u201d or \u201cread more\u201d."
-          : `${plural(generic.length, "link")} use vague text such as \u201c${generic[0].text}\u201d. Out of context (as screen-reader users hear them) they mean nothing.`,
+          : `${plural(generic.length, "link")} ${agree(generic.length, "uses", "use")} vague text such as \u201c${generic[0].text}\u201d. Out of context (as screen-reader users hear ${agree(generic.length, "it", "them")}) ${agree(generic.length, "it means", "they mean")} nothing.`,
       fix: "Rewrite links to name the destination: \u201cBook an appointment\u201d rather than \u201cclick here\u201d.",
       evidence: generic.map((a) => `\u201c${a.text}\u201d → ${trim(a.href, 60)}`),
     })
@@ -254,8 +254,10 @@ export const accessibilityChecks: CheckModule = ({ page }) => {
         iframes.length === 0
           ? "No embedded frames (maps, videos, booking widgets) were found."
           : untitled.length === 0
-            ? `All ${plural(iframes.length, "embedded frame")} have a title.`
-            : `${plural(untitled.length, "embedded frame")} (maps, videos or widgets) have no title, so screen readers cannot say what they contain.`,
+            ? iframes.length === 1
+              ? "The one embedded frame has a title."
+              : `All ${plural(iframes.length, "embedded frame")} have a title.`
+            : `${plural(untitled.length, "embedded frame")} (maps, videos or widgets) ${agree(untitled.length, "has", "have")} no title, so screen readers cannot say what ${agree(untitled.length, "it contains", "they contain")}.`,
       fix: 'Add title="Map showing the practice location" (or similar) to each <iframe>. WCAG 4.1.2.',
       evidence: untitled.map((f) => trim(f.getAttribute("src") ?? "(inline frame)", 90)),
     })

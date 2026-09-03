@@ -1,4 +1,4 @@
-import { checker, plural, trim, type CheckModule } from "./context";
+import { agree, checker, plural, trim, type CheckModule } from "./context";
 
 const c = checker("mobile");
 
@@ -47,7 +47,7 @@ export const mobileChecks: CheckModule = ({ page }) => {
       detail:
         fixedWidths.length === 0
           ? "No elements are pinned to a desktop-sized pixel width."
-          : `${plural(fixedWidths.length, "element")} are fixed at 700px or wider, which forces horizontal scrolling on phones.`,
+          : `${plural(fixedWidths.length, "element")} ${agree(fixedWidths.length, "is", "are")} fixed at 700px or wider, which forces horizontal scrolling on phones.`,
       fix: "Replace fixed pixel widths with max-width and percentages so content wraps to the screen.",
       evidence: fixedWidths.map((el) => trim(`<${el.tagName.toLowerCase()} ${el.getAttribute("width") ? `width="${el.getAttribute("width")}"` : `style="${el.getAttribute("style")}"`}>`, 80)),
     })

@@ -34,6 +34,7 @@ export function Rise({
   return (
     <Tag
       className={className}
+      data-rise=""
       initial={reduce ? false : { y, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}

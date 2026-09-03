@@ -108,6 +108,16 @@ see, and `perf-client-rendered` explains the trade-off.
   areas → what Flutterly builds, suggested package, prefilled written-
   audit email, booking link) and the closing `CtaBand`.
 
+Printing (the header's Print button or the browser's own command) is
+handled in `globals.css` under `@media print`: the site nav, footer and
+anything marked `k-no-print` are dropped, `k-print-only` lines replace
+buttons with the email address and booking URL, scroll-reveal wrappers
+(`[data-rise]`) are forced visible, and the coal tokens are remapped to
+their on-bone equivalents so dark bands print as dark text on white.
+`CategoryList` listens for `beforeprint` to open every collapsed row and
+`afterprint` to restore the reader's state, since CSS cannot open a
+closed `<details>`.
+
 A `data-audit-state` attribute on the live region exposes the current
 state for the browser workflow. `/audit` is `noindex` and excluded from
 the sitemap; `/api/` is disallowed in `robots.txt`.
