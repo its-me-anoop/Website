@@ -461,7 +461,7 @@ export const packagesFaq = [
   },
   {
     q: "How long does a build take?",
-    a: "Most GP practice and care home websites launch four to eight weeks after the first call, depending on how quickly content and photography come together.",
+    a: "The timeline is agreed at the first call and written into the quote. In practice the pace is set by how quickly content and photography come together, so that is where the plan starts.",
   },
   {
     q: "Do we own the website?",
@@ -532,7 +532,7 @@ export const gpSector: Sector = {
     "Patients arrive stressed, in a hurry and often on an old phone. Your website should get them to the right service in seconds, and quietly take routine requests off the phones.",
   heroPoints: [
     "Signposting to the NHS App, online consultations and prescriptions",
-    "WCAG 2.2 AA accessibility, tested with real assistive technology",
+    "WCAG 2.2 AA accessibility, tested with keyboards and screen readers",
     "Fast on any connection, with no page builders and no plugin stack",
   ],
   demo: {
@@ -579,7 +579,7 @@ export const gpSector: Sector = {
   compliance: {
     eyebrow: "Standards and compliance",
     title: "Built around the standards NHS websites are held to",
-    copy: "Practice websites are expected to meet public-sector accessibility regulations and NHS content guidance. Every Flutterly build treats those as the starting line, not an add-on.",
+    copy: "Practice websites are expected to meet the public-sector accessibility regulations (WCAG 2.2 AA) and follow the NHS service manual. Every Flutterly build treats those as the starting line, not an add-on.",
     points: [
       "WCAG 2.2 AA target, aligned with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018",
       "A published accessibility statement, kept up to date",
@@ -601,7 +601,7 @@ export const gpSector: Sector = {
       a: "Yes. The website links patients directly into the systems you already use (online consultation tools, the NHS App, your prescription ordering route) with clear guidance around each one.",
     },
     {
-      q: "Do you meet NHS accessibility requirements?",
+      q: "Do you meet the accessibility regulations that apply to NHS websites?",
       a: "Every build targets WCAG 2.2 AA, the level referenced by the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018, and ships with a maintained accessibility statement.",
     },
     {
@@ -614,7 +614,7 @@ export const gpSector: Sector = {
     },
   ],
   ctaTitle: "Ready to give your patients a better front door?",
-  ctaCopy: "Start with the free audit, a written review of your current site against NHS accessibility and content standards, or book a short call to talk about a quote.",
+  ctaCopy: "Start with the free audit, a written review of your current site against WCAG 2.2 AA and the NHS service manual, or book a short call to talk about a quote.",
 };
 
 export const careSector: Sector = {
