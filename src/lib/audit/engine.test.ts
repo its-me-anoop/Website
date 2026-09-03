@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { accessibilityChecks } from "./checks/accessibility";
 import { contentChecks } from "./checks/content";
 import type { AuditContext } from "./checks/context";
@@ -7,10 +7,18 @@ import { mobileChecks } from "./checks/mobile";
 import { performanceChecks } from "./checks/performance";
 import { securityChecks } from "./checks/security";
 import { seoChecks } from "./checks/seo";
-import type { FetchedPage } from "./fetch";
-import { detectSector, parsePage, rootDomain } from "./page";
+import { safeFetch, tryFetch, type FetchedPage } from "./fetch";
+import { detectSector, isUnreadableShell, parsePage, rootDomain } from "./page";
+import { runAudit } from "./run";
 import { buildCategories, gradeFor, overallScore, prioritise, scoreChecks } from "./score";
-import type { Check } from "./types";
+import { AuditError, type Check } from "./types";
+
+/* The engine tests never touch the network: `runAudit` gets whatever
+   `safeFetch` is told to return, and the supporting fetches yield null. */
+vi.mock("./fetch", () => ({
+  safeFetch: vi.fn(),
+  tryFetch: vi.fn(async () => null),
+}));
 
 /* ─── fixtures ─────────────────────────────────────────────── */
 
@@ -296,6 +304,153 @@ describe("client-rendered pages", () => {
     expect(byId(content, "content-word-count").impact).toBe("high");
     expect(byId(content, "content-contact").status).toBe("info");
     expect(byId(performanceChecks(ctx), "perf-client-rendered").status).toBe("fail");
+  });
+});
+
+/* ─── unreadable responses ─────────────────────────────────── */
+
+/* What a bot-challenge firewall hands the audit reader: a ~2 KB HTML
+   shell with a title, a script, a hidden iframe and not one visible word.
+   A real browser runs the script and sees the practice's site. */
+const CHALLENGE_SHELL = `<!doctype html><html><head><meta charset="utf-8"><title>Loading</title>
+<script src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3"></script>
+<style>body{margin:0;background:#fff}</style></head>
+<body><div id="root"></div><iframe style="display:none" src="/_Incapsula_Resource?CWUDNSAI=9&amp;xinfo=0"></iframe></body></html>
+`.padEnd(2048, " ");
+
+const TINY_REAL_PAGE = `<!doctype html><html lang="en"><head><title>Oak Lane Surgery</title></head>
+<body><h1>Oak Lane Surgery</h1><p>Call <a href="tel:+441184960000">0118 496 0000</a>.</p><a href="/appointments">Appointments</a></body></html>`;
+
+describe("isUnreadableShell", () => {
+  it("treats no visible words as unreadable, whatever the markup around them", () => {
+    expect(isUnreadableShell(parsePage(fetched("")))).toBe(true);
+    expect(isUnreadableShell(parsePage(fetched("<!doctype html><html><head></head><body></body></html>")))).toBe(true);
+    expect(isUnreadableShell(parsePage(fetched(CHALLENGE_SHELL)))).toBe(true);
+  });
+
+  it("treats a few words of interstitial or JavaScript shell as unreadable", () => {
+    expect(isUnreadableShell(parsePage(fetched(`<html><body><h1>Please wait…</h1><p>Checking your browser.</p></body></html>`)))).toBe(true);
+    expect(isUnreadableShell(parsePage(fetched(`<html><head><script src="/app.js"></script></head><body><div id="app">Loading</div></body></html>`)))).toBe(true);
+    expect(isUnreadableShell(parsePage(fetched(`<html><body><p>Welcome</p></body></html>`)))).toBe(true);
+  });
+
+  it("keeps a short but real page readable", () => {
+    const page = parsePage(fetched(TINY_REAL_PAGE));
+    expect(page.words.length).toBeLessThan(10);
+    expect(isUnreadableShell(page)).toBe(false);
+    expect(isUnreadableShell(parsePage(fetched(GOOD_GP)))).toBe(false);
+    expect(isUnreadableShell(parsePage(fetched(BAD_PAGE)))).toBe(false);
+  });
+});
+
+describe("runAudit", () => {
+  const REFUSED = /refused an automated visit \(status \d+\)/;
+
+  beforeEach(() => {
+    vi.mocked(safeFetch).mockReset();
+    vi.mocked(tryFetch).mockReset().mockResolvedValue(null);
+  });
+
+  async function failure(body: string, overrides: Partial<FetchedPage> = {}, headers: Record<string, string> = {}): Promise<AuditError> {
+    vi.mocked(safeFetch).mockResolvedValue(fetched(body, overrides, headers));
+    let thrown: unknown;
+    try {
+      await runAudit("https://www.willowbrook-surgery.nhs.uk/");
+    } catch (err) {
+      thrown = err;
+    }
+    expect(thrown).toBeInstanceOf(AuditError);
+    return thrown as AuditError;
+  }
+
+  it("fails closed on HTTP 202 with an empty or tiny body, on the same path as a 403", async () => {
+    for (const body of ["", CHALLENGE_SHELL]) {
+      const err = await failure(body, { status: 202 });
+      expect(err.code).toBe("http_error");
+      expect(err.status).toBe(202);
+      expect(err.message).toMatch(REFUSED);
+    }
+  });
+
+  it("fails closed on HTTP 202 even when the body is a full page", async () => {
+    const err = await failure(GOOD_GP, { status: 202 });
+    expect(err.code).toBe("http_error");
+    expect(err.status).toBe(202);
+  });
+
+  it("still fails a 403 or 429 with the existing http_error", async () => {
+    const forbidden = await failure("<html><body>Access denied</body></html>", { status: 403 });
+    expect(forbidden.code).toBe("http_error");
+    expect(forbidden.status).toBe(403);
+    expect(forbidden.message).toBe(
+      "The site refused an automated visit (status 403). Some firewalls block audit tools; the written audit can still review it."
+    );
+    const limited = await failure("", { status: 429 });
+    expect(limited.code).toBe("http_error");
+    expect(limited.status).toBe(429);
+    expect(limited.message).toMatch(REFUSED);
+    const missing = await failure("<html><body>Not found</body></html>", { status: 404 });
+    expect(missing.code).toBe("http_error");
+    expect(missing.message).toMatch(/does not exist \(404\)/);
+  });
+
+  it("fails closed on a 200 that carries no readable page", async () => {
+    for (const body of ["", "   \n", "<!doctype html><html><head></head><body></body></html>", CHALLENGE_SHELL]) {
+      const err = await failure(body);
+      expect(err.code, JSON.stringify(body.slice(0, 40))).toBe("http_error");
+      expect(err.status).toBe(200);
+      expect(err.message).toMatch(REFUSED);
+    }
+    const noContent = await failure("", { status: 204 });
+    expect(noContent.code).toBe("http_error");
+  });
+
+  it("fails closed on a 202 shell before anything that could become a grade, verdict or pitch", async () => {
+    vi.mocked(safeFetch).mockResolvedValue(fetched(CHALLENGE_SHELL, { status: 202 }));
+    const result = await runAudit("https://www.willowbrook-surgery.nhs.uk/").then(
+      (report) => ({ ok: true as const, report }),
+      (err: unknown) => ({ ok: false as const, err })
+    );
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.err).toBeInstanceOf(AuditError);
+    expect((result.err as AuditError).code).toBe("http_error");
+    /* No report object exists, so there is nothing for the UI to draw a
+       dial, grade, sector verdict or sales pitch from. */
+    expect("report" in result).toBe(false);
+    for (const key of ["score", "grade", "verdict", "sector", "detectedSector", "categories", "priorities"]) {
+      expect(result.err, key).not.toHaveProperty(key);
+    }
+    /* The parse-and-score stage was never reached: no supporting fetches. */
+    expect(tryFetch).not.toHaveBeenCalled();
+  });
+
+  it("still scores a normal page with the usual number of checks", async () => {
+    vi.mocked(safeFetch).mockResolvedValue(fetched(GOOD_GP));
+    const report = await runAudit("willowbrook-surgery.nhs.uk");
+    const expected = [accessibilityChecks, performanceChecks, seoChecks, contentChecks, mobileChecks, securityChecks, localChecks].flatMap((run) => run(context(fetched(GOOD_GP)))).length;
+    expect(report.totals.checks).toBe(expected);
+    expect(report.totals.checks).toBeGreaterThanOrEqual(70);
+    expect(report.sector).toBe("gp-practice");
+    expect(report.page.wordCount).toBeGreaterThan(80);
+    expect(report.score).toBeGreaterThan(0);
+    expect(["A", "B", "C", "D", "E"]).toContain(report.grade);
+    expect(report.verdict).toMatch(/patients/);
+  });
+
+  it("still scores a short but real page", async () => {
+    vi.mocked(safeFetch).mockResolvedValue(fetched(TINY_REAL_PAGE));
+    const report = await runAudit("https://www.willowbrook-surgery.nhs.uk/");
+    expect(report.page.wordCount).toBeLessThan(10);
+    expect(report.totals.checks).toBeGreaterThan(50);
+    expect(report.categories.find((c) => c.id === "content")?.checks.find((c) => c.id === "content-word-count")?.status).toBe("fail");
+  });
+
+  it("honours a sector override on a page it can read", async () => {
+    vi.mocked(safeFetch).mockResolvedValue(fetched(GOOD_GP));
+    const report = await runAudit("https://www.willowbrook-surgery.nhs.uk/", { sector: "care-home" });
+    expect(report.sector).toBe("care-home");
+    expect(report.detectedSector).toBe("gp-practice");
   });
 });
 

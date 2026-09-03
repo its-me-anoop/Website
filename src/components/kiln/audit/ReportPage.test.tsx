@@ -198,6 +198,36 @@ describe("ReportPage", () => {
     expect(screen.queryByRole("button", { name: /try again/i })).toBeNull();
   });
 
+  it("shows no score, grade, verdict or pitch when the engine fails closed on an unreadable site", async () => {
+    search = "url=blocked-surgery.nhs.uk";
+    mockFetch(
+      {
+        ok: false,
+        error: {
+          code: "http_error",
+          message: "The site refused an automated visit (status 202). Some firewalls block audit tools; the written audit can still review it.",
+          status: 202,
+        },
+      },
+      422
+    );
+    renderPage();
+
+    await waitFor(() => expect(screen.getByRole("heading", { level: 1, name: /answered with an error/i })).toBeInTheDocument());
+    expect(
+      screen.getByText("The site refused an automated visit (status 202). Some firewalls block audit tools; the written audit can still review it.")
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /written audit instead/i }).getAttribute("href")).toMatch(/^mailto:/);
+
+    expect(screen.queryByRole("img", { name: /overall score/i })).toBeNull();
+    expect(screen.queryByText(/grade [a-e]/i)).toBeNull();
+    expect(screen.queryByText(/organisation|visitors are likely/i)).toBeNull();
+    expect(screen.queryByRole("region", { name: /same list before launch|keep what you have/i })).toBeNull();
+    expect(screen.queryByRole("link", { name: /book a 15-minute call/i })).toBeNull();
+    expect(screen.queryByRole("region", { name: /changes that would help/i })).toBeNull();
+    expect(screen.queryByRole("button", { name: /try again/i })).toBeNull();
+  });
+
   it("offers a retry for transient failures", async () => {
     search = "url=slow.example";
     mockFetch({ ok: false, error: { code: "timeout", message: "The site took too long to respond." } }, 504);

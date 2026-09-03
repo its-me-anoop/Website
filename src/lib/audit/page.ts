@@ -289,6 +289,32 @@ export function parsePage(fetched: FetchedPage): ParsedPage {
   };
 }
 
+/**
+ * Below this many visible words a page is treated as a shell unless it
+ * still carries something a reader could act on. Real pages this short
+ * are rare; bot challenges, "please wait" interstitials and empty
+ * JavaScript containers are not.
+ */
+const MIN_READABLE_WORDS = 10;
+
+const INTERSTITIAL = /please wait|just a moment|checking your browser|verify(ing)? (you are|that you)|enable javascript|javascript is (required|disabled)|redirecting|loading\b/i;
+
+/**
+ * True when the HTML carries nothing the audit could honestly score: no
+ * visible words at all, or a handful of words that are an interstitial
+ * or sit in a JavaScript shell with no links or headings to navigate by.
+ * Callers fail closed on this rather than grade an empty page. A short
+ * but real page (a heading, a phone number, a few links) is not a shell.
+ */
+export function isUnreadableShell(page: ParsedPage): boolean {
+  const words = page.words.length;
+  if (words === 0) return true;
+  if (words >= MIN_READABLE_WORDS) return false;
+  if (page.clientRendered || INTERSTITIAL.test(page.textRaw)) return true;
+  const navigable = page.headings.length > 0 || page.anchors.some((a) => a.text);
+  return !navigable;
+}
+
 /** "www.example.co.uk" → "example.co.uk" (good enough for same-site tests). */
 export function rootDomain(host: string): string {
   const parts = host.split(".");
