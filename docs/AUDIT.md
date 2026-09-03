@@ -49,6 +49,15 @@ guard rails are layered:
   (200 entries), `Cache-Control: private, no-store`, `maxDuration = 60`.
   Every failure is an `AuditError` with a stable `code` and a message
   written for the user, mapped to 400 / 422 / 429 / 504.
+- `run.ts` fails closed on responses that are not really a page. A 4xx
+  or 5xx is an `http_error`; so is any 2xx other than 200 / 203 (bot
+  challenges answer with a 202 and an empty or ~2 KB shell), a blank
+  body, and HTML that `isUnreadableShell` (`page.ts`) judges to have
+  nothing scorable in it: no visible words, or a few words that are an
+  interstitial ("please wait", "loading") or a JavaScript container with
+  no headings or links. All of these reuse the 403 / 429 message, so the
+  report page shows `ErrorState` and never a score, grade, sector
+  verdict or pitch. A short but real page still scores.
 
 ## Checks
 
@@ -126,7 +135,9 @@ the sitemap; `/api/` is disallowed in `robots.txt`.
 
 - `lib/audit/url.test.ts` — normalisation and private-address blocking.
 - `lib/audit/engine.test.ts` — every check module and the scorer
-  against good and bad HTML fixtures, no network.
+  against good and bad HTML fixtures, no network; `runAudit` with the
+  fetch layer mocked, proving 202 / empty / unreadable responses fail
+  closed as `http_error` while 403 and normal pages behave as before.
 - `kiln/audit/ReportPage.test.tsx` — the four UI states with the router
   and `fetch` mocked.
 - `scripts/browser-workflow.mjs` — submits the homepage audit bar
