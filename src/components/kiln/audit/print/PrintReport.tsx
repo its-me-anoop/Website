@@ -28,14 +28,22 @@ import { QrBook } from "./QrBook";
 const shortDomain = site.domain.replace(/^www\./, "");
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  return new Date(iso).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 }
 
 function formatKb(bytes: number) {
   return bytes >= 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${Math.round(bytes / 1024)} KB`;
 }
 
-const impactLabel: Record<Impact, string> = { high: "High impact", medium: "Medium impact", low: "Low impact" };
+const impactLabel: Record<Impact, string> = {
+  high: "High impact",
+  medium: "Medium impact",
+  low: "Low impact",
+};
 
 function Wordmark({ onCoal }: { onCoal?: boolean }) {
   return (
@@ -65,16 +73,18 @@ function RunningHead({ report, onCoal }: { report: AuditReport; onCoal?: boolean
 
 function PageFoot({ onCoal, label }: { onCoal?: boolean; label: string }) {
   return (
-    <div
-      className={cn(
-        "mt-auto flex items-center justify-between gap-[6mm] border-t pt-[3mm] text-[7.5pt]",
-        onCoal ? "border-k-coal-line text-k-coal-soft" : "border-k-line text-k-muted"
-      )}
-    >
-      <span>
-        {site.legalName} &middot; {site.address.addressLocality}, UK &middot; {shortDomain} &middot; {site.email}
-      </span>
-      <span className="k-eyebrow !text-[7pt]">{label}</span>
+    <div className="k-pdf-foot mt-auto pt-[5mm]">
+      <div
+        className={cn(
+          "flex items-center justify-between gap-[6mm] border-t pt-[3mm] text-[7.5pt]",
+          onCoal ? "border-k-coal-line text-k-coal-soft" : "border-k-line text-k-muted"
+        )}
+      >
+        <span>
+          {site.legalName} &middot; {site.address.addressLocality}, UK &middot; {shortDomain} &middot; {site.email}
+        </span>
+        <span className="k-eyebrow !text-[7pt]">{label}</span>
+      </div>
     </div>
   );
 }
@@ -94,7 +104,7 @@ function Cover({ report }: { report: AuditReport }) {
     <section className="k-pdf-page on-coal bg-k-coal text-k-coal-ink">
       <RunningHead report={report} onCoal />
 
-      <div className="mt-[18mm]">
+      <div className="mt-[10mm]">
         <Eyebrow className="text-k-fire-lite">Instant website audit &middot; {sectorLabel(report.sector)}</Eyebrow>
         <p className="k-display mt-[6mm] break-words text-[34pt] leading-[1.02] text-k-coal-ink">{page.host}</p>
         <p className="mt-[4mm] text-[10.5pt] leading-[1.5] text-k-coal-soft">
@@ -111,22 +121,22 @@ function Cover({ report }: { report: AuditReport }) {
         ) : null}
       </div>
 
-      <div className="mt-[14mm] rounded-[16px] bg-k-paper p-[10mm] text-k-ink">
-        <div className="flex items-center gap-[10mm]">
-          <ScoreDial score={report.score} grade={report.grade} className="h-[56mm] w-[56mm] shrink-0 sm:h-[56mm] sm:w-[56mm]" />
+      <div className="mt-[10mm] rounded-[16px] bg-k-paper p-[8mm] text-k-ink">
+        <div className="flex items-center gap-[8mm]">
+          <ScoreDial score={report.score} grade={report.grade} className="h-[50mm] w-[50mm] shrink-0 sm:h-[50mm] sm:w-[50mm]" />
           <div className="min-w-0">
             <p className="flex items-baseline gap-[3mm]">
               <span className={cn("k-display text-[40pt] leading-none", scoreTone(report.score))}>{report.grade}</span>
               <span className="text-[10pt] text-k-ink-soft">grade for {aSector(report.sector)}</span>
             </p>
-            <p className="mt-[4mm] text-[12.5pt] leading-[1.45] text-k-ink">{report.verdict}</p>
+            <p className="mt-[3mm] text-[12pt] leading-[1.45] text-k-ink">{report.verdict}</p>
             <p className="mt-[3mm] text-[9pt] text-k-muted">
               {totals.pass} of {totals.checks} checks passed &middot; {totals.fail} to fix &middot; {totals.warn} to improve
               {totals.info ? <> &middot; {totals.info} for information</> : null}
             </p>
           </div>
         </div>
-        <dl className="mt-[9mm] grid grid-cols-5 gap-[5mm] border-t border-k-line pt-[6mm]">
+        <dl className="mt-[7mm] grid grid-cols-5 gap-[4mm] border-t border-k-line pt-[5mm]">
           {facts.map(([k, v]) => (
             <div key={k}>
               <dt className="k-eyebrow !text-[7pt] text-k-muted">{k}</dt>
@@ -136,9 +146,9 @@ function Cover({ report }: { report: AuditReport }) {
         </dl>
       </div>
 
-      <div className="mt-[12mm]">
+      <div className="mt-[9mm]">
         <p className="k-eyebrow !text-[7pt] text-k-coal-soft">Seven areas at a glance</p>
-        <ol className="mt-[4mm] grid grid-cols-7 gap-[3mm]">
+        <ol className="mt-[3mm] grid grid-cols-7 gap-[3mm]">
           {report.categories.map((c, i) => (
             <li key={c.id} className="border-t border-k-coal-line pt-[3mm]">
               <p className="text-[7pt] tabular-nums text-k-coal-soft">0{i + 1}</p>
@@ -151,11 +161,11 @@ function Cover({ report }: { report: AuditReport }) {
         </ol>
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto pt-[8mm]">
         <p className="max-w-[150mm] text-[8.5pt] leading-[1.55] text-k-coal-soft">
           An automated check of the page&rsquo;s HTML and response headers, fetched from a UK server on{" "}
-          {formatDate(report.generatedAt)}. It cannot run JavaScript, judge design or measure real visitors&rsquo; speed;
-          the written audit on the last page covers those. Nothing entered is stored.
+          {formatDate(report.generatedAt)}. It cannot run JavaScript, judge design or measure real visitors&rsquo; speed; the
+          written audit on the last page covers those. Nothing entered is stored.
         </p>
         <PageFoot onCoal label="Cover" />
       </div>
@@ -168,24 +178,27 @@ function Cover({ report }: { report: AuditReport }) {
 function AreaRow({ category, index }: { category: CategoryScore; index: number }) {
   const { score, counts } = category;
   return (
-    <li className="grid grid-cols-[9mm_1fr_46mm_32mm] items-center gap-x-[5mm] border-t border-k-line py-[4mm]">
+    <li className="grid grid-cols-[7mm_1fr_36mm_34mm] items-center gap-x-[3.5mm] border-t border-k-line py-[4.5mm]">
       <span className="k-display text-[10pt] tabular-nums text-k-fire">0{index + 1}</span>
       <div className="min-w-0">
         <p className="k-display text-[13.5pt] leading-tight text-k-ink">{category.name}</p>
-        <p className="mt-[1mm] text-[8.5pt] leading-[1.45] text-k-ink-soft">{categoryMeta[category.id].blurb}</p>
+        <p className="mt-[0.8mm] text-[8pt] leading-[1.4] text-k-ink-soft">{categoryMeta[category.id].blurb}</p>
       </div>
       <div className="flex items-center gap-[3mm]">
-        <span className="h-[1.6mm] w-[26mm] overflow-hidden rounded-full bg-k-line">
+        <span className="h-[1.6mm] w-[22mm] overflow-hidden rounded-full bg-k-line">
           <span className={cn("block h-full rounded-full", scoreBar(score))} style={{ width: `${score ?? 0}%` }} />
         </span>
         <span className={cn("k-display w-[10mm] text-right text-[18pt] leading-none tabular-nums", scoreTone(score))}>
           {score ?? "–"}
         </span>
       </div>
-      <p className="text-right text-[8.5pt] leading-[1.4] text-k-ink-soft">
-        {counts.fail ? <span className="block text-k-fire">{counts.fail} to fix</span> : null}
-        {counts.warn ? <span className="block text-k-ochre">{counts.warn} to improve</span> : null}
-        {!counts.fail && !counts.warn ? <span className="block text-k-moss">Nothing to fix</span> : null}
+      <p className="text-right text-[8pt] leading-[1.45] text-k-ink-soft">
+        <span className="block">
+          {counts.fail ? <span className="text-k-fire">{counts.fail} to fix</span> : null}
+          {counts.fail && counts.warn ? " · " : null}
+          {counts.warn ? <span className="text-k-ochre">{counts.warn} to improve</span> : null}
+          {!counts.fail && !counts.warn ? <span className="text-k-moss">Nothing to fix</span> : null}
+        </span>
         <span className="block text-k-muted">weight {category.weight}%</span>
       </p>
     </li>
@@ -196,52 +209,57 @@ function Summary({ report, who }: { report: AuditReport; who: string }) {
   return (
     <section className="k-pdf-page bg-k-bone text-k-ink">
       <RunningHead report={report} />
-      <Eyebrow className="mt-[12mm] text-k-muted">Seven areas</Eyebrow>
+      <Eyebrow className="mt-[9mm] text-k-muted">Seven areas</Eyebrow>
       <h2 className="k-display mt-[4mm] text-[24pt] text-k-ink">
         How the site scores, area by <em>area</em>.
       </h2>
       <p className="mt-[3mm] max-w-[140mm] text-[10pt] leading-[1.55] text-k-ink-soft">
-        Each area is weighted by how much it affects {who}: accessibility and content count most because they are what{" "}
-        {who} feel first. The full list of checks, with what was found and how to fix it, follows on the next pages.
+        Each area is weighted by how much it affects {who}: accessibility and content count most because they are what {who} feel
+        first. The full list of checks, with what was found and how to fix it, follows on the next pages, with a key to the marks.
       </p>
-      <ol className="mt-[7mm] border-b border-k-line">
+      <ol className="mt-[6mm] border-b border-k-line">
         {report.categories.map((c, i) => (
           <AreaRow key={c.id} category={c} index={i} />
         ))}
       </ol>
 
-      <div className="mt-[8mm] grid grid-cols-2 gap-[10mm] text-[8.5pt] leading-[1.5] text-k-ink-soft">
-        <div>
-          <p className="k-eyebrow !text-[7pt] text-k-muted">Reading the checks</p>
-          <ul className="mt-[2.5mm] grid gap-[1.5mm]">
-            {(["fail", "warn", "pass", "info"] as const).map((s) => (
-              <li key={s} className="flex items-center gap-[2.5mm]">
-                <StatusMark status={s} size={12} />
-                <span>
-                  <span className="font-medium text-k-ink">{statusLabel[s]}.</span>{" "}
-                  {s === "fail"
-                    ? "Costs the score and should be fixed."
-                    : s === "warn"
-                      ? "Half marks; worth improving."
-                      : s === "pass"
-                        ? "Full marks."
-                        : "Could not be judged from the HTML alone; not scored."}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <p className="k-eyebrow !text-[7pt] text-k-muted">How the score is built</p>
-          <p className="mt-[2.5mm]">
-            Every check is weighted by its impact on {who} (high counts three times a low). Each area&rsquo;s score is
-            the weighted share of marks earned; the overall score combines the areas by the weights shown. Grades: A
-            from 90, B from 75, C from 60, D from 45.
-          </p>
-        </div>
-      </div>
       <PageFoot label="Summary" />
     </section>
+  );
+}
+
+function Legend({ who }: { who: string }) {
+  return (
+    <div className="mt-[6mm] grid grid-cols-2 gap-[8mm] rounded-[8px] bg-k-bone-2/70 px-[5mm] py-[4mm] text-[8pt] leading-[1.5] text-k-ink-soft">
+      <div>
+        <p className="k-eyebrow !text-[7pt] text-k-muted">Reading the checks</p>
+        <ul className="mt-[2.5mm] grid gap-[1.5mm]">
+          {(["fail", "warn", "pass", "info"] as const).map((s) => (
+            <li key={s} className="flex items-center gap-[2.5mm]">
+              <StatusMark status={s} size={12} />
+              <span>
+                <span className="font-medium text-k-ink">{statusLabel[s]}.</span>{" "}
+                {s === "fail"
+                  ? "Costs the score and should be fixed."
+                  : s === "warn"
+                    ? "Half marks; worth improving."
+                    : s === "pass"
+                      ? "Full marks."
+                      : "Could not be judged from the HTML alone; not scored."}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p className="k-eyebrow !text-[7pt] text-k-muted">How the score is built</p>
+        <p className="mt-[2.5mm]">
+          Every check is weighted by its impact on {who} (high counts three times a low). Each area&rsquo;s score is the weighted
+          share of marks earned; the overall score combines the areas by the weights shown. Grades: A from 90, B from 75, C from
+          60, D from 45.
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -254,29 +272,29 @@ function Priorities({ report, who }: { report: AuditReport; who: string }) {
   return (
     <section className="k-pdf-page bg-k-bone text-k-ink">
       <RunningHead report={report} />
-      <Eyebrow className="mt-[12mm] text-k-muted">Fix these first</Eyebrow>
-      <h2 className="k-display mt-[4mm] text-[24pt] text-k-ink">
+      <Eyebrow className="mt-[9mm] text-k-muted">Fix these first</Eyebrow>
+      <h2 className="k-display mt-[4mm] text-[22pt] text-k-ink">
         The {items.length} changes that would help {who} <em>most</em>.
       </h2>
-      <p className="mt-[3mm] max-w-[140mm] text-[10pt] leading-[1.55] text-k-ink-soft">
-        Ranked by how much each affects {who}, then by how badly it is failing. Everything here can be handed to whoever
-        looks after the site{rest > 0 ? `; the other ${rest} sit in the area breakdown that follows` : ""}.
+      <p className="mt-[3mm] max-w-[140mm] text-[9.5pt] leading-[1.5] text-k-ink-soft">
+        Ranked by how much each affects {who}, then by how badly it is failing; hand them to whoever looks after the site
+        {rest > 0 ? `. The other ${rest} follow in the area breakdown` : ""}.
       </p>
-      <ol className="mt-[7mm] border-b border-k-line">
+      <ol className="mt-[6mm] border-b border-k-line">
         {items.map((check, i) => (
-          <li key={check.id} className="grid grid-cols-[12mm_1fr] gap-x-[5mm] border-t border-k-line py-[4.5mm]">
-            <span className="k-display text-[26pt] leading-none tabular-nums text-k-fire">{i + 1}</span>
+          <li key={check.id} className="grid grid-cols-[10mm_1fr] gap-x-[4mm] border-t border-k-line py-[3mm]">
+            <span className="k-display text-[22pt] leading-none tabular-nums text-k-fire">{i + 1}</span>
             <div className="min-w-0">
               <div className="flex flex-wrap items-baseline gap-x-[3mm] gap-y-[1mm]">
-                <p className="k-display text-[14pt] leading-tight text-k-ink">{check.title}</p>
+                <p className="k-display text-[13pt] leading-tight text-k-ink">{check.title}</p>
                 <p className="flex items-center gap-[1.5mm] text-[8pt] text-k-muted">
                   <StatusMark status={check.status} size={10} />
                   {impactLabel[check.impact]} &middot; {categoryMeta[check.category].name}
                 </p>
               </div>
-              <p className="mt-[1.5mm] max-w-[150mm] text-[9.5pt] leading-[1.5] text-k-ink-soft">{check.detail}</p>
+              <p className="mt-[1.2mm] max-w-[150mm] text-[9pt] leading-[1.5] text-k-ink-soft">{check.detail}</p>
               {check.fix ? (
-                <p className="mt-[1.5mm] max-w-[150mm] text-[9.5pt] leading-[1.5] text-k-ink">
+                <p className="mt-[1.2mm] max-w-[150mm] text-[9pt] leading-[1.5] text-k-ink">
                   <span className="font-medium text-k-fire">Fix:</span> {check.fix}
                 </p>
               ) : null}
@@ -306,7 +324,10 @@ function CheckDetail({ check }: { check: Check }) {
         {check.evidence?.length ? (
           <ul className="mt-[1.5mm] flex flex-wrap gap-[1.5mm]">
             {check.evidence.slice(0, 3).map((e) => (
-              <li key={e} className="max-w-full truncate rounded-[4px] bg-k-bone-2 px-[2mm] py-[0.8mm] font-mono text-[7.5pt] text-k-ink-soft">
+              <li
+                key={e}
+                className="max-w-full truncate rounded-[4px] bg-k-bone-2 px-[2mm] py-[0.8mm] font-mono text-[7.5pt] text-k-ink-soft"
+              >
                 {e}
               </li>
             ))}
@@ -379,9 +400,10 @@ function Detail({ report, who }: { report: AuditReport; who: string }) {
               What was found, area by <em>area</em>.
             </h2>
             <p className="mt-[3mm] max-w-[140mm] text-[10pt] leading-[1.55] text-k-ink-soft">
-              Checks that need attention come first in each area, with what was found and a fix that any developer can
-              act on. Passing checks are listed beneath so you can see what is already working for {who}.
+              Checks that need attention come first in each area, with what was found and a fix that any developer can act on.
+              Passing checks are listed beneath so you can see what is already working for {who}.
             </p>
+            <Legend who={who} />
             {report.categories.map((c, i) => (
               <AreaDetail key={c.id} category={c} index={i} />
             ))}
@@ -406,8 +428,8 @@ function NextSteps({ report }: { report: AuditReport }) {
   return (
     <section className="k-pdf-page k-pdf-after on-coal bg-k-coal text-k-coal-ink">
       <RunningHead report={report} onCoal />
-      <Eyebrow className="mt-[12mm] text-k-fire-lite">What Flutterly would do</Eyebrow>
-      <h2 className="k-display mt-[4mm] max-w-[160mm] text-[24pt] text-k-coal-ink">
+      <Eyebrow className="mt-[7mm] text-k-fire-lite">What Flutterly would do</Eyebrow>
+      <h2 className="k-display mt-[3.5mm] max-w-[160mm] text-[20pt] text-k-coal-ink">
         {keep ? (
           <>
             Honest answer: <em>keep what you have.</em>
@@ -418,24 +440,26 @@ function NextSteps({ report }: { report: AuditReport }) {
           </>
         )}
       </h2>
-      <p className="mt-[3mm] max-w-[150mm] text-[10pt] leading-[1.55] text-k-coal-soft">
+      <p className="mt-[2.5mm] max-w-[150mm] text-[9.5pt] leading-[1.5] text-k-coal-soft">
         {keep
           ? "This site is in good shape. Fix the items in this report with whoever built it, and if you would like a second pair of eyes on the things a machine cannot judge, the written audit is free."
           : `Below are the three areas where the current site is weakest, and what a Flutterly build does about each of them for ${who}.`}
       </p>
 
-      <div className="mt-[8mm] grid grid-cols-[1fr_64mm] gap-[10mm]">
+      <div className="mt-[5mm] grid grid-cols-[1fr_78mm] gap-[7mm]">
         <ol className="self-start border-b border-k-coal-line">
           {weakest.map((cat) => (
-            <li key={cat.id} className="grid grid-cols-[14mm_1fr] gap-x-[4mm] border-t border-k-coal-line py-[4.5mm]">
-              <span className={cn("k-display text-[26pt] leading-none tabular-nums", scoreTone(cat.score, true))}>{cat.score}</span>
+            <li key={cat.id} className="grid grid-cols-[12mm_1fr] gap-x-[4mm] border-t border-k-coal-line py-[3mm]">
+              <span className={cn("k-display text-[22pt] leading-none tabular-nums", scoreTone(cat.score, true))}>
+                {cat.score}
+              </span>
               <div>
                 <p className="k-display text-[14pt] leading-tight text-k-coal-ink">{cat.name}</p>
-                <p className="mt-[1.5mm] text-[9pt] leading-[1.5] text-k-coal-soft">
+                <p className="mt-[1.2mm] text-[8.5pt] leading-[1.5] text-k-coal-soft">
                   <span className="font-medium text-k-coal-ink">Now:</span> {cat.summary}
                 </p>
                 {!keep ? (
-                  <p className="mt-[1.5mm] text-[9pt] leading-[1.5] text-k-coal-soft">
+                  <p className="mt-[1.2mm] text-[8.5pt] leading-[1.5] text-k-coal-soft">
                     <span className="font-medium text-k-fire-lite">A Flutterly build:</span> {promise[cat.id]}
                   </p>
                 ) : null}
@@ -444,14 +468,16 @@ function NextSteps({ report }: { report: AuditReport }) {
           ))}
         </ol>
 
-        <article className="self-start rounded-[14px] bg-k-paper p-[7mm] text-k-ink">
+        <article className="self-start rounded-[14px] bg-k-paper p-[5mm] text-k-ink">
           <p className="k-eyebrow !text-[7pt] text-k-muted">{keep ? "If a refresh is due" : "Suggested starting point"}</p>
-          <p className="k-display mt-[3mm] text-[22pt] leading-none">{recommended.name}</p>
+          <p className="k-display mt-[2.5mm] text-[20pt] leading-none">{recommended.name}</p>
           <p className="mt-[1.5mm] text-[9pt] text-k-ink-soft">{recommended.strap}</p>
-          <p className="k-display mt-[5mm] text-[24pt] leading-none">{recommended.price}</p>
+          <p className="k-display mt-[4mm] text-[22pt] leading-none">{recommended.price}</p>
           <p className="mt-[1.5mm] text-[9pt] text-k-ink-soft">{recommended.pricePeriod}</p>
-          {recommended.priceNote ? <p className="mt-[1mm] text-[8.5pt] leading-[1.45] text-k-ink-soft">{recommended.priceNote}</p> : null}
-          <ul className="mt-[4mm] grid gap-[1.6mm] border-t border-k-line pt-[4mm] text-[8.5pt] leading-[1.45] text-k-ink">
+          {recommended.priceNote ? (
+            <p className="mt-[1mm] text-[8pt] leading-[1.4] text-k-ink-soft">{recommended.priceNote}</p>
+          ) : null}
+          <ul className="mt-[3.5mm] grid gap-[1.2mm] border-t border-k-line pt-[3.5mm] text-[8pt] leading-[1.4] text-k-ink">
             {recommended.features.map((f) => (
               <li key={f} className="flex items-start gap-[2mm]">
                 <CheckIcon size={11} strokeWidth={2.6} aria-hidden className="mt-[0.9mm] shrink-0 text-k-fire" />
@@ -460,29 +486,31 @@ function NextSteps({ report }: { report: AuditReport }) {
             ))}
           </ul>
           <p className="mt-[4mm] text-[7.5pt] leading-[1.45] text-k-muted">
-            Published prices, plus VAT. All three packages at {shortDomain}/packages.
+            Plus VAT. All three packages at {`${shortDomain}/packages`}.
           </p>
         </article>
       </div>
 
-      <div className="mt-auto grid grid-cols-[1fr_auto] items-end gap-[10mm] border-t border-k-coal-line pt-[6mm]">
-        <div>
-          <h3 className="k-display text-[17pt] leading-tight text-k-coal-ink">Next step: the full written audit, free.</h3>
-          <p className="mt-[2.5mm] max-w-[125mm] text-[9.5pt] leading-[1.55] text-k-coal-soft">
-            {site.founder} reviews the site by hand: design, content, real-device speed, the journeys {who} actually take.
-            You get a scored, plain-English report within a week, yours to act on with anyone.
-          </p>
-          <p className="mt-[2.5mm] text-[9.5pt] leading-[1.55] text-k-coal-ink">
-            Email <span className="font-medium">{site.email}</span> with this report, or book a{" "}
-            {site.booking.durationMinutes}-minute call at <span className="font-medium">{shortDomain}/book</span>.
-          </p>
+      <div className="mt-auto k-avoid-break">
+        <div className="grid grid-cols-[1fr_auto] items-end gap-[8mm] border-t border-k-coal-line pt-[4mm]">
+          <div>
+            <h3 className="k-display text-[14pt] leading-tight text-k-coal-ink">Next step: the full written audit, free.</h3>
+            <p className="mt-[2mm] max-w-[125mm] text-[8.5pt] leading-[1.5] text-k-coal-soft">
+              {site.founder} reviews the site by hand: design, content, real-device speed and the journeys {who} actually take. A
+              scored, plain-English report within a week, yours to act on with anyone.
+            </p>
+            <p className="mt-[2mm] text-[8.5pt] leading-[1.5] text-k-coal-ink">
+              Email <span className="font-medium">{site.email}</span> with this report, or book a{" "}
+              {`${site.booking.durationMinutes}-minute`} call at <span className="font-medium">{`${shortDomain}/book`}</span>.
+            </p>
+          </div>
+          <div className="rounded-[10px] bg-k-paper p-[3mm] text-k-ink">
+            <QrBook className="h-[22mm] w-[22mm]" />
+            <p className="mt-[1.5mm] text-center text-[7pt] leading-none text-k-muted">Scan to book</p>
+          </div>
         </div>
-        <div className="rounded-[10px] bg-k-paper p-[3mm] text-k-ink">
-          <QrBook className="h-[26mm] w-[26mm]" />
-          <p className="mt-[1.5mm] text-center text-[7pt] leading-none text-k-muted">Scan to book</p>
-        </div>
+        <PageFoot onCoal label="Next steps" />
       </div>
-      <PageFoot onCoal label="Next steps" />
     </section>
   );
 }

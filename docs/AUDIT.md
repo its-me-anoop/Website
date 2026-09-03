@@ -143,11 +143,18 @@ tokens, fonts and components, so it is the Kiln language on paper:
    generated once and embedded as a path).
 
 Geometry lives in the `k-pdf-*` rules in `globals.css`: `@page` is A4
-with zero margin so the browser adds no header/footer and the cover
-bleeds; `print-color-adjust: exact` forces backgrounds on; fixed pages
-are `min-height: 297mm` flex columns with `break-after: page`;
-`k-avoid-break` keeps a check row on one page. Shared copy between the
-screen pitch and the printed one comes from `report/pitch-model.ts`.
+with zero margin so Chrome and Firefox add no header/footer and the
+cover bleeds; `print-color-adjust: exact` forces backgrounds on; fixed
+pages are `min-height: 100vh` flex columns with `break-after: page`;
+`k-avoid-break` keeps a check row on one page and `k-pdf-foot` keeps a
+footer with the content above it. Safari ignores the zero margin, keeps
+its own header/footer and does not repeat `thead`/`tfoot`, so a
+Safari-only `@supports` block drops the minimum height and pages take
+their natural height; every fixed page is sized to fit Safari's smaller
+page area (about 181 × 255 mm) and, if one ever does not, the closing
+call to action and footer move to the next page together. Shared copy
+between the screen pitch and the printed one comes from
+`report/pitch-model.ts`.
 
 A `data-audit-state` attribute on the live region exposes the current
 state for the browser workflow. `/audit` is `noindex` and excluded from

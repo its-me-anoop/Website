@@ -604,12 +604,15 @@ html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
    Printed audit report (kiln/audit/print/PrintReport.tsx).
 
    On screen the document is hidden and the interactive report shows;
-   in print they swap. Pages are true A4 with the browser's own margins
-   and header/footer removed, so the coal cover bleeds to the edge and
-   backgrounds are forced on. Fixed pages (cover, summary, fix-first,
-   next steps) are 297mm boxes; the long area-by-area section flows
-   inside a table, whose thead/tfoot repeat on every printed page and
-   so act as running header and footer.
+   in print they swap. Chrome and Firefox honour the zero @page margin,
+   so pages are true edge-to-edge A4 with no browser header/footer;
+   Safari keeps its own margins and header/footer, so nothing here
+   assumes 210×297mm. Widths fill whatever the page area is; fixed
+   pages (cover, summary, fix-first, next steps) are one sheet tall
+   where the margin is honoured and natural height in Safari. The long
+   area-by-area section flows inside a table whose thead/tfoot repeat
+   on every page in Chrome and Firefox as running header and footer
+   (Safari shows them once).
    ───────────────────────────────────────────────────────────── */
 .k-pdf {
   display: none;
@@ -635,7 +638,7 @@ html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
     display: block;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    width: 210mm;
+    width: 100%;
     font-size: 10pt;
     line-height: 1.5;
   }
@@ -647,22 +650,31 @@ html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    width: 210mm;
+    width: 100%;
     /* min-height rather than height: content is sized to fit, but if a
        long verdict or summary ever pushes past the page it flows on
        instead of being clipped. */
-    min-height: 297mm;
-    padding: 12mm 16mm 10mm;
+    min-height: 100vh;
+    padding: 11mm 14mm 9mm;
     break-after: page;
   }
   .k-pdf-page:last-child {
     break-after: auto;
   }
+  /* Safari ignores the zero @page margin and 100vh is the paper height,
+     so a full-height page can never fit its page area and spills a
+     near-empty sheet. Let pages take their natural height there; the
+     footer follows the content instead of sitting at the foot. */
+  @supports (font: -apple-system-body) and (-webkit-appearance: none) {
+    .k-pdf-page {
+      min-height: 0;
+    }
+  }
   .k-pdf-after {
     break-before: page;
   }
   .k-pdf-flow {
-    width: 210mm;
+    width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
     break-before: page;
@@ -674,7 +686,7 @@ html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
     display: table-footer-group;
   }
   .k-pdf-flow td {
-    padding: 0 16mm;
+    padding: 0 14mm;
     vertical-align: top;
   }
   .k-pdf-flow-head {
@@ -687,8 +699,14 @@ html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
   }
   .k-pdf-flow-foot > * {
     margin-top: 0;
+    padding-top: 0;
   }
   .k-avoid-break {
+    break-inside: avoid;
+  }
+  /* A page footer should never open a page on its own. */
+  .k-pdf-foot {
+    break-before: avoid;
     break-inside: avoid;
   }
   .k-avoid-break-after {
