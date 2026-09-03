@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<title>Flutterly — Websites for GP practices (A4 poster)</title>
+<style>
+  /* ── Kiln fonts (self-hosted, Fontshare licence) ─────────────── */
+  @font-face { font-family: "Zodiak"; font-weight: 400; font-style: normal; src: url("../../src/fonts/zodiak-regular.woff2") format("woff2"); }
+  @font-face { font-family: "Zodiak"; font-weight: 400; font-style: italic; src: url("../../src/fonts/zodiak-italic.woff2") format("woff2"); }
+  @font-face { font-family: "Switzer"; font-weight: 400; src: url("../../src/fonts/switzer-regular.woff2") format("woff2"); }
+  @font-face { font-family: "Switzer"; font-weight: 500; src: url("../../src/fonts/switzer-medium.woff2") format("woff2"); }
+  @font-face { font-family: "Switzer"; font-weight: 600; src: url("../../src/fonts/switzer-semibold.woff2") format("woff2"); }
+
+  /* ── Kiln tokens (src/app/globals.css) ───────────────────────── */
+  :root {
+    --k-bone: #f3f0ea;
+    --k-bone-2: #e9e4db;
+    --k-paper: #faf8f4;
+    --k-ink: #17140f;
+    --k-ink-soft: #4a443c;
+    --k-muted: #6b645a;
+    --k-line: rgba(23, 20, 15, 0.1);
+    --k-line-2: rgba(23, 20, 15, 0.2);
+    --k-coal: #141210;
+    --k-coal-2: #211e1a;
+    --k-coal-ink: #f3f0ea;
+    --k-coal-soft: #b9b2a6;
+    --k-coal-line: rgba(243, 240, 234, 0.12);
+    --k-fire: #bf3a15;
+    --k-fire-soft: #f6dccf;
+    --k-fire-lite: #ff8a5b;
+    --k-butter: #f1e27c;
+  }
+
+  @page { size: A4 portrait; margin: 0; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--k-bone); }
+  body {
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
+    color: var(--k-ink);
+    font-family: "Switzer", system-ui, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .k-display {
+    font-family: "Zodiak", Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    line-height: 1.02;
+    text-wrap: balance;
+    font-feature-settings: "kern", "liga";
+  }
+  .k-display em { font-style: italic; font-weight: 400; }
+  .k-eyebrow {
+    font-size: 7.5pt;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* ── Page ────────────────────────────────────────────────────── */
+  .page {
+    position: relative;
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .page > .band { margin-top: auto; }
+
+  /* Header: floating coal pill + eyebrow, as on the site. */
+  .masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12mm 14mm 0;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 2.4mm;
+    height: 9.5mm;
+    padding: 0 3.6mm 0 2.6mm;
+    border-radius: 3.2mm;
+    background: var(--k-coal);
+    color: var(--k-coal-ink);
+    font-size: 10pt;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .pill img { width: 5.2mm; height: 5.2mm; display: block; }
+  .pill .sep { width: 0.25mm; height: 4mm; background: var(--k-coal-line); margin: 0 0.6mm; }
+  .pill .soft { color: var(--k-coal-soft); font-weight: 400; font-size: 9.5pt; }
+  .masthead .url { color: var(--k-muted); }
+
+  /* Hero copy */
+  .hero { padding: 9mm 14mm 0; }
+  .hero .k-eyebrow { color: var(--k-fire); margin-bottom: 3.5mm; }
+  .hero h1 {
+    font-size: 30pt;
+    max-width: 165mm;
+    color: var(--k-ink);
+  }
+  .hero p {
+    margin-top: 4.5mm;
+    max-width: 150mm;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    color: var(--k-ink-soft);
+  }
+
+  /* Middle: browser frame + editorial rows */
+  .body {
+    display: grid;
+    grid-template-columns: 84mm 1fr;
+    gap: 9mm;
+    padding: 7mm 14mm 0;
+    align-items: start;
+  }
+  .frame {
+    background: var(--k-coal);
+    border-radius: 3.5mm;
+    padding: 2.2mm;
+    box-shadow: 0 10mm 18mm -12mm rgba(23, 20, 15, 0.55);
+  }
+  .frame .chrome {
+    display: flex;
+    align-items: center;
+    gap: 1.6mm;
+    height: 6.5mm;
+    padding: 0 2mm;
+    color: var(--k-coal-soft);
+    font-size: 6.5pt;
+  }
+  .frame .dot { width: 1.9mm; height: 1.9mm; border-radius: 50%; background: var(--k-coal-line); }
+  .frame .addr {
+    flex: 1;
+    margin-left: 1.5mm;
+    height: 4.2mm;
+    border-radius: 1.4mm;
+    background: var(--k-coal-2);
+    display: flex;
+    align-items: center;
+    padding: 0 2.2mm;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .frame .shot {
+    display: block;
+    width: 100%;
+    border-radius: 2mm;
+    overflow: hidden;
+    background: #fff;
+  }
+  .frame .shot img { display: block; width: 100%; height: auto; }
+  .caption {
+    margin-top: 3.5mm;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    color: var(--k-muted);
+    max-width: 84mm;
+  }
+  .caption strong { color: var(--k-ink); font-weight: 500; }
+
+  .rows { list-style: none; border-top: 0.25mm solid var(--k-line-2); }
+  .rows li {
+    display: grid;
+    grid-template-columns: 13mm 1fr;
+    gap: 2.5mm;
+    padding: 3.6mm 0 3.9mm;
+    border-bottom: 0.25mm solid var(--k-line);
+  }
+  .rows .num {
+    font-family: "Zodiak", Georgia, serif;
+    font-size: 18pt;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--k-fire);
+    padding-top: 0.6mm;
+  }
+  .rows h3 {
+    font-family: "Zodiak", Georgia, serif;
+    font-weight: 400;
+    font-size: 12.5pt;
+    line-height: 1.12;
+    letter-spacing: -0.012em;
+    color: var(--k-ink);
+    margin-bottom: 1.6mm;
+  }
+  .rows p { font-size: 9pt; line-height: 1.45; color: var(--k-ink-soft); }
+
+  /* Commitments strip, echoing the site's ticker. */
+  .strip {
+    margin: 7mm 14mm 0;
+    padding: 3mm 0;
+    border-top: 0.25mm solid var(--k-line-2);
+    border-bottom: 0.25mm solid var(--k-line);
+    display: flex;
+    justify-content: space-between;
+    gap: 4mm;
+    font-size: 7.8pt;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--k-ink-soft);
+    white-space: nowrap;
+  }
+  .strip span::before {
+    content: "";
+    display: inline-block;
+    width: 1.6mm;
+    height: 1.6mm;
+    border-radius: 50%;
+    background: var(--k-fire);
+    margin-right: 2.2mm;
+    vertical-align: 0.15mm;
+  }
+
+  /* Closing coal band with a curved top join. */
+  .band {
+    position: relative;
+    margin-top: 6mm;
+    background: var(--k-coal);
+    color: var(--k-coal-ink);
+    padding: 14mm 14mm 8mm;
+    -webkit-mask-image: radial-gradient(ellipse 58% 9% at 50% -3%, transparent 99%, #000 100%);
+    mask-image: radial-gradient(ellipse 58% 9% at 50% -3%, transparent 99%, #000 100%);
+  }
+  .band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(243, 240, 234, 0.08) 0.28mm, transparent 0.42mm);
+    background-size: 5.6mm 5.6mm;
+    pointer-events: none;
+  }
+  .band > * { position: relative; }
+  .band-grid {
+    display: grid;
+    grid-template-columns: 1fr 46mm;
+    gap: 12mm;
+    align-items: end;
+  }
+  .band .k-eyebrow { color: var(--k-butter); margin-bottom: 3.5mm; }
+  .band h2 { font-size: 20pt; color: var(--k-coal-ink); max-width: 118mm; }
+  .band .lede {
+    margin-top: 4mm;
+    max-width: 118mm;
+    font-size: 9.5pt;
+    line-height: 1.5;
+    color: var(--k-coal-soft);
+  }
+  .band .lede strong { color: var(--k-coal-ink); font-weight: 500; }
+
+  .auditbar {
+    margin-top: 5mm;
+    display: flex;
+    align-items: stretch;
+    max-width: 118mm;
+    border-radius: 3mm;
+    background: var(--k-coal-2);
+    border: 0.25mm solid var(--k-coal-line);
+    overflow: hidden;
+  }
+  .auditbar .field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.8mm 4.5mm;
+  }
+  .auditbar .field .lbl { font-size: 7pt; color: var(--k-coal-soft); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; }
+  .auditbar .field .val { font-size: 12.5pt; font-weight: 500; letter-spacing: -0.01em; color: var(--k-coal-ink); margin-top: 0.4mm; }
+  .auditbar .go {
+    display: flex;
+    align-items: center;
+    gap: 2.5mm;
+    padding: 0 5mm;
+    background: var(--k-fire);
+    color: var(--k-bone);
+    font-weight: 500;
+    font-size: 10pt;
+    white-space: nowrap;
+  }
+  .auditbar .go svg { width: 4.2mm; height: 4.2mm; }
+
+
+  .qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 3.2mm;
+  }
+  .qr .code {
+    width: 40mm;
+    height: 40mm;
+    padding: 3.2mm;
+    border-radius: 3mm;
+    background: var(--k-coal-2);
+    border: 0.25mm solid var(--k-coal-line);
+  }
+  .qr .code img { display: block; width: 100%; height: 100%; }
+  .qr .lbl { font-size: 8.5pt; line-height: 1.4; color: var(--k-coal-soft); max-width: 42mm; }
+  .qr .lbl b { color: var(--k-coal-ink); font-weight: 500; display: block; }
+
+  .colophon {
+    margin-top: 7mm;
+    padding-top: 3.5mm;
+    border-top: 0.25mm solid var(--k-coal-line);
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 1fr;
+    gap: 6mm;
+    font-size: 7.8pt;
+    line-height: 1.45;
+    color: var(--k-coal-soft);
+  }
+  .colophon b { display: block; font-weight: 500; color: var(--k-coal-ink); }
+  .colophon .fire { color: var(--k-fire-lite); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="pill" aria-label="Flutterly">
+      <img src="../../public/flutterly-logo.png" alt="" />
+      <span>Flutterly</span>
+      <span class="sep"></span>
+      <span class="soft">Websites for GP practices &amp; care homes</span>
+    </div>
+    <div class="k-eyebrow url">www.flutterly.co.uk</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="k-eyebrow">Websites for GP practices</div>
+      <h1 class="k-display">A practice website that works as hard as your <em>reception team</em>.</h1>
+      <p>Patients arrive stressed, in a hurry and often on an old phone. Your website should get them to the right service in seconds, and quietly take routine requests off the phones.</p>
+    </section>
+
+    <section class="body">
+      <div>
+        <div class="frame">
+          <div class="chrome">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="addr">www.flutterly.co.uk/demo/gp-practice</span>
+          </div>
+          <div class="shot"><img src="../../public/demos/gp-home.png" alt="Homepage of the Willowbrook Surgery sample site: a task-first NHS practice website" /></div>
+        </div>
+        <p class="caption"><strong>Willowbrook Surgery</strong> is a fictional practice built and hosted by Flutterly so you can judge the standard for yourself. Click around it on any device, exactly as your patients would.</p>
+      </div>
+
+      <ol class="rows">
+        <li>
+          <span class="num">01</span>
+          <div>
+            <h3>Signposting that comes first</h3>
+            <p>Appointments, prescriptions, online consultations and the NHS App front and centre, so common journeys take one tap, not a hunt through menus.</p>
+          </div>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <div>
+            <h3>Accessible to every patient</h3>
+            <p>WCAG 2.2 AA designed in from the first wireframe, tested with real assistive technology, and shipped with a published accessibility statement.</p>
+          </div>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <div>
+            <h3>Self-serve that cuts calls</h3>
+            <p>Registration, fit notes, test results and travel advice become guided answers online, so reception repeats them less often on the phone.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <div class="strip" aria-label="Commitments">
+      <span>WCAG 2.2 AA on every build</span>
+      <span>Custom code, never a template</span>
+      <span>UK hosted, daily backups</span>
+      <span>One accountable person</span>
+    </div>
+  </main>
+
+  <footer class="band">
+    <div class="band-grid">
+      <div>
+        <div class="k-eyebrow">Free website audit</div>
+        <h2 class="k-display">Start with a written review of your <em>current</em> site.</h2>
+        <p class="lede">A plain-English audit against NHS accessibility and content standards: prioritised fixes you can hand to any developer, and <strong>“keep what you have”</strong> when that is the honest answer. Free, with no follow-up pressure.</p>
+
+        <div class="auditbar" aria-label="Request a free audit">
+          <div class="field">
+            <span class="lbl">Your practice website</span>
+            <span class="val">www.yourpractice.nhs.uk</span>
+          </div>
+          <div class="go">
+            Get the free audit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="qr">
+        <div class="code"><img src="qr-free-audit.svg" alt="QR code linking to www.flutterly.co.uk/free-audit" /></div>
+        <p class="lbl"><b>Scan for your free audit</b>Opens the audit request page on your phone.</p>
+      </div>
+    </div>
+
+    <div class="colophon">
+      <div><b>www.flutterly.co.uk/free-audit</b>sales@flutterly.co.uk · Book a 15-minute call at www.flutterly.co.uk/book</div>
+      <div><b>Websites from <span class="fire">£995 + VAT</span></b>Hosting for the first year included. Most practice sites launch four to eight weeks after the first call.</div>
+      <div><b>Flutterly Ltd</b>Reading, Berkshire. Designed, built and supported in the UK by Anoop Jose.</div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
