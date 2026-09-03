@@ -644,7 +644,8 @@ html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
     opacity: 1 !important;
     transform: none !important;
   }
-  .k-dial-arc {
+  .k-dial-arc,
+  .route-enter {
     animation: none;
   }
   .kiln-root * {
