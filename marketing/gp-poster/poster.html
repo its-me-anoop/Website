@@ -19,13 +19,15 @@
     --k-ink: #17140f;
     --k-ink-soft: #4a443c;
     --k-muted: #6b645a;
-    --k-line: rgba(23, 20, 15, 0.1);
-    --k-line-2: rgba(23, 20, 15, 0.2);
+    --k-line: #dddad4; /* rgba(23,20,15,.1) flattened on bone */
+    --k-line-2: #c7c4be; /* rgba(23,20,15,.2) flattened on bone */
     --k-coal: #141210;
     --k-coal-2: #211e1a;
+    --k-coal-3: #2c2823;
     --k-coal-ink: #f3f0ea;
     --k-coal-soft: #b9b2a6;
-    --k-coal-line: rgba(243, 240, 234, 0.12);
+    --k-coal-line: #2f2d2a; /* rgba(243,240,234,.12) flattened on coal */
+    --k-coal-line-2: #3a3733; /* the same hairline on coal-2 */
     --k-fire: #bf3a15;
     --k-fire-soft: #f6dccf;
     --k-fire-lite: #ff8a5b;
@@ -128,7 +130,6 @@
     background: var(--k-coal);
     border-radius: 3.5mm;
     padding: 2.2mm;
-    box-shadow: 0 10mm 18mm -12mm rgba(23, 20, 15, 0.55);
   }
   .frame .chrome {
     display: flex;
@@ -139,7 +140,7 @@
     color: var(--k-coal-soft);
     font-size: 6.5pt;
   }
-  .frame .dot { width: 1.9mm; height: 1.9mm; border-radius: 50%; background: var(--k-coal-line); }
+  .frame .dot { width: 1.9mm; height: 1.9mm; border-radius: 50%; background: var(--k-coal-3); }
   .frame .addr {
     flex: 1;
     margin-left: 1.5mm;
@@ -230,16 +231,15 @@
     background: var(--k-coal);
     color: var(--k-coal-ink);
     padding: 14mm 14mm 8mm;
-    -webkit-mask-image: radial-gradient(ellipse 58% 9% at 50% -3%, transparent 99%, #000 100%);
-    mask-image: radial-gradient(ellipse 58% 9% at 50% -3%, transparent 99%, #000 100%);
   }
-  .band::before {
-    content: "";
+  /* Concave join drawn as a bone-filled vector shape over the band's top edge. */
+  .band .bite {
     position: absolute;
-    inset: 0;
-    background-image: radial-gradient(rgba(243, 240, 234, 0.08) 0.28mm, transparent 0.42mm);
-    background-size: 5.6mm 5.6mm;
-    pointer-events: none;
+    top: -0.2mm;
+    left: 0;
+    width: 210mm;
+    height: 8mm;
+    display: block;
   }
   .band > * { position: relative; }
   .band-grid {
@@ -282,7 +282,7 @@
   .ask .url {
     grid-column: 1 / -1;
     padding-top: 3.5mm;
-    border-top: 0.25mm solid var(--k-coal-line);
+    border-top: 0.25mm solid var(--k-coal-line-2);
     font-weight: 600;
     font-size: 15pt;
     letter-spacing: -0.015em;
@@ -310,7 +310,7 @@
 
   <header class="masthead">
     <div class="pill" aria-label="Flutterly">
-      <img src="../../public/flutterly-logo.png" alt="" />
+      <img src="logo-on-coal.png" alt="" />
       <span>Flutterly</span>
       <span class="sep"></span>
       <span class="soft">Websites for GP practices &amp; care homes</span>
@@ -370,6 +370,7 @@
   </main>
 
   <footer class="band">
+    <svg class="bite" viewBox="0 0 210 8" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H210V1.6C150 7.5 60 7.5 0 1.6Z" fill="#f3f0ea"/></svg>
     <div class="band-grid">
       <div>
         <div class="k-eyebrow">Free website audit</div>
