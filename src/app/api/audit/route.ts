@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { runAudit } from "@/lib/audit/run";
+import { isSector, runAudit } from "@/lib/audit/run";
 import { AuditError, type AuditReport, type AuditResponse } from "@/lib/audit/types";
 import { normaliseUrl } from "@/lib/audit/url";
 
@@ -96,10 +96,12 @@ function json(body: AuditResponse, status = 200) {
 
 export async function GET(req: NextRequest) {
   const input = req.nextUrl.searchParams.get("url") ?? "";
+  const sectorParam = req.nextUrl.searchParams.get("sector");
+  const sector = isSector(sectorParam) ? sectorParam : undefined;
 
   let key: string;
   try {
-    key = normaliseUrl(input).toString();
+    key = `${normaliseUrl(input).toString()}#${sector ?? "auto"}`;
   } catch (err) {
     if (err instanceof AuditError) {
       return json({ ok: false, error: { code: err.code, message: err.message } }, statusFor(err.code));
@@ -124,7 +126,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const report = await runAudit(input);
+    const report = await runAudit(input, { sector });
     toCache(key, report);
     return json({ ok: true, report });
   } catch (err) {

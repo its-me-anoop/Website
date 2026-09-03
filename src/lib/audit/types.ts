@@ -50,13 +50,16 @@ export type CategoryScore = {
 
 export type Grade = "A" | "B" | "C" | "D" | "E";
 
-export type Sector =
-  | "gp-practice"
-  | "care-home"
-  | "dental-practice"
-  | "pharmacy"
-  | "physio-clinic"
-  | "other";
+export const sectors = [
+  "gp-practice",
+  "care-home",
+  "dental-practice",
+  "pharmacy",
+  "physio-clinic",
+  "other",
+] as const;
+
+export type Sector = (typeof sectors)[number];
 
 export type Platform = {
   name: string;
@@ -99,7 +102,10 @@ export type AuditReport = {
   version: 1;
   generatedAt: string;
   page: PageFacts;
+  /** Sector the checks ran against (detected, or chosen by the visitor). */
   sector: Sector;
+  /** What the engine guessed from the page's own words. */
+  detectedSector: Sector;
   score: number;
   grade: Grade;
   verdict: string;

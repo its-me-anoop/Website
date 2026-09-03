@@ -9,7 +9,7 @@ import { seoChecks } from "./checks/seo";
 import { safeFetch, tryFetch } from "./fetch";
 import { parsePage, rootDomain } from "./page";
 import { buildCategories, gradeFor, overallScore, prioritise, verdictFor } from "./score";
-import { AuditError, type AuditReport, type Check } from "./types";
+import { AuditError, sectors, type AuditReport, type Check, type Sector } from "./types";
 import { normaliseUrl } from "./url";
 
 const modules = [
@@ -27,7 +27,16 @@ const modules = [
  * expected failure (bad address, unreachable site, not a web page) so
  * the API can map it to a status code and a plain-English message.
  */
-export async function runAudit(input: string): Promise<AuditReport> {
+export type RunOptions = {
+  /** Override the detected sector so the content checks match the organisation. */
+  sector?: Sector;
+};
+
+export function isSector(value: unknown): value is Sector {
+  return typeof value === "string" && (sectors as readonly string[]).includes(value);
+}
+
+export async function runAudit(input: string, options: RunOptions = {}): Promise<AuditReport> {
   const url = normaliseUrl(input);
 
   let fetched;
@@ -69,6 +78,8 @@ export async function runAudit(input: string): Promise<AuditReport> {
   }
 
   const page = parsePage(fetched);
+  const detectedSector = page.sector;
+  if (options.sector) page.sector = options.sector;
   const origin = page.url.origin;
 
   const [robots, sitemap, httpProbe, favicon] = await Promise.all([
@@ -128,6 +139,7 @@ export async function runAudit(input: string): Promise<AuditReport> {
       crossSiteRedirect: rootDomain(url.hostname) !== rootDomain(page.url.hostname),
     },
     sector: page.sector,
+    detectedSector,
     score,
     grade: gradeFor(score),
     verdict: verdictFor(score, page.sector),

@@ -330,25 +330,34 @@ export function FaqList({
 
 /* ─────────────────────────────────────────────────────────────
    AuditBar: the site's version of the Melius prompt bar. Type a
-   web address, submit, and a prefilled audit request opens in the
-   visitor's mail client. No backend, nothing stored.
+   web address, press the arrow, and the instant audit runs at
+   /audit?url=…. A plain GET form, so it works before hydration
+   and the report address is shareable. Nothing is stored.
    ───────────────────────────────────────────────────────────── */
 
-export function auditMailto(url?: string) {
+/** Prefilled request for the human, written audit. */
+export function auditMailto(url?: string, summary?: string) {
   const body = [
     "Hi Anoop,",
     "",
-    "Please audit our website.",
+    "Please send us the full written audit of our website.",
     "",
     `Website address: ${url ?? ""}`,
     "Organisation (GP practice / care home / other): ",
     "Anything you'd like the audit to focus on: ",
+    ...(summary ? ["", "Instant audit summary:", summary] : []),
     "",
     "Thanks,",
   ].join("\n");
   return `mailto:${site.email}?subject=${encodeURIComponent(
-    "Free website audit request"
+    url ? `Written website audit: ${url}` : "Written website audit request"
   )}&body=${encodeURIComponent(body)}`;
+}
+
+export function auditHref(url: string, sector?: string) {
+  const params = new URLSearchParams({ url: url.trim() });
+  if (sector) params.set("sector", sector);
+  return `/audit?${params.toString()}`;
 }
 
 export function AuditBar({
@@ -356,25 +365,33 @@ export function AuditBar({
   className,
   label = "Your website address",
   placeholder = "yourpractice.nhs.uk",
-  hint = "Paste your address for a free written audit. No forms, no obligation.",
+  hint = "Paste your address for an instant, free report on accessibility, speed, search and more. Nothing is stored.",
+  defaultValue = "",
+  autoFocus,
 }: {
   onCoal?: boolean;
   className?: string;
   label?: string;
   placeholder?: string;
   hint?: string;
+  defaultValue?: string;
+  autoFocus?: boolean;
 }) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(defaultValue);
   const id = useId();
 
   function submit(e: FormEvent) {
-    e.preventDefault();
-    const trimmed = value.trim();
-    window.location.href = auditMailto(trimmed || undefined);
+    /* Let an empty submit focus the field rather than open a blank report. */
+    if (!value.trim()) {
+      e.preventDefault();
+      document.getElementById(id)?.focus();
+    }
   }
 
   return (
     <form
+      action="/audit"
+      method="get"
       onSubmit={submit}
       className={cn("w-full max-w-[560px]", className)}
       aria-describedby={`${id}-hint`}
@@ -393,10 +410,13 @@ export function AuditBar({
         </span>
         <input
           id={id}
+          name="url"
           type="text"
           inputMode="url"
           autoComplete="url"
+          autoCapitalize="none"
           spellCheck={false}
+          autoFocus={autoFocus}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}
@@ -405,7 +425,7 @@ export function AuditBar({
         <button
           type="submit"
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-k-fire text-k-bone transition-colors hover:bg-k-fire-hover"
-          aria-label="Request a free website audit"
+          aria-label="Run the free website audit"
         >
           <ArrowRight size={17} aria-hidden />
         </button>
