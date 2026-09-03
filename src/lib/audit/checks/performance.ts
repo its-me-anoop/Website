@@ -1,4 +1,4 @@
-import { checker, plural, trim, type CheckModule } from "./context";
+import { checker, plural, trim, unless, type CheckModule } from "./context";
 
 const c = checker("performance");
 
@@ -174,7 +174,7 @@ export const performanceChecks: CheckModule = ({ page }) => {
           : unsized.length === 0
             ? `${contentImages.length === 1 ? "The one image declares" : `All ${contentImages.length} images declare`} width and height, so the layout does not jump while ${contentImages.length === 1 ? "it loads" : "they load"}.`
             : `${plural(unsized.length, "image")} of ${contentImages.length} have no width and height. The page shifts as they load, which is what makes people tap the wrong thing.`,
-      fix: "Add width and height attributes (or CSS aspect-ratio) to every <img>. This is the main fix for Cumulative Layout Shift.",
+      fix: unless(contentImages.length === 0, "Add width and height attributes (or CSS aspect-ratio) to every <img>. This is the main fix for Cumulative Layout Shift."),
       evidence: unsized.map((img) => trim(img.getAttribute("src") ?? "", 90)),
     })
   );
@@ -192,7 +192,7 @@ export const performanceChecks: CheckModule = ({ page }) => {
           : lazy > 0
             ? `${lazy} of ${contentImages.length} images use loading="lazy".`
             : `${contentImages.length} images all load immediately, including ones far below the fold.`,
-      fix: 'Add loading="lazy" to images below the first screen, and keep the hero image eager.',
+      fix: unless(contentImages.length < 6, 'Add loading="lazy" to images below the first screen, and keep the hero image eager.'),
     })
   );
 
@@ -210,7 +210,7 @@ export const performanceChecks: CheckModule = ({ page }) => {
           : modern + pictures > 0
             ? "Images use srcset, <picture> or WebP/AVIF, so phones are not sent desktop-sized files."
             : `None of the ${contentImages.length} images use srcset, <picture> or a modern format. Phones on 4G download the same large files as a desktop on fibre.`,
-      fix: "Serve WebP or AVIF with srcset sizes so each device downloads only what it can display.",
+      fix: unless(contentImages.length < 3, "Serve WebP or AVIF with srcset sizes so each device downloads only what it can display."),
     })
   );
 

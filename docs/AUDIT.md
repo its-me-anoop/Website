@@ -108,15 +108,37 @@ see, and `perf-client-rendered` explains the trade-off.
   areas → what Flutterly builds, suggested package, prefilled written-
   audit email, booking link) and the closing `CtaBand`.
 
-Printing (the header's Print button or the browser's own command) is
-handled in `globals.css` under `@media print`: the site nav, footer and
-anything marked `k-no-print` are dropped, `k-print-only` lines replace
-buttons with the email address and booking URL, scroll-reveal wrappers
-(`[data-rise]`) are forced visible, and the coal tokens are remapped to
-their on-bone equivalents so dark bands print as dark text on white.
-`CategoryList` listens for `beforeprint` to open every collapsed row and
-`afterprint` to restore the reader's state, since CSS cannot open a
-closed `<details>`.
+## The PDF
+
+"Save as PDF" in the report header calls `window.print()`. What prints
+is not the web page but `kiln/audit/print/PrintReport.tsx`, a designed
+A4 document rendered next to the interactive report and swapped in by
+`@media print` (`.k-screen` hides, `.k-pdf` shows). It shares the same
+tokens, fonts and components, so it is the Kiln language on paper:
+
+1. **Cover** (coal, full bleed): host, title, platform tags, a bone card
+   with the score dial, grade, verdict and facts strip, and the seven
+   area scores at a glance.
+2. **Summary** (bone): the seven areas with bars, scores, weights and
+   counts, plus a legend for the marks and how the score is built.
+3. **Fix these first**: the top five priorities with impact, area,
+   what was found and the fix.
+4. **Every check, area by area**: needs-attention checks in full with
+   evidence, passing checks as a compact list. This section flows
+   across pages inside a `<table>`, whose `thead`/`tfoot` repeat on
+   every printed page and so carry the running header and footer.
+5. **Next steps** (coal): the three weakest areas against what a
+   Flutterly build does about each (or "keep what you have" for strong
+   sites), the suggested package as a bone card, the free written audit
+   with email and booking URL, and a QR code to `/book` (`QrBook.tsx`,
+   generated once and embedded as a path).
+
+Geometry lives in the `k-pdf-*` rules in `globals.css`: `@page` is A4
+with zero margin so the browser adds no header/footer and the cover
+bleeds; `print-color-adjust: exact` forces backgrounds on; fixed pages
+are `min-height: 297mm` flex columns with `break-after: page`;
+`k-avoid-break` keeps a check row on one page. Shared copy between the
+screen pitch and the printed one comes from `report/pitch-model.ts`.
 
 A `data-audit-state` attribute on the live region exposes the current
 state for the browser workflow. `/audit` is `noindex` and excluded from

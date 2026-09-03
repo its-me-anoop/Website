@@ -1,4 +1,4 @@
-import { agree, checker, plural, trim, type CheckModule } from "./context";
+import { agree, checker, plural, trim, unless, type CheckModule } from "./context";
 
 const c = checker("security");
 
@@ -129,7 +129,7 @@ export const securityChecks: CheckModule = ({ page, httpProbe }) => {
         : mixed.length === 0
           ? "Every script, image, stylesheet and frame loads over https."
           : `${plural(mixed.length, "resource")} ${agree(mixed.length, "loads", "load")} over plain http on an https page. Browsers block or warn about ${agree(mixed.length, "it", "them")}, and the padlock is lost.`,
-      fix: "Change the http:// resource addresses to https:// (or protocol-relative) and re-test.",
+      fix: unless(!https, "Change the http:// resource addresses to https:// (or protocol-relative) and re-test."),
       evidence: mixed.map((m) => trim(m, 90)),
     })
   );
@@ -187,7 +187,7 @@ export const securityChecks: CheckModule = ({ page, httpProbe }) => {
           : insecureCookies.length === 0
             ? `${plural(setCookies.length, "cookie")} set, all with Secure and HttpOnly.`
             : `${plural(insecureCookies.length, "cookie")} of ${setCookies.length} lack the Secure or HttpOnly flag.`,
-      fix: "Set Secure, HttpOnly and SameSite on every cookie, and avoid setting cookies before consent.",
+      fix: unless(setCookies.length === 0, "Set Secure, HttpOnly and SameSite on every cookie, and avoid setting cookies before consent."),
       evidence: insecureCookies.map((ck) => trim(ck.split("=")[0], 40)),
     })
   );

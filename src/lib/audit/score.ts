@@ -160,6 +160,12 @@ export function sectorLabel(sector: Sector): string {
   }
 }
 
+/** The sector label with its indefinite article: "a GP practice", "an organisation". */
+export function aSector(sector: Sector): string {
+  const label = sectorLabel(sector);
+  return `${/^[aeiou]/i.test(label) ? "an" : "a"} ${label}`;
+}
+
 function capitalise(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }

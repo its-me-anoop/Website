@@ -72,8 +72,9 @@ src/components/kiln/
 ├── sectors/           # SectorPage template (GP practices / care homes)
 ├── packages/          # PackagesPage
 ├── audit/             # AuditPage (/free-audit landing), ReportPage (/audit)
-│   └── report/        # ScoreDial, ReportHeader, CategoryList, Priorities,
-│                      # Pitch, Progress, ErrorState, StatusMark
+│   ├── report/        # ScoreDial, ReportHeader, CategoryList, Priorities,
+│   │                  # Pitch, Progress, ErrorState, StatusMark
+│   └── print/         # PrintReport: the A4 PDF document, QrBook
 └── booking/           # BookPage + CalEmbed (Cal.com discovery call)
 ```
 

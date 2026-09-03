@@ -1,4 +1,4 @@
-import { agree, checker, plural, trim, type CheckModule } from "./context";
+import { agree, checker, plural, trim, unless, type CheckModule } from "./context";
 
 const c = checker("mobile");
 
@@ -81,7 +81,7 @@ export const mobileChecks: CheckModule = ({ page }) => {
           : telLinks.length > 0
             ? `${plural(telLinks.length, "phone number")} can be tapped to call.`
             : `${plural(phonesInText.length, "phone number")} appear as plain text. On a phone, visitors have to memorise or copy them.`,
-      fix: 'Wrap phone numbers in <a href="tel:+441189…">, so one tap dials the practice.',
+      fix: unless(phonesInText.length === 0 && telLinks.length === 0, 'Wrap phone numbers in <a href="tel:+441189…">, so one tap dials the practice.'),
       evidence: phonesInText,
     })
   );
@@ -100,7 +100,7 @@ export const mobileChecks: CheckModule = ({ page }) => {
           : srcsetCount > 0
             ? `${srcsetCount} of ${images.length} images offer size variants via srcset.`
             : "No images offer smaller variants for phones, so mobile visitors download desktop-sized files.",
-      fix: "Add srcset and sizes so a 400px-wide phone never downloads a 2000px image.",
+      fix: unless(images.length < 3, "Add srcset and sizes so a 400px-wide phone never downloads a 2000px image."),
     })
   );
 

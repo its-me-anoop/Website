@@ -110,14 +110,16 @@ describe("ReportPage", () => {
     expect(calledWith).toContain("/api/audit?url=example-surgery.nhs.uk");
     expect(calledWith).toContain("sector=care-home");
 
+    /* Text queries are scoped to the on-screen report; the hidden print document repeats much of it. */
+    const onScreen = within(document.querySelector<HTMLElement>(".k-screen")!);
     expect(screen.getByRole("img", { name: /overall score 58 out of 100, grade d/i })).toBeInTheDocument();
-    expect(screen.getByText("Built on WordPress with Elementor")).toBeInTheDocument();
+    expect(onScreen.getByText("Built on WordPress with Elementor")).toBeInTheDocument();
 
     /* Seven category rows, in the report's order. */
     const rows = screen.getAllByRole("heading", { level: 2 });
     expect(rows.some((h) => /area by/.test(h.textContent ?? ""))).toBe(true);
     ["Accessibility", "Speed", "Search", "Content and signposting", "Mobile experience", "Security", "Local presence"].forEach((name) => {
-      expect(screen.getAllByText(name).length).toBeGreaterThan(0);
+      expect(onScreen.getAllByText(name).length).toBeGreaterThan(0);
     });
 
     /* Fix-first list leads with the failing high-impact checks. */
@@ -139,28 +141,37 @@ describe("ReportPage", () => {
     expect(within(pitch).getByRole("link", { name: /book a 15-minute call/i })).toHaveAttribute("href", "/book");
   });
 
-  it("opens every collapsed area for printing and restores them afterwards", async () => {
+  it("renders the printable document alongside the report, hidden on screen", async () => {
     search = "url=example-surgery.nhs.uk";
     mockFetch({ ok: true, report: fakeReport() });
     renderPage();
     await waitFor(() => expect(screen.getByRole("heading", { level: 1, name: "www.example-surgery.nhs.uk" })).toBeInTheDocument());
 
-    const closed = () => document.querySelectorAll("details:not([open])").length;
-    const before = closed();
-    expect(before).toBeGreaterThan(0);
+    const doc = document.querySelector<HTMLElement>(".k-pdf");
+    expect(doc).not.toBeNull();
+    expect(doc?.getAttribute("aria-hidden")).toBe("true");
 
-    window.dispatchEvent(new Event("beforeprint"));
-    expect(closed()).toBe(0);
-    /* Chrome fires beforeprint again from its own print pipeline. */
-    window.dispatchEvent(new Event("beforeprint"));
-    window.dispatchEvent(new Event("afterprint"));
-    expect(closed()).toBe(before);
+    /* Cover, summary, fix-first and next-steps are fixed pages; the checks flow in a table. */
+    const pages = doc!.querySelectorAll(".k-pdf-page");
+    expect(pages.length).toBe(4);
+    expect(pages[0].textContent).toContain("www.example-surgery.nhs.uk");
+    expect(pages[0].textContent).toContain("grade for a GP practice");
+    expect(pages[1].textContent).toContain("How the site scores, area by area");
+    expect(pages[2].textContent).toMatch(/Images have alternative text|Phone number easy to find/);
+    expect(doc!.querySelector(".k-pdf-flow thead")).not.toBeNull();
+    expect(doc!.querySelector(".k-pdf-flow tfoot")).not.toBeNull();
 
-    /* Scroll-reveal wrappers are marked so print CSS can force them visible. */
-    expect(document.querySelectorAll("[data-rise]").length).toBeGreaterThan(0);
-    /* Interactive controls give way to a printable contact line. */
-    const printLine = document.querySelector("#next-steps .k-print-only");
-    expect(printLine?.textContent).toMatch(/Email sales@flutterly.co.uk with this report/);
+    /* The sell: weakest areas, the suggested package, contact line and QR. */
+    const last = pages[3];
+    expect(last.textContent).toContain("same list before launch");
+    expect(last.textContent).toContain("Standard");
+    expect(last.textContent).toContain("sales@flutterly.co.uk");
+    expect(last.textContent).toContain("flutterly.co.uk/book");
+    expect(last.querySelector('svg[aria-label*="flutterly.co.uk/book"]')).not.toBeNull();
+
+    /* The interactive report is what screen users see; the document only prints. */
+    expect(document.querySelector(".k-screen")).not.toBeNull();
+    expect(screen.getByRole("button", { name: /save as pdf/i })).toBeInTheDocument();
   });
 
   it("tells a strong site to keep what it has and suggests Essentials", async () => {

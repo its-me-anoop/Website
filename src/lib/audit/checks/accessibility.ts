@@ -1,5 +1,5 @@
 import type { HTMLElement } from "node-html-parser";
-import { agree, checker, plural, trim, type CheckModule } from "./context";
+import { agree, checker, plural, trim, unless, type CheckModule } from "./context";
 
 const c = checker("accessibility");
 
@@ -61,7 +61,7 @@ export const accessibilityChecks: CheckModule = ({ page }) => {
           : missingAlt.length === 0
             ? `${contentImages.length === 1 ? "The one image carries" : `All ${contentImages.length} images carry`} an alt attribute${emptyAltCount ? ` (${emptyAltCount} marked decorative)` : ""}.`
             : `${plural(missingAlt.length, "image")} of ${contentImages.length} have no alt attribute at all, so screen readers announce the file name or nothing.`,
-      fix: 'Give every meaningful image a short description in alt="…", and mark purely decorative images with alt="". WCAG 1.1.1, level A.',
+      fix: unless(contentImages.length === 0, 'Give every meaningful image a short description in alt="…", and mark purely decorative images with alt="". WCAG 1.1.1, level A.'),
       evidence: missingAlt.map((img) => trim(img.getAttribute("src") ?? "(no src)", 90)),
     })
   );
@@ -110,7 +110,7 @@ export const accessibilityChecks: CheckModule = ({ page }) => {
           : orderProblems.length === 0
             ? `${plural(headings.length, "heading")} step down one level at a time.`
             : `${orderProblems.join("; ")}.`.replace(/^./, (ch) => ch.toUpperCase()),
-      fix: "Headings are the table of contents for screen-reader users: start with the <h1>, keep them in order and never leave one empty.",
+      fix: unless(headings.length === 0, "Headings are the table of contents for screen-reader users: start with the <h1>, keep them in order and never leave one empty."),
     })
   );
 
@@ -145,7 +145,7 @@ export const accessibilityChecks: CheckModule = ({ page }) => {
               ? "The one form field has a label."
               : `All ${inputs.length} form fields have a label.`
             : `${plural(unlabelled.length, "form field")} of ${inputs.length} have no label, so assistive technology cannot say what to type.`,
-      fix: "Pair every field with a visible <label for>, or an aria-label where a visible label is impossible. Placeholder text is not a label. WCAG 1.3.1 and 3.3.2.",
+      fix: unless(inputs.length === 0, "Pair every field with a visible <label for>, or an aria-label where a visible label is impossible. Placeholder text is not a label. WCAG 1.3.1 and 3.3.2."),
       evidence: unlabelled.map((el) => trim(`<${el.tagName.toLowerCase()} name="${el.getAttribute("name") ?? ""}" type="${el.getAttribute("type") ?? "text"}">`)),
     })
   );
@@ -258,7 +258,7 @@ export const accessibilityChecks: CheckModule = ({ page }) => {
               ? "The one embedded frame has a title."
               : `All ${plural(iframes.length, "embedded frame")} have a title.`
             : `${plural(untitled.length, "embedded frame")} (maps, videos or widgets) ${agree(untitled.length, "has", "have")} no title, so screen readers cannot say what ${agree(untitled.length, "it contains", "they contain")}.`,
-      fix: 'Add title="Map showing the practice location" (or similar) to each <iframe>. WCAG 4.1.2.',
+      fix: unless(iframes.length === 0, 'Add title="Map showing the practice location" (or similar) to each <iframe>. WCAG 4.1.2.'),
       evidence: untitled.map((f) => trim(f.getAttribute("src") ?? "(inline frame)", 90)),
     })
   );

@@ -600,81 +600,108 @@ html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* Print-only content (e.g. the contact line that replaces buttons). */
-.k-print-only {
+/* ─────────────────────────────────────────────────────────────
+   Printed audit report (kiln/audit/print/PrintReport.tsx).
+
+   On screen the document is hidden and the interactive report shows;
+   in print they swap. Pages are true A4 with the browser's own margins
+   and header/footer removed, so the coal cover bleeds to the edge and
+   backgrounds are forced on. Fixed pages (cover, summary, fix-first,
+   next steps) are 297mm boxes; the long area-by-area section flows
+   inside a table, whose thead/tfoot repeat on every printed page and
+   so act as running header and footer.
+   ───────────────────────────────────────────────────────────── */
+.k-pdf {
   display: none;
 }
-
-/* Audit report: printing keeps the content, drops the chrome. */
 @media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
   html,
   body {
-    background: #fff !important;
-  }
-  .kiln-root {
-    /* Browsers drop backgrounds by default, so coal bands would print
-       light text on white. Remap the tokens so every on-coal pairing
-       becomes its on-bone equivalent; @theme inline resolves the vars
-       per element, so this cascades through the Tailwind utilities. */
-    --k-bone: #fff;
-    --k-bone-2: #fff;
-    --k-paper: #fff;
-    --k-coal: #fff;
-    --k-coal-2: #fff;
-    --k-coal-3: #fff;
-    --k-coal-ink: var(--k-ink);
-    --k-coal-soft: var(--k-ink-soft);
-    --k-coal-line: var(--k-line-2);
-    --k-fire-lite: var(--k-fire);
-    --k-moss-lite: var(--k-moss);
-    --k-ochre-lite: var(--k-ochre);
-    min-height: 0;
+    background: var(--k-bone) !important;
   }
   .kiln-root > header,
   .kiln-root > footer,
-  .k-no-print {
+  .k-screen {
     display: none !important;
   }
-  .k-print-only {
-    display: block;
+  .kiln-root {
+    min-height: 0;
   }
-  /* Scroll-reveal elements the reader never reached are still at
-     opacity 0 when printing starts; show everything. */
-  .kiln-root [data-rise] {
-    opacity: 1 !important;
-    transform: none !important;
+  .k-pdf {
+    display: block;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    width: 210mm;
+    font-size: 10pt;
+    line-height: 1.5;
+  }
+  .k-pdf * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  .k-pdf-page {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 210mm;
+    /* min-height rather than height: content is sized to fit, but if a
+       long verdict or summary ever pushes past the page it flows on
+       instead of being clipped. */
+    min-height: 297mm;
+    padding: 12mm 16mm 10mm;
+    break-after: page;
+  }
+  .k-pdf-page:last-child {
+    break-after: auto;
+  }
+  .k-pdf-after {
+    break-before: page;
+  }
+  .k-pdf-flow {
+    width: 210mm;
+    border-collapse: collapse;
+    border-spacing: 0;
+    break-before: page;
+  }
+  .k-pdf-flow thead {
+    display: table-header-group;
+  }
+  .k-pdf-flow tfoot {
+    display: table-footer-group;
+  }
+  .k-pdf-flow td {
+    padding: 0 16mm;
+    vertical-align: top;
+  }
+  .k-pdf-flow-head {
+    height: 18mm;
+    vertical-align: bottom !important;
+    padding-bottom: 5mm !important;
+  }
+  .k-pdf-flow-foot {
+    height: 14mm;
+  }
+  .k-pdf-flow-foot > * {
+    margin-top: 0;
+  }
+  .k-avoid-break {
+    break-inside: avoid;
+  }
+  .k-avoid-break-after {
+    break-inside: avoid;
+    break-after: avoid;
+  }
+  .k-pdf h2,
+  .k-pdf h3 {
+    break-after: avoid;
   }
   .k-dial-arc,
   .route-enter {
     animation: none;
-  }
-  .kiln-root * {
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-  .kiln-root main > section {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-  }
-  .kiln-root main > section > div {
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-  }
-  .kiln-root details,
-  .kiln-root li,
-  .kiln-root article {
-    break-inside: avoid;
-  }
-  .kiln-root h1,
-  .kiln-root h2,
-  .kiln-root h3 {
-    break-after: avoid;
-  }
-  /* Closed rows are opened by a beforeprint handler; this covers
-     browsers that expose the details content pseudo-element too. */
-  .kiln-root details::details-content {
-    content-visibility: visible;
-    display: block;
   }
 }
 

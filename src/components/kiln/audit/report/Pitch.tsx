@@ -1,39 +1,14 @@
 "use client";
 
 import { site } from "@/lib/site";
-import { categoryMeta, sectorAudience, sectorLabel } from "@/lib/audit/score";
-import type { AuditReport, CategoryId } from "@/lib/audit/types";
-import { packages } from "../../data";
+import { categoryMeta } from "@/lib/audit/score";
+import type { AuditReport } from "@/lib/audit/types";
 import { PackageCard } from "../../home/PackagesTeaser";
-import { auditMailto, BtnLink, Display, Eyebrow, Rise } from "../../primitives";
+import { BtnLink, Display, Eyebrow, Rise } from "../../primitives";
+import { pitchModel, promise } from "./pitch-model";
 import { scoreTone } from "./StatusMark";
 
-/** What a Flutterly build does about each area, in the studio's own commitments. */
-const promise: Record<CategoryId, string> = {
-  accessibility:
-    "WCAG 2.2 AA designed in from the first wireframe, tested with keyboards and screen readers, and shipped with a published accessibility statement.",
-  performance:
-    "Static-first Next.js with self-hosted fonts and no page builder, so pages stay fast on a poor mobile signal.",
-  seo: "Titles, descriptions, canonical addresses, social previews and structured data generated from the content, on every page.",
-  content:
-    "Plain-English content design: the top tasks answered above the fold, so reception spends less time repeating them on the phone.",
-  mobile: "Built mobile-first for the phones patients and families actually use, with tap-to-call and readable type throughout.",
-  security: "No plugin stack to patch. HTTPS, HSTS and hardening headers on every response, hosted in the UK with daily backups.",
-  local: "Organisation, address, opening hours and phone as structured data, kept consistent with your Google Business Profile.",
-};
-
-export function summaryForEmail(report: AuditReport): string {
-  const lines = [
-    `Score ${report.score}/100 (grade ${report.grade}) as a ${sectorLabel(report.sector)}.`,
-    ...report.categories.map((c) => `- ${c.name}: ${c.score ?? "n/a"} — ${c.summary}`),
-  ];
-  const top = report.priorities.slice(0, 5);
-  if (top.length) {
-    lines.push("", "Top fixes:");
-    top.forEach((p, i) => lines.push(`${i + 1}. ${p.title}`));
-  }
-  return lines.join("\n");
-}
+export { summaryForEmail } from "./pitch-model";
 
 /**
  * The sell, kept honest. The three weakest areas are set against what a
@@ -42,14 +17,7 @@ export function summaryForEmail(report: AuditReport): string {
  * that scores well is told to keep what it has.
  */
 export function Pitch({ report }: { report: AuditReport }) {
-  const who = sectorAudience(report.sector);
-  const weakest = [...report.categories]
-    .filter((c) => c.score !== null)
-    .sort((a, b) => (a.score ?? 0) - (b.score ?? 0))
-    .slice(0, 3);
-  const keep = report.score >= 85;
-  const recommended = report.score < 60 || report.page.platform?.kind === "page-builder" ? packages[1] : packages[0];
-  const mailto = auditMailto(report.page.finalUrl, summaryForEmail(report));
+  const { who, weakest, keep, recommended, mailto } = pitchModel(report);
 
   return (
     <section id="next-steps" aria-labelledby="next-steps-heading" className="on-coal border-t border-k-coal-line bg-k-coal text-k-coal-ink">
@@ -103,7 +71,7 @@ export function Pitch({ report }: { report: AuditReport }) {
                 Anoop reviews the site by hand: design, content, real-device speed, the journeys {who} actually take. You get a
                 scored, plain-English report within a week, yours to act on with anyone.
               </p>
-              <div className="k-no-print mt-6 flex flex-wrap items-center gap-3">
+              <div className="mt-6 flex flex-wrap items-center gap-3">
                 <BtnLink href={mailto} tone="fire" arrow="right">
                   Send me the written audit
                 </BtnLink>
@@ -111,13 +79,8 @@ export function Pitch({ report }: { report: AuditReport }) {
                   Book a {site.booking.durationMinutes}-minute call
                 </BtnLink>
               </div>
-              <p className="k-no-print mt-4 text-[13.5px] text-k-coal-soft">
+              <p className="mt-4 text-[13.5px] text-k-coal-soft">
                 The email opens prefilled with this report&rsquo;s summary. No follow-up pressure.
-              </p>
-              <p className="k-print-only mt-5 text-[15px] leading-[1.6] text-k-coal-ink">
-                Email <span className="font-medium">{site.email}</span> with this report&rsquo;s address, or book a{" "}
-                {site.booking.durationMinutes}-minute call at{" "}
-                <span className="font-medium">{site.domain.replace(/^www\./, "")}/book</span>.
               </p>
             </Rise>
           </div>
@@ -137,7 +100,7 @@ export function Pitch({ report }: { report: AuditReport }) {
             <ul className="mt-6 grid">
               <PackageCard pkg={recommended} index={0} headingLevel="h3" />
             </ul>
-            <Rise delay={0.16} className="k-no-print mt-5">
+            <Rise delay={0.16} className="mt-5">
               <BtnLink href="/packages" tone="ghost" arrow="right">
                 Compare all three packages
               </BtnLink>

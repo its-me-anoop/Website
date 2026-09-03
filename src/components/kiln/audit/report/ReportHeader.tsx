@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Link2, Printer } from "lucide-react";
-import { sectorLabel } from "@/lib/audit/score";
+import { ArrowUpRight, FileDown, Link2 } from "lucide-react";
+import { aSector } from "@/lib/audit/score";
 import { sectors, type AuditReport } from "@/lib/audit/types";
 import { displayUrl } from "@/lib/audit/url";
-import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
-import { auditHref, Display, Eyebrow, Rise, Tag } from "../../primitives";
+import { Display, Eyebrow, Rise, Tag } from "../../primitives";
 import { ScoreDial } from "./ScoreDial";
 
 function kb(bytes: number) {
@@ -82,7 +81,7 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
             </p>
           </Rise>
 
-          <Rise delay={0.18} className="k-no-print mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 text-[14px] text-k-muted">
+          <Rise delay={0.18} className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 text-[14px] text-k-muted">
             <form action="/audit" method="get" className="flex items-center gap-2">
               <input type="hidden" name="url" value={url} />
               <label htmlFor="audit-sector" className="whitespace-nowrap">
@@ -119,17 +118,13 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
             <button
               type="button"
               onClick={() => window.print()}
+              title="Opens your browser's print dialog. Choose “Save as PDF” as the destination for a designed, shareable report."
               className="inline-flex items-center gap-1.5 text-k-ink-soft underline-offset-4 hover:underline"
             >
-              <Printer size={14} aria-hidden />
-              Print
+              <FileDown size={14} aria-hidden />
+              Save as PDF
             </button>
           </Rise>
-          <p className="k-print-only mt-6 text-[13px] leading-[1.6] text-k-muted">
-            Instant audit by Flutterly, run{" "}
-            {new Date(report.generatedAt).toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short" })}. Re-run or
-            share it at {auditHref(url, report.sector).replace(/^\//, `${site.domain.replace(/^www\./, "")}/`)}
-          </p>
         </div>
 
         <Rise delay={0.1} className="flex flex-col items-center lg:items-end">
@@ -137,7 +132,7 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
           <p className="mt-4 flex items-center gap-2 text-[14px] text-k-ink-soft">
             <span className="k-display text-[28px] leading-none text-k-ink">{report.grade}</span>
             <span>
-              grade for a {sectorLabel(report.sector)}
+              grade for {aSector(report.sector)}
               {report.sector !== report.detectedSector ? " (your choice)" : ""}
             </span>
           </p>

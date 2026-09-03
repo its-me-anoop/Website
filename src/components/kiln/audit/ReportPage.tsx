@@ -6,6 +6,7 @@ import type { AuditFailure, AuditReport, AuditResponse } from "@/lib/audit/types
 import { KilnShell } from "../KilnShell";
 import { CtaBand } from "../CtaBand";
 import { AuditBar, Display, Eyebrow, Rise } from "../primitives";
+import { PrintReport } from "./print/PrintReport";
 import { CategoryList } from "./report/CategoryList";
 import { ErrorState } from "./report/ErrorState";
 import { Pitch } from "./report/Pitch";
@@ -151,13 +152,13 @@ export function ReportPage() {
 
       {state.kind === "done" ? (
         <>
-          <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-24">
-            <ReportHeader report={state.report} url={url} />
-          </section>
-          <CategoryList categories={state.report.categories} />
-          <Priorities report={state.report} />
-          <Pitch report={state.report} />
-          <div className="k-no-print">
+          <div className="k-screen">
+            <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-24">
+              <ReportHeader report={state.report} url={url} />
+            </section>
+            <CategoryList categories={state.report.categories} />
+            <Priorities report={state.report} />
+            <Pitch report={state.report} />
             <CtaBand
               title={
                 <>
@@ -168,6 +169,7 @@ export function ReportPage() {
               id="contact"
             />
           </div>
+          <PrintReport report={state.report} />
         </>
       ) : null}
     </KilnShell>

@@ -34,6 +34,14 @@ export function checker(category: CategoryId) {
   });
 }
 
+/**
+ * A fix that only applies when there was something to check: an info
+ * result for "no images on the page" should not tell anyone to fix images.
+ */
+export function unless(nothingToCheck: boolean, fix: string): string | undefined {
+  return nothingToCheck ? undefined : fix;
+}
+
 export function plural(n: number, one: string, many = `${one}s`) {
   return `${n} ${n === 1 ? one : many}`;
 }

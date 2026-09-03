@@ -36,7 +36,7 @@ const instantVsWritten = [
       "Reads the page\u2019s HTML and response headers",
       "Around sixty checks across seven areas",
       "Sector-aware: GP, care home, dental, pharmacy, physio",
-      "Shareable, printable link",
+      "Shareable link, and a designed PDF to hand round",
     ],
   },
   {

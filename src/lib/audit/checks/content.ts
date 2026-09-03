@@ -1,6 +1,6 @@
 import { sentencesOf } from "../page";
 import type { Sector } from "../types";
-import { checker, plural, trim, type CheckModule } from "./context";
+import { checker, plural, trim, unless, type CheckModule } from "./context";
 
 const c = checker("content");
 
@@ -248,7 +248,7 @@ export const contentChecks: CheckModule = ({ page }) => {
         words.length < 80
           ? "Not enough text to judge readability."
           : `Sentences average ${avgSentence.toFixed(0)} words and ${longWordPct.toFixed(1)}% of words are 12+ letters. ${avgSentence <= 20 && longWordPct <= 4 ? "That is comfortably readable." : "NHS content guidance aims for under 20 words a sentence and everyday words: many visitors are anxious, in a hurry or reading in a second language."}`,
-      fix: "Shorten sentences, swap jargon for everyday words, and lead every page with what the visitor can do.",
+      fix: unless(words.length < 80, "Shorten sentences, swap jargon for everyday words, and lead every page with what the visitor can do."),
     })
   );
 
@@ -337,7 +337,7 @@ export const contentChecks: CheckModule = ({ page }) => {
           : latestYear >= thisYear - 1
             ? `The copyright line reads ${latestYear}.`
             : `The copyright line still reads ${latestYear}. Small signs like this make visitors doubt everything else, including the opening hours.`,
-      fix: "Generate the copyright year automatically and review the homepage content each quarter.",
+      fix: unless(latestYear === null, "Generate the copyright year automatically and review the homepage content each quarter."),
     })
   );
 
