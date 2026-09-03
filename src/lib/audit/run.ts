@@ -7,7 +7,7 @@ import { performanceChecks } from "./checks/performance";
 import { securityChecks } from "./checks/security";
 import { seoChecks } from "./checks/seo";
 import { safeFetch, tryFetch } from "./fetch";
-import { parsePage, rootDomain } from "./page";
+import { isUnreadableShell, parsePage, rootDomain } from "./page";
 import { buildCategories, gradeFor, overallScore, prioritise, verdictFor } from "./score";
 import { AuditError, sectors, type AuditReport, type Check, type Sector } from "./types";
 import { normaliseUrl } from "./url";
@@ -36,6 +36,18 @@ export function isSector(value: unknown): value is Sector {
   return typeof value === "string" && (sectors as readonly string[]).includes(value);
 }
 
+/**
+ * The only success statuses that carry a document for a plain GET.
+ * Anything else in the 2xx range (202 Accepted from a bot challenge,
+ * 204 No Content, 206 Partial Content) is a non-answer, not a page.
+ */
+const DOCUMENT_STATUSES = new Set([200, 203]);
+
+/** The one message for every "the site did not give the audit tool a page" outcome. */
+function refusedMessage(status: number): string {
+  return `The site refused an automated visit (status ${status}). Some firewalls block audit tools; the written audit can still review it.`;
+}
+
 export async function runAudit(input: string, options: RunOptions = {}): Promise<AuditReport> {
   const url = normaliseUrl(input);
 
@@ -58,7 +70,7 @@ export async function runAudit(input: string, options: RunOptions = {}): Promise
     throw new AuditError(
       "http_error",
       fetched.status === 403 || fetched.status === 429
-        ? `The site refused an automated visit (status ${fetched.status}). Some firewalls block audit tools; the written audit can still review it.`
+        ? refusedMessage(fetched.status)
         : fetched.status === 404
           ? "That page does not exist (404). Check the address, or try the homepage."
           : fetched.status >= 500
@@ -66,6 +78,14 @@ export async function runAudit(input: string, options: RunOptions = {}): Promise
             : `The site answered with status ${fetched.status}.`,
       fetched.status
     );
+  }
+
+  /* A 2xx that is not a document, or a blank body, is a refusal in all
+     but name: firewalls answer bots with 202 and an empty or ~2 KB
+     challenge shell that renders fine in a real browser. It must fail
+     closed exactly like a 403, never be parsed and given a grade. */
+  if (!DOCUMENT_STATUSES.has(fetched.status) || fetched.body.trim() === "") {
+    throw new AuditError("http_error", refusedMessage(fetched.status), fetched.status);
   }
 
   const contentType = (fetched.headers.get("content-type") ?? "").toLowerCase();
@@ -78,6 +98,12 @@ export async function runAudit(input: string, options: RunOptions = {}): Promise
   }
 
   const page = parsePage(fetched);
+
+  /* Same outcome for HTML with nothing readable in it (no words, or a
+     "please wait" / JavaScript shell): there is no page to score. */
+  if (isUnreadableShell(page)) {
+    throw new AuditError("http_error", refusedMessage(fetched.status), fetched.status);
+  }
   const detectedSector = page.sector;
   if (options.sector) page.sector = options.sector;
   const origin = page.url.origin;
