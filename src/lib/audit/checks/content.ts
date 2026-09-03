@@ -227,7 +227,7 @@ export const contentChecks: CheckModule = ({ page }) => {
           ? `About ${words.length} words of visible text.`
           : words.length >= 80
             ? `Only about ${words.length} words of visible text. Visitors and search engines get little to work with${page.scripts.length > 5 ? "; if the content is loaded by JavaScript, search engines may not see it at all" : ""}.`
-            : `Only about ${words.length} words could be read from the HTML${page.scripts.length > 3 ? ". The page probably relies on JavaScript to render its content, which slows phones and hides text from some crawlers" : ""}.`,
+            : `${words.length === 0 ? "No readable text" : `Only about ${plural(words.length, "word")}`} could be read from the HTML${page.scripts.length > 3 ? ". The page probably relies on JavaScript to render its content, which slows phones and hides text from some crawlers" : ""}.`,
       fix: "Answer the top visitor questions in plain HTML text on the page itself.",
     })
   );
