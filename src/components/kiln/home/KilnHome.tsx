@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { KilnShell } from "../KilnShell";
 import { CtaBand } from "../CtaBand";
 import { Hero } from "./Hero";
@@ -11,6 +12,7 @@ import { Work } from "./Work";
 import { Compare } from "./Compare";
 import { Process } from "./Process";
 import { PackagesTeaser } from "./PackagesTeaser";
+import styles from "./Hero.module.css";
 
 /**
  * Kiln homepage. Bone canvas: the hero with its fanned strip of
@@ -20,9 +22,11 @@ import { PackagesTeaser } from "./PackagesTeaser";
  * packages and the closing call to action.
  */
 export function KilnHome() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   return (
-    <KilnShell>
-      <Hero />
+    <KilnShell mainClassName={styles.particlePage}>
+      <canvas ref={canvasRef} aria-hidden="true" className={styles.starCanvas} data-hero-particles />
+      <Hero canvasRef={canvasRef} />
       <Ticker />
       <Showcase />
       <Personas />

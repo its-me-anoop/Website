@@ -33,11 +33,11 @@ export function Rise({
   const Tag = m[as] as typeof m.div;
   return (
     <Tag
-      className={className}
-      initial={reduce ? false : { y, opacity: 0 }}
+      className={cn("k-rise", className)}
+      initial={{ y, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-      transition={{ duration: 0.75, ease: EASE, delay }}
+      transition={{ duration: reduce ? 0 : 0.75, ease: EASE, delay: reduce ? 0 : delay }}
     >
       {children}
     </Tag>
@@ -453,6 +453,8 @@ export function BrowserFrame({
   alt,
   url,
   priority,
+  loading,
+  unoptimized,
   className,
   sizes = "(min-width: 1024px) 720px, 92vw",
 }: {
@@ -460,6 +462,8 @@ export function BrowserFrame({
   alt: string;
   url: string;
   priority?: boolean;
+  loading?: "eager" | "lazy";
+  unoptimized?: boolean;
   className?: string;
   sizes?: string;
 }) {
@@ -486,6 +490,8 @@ export function BrowserFrame({
           alt={alt}
           fill
           priority={priority}
+          loading={loading}
+          unoptimized={unoptimized}
           sizes={sizes}
           className="object-cover object-top"
         />

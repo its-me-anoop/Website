@@ -1,7 +1,9 @@
 "use client";
 
 import { processSteps } from "../data";
+import Image from "next/image";
 import { Display, Eyebrow, Rise } from "../primitives";
+import styles from "./Hero.module.css";
 
 /**
  * How a build runs. Four steps as columns on coal, each with an
@@ -11,12 +13,17 @@ export function Process() {
   return (
     <section id="process" className="scroll-mt-24">
       <div className="mx-auto w-full max-w-[1280px] px-5 pt-20 sm:px-8 sm:pt-28 lg:pt-32">
+        <div className={styles.refugeHeading}>
+        <div className={styles.refuge} data-particle-refuge="process" aria-hidden="true">
+          <Image src="/flutterly-logo.png" alt="" width={430} height={430} className={styles.refugeFallback} />
+        </div>
         <Rise className="max-w-[640px]">
           <Eyebrow className="text-k-coal-soft">How a build runs</Eyebrow>
           <Display as="h2" size="lg" className="mt-5 text-k-coal-ink">
             Four steps. One accountable person throughout.
           </Display>
         </Rise>
+        </div>
         <ol className="mt-12 grid gap-x-6 gap-y-10 sm:mt-14 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-4">
           {processSteps.map(([title, copy], i) => (
             <Rise as="li" key={title} delay={i * 0.08} className="border-t border-k-coal-line pt-5 sm:pt-6">

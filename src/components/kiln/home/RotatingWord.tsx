@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { heroAudiences } from "../data";
 import { EASE } from "../primitives";
+import { useHeroReducedMotion } from "./useHeroReducedMotion";
 
 /**
  * The cycling audience word in the hero headline. Each word slides in
@@ -13,19 +14,19 @@ import { EASE } from "../primitives";
  * entry); the animated copy is hidden from the accessibility tree so the
  * heading's name never changes. Reduced motion shows the static word.
  */
-export function RotatingWord({ interval = 2600 }: { interval?: number }) {
-  const reduce = useReducedMotion();
+export function RotatingWord({ interval = 2600, paused = false }: { interval?: number; paused?: boolean }) {
+  const reduce = useHeroReducedMotion();
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce !== false || paused) return;
     const id = window.setInterval(() => {
       /* Don't advance in a background tab; resume in step when visible. */
       if (document.visibilityState !== "visible") return;
       setIndex((i) => (i + 1) % heroAudiences.length);
     }, interval);
     return () => window.clearInterval(id);
-  }, [reduce, interval]);
+  }, [reduce, paused, interval]);
 
   const current = heroAudiences[reduce ? 0 : index];
 
@@ -36,11 +37,11 @@ export function RotatingWord({ interval = 2600 }: { interval?: number }) {
         aria-hidden
         className="relative inline-grid whitespace-nowrap align-baseline"
       >
-        <AnimatePresence mode="sync" initial={false}>
+        {reduce ? <em style={{ color: `var(--hero-word-color, ${current.color})` }}>{current.word}</em> : <AnimatePresence mode="wait" initial={false}>
           <m.em
             key={current.word}
             className="[grid-area:1/1] will-change-transform"
-            style={{ color: current.color }}
+            style={{ color: `var(--hero-word-color, ${current.color})` }}
             initial={{ y: "0.5em", opacity: 0 }}
             animate={{ y: 0, opacity: 1, transition: { duration: 0.6, ease: EASE } }}
             /* Short, quick exit so the leaving word never reads over the
@@ -49,7 +50,7 @@ export function RotatingWord({ interval = 2600 }: { interval?: number }) {
           >
             {current.word}
           </m.em>
-        </AnimatePresence>
+        </AnimatePresence>}
       </span>
     </>
   );

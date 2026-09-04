@@ -1,0 +1,82 @@
+/* The requested Astra reference calls for a dark, luminous 3D star field.
+   Keep Kiln's typography and work; form the particles from Flutterly's mark. */
+.hero {
+  overflow: clip;
+  padding-top: 100px;
+  background: oklch(14% 0.013 245);
+  color: oklch(96% 0.012 80);
+  --k-ink-soft: oklch(81% 0.019 230);
+  --k-muted: oklch(73% 0.026 230);
+  --hero-word-color: oklch(84% 0.066 155);
+}
+
+.scene { position: relative; }
+.opening { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; max-width: 1440px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 64px); }
+.starField { position: relative; min-width: 0; }
+.starSurface { display: block; position: relative; width: 100%; aspect-ratio: 1; background: transparent; border: 0; cursor: crosshair; touch-action: pan-y; border-radius: 4px; }
+.starSurface:focus-visible { outline: 1px solid oklch(80% 0.04 230); outline-offset: -8px; }
+/* Backgrounds paint first, the canvas second, then the actual content.
+   Keep these layers in the homepage's own context, away from other routes. */
+.particlePage { position: relative; isolation: isolate; }
+:global(.route-enter):has(.particlePage) { animation: none; }
+.particlePage > section:not(:global(#about)) > div,
+.particlePage > :global(#about) > :global(.bg-k-bone-2) > div,
+.particlePage > :global(.on-coal) > section > div:not([aria-hidden]) { position: relative; z-index: 2; }
+.starCanvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+.refugeHeading { display: grid; align-items: center; gap: 20px; }
+.refugeHeading > :global(.k-rise) { grid-row: 1; }
+.refuge { grid-row: 2; width: min(100%, 340px); aspect-ratio: 1; justify-self: center; position: relative; pointer-events: none; }
+.refugeFallback { display: none; width: 100%; height: 100%; object-fit: contain; opacity: 0.55; }
+@media (min-width: 1024px) {
+  .refugeHeading { grid-template-columns: minmax(0, 1fr) minmax(0, 430px); gap: clamp(32px, 4vw, 48px); min-height: 430px; }
+  .refugeHeading > :global(.k-rise) { grid-column: 1; min-width: 0; }
+  .refuge { grid-column: 2; grid-row: 1; width: 100%; }
+}
+.starFallback { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; pointer-events: none; }
+.starSurface[data-failed="true"] .starFallback, .starSurface[data-reduced="true"] .starFallback { opacity: 0.45; }
+.starSurface[data-ready="true"] .starFallback { opacity: 0; }
+
+.heading { position: relative; margin: 0; padding: 0; text-align: left; font-size: clamp(2rem, 4.65vw, 4.65rem); line-height: 1.12; letter-spacing: -0.055em; color: oklch(96% 0.012 80); }
+.line { display: block; overflow: hidden; padding: 0.1em 0.08em 0.16em; margin: -0.1em -0.08em -0.16em; }
+.lineInner { display: block; animation: enterType 1.25s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.line:nth-child(2) .lineInner { animation-delay: 120ms; }
+.line:nth-child(3) .lineInner { animation-delay: 240ms; }
+.line:last-child { padding-bottom: 0.25em; }
+
+.gallery { position: relative; margin-top: 18px; padding: 25px 0 60px; animation: enterGallery 1.6s 300ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.track { animation-play-state: running; }
+.hero[data-running="false"] .track { animation-play-state: paused; }
+.manual { display: flex; overflow-x: auto; padding: 16px 24px 26px; scrollbar-width: thin; scrollbar-color: oklch(68% 0.035 65) transparent; }
+.row { display: flex; flex-shrink: 0; align-items: center; gap: clamp(14px, 1.7vw, 24px); padding-right: clamp(14px, 1.7vw, 24px); }
+.card { position: relative; display: block; border-radius: 12px; }
+.surface { display: block; overflow: hidden; border-radius: 12px; border: 1px solid oklch(85% 0.015 230 / 0.25); transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1); }
+.card:hover .surface, .card:focus-visible .surface { transform: translateY(-15px) scale(1.035); }
+.image { height: auto; width: clamp(200px, 24vw, 340px); }
+.caption { display: flex; align-items: center; justify-content: space-between; gap: 8px; position: absolute; inset: auto 3px -32px; font-size: 14px; color: var(--k-ink-soft); opacity: 0; transform: translateY(6px); transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms; }
+.card:hover .caption, .card:focus-visible .caption { opacity: 1; transform: translateY(0); }
+.intro { display: flex; flex-direction: column; align-items: center; max-width: 760px; margin: 26px auto 0; padding: 0 24px 72px; text-align: center; }
+.copy { max-width: 59ch; font-size: 16px; line-height: 1.65; color: var(--k-ink-soft); }
+.audit { width: 100%; display: flex; justify-content: center; margin-top: 26px; }
+
+@keyframes enterType { from { opacity: 0; transform: translateY(110%) rotate(2deg); } to { opacity: 1; transform: translateY(0) rotate(0); } }
+@keyframes enterGallery { from { opacity: 0; transform: translateY(70px) scale(0.91); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+@media (max-width: 767px) {
+  .hero { padding-top: 118px; }
+  .opening { grid-template-columns: 1fr; padding: 0 24px; }
+  .heading { text-align: center; font-size: clamp(1.875rem, 8.4vw, 3.8rem); }
+  .starField { width: min(100%, 420px); margin: 8px auto 0; }
+}
+@media (max-width: 599px) {
+  .heading { letter-spacing: -0.05em; }
+  .gallery { margin-top: 18px; padding-bottom: 50px; }
+  .image { width: 220px; }
+  .intro { margin-top: 22px; padding-bottom: 48px; }
+  .copy { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .refugeFallback { display: block; }
+  .lineInner, .gallery { animation: none; }
+  .card:hover .surface, .card:focus-visible .surface { transform: none; }
+  .caption { opacity: 1; transform: none; }
+}

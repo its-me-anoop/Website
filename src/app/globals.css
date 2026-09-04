@@ -926,6 +926,9 @@ body:has(.demo-physio-root) > a[href="#main"]:focus {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .route-enter { animation: none; }
+  /* Stable SSR styles; reduced-motion content is visible before hydration. */
+  .k-rise, .k-nav-enter { opacity: 1 !important; transform: none !important; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

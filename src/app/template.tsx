@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { LazyMotion, useReducedMotion } from "framer-motion";
+import { LazyMotion } from "framer-motion";
 
 /**
  * Loads the Framer Motion feature set as a separate async chunk (see
@@ -29,7 +29,6 @@ const loadFeatures = () =>
  * before hydration and the motion feature chunk never loads there.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
-  const reduce = useReducedMotion();
   const pathname = usePathname();
 
   if (pathname?.startsWith("/demo")) {
@@ -38,7 +37,8 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
   return (
     <LazyMotion features={loadFeatures} strict>
-      {reduce ? children : <div className="route-enter">{children}</div>}
+      {/* Keep the SSR tree stable; CSS disables the reveal for reduced motion. */}
+      <div className="route-enter">{children}</div>
     </LazyMotion>
   );
 }

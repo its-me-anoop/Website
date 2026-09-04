@@ -1,9 +1,20 @@
 import React from "react";
-import { describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
 import { KilnHome } from "./KilnHome";
+
+// jsdom has no layout observer; real sizing and particle movement are
+// verified in the browser. Keep the mock local to these hero consumers.
+beforeAll(() => {
+  vi.stubGlobal("ResizeObserver", class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  });
+});
+afterAll(() => vi.unstubAllGlobals());
 
 /** The app provides LazyMotion in `template.tsx`; mirror that here. */
 function renderHome() {
@@ -19,6 +30,14 @@ function linksTo(href: string) {
 }
 
 describe("KilnHome", () => {
+  it("keeps duplicate marquee links out of keyboard navigation", () => {
+    const { container } = renderHome();
+    const duplicate = container.querySelector("#top ul[aria-hidden='true']");
+    expect(duplicate).not.toHaveAttribute("inert");
+    duplicate?.querySelectorAll("a").forEach((link) => expect(link).toHaveAttribute("tabindex", "-1"));
+    expect(screen.getByRole("list", { name: "Finished websites by Flutterly" }).querySelectorAll("a")).toHaveLength(7);
+  });
+
   it("renders the hero headline", () => {
     renderHome();
 

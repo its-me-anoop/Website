@@ -51,10 +51,10 @@ export function Nav() {
 
   return (
     <m.header
-      className="pointer-events-none fixed inset-x-0 top-0 z-[120] px-3 pt-3 sm:px-4 sm:pt-4"
-      initial={reduce ? false : { y: -16, opacity: 0 }}
+      className="k-nav-enter pointer-events-none fixed inset-x-0 top-0 z-[120] px-3 pt-3 sm:px-4 sm:pt-4"
+      initial={{ y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: EASE }}
+      transition={{ duration: reduce ? 0 : 0.6, ease: EASE }}
     >
       <div className="mx-auto flex w-full max-w-[1400px] items-start justify-between gap-3">
         {/* Pill */}
