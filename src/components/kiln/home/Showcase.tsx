@@ -1,20 +1,16 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
-import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { samples, type Sample } from "../data";
-import { BrowserFrame, BtnLink, CheckItem, Display, EASE, Eyebrow, Rise } from "../primitives";
+import { BrowserFrame, BtnLink, CheckItem, Display, Eyebrow, Rise } from "../primitives";
 import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
 import styles from "./Showcase.module.css";
 
 const PIN_TOP = 96;
 const STAGE_BOTTOM_SPACE = 24;
-// Scroll can cross a sector boundary faster than a panel used to finish its
-// exit. Keep the hand-off short and use a small transform so the next sample
-// tracks the reader's scroll instead of feeling like it is catching up.
-const PANEL_TRANSITION = { duration: 0.24, ease: EASE };
 
 function scrollStep(trackTop: number, viewportHeight: number) {
   const progress = Math.max(0, PIN_TOP - trackTop);
@@ -52,6 +48,7 @@ export function Showcase() {
   const [wideLayout, setWideLayout] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [releasedOffset, setReleasedOffset] = useState(0);
+  const [preloadPreviews, setPreloadPreviews] = useState(false);
   const [sequence, setSequence] = useState({ pinned: false, height: 0, distance: 0 });
   const sequenceRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -59,6 +56,7 @@ export function Showcase() {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const lastScrollStep = useRef<number | null>(null);
   const pointerSummary = useRef<HTMLElement | null>(null);
+  const scrollViewport = useRef({ width: 0, height: 0 });
   const reduce = useReducedMotion();
   const baseId = useId();
   const active = samples[index];
@@ -73,6 +71,28 @@ export function Showcase() {
 
   useEffect(() => {
     const track = sequenceRef.current;
+    if (!track) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        setPreloadPreviews(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: "800px 0px" });
+    observer.observe(track);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!preloadPreviews) return;
+    // Decode ahead of selection, including the hidden layers, so a first
+    // visit to a sample does not spend its crossfade loading a screenshot.
+    panelRef.current?.querySelectorAll("img").forEach((image) => {
+      void image.decode?.().catch(() => {});
+    });
+  }, [preloadPreviews]);
+
+  useEffect(() => {
+    const track = sequenceRef.current;
     const stage = stageRef.current;
     const panel = panelRef.current;
     if (!track || !stage || !panel) return;
@@ -81,12 +101,11 @@ export function Showcase() {
     let stepDistance = 0;
 
     const currentStep = () => {
-      return scrollStep(track.getBoundingClientRect().top, window.innerHeight);
+      return scrollStep(track.getBoundingClientRect().top, scrollViewport.current.height);
     };
     const followScroll = () => {
       frame = 0;
-      // Replacing the keyed panel would remove a focused action link. Leave
-      // the visitor's current sample in place until focus leaves the panel.
+      // Keep a focused sample actionable until focus leaves the panel.
       const focus = document.activeElement;
       const protectsKeyboardFocus = panel.contains(focus) && focus !== pointerSummary.current;
       if (!pinned || protectsKeyboardFocus) return;
@@ -111,9 +130,15 @@ export function Showcase() {
       scheduleScroll();
     };
     const measure = () => {
+      // Phone browser chrome changes innerHeight mid-swipe. Keep the same
+      // scroll intervals until the width/layout changes (e.g. rotation).
+      if (wideLayout || scrollViewport.current.width !== window.innerWidth) {
+        scrollViewport.current = { width: window.innerWidth, height: window.innerHeight };
+      }
+      const viewportHeight = scrollViewport.current.height;
       const height = stage.getBoundingClientRect().height;
-      pinned = (wideLayout || !expanded) && height > 0 && height <= window.innerHeight - PIN_TOP - STAGE_BOTTOM_SPACE;
-      stepDistance = Math.max(360, window.innerHeight * 0.65);
+      pinned = (wideLayout || !expanded) && height > 0 && height <= viewportHeight - PIN_TOP - STAGE_BOTTOM_SPACE;
+      stepDistance = Math.max(360, viewportHeight * 0.65);
       setSequence((previous) => {
         const distance = stepDistance * samples.length;
         return previous.pinned === pinned && previous.height === height && previous.distance === distance
@@ -144,12 +169,13 @@ export function Showcase() {
     if (!tab || !list) return;
     const tabBox = tab.getBoundingClientRect();
     const listBox = list.getBoundingClientRect();
-    if (tabBox.left < listBox.left) list.scrollLeft += tabBox.left - listBox.left;
-    else if (tabBox.right > listBox.right) list.scrollLeft += tabBox.right - listBox.right;
-  }, [index, wideLayout]);
+    const offset = tabBox.left < listBox.left ? tabBox.left - listBox.left
+      : tabBox.right > listBox.right ? tabBox.right - listBox.right : 0;
+    if (offset) list.scrollTo({ left: list.scrollLeft + offset, behavior: reduce ? "instant" : "smooth" });
+  }, [index, wideLayout, reduce]);
 
   function selectSample(next: number) {
-    lastScrollStep.current = scrollStep(sequenceRef.current?.getBoundingClientRect().top ?? PIN_TOP, window.innerHeight);
+    lastScrollStep.current = scrollStep(sequenceRef.current?.getBoundingClientRect().top ?? PIN_TOP, scrollViewport.current.height);
     setExpanded(false);
     setIndex(next);
   }
@@ -164,7 +190,7 @@ export function Showcase() {
     if (next === null) return;
     e.preventDefault();
     selectSample(next);
-    tabRefs.current[next]?.focus();
+    tabRefs.current[next]?.focus({ preventScroll: true });
   }
 
   return (
@@ -196,7 +222,6 @@ export function Showcase() {
           className={styles.sequence}
           style={{
             "--sequence-height": `${sequence.height + sequence.distance}px`,
-            "--stage-height": `${sequence.height}px`,
             paddingTop: !wideLayout && expanded ? `${releasedOffset}px` : undefined,
           } as CSSProperties}
         >
@@ -272,34 +297,36 @@ export function Showcase() {
               tabIndex={0}
               className={cn("min-w-0 rounded-[18px] focus-visible:outline-offset-4", styles.panel)}
             >
-              <AnimatePresence mode="popLayout" initial={false}>
-                <m.div
-                  key={active.slug}
-                  initial={reduce ? false : { opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={reduce ? undefined : { opacity: 0, y: -4 }}
-                  transition={reduce ? { duration: 0 } : PANEL_TRANSITION}
+              {/* Overlapping grid layers reserve the tallest sample's space.
+                  Nothing mounts or changes document height during a fade. */}
+              {samples.map((sample, sampleIndex) => (
+                <div
+                  key={sample.slug}
+                  data-active={sampleIndex === index}
+                  aria-hidden={sampleIndex !== index}
+                  inert={sampleIndex !== index}
                   className={styles.panelContent}
                 >
                   <div className={styles.preview}>
                     <BrowserFrame
-                      src={active.image}
-                      alt={active.imageAlt}
-                      url={`${site.domain}${active.href}`}
-                      loading="eager"
+                      src={sample.image}
+                      alt={sample.imageAlt}
+                      url={`${site.domain}${sample.href}`}
+                      loading={preloadPreviews || sampleIndex === index ? "eager" : "lazy"}
                       unoptimized
                     />
                   </div>
                   <div className={styles.details}>
-                    <p className="text-[13px] text-k-muted">{active.sector}</p>
+                    <p className="text-[13px] text-k-muted">{sample.sector}</p>
                     <h3 className="k-display mt-1 text-[clamp(1.4rem,4vw,2.1rem)] text-k-ink">
-                      {active.name}
+                      {sample.name}
                     </h3>
-                    {wideLayout ? <SampleDetails sample={active} /> : (
+                    {wideLayout ? <SampleDetails sample={sample} /> : (
                       <details
                         className={styles.disclosure}
-                        open={expanded}
+                        open={sampleIndex === index && expanded}
                         onToggle={(event) => {
+                          if (sampleIndex !== index) return;
                           const open = event.currentTarget.open;
                           if (open && !expanded) {
                             const progress = Math.max(0, PIN_TOP - (sequenceRef.current?.getBoundingClientRect().top ?? PIN_TOP));
@@ -315,22 +342,22 @@ export function Showcase() {
                         >
                           About this sample
                         </summary>
-                        <SampleDetails sample={active} includeSectorLink />
+                        <SampleDetails sample={sample} includeSectorLink />
                       </details>
                     )}
                   </div>
                   <div className={cn("flex flex-col gap-2 sm:items-stretch", styles.actions)}>
-                    <BtnLink href={active.href} tone="coal" arrow="up" className="w-full sm:w-auto">
+                    <BtnLink href={sample.href} tone="coal" arrow="up" className="w-full sm:w-auto">
                       Open the sample site
                     </BtnLink>
-                    {wideLayout && active.sectorHref ? (
-                      <BtnLink href={active.sectorHref} tone="outline" className="w-full sm:w-auto">
-                        {active.tab} websites
+                    {wideLayout && sample.sectorHref ? (
+                      <BtnLink href={sample.sectorHref} tone="outline" className="w-full sm:w-auto">
+                        {sample.tab} websites
                       </BtnLink>
                     ) : null}
                   </div>
-                </m.div>
-              </AnimatePresence>
+                </div>
+              ))}
             </div>
           </div>
         </div>

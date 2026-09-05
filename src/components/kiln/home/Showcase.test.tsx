@@ -9,6 +9,11 @@ let sequenceTop = 96;
 let desktopSequence = true;
 let stageHeight = 620;
 let animationFrame: FrameRequestCallback | undefined;
+const originalElementScrollTo = Object.getOwnPropertyDescriptor(HTMLElement.prototype, "scrollTo");
+
+function activeSummary() {
+  return screen.getByRole("tabpanel").querySelector<HTMLElement>('[data-active="true"] summary')!;
+}
 
 function flushFrame() {
   act(() => {
@@ -29,8 +34,16 @@ beforeEach(() => {
   desktopSequence = true;
   stageHeight = 620;
   animationFrame = undefined;
+  vi.stubGlobal("innerWidth", 1100);
   vi.stubGlobal("innerHeight", 800);
   vi.stubGlobal("ResizeObserver", class { observe() {} disconnect() {} });
+  Object.defineProperty(HTMLElement.prototype, "scrollTo", {
+    configurable: true,
+    value: vi.fn(function (this: HTMLElement, options: ScrollToOptions) {
+      if (options.left !== undefined) this.scrollLeft = options.left;
+      if (options.top !== undefined) this.scrollTop = options.top;
+    }),
+  });
   vi.spyOn(window, "requestAnimationFrame").mockImplementation((callback) => {
     animationFrame = callback;
     return 1;
@@ -51,6 +64,8 @@ beforeEach(() => {
 afterEach(() => {
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
+  if (originalElementScrollTo) Object.defineProperty(HTMLElement.prototype, "scrollTo", originalElementScrollTo);
+  else Reflect.deleteProperty(HTMLElement.prototype, "scrollTo");
 });
 
 describe("Showcase scroll sequence", () => {
@@ -70,7 +85,8 @@ describe("Showcase scroll sequence", () => {
     expect(pinnedTravel - fifthSectorStart).toBeGreaterThanOrEqual(520);
   });
 
-  it("preserves a focused sample link during scrolling and resumes after focus leaves the panel", () => {
+  it.each(["wide", "compact"])("preserves a focused %s sample link during scrolling and resumes after focus leaves the panel", (layout) => {
+    desktopSequence = layout === "wide";
     renderShowcase();
     const link = screen.getByRole("link", { name: /Open the sample site/ });
     act(() => link.focus());
@@ -84,6 +100,27 @@ describe("Showcase scroll sequence", () => {
     flushFrame();
     expect(screen.getByRole("tab", { name: /Care home/ })).toHaveAttribute("aria-selected", "true");
     expect(outside).toHaveFocus();
+  });
+
+  it("exposes only the selected sample's links while retaining the other previews for transitions", () => {
+    renderShowcase();
+    const panel = screen.getByRole("tabpanel");
+    const initialLink = screen.getByRole("link", { name: /Open the sample site/ });
+    expect(initialLink).toHaveAttribute("href", "/demo/gp-practice");
+    expect(panel.querySelectorAll("img")).toHaveLength(5);
+    expect(panel.querySelectorAll('[aria-hidden="true"][inert]')).toHaveLength(4);
+
+    fireEvent.click(screen.getByRole("tab", { name: /Care home/ }));
+
+    expect(screen.getAllByRole("link", { name: /Open the sample site/ })).toHaveLength(1);
+    expect(screen.getByRole("link", { name: /Open the sample site/ })).toHaveAttribute("href", "/demo/care-home");
+    expect(initialLink).toBeInTheDocument();
+    expect(initialLink.closest("[inert]")).toHaveAttribute("aria-hidden", "true");
+    expect(panel.querySelectorAll('[aria-hidden="true"][inert]')).toHaveLength(4);
+
+    fireEvent.click(screen.getByRole("tab", { name: /GP practice/ }));
+    expect(screen.getByRole("link", { name: /Open the sample site/ })).toBe(initialLink);
+    expect(initialLink.closest("[inert]")).toBeNull();
   });
 
   it("advances all five sectors while scrolling through the pinned desktop stage, and reverses", () => {
@@ -109,12 +146,65 @@ describe("Showcase scroll sequence", () => {
     fireEvent.scroll(window);
     flushFrame();
     expect(dental).toHaveAttribute("aria-selected", "true");
+    const pharmacy = screen.getByRole("tab", { name: /Pharmacy/ });
+    const focus = vi.spyOn(pharmacy, "focus");
     fireEvent.keyDown(dental, { key: "ArrowRight" });
-    expect(screen.getByRole("tab", { name: /Pharmacy/ })).toHaveFocus();
+    expect(pharmacy).toHaveFocus();
+    expect(focus).toHaveBeenCalledWith({ preventScroll: true });
     sequenceTop = 96 - 520;
     fireEvent.scroll(window);
     flushFrame();
     expect(screen.getByRole("tab", { name: /Care home/ })).toHaveAttribute("aria-selected", "true");
+  });
+
+  it("keeps compact scroll thresholds and track distance stable as the phone toolbar changes height", () => {
+    desktopSequence = false;
+    vi.stubGlobal("innerWidth", 390);
+    vi.stubGlobal("innerHeight", 700);
+    stageHeight = 500;
+    sequenceTop = 96 - 500;
+    const { container } = renderShowcase();
+    const track = container.querySelector<HTMLElement>("[data-showcase-sequence]")!;
+    const initialHeight = track.style.getPropertyValue("--sequence-height");
+    const care = screen.getByRole("tab", { name: /Care home/ });
+    expect(care).toHaveAttribute("aria-selected", "true");
+
+    for (const height of [800, 640, 700]) {
+      vi.stubGlobal("innerHeight", height);
+      fireEvent.resize(window);
+      fireEvent.scroll(window);
+      flushFrame();
+      expect(care).toHaveAttribute("aria-selected", "true");
+      expect(track).toHaveAttribute("data-pinned", "true");
+      expect(track.style.getPropertyValue("--sequence-height")).toBe(initialHeight);
+    }
+  });
+
+  it("recalculates compact intervals and available height after the phone rotates", () => {
+    desktopSequence = false;
+    vi.stubGlobal("innerWidth", 390);
+    vi.stubGlobal("innerHeight", 800);
+    stageHeight = 500;
+    sequenceTop = 96 - 500;
+    const { container } = renderShowcase();
+    const track = container.querySelector<HTMLElement>("[data-showcase-sequence]")!;
+    expect(screen.getByRole("tab", { name: /GP practice/ })).toHaveAttribute("aria-selected", "true");
+    expect(Number.parseFloat(track.style.getPropertyValue("--sequence-height")) - stageHeight).toBe(2600);
+
+    vi.stubGlobal("innerWidth", 844);
+    vi.stubGlobal("innerHeight", 390);
+    stageHeight = 250;
+    fireEvent.resize(window);
+    flushFrame();
+
+    expect(track).toHaveAttribute("data-pinned", "true");
+    expect(screen.getByRole("tab", { name: /Care home/ })).toHaveAttribute("aria-selected", "true");
+    expect(Number.parseFloat(track.style.getPropertyValue("--sequence-height")) - stageHeight).toBe(1800);
+
+    stageHeight = 300;
+    fireEvent.resize(window);
+    flushFrame();
+    expect(track).toHaveAttribute("data-pinned", "false");
   });
 
   it.each([
@@ -141,7 +231,7 @@ describe("Showcase scroll sequence", () => {
     const { container } = renderShowcase();
     const hint = screen.getByText("Scroll through the five sectors, or choose one below.");
     sequenceTop = 96 - 520;
-    const disclosure = screen.getByText("About this sample").closest("details")!;
+    const disclosure = activeSummary().closest("details")!;
     act(() => {
       disclosure.open = true;
       fireEvent(disclosure, new Event("toggle"));
@@ -167,7 +257,7 @@ describe("Showcase scroll sequence", () => {
     desktopSequence = false;
     const { container } = renderShowcase();
     sequenceTop = 96 - 3000;
-    const disclosure = screen.getByText("About this sample").closest("details")!;
+    const disclosure = activeSummary().closest("details")!;
     act(() => {
       disclosure.open = true;
       fireEvent(disclosure, new Event("toggle"));
@@ -179,7 +269,7 @@ describe("Showcase scroll sequence", () => {
   it.each(["pointer", "keyboard"] as const)("handles %s focus safely after closing the compact disclosure", (modality) => {
     desktopSequence = false;
     renderShowcase();
-    const summary = screen.getByText("About this sample");
+    const summary = activeSummary();
     const disclosure = summary.closest("details")!;
     if (modality === "pointer") fireEvent.pointerDown(summary);
     else fireEvent.keyDown(summary, { key: "Enter" });
@@ -221,17 +311,19 @@ describe("Showcase scroll sequence", () => {
     fireEvent.scroll(window);
     flushFrame();
     expect(list.scrollLeft).toBe(320);
+    expect(list.scrollTo).toHaveBeenLastCalledWith({ left: 320, behavior: "smooth" });
     sequenceTop = 96;
     fireEvent.scroll(window);
     flushFrame();
     expect(list.scrollLeft).toBe(0);
+    expect(list.scrollTo).toHaveBeenLastCalledWith({ left: 0, behavior: "smooth" });
   });
 
   it("respects a manual tab choice when it closes expanded supporting details", () => {
     desktopSequence = false;
     renderShowcase();
     sequenceTop = 96 - 520;
-    const disclosure = screen.getByText("About this sample").closest("details")!;
+    const disclosure = activeSummary().closest("details")!;
     act(() => {
       disclosure.open = true;
       fireEvent(disclosure, new Event("toggle"));
