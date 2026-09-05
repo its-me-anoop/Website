@@ -11,7 +11,7 @@
 .sequence[data-pinned="true"] { height: var(--sequence-height); }
 .sequence[data-pinned="true"] .stage { position: sticky; top: 96px; min-height: var(--stage-height); }
 .stage { display: grid; gap: 32px; }
-.panelContent { display: grid; gap: 24px; }
+.panelContent { display: grid; gap: 24px; contain: layout paint; will-change: transform, opacity; }
 .preview { grid-column: 1 / -1; }
 .disclosure { margin-top: 8px; }
 .disclosure summary { width: fit-content; min-height: 40px; padding-block: 8px; cursor: pointer; font-size: 14px; line-height: 1.6; color: var(--k-ink-soft); }

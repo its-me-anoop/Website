@@ -11,6 +11,10 @@ import styles from "./Showcase.module.css";
 
 const PIN_TOP = 96;
 const STAGE_BOTTOM_SPACE = 24;
+// Scroll can cross a sector boundary faster than a panel used to finish its
+// exit. Keep the hand-off short and use a small transform so the next sample
+// tracks the reader's scroll instead of feeling like it is catching up.
+const PANEL_TRANSITION = { duration: 0.24, ease: EASE };
 
 function scrollStep(trackTop: number, viewportHeight: number) {
   const progress = Math.max(0, PIN_TOP - trackTop);
@@ -268,13 +272,13 @@ export function Showcase() {
               tabIndex={0}
               className={cn("min-w-0 rounded-[18px] focus-visible:outline-offset-4", styles.panel)}
             >
-              <AnimatePresence mode="wait" initial={false}>
+              <AnimatePresence mode="popLayout" initial={false}>
                 <m.div
                   key={active.slug}
-                  initial={reduce ? false : { opacity: 0, y: 10 }}
+                  initial={reduce ? false : { opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={reduce ? undefined : { opacity: 0, y: -6 }}
-                  transition={{ duration: reduce ? 0 : 0.35, ease: EASE }}
+                  exit={reduce ? undefined : { opacity: 0, y: -4 }}
+                  transition={reduce ? { duration: 0 } : PANEL_TRANSITION}
                   className={styles.panelContent}
                 >
                   <div className={styles.preview}>
