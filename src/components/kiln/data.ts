@@ -184,10 +184,10 @@ export const projects: readonly Project[] = [
   },
   {
     name: "Sipli",
-    type: "iOS and watchOS app",
+    type: "iOS, iPadOS and watchOS app",
     year: "2026",
     description:
-      "An adaptive hydration companion that turns changing goals, weather and HealthKit data into one calm daily rhythm.",
+      "An adaptive hydration companion for iPhone, iPad and Apple Watch that turns changing goals, weather and Apple Health data into one calm daily rhythm.",
     href: "/projects/sipli",
     internal: true,
     image: "/projects/sipli/iphone_and_ipad.png",
@@ -197,10 +197,10 @@ export const projects: readonly Project[] = [
   },
   {
     name: "Artling",
-    type: "iOS app",
-    year: "2025",
+    type: "iOS and iPadOS app",
+    year: "2026",
     description:
-      "A private visual archive for children's artwork, milestones and family memories, designed to feel quiet and lasting.",
+      "A private archive for children's artwork, milestones and family memories, designed to feel quiet and lasting. On the App Store as Little Artist.",
     href: "/projects/artling",
     internal: true,
     image: "/projects/artling/fox-painter.png",
@@ -233,7 +233,7 @@ export const ticker = [
   "Custom code, never a template",
   "Sandbourne Care",
   "UK hosted, daily backups",
-  "JJ Paper Essential",
+  "JJ Paper Essentials",
   "One accountable person",
   "Sipli",
   "A reply within one working day",
