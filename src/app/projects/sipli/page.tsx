@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 const title = "Sipli — Water Tracker";
 const description =
-  "Sipli is a free iOS hydration tracker with adaptive goals, 35+ beverages, on-device AI coaching, weather-aware reminders, HealthKit sync, and a new Apple Watch app.";
+  "Sipli is a hydration tracker for iPhone, iPad, and Apple Watch: a Home bottle that shows what's left of your goal, Siri Shortcuts, a Trophy Room of 31 badges, 35+ beverages, adaptive goals, on-device AI tips, and Apple Health sync. Free to start, with an optional Sipli Premium subscription.";
 
 const appStoreUrl =
   "https://apps.apple.com/us/app/sipli-water-tracker/id6758851574";
@@ -44,6 +44,7 @@ const jsonLd = {
   name: "Sipli — Water Tracker",
   operatingSystem: "iOS 17.0 or later, iPadOS, watchOS",
   applicationCategory: "HealthApplication",
+  softwareVersion: "5.0.2",
   description,
   url: `${site.url}/projects/sipli`,
   downloadUrl: appStoreUrl,
