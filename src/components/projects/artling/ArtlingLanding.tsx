@@ -750,10 +750,8 @@ export function ArtlingLanding() {
               Purchases are handled entirely by Apple through the App Store.
               Subscriptions renew automatically unless cancelled at least 24
               hours before the end of the current period, and can be managed in
-              Settings &rarr; Apple Account &rarr; Subscriptions. Inside the
-              app, the current paywall still labels the upgrade
-              &ldquo;Artling Premium&rdquo;, the product&rsquo;s earlier working
-              name; it is the same Little Artist Premium purchase.
+              Settings &rarr; Apple Account &rarr; Subscriptions. Little Artist
+              Premium unlocks the same features on every plan.
             </p>
           </Reveal>
         </div>
