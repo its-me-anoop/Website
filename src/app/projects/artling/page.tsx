@@ -4,7 +4,10 @@ import { site } from "@/lib/site";
 
 const title = "Artling";
 const description =
-  "Artling is an iOS app for archiving children's artwork with private iCloud sync, timelines, milestones, PDF exports, and on-device AI captions.";
+  "Artling (on the App Store as Little Artist) is an iPhone and iPad app for archiving children's artwork privately: scan or snap a piece, add on-device AI titles and voice memos, relive On This Day moments and milestones, and export PDF keepsake portfolios. Free to start.";
+
+const appStoreUrl =
+  "https://apps.apple.com/us/app/little-artist/id6759450819";
 
 export const metadata: Metadata = {
   title,
@@ -38,11 +41,19 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: "Artling",
-  operatingSystem: "iOS, iPadOS",
+  alternateName: "Little Artist",
+  operatingSystem: "iOS 26.0 or later, iPadOS",
   applicationCategory: "LifestyleApplication",
+  softwareVersion: "1.0",
   description,
   url: `${site.url}/projects/artling`,
+  downloadUrl: appStoreUrl,
   image: `${site.url}/projects/artling/fox-painter.png`,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
   author: {
     "@type": "Organization",
     name: site.legalName,

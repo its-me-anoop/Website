@@ -7,15 +7,16 @@ import type { LucideIcon } from "lucide-react";
 import {
   ArrowLeft,
   ArrowRight,
-  BellDot,
   Camera,
+  Check,
   Clock3,
   Cloud,
+  Command,
   FileText,
   Mic,
+  Presentation,
   Search,
   Shield,
-  Share2,
   Sparkles,
   Star,
   Tags,
@@ -27,83 +28,104 @@ import { Button } from "@/components/ui/Button";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
-import { site } from "@/lib/site";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+
+/** Artling ships on the App Store under the listing name "Little Artist". */
+const APP_STORE_URL =
+  "https://apps.apple.com/us/app/little-artist/id6759450819";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const pillars = [
   {
     icon: Camera,
-    title: "Capture in the moment",
+    title: "Capture in seconds",
     description:
-      "Save drawings from the camera, photo library, or document scanner before they disappear into a cabinet.",
+      "Scan artwork with edge-detecting document capture, snap it with the camera, or import a whole school-bag batch from your photo library.",
   },
   {
     icon: Mic,
     title: "Keep the story attached",
     description:
-      "Add dates, tags, favourites, and voice notes so every piece carries the memory around it, not just the image.",
+      "Add dates, tags, favourites, and a short voice memo of your child describing their own work, so every piece carries the memory around it.",
   },
   {
     icon: Clock3,
     title: "Relive the years beautifully",
     description:
-      'Browse a living timeline, celebrate milestones, and surface "On This Day" moments without extra work.',
+      'Browse a living timeline, celebrate milestones, and let "On This Day" resurface past masterpieces without extra work.',
   },
 ];
 
 const featureCards: { icon: LucideIcon; title: string; description: string }[] = [
   {
-    icon: Share2,
-    title: "Share masterpieces",
+    icon: Sparkles,
+    title: "AI titles and captions",
     description:
-      "Turn any piece into a beautiful branded share card for the family group chat — without opening up your archive.",
+      "On-device Apple Intelligence suggests playful storybook titles and warm captions, so the gallery reads as a curated collection rather than a photo dump.",
   },
   {
-    icon: Sparkles,
-    title: "AI captions",
+    icon: Presentation,
+    title: "Exhibition Mode",
     description:
-      "Generate warm titles and captions from the artwork itself when you want help labeling a busy week.",
+      "A full-screen slideshow of a child’s work for family gatherings, grandparents’ visits, and end-of-term moments.",
   },
   {
     icon: Search,
-    title: "Search and filter",
+    title: "Timeline, search, and tags",
     description:
-      "Jump back to animals, school projects, favourite pieces, or a specific child in seconds.",
+      "Jump back to a medium, a theme, a favourite, or a specific child in seconds, without folders to maintain.",
   },
   {
     icon: Star,
-    title: "Milestones and memories",
+    title: "Milestones and On This Day",
     description:
-      "Track creative streaks, badge-worthy moments, and anniversary resurfacing without building another routine.",
+      "Confetti-worthy achievements mark the first masterpiece, a year of art, and every medium explored, while past pieces resurface on their anniversaries.",
   },
   {
     icon: FileText,
-    title: "Export-ready keepsakes",
+    title: "PDF keepsake portfolios",
     description:
-      "Turn a child’s growing gallery into a polished PDF portfolio when you want something tangible to share.",
+      "Turn a growing gallery into a polished PDF portfolio to print, or to share with family who want something tangible.",
   },
   {
-    icon: BellDot,
-    title: "Gentle reminders",
+    icon: Command,
+    title: "Siri Shortcuts",
     description:
-      "Use local reminders to revisit old work or nudge yourself when the archive has been quiet for a while.",
+      "Hands-free capture when your hands are covered in paint, plus gentle local reminders to revisit older work.",
   },
 ];
 
 const trustPoints = [
-  "SwiftUI experience built for iPhone and iPad",
-  "Everything stored on device and in your own private iCloud",
-  "No advertising SDKs or noisy growth loops",
+  "Native SwiftUI app for iPhone and iPad, iOS 26 or later",
+  "Everything stored on device and synced through your own private iCloud",
+  "No advertising SDKs, no analytics, no noisy growth loops",
   "No accounts or sign-in — your data never touches our servers",
 ];
 
 const reasons = [
   "Capture first, organise later",
-  "Search by child, tag, or favourite",
-  "Share a masterpiece without a photo-dump thread",
+  "Search by child, medium, tag, or favourite",
+  "Show off a masterpiece without a photo-dump thread",
   "Revisit memories through time, not folders",
+];
+
+const freeTier = [
+  "One artist profile",
+  "A school term’s worth of artwork",
+  "Scan, camera, and photo-library capture",
+  "Timeline, search, tags, and On This Day",
+  "iCloud sync across your devices",
+  "No time limits and no surprise charges",
+];
+
+const premiumTier = [
+  "Unlimited artist profiles",
+  "Unlimited artwork",
+  "AI titles and captions",
+  "Voice memos",
+  "PDF keepsake portfolios",
+  "Monthly, yearly, or once forever",
 ];
 
 const privacyPoints: { icon: LucideIcon; label: string; copy: string }[] = [
@@ -130,6 +152,48 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
       <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
       {children}
     </span>
+  );
+}
+
+function AppStoreBadge({ className = "" }: { className?: string }) {
+  return (
+    <Link
+      href={APP_STORE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Download Artling (Little Artist) on the App Store"
+      className={`inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 font-sans text-accent-ink shadow-[0_12px_28px_-12px_var(--accent)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-accent-hover ${className}`}
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="h-5 w-5 flex-shrink-0"
+        aria-hidden="true"
+      >
+        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+      </svg>
+      <span className="text-left">
+        <span className="block text-[10px] leading-tight opacity-75">
+          Download on the
+        </span>
+        <span className="block text-base font-semibold leading-tight">
+          App Store
+        </span>
+      </span>
+    </Link>
+  );
+}
+
+function CheckItem({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex items-start gap-3">
+      <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-accent-soft">
+        <Check className="h-3 w-3 text-accent" aria-hidden="true" />
+      </span>
+      <span className="text-[14.5px] leading-relaxed text-ink-2">
+        {children}
+      </span>
+    </li>
   );
 }
 
@@ -263,10 +327,13 @@ export function ArtlingLanding() {
               <motion.div
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               >
-                <Eyebrow>
-                  <Sparkles className="h-3 w-3 text-accent" aria-hidden="true" />
-                  Art archive for busy families
-                </Eyebrow>
+                <div className="flex flex-wrap gap-2">
+                  <Eyebrow>
+                    <Sparkles className="h-3 w-3 text-accent" aria-hidden="true" />
+                    Now on the App Store
+                  </Eyebrow>
+                  <Eyebrow>iPhone &amp; iPad · Free to start</Eyebrow>
+                </div>
               </motion.div>
 
               <motion.h1
@@ -293,36 +360,53 @@ export function ArtlingLanding() {
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } } }}
                 className="mt-6 max-w-[560px] text-[16px] leading-[1.7] text-ink-3 md:text-[18px]"
               >
-                Artling helps parents capture artwork fast, keep the story around
-                each piece, and revisit a child’s creative growth through
-                timelines, milestones, sharing, and AI-assisted captions.
+                Your child’s art never leaves your family. Artling archives
+                every drawing, painting, and craft privately — on your iPhone
+                and in your own iCloud — with on-device AI titles, a living
+                timeline, milestones, voice memos, and keepsake portfolios.
               </motion.p>
 
               <motion.div
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } } }}
-                className="mt-9 flex flex-wrap gap-3"
+                className="mt-9 flex flex-wrap items-center gap-3"
               >
+                <AppStoreBadge />
                 <Link href="#features" aria-label="Explore features">
-                  <Button variant="primary" size="lg" className="group">
+                  <Button variant="outline" size="lg" className="group">
                     Explore Features
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Button>
                 </Link>
+              </motion.div>
+
+              <motion.p
+                variants={reduce ? undefined : { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.7, ease } } }}
+                className="mt-4 text-sm text-ink-3"
+              >
+                Listed on the App Store as{" "}
+                <span className="font-semibold text-ink-2">Little Artist</span>.
+                Requires iOS 26 or later.{" "}
                 <Link
                   href="/projects/artling/privacy-policy"
-                  aria-label="Read privacy policy"
+                  className="underline decoration-line-2 underline-offset-4 transition-colors hover:text-accent"
                 >
-                  <Button variant="outline" size="lg">
-                    Read Privacy Policy
-                  </Button>
+                  Read the privacy policy
                 </Link>
-              </motion.div>
+                .
+              </motion.p>
 
               <motion.ul
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } } }}
                 className="mt-10 flex flex-wrap gap-2"
               >
-                {["Timeline + milestones", "PDF export", "iCloud sync", "AI captions"].map(
+                {[
+                  "Scan, snap, or import",
+                  "On-device AI titles",
+                  "On This Day",
+                  "Exhibition Mode",
+                  "PDF portfolios",
+                  "Private iCloud sync",
+                ].map(
                   (item) => (
                     <li
                       key={item}
@@ -402,7 +486,7 @@ export function ArtlingLanding() {
                 <em>middle of family life.</em>
               </>
             }
-            lede="Artling is less about storing files and more about preserving context. It gives busy parents one place to collect artwork, track growth over time, and turn everyday creations into memories that stay easy to revisit."
+            lede="Artling is less about storing files and more about preserving context. It gives busy parents one place to collect artwork, track growth over time, and turn everyday creations into memories that stay easy to revisit — with AI that runs on your device, not in someone else’s cloud."
           />
 
           <motion.div
@@ -452,9 +536,9 @@ export function ArtlingLanding() {
               <span className="text-accent">even as it grows.</span>
             </h2>
             <p className="mt-5 max-w-[560px] text-[15.5px] leading-[1.7] text-ink-3">
-              The product combines capture, organisation, memory resurfacing, and
-              sharing in one workflow, so nothing needs to move through separate
-              photo albums, notes apps, or folders.
+              Artling combines capture, organisation, memory resurfacing, and
+              keepsakes in one workflow, so nothing needs to move through
+              separate photo albums, notes apps, or folders.
             </p>
 
             <ul className="mt-8 space-y-3">
@@ -557,9 +641,9 @@ export function ArtlingLanding() {
             <p className="mt-5 text-[15px] leading-[1.7] text-ink-3">
               Artling stores its library on device and syncs through your own
               private iCloud. There are no accounts, no developer servers, and
-              no third-party SDKs. The public privacy policy reflects the real
-              app architecture, including StoreKit purchases, local
-              notifications, and on-device AI caption processing.
+              no third-party SDKs. The public privacy policy reflects the
+              shipped app, including StoreKit purchases, local notifications,
+              and on-device AI caption processing.
             </p>
 
             <div className="mt-8 space-y-3">
@@ -601,6 +685,73 @@ export function ArtlingLanding() {
         </div>
       </section>
 
+      {/* ── FREE & PREMIUM ── */}
+      <section
+        className="px-[var(--gutter)] py-[var(--space-section)]"
+        aria-labelledby="pricing-heading"
+      >
+        <div className="mx-auto w-full max-w-[1200px]">
+          <SectionHeader
+            align="center"
+            eyebrow="Honest pricing"
+            headingId="pricing-heading"
+            title={
+              <>
+                The free tier is yours <em>forever.</em>
+              </>
+            }
+            lede="Start with one artist profile and a school term’s worth of artwork, with no time limits and no surprise charges. Premium unlocks the rest, monthly, yearly, or once forever, and you can cancel any time."
+          />
+
+          <div className="mx-auto grid max-w-[960px] gap-5 md:grid-cols-2">
+            <Reveal className="rounded-[var(--r-xl)] border border-line bg-surface-2 p-8 md:p-10">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">
+                Free
+              </p>
+              <h3 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink">
+                Everything a first gallery needs
+              </h3>
+              <ul className="mt-6 space-y-3.5">
+                {freeTier.map((item) => (
+                  <CheckItem key={item}>{item}</CheckItem>
+                ))}
+              </ul>
+            </Reveal>
+
+            <Reveal
+              delay={0.08}
+              className="relative overflow-hidden rounded-[var(--r-xl)] border border-line bg-surface p-8 shadow-[var(--shadow-sm)] md:p-10"
+            >
+              <div
+                className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full"
+                style={{ background: "var(--accent-soft)", filter: "blur(50px)" }}
+                aria-hidden="true"
+              />
+              <p className="relative text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
+                Premium
+              </p>
+              <h3 className="relative mt-3 font-display text-2xl font-semibold tracking-tight text-ink">
+                For the whole family, for good
+              </h3>
+              <ul className="relative mt-6 space-y-3.5">
+                {premiumTier.map((item) => (
+                  <CheckItem key={item}>{item}</CheckItem>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+
+          <Reveal>
+            <p className="mx-auto mt-8 max-w-[560px] text-center text-xs leading-relaxed text-muted">
+              Purchases are handled entirely by Apple through the App Store.
+              Subscriptions renew automatically unless cancelled at least 24
+              hours before the end of the current period, and can be managed in
+              Settings &rarr; Apple Account &rarr; Subscriptions.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ── FINAL CTA · dark contrast band ── */}
       <section
         className="relative overflow-hidden bg-night px-[var(--gutter)] py-[var(--space-section)] text-night-ink"
@@ -616,34 +767,29 @@ export function ArtlingLanding() {
             <div>
               <span className="mb-5 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-white/50">
                 <span className="h-1.5 w-1.5 rounded-full bg-orange" aria-hidden="true" />
-                Project Page
+                Available now
               </span>
               <h2
                 id="project-cta-heading"
                 className="max-w-[660px] text-[clamp(28px,4vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-white"
               >
-                Artling is ready for a public-facing home that feels as{" "}
-                <span className="text-orange">thoughtful as the app.</span>
+                Start the gallery before the next{" "}
+                <span className="text-orange">school-bag masterpiece.</span>
               </h2>
               <p className="mt-5 max-w-[660px] text-[15.5px] leading-[1.7] text-white/60">
-                Need the App Store listing, screenshots, or launch assets
-                carried through in the same visual direction? The page
-                structure is now in place to extend cleanly.
+                Artling is free to download on the App Store, where it is
+                listed as Little Artist. iPhone and iPad, iOS 26 or later. No
+                account to create, and nothing leaves your family.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <AppStoreBadge />
               <Link
                 href="/projects/artling/privacy-policy"
-                aria-label="Privacy policy"
+                aria-label="Read the Artling privacy policy"
               >
                 <Button variant="outline">Privacy Policy</Button>
-              </Link>
-              <Link
-                href={`mailto:${site.email}`}
-                aria-label="Enquire about the app"
-              >
-                <Button variant="primary">Enquire About the App</Button>
               </Link>
             </div>
           </div>
