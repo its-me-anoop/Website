@@ -517,10 +517,7 @@ export function SipliLanding() {
           </Reveal>
 
           <Reveal delay={0.08} className="flex justify-center lg:justify-end">
-            <PhoneShot
-              src="/images/sipli/iphone/08-more-1320x2868.jpg"
-              alt="Sipli — more features"
-            />
+            <TrophyMock />
           </Reveal>
         </div>
       </section>
@@ -1190,6 +1187,90 @@ function BottleMock({ reduce }: { reduce: boolean }) {
           </span>
         </div>
       </motion.div>
+    </div>
+  );
+}
+
+/* ── Trophy Room mock (decorative) ──────────────────────── */
+
+function TrophyMock() {
+  const badges: { icon: typeof Trophy; label: string; earned: boolean }[] = [
+    { icon: Droplets, label: "First sip", earned: true },
+    { icon: Zap, label: "7-day streak", earned: true },
+    { icon: Watch, label: "Wrist logger", earned: true },
+    { icon: Sparkles, label: "Explorer", earned: true },
+    { icon: CloudRain, label: "Heatwave", earned: true },
+    { icon: Star, label: "Quest master", earned: false },
+    { icon: Snowflake, label: "Ice cold", earned: false },
+    { icon: Heart, label: "Health sync", earned: true },
+    { icon: Trophy, label: "30-day streak", earned: false },
+  ];
+  return (
+    <div className="relative" aria-hidden="true">
+      <div
+        className="pointer-events-none absolute inset-0 rounded-full"
+        style={{
+          background: "var(--accent-soft)",
+          filter: "blur(70px)",
+          transform: "scale(0.95)",
+        }}
+      />
+      <div className="relative w-[300px] rounded-[var(--r-xl)] border border-line bg-surface p-6 shadow-[var(--shadow-lg)] sm:w-[340px]">
+        <div className="mb-5 flex items-center justify-between">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-3">
+              Trophy Room
+            </p>
+            <p className="mt-1 font-display text-lg font-semibold tracking-tight text-ink">
+              6 of 31 earned
+            </p>
+          </div>
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent">
+            <Trophy className="h-5 w-5" />
+          </span>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          {badges.map((b) => {
+            const Icon = b.icon;
+            return (
+              <div
+                key={b.label}
+                className={`flex flex-col items-center gap-2 rounded-[var(--r-md)] px-2 py-4 text-center ${
+                  b.earned ? "bg-surface-2" : "border border-dashed border-line-2"
+                }`}
+              >
+                <span
+                  className={`flex h-11 w-11 items-center justify-center rounded-full ${
+                    b.earned
+                      ? "bg-accent text-accent-ink shadow-[0_8px_18px_-8px_var(--accent)]"
+                      : "bg-surface-2 text-muted"
+                  }`}
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+                <span
+                  className={`text-[10px] font-semibold leading-tight ${
+                    b.earned ? "text-ink-2" : "text-muted"
+                  }`}
+                >
+                  {b.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        <div className="mt-5 flex items-center justify-between rounded-[var(--r-md)] bg-surface-2 px-4 py-3">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+              Weekly quest
+            </p>
+            <p className="mt-0.5 text-xs font-semibold text-ink">
+              Hit your goal 5 days this week
+            </p>
+          </div>
+          <span className="text-xs font-bold text-accent">3/5</span>
+        </div>
+      </div>
     </div>
   );
 }
