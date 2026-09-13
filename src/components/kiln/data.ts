@@ -139,12 +139,12 @@ export const projects: readonly Project[] = [
     type: "Care home website",
     year: "2026",
     description:
-      "A full website rebuild for a boutique residential, respite and transitional-living provider in Reading, across Pembroke Lodge, Alexandra Lodge and Pembroke Apartments. Built around its Hospital to Home recovery pathway, with Payload CMS so the team can keep it current.",
+      "A boutique residential, respite and transitional-living provider in Reading. A calm, warm site built for families choosing care.",
     href: "https://pembrokecare.com/",
     internal: false,
     image: "/project-pembroke.png",
     tint: "#e6e2d6",
-    tags: ["Care sector", "Hospital to Home", "Next.js + Payload CMS"],
+    tags: ["Care sector", "Hospital to home", "Next.js"],
   },
   {
     name: "Sandbourne",
