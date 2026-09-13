@@ -196,11 +196,11 @@ export const projects: readonly Project[] = [
     tags: ["SwiftUI", "HealthKit", "On-device intelligence"],
   },
   {
-    name: "Artling",
+    name: "Little Artist",
     type: "iOS and iPadOS app",
     year: "2026",
     description:
-      "A private archive for children's artwork, milestones and family memories, designed to feel quiet and lasting. On the App Store as Little Artist.",
+      "A private archive for children's artwork, milestones and family memories, designed to feel quiet and lasting. Free on the App Store.",
     href: "/projects/artling",
     internal: true,
     image: "/projects/artling/fox-painter.png",
@@ -237,7 +237,7 @@ export const ticker = [
   "One accountable person",
   "Sipli",
   "A reply within one working day",
-  "Artling",
+  "Little Artist",
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────
@@ -755,7 +755,7 @@ export const footerColumns = [
       { label: "Greenmead", href: "https://www.greenmead.co.uk/" },
       { label: "JJ Paper", href: "https://www.jjpaperessential.com/" },
       { label: "Sipli", href: "/projects/sipli" },
-      { label: "Artling", href: "/projects/artling" },
+      { label: "Little Artist", href: "/projects/artling" },
     ],
   },
   {

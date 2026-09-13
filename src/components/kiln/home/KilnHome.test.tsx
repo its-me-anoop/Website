@@ -122,6 +122,13 @@ describe("KilnHome", () => {
 
     expect(linksTo("/projects/sipli").length).toBeGreaterThan(0);
 
+    /* Little Artist is the display name; the route keeps its original
+       /projects/artling path. */
+    const littleArtist = linksTo("/projects/artling");
+    expect(littleArtist.length).toBeGreaterThan(0);
+    expect(littleArtist.some((a) => /Little Artist/.test(a.textContent ?? ""))).toBe(true);
+    expect(linksTo("/projects/little-artist")).toHaveLength(0);
+
     const greenmead = screen
       .getAllByRole("link")
       .filter((a) => a.getAttribute("href")?.includes("greenmead.co.uk"));

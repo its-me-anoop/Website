@@ -32,6 +32,9 @@ describe("canonical host", () => {
     const urls = sitemap().map((entry) => entry.url);
     expect(urls.some((url) => url.includes("/demo/"))).toBe(false);
     expect(urls.some((url) => url.includes("/little-artist/"))).toBe(false);
+    /* Little Artist keeps its original route. */
+    expect(urls).toContain(`${site.url}/projects/artling`);
+    expect(urls).toContain(`${site.url}/projects/artling/privacy-policy`);
   });
 
   it("sitemap lists the audit landing page but not the per-site report or the API", () => {

@@ -30,7 +30,11 @@ import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
-/** Artling ships on the App Store under the listing name "Little Artist". */
+/**
+ * Little Artist is the product's display name on this site and on the App
+ * Store. The route stays at /projects/artling and the component/file names
+ * keep the earlier "Artling" working title.
+ */
 const APP_STORE_URL =
   "https://apps.apple.com/gb/app/little-artist/id6759450819";
 
@@ -162,7 +166,7 @@ function AppStoreBadge({ className = "" }: { className?: string }) {
       href={APP_STORE_URL}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Download Artling (Little Artist) on the App Store"
+      aria-label="Download Little Artist on the App Store"
       className={`inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 font-sans text-accent-ink shadow-[0_12px_28px_-12px_var(--accent)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-accent-hover ${className}`}
     >
       <svg
@@ -218,7 +222,7 @@ function ArtlingPhoneMockup() {
       <div className="relative flex items-center justify-between pt-9">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7d4a33]">
-            Artling
+            Little Artist
           </p>
           <h3 className="mt-1 text-[26px] font-semibold tracking-[-0.03em]">
             Gallery
@@ -267,8 +271,8 @@ function ArtlingPhoneMockup() {
           On This Day
         </div>
         <p className="mt-2 text-sm font-semibold leading-6 text-[#2F211D]">
-          Maya made “Ocean Parade” two years ago. Artling keeps the memory right
-          next to the art.
+          Maya made “Ocean Parade” two years ago. Little Artist keeps the
+          memory right next to the art.
         </p>
       </div>
 
@@ -361,7 +365,7 @@ export function ArtlingLanding() {
                 variants={reduce ? undefined : { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } } }}
                 className="mt-6 max-w-[560px] text-[16px] leading-[1.7] text-ink-3 md:text-[18px]"
               >
-                Your child’s art never leaves your family. Artling archives
+                Your child’s art never leaves your family. Little Artist archives
                 every drawing, painting, and craft privately — on your iPhone
                 and in your own iCloud — with on-device AI titles, a living
                 timeline, milestones, voice memos, and keepsake portfolios.
@@ -384,8 +388,7 @@ export function ArtlingLanding() {
                 variants={reduce ? undefined : { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.7, ease } } }}
                 className="mt-4 text-sm text-ink-3"
               >
-                Listed on the App Store as{" "}
-                <span className="font-semibold text-ink-2">Little Artist</span>.
+                Free on the App Store, with an optional Premium upgrade.
                 Requires iOS or iPadOS 26 or later.{" "}
                 <Link
                   href="/projects/artling/privacy-policy"
@@ -459,7 +462,7 @@ export function ArtlingLanding() {
               >
                 <Image
                   src="/projects/artling/fox-painter.png"
-                  alt="Artling fox mascot"
+                  alt="Little Artist fox mascot"
                   width={806}
                   height={1129}
                   className="h-auto w-full drop-shadow-[0_22px_36px_rgba(43,26,16,0.3)]"
@@ -487,7 +490,7 @@ export function ArtlingLanding() {
                 <em>middle of family life.</em>
               </>
             }
-            lede="Artling is a parent’s archive, not a drawing app for children. It is less about storing files and more about preserving context: one place to collect artwork, track growth over time, and turn everyday creations into memories that stay easy to revisit — with AI that runs on your device, not in someone else’s cloud."
+            lede="Little Artist is a parent’s archive, not a drawing app for children. It is less about storing files and more about preserving context: one place to collect artwork, track growth over time, and turn everyday creations into memories that stay easy to revisit — with AI that runs on your device, not in someone else’s cloud."
           />
 
           <motion.div
@@ -537,7 +540,7 @@ export function ArtlingLanding() {
               <span className="text-accent">even as it grows.</span>
             </h2>
             <p className="mt-5 max-w-[560px] text-[15.5px] leading-[1.7] text-ink-3">
-              Artling combines capture, organisation, memory resurfacing, and
+              Little Artist combines capture, organisation, memory resurfacing, and
               keepsakes in one workflow, so nothing needs to move through
               separate photo albums, notes apps, or folders.
             </p>
@@ -608,7 +611,7 @@ export function ArtlingLanding() {
                 id="why-heading"
                 className="max-w-[540px] text-[clamp(26px,3.4vw,40px)] font-semibold leading-[1.06] tracking-[-0.03em] text-ink"
               >
-                Artling feels less like storage and more like a{" "}
+                Little Artist feels less like storage and more like a{" "}
                 <span className="text-accent">gentle family ritual.</span>
               </h2>
               <p className="mt-5 max-w-[520px] text-[15px] leading-[1.7] text-ink-3">
@@ -640,7 +643,7 @@ export function ArtlingLanding() {
               <span className="text-accent">not vague reassurance.</span>
             </h2>
             <p className="mt-5 text-[15px] leading-[1.7] text-ink-3">
-              Artling stores its library on device and syncs through your own
+              Little Artist stores its library on device and syncs through your own
               private iCloud. There are no accounts, no developer servers, and
               no third-party SDKs. The public privacy policy reflects the
               shipped app, including StoreKit purchases, local notifications,
@@ -674,10 +677,10 @@ export function ArtlingLanding() {
             <div className="mt-8">
               <Link
                 href="/projects/artling/privacy-policy"
-                aria-label="Read the Artling privacy policy"
+                aria-label="Read the Little Artist privacy policy"
               >
                 <Button variant="outline" className="group">
-                  Read the Artling Privacy Policy
+                  Read the Little Artist Privacy Policy
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </Button>
               </Link>
@@ -747,9 +750,10 @@ export function ArtlingLanding() {
               Purchases are handled entirely by Apple through the App Store.
               Subscriptions renew automatically unless cancelled at least 24
               hours before the end of the current period, and can be managed in
-              Settings &rarr; Apple Account &rarr; Subscriptions. The App Store
-              lists the app as Little Artist; inside the app the subscription
-              is called Artling Premium.
+              Settings &rarr; Apple Account &rarr; Subscriptions. Inside the
+              app, the current paywall still labels the upgrade
+              &ldquo;Artling Premium&rdquo;, the product&rsquo;s earlier working
+              name; it is the same Little Artist Premium purchase.
             </p>
           </Reveal>
         </div>
@@ -780,9 +784,9 @@ export function ArtlingLanding() {
                 <span className="text-orange">school-bag masterpiece.</span>
               </h2>
               <p className="mt-5 max-w-[660px] text-[15.5px] leading-[1.7] text-white/60">
-                Artling is free to download on the App Store, where it is
-                listed as Little Artist. iPhone and iPad, iOS or iPadOS 26 or
-                later. No account to create, and nothing leaves your family.
+                Little Artist is free to download on the App Store. iPhone and
+                iPad, iOS or iPadOS 26 or later. No account to create, and
+                nothing leaves your family.
               </p>
             </div>
 
@@ -790,7 +794,7 @@ export function ArtlingLanding() {
               <AppStoreBadge />
               <Link
                 href="/projects/artling/privacy-policy"
-                aria-label="Read the Artling privacy policy"
+                aria-label="Read the Little Artist privacy policy"
               >
                 <Button variant="outline">Privacy Policy</Button>
               </Link>
