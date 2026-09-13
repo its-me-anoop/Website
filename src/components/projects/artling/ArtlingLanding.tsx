@@ -32,7 +32,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 
 /** Artling ships on the App Store under the listing name "Little Artist". */
 const APP_STORE_URL =
-  "https://apps.apple.com/us/app/little-artist/id6759450819";
+  "https://apps.apple.com/gb/app/little-artist/id6759450819";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -97,7 +97,8 @@ const featureCards: { icon: LucideIcon; title: string; description: string }[] =
 ];
 
 const trustPoints = [
-  "Native SwiftUI app for iPhone and iPad, iOS 26 or later",
+  "Native SwiftUI app for iPhone and iPad, iOS and iPadOS 26 or later",
+  "An archive for parents, not a drawing or colouring toy for children",
   "Everything stored on device and synced through your own private iCloud",
   "No advertising SDKs, no analytics, no noisy growth loops",
   "No accounts or sign-in — your data never touches our servers",
@@ -112,7 +113,7 @@ const reasons = [
 
 const freeTier = [
   "One artist profile",
-  "A school term’s worth of artwork",
+  "A limited gallery — about a school term’s worth of artwork",
   "Scan, camera, and photo-library capture",
   "Timeline, search, tags, and On This Day",
   "iCloud sync across your devices",
@@ -385,7 +386,7 @@ export function ArtlingLanding() {
               >
                 Listed on the App Store as{" "}
                 <span className="font-semibold text-ink-2">Little Artist</span>.
-                Requires iOS 26 or later.{" "}
+                Requires iOS or iPadOS 26 or later.{" "}
                 <Link
                   href="/projects/artling/privacy-policy"
                   className="underline decoration-line-2 underline-offset-4 transition-colors hover:text-accent"
@@ -486,7 +487,7 @@ export function ArtlingLanding() {
                 <em>middle of family life.</em>
               </>
             }
-            lede="Artling is less about storing files and more about preserving context. It gives busy parents one place to collect artwork, track growth over time, and turn everyday creations into memories that stay easy to revisit — with AI that runs on your device, not in someone else’s cloud."
+            lede="Artling is a parent’s archive, not a drawing app for children. It is less about storing files and more about preserving context: one place to collect artwork, track growth over time, and turn everyday creations into memories that stay easy to revisit — with AI that runs on your device, not in someone else’s cloud."
           />
 
           <motion.div
@@ -746,7 +747,9 @@ export function ArtlingLanding() {
               Purchases are handled entirely by Apple through the App Store.
               Subscriptions renew automatically unless cancelled at least 24
               hours before the end of the current period, and can be managed in
-              Settings &rarr; Apple Account &rarr; Subscriptions.
+              Settings &rarr; Apple Account &rarr; Subscriptions. The App Store
+              lists the app as Little Artist; inside the app the subscription
+              is called Artling Premium.
             </p>
           </Reveal>
         </div>
@@ -778,8 +781,8 @@ export function ArtlingLanding() {
               </h2>
               <p className="mt-5 max-w-[660px] text-[15.5px] leading-[1.7] text-white/60">
                 Artling is free to download on the App Store, where it is
-                listed as Little Artist. iPhone and iPad, iOS 26 or later. No
-                account to create, and nothing leaves your family.
+                listed as Little Artist. iPhone and iPad, iOS or iPadOS 26 or
+                later. No account to create, and nothing leaves your family.
               </p>
             </div>
 

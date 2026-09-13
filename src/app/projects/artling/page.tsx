@@ -7,7 +7,7 @@ const description =
   "Artling (on the App Store as Little Artist) is an iPhone and iPad app for archiving children's artwork privately: scan or snap a piece, add on-device AI titles and voice memos, relive On This Day moments and milestones, and export PDF keepsake portfolios. Free to start.";
 
 const appStoreUrl =
-  "https://apps.apple.com/us/app/little-artist/id6759450819";
+  "https://apps.apple.com/gb/app/little-artist/id6759450819";
 
 export const metadata: Metadata = {
   title,
@@ -42,7 +42,7 @@ const jsonLd = {
   "@type": "SoftwareApplication",
   name: "Artling",
   alternateName: "Little Artist",
-  operatingSystem: "iOS 26.0 or later, iPadOS",
+  operatingSystem: "iOS 26.0 or later, iPadOS 26.0 or later",
   applicationCategory: "LifestyleApplication",
   softwareVersion: "1.0",
   description,
