@@ -153,10 +153,14 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const headlineVisible = await page.locator("h1").isVisible().catch(() => false);
   if (!headlineVisible) note("home", "hero headline is not visible");
 
+  /* The hero fan is a continuous marquee, so most of its cards sit outside
+     the viewport by design; they are checked separately below by keyboard
+     focus rather than by static position. */
   const clippedElements = await page.evaluate(() => {
     const tolerance = 1;
     const selectors = "header a, header button, #top h1, #top p, #top a";
     return [...document.querySelectorAll(selectors)]
+      .filter((element) => !element.hasAttribute("data-fan-card"))
       .filter((element) => {
         const rect = element.getBoundingClientRect();
         return (
@@ -174,6 +178,44 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   });
   if (clippedElements.length)
     note("home", `mobile elements outside viewport: ${clippedElements.join(" | ")}`);
+
+  /* Fan cards: the marquee may park them off-screen, but a keyboard user
+     must be able to reach every card exactly once and see it when focused.
+     Tabbing from the top of the document walks the header and then the
+     strip; the duplicate row is tabindex="-1" and must never take focus. */
+  const fanCards = await page.locator("[data-fan-card]:not([tabindex='-1'])").count();
+  if (fanCards === 0) {
+    note("home", "hero fan has no focusable cards");
+  } else {
+    await page.evaluate(() => window.scrollTo(0, 0));
+    const focusedFan = [];
+    const offscreenFan = [];
+    for (let i = 0; i < 40 && focusedFan.length < fanCards; i++) {
+      await page.keyboard.press("Tab");
+      await page.waitForTimeout(120);
+      const active = await page.evaluate(() => {
+        const element = document.activeElement;
+        if (!(element instanceof HTMLElement) || !element.hasAttribute("data-fan-card")) return null;
+        const rect = element.getBoundingClientRect();
+        return {
+          label: element.getAttribute("aria-label") || element.textContent?.trim() || "",
+          duplicate: element.closest("[aria-hidden='true']") !== null,
+          left: Math.round(rect.left),
+          right: Math.round(rect.right),
+          width: window.innerWidth,
+        };
+      });
+      if (!active) continue;
+      if (active.duplicate) note("home", `duplicate fan card took keyboard focus: "${active.label}"`);
+      focusedFan.push(active.label);
+      if (active.left < -1 || active.right > active.width + 1)
+        offscreenFan.push(`"${active.label.slice(0, 40)}" (${active.left}..${active.right} of ${active.width})`);
+    }
+    if (focusedFan.length < fanCards)
+      note("home", `only ${focusedFan.length} of ${fanCards} fan cards reachable by keyboard`);
+    if (offscreenFan.length)
+      note("home", `focused fan cards stayed outside the viewport: ${offscreenFan.join(" | ")}`);
+  }
 
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 6) note("home", `expected 6 project cards, found ${projects}`);
