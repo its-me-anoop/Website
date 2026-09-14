@@ -4,9 +4,9 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/lib/site";
 
-const title = "Artling — Privacy Policy";
+const title = "Little Artist — Privacy Policy";
 const description =
-  "Privacy policy for Artling, the iOS app for preserving children's artwork. No accounts, no developer servers — everything stays on your device and in your private iCloud.";
+  "Privacy policy for Little Artist, the iOS app for preserving children's artwork. No accounts, no developer servers — everything stays on your device and in your private iCloud.";
 
 export const metadata: Metadata = {
   title,
@@ -86,7 +86,7 @@ export default function ArtlingPrivacyPolicyPage() {
             Legal
           </span>
           <h1 className="mt-6 text-[clamp(36px,5.5vw,64px)] font-semibold leading-[1.02] tracking-[-0.03em] text-ink">
-            Artling — Privacy Policy
+            Little Artist — Privacy Policy
           </h1>
           <p className="mt-5 text-[15px] text-ink-3">
             Effective: {effectiveDate} (replaces the policy dated March 7, 2026)
@@ -96,23 +96,23 @@ export default function ArtlingPrivacyPolicyPage() {
 
       <PolicySection label="01" title="Overview">
         <p>
-          Artling (also shown on the App Store as &ldquo;Little Artist&rdquo;)
-          is an iOS app that helps parents and guardians archive, organise, and
-          celebrate their children&rsquo;s artwork. This policy explains what
-          information the app handles, where it is stored, and the choices you
-          have.
+          Little Artist (previously presented on this site as
+          &ldquo;Artling&rdquo;) is an iOS app that helps parents and guardians
+          archive, organise, and celebrate their children&rsquo;s artwork. This
+          policy explains what information the app handles, where it is
+          stored, and the choices you have.
         </p>
         <p>
-          The short version: <strong className="text-ink">Artling has no
+          The short version: <strong className="text-ink">Little Artist has no
           accounts, no sign-in, and no servers of ours. We — the developer —
           never receive, see, or have access to any of your data.</strong>{" "}
-          Everything you create in Artling lives on your device and, if you use
+          Everything you create in Little Artist lives on your device and, if you use
           iCloud, in your own private iCloud database that only you control.
         </p>
       </PolicySection>
 
       <PolicySection label="02" title="Information the App Handles">
-        <p>Depending on how you use the app, Artling stores:</p>
+        <p>Depending on how you use the app, Little Artist stores:</p>
         <ul className="mt-2 space-y-3">
           <Bullet bold="Child profile information —">
             Names, avatar colours, and optional avatar photos you add for each
@@ -135,7 +135,7 @@ export default function ArtlingPrivacyPolicyPage() {
           </Bullet>
         </ul>
         <p>
-          Artling collects <strong className="text-ink">no</strong> analytics,{" "}
+          Little Artist collects <strong className="text-ink">no</strong> analytics,{" "}
           <strong className="text-ink">no</strong> advertising identifiers, and{" "}
           <strong className="text-ink">no</strong> account or authentication
           data. There is nothing to sign up for.
@@ -149,14 +149,14 @@ export default function ArtlingPrivacyPolicyPage() {
             technologies.
           </Bullet>
           <Bullet bold="In your private iCloud.">
-            If your device is signed in to iCloud, Artling syncs your library
+            If your device is signed in to iCloud, Little Artist syncs your library
             through Apple&rsquo;s CloudKit private database so it is backed up
             and available on your other devices. This database belongs to your
             Apple Account. We cannot read it, access it, or recover it —
             Apple&rsquo;s CloudKit private database is accessible only to you.
           </Bullet>
           <Bullet bold="Nowhere else.">
-            Artling does not operate its own servers and does not use any
+            Little Artist does not operate its own servers and does not use any
             third-party cloud, analytics, or storage service. No third-party
             SDKs are embedded in the app.
           </Bullet>
@@ -191,7 +191,7 @@ export default function ArtlingPrivacyPolicyPage() {
 
       <PolicySection label="05" title="AI Features">
         <p>
-          Artling&rsquo;s optional AI features (suggested artwork titles and
+          Little Artist&rsquo;s optional AI features (suggested artwork titles and
           captions) run exclusively on Apple frameworks:
         </p>
         <ul className="mt-2 space-y-3">
@@ -228,7 +228,7 @@ export default function ArtlingPrivacyPolicyPage() {
 
       <PolicySection label="07" title="Children's Privacy">
         <p>
-          Artling is designed for use by parents and guardians. We do not
+          Little Artist is designed for use by parents and guardians. We do not
           knowingly collect personal information from anyone — adults or
           children. Because all data stays on your device and in your private
           iCloud, no personal information about your children is ever
@@ -238,7 +238,7 @@ export default function ArtlingPrivacyPolicyPage() {
 
       <PolicySection label="08" title="Device Permissions">
         <p>
-          Artling asks for the following permissions, each only when you first
+          Little Artist asks for the following permissions, each only when you first
           use the related feature:
         </p>
         <ul className="mt-2 space-y-3">
@@ -267,14 +267,14 @@ export default function ArtlingPrivacyPolicyPage() {
 
       <PolicySection label="10" title="Changes to This Policy">
         <p>
-          If Artling&rsquo;s data practices ever change, we will update this
+          If Little Artist&rsquo;s data practices ever change, we will update this
           policy and its effective date before the change takes effect.
         </p>
       </PolicySection>
 
       <PolicySection label="11" title="Contact">
         <p>
-          If you have questions about this privacy policy or Artling&rsquo;s
+          If you have questions about this privacy policy or Little Artist&rsquo;s
           data practices, contact{" "}
           <a
             href={`mailto:${site.supportEmail}`}

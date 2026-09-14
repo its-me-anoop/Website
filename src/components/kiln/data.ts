@@ -139,12 +139,12 @@ export const projects: readonly Project[] = [
     type: "Care home website",
     year: "2026",
     description:
-      "A boutique residential, respite and transitional-living provider in Reading. A calm, warm site built for families choosing care.",
+      "A full website rebuild for a boutique residential, respite and transitional-living provider in Reading, spanning Pembroke Lodge, Alexandra Lodge and Pembroke Apartments. Built around its Hospital to Home recovery pathway, with Cloud Medical as clinical governance partner.",
     href: "https://pembrokecare.com/",
     internal: false,
     image: "/project-pembroke.png",
     tint: "#e6e2d6",
-    tags: ["Care sector", "Hospital to home", "Next.js"],
+    tags: ["Care sector", "Hospital to Home", "Next.js + Payload CMS"],
   },
   {
     name: "Sandbourne",
@@ -184,10 +184,10 @@ export const projects: readonly Project[] = [
   },
   {
     name: "Sipli",
-    type: "iOS and watchOS app",
+    type: "iOS, iPadOS and watchOS app",
     year: "2026",
     description:
-      "An adaptive hydration companion that turns changing goals, weather and HealthKit data into one calm daily rhythm.",
+      "An adaptive hydration companion for iPhone, iPad and Apple Watch that turns changing goals, weather and Apple Health data into one calm daily rhythm.",
     href: "/projects/sipli",
     internal: true,
     image: "/projects/sipli/iphone_and_ipad.png",
@@ -196,11 +196,11 @@ export const projects: readonly Project[] = [
     tags: ["SwiftUI", "HealthKit", "On-device intelligence"],
   },
   {
-    name: "Artling",
-    type: "iOS app",
-    year: "2025",
+    name: "Little Artist",
+    type: "iOS and iPadOS app",
+    year: "2026",
     description:
-      "A private visual archive for children's artwork, milestones and family memories, designed to feel quiet and lasting.",
+      "A private archive for children's artwork, milestones and family memories, designed to feel quiet and lasting. Free on the App Store.",
     href: "/projects/artling",
     internal: true,
     image: "/projects/artling/fox-painter.png",
@@ -233,11 +233,11 @@ export const ticker = [
   "Custom code, never a template",
   "Sandbourne Care",
   "UK hosted, daily backups",
-  "JJ Paper Essential",
+  "JJ Paper Essentials",
   "One accountable person",
   "Sipli",
   "A reply within one working day",
-  "Artling",
+  "Little Artist",
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────
@@ -755,7 +755,7 @@ export const footerColumns = [
       { label: "Greenmead", href: "https://www.greenmead.co.uk/" },
       { label: "JJ Paper", href: "https://www.jjpaperessential.com/" },
       { label: "Sipli", href: "/projects/sipli" },
-      { label: "Artling", href: "/projects/artling" },
+      { label: "Little Artist", href: "/projects/artling" },
     ],
   },
   {

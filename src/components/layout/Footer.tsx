@@ -20,10 +20,10 @@ const cols = [
     heading: "Projects",
     links: [
       { href: "/projects/sipli", label: "Sipli" },
-      { href: "/projects/artling", label: "Artling" },
+      { href: "/projects/artling", label: "Little Artist" },
       { href: "#work", label: "All projects" },
       { href: "/projects/sipli/privacy-policy", label: "Sipli privacy policy" },
-      { href: "/projects/artling/privacy-policy", label: "Artling privacy policy" },
+      { href: "/projects/artling/privacy-policy", label: "Little Artist privacy policy" },
     ],
   },
   {
