@@ -715,6 +715,92 @@ export const careSector: Sector = {
 export const sectors = [gpSector, careSector] as const;
 
 /* ─────────────────────────────────────────────────────────────
+   Clear Path — Leaving My Surgery Website.
+   Time-boxed GP migration for Berkshire / Thames Valley.
+   Prices and CTAs are locked (see CLEAR-PATH-HANDOFF.md).
+   ───────────────────────────────────────────────────────────── */
+
+export const clearPath = {
+  metaTitle: "Leaving My Surgery Website | Clear Path migration",
+  metaDescription:
+    "MSW hosting ends 31 March 2027. Clear Path is a time-boxed website migration for Berkshire and Thames Valley GP practices — a site you own, WCAG 2.2 AA, without a full redesign project.",
+  packages: [
+    {
+      name: "Move Essentials",
+      strap: "A time-boxed move, done properly",
+      copy: "We move your content, sort the domain, and get you live on a modern site you own. One-off.",
+      price: "£995",
+      pricePeriod: "one-off + VAT",
+      priceNote: "Year-one hosting included, then £10/mo if you stay.",
+      cta: "Book a free audit",
+      ctaHref: "/free-audit",
+      featured: false,
+      features: [
+        "Content moved from your current MSW site",
+        "Domain sorted, on a site you own",
+        "Built for WCAG 2.2 AA",
+        "No WordPress page-builder stack",
+        "Founder-led: you brief the person who builds",
+      ],
+    },
+    {
+      name: "Move Standard",
+      strap: "Premium custom — not a SaaS band",
+      copy: "The full custom build with a monthly care plan. A different product class from £269–£500/year template SaaS.",
+      price: "£1,490",
+      pricePeriod: "+ £49/mo + VAT",
+      priceNote: "Premium custom — not discounted to SaaS bands.",
+      cta: "Book a free audit",
+      ctaHref: "/free-audit",
+      featured: true,
+      features: [
+        "Everything in Move Essentials",
+        "Premium custom, not a managed NHS template",
+        "Appointments and prescriptions still easy to find",
+        "Managed hosting in the monthly fee",
+        "Handover: who updates what, hosting path, support",
+        "Same-week response on support requests",
+      ],
+    },
+  ],
+  steps: [
+    {
+      title: "Free audit",
+      copy: "We review your current MSW site and flag what has to move.",
+    },
+    {
+      title: "Clear quote",
+      copy: "Essentials or Standard, timeline, and what you own — in writing.",
+    },
+    {
+      title: "Migration",
+      copy: "Domain, content, appointments and prescriptions still easy to find, then go-live.",
+    },
+    {
+      title: "Handover",
+      copy: "Who updates what, the hosting path, and how support works after launch.",
+    },
+  ],
+  dates: [
+    {
+      label: "Domain pressure",
+      when: "1 September 2026",
+      copy: "Domain and support pressure often around this date if MSW administers your domain — confirm in your letter.",
+    },
+    {
+      label: "MSW hosting ends",
+      when: "31 March 2027",
+      copy: "Public notices point to hosting ending on this date. Check your own MSW letter for your exact dates.",
+    },
+    {
+      label: "Reserve by",
+      when: "31 October 2026",
+      copy: "Clear Path places are reserved by this date so go-live is not left to the last months of hosting.",
+    },
+  ],
+} as const;
+
+/* ─────────────────────────────────────────────────────────────
    Navigation and footer.
    ───────────────────────────────────────────────────────────── */
 
@@ -731,6 +817,7 @@ export const footerColumns = [
     title: "Services",
     links: [
       { label: "GP practice websites", href: "/gp-websites" },
+      { label: "Leaving My Surgery Website", href: "/leaving-msw" },
       { label: "Care home websites", href: "/care-home-websites" },
       { label: "Packages", href: "/packages" },
       { label: "Free website audit", href: "/free-audit" },
