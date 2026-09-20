@@ -45,6 +45,12 @@ describe("canonical host", () => {
     expect(robots().rules).toMatchObject({ disallow: ["/api/"] });
   });
 
+  it("sitemap lists the Clear Path leaving-MSW landing, not the alt slug", () => {
+    const urls = sitemap().map((entry) => entry.url);
+    expect(urls).toContain(`${site.url}/leaving-msw`);
+    expect(urls).not.toContain(`${site.url}/clear-path`);
+  });
+
   it("sitemap has no trailing-slash duplicates beyond the root", () => {
     const urls = sitemap().map((entry) => entry.url);
     urls

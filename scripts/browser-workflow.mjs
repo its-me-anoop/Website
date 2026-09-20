@@ -20,6 +20,7 @@ const ROUTES = [
   "/care-home-websites",
   "/packages",
   "/free-audit",
+  "/leaving-msw",
   "/audit",
   "/accessibility",
   "/demo/gp-practice",

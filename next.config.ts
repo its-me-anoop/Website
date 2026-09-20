@@ -19,6 +19,12 @@ const nextConfig: NextConfig = {
         destination: "/projects/artling/privacy-policy",
         permanent: true,
       },
+      // Campaign alt slug from the Clear Path brief; canonical is /leaving-msw.
+      {
+        source: "/clear-path",
+        destination: "/leaving-msw",
+        permanent: true,
+      },
     ];
   },
 };
