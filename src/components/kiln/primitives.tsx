@@ -72,16 +72,18 @@ export function Display({
   className,
   children,
   id,
+  "aria-label": ariaLabel,
 }: {
   as?: "h1" | "h2" | "h3" | "p";
   size?: keyof typeof displaySize;
   className?: string;
   children: React.ReactNode;
   id?: string;
+  "aria-label"?: string;
 }) {
   const Tag = as;
   return (
-    <Tag id={id} className={cn("k-display", displaySize[size], className)}>
+    <Tag id={id} aria-label={ariaLabel} className={cn("k-display", displaySize[size], className)}>
       {children}
     </Tag>
   );
