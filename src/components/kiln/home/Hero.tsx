@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { projects, samples } from "../data";
+import { heroAudiences, projects, samples } from "../data";
 import { cn } from "@/lib/utils";
 import { AuditBar, Display } from "../primitives";
 import { RotatingWord } from "./RotatingWord";
@@ -121,7 +121,12 @@ export function Hero({ canvasRef }: { canvasRef: RefObject<HTMLCanvasElement | n
     <section ref={heroRef} id="top" className={styles.hero} data-running={running}>
       <div ref={sceneRef} className={styles.scene}>
         <div className={styles.opening}>
-        <Display as="h1" size="xl" className={styles.heading}>
+        <Display
+          as="h1"
+          size="xl"
+          className={styles.heading}
+          aria-label={`One studio. Every page your ${heroAudiences[0].word} need.`}
+        >
           <span className={styles.line}><span className={styles.lineInner}>One studio.</span></span>{" "}
           <span className={styles.line}><span className={styles.lineInner}>Every page your</span></span>{" "}
           <span className={styles.line}><span className={styles.lineInner}><RotatingWord interval={3600} paused={!running} /> need.</span></span>

@@ -41,13 +41,25 @@ describe("KilnHome", () => {
   it("renders the hero headline", () => {
     renderHome();
 
-    /* The visual audience word cycles and is aria-hidden; the accessible
-       name must stay fixed on the static word. */
+    /* The visual audience word cycles and is aria-hidden; the h1
+       aria-label keeps a single static accessible name. */
     const heading = screen.getByRole("heading", {
       level: 1,
-      name: /One studio\. Every page your patients need\./,
+      name: "One studio. Every page your patients need.",
     });
-    expect(heading).toBeInTheDocument();
+    expect(heading).toHaveAccessibleName("One studio. Every page your patients need.");
+    expect(heading).toHaveAttribute(
+      "aria-label",
+      "One studio. Every page your patients need."
+    );
+
+    /* Plain-text extractors read textContent, including aria-hidden
+       nodes. The old sr-only copy of "patients" made that "patients
+       patients"; keep exactly one. */
+    const plain = (heading.textContent ?? "").replace(/\s+/g, " ");
+    expect(plain.match(/patients/g)).toEqual(["patients"]);
+    expect(plain).not.toMatch(/patients patients/);
+    expect(heading.querySelector(".sr-only")).toBeNull();
   });
 
   it("exposes primary navigation with the sector and packages pages", () => {
