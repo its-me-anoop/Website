@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "'/Users/anoopjose/Projects/Website/.codex/hooks/session-start.sh'"
+            "command": "bash .codex/hooks/session-start.sh"
           }
         ]
       }
