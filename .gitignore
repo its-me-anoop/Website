@@ -42,3 +42,9 @@ next-env.d.ts
 
 # Claude Code local worktrees (never commit; accidental gitlinks break checkout)
 .claude/worktrees/
+
+# Accidental local hero/responsive preview screenshots (never shipped)
+/hero-preview-*.png
+/mobile-hero-shorter.png
+/responsive-mobile-*.png
+/responsive-tablet-*.png
