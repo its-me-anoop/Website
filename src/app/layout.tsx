@@ -4,32 +4,48 @@ import "./globals.css";
 import { site } from "@/lib/site";
 
 /* Porcelain pages render on the native SF-style system stack (see
-   globals.css). The Signal marketing pages set Archivo (headlines, with
-   its width axis) and Atkinson Hyperlegible Next (reading text, drawn
-   by the Braille Institute for low-vision readers), both SIL OFL.
-   Zodiak and Switzer (Fontshare, ITF Free Font Licence) only typeset
-   the printed audit report now, and Syne and Space Grotesk stay
-   available to the demo sites. Everything is self-hosted woff2. */
+   globals.css). The Aurora marketing pages set Bricolage Grotesque
+   (display), Instrument Serif (italic emphasis), Geist (body) and
+   Geist Mono (labels), all SIL OFL. Zodiak and Switzer (Fontshare, ITF
+   Free Font Licence) only typeset the printed audit report now, and
+   Syne and Space Grotesk stay available to the demo sites. Everything
+   is self-hosted woff2 so builds never depend on a font CDN. */
 
-const archivo = localFont({
-  src: "../fonts/archivo-latin-var.woff2",
-  weight: "100 900",
-  style: "normal",
-  variable: "--font-archivo-v",
+const bricolage = localFont({
+  src: "../fonts/bricolage-grotesque-latin-var.woff2",
+  weight: "200 800",
+  variable: "--font-bricolage-v",
   display: "swap",
-  fallback: ["Arial Narrow", "Arial", "sans-serif"],
-  declarations: [{ prop: "font-stretch", value: "62% 125%" }],
+  fallback: ["Arial", "Helvetica", "sans-serif"],
+  adjustFontFallback: "Arial",
 });
 
-const atkinson = localFont({
+const instrument = localFont({
   src: [
-    { path: "../fonts/atkinson-next-latin-var.woff2", weight: "200 800", style: "normal" },
-    { path: "../fonts/atkinson-next-latin-var-italic.woff2", weight: "200 800", style: "italic" },
+    { path: "../fonts/instrument-serif-regular.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/instrument-serif-italic.woff2", weight: "400", style: "italic" },
   ],
-  variable: "--font-atkinson-v",
+  variable: "--font-instrument-v",
+  display: "swap",
+  fallback: ["Georgia", "Times New Roman", "serif"],
+  adjustFontFallback: "Times New Roman",
+});
+
+const geist = localFont({
+  src: "../fonts/geist-latin-var.woff2",
+  weight: "100 900",
+  variable: "--font-geist-v",
   display: "swap",
   fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "sans-serif"],
   adjustFontFallback: "Arial",
+});
+
+const geistMono = localFont({
+  src: "../fonts/geist-mono-latin-var.woff2",
+  weight: "100 900",
+  variable: "--font-geist-mono-v",
+  display: "swap",
+  preload: false,
 });
 
 const zodiak = localFont({
@@ -287,7 +303,7 @@ export default function RootLayout({
     <html
       lang="en-GB"
       suppressHydrationWarning
-      className={`${archivo.variable} ${atkinson.variable} ${zodiak.variable} ${switzer.variable} ${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
+      className={`${bricolage.variable} ${instrument.variable} ${geist.variable} ${geistMono.variable} ${zodiak.variable} ${switzer.variable} ${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
     >
       <head>
         <JsonLd />
@@ -295,7 +311,7 @@ export default function RootLayout({
       <body className="antialiased bg-canvas text-ink font-sans min-h-screen">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-s-signal focus:px-4 focus:py-2 focus:text-s-ink focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-a-amber focus:px-4 focus:py-2 focus:text-a-void focus:shadow-lg"
         >
           Skip to main content
         </a>

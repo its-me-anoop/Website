@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { careSector } from "@/lib/marketing/content";
-import { SectorPage } from "@/components/signal/pages/SectorPage";
+import { SectorPage } from "@/components/aurora/pages/SectorPage";
 
 export const metadata: Metadata = {
   title: careSector.metaTitle,

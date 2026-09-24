@@ -122,26 +122,29 @@
   --k-ochre: #7a5200; /* warn on bone (≈6:1) */
   --k-ochre-lite: #e9b949; /* warn on coal (≈9:1) */
 
-  /* ── "Signal" marketing palette ─────────────────────────────────
-     Ink and warm paper with one accent, signal yellow, which is also
-     the focus ring. Pairings measured against WCAG 2.2 AA. The --k-*
-     tokens above now serve only the printed audit report. */
-  --s-ink: #0f0f0e; /* dark canvas */
-  --s-ink-2: #1a1a18; /* raised surfaces on ink */
-  --s-on-ink: #f2f0eb; /* text on ink (≈17:1) */
-  --s-on-ink-2: #aeaba3; /* secondary text on ink (≈8.4:1) */
-  --s-line: rgba(242, 240, 235, 0.14);
-  --s-line-2: rgba(242, 240, 235, 0.28);
-  --s-paper: #f2f0eb; /* light bands */
-  --s-paper-2: #e7e4dc; /* raised on paper */
-  --s-on-paper: #121211; /* text on paper (≈17:1) */
-  --s-on-paper-2: #56534c; /* secondary on paper (≈6.9:1) */
-  --s-line-paper: rgba(18, 18, 17, 0.14);
-  --s-signal: #ffd23f; /* the accent and focus colour; ink on it ≈13:1 */
-  --s-signal-hover: #ffe07a;
-  --s-pass: #7ad99a; /* audit statuses on ink, each ≥ 4.5:1 */
-  --s-warn: #ffb45c;
-  --s-fail: #ff7b6b;
+  /* ── "Aurora" marketing palette ─────────────────────────────────
+     Warm night: a near-black canvas with a brown undertone, lit by a
+     molten shader in ember, orange, amber and gold. Amber is the one
+     action colour. The --k-* tokens above now serve only the printed
+     audit report. Pairings measured against WCAG 2.2 AA. */
+  --a-void: #0b0907; /* page canvas */
+  --a-night: #120e0b; /* alternate bands */
+  --a-deep: #1b1510; /* raised solid surfaces */
+  --a-ink: #f8f1e7; /* primary text (≈18:1 on void) */
+  --a-ink-soft: #cbbfae; /* secondary text (≈11:1) */
+  --a-muted: #9c8f7e; /* captions (≈6.2:1) */
+  --a-line: rgba(255, 236, 210, 0.1);
+  --a-line-2: rgba(255, 236, 210, 0.18);
+  --a-ember: #ff5a1f;
+  --a-orange: #ff8a2a;
+  --a-gold: #ffc24a;
+  --a-amber: #ffb020; /* the action colour; void text on it ≈11:1 */
+  --a-amber-hover: #ffc555;
+  --a-red: #d9361c;
+  --a-pass: #7ddc8f;
+  --a-warn: #ffc857;
+  --a-fail: #ff6f5e;
+  --a-grad: linear-gradient(100deg, #ffd27a 0%, #ffb020 26%, #ff8a2a 52%, #ff5a1f 78%, #ffd27a 100%);
 }
 
 /* Sipli case study: light aqua product palette */
@@ -244,22 +247,23 @@
   --color-k-ochre: var(--k-ochre);
   --color-k-ochre-lite: var(--k-ochre-lite);
 
-  --color-s-ink: var(--s-ink);
-  --color-s-ink-2: var(--s-ink-2);
-  --color-s-on-ink: var(--s-on-ink);
-  --color-s-on-ink-2: var(--s-on-ink-2);
-  --color-s-line: var(--s-line);
-  --color-s-line-2: var(--s-line-2);
-  --color-s-paper: var(--s-paper);
-  --color-s-paper-2: var(--s-paper-2);
-  --color-s-on-paper: var(--s-on-paper);
-  --color-s-on-paper-2: var(--s-on-paper-2);
-  --color-s-line-paper: var(--s-line-paper);
-  --color-s-signal: var(--s-signal);
-  --color-s-signal-hover: var(--s-signal-hover);
-  --color-s-pass: var(--s-pass);
-  --color-s-warn: var(--s-warn);
-  --color-s-fail: var(--s-fail);
+  --color-a-void: var(--a-void);
+  --color-a-night: var(--a-night);
+  --color-a-deep: var(--a-deep);
+  --color-a-ink: var(--a-ink);
+  --color-a-ink-soft: var(--a-ink-soft);
+  --color-a-muted: var(--a-muted);
+  --color-a-line: var(--a-line);
+  --color-a-line-2: var(--a-line-2);
+  --color-a-ember: var(--a-ember);
+  --color-a-orange: var(--a-orange);
+  --color-a-gold: var(--a-gold);
+  --color-a-amber: var(--a-amber);
+  --color-a-amber-hover: var(--a-amber-hover);
+  --color-a-red: var(--a-red);
+  --color-a-pass: var(--a-pass);
+  --color-a-warn: var(--a-warn);
+  --color-a-fail: var(--a-fail);
 
   /* Semantic + legacy aliases */
   --color-background: var(--background);
@@ -285,9 +289,11 @@
   /* Kiln marketing pages: Zodiak serif display over Switzer body. */
   --font-zodiak: var(--font-zodiak-v), "Zodiak", Georgia, "Times New Roman", serif;
   --font-switzer: var(--font-switzer-v), "Switzer", var(--font-sans);
-  /* Signal marketing pages. */
-  --font-archivo: var(--font-archivo-v), "Archivo", Arial, sans-serif;
-  --font-atkinson: var(--font-atkinson-v), "Atkinson Hyperlegible Next", var(--font-sans);
+  /* Aurora marketing pages. */
+  --font-bricolage: var(--font-bricolage-v), "Bricolage Grotesque", var(--font-display);
+  --font-instrument: var(--font-instrument-v), "Instrument Serif", Georgia, serif;
+  --font-geist: var(--font-geist-v), "Geist", var(--font-sans);
+  --font-geist-mono: var(--font-geist-mono-v), "Geist Mono", var(--font-mono);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -437,176 +443,419 @@ p {
   animation: route-enter 0.5s var(--ease-out-expo);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Signal: the marketing-site design language
-   Ink and warm paper, one accent: signal yellow, the colour of an
-   accessibility focus ring. Archivo (with its width axis) for
-   signage-like headlines, Atkinson Hyperlegible Next for reading.
-   Emphasis is a highlighter stroke, not a gradient. Scoped to
-   `.signal-root`, so case-study pages and demo sites are untouched.
-   ───────────────────────────────────────────────────────────── */
-
-html:has(.signal-root) {
-  background: var(--s-ink);
-  color-scheme: dark;
+/* Curtain between marketing pages (template.tsx): the dark layer lifts
+   first, then the amber one, revealing the new page underneath. */
+.route-curtain span {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  pointer-events: none;
+  animation: route-curtain 0.8s cubic-bezier(0.76, 0, 0.24, 1) both;
 }
-html:has(.signal-root)::-webkit-scrollbar-track {
-  background: var(--s-ink);
+.route-curtain span:first-child {
+  background: linear-gradient(180deg, #ffb020, #ff5a1f);
+  animation-delay: 0.12s;
 }
-html:has(.signal-root)::-webkit-scrollbar-thumb {
-  background: #3a3935;
-  border-color: var(--s-ink);
+.route-curtain span:last-child {
+  background: #0b0907;
+  z-index: 191;
+  animation-duration: 0.7s;
 }
-html:has(.signal-root) body {
-  background: var(--s-ink);
-}
-
-.signal-root {
-  background: var(--s-ink);
-  color: var(--s-on-ink);
-  font-family: var(--font-atkinson);
-  letter-spacing: 0;
-}
-.signal-root ::selection {
-  background: var(--s-signal);
-  color: var(--s-ink);
-}
-/* The focus ring is the brand colour, on purpose. */
-.signal-root :focus-visible {
-  outline: 3px solid var(--s-signal);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-.signal-root .s-paper :focus-visible {
-  outline-color: var(--s-ink);
-  box-shadow: 0 0 0 6px var(--s-signal);
-}
-body:has(.signal-root) > a[href="#main"]:focus {
-  background: var(--s-signal);
-  color: var(--s-ink);
-}
-
-/* Light bands. */
-.s-paper {
-  background: var(--s-paper);
-  color: var(--s-on-paper);
-}
-
-/* Headlines: Archivo, slightly condensed, heavy, tight. */
-.s-display {
-  font-family: var(--font-archivo);
-  font-weight: 750;
-  font-stretch: 84%;
-  letter-spacing: -0.025em;
-  line-height: 0.95;
-  text-wrap: balance;
-}
-
-/* Emphasis is a highlighter stroke laid under the words. Where the
-   browser supports scroll-driven animation it draws in as the heading
-   enters the viewport; elsewhere it is simply there. */
-.s-display em,
-.s-mark {
-  font-style: normal;
-  color: var(--s-ink);
-  padding: 0 0.08em;
-  margin: 0 -0.02em;
-  background-image: linear-gradient(var(--s-signal), var(--s-signal));
-  background-repeat: no-repeat;
-  background-size: 100% 88%;
-  background-position: 0 70%;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
-@supports (animation-timeline: view()) {
-  .s-display em {
-    animation: s-highlight linear both;
-    animation-timeline: view();
-    animation-range: entry 20% cover 38%;
-  }
-}
-@keyframes s-highlight {
+@keyframes route-curtain {
   from {
-    background-size: 0% 88%;
-    color: inherit;
-  }
-  60% {
-    color: inherit;
+    clip-path: inset(0 0 0 0);
   }
   to {
-    background-size: 100% 88%;
-    color: var(--s-ink);
+    clip-path: inset(0 0 100% 0);
   }
 }
 
-/* Small label above a section. */
-.s-label {
-  font-family: var(--font-archivo);
-  font-size: 13px;
-  font-weight: 600;
-  font-stretch: 100%;
-  letter-spacing: 0.08em;
+/* ─────────────────────────────────────────────────────────────
+   Aurora: the marketing-site design language
+   A warm near-black canvas lit by a live WebGL shader of slow,
+   molten light (ember, orange, amber, gold), glass surfaces,
+   Bricolage Grotesque display type with Instrument Serif italics for
+   emphasis, a Geist body and one amber action colour. Scoped to `.aurora-root`, so the case-study pages and the
+   demo sites are untouched. Every text pairing is checked against
+   WCAG 2.2 AA on --a-void and --a-night.
+   ───────────────────────────────────────────────────────────── */
+
+@property --a-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+html:has(.aurora-root) {
+  background: var(--a-void);
+  color-scheme: dark;
+}
+html:has(.aurora-root)::-webkit-scrollbar-track {
+  background: var(--a-void);
+}
+html:has(.aurora-root)::-webkit-scrollbar-thumb {
+  background: #262a3b;
+  border-color: var(--a-void);
+}
+html:has(.aurora-root) body {
+  background: var(--a-void);
+}
+
+.aurora-root {
+  position: relative;
+  isolation: isolate;
+  background: var(--a-void);
+  color: var(--a-ink);
+  font-family: var(--font-geist);
+  letter-spacing: -0.006em;
+  font-feature-settings: "ss01", "cv11";
+}
+.aurora-root ::selection {
+  background: var(--a-amber);
+  color: var(--a-void);
+}
+.aurora-root :focus-visible {
+  outline: 2px solid var(--a-amber);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+body:has(.aurora-root) > a[href="#main"]:focus {
+  background: var(--a-amber);
+  color: var(--a-void);
+}
+
+/* Display type: tight, heavy grotesque; emphasis switches to a
+   gradient-lit serif italic. */
+.a-display {
+  font-family: var(--font-bricolage);
+  font-weight: 640;
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+  text-wrap: balance;
+}
+.a-display em,
+.a-display i {
+  font-family: var(--font-instrument);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  padding-right: 0.06em;
+  background: var(--a-grad);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: a-grad-pan 9s ease-in-out infinite alternate;
+}
+@keyframes a-grad-pan {
+  to {
+    background-position: 100% 0;
+  }
+}
+
+.a-grad-text {
+  background: var(--a-grad);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: a-grad-pan 9s ease-in-out infinite alternate;
+}
+
+/* Mono label with a glowing dot, used as a section opener. */
+.a-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-geist-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  color: var(--a-ink-soft);
+}
+.a-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--a-amber);
+  box-shadow: 0 0 12px 2px rgba(255, 176, 32, 0.6);
 }
 
-/* Headline lines rise out of a clipped box on load (no blur). */
-.s-lines .s-line {
-  display: block;
-  overflow: clip;
-  overflow-clip-margin: 0.12em;
+.a-mono {
+  font-family: var(--font-geist-mono);
 }
-.s-lines .s-line > span {
-  display: block;
-  animation: s-line-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  animation-delay: calc(var(--i, 0) * 90ms + 80ms);
+
+/* Glass surface: translucent fill, hairline border, top highlight. */
+.a-glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+  border: 1px solid var(--a-line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 80px -40px rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
 }
-@keyframes s-line-in {
-  from {
-    transform: translateY(105%);
+@media (prefers-reduced-transparency: reduce) {
+  .a-glass {
+    background: var(--a-deep);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }
 
-.s-fade-in {
-  animation: s-fade-in 0.8s ease-out both;
+/* Spotlight surface: a radial glow and a gradient rim follow the
+   pointer (--mx / --my set by <SpotlightTracker />). */
+.a-spot {
+  position: relative;
+  isolation: isolate;
+  --mx: 50%;
+  --my: -20%;
+}
+.a-spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(520px circle at var(--mx) var(--my), rgba(255, 122, 26, 0.16), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.a-spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(360px circle at var(--mx) var(--my), rgba(255, 176, 32, 0.75), rgba(255, 194, 74, 0.4) 30%, transparent 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.a-spot:hover::before,
+.a-spot:hover::after,
+.a-spot:focus-within::before,
+.a-spot:focus-within::after {
+  opacity: 1;
+}
+
+/* Rotating conic rim for the one featured card. */
+.a-conic {
+  position: relative;
+  isolation: isolate;
+  box-shadow: 0 40px 120px -40px rgba(255, 122, 26, 0.55), 0 0 60px -30px rgba(255, 176, 32, 0.4);
+}
+.a-conic::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from var(--a-angle), #ff7a1a, #e8401f, #ffc24a, #ffb020, #ff5a36, #ff7a1a);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: a-spin 6s linear infinite;
+}
+@keyframes a-spin {
+  to {
+    --a-angle: 360deg;
+  }
+}
+
+/* Film grain over everything: an SVG turbulence tile. */
+.a-grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: a-grain 1.2s steps(6) infinite;
+}
+@keyframes a-grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -4%); }
+  60% { transform: translate(-4%, -1%); }
+  80% { transform: translate(3%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Faint perspective grid that fades out from the centre. */
+.a-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
+}
+
+/* The CSS aurora: blurred drifting blobs. It is the fallback when
+   WebGL is unavailable and the base layer the shader fades over. */
+.a-blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.a-blobs {
+  transition: opacity 1.6s ease;
+}
+/* The blobs are the fallback: once the shader has drawn, they bow out
+   so the canvas lights a true black. */
+[data-shader="ready"] > .a-blobs {
+  opacity: 0 !important;
+}
+.a-blobs span {
+  position: absolute;
+  width: 55vmax;
+  height: 55vmax;
+  border-radius: 999px;
+  filter: blur(90px);
+  opacity: 0.2;
+  mix-blend-mode: screen;
+  animation: a-drift 22s ease-in-out infinite alternate;
+}
+.a-blobs span:nth-child(1) { left: -10%; top: -25%; background: #9a3412; }
+.a-blobs span:nth-child(2) { right: -15%; top: -10%; background: #b45309; animation-duration: 26s; animation-delay: -6s; }
+.a-blobs span:nth-child(3) { left: 25%; bottom: -35%; background: #ff5a1f; opacity: 0.3; animation-duration: 30s; animation-delay: -12s; }
+@keyframes a-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(8vw, 6vh, 0) scale(1.15); }
+  100% { transform: translate3d(-6vw, 10vh, 0) scale(0.9); }
+}
+
+/* Word-by-word headline reveal. Words rise out of a clipped line and
+   de-blur, staggered by --i. Pure CSS so the SSR output is final. */
+.a-words .a-w {
+  display: inline-block;
+  overflow: clip;
+  overflow-clip-margin: 0.2em;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.a-words .a-w > span {
+  display: inline-block;
+  animation: a-word-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms + var(--d, 0ms));
+}
+@keyframes a-word-in {
+  from {
+    transform: translateY(105%) rotate(4deg);
+    filter: blur(8px);
+    opacity: 0;
+  }
+}
+
+/* Fade-and-rise used by above-the-fold copy that must be visible
+   without JavaScript. */
+.a-fade-up {
+  animation: a-fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: var(--d, 0ms);
 }
-/* Position only: text is never drawn at reduced opacity, so contrast
-   holds for every frame of the entrance. */
-@keyframes s-fade-in {
+@keyframes a-fade-up {
   from {
-    transform: translateY(14px);
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(6px);
   }
 }
 
-/* Vision lens (home hero): the page behind the circle is shown as
-   someone with a given condition might see it. */
-.s-lens {
+/* Marquee rows with soft edges. */
+.a-marquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.a-marquee-track {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+.a-marquee:hover .a-marquee-track,
+.a-marquee:focus-within .a-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Primary button: a light sweep crosses it on hover. */
+.a-shine {
+  position: relative;
+  overflow: hidden;
+}
+.a-shine::after {
+  content: "";
   position: absolute;
-  left: 0;
-  top: 0;
-  width: var(--lens, 260px);
-  height: var(--lens, 260px);
-  border-radius: 999px;
+  inset: 0;
+  transform: translateX(-120%) skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
-  box-shadow: 0 0 0 2px var(--s-signal), 0 20px 60px -10px rgba(0, 0, 0, 0.6);
-  transition: opacity 0.3s ease;
-  will-change: transform;
 }
-.s-lens[data-condition="blur"] {
-  -webkit-backdrop-filter: blur(7px);
-  backdrop-filter: blur(7px);
+.a-shine:hover::after {
+  transform: translateX(120%) skewX(-20deg);
 }
-.s-lens[data-condition="cataract"] {
-  -webkit-backdrop-filter: blur(2.5px) sepia(0.55) contrast(0.6) brightness(1.15);
-  backdrop-filter: blur(2.5px) sepia(0.55) contrast(0.6) brightness(1.15);
+
+/* Audit bar: a live gradient ring blooms when the field has focus. */
+.a-field-ring {
+  position: relative;
+  isolation: isolate;
 }
-.s-lens[data-condition="sunlight"] {
-  -webkit-backdrop-filter: contrast(0.28) brightness(2.1) saturate(0.6);
-  backdrop-filter: contrast(0.28) brightness(2.1) saturate(0.6);
+.a-field-ring::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(from var(--a-angle), #ff7a1a, #ffc24a, #ffb020, #ff5a36, #ff7a1a);
+  animation: a-spin 5s linear infinite;
+  opacity: 0.55;
+  transition: opacity 0.3s ease, filter 0.3s ease;
 }
-.s-lens[data-condition="mono"] {
-  -webkit-backdrop-filter: grayscale(1) contrast(0.85);
-  backdrop-filter: grayscale(1) contrast(0.85);
+.a-field-ring:focus-within::before {
+  opacity: 1;
+  filter: drop-shadow(0 0 18px rgba(255, 122, 26, 0.55));
+}
+.a-field-ring:focus-within {
+  outline: 2px solid var(--a-amber);
+  outline-offset: 4px;
+}
+.a-field-ring input:focus-visible {
+  outline: none;
+}
+
+/* Horizontal tab chips on phone: fade the ends so scroll is obvious. */
+.a-tabs-scroll {
+  -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent);
+  mask-image: linear-gradient(90deg, #000 85%, transparent);
+}
+@media (min-width: 768px) {
+  .a-tabs-scroll {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* Giant footer wordmark, lit from below. */
+.a-wordmark {
+  font-family: var(--font-bricolage);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.8;
+  background: linear-gradient(180deg, rgba(248, 241, 231, 0.92) 0%, rgba(255, 138, 42, 0.55) 55%, rgba(255, 90, 31, 0.04) 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hairline rows on night. */
+.a-rule > * + * {
+  border-top: 1px solid var(--a-line);
 }
 
 /* Audit report: the score dial's arc draws in on load. */
@@ -616,7 +865,7 @@ body:has(.signal-root) > a[href="#main"]:focus {
   }
 }
 .k-dial-arc {
-  animation: k-dial-in 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: k-dial-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Printed audit report typography (the document keeps its light,
@@ -642,23 +891,29 @@ body:has(.signal-root) > a[href="#main"]:focus {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .s-display em {
-    animation: none !important;
-    background-size: 100% 88% !important;
-    color: var(--s-ink) !important;
-  }
-  .s-lines .s-line > span,
-  .s-fade-in,
-  .s-reveal,
+  .a-grain,
+  .a-blobs span,
+  .a-display em,
+  .a-grad-text,
+  .a-conic::before,
+  .a-field-ring::before,
+  .a-marquee-track,
   .k-dial-arc {
+    animation: none !important;
+  }
+  .a-words .a-w > span,
+  .a-fade-up,
+  .a-reveal {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
   }
 }
 
+
 /* ─────────────────────────────────────────────────────────────
-   Printed audit report (signal/audit/print/PrintReport.tsx).
+   Printed audit report (aurora/audit/print/PrintReport.tsx).
 
    On screen the document is hidden and the interactive report shows;
    in print they swap. Chrome and Firefox honour the zero @page margin,
@@ -683,12 +938,14 @@ body:has(.signal-root) > a[href="#main"]:focus {
   body {
     background: var(--k-bone) !important;
   }
-  .signal-root > header,
-  .signal-root > footer,
+  .aurora-root > header,
+  .aurora-root > footer,
+  .aurora-root > .a-grain,
+  .aurora-root > [data-aurora-fx],
   .k-screen {
     display: none !important;
   }
-  .signal-root {
+  .aurora-root {
     min-height: 0;
     background: var(--k-bone) !important;
     color: var(--k-ink);
@@ -986,8 +1243,9 @@ body:has(.demo-physio-root) > a[href="#main"]:focus {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .route-enter { animation: none; }
+  .route-curtain { display: none; }
   /* Stable SSR styles; reduced-motion content is visible before hydration. */
-  .s-reveal { opacity: 1 !important; transform: none !important; }
+  .a-reveal { opacity: 1 !important; transform: none !important; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

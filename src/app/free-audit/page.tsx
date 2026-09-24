@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { AuditLanding } from "@/components/signal/pages/AuditLanding";
+import { AuditLanding } from "@/components/aurora/pages/AuditLanding";
 
 const description =
   "Free instant website audit for GP practices, care homes and clinics: paste your address for a scored report on accessibility, speed, search, content, mobile, security and local presence, with plain-English fixes. Then a written review by a person, if you want one.";

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { Home as SignalHome } from "@/components/signal/home/Home";
+import { Home as AuroraHome } from "@/components/aurora/home/Home";
 
 const title = "Websites for GP practices and care homes";
 const description =
@@ -44,5 +44,5 @@ export const viewport: Viewport = {
 };
 
 export default function Home() {
-  return <SignalHome />;
+  return <AuroraHome />;
 }

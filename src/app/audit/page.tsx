@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
-import { ReportPage } from "@/components/signal/audit/ReportPage";
+import { ReportPage } from "@/components/aurora/audit/ReportPage";
 
 /**
  * The instant audit report. Each report is specific to the address in
