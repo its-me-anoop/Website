@@ -4,10 +4,49 @@ import "./globals.css";
 import { site } from "@/lib/site";
 
 /* Porcelain pages render on the native SF-style system stack (see
-   globals.css). The Kiln marketing pages set Zodiak (display) and
-   Switzer (body); Syne and Space Grotesk stay available to the demo
-   sites — all self-hosted woff2 so builds never depend on a font CDN.
-   Zodiak and Switzer are from Fontshare (ITF Free Font Licence). */
+   globals.css). The Aurora marketing pages set Bricolage Grotesque
+   (display), Instrument Serif (italic emphasis), Geist (body) and
+   Geist Mono (labels), all SIL OFL. Zodiak and Switzer (Fontshare, ITF
+   Free Font Licence) only typeset the printed audit report now, and
+   Syne and Space Grotesk stay available to the demo sites. Everything
+   is self-hosted woff2 so builds never depend on a font CDN. */
+
+const bricolage = localFont({
+  src: "../fonts/bricolage-grotesque-latin-var.woff2",
+  weight: "200 800",
+  variable: "--font-bricolage-v",
+  display: "swap",
+  fallback: ["Arial", "Helvetica", "sans-serif"],
+  adjustFontFallback: "Arial",
+});
+
+const instrument = localFont({
+  src: [
+    { path: "../fonts/instrument-serif-regular.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/instrument-serif-italic.woff2", weight: "400", style: "italic" },
+  ],
+  variable: "--font-instrument-v",
+  display: "swap",
+  fallback: ["Georgia", "Times New Roman", "serif"],
+  adjustFontFallback: "Times New Roman",
+});
+
+const geist = localFont({
+  src: "../fonts/geist-latin-var.woff2",
+  weight: "100 900",
+  variable: "--font-geist-v",
+  display: "swap",
+  fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "sans-serif"],
+  adjustFontFallback: "Arial",
+});
+
+const geistMono = localFont({
+  src: "../fonts/geist-mono-latin-var.woff2",
+  weight: "100 900",
+  variable: "--font-geist-mono-v",
+  display: "swap",
+  preload: false,
+});
 
 const zodiak = localFont({
   src: [
@@ -16,6 +55,7 @@ const zodiak = localFont({
   ],
   variable: "--font-zodiak-v",
   display: "swap",
+  preload: false,
   fallback: ["Georgia", "Times New Roman", "serif"],
   adjustFontFallback: "Times New Roman",
 });
@@ -28,6 +68,7 @@ const switzer = localFont({
   ],
   variable: "--font-switzer-v",
   display: "swap",
+  preload: false,
   fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "sans-serif"],
   adjustFontFallback: "Arial",
 });
@@ -262,7 +303,7 @@ export default function RootLayout({
     <html
       lang="en-GB"
       suppressHydrationWarning
-      className={`${zodiak.variable} ${switzer.variable} ${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
+      className={`${bricolage.variable} ${instrument.variable} ${geist.variable} ${geistMono.variable} ${zodiak.variable} ${switzer.variable} ${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
     >
       <head>
         <JsonLd />
@@ -270,7 +311,7 @@ export default function RootLayout({
       <body className="antialiased bg-canvas text-ink font-sans min-h-screen">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-k-fire focus:px-4 focus:py-2 focus:text-k-bone focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-a-lime focus:px-4 focus:py-2 focus:text-a-void focus:shadow-lg"
         >
           Skip to main content
         </a>

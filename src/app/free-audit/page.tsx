@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { AuditPage } from "@/components/kiln/audit/AuditPage";
+import { AuditLanding } from "@/components/aurora/pages/AuditLanding";
 
 const description =
   "Free instant website audit for GP practices, care homes and clinics: paste your address for a scored report on accessibility, speed, search, content, mobile, security and local presence, with plain-English fixes. Then a written review by a person, if you want one.";
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f3f0ea",
-  colorScheme: "light",
+  themeColor: "#05060b",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -52,7 +52,7 @@ export default function FreeAudit() {
           ]),
         ]}
       />
-      <AuditPage />
+      <AuditLanding />
     </>
   );
 }
