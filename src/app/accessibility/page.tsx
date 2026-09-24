@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { KilnShell } from "@/components/kiln/KilnShell";
+import { AccessibilityStatement } from "@/components/aurora/pages/AccessibilityStatement";
 
 const description = `Accessibility statement for ${site.domain}: the standards this website aims to meet, how it is tested, and how to report a problem.`;
 
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f3f0ea",
-  colorScheme: "light",
+  themeColor: "#05060b",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -77,7 +77,7 @@ const sections = [
         please say so. It will be treated as a bug, not feedback. Email{" "}
         <a
           href={`mailto:${site.supportEmail}`}
-          className="font-medium text-k-fire underline-offset-4 hover:underline"
+          className="font-medium text-a-ink underline decoration-a-lime underline-offset-4"
         >
           {site.supportEmail}
         </a>{" "}
@@ -89,42 +89,14 @@ const sections = [
 
 export default function AccessibilityPage() {
   return (
-    <KilnShell>
+    <>
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
           { name: "Accessibility statement", path: "/accessibility" },
         ])}
       />
-      <article id="top" className="mx-auto w-full max-w-[1280px] px-5 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
-        <header className="max-w-[760px]">
-          <p className="k-eyebrow text-k-muted">Accessibility</p>
-          <h1 className="k-display mt-6 text-[clamp(2.25rem,5vw,4rem)] text-k-ink">
-            Accessibility <em>statement</em>
-          </h1>
-          <p className="mt-6 max-w-[600px] text-[17.5px] leading-[1.6] text-k-ink-soft">
-            {description}
-          </p>
-        </header>
-
-        <div className="mt-16 max-w-[880px] divide-y divide-k-line border-y border-k-line">
-          {sections.map((section) => (
-            <section
-              key={section.title}
-              className="grid gap-4 py-9 md:grid-cols-[minmax(0,260px)_1fr] md:gap-12"
-            >
-              <h2 className="k-display text-[24px] text-k-ink">{section.title}</h2>
-              <div className="max-w-[62ch] text-[16px] leading-[1.65] text-k-ink-soft">
-                {section.body}
-              </div>
-            </section>
-          ))}
-        </div>
-
-        <p className="mt-8 text-[13.5px] text-k-muted">
-          This statement was last reviewed in September 2026.
-        </p>
-      </article>
-    </KilnShell>
+      <AccessibilityStatement description={description} sections={sections} reviewed="September 2026" />
+    </>
   );
 }

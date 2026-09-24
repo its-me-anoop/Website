@@ -121,6 +121,30 @@
   --k-moss-lite: #8fd08a; /* pass on coal (≈9:1) */
   --k-ochre: #7a5200; /* warn on bone (≈6:1) */
   --k-ochre-lite: #e9b949; /* warn on coal (≈9:1) */
+
+  /* ── "Aurora" marketing palette ─────────────────────────────────
+     Warm night: a near-black canvas with a brown undertone, lit by a
+     molten shader in ember, orange, amber and gold. Amber is the one
+     action colour. The --k-* tokens above now serve only the printed
+     audit report. Pairings measured against WCAG 2.2 AA. */
+  --a-void: #0b0907; /* page canvas */
+  --a-night: #120e0b; /* alternate bands */
+  --a-deep: #1b1510; /* raised solid surfaces */
+  --a-ink: #f8f1e7; /* primary text (≈18:1 on void) */
+  --a-ink-soft: #cbbfae; /* secondary text (≈11:1) */
+  --a-muted: #9c8f7e; /* captions (≈6.2:1) */
+  --a-line: rgba(255, 236, 210, 0.1);
+  --a-line-2: rgba(255, 236, 210, 0.18);
+  --a-ember: #ff5a1f;
+  --a-orange: #ff8a2a;
+  --a-gold: #ffc24a;
+  --a-amber: #ffb020; /* the action colour; void text on it ≈11:1 */
+  --a-amber-hover: #ffc555;
+  --a-red: #d9361c;
+  --a-pass: #7ddc8f;
+  --a-warn: #ffc857;
+  --a-fail: #ff6f5e;
+  --a-grad: linear-gradient(100deg, #ffd27a 0%, #ffb020 26%, #ff8a2a 52%, #ff5a1f 78%, #ffd27a 100%);
 }
 
 /* Sipli case study: light aqua product palette */
@@ -223,6 +247,24 @@
   --color-k-ochre: var(--k-ochre);
   --color-k-ochre-lite: var(--k-ochre-lite);
 
+  --color-a-void: var(--a-void);
+  --color-a-night: var(--a-night);
+  --color-a-deep: var(--a-deep);
+  --color-a-ink: var(--a-ink);
+  --color-a-ink-soft: var(--a-ink-soft);
+  --color-a-muted: var(--a-muted);
+  --color-a-line: var(--a-line);
+  --color-a-line-2: var(--a-line-2);
+  --color-a-ember: var(--a-ember);
+  --color-a-orange: var(--a-orange);
+  --color-a-gold: var(--a-gold);
+  --color-a-amber: var(--a-amber);
+  --color-a-amber-hover: var(--a-amber-hover);
+  --color-a-red: var(--a-red);
+  --color-a-pass: var(--a-pass);
+  --color-a-warn: var(--a-warn);
+  --color-a-fail: var(--a-fail);
+
   /* Semantic + legacy aliases */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -247,6 +289,11 @@
   /* Kiln marketing pages: Zodiak serif display over Switzer body. */
   --font-zodiak: var(--font-zodiak-v), "Zodiak", Georgia, "Times New Roman", serif;
   --font-switzer: var(--font-switzer-v), "Switzer", var(--font-sans);
+  /* Aurora marketing pages. */
+  --font-bricolage: var(--font-bricolage-v), "Bricolage Grotesque", var(--font-display);
+  --font-instrument: var(--font-instrument-v), "Instrument Serif", Georgia, serif;
+  --font-geist: var(--font-geist-v), "Geist", var(--font-sans);
+  --font-geist-mono: var(--font-geist-mono-v), "Geist Mono", var(--font-mono);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -396,193 +443,419 @@ p {
   animation: route-enter 0.5s var(--ease-out-expo);
 }
 
+/* Curtain between marketing pages (template.tsx): the dark layer lifts
+   first, then the amber one, revealing the new page underneath. */
+.route-curtain span {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  pointer-events: none;
+  animation: route-curtain 0.8s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+.route-curtain span:first-child {
+  background: linear-gradient(180deg, #ffb020, #ff5a1f);
+  animation-delay: 0.12s;
+}
+.route-curtain span:last-child {
+  background: #0b0907;
+  z-index: 191;
+  animation-duration: 0.7s;
+}
+@keyframes route-curtain {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
 /* ─────────────────────────────────────────────────────────────
-   Kiln — marketing-site design language
-   Warm bone canvas, deep coal bands, Zodiak serif display over a
-   Switzer body, one fired vermilion for actions and butter yellow
-   as the second highlight. Used by the home, sector, packages,
-   audit and accessibility routes via `.kiln-root`, so Porcelain
-   case-study pages and the demo sites are untouched.
+   Aurora: the marketing-site design language
+   A warm near-black canvas lit by a live WebGL shader of slow,
+   molten light (ember, orange, amber, gold), glass surfaces,
+   Bricolage Grotesque display type with Instrument Serif italics for
+   emphasis, a Geist body and one amber action colour. Scoped to `.aurora-root`, so the case-study pages and the
+   demo sites are untouched. Every text pairing is checked against
+   WCAG 2.2 AA on --a-void and --a-night.
    ───────────────────────────────────────────────────────────── */
 
-/* Canvas chrome (overscroll, scrollbars) while a Kiln page is
-   mounted. The footer is coal, so overscroll past the bottom is
-   coal too. */
-html:has(.kiln-root) {
-  background: var(--k-coal);
-}
-html:has(.kiln-root)::-webkit-scrollbar-track {
-  background: var(--k-bone);
-}
-html:has(.kiln-root)::-webkit-scrollbar-thumb {
-  background: #cdc6ba;
-  border-color: var(--k-bone);
-}
-html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
-  background: var(--k-muted);
+@property --a-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
-.kiln-root {
-  font-family: var(--font-switzer);
-  letter-spacing: 0;
-  font-feature-settings: "ss01", "cv01";
+html:has(.aurora-root) {
+  background: var(--a-void);
+  color-scheme: dark;
 }
-.kiln-root ::selection {
-  background: var(--k-fire);
-  color: var(--k-bone);
+html:has(.aurora-root)::-webkit-scrollbar-track {
+  background: var(--a-void);
 }
-.kiln-root :focus-visible {
-  outline: 2px solid var(--k-fire);
+html:has(.aurora-root)::-webkit-scrollbar-thumb {
+  background: #262a3b;
+  border-color: var(--a-void);
+}
+html:has(.aurora-root) body {
+  background: var(--a-void);
+}
+
+.aurora-root {
+  position: relative;
+  isolation: isolate;
+  background: var(--a-void);
+  color: var(--a-ink);
+  font-family: var(--font-geist);
+  letter-spacing: -0.006em;
+  font-feature-settings: "ss01", "cv11";
+}
+.aurora-root ::selection {
+  background: var(--a-amber);
+  color: var(--a-void);
+}
+.aurora-root :focus-visible {
+  outline: 2px solid var(--a-amber);
   outline-offset: 3px;
+  border-radius: 10px;
 }
-.kiln-root .on-coal :focus-visible,
-.kiln-root.on-coal :focus-visible {
-  outline-color: var(--k-fire-lite);
+body:has(.aurora-root) > a[href="#main"]:focus {
+  background: var(--a-amber);
+  color: var(--a-void);
 }
 
-/* Display type. Zodiak is drawn for large sizes: regular weight,
-   tight tracking, line-height close to 1. Emphasis is italic, not
-   bold. */
-.k-display {
-  font-family: var(--font-zodiak);
-  font-weight: 400;
-  letter-spacing: -0.022em;
-  line-height: 1.02;
+/* Display type: tight, heavy grotesque; emphasis switches to a
+   gradient-lit serif italic. */
+.a-display {
+  font-family: var(--font-bricolage);
+  font-weight: 640;
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.045em;
+  line-height: 0.96;
   text-wrap: balance;
-  font-feature-settings: "kern", "liga";
 }
-.k-display em,
-.k-display i {
+.a-display em,
+.a-display i {
+  font-family: var(--font-instrument);
   font-style: italic;
   font-weight: 400;
+  letter-spacing: -0.01em;
+  padding-right: 0.06em;
+  background: var(--a-grad);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: a-grad-pan 9s ease-in-out infinite alternate;
+}
+@keyframes a-grad-pan {
+  to {
+    background-position: 100% 0;
+  }
 }
 
-/* Tiny tracked label used as a section opener. */
-.k-eyebrow {
-  font-size: 11px;
+.a-grad-text {
+  background: var(--a-grad);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: a-grad-pan 9s ease-in-out infinite alternate;
+}
+
+/* Mono label with a glowing dot, used as a section opener. */
+.a-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-geist-mono);
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  color: var(--a-ink-soft);
+}
+.a-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--a-amber);
+  box-shadow: 0 0 12px 2px rgba(255, 176, 32, 0.6);
 }
 
-/* Dark floating chrome (nav pill, menu sheet). Saturated blur with
-   a solid fallback under reduced transparency. */
-.k-frost {
-  background: rgba(20, 18, 16, 0.86);
-  backdrop-filter: blur(18px) saturate(150%);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
+.a-mono {
+  font-family: var(--font-geist-mono);
 }
-.k-frost-light {
-  background: rgba(243, 240, 234, 0.86);
-  backdrop-filter: blur(18px) saturate(150%);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
+
+/* Glass surface: translucent fill, hairline border, top highlight. */
+.a-glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+  border: 1px solid var(--a-line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 80px -40px rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
 }
 @media (prefers-reduced-transparency: reduce) {
-  .k-frost {
-    backdrop-filter: none;
+  .a-glass {
+    background: var(--a-deep);
     -webkit-backdrop-filter: none;
-    background: var(--k-coal);
-  }
-  .k-frost-light {
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: var(--k-bone);
   }
 }
 
-/* Concave edges — the signature Melius-style cut where a light
-   panel bows into a photograph. Applied to the image container; the
-   mask carves an ellipse out of the named edge. */
-.k-bite-top {
-  -webkit-mask-image: radial-gradient(
-    ellipse 62% 34% at 50% -8%,
-    transparent 99%,
-    #000 100%
-  );
-  mask-image: radial-gradient(ellipse 62% 34% at 50% -8%, transparent 99%, #000 100%);
+/* Spotlight surface: a radial glow and a gradient rim follow the
+   pointer (--mx / --my set by <SpotlightTracker />). */
+.a-spot {
+  position: relative;
+  isolation: isolate;
+  --mx: 50%;
+  --my: -20%;
 }
-.k-bite-bottom {
-  -webkit-mask-image: radial-gradient(
-    ellipse 62% 34% at 50% 108%,
-    transparent 99%,
-    #000 100%
-  );
-  mask-image: radial-gradient(ellipse 62% 34% at 50% 108%, transparent 99%, #000 100%);
+.a-spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(520px circle at var(--mx) var(--my), rgba(255, 122, 26, 0.16), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
 }
-.k-bite-both {
-  -webkit-mask-image:
-    radial-gradient(ellipse 62% 34% at 50% -8%, transparent 99%, #000 100%),
-    radial-gradient(ellipse 62% 34% at 50% 108%, transparent 99%, #000 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    radial-gradient(ellipse 62% 34% at 50% -8%, transparent 99%, #000 100%),
-    radial-gradient(ellipse 62% 34% at 50% 108%, transparent 99%, #000 100%);
-  mask-composite: intersect;
+.a-spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(360px circle at var(--mx) var(--my), rgba(255, 176, 32, 0.75), rgba(255, 194, 74, 0.4) 30%, transparent 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
 }
-
-/* Perspective context for the hero strip; panels keep a light yaw. */
-.k-fan {
-  perspective: 1400px;
-  perspective-origin: 50% 50%;
-}
-.k-fan li {
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-}
-
-/* Soft edge fade so the continuous slider dissolves at the sides.
-   Applied to the padded .k-fan box (not the track): a mask clips to its
-   own border-box, so the arch's sunk and tilted cards must sit inside
-   the masked element's padding to stay visible. */
-.k-fan-mask {
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
+.a-spot:hover::before,
+.a-spot:hover::after,
+.a-spot:focus-within::before,
+.a-spot:focus-within::after {
+  opacity: 1;
 }
 
-/* Pause the loop when the visitor is interacting with a card. */
-.k-fan-track:hover,
-.k-fan-track:focus-within {
+/* Rotating conic rim for the one featured card. */
+.a-conic {
+  position: relative;
+  isolation: isolate;
+  box-shadow: 0 40px 120px -40px rgba(255, 122, 26, 0.55), 0 0 60px -30px rgba(255, 176, 32, 0.4);
+}
+.a-conic::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from var(--a-angle), #ff7a1a, #e8401f, #ffc24a, #ffb020, #ff5a36, #ff7a1a);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: a-spin 6s linear infinite;
+}
+@keyframes a-spin {
+  to {
+    --a-angle: 360deg;
+  }
+}
+
+/* Film grain over everything: an SVG turbulence tile. */
+.a-grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: a-grain 1.2s steps(6) infinite;
+}
+@keyframes a-grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -4%); }
+  60% { transform: translate(-4%, -1%); }
+  80% { transform: translate(3%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Faint perspective grid that fades out from the centre. */
+.a-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
+}
+
+/* The CSS aurora: blurred drifting blobs. It is the fallback when
+   WebGL is unavailable and the base layer the shader fades over. */
+.a-blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.a-blobs {
+  transition: opacity 1.6s ease;
+}
+/* The blobs are the fallback: once the shader has drawn, they bow out
+   so the canvas lights a true black. */
+[data-shader="ready"] > .a-blobs {
+  opacity: 0 !important;
+}
+.a-blobs span {
+  position: absolute;
+  width: 55vmax;
+  height: 55vmax;
+  border-radius: 999px;
+  filter: blur(90px);
+  opacity: 0.2;
+  mix-blend-mode: screen;
+  animation: a-drift 22s ease-in-out infinite alternate;
+}
+.a-blobs span:nth-child(1) { left: -10%; top: -25%; background: #9a3412; }
+.a-blobs span:nth-child(2) { right: -15%; top: -10%; background: #b45309; animation-duration: 26s; animation-delay: -6s; }
+.a-blobs span:nth-child(3) { left: 25%; bottom: -35%; background: #ff5a1f; opacity: 0.3; animation-duration: 30s; animation-delay: -12s; }
+@keyframes a-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(8vw, 6vh, 0) scale(1.15); }
+  100% { transform: translate3d(-6vw, 10vh, 0) scale(0.9); }
+}
+
+/* Word-by-word headline reveal. Words rise out of a clipped line and
+   de-blur, staggered by --i. Pure CSS so the SSR output is final. */
+.a-words .a-w {
+  display: inline-block;
+  overflow: clip;
+  overflow-clip-margin: 0.2em;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.a-words .a-w > span {
+  display: inline-block;
+  animation: a-word-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms + var(--d, 0ms));
+}
+@keyframes a-word-in {
+  from {
+    transform: translateY(105%) rotate(4deg);
+    filter: blur(8px);
+    opacity: 0;
+  }
+}
+
+/* Fade-and-rise used by above-the-fold copy that must be visible
+   without JavaScript. */
+.a-fade-up {
+  animation: a-fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes a-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(6px);
+  }
+}
+
+/* Marquee rows with soft edges. */
+.a-marquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.a-marquee-track {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+.a-marquee:hover .a-marquee-track,
+.a-marquee:focus-within .a-marquee-track {
   animation-play-state: paused;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .k-fan-track {
-    animation: none !important;
-  }
+/* Primary button: a light sweep crosses it on hover. */
+.a-shine {
+  position: relative;
+  overflow: hidden;
+}
+.a-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%) skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.a-shine:hover::after {
+  transform: translateX(120%) skewX(-20deg);
 }
 
-/* Marquee ticker on bone: fades the ends so the loop has no seam. */
-.k-ticker {
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+/* Audit bar: a live gradient ring blooms when the field has focus. */
+.a-field-ring {
+  position: relative;
+  isolation: isolate;
+}
+.a-field-ring::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(from var(--a-angle), #ff7a1a, #ffc24a, #ffb020, #ff5a36, #ff7a1a);
+  animation: a-spin 5s linear infinite;
+  opacity: 0.55;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.a-field-ring:focus-within::before {
+  opacity: 1;
+  filter: drop-shadow(0 0 18px rgba(255, 122, 26, 0.55));
+}
+.a-field-ring:focus-within {
+  outline: 2px solid var(--a-amber);
+  outline-offset: 4px;
+}
+.a-field-ring input:focus-visible {
+  outline: none;
 }
 
-/* Horizontal tab chips on phone: soft edge fades so scroll is obvious. */
-.k-tabs-scroll {
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 92%, transparent);
+/* Horizontal tab chips on phone: fade the ends so scroll is obvious. */
+.a-tabs-scroll {
+  -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent);
+  mask-image: linear-gradient(90deg, #000 85%, transparent);
 }
 @media (min-width: 768px) {
-  .k-tabs-scroll {
+  .a-tabs-scroll {
     -webkit-mask-image: none;
     mask-image: none;
   }
 }
 
-/* Fine dotted grid used behind coal bands (pricing, audit). */
-.k-dots {
-  background-image: radial-gradient(rgba(243, 240, 234, 0.1) 1px, transparent 1.5px);
-  background-size: 22px 22px;
+/* Giant footer wordmark, lit from below. */
+.a-wordmark {
+  font-family: var(--font-bricolage);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.8;
+  background: linear-gradient(180deg, rgba(248, 241, 231, 0.92) 0%, rgba(255, 138, 42, 0.55) 55%, rgba(255, 90, 31, 0.04) 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-/* Hairline dividers inside definition lists on bone / coal. */
-.k-rule {
-  border-color: var(--k-line);
-}
-.on-coal .k-rule {
-  border-color: var(--k-coal-line);
+/* Hairline rows on night. */
+.a-rule > * + * {
+  border-top: 1px solid var(--a-line);
 }
 
 /* Audit report: the score dial's arc draws in on load. */
@@ -592,16 +865,55 @@ html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
   }
 }
 .k-dial-arc {
-  animation: k-dial-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: k-dial-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* Printed audit report typography (the document keeps its light,
+   paper-first look: see PrintReport.tsx). */
+.k-pdf {
+  font-family: var(--font-switzer);
+}
+.k-pdf .k-display {
+  font-family: var(--font-zodiak);
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+.k-pdf .k-display em {
+  font-style: italic;
+}
+.k-pdf .k-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .a-grain,
+  .a-blobs span,
+  .a-display em,
+  .a-grad-text,
+  .a-conic::before,
+  .a-field-ring::before,
+  .a-marquee-track,
   .k-dial-arc {
-    animation: none;
+    animation: none !important;
+  }
+  .a-words .a-w > span,
+  .a-fade-up,
+  .a-reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
   }
 }
 
+
 /* ─────────────────────────────────────────────────────────────
-   Printed audit report (kiln/audit/print/PrintReport.tsx).
+   Printed audit report (aurora/audit/print/PrintReport.tsx).
 
    On screen the document is hidden and the interactive report shows;
    in print they swap. Chrome and Firefox honour the zero @page margin,
@@ -626,13 +938,17 @@ html:has(.kiln-root)::-webkit-scrollbar-thumb:hover {
   body {
     background: var(--k-bone) !important;
   }
-  .kiln-root > header,
-  .kiln-root > footer,
+  .aurora-root > header,
+  .aurora-root > footer,
+  .aurora-root > .a-grain,
+  .aurora-root > [data-aurora-fx],
   .k-screen {
     display: none !important;
   }
-  .kiln-root {
+  .aurora-root {
     min-height: 0;
+    background: var(--k-bone) !important;
+    color: var(--k-ink);
   }
   .k-pdf {
     display: block;
@@ -927,8 +1243,9 @@ body:has(.demo-physio-root) > a[href="#main"]:focus {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .route-enter { animation: none; }
+  .route-curtain { display: none; }
   /* Stable SSR styles; reduced-motion content is visible before hydration. */
-  .k-rise, .k-nav-enter { opacity: 1 !important; transform: none !important; }
+  .a-reveal { opacity: 1 !important; transform: none !important; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

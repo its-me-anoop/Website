@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { LazyMotion } from "framer-motion";
 
@@ -27,9 +28,23 @@ const loadFeatures = () =>
  * Demo routes (`/demo/…`) opt out entirely: they showcase static-first
  * builds, so they render without the motion wrapper — content is visible
  * before hydration and the motion feature chunk never loads there.
+ *
+ * In-app navigations also get a curtain: a dark panel and an amber panel
+ * lift away in turn to reveal the new page. It never plays on the first
+ * load (the server render and hydration always omit it), so it cannot
+ * delay first paint, and CSS removes it for reduced motion.
  */
+
+/** Client-only: flips once the first page has mounted. */
+let hasMounted = false;
 export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const [curtain] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const show = hasMounted;
+    hasMounted = true;
+    return show;
+  });
 
   if (pathname?.startsWith("/demo")) {
     return children;
@@ -39,6 +54,12 @@ export default function Template({ children }: { children: React.ReactNode }) {
     <LazyMotion features={loadFeatures} strict>
       {/* Keep the SSR tree stable; CSS disables the reveal for reduced motion. */}
       <div className="route-enter">{children}</div>
+      {curtain ? (
+        <div aria-hidden="true" className="route-curtain">
+          <span />
+          <span />
+        </div>
+      ) : null}
     </LazyMotion>
   );
 }

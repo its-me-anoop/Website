@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { packagesFaq } from "@/components/kiln/data";
-import { PackagesPage } from "@/components/kiln/packages/PackagesPage";
+import { packagesFaq } from "@/lib/marketing/content";
+import { PackagesPage } from "@/components/aurora/pages/PackagesPage";
 
 const description =
   "Website packages for GP practices and care homes. Essentials from £995 plus VAT with year-one hosting. Standard from £1,490 plus £49 a month. Partnership quoted after a short call.";
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f3f0ea",
-  colorScheme: "light",
+  themeColor: "#05060b",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };

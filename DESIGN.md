@@ -2,15 +2,16 @@
 
 Six scoped design systems coexist. Never leak tokens across scopes.
 
-## 1. Kiln (marketing: home, sector pages, packages, audit, accessibility)
+## 1. Aurora (marketing: home, sectors, packages, Clear Path, audit, booking, accessibility)
 
-See docs/KILN.md. Warm bone canvas `#f3f0ea`, deep coal bands `#141210`,
-Zodiak serif display (italic for emphasis) over Switzer body, **vermilion
-`#bf3a15` as the only action colour**, butter yellow as the quiet second
-highlight. Floating pill nav, audit bar as the hero action, curved section
-joins, editorial rows over cards. Motion: shared `EASE` curve, `Rise`
-entrances, reduced-motion fallbacks. `.kiln-root` scope, `.on-coal` for dark
-bands.
+See docs/AURORA.md. Night canvas `#05060b` lit by a live WebGL aurora,
+glass surfaces, Bricolage Grotesque display with gradient-lit Instrument
+Serif italics for emphasis, Geist body, Geist Mono labels, **acid lime
+`#d4ff4f` as the only action colour**. Floating glass capsule nav, audit bar
+as the hero action, spotlight and conic-rim cards. Motion: shared `EASE`
+curve, `Reveal` entrances, `SplitWords` headlines, reduced-motion fallbacks
+everywhere. `.aurora-root` scope. The printed audit report alone keeps the
+old light bone/coal `--k-*` tokens, because it is paper.
 
 ## 2. Porcelain (case studies `/projects/*`)
 
