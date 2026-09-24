@@ -1,6 +1,6 @@
 # Instant website audit
 
-The audit bar on every Aurora page submits a native GET form to
+The audit bar on every Signal page submits a native GET form to
 `/audit?url=…`. That page calls `GET /api/audit`, which fetches the
 site server-side, runs the check modules and returns a scored report.
 The page then renders the report with a sales section keyed to the
@@ -120,11 +120,11 @@ see, and `perf-client-rendered` explains the trade-off.
 ## The PDF
 
 "Save as PDF" in the report header calls `window.print()`. What prints
-is not the web page but `aurora/audit/print/PrintReport.tsx`, a designed
+is not the web page but `signal/audit/print/PrintReport.tsx`, a designed
 A4 document rendered next to the interactive report and swapped in by
 `@media print` (`.k-screen` hides, `.k-pdf` shows). It shares the same
 light bone-and-coal tokens and fonts (via `print/print-parts.tsx`), so
-it reads as paper while the on-screen report runs Aurora:
+it reads as paper while the on-screen report runs Signal:
 
 1. **Cover** (coal, full bleed): host, title, platform tags, a bone card
    with the score dial, grade, verdict and facts strip, and the seven

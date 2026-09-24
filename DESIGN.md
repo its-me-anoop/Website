@@ -2,15 +2,14 @@
 
 Six scoped design systems coexist. Never leak tokens across scopes.
 
-## 1. Aurora (marketing: home, sectors, packages, Clear Path, audit, booking, accessibility)
+## 1. Signal (marketing: home, sectors, packages, Clear Path, audit, booking, accessibility)
 
-See docs/AURORA.md. Night canvas `#05060b` lit by a live WebGL aurora,
-glass surfaces, Bricolage Grotesque display with gradient-lit Instrument
-Serif italics for emphasis, Geist body, Geist Mono labels, **acid lime
-`#d4ff4f` as the only action colour**. Floating glass capsule nav, audit bar
-as the hero action, spotlight and conic-rim cards. Motion: shared `EASE`
-curve, `Reveal` entrances, `SplitWords` headlines, reduced-motion fallbacks
-everywhere. `.aurora-root` scope. The printed audit report alone keeps the
+See docs/SIGNAL.md. Ink `#0f0f0e` and warm paper `#f2f0eb` bands,
+**signal yellow `#ffd23f` as the only accent**, which is also the focus
+ring. Archivo headlines (condensed via the width axis), Atkinson
+Hyperlegible Next body. Emphasis is a highlighter stroke. No gradients,
+glass, glows or decorative icons. Signature effects: the vision lens and
+live sample sites. `.signal-root` scope. The printed audit report alone keeps the
 old light bone/coal `--k-*` tokens, because it is paper.
 
 ## 2. Porcelain (case studies `/projects/*`)

@@ -3,8 +3,8 @@
 The visual language of the **case-study pages** (`/projects/*`): a
 **light, Apple-inspired, whitespace-first** system. This is the
 reference for building product sub-pages so they stay coherent. The
-marketing pages run their own night-canvas language — see
-["Aurora"](./AURORA.md).
+marketing pages run their own ink-and-paper language — see
+["Signal"](./SIGNAL.md).
 
 > TL;DR — white canvas with `#f5f5f7` bands, a disciplined ink ramp, hairline
 > rules, **one** Apple-blue accent, soft diffuse shadows, SF-style system
