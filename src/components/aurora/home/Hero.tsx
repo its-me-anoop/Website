@@ -26,7 +26,10 @@ const facts = [
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const motion = useMotionAllowed();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
   const y = useTransform(scrollYProgress, [0, 1], [0, 160]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
@@ -41,11 +44,6 @@ export function Hero() {
         <AuroraCanvas reduced={!motion} />
         <Embers enabled={motion} />
         <div className="a-grid absolute inset-0 [transform:perspective(800px)_rotateX(55deg)_translateY(18%)_scale(1.6)] [transform-origin:50%_100%]" />
-        {/* Scrim: keeps body copy on the brightest curtains above 4.5:1. */}
-        <div
-          className="absolute inset-0"
-          style={{ background: "radial-gradient(ellipse 48% 42% at 50% 55%, rgba(11,9,7,0.62), transparent 100%)" }}
-        />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-a-void" />
       </div>
 
@@ -53,43 +51,48 @@ export function Hero() {
         style={motion ? { y, opacity } : undefined}
         className="mx-auto flex w-full max-w-[1320px] flex-1 flex-col items-center justify-center px-5 pb-12 pt-28 text-center sm:px-8 sm:pt-32"
       >
-        <Link
-          href="/leaving-msw"
-          className="a-fade-up a-glass group inline-flex items-center gap-3 rounded-full py-1.5 pl-1.5 pr-4 text-[13.5px] text-a-ink-soft transition-colors hover:text-a-ink"
-        >
-          <span className="a-mono rounded-full bg-a-amber px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-a-void">
-            New
-          </span>
-          <span>
-            Leaving My Surgery Website?<span className="sr-only sm:not-sr-only"> Meet Clear Path</span>
-          </span>
-          <ArrowRight size={14} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
-        </Link>
+        {/* Reading plate: the copy stays AA over the brightest flames. */}
+        <div className="relative isolate flex w-full flex-col items-center">
+          <div aria-hidden className="a-scrim" />
+          <Link
+            href="/leaving-msw"
+            className="a-fade-up a-glass group inline-flex items-center gap-3 rounded-full py-1.5 pl-1.5 pr-4 text-[13.5px] text-a-ink-soft transition-colors hover:text-a-ink"
+          >
+            <span className="a-mono rounded-full bg-a-amber px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-a-void">
+              New
+            </span>
+            <span>
+              Leaving My Surgery Website?
+              <span className="sr-only sm:not-sr-only"> Meet Clear Path</span>
+            </span>
+            <ArrowRight size={14} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
+          </Link>
 
-        <Display as="h1" size="hero" split delay={0} className="mt-8 max-w-[16ch]">
-          Healthcare websites, <em>beautifully</em> built.
-        </Display>
+          <Display as="h1" size="hero" split delay={0} className="mt-8 max-w-[16ch]">
+            Healthcare websites, <em>beautifully</em> built.
+          </Display>
 
-        <p
-          className="a-fade-up mx-auto mt-8 max-w-[640px] text-[17px] leading-[1.65] text-a-ink-soft sm:text-[19px]"
-          style={{ ["--d" as string]: "250ms" }}
-        >
-          Flutterly designs and builds websites for GP practices, care homes and clinics. Custom-coded in
-          Reading, accessible to WCAG 2.2 AA, and looked after by the person who built them.
-        </p>
+          <p
+            className="a-fade-up mx-auto mt-8 max-w-[640px] text-[17px] leading-[1.65] text-a-ink-soft sm:text-[19px]"
+            style={{ ["--d" as string]: "250ms" }}
+          >
+            Flutterly designs and builds websites for GP practices, care homes and clinics. Custom-coded in Reading,
+            accessible to WCAG 2.2 AA, and looked after by the person who built them.
+          </p>
 
-        <div
-          className="a-fade-up mt-10 flex w-full flex-col items-center gap-5"
-          style={{ ["--d" as string]: "320ms" }}
-        >
-          <AuditBar align="center" />
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <ButtonLink href="/book" tone="glass" size="sm" arrow="right" magnetic>
-              Book a call
-            </ButtonLink>
-            <ButtonLink href="#services" tone="ghost" size="sm">
-              Explore the sample sites
-            </ButtonLink>
+          <div
+            className="a-fade-up mt-10 flex w-full flex-col items-center gap-5"
+            style={{ ["--d" as string]: "320ms" }}
+          >
+            <AuditBar align="center" />
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <ButtonLink href="/book" tone="glass" size="sm" arrow="right" magnetic>
+                Book a call
+              </ButtonLink>
+              <ButtonLink href="#services" tone="ghost" size="sm">
+                Explore the sample sites
+              </ButtonLink>
+            </div>
           </div>
         </div>
       </m.div>
@@ -120,7 +123,11 @@ export function Hero() {
             aria-label="Scroll to the sample sites"
             className="group flex h-24 w-24 items-center justify-center rounded-full border border-a-line-2 backdrop-blur-md"
           >
-            <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full motion-safe:animate-[spin_16s_linear_infinite]" aria-hidden>
+            <svg
+              viewBox="0 0 100 100"
+              className="absolute inset-0 h-full w-full motion-safe:animate-[spin_16s_linear_infinite]"
+              aria-hidden
+            >
               <defs>
                 <path id="hero-circle" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0" />
               </defs>
@@ -128,7 +135,11 @@ export function Hero() {
                 <textPath href="#hero-circle">Scroll · Explore · Scroll · Explore ·</textPath>
               </text>
             </svg>
-            <ArrowRight size={18} aria-hidden className="rotate-90 text-a-amber transition-transform group-hover:translate-y-1" />
+            <ArrowRight
+              size={18}
+              aria-hidden
+              className="rotate-90 text-a-amber transition-transform group-hover:translate-y-1"
+            />
           </a>
         </Magnetic>
       </div>

@@ -36,7 +36,7 @@ jobs:
       - name: Install Chromium for browser workflow
         run: npx playwright install --with-deps chromium
 
-      - name: Browser workflow (all routes, a11y anchors, interactions)
+      - name: Browser workflow and worst-case hero contrast
         run: |
           PORT=3100 npm start &
           SERVER_PID=$!
@@ -45,7 +45,8 @@ jobs:
             if curl -sf -o /dev/null http://localhost:3100/; then break; fi
             sleep 1
           done
-          BASE_URL=http://localhost:3100 npm run test:browser
+          BASE_URL=http://localhost:3100 npm run test:browser && \
+            BASE_URL=http://localhost:3100 npm run test:contrast
           status=$?
           kill $SERVER_PID 2>/dev/null || true
           exit $status

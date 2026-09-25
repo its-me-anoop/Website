@@ -584,9 +584,33 @@ body:has(.aurora-root) > a[href="#main"]:focus {
   font-family: var(--font-geist-mono);
 }
 
-/* Glass surface: translucent fill, hairline border, top highlight. */
+/* Reading plate behind text over the shader. A flat dark fill whose
+   edges feather out through two intersected masks, so the plate is
+   dense across the whole text block (not just its centre, as a radial
+   scrim would be) and the fire still shows around it. Sized so body
+   copy keeps 4.5:1 on the brightest possible shader frame
+   (scripts/hero-contrast.mjs). Static: no animation, no filter.
+   Its parent must be `isolate`: z-index -1 then sits behind that
+   block's text, not behind every positioned layer around it. */
+.a-scrim {
+  position: absolute;
+  inset: -56px -72px;
+  z-index: -1;
+  pointer-events: none;
+  background: rgba(11, 9, 7, 0.84);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 72px, #000 calc(100% - 72px), transparent),
+    linear-gradient(to bottom, transparent, #000 56px, #000 calc(100% - 56px), transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 72px, #000 calc(100% - 72px), transparent),
+    linear-gradient(to bottom, transparent, #000 56px, #000 calc(100% - 56px), transparent);
+  mask-composite: intersect;
+}
+
+/* Glass surface: a dense warm fill, hairline border, top highlight.
+   Dense enough that text on it stays readable over the shader's
+   brightest streaks; the blur softens what shows through the edges. */
 .a-glass {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+  background: linear-gradient(180deg, rgba(40, 32, 26, 0.82), rgba(22, 17, 13, 0.86));
   border: 1px solid var(--a-line);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 80px -40px rgba(0, 0, 0, 0.8);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
