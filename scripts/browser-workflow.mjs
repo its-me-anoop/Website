@@ -204,22 +204,30 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 6) note("home", `expected 6 project cards, found ${projects}`);
 
-  /* Scroll-triggered reveals must actually uncover their content: the
-     founder portrait once stayed clipped away because the in-view check
-     watched the clipped layer itself. */
-  await page.locator("#about figure").scrollIntoViewIfNeeded();
-  await page.waitForTimeout(1800);
-  const portraitClip = await page.evaluate(() => {
-    const img = document.querySelector("#about figure img");
-    let el = img;
-    while (el && el.id !== "about") {
-      const clip = getComputedStyle(el).clipPath;
-      if (clip && clip !== "none" && !/^inset\(0(px|%)?( 0(px|%)?)*\)$/.test(clip)) return clip;
-      el = el.parentElement;
+  /* The hero fingerpost: every arm is a link to a real sample-site page,
+     and each one must actually load. */
+  const arms = page.getByRole("list", { name: /signs to pages on the sample sites/i }).getByRole("link");
+  const armCount = await arms.count();
+  if (armCount !== 5) note("home", `expected 5 fingerpost arms, found ${armCount}`);
+  for (const href of await arms.evaluateAll((links) => links.map((a) => a.getAttribute("href")))) {
+    const res = await page.request.get(BASE + href);
+    if (res.status() !== 200) note("home", `fingerpost arm ${href} returned ${res.status()}`);
+  }
+
+  /* The sample directory: each tab's questions lead to pages that load. */
+  const tabCount = await tabs.count();
+  for (let i = 0; i < tabCount; i++) {
+    await tabs.nth(i).click();
+    const routes = await page
+      .getByRole("tabpanel")
+      .locator("ul a")
+      .evaluateAll((links) => links.map((a) => a.getAttribute("href")));
+    if (routes.length !== 3) note("home", `sample tab ${i + 1} lists ${routes.length} questions, expected 3`);
+    for (const href of routes) {
+      const res = await page.request.get(BASE + href);
+      if (res.status() !== 200) note("home", `directory route ${href} returned ${res.status()}`);
     }
-    return null;
-  });
-  if (portraitClip) note("home", `founder portrait is still clipped after scrolling to it (${portraitClip})`);
+  }
 
   await page.getByRole("button", { name: /open menu/i }).click();
   const menu = page.getByRole("navigation", { name: /site menu/i });

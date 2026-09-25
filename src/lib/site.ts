@@ -39,11 +39,12 @@ export const site = {
     linkedin: "https://www.linkedin.com/in/anoop-jose-0b308a296/",
   },
   /**
-   * 1200×630 social card in the warm Aurora language. The filename carries the
-   * design name so scrapers that cached the previous card (LinkedIn,
-   * Facebook, Slack) fetch the new one instead of serving the stale image.
+   * 1200×630 social card in the Wayfinder language, rendered by
+   * scripts/render-brand-assets.mjs. The filename carries the design name so
+   * scrapers that cached the previous card (LinkedIn, Facebook, Slack) fetch
+   * the new one instead of serving the stale image.
    */
-  ogImage: "/og-aurora.png",
+  ogImage: "/og-wayfinder.png",
   logo: "/flutterly-logo.png",
   /**
    * Cal.com booking. `calLink` is what the embed takes (username/event

@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { clearPath } from "@/lib/marketing/content";
-import { LeavingMswPage } from "@/components/aurora/pages/LeavingMswPage";
+import { LeavingMswPage } from "@/components/wayfinder/pages/LeavingMswPage";
 
 const title = clearPath.metaTitle;
 const description = clearPath.metaDescription;
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05060b",
-  colorScheme: "dark",
+  themeColor: "#f3f1ea",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };

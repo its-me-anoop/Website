@@ -87,13 +87,10 @@
   --signal: var(--accent);
   --signal-ink: var(--accent-ink);
 
-  /* ── "Kiln" marketing palette ───────────────────────────────────
-     The marketing routes (home, sectors, packages, audit,
-     accessibility) run a two-tone editorial language: a warm bone
-     canvas, deep coal bands, Zodiak serif display type, and one
-     fired vermilion for actions with butter yellow as the quiet
-     second highlight. Case-study pages stay on the Porcelain ramp;
-     demo sites have their own scopes further down. Every pairing
+  /* ── Printed audit report palette ("Kiln") ─────────────────────
+     A warm bone canvas with coal type and vermilion accents. Once the
+     marketing language, it now only colours the printed audit report
+     (audit/print/*), because that document is paper. Every pairing
      below is measured against WCAG 2.2 AA. */
   --k-bone: #f3f0ea; /* page canvas */
   --k-bone-2: #e9e4db; /* deeper band on bone */
@@ -122,29 +119,31 @@
   --k-ochre: #7a5200; /* warn on bone (≈6:1) */
   --k-ochre-lite: #e9b949; /* warn on coal (≈9:1) */
 
-  /* ── "Aurora" marketing palette ─────────────────────────────────
-     Warm night: a near-black canvas with a brown undertone, lit by a
-     molten shader in ember, orange, amber and gold. Amber is the one
-     action colour. The --k-* tokens above now serve only the printed
-     audit report. Pairings measured against WCAG 2.2 AA. */
-  --a-void: #0b0907; /* page canvas */
-  --a-night: #120e0b; /* alternate bands */
-  --a-deep: #1b1510; /* raised solid surfaces */
-  --a-ink: #f8f1e7; /* primary text (≈18:1 on void) */
-  --a-ink-soft: #cbbfae; /* secondary text (≈11:1) */
-  --a-muted: #9c8f7e; /* captions (≈6.2:1) */
-  --a-line: rgba(255, 236, 210, 0.1);
-  --a-line-2: rgba(255, 236, 210, 0.18);
-  --a-ember: #ff5a1f;
-  --a-orange: #ff8a2a;
-  --a-gold: #ffc24a;
-  --a-amber: #ffb020; /* the action colour; void text on it ≈11:1 */
-  --a-amber-hover: #ffc555;
-  --a-red: #d9361c;
-  --a-pass: #7ddc8f;
-  --a-warn: #ffc857;
-  --a-fail: #ff6f5e;
-  --a-grad: linear-gradient(100deg, #ffd27a 0%, #ffb020 26%, #ff8a2a 52%, #ff5a1f 78%, #ffd27a 100%);
+  /* ── "Wayfinder" marketing palette ─────────────────────────────
+     Public signage on a plaster wall: a warm paper ground, sign-black
+     ink, and one signal yellow that marks every action and every
+     "you are here". Yellow is only ever a fill (ink text on it is
+     ≈12:1) or a mark on ink; it is never text on paper. The --k-*
+     tokens above now serve only the printed audit report. Every
+     pairing is measured against WCAG 2.2 AA. */
+  --wf-paper: #f3f1ea; /* page ground */
+  --wf-paper-2: #e8e5db; /* alternate bands */
+  --wf-card: #fbfaf6; /* raised plates on paper */
+  --wf-ink: #14171b; /* text, sign panels (≈15.9:1 on paper) */
+  --wf-ink-2: #23272d; /* raised surfaces on ink */
+  --wf-ink-soft: #474c54; /* secondary text (≈7.6:1 paper, ≈6.9:1 paper-2) */
+  --wf-muted: #5d626a; /* captions (≈5.4:1 paper, ≈4.9:1 paper-2) */
+  --wf-line: rgba(20, 23, 27, 0.14);
+  --wf-line-2: rgba(20, 23, 27, 0.3);
+  --wf-sign: #ffd21a; /* the action colour; ink on it ≈12.4:1 */
+  --wf-sign-hover: #ffdc4a;
+  --wf-sign-ink: #3f3700; /* secondary text on yellow (≈8.2:1) */
+  --wf-on-ink: #f3f1ea; /* text on ink */
+  --wf-on-ink-soft: #b7bbc1; /* secondary text on ink (≈9.3:1) */
+  --wf-on-ink-line: rgba(243, 241, 234, 0.16);
+  --wf-pass: #17753f; /* status text on paper, each ≥ 4.5:1 on paper-2 */
+  --wf-warn: #8a5500;
+  --wf-fail: #b3261e;
 }
 
 /* Sipli case study: light aqua product palette */
@@ -247,23 +246,24 @@
   --color-k-ochre: var(--k-ochre);
   --color-k-ochre-lite: var(--k-ochre-lite);
 
-  --color-a-void: var(--a-void);
-  --color-a-night: var(--a-night);
-  --color-a-deep: var(--a-deep);
-  --color-a-ink: var(--a-ink);
-  --color-a-ink-soft: var(--a-ink-soft);
-  --color-a-muted: var(--a-muted);
-  --color-a-line: var(--a-line);
-  --color-a-line-2: var(--a-line-2);
-  --color-a-ember: var(--a-ember);
-  --color-a-orange: var(--a-orange);
-  --color-a-gold: var(--a-gold);
-  --color-a-amber: var(--a-amber);
-  --color-a-amber-hover: var(--a-amber-hover);
-  --color-a-red: var(--a-red);
-  --color-a-pass: var(--a-pass);
-  --color-a-warn: var(--a-warn);
-  --color-a-fail: var(--a-fail);
+  --color-wf-paper: var(--wf-paper);
+  --color-wf-paper-2: var(--wf-paper-2);
+  --color-wf-card: var(--wf-card);
+  --color-wf-ink: var(--wf-ink);
+  --color-wf-ink-2: var(--wf-ink-2);
+  --color-wf-ink-soft: var(--wf-ink-soft);
+  --color-wf-muted: var(--wf-muted);
+  --color-wf-line: var(--wf-line);
+  --color-wf-line-2: var(--wf-line-2);
+  --color-wf-sign: var(--wf-sign);
+  --color-wf-sign-hover: var(--wf-sign-hover);
+  --color-wf-sign-ink: var(--wf-sign-ink);
+  --color-wf-on-ink: var(--wf-on-ink);
+  --color-wf-on-ink-soft: var(--wf-on-ink-soft);
+  --color-wf-on-ink-line: var(--wf-on-ink-line);
+  --color-wf-pass: var(--wf-pass);
+  --color-wf-warn: var(--wf-warn);
+  --color-wf-fail: var(--wf-fail);
 
   /* Semantic + legacy aliases */
   --color-background: var(--background);
@@ -286,14 +286,12 @@
   --font-syne: var(--font-syne-v), "Syne", var(--font-display);
   --font-grotesk: var(--font-grotesk-v), "Space Grotesk", var(--font-sans);
   --font-jb: var(--font-jb-v), "JetBrains Mono", var(--font-mono);
-  /* Kiln marketing pages: Zodiak serif display over Switzer body. */
+  /* Printed audit report: Zodiak serif display over Switzer body. */
   --font-zodiak: var(--font-zodiak-v), "Zodiak", Georgia, "Times New Roman", serif;
   --font-switzer: var(--font-switzer-v), "Switzer", var(--font-sans);
-  /* Aurora marketing pages. */
-  --font-bricolage: var(--font-bricolage-v), "Bricolage Grotesque", var(--font-display);
-  --font-instrument: var(--font-instrument-v), "Instrument Serif", Georgia, serif;
-  --font-geist: var(--font-geist-v), "Geist", var(--font-sans);
-  --font-geist-mono: var(--font-geist-mono-v), "Geist Mono", var(--font-mono);
+  /* Wayfinder marketing pages: Atkinson Hyperlegible Next and Mono. */
+  --font-wf: var(--font-atkinson-v), "Atkinson Hyperlegible Next", var(--font-sans);
+  --font-wf-mono: var(--font-atkinson-mono-v), "Atkinson Hyperlegible Mono", var(--font-mono);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -321,7 +319,9 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* Not inside the Wayfinder marketing pages: their headings take their
+   type from layered classes and utilities instead. */
+:is(h1, h2, h3, h4, h5, h6):not(.wayfinder-root *) {
   font-family: var(--font-display);
   text-wrap: balance;
   letter-spacing: -0.028em;
@@ -428,427 +428,621 @@ p {
   animation: float-y 6s var(--ease-in-out) infinite;
 }
 
-/* Route enter (app/template.tsx): soft blur-and-rise on every navigation.
-   Deliberately a CSS animation with no fill mode — once it finishes the
-   wrapper carries no filter or transform, so fixed chrome (the site nav)
-   stays anchored to the viewport rather than to the page. */
-/* No opacity here: a page that first paints transparent and fades in on
-   the compositor never records a Largest Contentful Paint. */
+/* Route enter (app/template.tsx): the new page settles up a few
+   pixels. Deliberately a CSS animation with no fill mode: once it
+   finishes the wrapper carries no transform, so the sticky nav stays
+   anchored to the viewport rather than to the page. No opacity: a page
+   that first paints transparent never records a Largest Contentful
+   Paint. */
 @keyframes route-enter {
   from {
-    transform: translateY(12px);
-    filter: blur(6px);
+    transform: translateY(10px);
   }
 }
 .route-enter {
-  animation: route-enter 0.5s var(--ease-out-expo);
+  animation: route-enter 0.45s var(--ease-out-expo);
 }
 
-/* Curtain between marketing pages (template.tsx): the dark layer lifts
-   first, then the amber one, revealing the new page underneath. */
+/* Curtain between marketing pages (template.tsx): an ink panel and then
+   a signal-yellow one slide off to the right, like a sign plate pulled
+   across the view, revealing the new page underneath. */
 .route-curtain span {
   position: fixed;
   inset: 0;
   z-index: 190;
   pointer-events: none;
-  animation: route-curtain 0.8s cubic-bezier(0.76, 0, 0.24, 1) both;
+  animation: route-curtain 0.7s cubic-bezier(0.76, 0, 0.24, 1) both;
 }
 .route-curtain span:first-child {
-  background: linear-gradient(180deg, #ffb020, #ff5a1f);
-  animation-delay: 0.12s;
+  background: #ffd21a;
+  animation-delay: 0.1s;
 }
 .route-curtain span:last-child {
-  background: #0b0907;
+  background: #14171b;
   z-index: 191;
-  animation-duration: 0.7s;
+  animation-duration: 0.6s;
 }
 @keyframes route-curtain {
   from {
     clip-path: inset(0 0 0 0);
   }
   to {
-    clip-path: inset(0 0 100% 0);
+    clip-path: inset(0 0 0 100%);
   }
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Aurora: the marketing-site design language
-   A warm near-black canvas lit by a live WebGL shader of slow,
-   molten light (ember, orange, amber, gold), glass surfaces,
-   Bricolage Grotesque display type with Instrument Serif italics for
-   emphasis, a Geist body and one amber action colour. Scoped to `.aurora-root`, so the case-study pages and the
-   demo sites are untouched. Every text pairing is checked against
-   WCAG 2.2 AA on --a-void and --a-night.
+   Wayfinder: the marketing-site design language (docs/WAYFINDER.md)
+
+   The site behaves like the signage in a well-run building. Paper
+   ground, sign-black plates, one signal yellow for every action and
+   every "you are here". Arrows do the pointing. Type is Atkinson
+   Hyperlegible Next, drawn for readers with low vision, set heavy
+   and tight for display and open for reading. No glass, no glow,
+   no gradients: flat plates with crisp edges, the way real signs
+   are made. Scoped to `.wayfinder-root`, so case-study pages and the
+   demo sites are untouched.
    ───────────────────────────────────────────────────────────── */
 
-@property --a-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
+html:has(.wayfinder-root) {
+  background: var(--wf-paper);
+  scroll-padding-top: 6rem;
+}
+html:has(.wayfinder-root) body {
+  background: var(--wf-paper);
+}
+html:has(.wayfinder-root)::-webkit-scrollbar-track {
+  background: var(--wf-paper);
+}
+html:has(.wayfinder-root)::-webkit-scrollbar-thumb {
+  background: var(--wf-ink);
+  border-color: var(--wf-paper);
 }
 
-html:has(.aurora-root) {
-  background: var(--a-void);
-  color-scheme: dark;
-}
-html:has(.aurora-root)::-webkit-scrollbar-track {
-  background: var(--a-void);
-}
-html:has(.aurora-root)::-webkit-scrollbar-thumb {
-  background: #262a3b;
-  border-color: var(--a-void);
-}
-html:has(.aurora-root) body {
-  background: var(--a-void);
-}
-
-.aurora-root {
+.wayfinder-root {
   position: relative;
   isolation: isolate;
-  background: var(--a-void);
-  color: var(--a-ink);
-  font-family: var(--font-geist);
-  letter-spacing: -0.006em;
-  font-feature-settings: "ss01", "cv11";
+  background: var(--wf-paper);
+  color: var(--wf-ink);
+  font-family: var(--font-wf);
+  letter-spacing: -0.003em;
 }
-.aurora-root ::selection {
-  background: var(--a-amber);
-  color: var(--a-void);
+.wayfinder-root ::selection {
+  background: var(--wf-sign);
+  color: var(--wf-ink);
 }
-.aurora-root :focus-visible {
-  outline: 2px solid var(--a-amber);
-  outline-offset: 3px;
-  border-radius: 10px;
+/* Two-tone focus: a yellow inner ring and an ink outer ring, so the
+   indicator is visible on paper, on yellow and on ink alike. */
+.wayfinder-root :focus-visible {
+  outline: 3px solid var(--wf-ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--wf-sign);
+  border-radius: 4px;
 }
-body:has(.aurora-root) > a[href="#main"]:focus {
-  background: var(--a-amber);
-  color: var(--a-void);
+.wayfinder-root .wf-on-ink :focus-visible {
+  outline-color: var(--wf-sign);
+  box-shadow: 0 0 0 5px var(--wf-ink);
 }
-
-/* Display type: tight, heavy grotesque; emphasis switches to a
-   gradient-lit serif italic. */
-.a-display {
-  font-family: var(--font-bricolage);
-  font-weight: 640;
-  font-variation-settings: "opsz" 96;
-  letter-spacing: -0.045em;
-  line-height: 0.96;
-  text-wrap: balance;
-}
-.a-display em,
-.a-display i {
-  font-family: var(--font-instrument);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  padding-right: 0.06em;
-  background: var(--a-grad);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.a-grad-text {
-  background: var(--a-grad);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Mono label with a glowing dot, used as a section opener. */
-.a-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-geist-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--a-ink-soft);
-}
-.a-eyebrow::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--a-amber);
-  box-shadow: 0 0 12px 2px rgba(255, 176, 32, 0.6);
-}
-
-.a-mono {
-  font-family: var(--font-geist-mono);
-}
-
-/* Glass surface: translucent fill, hairline border, top highlight. */
-.a-glass {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
-  border: 1px solid var(--a-line);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 80px -40px rgba(0, 0, 0, 0.8);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  backdrop-filter: blur(18px) saturate(140%);
-}
-@media (prefers-reduced-transparency: reduce) {
-  .a-glass {
-    background: var(--a-deep);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-}
-
-/* Spotlight surface: a radial glow and a gradient rim follow the
-   pointer (--mx / --my set by <SpotlightTracker />). */
-.a-spot {
-  position: relative;
-  isolation: isolate;
-  --mx: 50%;
-  --my: -20%;
-}
-.a-spot::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: radial-gradient(520px circle at var(--mx) var(--my), rgba(255, 122, 26, 0.16), transparent 45%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-.a-spot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: radial-gradient(360px circle at var(--mx) var(--my), rgba(255, 176, 32, 0.75), rgba(255, 194, 74, 0.4) 30%, transparent 60%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-.a-spot:hover::before,
-.a-spot:hover::after,
-.a-spot:focus-within::before,
-.a-spot:focus-within::after {
-  opacity: 1;
-}
-
-/* Rotating conic rim for the one featured card. */
-.a-conic {
-  position: relative;
-  isolation: isolate;
-  box-shadow: 0 40px 120px -40px rgba(255, 122, 26, 0.55), 0 0 60px -30px rgba(255, 176, 32, 0.4);
-}
-.a-conic::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  z-index: -1;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: conic-gradient(from var(--a-angle), #ff7a1a, #e8401f, #ffc24a, #ffb020, #ff5a36, #ff7a1a);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-  /* Rotating a conic gradient repaints every frame, so the rim only turns
-     while someone is looking at it. */
-  animation: a-spin 6s linear infinite paused;
-}
-.a-conic:hover::before,
-.a-conic:focus-within::before {
-  animation-play-state: running;
-}
-@keyframes a-spin {
-  to {
-    --a-angle: 360deg;
-  }
-}
-
-/* Faint perspective grid that fades out from the centre. */
-.a-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
-}
-
-/* The CSS aurora: blurred drifting blobs. It is the fallback when
-   WebGL is unavailable and the base layer the shader fades over. */
-.a-blobs {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.a-blobs {
-  transition: opacity 1.6s ease;
-}
-/* The blobs are the fallback: once the shader has drawn, they bow out
-   so the canvas lights a true black. */
-[data-shader="ready"] > .a-blobs {
-  opacity: 0 !important;
-}
-.a-blobs span {
-  position: absolute;
-  width: 55vmax;
-  height: 55vmax;
-  border-radius: 999px;
-  filter: blur(90px);
-  opacity: 0.2;
-  mix-blend-mode: screen;
-  animation: a-drift 22s ease-in-out infinite alternate;
-}
-.a-blobs span:nth-child(1) { left: -10%; top: -25%; background: #9a3412; }
-.a-blobs span:nth-child(2) { right: -15%; top: -10%; background: #b45309; animation-duration: 26s; animation-delay: -6s; }
-.a-blobs span:nth-child(3) { left: 25%; bottom: -35%; background: #ff5a1f; opacity: 0.3; animation-duration: 30s; animation-delay: -12s; }
-@keyframes a-drift {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(8vw, 6vh, 0) scale(1.15); }
-  100% { transform: translate3d(-6vw, 10vh, 0) scale(0.9); }
-}
-
-/* Word-by-word headline reveal: words rise and come into focus,
-   staggered by --i. Pure CSS so the SSR output is final.
-   Hero text is never drawn transparent or clipped away at the start:
-   opacity and transform animations run on the compositor without a
-   repaint, so text that first paints invisible is never recorded as
-   the Largest Contentful Paint (and LCP goes missing entirely). */
-.a-words .a-w {
-  display: inline-block;
-  vertical-align: top;
-}
-.a-words .a-w > span {
-  display: inline-block;
-  animation: a-word-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: calc(var(--i, 0) * 45ms + var(--d, 0ms));
-}
-@keyframes a-word-in {
-  from {
-    transform: translateY(0.3em);
-    filter: blur(10px);
-  }
-}
-
-/* Rise-and-focus for above-the-fold copy; visible without JavaScript
-   and from the very first frame (see above). */
-.a-fade-up {
-  animation: a-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: var(--d, 0ms);
-}
-@keyframes a-fade-up {
-  from {
-    transform: translateY(16px);
-    filter: blur(6px);
-  }
-}
-
-/* The 3D phone drifts gently, like it is held rather than placed. */
-.a-phone-float {
-  animation: a-phone-float 7s ease-in-out infinite;
-}
-@keyframes a-phone-float {
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
-/* Marquee rows with soft edges. */
-.a-marquee {
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-}
-.a-marquee-track {
-  animation: marquee var(--marquee-duration, 40s) linear infinite;
-}
-.a-marquee:hover .a-marquee-track,
-.a-marquee:focus-within .a-marquee-track {
-  animation-play-state: paused;
-}
-
-/* Primary button: a light sweep crosses it on hover. */
-.a-shine {
-  position: relative;
-  overflow: hidden;
-}
-.a-shine::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  transform: translateX(-120%) skewX(-20deg);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-.a-shine:hover::after {
-  transform: translateX(120%) skewX(-20deg);
-}
-
-/* Audit bar: a live gradient ring blooms when the field has focus. */
-.a-field-ring {
-  position: relative;
-  isolation: isolate;
-}
-.a-field-ring::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  z-index: -1;
-  border-radius: inherit;
-  background: conic-gradient(from var(--a-angle), #ff7a1a, #ffc24a, #ffb020, #ff5a36, #ff7a1a);
-  animation: a-spin 5s linear infinite paused;
-  opacity: 0.55;
-  transition: opacity 0.3s ease, filter 0.3s ease;
-}
-.a-field-ring:hover::before,
-.a-field-ring:focus-within::before {
-  animation-play-state: running;
-}
-.a-field-ring:focus-within::before {
-  opacity: 1;
-  filter: drop-shadow(0 0 18px rgba(255, 122, 26, 0.55));
-}
-.a-field-ring:focus-within {
-  outline: 2px solid var(--a-amber);
-  outline-offset: 4px;
-}
-.a-field-ring input:focus-visible {
+/* The audit field shows focus on its whole plate (.wf-field), so the
+   input inside it does not draw a second ring. */
+.wayfinder-root .wf-field input:focus-visible {
   outline: none;
+  box-shadow: none;
+}
+body:has(.wayfinder-root) > a[href="#main"]:focus {
+  background: var(--wf-sign);
+  color: var(--wf-ink);
 }
 
-/* Horizontal tab chips on phone: fade the ends so scroll is obvious. */
-.a-tabs-scroll {
-  -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent);
-  mask-image: linear-gradient(90deg, #000 85%, transparent);
-}
-@media (min-width: 768px) {
-  .a-tabs-scroll {
-    -webkit-mask-image: none;
-    mask-image: none;
+/* Component classes live in the components layer so Tailwind utilities
+   (the utilities layer) can adjust them per use. */
+@layer components {
+  .wayfinder-root :is(h1, h2, h3, h4) {
+    font-family: var(--font-wf);
+    letter-spacing: -0.02em;
+    font-weight: 800;
+    line-height: 1.05;
   }
-}
+  /* ── Type ─────────────────────────────────────────────────── */
 
-/* Giant footer wordmark, lit from below. */
-.a-wordmark {
-  font-family: var(--font-bricolage);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 0.8;
-  background: linear-gradient(180deg, rgba(248, 241, 231, 0.92) 0%, rgba(255, 138, 42, 0.55) 55%, rgba(255, 90, 31, 0.04) 92%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+  .wf-display {
+    font-family: var(--font-wf);
+    font-weight: 800;
+    letter-spacing: -0.034em;
+    line-height: 0.96;
+    text-wrap: balance;
+  }
+  .wf-mono {
+    font-family: var(--font-wf-mono);
+  }
+  /* Sign label: the small mono caps that name a plate. */
+  .wf-label {
+    font-family: var(--font-wf-mono);
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+  /* Secondary copy that follows the surface it sits on. */
+  .wf-lead {
+    color: var(--wf-ink-soft);
+  }
+  .wf-on-ink .wf-lead {
+    color: var(--wf-on-ink-soft);
+  }
+  .wf-on-sign .wf-lead {
+    color: var(--wf-sign-ink);
+  }
 
-/* Hairline rows on night. */
-.a-rule > * + * {
-  border-top: 1px solid var(--a-line);
+  /* A signal-yellow bar under the words that matter, like the stripe
+     painted beneath a platform name. Ink text sits over it at ≈12:1.
+     On ink the words turn yellow instead (paper-on-yellow would fail). */
+  .wf-mark {
+    background: linear-gradient(transparent 60%, var(--wf-sign) 60%, var(--wf-sign) 90%, transparent 90%);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    padding: 0 0.04em;
+  }
+  .wf-on-sign .wf-mark {
+    background: linear-gradient(transparent 86%, var(--wf-ink) 86%, var(--wf-ink) 94%, transparent 94%);
+  }
+  .wf-on-ink .wf-mark {
+    background: none;
+    color: var(--wf-sign);
+    padding: 0;
+  }
+
+  /* ── Links in running text ────────────────────────────────── */
+
+  .wf-link {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--wf-line-2);
+    transition: text-decoration-color 0.2s ease, background-color 0.2s ease;
+  }
+  .wf-link:hover {
+    text-decoration-color: currentColor;
+    background-color: color-mix(in srgb, var(--wf-sign) 45%, transparent);
+  }
+  .wf-on-ink .wf-link {
+    text-decoration-color: var(--wf-on-ink-line);
+  }
+  .wf-on-ink .wf-link:hover {
+    text-decoration-color: var(--wf-sign);
+    background-color: transparent;
+    color: var(--wf-sign);
+  }
+
+  /* ── Buttons: a sign plate with the arrow in its own square ─ */
+
+  .wf-btn {
+    display: inline-flex;
+    align-items: stretch;
+    min-height: 50px;
+    border: 2px solid var(--wf-ink);
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+    text-align: left;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.12s ease;
+  }
+  .wf-btn:active {
+    transform: translateY(1px);
+  }
+  .wf-btn__label {
+    display: flex;
+    align-items: center;
+    padding: 10px 18px;
+  }
+  .wf-btn__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    flex: none;
+    border-left: 2px solid var(--wf-ink);
+    background: var(--wf-ink);
+    color: var(--wf-sign);
+    overflow: hidden;
+  }
+  .wf-btn__arrow svg {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .wf-btn:hover .wf-btn__arrow svg {
+    transform: translateX(4px);
+  }
+  .wf-btn[data-arrow="up-right"]:hover .wf-btn__arrow svg {
+    transform: translate(3px, -3px);
+  }
+  .wf-btn--sign {
+    background: var(--wf-sign);
+    color: var(--wf-ink);
+  }
+  .wf-btn--sign:hover {
+    background: var(--wf-sign-hover);
+  }
+  /* On an ink board the plate keeps its edge: a yellow rim, and the
+     arrow square on a raised ink so it does not dissolve into the board. */
+  .wf-on-ink .wf-btn--sign {
+    border-color: var(--wf-sign);
+  }
+  .wf-on-ink .wf-btn--sign .wf-btn__arrow {
+    background: var(--wf-ink-2);
+    border-left-color: var(--wf-sign);
+  }
+  .wf-btn--ink {
+    background: var(--wf-ink);
+    color: var(--wf-on-ink);
+  }
+  .wf-btn--ink .wf-btn__arrow {
+    background: var(--wf-sign);
+    color: var(--wf-ink);
+    border-left-color: var(--wf-ink);
+  }
+  .wf-btn--ink:hover {
+    background: var(--wf-ink-2);
+  }
+  .wf-btn--outline {
+    background: transparent;
+    color: var(--wf-ink);
+  }
+  .wf-btn--outline:hover {
+    background: var(--wf-card);
+  }
+  .wf-on-ink .wf-btn--outline {
+    border-color: var(--wf-on-ink);
+    color: var(--wf-on-ink);
+  }
+  .wf-on-ink .wf-btn--outline .wf-btn__arrow {
+    border-left-color: var(--wf-on-ink);
+  }
+  .wf-on-ink .wf-btn--outline:hover {
+    background: var(--wf-ink-2);
+  }
+  .wf-btn--sm {
+    min-height: 42px;
+    font-size: 15px;
+  }
+  .wf-btn--sm .wf-btn__label {
+    padding: 8px 14px;
+  }
+  .wf-btn--sm .wf-btn__arrow {
+    width: 40px;
+  }
+
+  /* Compact: the arrow square drops on the narrowest screens. */
+  @media (max-width: 639px) {
+    .wf-btn--compact .wf-btn__arrow {
+      display: none;
+    }
+  }
+
+  /* ── Plates and cards ─────────────────────────────────────── */
+
+  .wf-plate {
+    background: var(--wf-card);
+    border: 1.5px solid var(--wf-line-2);
+    border-radius: 8px;
+  }
+  .wf-board {
+    background: var(--wf-ink);
+    color: var(--wf-on-ink);
+    border-radius: 10px;
+  }
+
+  /* Kicker: the arrow square and label that open a section. */
+  .wf-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .wf-kicker__arrow {
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background: var(--wf-ink);
+    color: var(--wf-sign);
+  }
+  .wf-on-ink .wf-kicker__arrow {
+    background: var(--wf-sign);
+    color: var(--wf-ink);
+  }
+
+  /* ── The fingerpost (homepage and sector heroes) ──────────── */
+
+  .wf-post-wrap {
+    container: post / inline-size;
+  }
+  .wf-post {
+    --pole: 45%;
+    position: relative;
+    perspective: 1200px;
+  }
+  .wf-post__pole {
+    position: absolute;
+    left: var(--pole);
+    top: 14px;
+    bottom: 0;
+    width: 16px;
+    margin-left: -8px;
+    background: var(--wf-ink);
+  }
+  .wf-post__pole::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -14px;
+    width: 28px;
+    height: 16px;
+    margin-left: -14px;
+    border-radius: 14px 14px 2px 2px;
+    background: var(--wf-ink);
+  }
+  .wf-arm {
+    --tip: 26px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 72px;
+    width: fit-content;
+    max-width: calc(100% - var(--tip));
+    background: var(--wf-ink);
+    color: var(--wf-on-ink);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+  }
+  /* The plate itself carries a real background (so contrast tools and
+     forced-colour modes see ink behind the text); only the pointed tip is
+     drawn outside the box, overlapping a pixel so no seam shows. */
+  .wf-arm::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: calc(var(--tip) + 1px);
+    background: inherit;
+  }
+  .wf-arm[data-point="right"] {
+    margin-left: calc(var(--pole) - 6px);
+    padding: 12px 16px 12px 20px;
+    transform-origin: 0 50%;
+  }
+  .wf-arm[data-point="right"]::after {
+    left: calc(100% - 1px);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+  .wf-arm[data-point="left"] {
+    margin-left: auto;
+    margin-right: calc(100% - var(--pole) - 6px);
+    padding: 12px 20px 12px 16px;
+    text-align: right;
+    transform-origin: 100% 50%;
+  }
+  .wf-arm[data-point="left"]::after {
+    right: calc(100% - 1px);
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  }
+  .wf-arm[data-tone="sign"] {
+    background: var(--wf-sign);
+    color: var(--wf-ink);
+  }
+  .wf-arm__place {
+    font-family: var(--font-wf-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--wf-on-ink-soft);
+  }
+  .wf-arm[data-tone="sign"] .wf-arm__place {
+    color: var(--wf-sign-ink);
+  }
+  .wf-arm__label {
+    font-size: clamp(18px, 4.2cqi, 23px);
+    white-space: nowrap;
+    font-weight: 700;
+    letter-spacing: -0.012em;
+    line-height: 1.15;
+  }
+  .wf-arm:hover {
+    background: var(--wf-ink-2);
+  }
+  .wf-arm[data-tone="sign"]:hover {
+    background: var(--wf-sign-hover);
+  }
+  /* In a narrow column (a phone, or the hero's column on a small laptop)
+     the pole moves to the left edge and every arm points right, so each
+     label gets the full width instead of half. */
+  @container post (max-width: 519px) {
+    .wf-post {
+      --pole: 8px;
+    }
+    .wf-post__pole {
+      margin-left: 0;
+      left: 8px;
+    }
+    .wf-arm[data-point] {
+      --tip: 24px;
+      margin-left: 14px;
+      margin-right: 0;
+      padding: 11px 14px 11px 18px;
+      text-align: left;
+      transform-origin: 0 50%;
+    }
+    .wf-arm[data-point]::after {
+      left: calc(100% - 1px);
+      right: auto;
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+    }
+    .wf-arm__label {
+      font-size: clamp(18px, 5.6cqi, 22px);
+      white-space: normal;
+    }
+  }
+
+  @media (hover: hover) {
+    .wf-arm[data-point="right"]:hover {
+      transform: translateX(8px);
+    }
+    .wf-arm[data-point="left"]:hover {
+      transform: translateX(-8px);
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    /* Arms swing out from the pole on load, one after another. They are
+       never transparent, so nothing waits on them to paint. */
+    .wf-arm {
+      animation: wf-swing 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.15) backwards;
+      animation-delay: calc(var(--i, 0) * 90ms + 150ms);
+    }
+    .wf-arm[data-point="left"] {
+      animation-name: wf-swing-left;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @container post (max-width: 519px) {
+      .wf-arm[data-point="left"] {
+        animation-name: wf-swing;
+      }
+    }
+  }
+  @keyframes wf-swing {
+    from {
+      transform: rotateY(-78deg);
+    }
+  }
+  @keyframes wf-swing-left {
+    from {
+      transform: rotateY(78deg);
+    }
+  }
+
+  /* ── Directory board: questions and where they go ─────────── */
+
+  .wf-rows {
+    perspective: 900px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    /* Rows flip down like split-flap plates when the sector changes. */
+    .wf-flip {
+      transform-origin: 50% 0;
+      animation: wf-flip 0.55s cubic-bezier(0.2, 0.8, 0.25, 1) backwards;
+      animation-delay: calc(var(--i, 0) * 70ms);
+    }
+  }
+  @keyframes wf-flip {
+    from {
+      transform: rotateX(-88deg);
+    }
+  }
+
+  /* ── Route line (process) ─────────────────────────────────── */
+
+  .wf-route-fill {
+    transform-origin: 0 50%;
+  }
+  @media (max-width: 767px) {
+    .wf-route-fill {
+      transform-origin: 50% 0;
+    }
+  }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-route-fill {
+        animation: wf-route-x linear both;
+        animation-timeline: view();
+        animation-range: entry 30% cover 60%;
+      }
+      @media (max-width: 767px) {
+        .wf-route-fill {
+          animation-name: wf-route-y;
+        }
+      }
+    }
+  }
+  @keyframes wf-route-x {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes wf-route-y {
+    from {
+      transform: scaleY(0);
+    }
+  }
+
+  /* ── Scroll reveal (motion/Reveal.tsx) ────────────────────── */
+
+  /* Only elements that start below the fold ever wait, and only after
+     hydration, so content is visible without JavaScript and nothing
+     above the fold is hidden from the first paint. */
+  [data-reveal="wait"] {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  [data-reveal="in"] {
+    animation: wf-rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+  @keyframes wf-rise {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+  }
+
+  /* Hero copy settles into place; never transparent (LCP). */
+  .wf-settle {
+    animation: wf-settle 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+    animation-delay: var(--d, 0ms);
+  }
+  @keyframes wf-settle {
+    from {
+      transform: translateY(14px);
+    }
+  }
+
+  /* Horizontal tabs on phones: fade the end so the scroll is obvious. */
+  .wf-tabs-scroll {
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, #000 88%, transparent);
+  }
+  .wf-tabs-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    .wf-tabs-scroll {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+
+  /* Audit field: an ink-bordered plate; the whole plate takes focus. */
+  .wf-field:focus-within {
+    outline: 3px solid var(--wf-ink);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px var(--wf-sign);
+  }
+  .wf-on-ink .wf-field:focus-within {
+    outline-color: var(--wf-sign);
+    box-shadow: 0 0 0 6px var(--wf-ink);
+  }
+
+  /* Brand pictogram: the Flutterly wings, flattened to one colour like a
+     sign symbol by using the logo's alpha as a mask. */
+  .wf-pictogram {
+    display: inline-block;
+    background: currentColor;
+    -webkit-mask: url("/flutterly-logo.png") center / 132% no-repeat;
+    mask: url("/flutterly-logo.png") center / 132% no-repeat;
+  }
 }
 
 /* Audit report: the score dial's arc draws in on load. */
@@ -884,29 +1078,25 @@ body:has(.aurora-root) > a[href="#main"]:focus {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .a-blobs span,
-  .a-display em,
-  .a-grad-text,
-  .a-conic::before,
-  .a-field-ring::before,
-  .a-marquee-track,
-  .a-phone-float,
+  .wf-arm,
+  .wf-flip,
+  .wf-settle,
   .k-dial-arc {
     animation: none !important;
   }
-  .a-words .a-w > span,
-  .a-fade-up,
-  .a-reveal {
-    animation: none !important;
+  [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
-    filter: none !important;
+    animation: none !important;
+  }
+  .wf-arm:hover {
+    transform: none !important;
   }
 }
 
 
 /* ─────────────────────────────────────────────────────────────
-   Printed audit report (aurora/audit/print/PrintReport.tsx).
+   Printed audit report (wayfinder/audit/print/PrintReport.tsx).
 
    On screen the document is hidden and the interactive report shows;
    in print they swap. Chrome and Firefox honour the zero @page margin,
@@ -931,13 +1121,12 @@ body:has(.aurora-root) > a[href="#main"]:focus {
   body {
     background: var(--k-bone) !important;
   }
-  .aurora-root > header,
-  .aurora-root > footer,
-  .aurora-root > [data-aurora-fx],
+  .wayfinder-root > header,
+  .wayfinder-root > footer,
   .k-screen {
     display: none !important;
   }
-  .aurora-root {
+  .wayfinder-root {
     min-height: 0;
     background: var(--k-bone) !important;
     color: var(--k-ink);
@@ -1035,7 +1224,7 @@ body:has(.aurora-root) > a[href="#main"]:focus {
    Demo sites — two self-contained sample-client languages.
    These routes exist to show prospective GP practices and care
    homes a finished site, so each gets its own scope and palette
-   and deliberately does NOT reuse Kiln styling.
+   and deliberately does NOT reuse the marketing styling.
    ───────────────────────────────────────────────────────────── */
 
 /* "Willowbrook Surgery" — NHS-service-manual-inspired GP demo:
@@ -1063,7 +1252,7 @@ body:has(.aurora-root) > a[href="#main"]:focus {
   color: var(--dgp-ink);
 }
 
-/* Inside the GP demo the global skip link swaps its Kiln pill for
+/* Inside the GP demo the global skip link swaps its marketing pill for
    the NHS yellow-on-ink focus treatment. Literal values: the link is
    a sibling of .demo-gp-root, so --dgp-* tokens do not reach it. */
 body:has(.demo-gp-root) > a[href="#main"]:focus {
