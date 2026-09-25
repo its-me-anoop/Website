@@ -82,9 +82,10 @@ export function Nav() {
           >
             Free audit
           </Link>
-          {/* The arrow square drops on the narrowest phones so the action
-              still fits beside the wordmark and the menu button. */}
-          <ButtonLink href="/book" size="sm" className="wf-btn--compact whitespace-nowrap">
+          {/* The arrow square drops on phones so the action still fits
+              beside the wordmark and the menu button; below 360px the
+              action lives in the menu instead. */}
+          <ButtonLink href="/book" size="sm" className="wf-btn--compact whitespace-nowrap max-[359px]:hidden">
             Book a call
           </ButtonLink>
           <button

@@ -118,6 +118,20 @@ async function auditPage(context, route, label = route) {
           .map((figure) => `${figure.offsetWidth}px`),
         h1: document.querySelectorAll("h1").length,
         hasMain: ids.includes("main"),
+        /* iOS Safari only moves a sticky header on its fast scrolling
+           path when no ancestor clips overflow; otherwise the header is
+           repositioned on the main thread and jitters while scrolling. */
+        stickyClip: (() => {
+          const header = document.querySelector(".wayfinder-root > header");
+          if (!header || getComputedStyle(header).position !== "sticky") return [];
+          const offenders = [];
+          for (let el = header.parentElement; el && el !== document.body; el = el.parentElement) {
+            const style = getComputedStyle(el);
+            if (style.overflowX !== "visible" || style.overflowY !== "visible")
+              offenders.push(`${el.tagName.toLowerCase()}.${[...el.classList].join(".")} (${style.overflowX}/${style.overflowY})`);
+          }
+          return offenders;
+        })(),
       };
     });
 
@@ -129,6 +143,8 @@ async function auditPage(context, route, label = route) {
       note(label, `frames wider than the viewport: ${data.wideFrames.join(", ")}`);
     if (data.h1 !== 1) note(label, `expected 1 <h1>, found ${data.h1}`);
     if (!data.hasMain) note(label, "missing #main (skip-link target)");
+    if (data.stickyClip.length)
+      note(label, `sticky header sits inside overflow-clipping ancestors (jitters on iOS): ${data.stickyClip.join(", ")}`);
     if (consoleErrors.length)
       note(label, `console errors: ${consoleErrors.slice(0, 3).join(" | ")}`);
     if (pageErrors.length) note(label, `page errors: ${pageErrors.join(" | ")}`);
@@ -152,6 +168,19 @@ for (const [label, options] of [
   for (const route of ROUTES) await auditPage(context, route, `${label} ${route}`);
   await context.close();
 }
+
+/* The smallest phones in use (320px). The marketing root clips no
+   overflow (a clipping ancestor makes the sticky header jitter on iOS),
+   so nothing hides a sideways overflow: every page must fit on its own. */
+const narrow = await browser.newContext({ viewport: { width: 320, height: 640 }, isMobile: true, hasTouch: true });
+for (const route of ["/", "/gp-websites", "/care-home-websites", "/packages", "/free-audit", "/leaving-msw", "/book", "/accessibility", "/audit"]) {
+  const page = await narrow.newPage();
+  await page.goto(BASE + route, { waitUntil: "networkidle" });
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  if (overflow > 1) note(`320px ${route}`, `horizontal overflow ${overflow}px`);
+  await page.close();
+}
+await narrow.close();
 
 const mobile = await browser.newContext({ ...devices["iPhone 13"] });
 {

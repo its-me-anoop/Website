@@ -23,13 +23,13 @@ export function CtaBand({
   return (
     <section id={id} className="wf-on-sign scroll-mt-20 border-t-2 border-wf-ink bg-wf-sign text-wf-ink">
       <Container className="grid gap-12 py-20 sm:py-28 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-        <div>
+        <div className="min-w-0">
           <Heading size="lg" className="max-w-[16ch]">
             {title}
           </Heading>
           <p className="wf-lead mt-6 max-w-[48ch] text-[18px] leading-[1.6]">{copy}</p>
         </div>
-        <div className="lg:pt-3">
+        <div className="min-w-0 lg:pt-3">
           <AuditBar hint="About sixty checks, scored and explained in plain English. Nothing you enter is stored." />
           <div className="mt-10 border-t-2 border-wf-ink pt-8">
             <p className="text-[16px] font-bold">{showBooking ? "Rather talk it through?" : "Rather write?"}</p>

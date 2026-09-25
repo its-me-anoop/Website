@@ -59,7 +59,7 @@ export function AuditBar({
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}
           aria-describedby={hint ? `${id}-hint` : undefined}
-          className="min-w-0 flex-1 bg-transparent px-4 text-[17px] placeholder:text-wf-muted sm:pl-1"
+          className="w-0 min-w-0 flex-1 bg-transparent px-4 text-[17px] placeholder:text-wf-muted sm:pl-1"
         />
         <button
           type="submit"
