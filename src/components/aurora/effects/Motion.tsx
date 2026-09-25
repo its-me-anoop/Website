@@ -47,15 +47,26 @@ export function Reveal({
 
 export function WipeReveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
   const motion = useMotionAllowed();
+  /* The in-view check runs on the unclipped outer box: an element whose
+     own clip-path hides it entirely never reports as intersecting, so
+     observing the clipped layer would leave it hidden for good. */
   return (
     <m.div
-      className={cn("a-reveal", className)}
-      initial={{ clipPath: "inset(100% 0% 0% 0%)", scale: 1.06 }}
-      whileInView={{ clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
+      className={cn("relative", className)}
+      initial="hidden"
+      whileInView="shown"
       viewport={{ once: true, margin: "0px 0px -12% 0px" }}
-      transition={{ duration: motion ? 1.1 : 0, ease: [0.76, 0, 0.24, 1], delay: motion ? delay : 0 }}
     >
-      {children}
+      <m.div
+        className="a-reveal relative h-full w-full"
+        variants={{
+          hidden: { clipPath: "inset(100% 0% 0% 0%)", scale: 1.06 },
+          shown: { clipPath: "inset(0% 0% 0% 0%)", scale: 1 },
+        }}
+        transition={{ duration: motion ? 1.1 : 0, ease: [0.76, 0, 0.24, 1], delay: motion ? delay : 0 }}
+      >
+        {children}
+      </m.div>
     </m.div>
   );
 }

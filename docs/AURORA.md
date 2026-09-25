@@ -35,7 +35,7 @@ Tailwind utilities are generated as `bg-a-*`, `text-a-*`, `border-a-*`.
 - **Display**: Bricolage Grotesque (variable, weight ~640, `opsz` 96),
   tracking −0.045em, line-height 0.96 — `.a-display`.
 - **Emphasis**: `<em>` inside a display heading switches to Instrument
-  Serif italic filled with the slowly panning `--a-grad`.
+  Serif italic (the only Instrument face loaded) filled with `--a-grad`.
 - **Body**: Geist. **Labels**: Geist Mono, uppercase, tracked
   (`.a-eyebrow` adds a glowing amber dot).
 
@@ -48,8 +48,10 @@ All four are self-hosted woff2 (SIL OFL) in `src/fonts/`.
 - `.a-spot` — a radial glow and gradient rim follow the pointer. One
   delegated listener (`SpotlightTracker`) writes `--mx`/`--my`.
 - `.a-conic` — a rotating conic-gradient rim for the single featured
-  card on a page. A card takes `.a-spot` **or** `.a-conic`, never both
-  (both use `::before`/`::after`).
+  card on a page. It spins only on hover or focus: an infinite rotation
+  repaints every frame and costs mobile main-thread time for nothing.
+  A card takes `.a-spot` **or** `.a-conic`, never both (both use
+  `::before`/`::after`).
 
 ## Effects (`src/components/aurora/effects/`)
 
@@ -67,7 +69,32 @@ All four are self-hosted woff2 (SIL OFL) in `src/fonts/`.
 | Pinned horizontal work (`Work`) | Home | ≥1024px with motion; otherwise a grid. Focus scrolls the card into view |
 | Process rail (`Process`) | Home | Gradient line fills with scroll |
 | Marquee (`Marquee`) | Home ticker | Copy row is `aria-hidden`; pauses on hover/focus |
-| Cursor light, film grain, scroll progress | `Shell` | Decorative, `aria-hidden` |
+| 3D phone (`ui/Phone3D`) | Showcase, sector sample frame | CSS 3D: stacked body slabs for depth, warm metal rim, sliding glare. Swings round with scroll and leans to a fine pointer; a fixed angle for reduced motion. Screens are real 390×844 captures of the demos (`public/demos/*-mobile.webp`) |
+| Cursor light, scroll progress | `Shell` | Decorative, `aria-hidden` |
+
+### Performance rules
+
+- Canvases start late: `whenIdle()` (`effects/schedule.ts`) waits for
+  `load` plus an idle period, so the shader and embers never compete
+  with first paint or hydration.
+- Small or touch screens draw at 30fps (`targetFps` + `frameGate`), the
+  shader at 0.35 scale and embers at DPR ≤ 1.5. Embers stamp
+  pre-rendered sprites instead of building gradients per frame.
+- The shader is skipped on software WebGL (SwiftShader, llvmpipe:
+  `isSoftwareRenderer`); the CSS blobs remain. `?shader=force` overrides
+  this for screenshots.
+- Entrances never start at `opacity: 0` (hero words, `.a-fade-up`, the
+  route wrapper): text that fades in on the compositor is never counted
+  as LCP. They move and un-blur instead.
+- No infinite repaint animations (no film grain, no panning gradients).
+- `WipeReveal` observes an outer element and clips an inner one: an
+  IntersectionObserver on a fully clipped element never fires.
+- `BrowserFrame` contains its URL bar's inline size, so a long URL
+  cannot widen a grid column past the viewport. `test:browser` fails on
+  any `<figure>` wider than the viewport.
+
+Social card: `public/og-aurora.png` (1200×630), rendered from the real
+shader, logo and display type.
 
 `useMotionAllowed()` reads `prefers-reduced-motion` through
 `useSyncExternalStore` with a `false` server snapshot, so SSR and

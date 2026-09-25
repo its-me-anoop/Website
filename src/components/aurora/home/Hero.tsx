@@ -60,17 +60,19 @@ export function Hero() {
           <span className="a-mono rounded-full bg-a-amber px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-a-void">
             New
           </span>
-          Leaving My Surgery Website? Meet Clear Path
+          <span>
+            Leaving My Surgery Website?<span className="sr-only sm:not-sr-only"> Meet Clear Path</span>
+          </span>
           <ArrowRight size={14} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
         </Link>
 
-        <Display as="h1" size="hero" split delay={150} className="mt-8 max-w-[16ch]">
+        <Display as="h1" size="hero" split delay={0} className="mt-8 max-w-[16ch]">
           Healthcare websites, <em>beautifully</em> built.
         </Display>
 
         <p
           className="a-fade-up mx-auto mt-8 max-w-[640px] text-[17px] leading-[1.65] text-a-ink-soft sm:text-[19px]"
-          style={{ ["--d" as string]: "650ms" }}
+          style={{ ["--d" as string]: "250ms" }}
         >
           Flutterly designs and builds websites for GP practices, care homes and clinics. Custom-coded in
           Reading, accessible to WCAG 2.2 AA, and looked after by the person who built them.
@@ -78,7 +80,7 @@ export function Hero() {
 
         <div
           className="a-fade-up mt-10 flex w-full flex-col items-center gap-5"
-          style={{ ["--d" as string]: "800ms" }}
+          style={{ ["--d" as string]: "320ms" }}
         >
           <AuditBar align="center" />
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -94,7 +96,7 @@ export function Hero() {
 
       <div
         className="a-fade-up relative mx-auto w-full max-w-[1320px] px-5 pb-8 sm:px-8"
-        style={{ ["--d" as string]: "1000ms" }}
+        style={{ ["--d" as string]: "420ms" }}
       >
         <dl className="a-glass grid grid-cols-2 overflow-hidden rounded-[24px] lg:grid-cols-4">
           {facts.map((fact, i) => (

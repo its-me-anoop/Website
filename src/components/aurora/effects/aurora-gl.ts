@@ -127,3 +127,13 @@ export function easePointer(current: Point, target: Point, factor: number): Poin
     y: current.y + (target.y - current.y) * factor,
   };
 }
+
+/**
+ * True for WebGL implementations that run on the CPU (SwiftShader,
+ * llvmpipe, Microsoft's basic driver). The shader is decoration, so on
+ * those it is skipped and the CSS glow stays instead of taxing the
+ * main thread.
+ */
+export function isSoftwareRenderer(renderer: string): boolean {
+  return /swiftshader|llvmpipe|softpipe|software|basic render driver/i.test(renderer);
+}

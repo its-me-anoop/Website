@@ -39,11 +39,11 @@ export const site = {
     linkedin: "https://www.linkedin.com/in/anoop-jose-0b308a296/",
   },
   /**
-   * 1200×630 social card in the Kiln language. The filename carries the
+   * 1200×630 social card in the warm Aurora language. The filename carries the
    * design name so scrapers that cached the previous card (LinkedIn,
    * Facebook, Slack) fetch the new one instead of serving the stale image.
    */
-  ogImage: "/og-kiln.png",
+  ogImage: "/og-aurora.png",
   logo: "/flutterly-logo.png",
   /**
    * Cal.com booking. `calLink` is what the embed takes (username/event
