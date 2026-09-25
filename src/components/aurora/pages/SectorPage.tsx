@@ -17,6 +17,7 @@ import {
   FaqList,
   SectionIntro,
 } from "../ui/primitives";
+import { Phone3D } from "../ui/Phone3D";
 
 /**
  * Shared landing page for the GP-practice and care-home sectors, driven
@@ -126,6 +127,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
               </ButtonLink>
             </Reveal>
           </div>
+          <div className="relative min-w-0 pb-16 lg:pb-8">
           <WipeReveal delay={0.1}>
             <Tilt max={6}>
               <a
@@ -140,10 +142,15 @@ export function SectorPage({ sector }: { sector: Sector }) {
                 />
               </a>
             </Tilt>
-            <p className="mt-4 text-center text-[13px] text-a-muted">
+            <p className="mt-4 pl-[40%] text-right text-[13px] text-a-muted sm:pl-[30%] lg:pl-0 lg:text-center">
               A live, hosted sample. The organisation shown is fictional.
             </p>
           </WipeReveal>
+          {/* Outside the wipe: its settled clip would cut off the overhang. */}
+          <div className="pointer-events-none absolute -bottom-4 -left-2 origin-bottom-left scale-[0.5] sm:scale-[0.6] lg:-bottom-6 lg:-left-12 lg:scale-[0.72]">
+            <Phone3D src={sector.demo.mobileImage} width={250} />
+          </div>
+          </div>
         </Container>
       </section>
 

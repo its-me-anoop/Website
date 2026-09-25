@@ -9,7 +9,7 @@ import { Footer } from "./Footer";
 /**
  * Shared chrome for every Aurora marketing page: scroll progress,
  * floating nav, the page, the footer, and the page-wide effects
- * (film grain, cursor light, card spotlights). `.aurora-root` scopes
+ * (cursor light, card spotlights). `.aurora-root` scopes
  * the language so case-study pages and demo sites are untouched.
  */
 export function Shell({ children, mainClassName }: { children: ReactNode; mainClassName?: string }) {
@@ -21,7 +21,6 @@ export function Shell({ children, mainClassName }: { children: ReactNode; mainCl
         {children}
       </main>
       <Footer />
-      <div aria-hidden className="a-grain" />
       <CursorGlow />
       <SpotlightTracker />
     </div>

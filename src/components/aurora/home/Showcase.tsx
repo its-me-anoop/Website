@@ -15,6 +15,7 @@ import {
   Container,
   SectionIntro,
 } from "../ui/primitives";
+import { Phone3D } from "../ui/Phone3D";
 
 /** Roving-focus index for the tab keys the WAI-ARIA tabs pattern expects. */
 export function nextTabIndex(
@@ -121,6 +122,7 @@ export function Showcase() {
           aria-labelledby={`sample-tab-${sample.slug}`}
           className="mt-10 grid items-center gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-16"
         >
+          <div className="relative min-w-0 pb-16 sm:pb-10 lg:pb-0">
           <Tilt max={5}>
             <m.div
               key={sample.slug}
@@ -143,6 +145,11 @@ export function Showcase() {
               </Link>
             </m.div>
           </Tilt>
+          {/* The same sample on a phone, in 3D, overlapping the desktop frame. */}
+          <div className="pointer-events-none absolute -bottom-2 right-6 origin-bottom-right scale-[0.46] sm:right-2 sm:scale-[0.62] lg:-bottom-14 lg:-right-10 lg:scale-[0.78] xl:scale-90">
+            <Phone3D src={sample.mobileImage} width={250} />
+          </div>
+          </div>
 
           {/* Keyed remount: the new sample's content is in the DOM at once
               (no exit wait, so stale links never linger) and animates in. */}

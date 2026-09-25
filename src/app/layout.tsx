@@ -21,10 +21,8 @@ const bricolage = localFont({
 });
 
 const instrument = localFont({
-  src: [
-    { path: "../fonts/instrument-serif-regular.woff2", weight: "400", style: "normal" },
-    { path: "../fonts/instrument-serif-italic.woff2", weight: "400", style: "italic" },
-  ],
+  /* Only the italic is ever used (emphasis inside headings). */
+  src: [{ path: "../fonts/instrument-serif-italic.woff2", weight: "400", style: "italic" }],
   variable: "--font-instrument-v",
   display: "swap",
   fallback: ["Georgia", "Times New Roman", "serif"],

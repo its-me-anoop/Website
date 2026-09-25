@@ -347,13 +347,15 @@ export function BrowserFrame({
         className
       )}
     >
-      <div className="flex items-center gap-2 px-2 pb-2 pt-1">
+      {/* inline-size containment: a long URL truncates instead of setting
+          the frame's minimum width and pushing a grid column off screen. */}
+      <div className="flex items-center gap-2 px-2 pb-2 pt-1 [contain:inline-size]">
         <span className="flex gap-1.5" aria-hidden>
           <span className="h-2 w-2 rounded-full bg-[#ff5f57]/80" />
           <span className="h-2 w-2 rounded-full bg-[#febc2e]/80" />
           <span className="h-2 w-2 rounded-full bg-[#28c840]/80" />
         </span>
-        <span className="a-mono mx-auto truncate rounded-full bg-white/5 px-3 py-1 text-[11px] text-a-muted">{url}</span>
+        <span className="a-mono mx-auto min-w-0 truncate rounded-full bg-white/5 px-3 py-1 text-[11px] text-a-muted">{url}</span>
         <span className="w-10" aria-hidden />
       </div>
       <div className="relative aspect-[1440/1000] overflow-hidden rounded-[12px] bg-a-deep sm:rounded-[16px]">

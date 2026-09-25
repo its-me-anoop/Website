@@ -111,6 +111,11 @@ async function auditPage(context, route, label = route) {
         brokenHash: [...new Set(brokenHash)],
         broken,
         overflow: document.documentElement.scrollWidth - window.innerWidth,
+        /* The root clips x-overflow, so a too-wide frame never shows in
+           scrollWidth; measure the layout width of each frame instead. */
+        wideFrames: [...document.querySelectorAll("figure")]
+          .filter((figure) => figure.offsetWidth > window.innerWidth + 1)
+          .map((figure) => `${figure.offsetWidth}px`),
         h1: document.querySelectorAll("h1").length,
         hasMain: ids.includes("main"),
       };
@@ -120,6 +125,8 @@ async function auditPage(context, route, label = route) {
       note(label, `broken anchor targets: ${data.brokenHash.join(", ")}`);
     if (data.broken.length) note(label, `broken images: ${data.broken.join(", ")}`);
     if (data.overflow > 1) note(label, `horizontal overflow ${data.overflow}px`);
+    if (data.wideFrames.length)
+      note(label, `frames wider than the viewport: ${data.wideFrames.join(", ")}`);
     if (data.h1 !== 1) note(label, `expected 1 <h1>, found ${data.h1}`);
     if (!data.hasMain) note(label, "missing #main (skip-link target)");
     if (consoleErrors.length)
@@ -196,6 +203,23 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
 
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 6) note("home", `expected 6 project cards, found ${projects}`);
+
+  /* Scroll-triggered reveals must actually uncover their content: the
+     founder portrait once stayed clipped away because the in-view check
+     watched the clipped layer itself. */
+  await page.locator("#about figure").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(1800);
+  const portraitClip = await page.evaluate(() => {
+    const img = document.querySelector("#about figure img");
+    let el = img;
+    while (el && el.id !== "about") {
+      const clip = getComputedStyle(el).clipPath;
+      if (clip && clip !== "none" && !/^inset\(0(px|%)?( 0(px|%)?)*\)$/.test(clip)) return clip;
+      el = el.parentElement;
+    }
+    return null;
+  });
+  if (portraitClip) note("home", `founder portrait is still clipped after scrolling to it (${portraitClip})`);
 
   await page.getByRole("button", { name: /open menu/i }).click();
   const menu = page.getByRole("navigation", { name: /site menu/i });

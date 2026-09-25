@@ -23,6 +23,8 @@ export type Sample = {
   sectorHref?: string;
   image: string;
   imageAlt: string;
+  /** First screen of the site on a phone (390 × 844), shown in the 3D phone. */
+  mobileImage: string;
   strap: string;
   points: readonly [string, string, string];
 };
@@ -36,6 +38,7 @@ export const samples: readonly Sample[] = [
     href: "/demo/gp-practice",
     sectorHref: "/gp-websites",
     image: "/demos/gp-home.png",
+    mobileImage: "/demos/gp-mobile.webp",
     imageAlt:
       "Homepage of the Willowbrook Surgery sample site: a task-first NHS practice website",
     strap: "A practice website that answers before patients call.",
@@ -53,6 +56,7 @@ export const samples: readonly Sample[] = [
     href: "/demo/care-home",
     sectorHref: "/care-home-websites",
     image: "/demos/care-home.png",
+    mobileImage: "/demos/care-mobile.webp",
     imageAlt:
       "Homepage of the Oakfield House sample site: a warm, photo-led care home website",
     strap: "A home families trust before they ever visit.",
@@ -69,6 +73,7 @@ export const samples: readonly Sample[] = [
     sector: "Mixed NHS and private dental practice",
     href: "/demo/dental-practice",
     image: "/demos/dental-home.png",
+    mobileImage: "/demos/dental-mobile.webp",
     imageAlt:
       "Homepage of the Kennet Bridge Dental sample site: a quietly premium dental practice website",
     strap: "NHS bands and private fees, explained without a phone call.",
@@ -85,6 +90,7 @@ export const samples: readonly Sample[] = [
     sector: "Independent community pharmacy",
     href: "/demo/pharmacy",
     image: "/demos/pharmacy-home.png",
+    mobileImage: "/demos/pharmacy-mobile.webp",
     imageAlt:
       "Homepage of the Willowbrook Pharmacy sample site: a task-first community pharmacy website",
     strap: "Pharmacy First, repeat prescriptions and honest opening hours.",
@@ -101,6 +107,7 @@ export const samples: readonly Sample[] = [
     sector: "Private physiotherapy clinic",
     href: "/demo/physio-clinic",
     image: "/demos/physio-home.png",
+    mobileImage: "/demos/physio-mobile.webp",
     imageAlt:
       "Homepage of the Forbury Physiotherapy sample site: an athletic editorial clinic website",
     strap: "Published prices and first-visit guidance that fill the diary.",
@@ -504,6 +511,8 @@ export type Sector = {
     innerImage: string;
     innerImageAlt: string;
     innerPath: string;
+    /** The sample on a phone, for the 3D phone beside the inner page. */
+    mobileImage: string;
     copy: string;
     points: readonly string[];
   };
@@ -542,6 +551,7 @@ export const gpSector: Sector = {
     innerImage: "/demos/gp-appointments.png",
     innerImageAlt: "Appointments page of the Willowbrook Surgery sample website",
     innerPath: "/demo/gp-practice/appointments",
+    mobileImage: "/demos/gp-mobile.webp",
     copy: "Willowbrook Surgery is a fictional practice built and hosted by Flutterly so you can judge the standard for yourself. Click around it on any device, exactly as your patients would.",
     points: [
       "Task-first homepage that answers before patients call",
@@ -638,6 +648,7 @@ export const careSector: Sector = {
     innerImage: "/demos/care-families.png",
     innerImageAlt: "For families page of the Oakfield House sample website",
     innerPath: "/demo/care-home/families",
+    mobileImage: "/demos/care-mobile.webp",
     copy: "Oakfield House is a fictional care home built and hosted by Flutterly so you can judge the standard for yourself: warm, honest and clear, the way families need it to be.",
     points: [
       "Families-first structure with fees published plainly",

@@ -47,19 +47,19 @@ export function PageHero({
       </div>
       <Container className="flex flex-col items-center pb-20 pt-36 text-center sm:pb-28 sm:pt-44">
         <Eyebrow className="a-fade-up">{eyebrow}</Eyebrow>
-        <Display as="h1" size={size} split delay={100} className="mt-7 max-w-[17ch]">
+        <Display as="h1" size={size} split delay={0} className="mt-7 max-w-[17ch]">
           {title}
         </Display>
         {copy ? (
           <div
             className="a-fade-up mx-auto mt-8 max-w-[640px] text-[17px] leading-[1.65] text-a-ink-soft sm:text-[18.5px]"
-            style={{ ["--d" as string]: "500ms" }}
+            style={{ ["--d" as string]: "200ms" }}
           >
             {copy}
           </div>
         ) : null}
         {children ? (
-          <div className="a-fade-up mt-10 flex w-full flex-col items-center" style={{ ["--d" as string]: "650ms" }}>
+          <div className="a-fade-up mt-10 flex w-full flex-col items-center" style={{ ["--d" as string]: "280ms" }}>
             {children}
           </div>
         ) : null}

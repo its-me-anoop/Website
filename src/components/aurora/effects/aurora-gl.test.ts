@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canvasSize, easePointer, FRAGMENT_SHADER, VERTEX_SHADER } from "./aurora-gl";
+import { canvasSize, easePointer, FRAGMENT_SHADER, isSoftwareRenderer, VERTEX_SHADER } from "./aurora-gl";
 
 describe("canvasSize", () => {
   it("renders below device resolution to keep the shader cheap", () => {
@@ -27,5 +27,19 @@ describe("shaders", () => {
   it("declare the uniforms the renderer binds", () => {
     expect(VERTEX_SHADER).toContain("attribute vec2 a_position");
     ["u_time", "u_resolution", "u_pointer"].forEach((u) => expect(FRAGMENT_SHADER).toMatch(new RegExp(`uniform \\w+ ${u};`)));
+  });
+});
+
+describe("isSoftwareRenderer", () => {
+  it("recognises CPU WebGL implementations", () => {
+    ["Google SwiftShader", "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)), SwiftShader driver)", "llvmpipe (LLVM 15.0.7, 256 bits)", "Software Rasterizer", "Microsoft Basic Render Driver"].forEach((r) =>
+      expect(isSoftwareRenderer(r)).toBe(true)
+    );
+  });
+
+  it("accepts real GPUs and unknown strings", () => {
+    ["ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)", "Adreno (TM) 740", "Mali-G78", "Intel(R) Iris(R) Xe Graphics", ""].forEach((r) =>
+      expect(isSoftwareRenderer(r)).toBe(false)
+    );
   });
 });
