@@ -14,7 +14,7 @@ export function About() {
     <section id="about" className="relative scroll-mt-24 overflow-hidden py-24 sm:py-36">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[1100px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-[120px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[1100px] -translate-x-1/2 -translate-y-1/2 opacity-60"
         style={{ background: "radial-gradient(closest-side, rgba(194,65,12,0.45), transparent)" }}
       />
       <Container className="relative grid items-center gap-14 lg:grid-cols-[minmax(0,460px)_1fr] lg:gap-24">

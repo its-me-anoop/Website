@@ -38,13 +38,11 @@ export function CtaBand({
               </div>
               <AuroraCanvas reduced={!motion} />
               <Embers enabled={motion} className="opacity-80" />
-              <div
-                className="absolute inset-0"
-                style={{ background: "radial-gradient(ellipse 55% 50% at 50% 50%, rgba(11,9,7,0.7), transparent 100%)" }}
-              />
             </div>
             <div aria-hidden className="a-grid absolute inset-0 opacity-60" />
-            <div className="relative mx-auto flex max-w-[820px] flex-col items-center">
+            <div className="relative isolate mx-auto flex max-w-[820px] flex-col items-center">
+              {/* Reading plate: the copy stays AA over the brightest flames. */}
+              <div aria-hidden className="a-scrim" />
               <Display size="lg">{title}</Display>
               <p className="mx-auto mt-6 max-w-[580px] text-[17px] leading-[1.65] text-a-ink-soft">{copy}</p>
               <AuditBar className="mt-10" align="center" />

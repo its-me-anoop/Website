@@ -87,6 +87,13 @@ All four are self-hosted woff2 (SIL OFL) in `src/fonts/`.
   route wrapper): text that fades in on the compositor is never counted
   as LCP. They move and un-blur instead.
 - No infinite repaint animations (no film grain, no panning gradients).
+- iOS Safari layer budget: nothing animates `filter` (entrances rise
+  and fade; `Reveal` too), glows are radial gradients rather than
+  `blur()` on large boxes, touch screens get opaque glass instead of
+  `backdrop-filter`, and `Tilt`/`Phone3D` build no 3D context on touch
+  screens (WebKit also stops reporting elements inside `preserve-3d` as
+  in view). Exceeding the budget shows as black regions and animations
+  frozen mid-frame. `effects/ios-safety.test.tsx` guards all of this.
 - `WipeReveal` observes an outer element and clips an inner one: an
   IntersectionObserver on a fully clipped element never fires.
 - `BrowserFrame` contains its URL bar's inline size, so a long URL
@@ -105,8 +112,12 @@ hydration always agree and motion arms right after hydration.
 - One `<h1>` per page; the word reveal keeps a single plain accessible name.
 - Sample-site showcase follows the WAI-ARIA tabs pattern (arrows,
   Home/End, roving tabindex, `aria-controls`/`aria-labelledby`).
-- A scrim sits behind hero copy so text stays above 4.5:1 over the
-  brightest aurora curtains.
+- Text over the shader sits on a `.a-scrim` reading plate (a flat
+  dark fill feathered by two intersected masks, inside an `isolate`
+  parent) and glass is a dense warm fill. `npm run test:contrast`
+  paints the shader canvas at its brightest possible colour and checks
+  every hero, page-hero and CTA text run for WCAG AA against the pixels
+  actually behind it; CI runs it.
 - Reduced motion: every animation is removed and all content is visible.
 - `npm run test:a11y` (axe, WCAG 2.2 A/AA) and `npm run test:browser`
   cover every route.

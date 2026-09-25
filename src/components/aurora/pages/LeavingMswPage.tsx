@@ -154,8 +154,8 @@ export function LeavingMswPage() {
       <section id="packages" className="relative scroll-mt-24 py-24 sm:py-32">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-1/3 mx-auto h-[480px] max-w-[900px] rounded-full opacity-30 blur-[140px]"
-          style={{ background: "linear-gradient(90deg,#c2410c,#fde68a)" }}
+          className="pointer-events-none absolute inset-x-0 top-1/3 mx-auto h-[480px] max-w-[900px] opacity-40"
+          style={{ background: "radial-gradient(closest-side, rgba(253,230,138,0.4), rgba(194,65,12,0.3) 55%, transparent)" }}
         />
         <Container className="relative">
           <SectionIntro

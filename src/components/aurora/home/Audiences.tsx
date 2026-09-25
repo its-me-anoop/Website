@@ -44,8 +44,8 @@ export function Audiences() {
                 <article className="a-glass a-spot group relative flex h-full flex-col justify-between overflow-hidden rounded-[28px] p-7 sm:p-8">
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-50 blur-[70px] transition-opacity duration-700 group-hover:opacity-90"
-                    style={{ background: glow[i] }}
+                    className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 opacity-60 transition-opacity duration-700 group-hover:opacity-90"
+                    style={{ background: `radial-gradient(closest-side, ${glow[i]}, transparent)` }}
                   />
                   <span
                     aria-hidden

@@ -355,7 +355,7 @@ export function BrowserFrame({
           <span className="h-2 w-2 rounded-full bg-[#febc2e]/80" />
           <span className="h-2 w-2 rounded-full bg-[#28c840]/80" />
         </span>
-        <span className="a-mono mx-auto min-w-0 truncate rounded-full bg-white/5 px-3 py-1 text-[11px] text-a-muted">{url}</span>
+        <span className="a-mono mx-auto min-w-0 truncate rounded-full bg-white/5 px-3 py-1 text-[11px] text-a-ink-soft">{url}</span>
         <span className="w-10" aria-hidden />
       </div>
       <div className="relative aspect-[1440/1000] overflow-hidden rounded-[12px] bg-a-deep sm:rounded-[16px]">
