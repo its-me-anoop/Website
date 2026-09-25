@@ -21,7 +21,7 @@ export const site = {
   description:
     "Flutterly is an independent product studio in Reading, UK — designing and building accessible websites for GP practices and care homes, plus web and mobile products with Next.js, SwiftUI and Flutter.",
   /** New business and general enquiries: quotes, audits, bookings. */
-  email: "sales@flutterly.co.uk",
+  email: "anoop@flutterly.co.uk",
   /** Existing clients and issues: accessibility reports, privacy, app support. */
   supportEmail: "support@flutterly.co.uk",
   founder: "Anoop Jose",

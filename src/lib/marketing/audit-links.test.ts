@@ -12,9 +12,9 @@ describe("auditHref", () => {
 });
 
 describe("auditMailto", () => {
-  it("addresses the sales inbox with a generic subject when no url is known", () => {
+  it("addresses the studio inbox with a generic subject when no url is known", () => {
     const href = auditMailto();
-    expect(href.startsWith("mailto:sales@flutterly.co.uk?subject=")).toBe(true);
+    expect(href.startsWith("mailto:anoop@flutterly.co.uk?subject=")).toBe(true);
     expect(decodeURIComponent(href)).toContain("Written website audit request");
   });
 
