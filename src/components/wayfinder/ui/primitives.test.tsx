@@ -132,7 +132,7 @@ describe("PackageCard", () => {
     expect(screen.getByText("£1,490")).toBeInTheDocument();
     expect(screen.getByText("Most popular")).toBeInTheDocument();
     const cta = screen.getByRole("link", { name: "Enquire about Standard" });
-    expect(cta.getAttribute("href")).toMatch(/^mailto:sales@flutterly\.co\.uk\?subject=/);
+    expect(cta.getAttribute("href")).toMatch(/^mailto:anoop@flutterly\.co\.uk\?subject=/);
   });
 
   it("uses a given action link and badge", () => {

@@ -134,7 +134,7 @@ describe("ReportPage", () => {
     expect(screen.getByRole("heading", { level: 3, name: "Standard" })).toBeInTheDocument();
     const mail = screen.getByRole("link", { name: /send me the written audit/i });
     const href = decodeURIComponent(mail.getAttribute("href") ?? "");
-    expect(href.startsWith("mailto:sales@flutterly.co.uk")).toBe(true);
+    expect(href.startsWith("mailto:anoop@flutterly.co.uk")).toBe(true);
     expect(href).toContain("Score 58/100 (grade D)");
     expect(href).toContain("Images have alternative text");
     const pitch = screen.getByRole("region", { name: /same list before launch/i });
@@ -165,7 +165,7 @@ describe("ReportPage", () => {
     const last = pages[3];
     expect(last.textContent).toContain("same list before launch");
     expect(last.textContent).toContain("Standard");
-    expect(last.textContent).toContain("sales@flutterly.co.uk");
+    expect(last.textContent).toContain("anoop@flutterly.co.uk");
     expect(last.textContent).toContain("flutterly.co.uk/book");
     expect(last.querySelector('svg[aria-label*="flutterly.co.uk/book"]')).not.toBeNull();
 

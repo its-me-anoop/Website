@@ -157,7 +157,7 @@ describe("Home", () => {
     expect(screen.getByRole("link", { name: /enquire about essentials/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /talk about partnership/i })).toBeInTheDocument();
     expect(screen.getAllByText(new RegExp(`© ${new Date().getFullYear()}`)).length).toBeGreaterThan(0);
-    expect(screen.getAllByRole("link", { name: /sales@flutterly\.co\.uk/i }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("link", { name: /anoop@flutterly\.co\.uk/i }).length).toBeGreaterThan(0);
   });
 
   it("gives every in-page anchor a target", () => {
