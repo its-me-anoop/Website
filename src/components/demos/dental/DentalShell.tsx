@@ -294,25 +294,6 @@ export function DentalInset({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** One consistent note for the demo's illustrative dead-ends and
-    sample regulatory figures. */
-export function DentalSampleNote({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="mt-4 inline-flex items-center gap-2 rounded-md bg-[var(--ddt-petrol-tint)] px-3 py-1.5 text-sm text-[var(--ddt-ink-soft)]">
-      <svg
-        aria-hidden
-        viewBox="0 0 24 24"
-        className="h-4 w-4 shrink-0 fill-none stroke-current stroke-2"
-      >
-        <circle cx="12" cy="12" r="9" />
-        <path strokeLinecap="round" d="M12 11v5" />
-        <circle cx="12" cy="7.5" r="0.5" className="fill-current" />
-      </svg>
-      {children}
-    </p>
-  );
-}
-
 /** "Page last reviewed / Next review due" freshness pattern. */
 export function DentalReviewDate({ reviewed }: { reviewed: string }) {
   const formatter = new Intl.DateTimeFormat("en-GB", {

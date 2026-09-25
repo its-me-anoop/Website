@@ -210,21 +210,6 @@ export const projects: readonly Project[] = [
   },
 ] as const;
 
-/**
- * Hero headline audiences. The first entry is the static word screen
- * readers hear; the visual word cycles through all of them. Each colour
- * is a Kiln glaze checked at ≥ 3:1 against bone for large display text.
- */
-export const heroAudiences = [
-  { word: "patients", color: "#bf3a15" }, // fire
-  { word: "service users", color: "#1e6e66" }, // verdigris
-  { word: "residents", color: "#3d7838" }, // moss
-  { word: "clients", color: "#2d5c9c" }, // cobalt
-  { word: "customers", color: "#7a3a5c" }, // mulberry
-  { word: "families", color: "#8f5f00" }, // ochre
-  { word: "visitors", color: "#7a4a2a" }, // clay
-] as const;
-
 /** Ticker entries: client names interleaved with plain commitments. */
 export const ticker = [
   "Pembroke Care",
