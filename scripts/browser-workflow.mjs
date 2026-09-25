@@ -118,6 +118,20 @@ async function auditPage(context, route, label = route) {
           .map((figure) => `${figure.offsetWidth}px`),
         h1: document.querySelectorAll("h1").length,
         hasMain: ids.includes("main"),
+        /* iOS Safari only moves a sticky header on its fast scrolling
+           path when no ancestor clips overflow; otherwise the header is
+           repositioned on the main thread and jitters while scrolling. */
+        stickyClip: (() => {
+          const header = document.querySelector(".wayfinder-root > header");
+          if (!header || getComputedStyle(header).position !== "sticky") return [];
+          const offenders = [];
+          for (let el = header.parentElement; el && el !== document.body; el = el.parentElement) {
+            const style = getComputedStyle(el);
+            if (style.overflowX !== "visible" || style.overflowY !== "visible")
+              offenders.push(`${el.tagName.toLowerCase()}.${[...el.classList].join(".")} (${style.overflowX}/${style.overflowY})`);
+          }
+          return offenders;
+        })(),
       };
     });
 
@@ -129,6 +143,8 @@ async function auditPage(context, route, label = route) {
       note(label, `frames wider than the viewport: ${data.wideFrames.join(", ")}`);
     if (data.h1 !== 1) note(label, `expected 1 <h1>, found ${data.h1}`);
     if (!data.hasMain) note(label, "missing #main (skip-link target)");
+    if (data.stickyClip.length)
+      note(label, `sticky header sits inside overflow-clipping ancestors (jitters on iOS): ${data.stickyClip.join(", ")}`);
     if (consoleErrors.length)
       note(label, `console errors: ${consoleErrors.slice(0, 3).join(" | ")}`);
     if (pageErrors.length) note(label, `page errors: ${pageErrors.join(" | ")}`);
@@ -152,6 +168,19 @@ for (const [label, options] of [
   for (const route of ROUTES) await auditPage(context, route, `${label} ${route}`);
   await context.close();
 }
+
+/* The smallest phones in use (320px). The marketing root clips no
+   overflow (a clipping ancestor makes the sticky header jitter on iOS),
+   so nothing hides a sideways overflow: every page must fit on its own. */
+const narrow = await browser.newContext({ viewport: { width: 320, height: 640 }, isMobile: true, hasTouch: true });
+for (const route of ["/", "/gp-websites", "/care-home-websites", "/packages", "/free-audit", "/leaving-msw", "/book", "/accessibility", "/audit"]) {
+  const page = await narrow.newPage();
+  await page.goto(BASE + route, { waitUntil: "networkidle" });
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  if (overflow > 1) note(`320px ${route}`, `horizontal overflow ${overflow}px`);
+  await page.close();
+}
+await narrow.close();
 
 const mobile = await browser.newContext({ ...devices["iPhone 13"] });
 {
@@ -204,22 +233,30 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 6) note("home", `expected 6 project cards, found ${projects}`);
 
-  /* Scroll-triggered reveals must actually uncover their content: the
-     founder portrait once stayed clipped away because the in-view check
-     watched the clipped layer itself. */
-  await page.locator("#about figure").scrollIntoViewIfNeeded();
-  await page.waitForTimeout(1800);
-  const portraitClip = await page.evaluate(() => {
-    const img = document.querySelector("#about figure img");
-    let el = img;
-    while (el && el.id !== "about") {
-      const clip = getComputedStyle(el).clipPath;
-      if (clip && clip !== "none" && !/^inset\(0(px|%)?( 0(px|%)?)*\)$/.test(clip)) return clip;
-      el = el.parentElement;
+  /* The hero fingerpost: every arm is a link to a real sample-site page,
+     and each one must actually load. */
+  const arms = page.getByRole("list", { name: /signs to pages on the sample sites/i }).getByRole("link");
+  const armCount = await arms.count();
+  if (armCount !== 5) note("home", `expected 5 fingerpost arms, found ${armCount}`);
+  for (const href of await arms.evaluateAll((links) => links.map((a) => a.getAttribute("href")))) {
+    const res = await page.request.get(BASE + href);
+    if (res.status() !== 200) note("home", `fingerpost arm ${href} returned ${res.status()}`);
+  }
+
+  /* The sample directory: each tab's questions lead to pages that load. */
+  const tabCount = await tabs.count();
+  for (let i = 0; i < tabCount; i++) {
+    await tabs.nth(i).click();
+    const routes = await page
+      .getByRole("tabpanel")
+      .locator("ul a")
+      .evaluateAll((links) => links.map((a) => a.getAttribute("href")));
+    if (routes.length !== 3) note("home", `sample tab ${i + 1} lists ${routes.length} questions, expected 3`);
+    for (const href of routes) {
+      const res = await page.request.get(BASE + href);
+      if (res.status() !== 200) note("home", `directory route ${href} returned ${res.status()}`);
     }
-    return null;
-  });
-  if (portraitClip) note("home", `founder portrait is still clipped after scrolling to it (${portraitClip})`);
+  }
 
   await page.getByRole("button", { name: /open menu/i }).click();
   const menu = page.getByRole("navigation", { name: /site menu/i });

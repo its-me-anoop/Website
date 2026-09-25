@@ -3,13 +3,13 @@
 The site of Flutterly Ltd — the product studio of Anoop Jose. Built
 with Next.js 16 (App Router), React 19 and Tailwind CSS v4. The
 marketing pages (home, GP practices, care homes, packages, free
-audit, accessibility, Clear Path, booking) run the "Aurora" language; case-study
+audit, accessibility, Clear Path, booking) run the "Wayfinder" language; case-study
 pages run the light "Porcelain" system with Framer Motion.
 
 ## Contents
 
-- [Design Language — "Aurora"](./AURORA.md) — marketing-site tokens, type,
-  surfaces, visual effects and the motion system.
+- [Design Language — "Wayfinder"](./WAYFINDER.md) — the signage idea,
+  tokens, type, signature pieces, layering and the motion system.
 - [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — tokens,
   primitives, motion, and accessibility rules for case-study pages.
 - [Demo-site CMS](./CMS.md) — schema-validated content layer feeding
@@ -27,7 +27,7 @@ src/
 ├── app/
 │   ├── layout.tsx          # Root layout: fonts, metadata, JSON-LD, skip link
 │   ├── template.tsx        # Route transition wrapper
-│   ├── page.tsx            # Aurora homepage composition
+│   ├── page.tsx            # Wayfinder homepage
 │   ├── globals.css         # Design tokens + Tailwind theme + utilities
 │   ├── sitemap.ts          # SEO sitemap
 │   ├── robots.ts           # SEO robots
@@ -40,7 +40,7 @@ src/
 │   ├── accessibility/      # Accessibility statement
 │   └── projects/           # Case-study subpages (sipli, artling)
 ├── components/
-│   ├── aurora/             # Aurora marketing site (effects, ui, layout,
+│   ├── wayfinder/          # Wayfinder marketing site (motion, ui, layout,
 │   │                       # home, pages, booking, audit report + print)
 │   ├── ui/                 # Porcelain primitives (Button, LiftCard, …)
 │   ├── layout/             # Porcelain Navbar/Footer (case-study pages)
@@ -73,6 +73,6 @@ src/
   with `SoftwareApplication` JSON-LD on product pages.
 - `sitemap.ts` and `robots.ts` generate `/sitemap.xml` and `/robots.txt`.
 - Shared constants come from `src/lib/site.ts` so details never drift.
-- Marketing fonts (Zodiak, Switzer) are self-hosted woff2 files in
-  `src/fonts/` with no CDN dependency; case-study pages stay on
-  zero-payload system stacks.
+- Marketing fonts (Atkinson Hyperlegible Next and Mono) are self-hosted
+  woff2 files in `src/fonts/` with no CDN dependency; case-study pages
+  stay on zero-payload system stacks.

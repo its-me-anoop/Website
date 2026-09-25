@@ -1,15 +1,25 @@
 /**
- * Content model for the Kiln marketing site. The homepage, sector
+ * Content model for the Wayfinder marketing site. The homepage, sector
  * pages, packages and audit routes all read from here so copy, links
  * and imagery stay in one reviewable place.
  *
  * Voice: short declarative sentences, plain English, no invented
  * statistics. Fictional sample sites are always called sample sites.
+ * `content.test.ts` checks that every internal link here resolves to a
+ * real page and every image exists.
  */
 
 /* ─────────────────────────────────────────────────────────────
-   Sample sites — the studio's proof of work.
+   Sample sites: the studio's proof of work.
    ───────────────────────────────────────────────────────────── */
+
+/** A question a visitor arrives with, and the sample page that answers it. */
+export type SampleRoute = {
+  ask: string;
+  /** The page's own name, as it appears on the sample site. */
+  label: string;
+  href: string;
+};
 
 export type Sample = {
   slug: "gp" | "care" | "dental" | "pharmacy" | "physio";
@@ -23,10 +33,13 @@ export type Sample = {
   sectorHref?: string;
   image: string;
   imageAlt: string;
-  /** First screen of the site on a phone (390 × 844), shown in the 3D phone. */
+  /** First screen of the site on a phone (390 × 844). */
   mobileImage: string;
   strap: string;
-  points: readonly [string, string, string];
+  /** Who commissions a site like this, and what they get from it. */
+  audience: string;
+  audienceCopy: string;
+  routes: readonly [SampleRoute, SampleRoute, SampleRoute];
 };
 
 export const samples: readonly Sample[] = [
@@ -42,10 +55,13 @@ export const samples: readonly Sample[] = [
     imageAlt:
       "Homepage of the Willowbrook Surgery sample site: a task-first NHS practice website",
     strap: "A practice website that answers before patients call.",
-    points: [
-      "Appointments, prescriptions and the NHS App one tap from the homepage",
-      "Self-serve answers for the requests reception repeats all day",
-      "Built to the NHS service manual and WCAG 2.2 AA",
+    audience: "Practice managers",
+    audienceCopy:
+      "Fewer calls to reception, because the website answered first. Appointments, prescriptions and the NHS App where patients expect them.",
+    routes: [
+      { ask: "Can I see a doctor this week?", label: "Appointments", href: "/demo/gp-practice/appointments" },
+      { ask: "I\u2019ve nearly run out of my tablets.", label: "Repeat prescriptions", href: "/demo/gp-practice/prescriptions" },
+      { ask: "We\u2019ve just moved to the area.", label: "Register with the surgery", href: "/demo/gp-practice/register" },
     ],
   },
   {
@@ -60,10 +76,13 @@ export const samples: readonly Sample[] = [
     imageAlt:
       "Homepage of the Oakfield House sample site: a warm, photo-led care home website",
     strap: "A home families trust before they ever visit.",
-    points: [
-      "Fees, funding and the CQC report published plainly",
-      "Visiting, admissions and enquiries one step from every page",
-      "Careers pages that recruit carers as well as reassure relatives",
+    audience: "Care home owners",
+    audienceCopy:
+      "Families who arrive for a visit already reassured. Fees, the CQC report and daily life shown honestly, before anyone picks up the phone.",
+    routes: [
+      { ask: "What will Mum\u2019s care cost?", label: "For families", href: "/demo/care-home/families" },
+      { ask: "Can we come and look round?", label: "Contact & visits", href: "/demo/care-home/contact" },
+      { ask: "What does an ordinary day look like?", label: "Life at Oakfield", href: "/demo/care-home/life" },
     ],
   },
   {
@@ -77,10 +96,13 @@ export const samples: readonly Sample[] = [
     imageAlt:
       "Homepage of the Kennet Bridge Dental sample site: a quietly premium dental practice website",
     strap: "NHS bands and private fees, explained without a phone call.",
-    points: [
-      "Every fee published, NHS and private side by side",
-      "A calm route for nervous patients and urgent toothache",
-      "New-patient registration that takes minutes, not forms",
+    audience: "Dental practices",
+    audienceCopy:
+      "NHS bands and private fees side by side, a calm route for nervous patients, and urgent care that is easy to find at 7am.",
+    routes: [
+      { ask: "Are you taking on NHS patients?", label: "New patients", href: "/demo/dental-practice/new-patients" },
+      { ask: "My tooth kept me up all night.", label: "Urgent & out-of-hours care", href: "/demo/dental-practice/urgent" },
+      { ask: "How much is a filling?", label: "Fees", href: "/demo/dental-practice/fees" },
     ],
   },
   {
@@ -94,10 +116,13 @@ export const samples: readonly Sample[] = [
     imageAlt:
       "Homepage of the Willowbrook Pharmacy sample site: a task-first community pharmacy website",
     strap: "Pharmacy First, repeat prescriptions and honest opening hours.",
-    points: [
-      "Pharmacy First conditions listed so people know before they walk in",
-      "Repeat prescription ordering explained step by step",
-      "GPhC regulatory details on every page, as required",
+    audience: "Pharmacies",
+    audienceCopy:
+      "Pharmacy First, repeat prescriptions and real opening hours on every phone, so people know before they walk in.",
+    routes: [
+      { ask: "Can you look at my sore throat?", label: "NHS Pharmacy First", href: "/demo/pharmacy/pharmacy-first" },
+      { ask: "Is my prescription ready yet?", label: "Repeat prescriptions", href: "/demo/pharmacy/prescriptions" },
+      { ask: "Are you open on Sunday?", label: "Hours, find us & feedback", href: "/demo/pharmacy/contact" },
     ],
   },
   {
@@ -111,13 +136,47 @@ export const samples: readonly Sample[] = [
     imageAlt:
       "Homepage of the Forbury Physiotherapy sample site: an athletic editorial clinic website",
     strap: "Published prices and first-visit guidance that fill the diary.",
-    points: [
-      "Prices on the website, not on request",
-      "What happens at a first appointment, before anyone books",
-      "The trust and regulation page most clinics never write",
+    audience: "Clinics and therapists",
+    audienceCopy:
+      "Published prices and first-visit guidance that fill the diary, on a site you can update yourself between patients.",
+    routes: [
+      { ask: "How much is a session?", label: "Pricing", href: "/demo/physio-clinic/pricing" },
+      { ask: "What happens at the first appointment?", label: "Your first appointment", href: "/demo/physio-clinic/first-appointment" },
+      { ask: "Can you help with my knee?", label: "Conditions & treatments", href: "/demo/physio-clinic/conditions" },
     ],
   },
 ] as const;
+
+/**
+ * The fingerpost in the homepage hero: one arm per sample site, each a
+ * real link to the page that answers a common task. Arms alternate
+ * direction so the post reads like a street sign.
+ */
+export type HeroSign = {
+  label: string;
+  /** The sample organisation the arm points to. */
+  place: string;
+  href: string;
+  point: "left" | "right";
+};
+
+export const heroSigns: readonly HeroSign[] = [
+  { label: "Book an appointment", place: "Willowbrook Surgery", href: "/demo/gp-practice/appointments", point: "right" },
+  { label: "Arrange a visit", place: "Oakfield House", href: "/demo/care-home/contact", point: "left" },
+  { label: "See the fees", place: "Kennet Bridge Dental", href: "/demo/dental-practice/fees", point: "right" },
+  { label: "Pharmacy First", place: "Willowbrook Pharmacy", href: "/demo/pharmacy/pharmacy-first", point: "left" },
+  { label: "Your first visit", place: "Forbury Physiotherapy", href: "/demo/physio-clinic/first-appointment", point: "right" },
+] as const;
+
+/** A sample's own routes as fingerpost arms, alternating direction. */
+export function sampleSigns(sample: Sample): HeroSign[] {
+  return sample.routes.map((route, i) => ({
+    label: route.label,
+    place: sample.name,
+    href: route.href,
+    point: i % 2 === 0 ? "right" : "left",
+  }));
+}
 
 /* ─────────────────────────────────────────────────────────────
    Selected work — live client sites and shipped products.
@@ -214,68 +273,6 @@ export const projects: readonly Project[] = [
     tint: "#ede1cd",
     fit: "contain",
     tags: ["SwiftUI", "Local first", "Family sharing"],
-  },
-] as const;
-
-/**
- * Hero headline audiences. The first entry is the static word screen
- * readers hear; the visual word cycles through all of them. Each colour
- * is a Kiln glaze checked at ≥ 3:1 against bone for large display text.
- */
-export const heroAudiences = [
-  { word: "patients", color: "#bf3a15" }, // fire
-  { word: "service users", color: "#1e6e66" }, // verdigris
-  { word: "residents", color: "#3d7838" }, // moss
-  { word: "clients", color: "#2d5c9c" }, // cobalt
-  { word: "customers", color: "#7a3a5c" }, // mulberry
-  { word: "families", color: "#8f5f00" }, // ochre
-  { word: "visitors", color: "#7a4a2a" }, // clay
-] as const;
-
-/** Ticker entries: client names interleaved with plain commitments. */
-export const ticker = [
-  "Pembroke Care",
-  "WCAG 2.2 AA on every build",
-  "Greenmead Housing",
-  "Custom code, never a template",
-  "Sandbourne Care",
-  "UK hosted, daily backups",
-  "JJ Paper Essentials",
-  "One accountable person",
-  "Sipli",
-  "A reply within one working day",
-  "Little Artist",
-] as const;
-
-/* ─────────────────────────────────────────────────────────────
-   Who it is for.
-   ───────────────────────────────────────────────────────────── */
-
-export const personas = [
-  {
-    who: "Practice managers",
-    statement:
-      "Fewer calls to reception, because the website answered first. Appointments, prescriptions and the NHS App where patients expect them.",
-  },
-  {
-    who: "Care home owners",
-    statement:
-      "Families who arrive for a visit already reassured. Fees, the CQC report and daily life shown honestly, before anyone picks up the phone.",
-  },
-  {
-    who: "Dental practices",
-    statement:
-      "NHS bands and private fees explained side by side, a calm route for nervous patients, and urgent care that is easy to find at 7am.",
-  },
-  {
-    who: "Pharmacies",
-    statement:
-      "Pharmacy First, repeat prescriptions and real opening hours on every phone, so people know before they walk in.",
-  },
-  {
-    who: "Clinics and therapists",
-    statement:
-      "Published prices and first-visit guidance that fill the diary, on a site you can update yourself between patients.",
   },
 ] as const;
 

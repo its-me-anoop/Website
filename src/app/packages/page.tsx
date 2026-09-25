@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { packagesFaq } from "@/lib/marketing/content";
-import { PackagesPage } from "@/components/aurora/pages/PackagesPage";
+import { PackagesPage } from "@/components/wayfinder/pages/PackagesPage";
 
 const description =
   "Website packages for GP practices and care homes. Essentials from £995 plus VAT with year-one hosting. Standard from £1,490 plus £49 a month. Partnership quoted after a short call.";
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05060b",
-  colorScheme: "dark",
+  themeColor: "#f3f1ea",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
