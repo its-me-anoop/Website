@@ -43,8 +43,8 @@ export function Showreel() {
       <Container className="relative max-w-[1180px]">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-[10%] top-[20%] h-[60%] rounded-full opacity-60 blur-[100px]"
-          style={{ background: "linear-gradient(90deg,#c2410c,#f59e0b,#fde68a)" }}
+          className="pointer-events-none absolute inset-x-[10%] top-[20%] h-[60%] opacity-70"
+          style={{ background: "radial-gradient(closest-side, rgba(245,158,11,0.5), rgba(194,65,12,0.28) 55%, transparent)" }}
         />
         <ScrollTilt>
           <a href={gp.href} aria-label={`Open the ${gp.name} sample website`} className="relative block rounded-[22px]">

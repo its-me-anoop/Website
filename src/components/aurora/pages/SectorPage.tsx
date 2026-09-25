@@ -102,8 +102,8 @@ export function SectorPage({ sector }: { sector: Sector }) {
       <section className="relative overflow-hidden py-24 sm:py-32">
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-40 top-1/4 h-[600px] w-[800px] rounded-full opacity-35 blur-[130px]"
-          style={{ background: "linear-gradient(120deg,#f59e0b,#c2410c)" }}
+          className="pointer-events-none absolute -right-40 top-1/4 h-[600px] w-[800px] opacity-45"
+          style={{ background: "radial-gradient(closest-side, rgba(245,158,11,0.5), rgba(194,65,12,0.3) 55%, transparent)" }}
         />
         <Container className="relative grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <div>

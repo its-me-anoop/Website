@@ -9,7 +9,9 @@ import { useFinePointer, useMotionAllowed } from "./hooks";
 export const EASE = [0.16, 1, 0.3, 1] as const;
 
 /* ─────────────────────────────────────────────────────────────
-   Reveal: blur-and-rise when scrolled into view.
+   Reveal: fade-and-rise when scrolled into view. No filter: a blur
+   animation leaves every revealed block holding a filter layer, and
+   iOS Safari runs out of layer memory (black regions, frozen frames).
    ───────────────────────────────────────────────────────────── */
 
 export function Reveal({
@@ -30,8 +32,8 @@ export function Reveal({
   return (
     <Tag
       className={cn("a-reveal", className)}
-      initial={{ y, opacity: 0, filter: "blur(10px)" }}
-      whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+      initial={{ y, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true, margin: "0px 0px -10% 0px" }}
       transition={{ duration: motion ? 0.9 : 0, ease: EASE, delay: motion ? delay : 0 }}
     >
@@ -170,10 +172,13 @@ export function Tilt({
   const sry = useSpring(ry, { stiffness: 150, damping: 20 });
   const enabled = fine && motion;
 
+  /* Touch screens never tilt, so they get no 3D context at all: WebKit
+     reports elements inside preserve-3d as never intersecting, which
+     left scroll reveals nested in a tilt (the About portrait) hidden. */
   return (
-    <div className={cn("[perspective:1400px]", className)}>
+    <div className={cn(enabled && "[perspective:1400px]", className)}>
       <m.div
-        className="h-full w-full [transform-style:preserve-3d]"
+        className={cn("h-full w-full", enabled && "[transform-style:preserve-3d]")}
         style={enabled ? { rotateX: srx, rotateY: sry } : undefined}
         onPointerMove={(e) => {
           if (!enabled) return;

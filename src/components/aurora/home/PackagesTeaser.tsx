@@ -10,8 +10,8 @@ export function PackagesTeaser() {
     <section id="packages" className="relative scroll-mt-24 py-24 sm:py-32">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-1/3 mx-auto h-[500px] max-w-[1000px] rounded-full opacity-30 blur-[140px]"
-        style={{ background: "linear-gradient(90deg,#c2410c,#f59e0b)" }}
+        className="pointer-events-none absolute inset-x-0 top-1/3 mx-auto h-[500px] max-w-[1000px] opacity-40"
+        style={{ background: "radial-gradient(closest-side, rgba(245,158,11,0.45), rgba(194,65,12,0.3) 55%, transparent)" }}
       />
       <Container className="relative">
         <SectionIntro

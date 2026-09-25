@@ -87,6 +87,13 @@ All four are self-hosted woff2 (SIL OFL) in `src/fonts/`.
   route wrapper): text that fades in on the compositor is never counted
   as LCP. They move and un-blur instead.
 - No infinite repaint animations (no film grain, no panning gradients).
+- iOS Safari layer budget: nothing animates `filter` (entrances rise
+  and fade; `Reveal` too), glows are radial gradients rather than
+  `blur()` on large boxes, touch screens get opaque glass instead of
+  `backdrop-filter`, and `Tilt`/`Phone3D` build no 3D context on touch
+  screens (WebKit also stops reporting elements inside `preserve-3d` as
+  in view). Exceeding the budget shows as black regions and animations
+  frozen mid-frame. `effects/ios-safety.test.tsx` guards all of this.
 - `WipeReveal` observes an outer element and clips an inner one: an
   IntersectionObserver on a fully clipped element never fires.
 - `BrowserFrame` contains its URL bar's inline size, so a long URL

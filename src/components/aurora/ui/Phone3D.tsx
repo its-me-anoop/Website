@@ -16,6 +16,10 @@ const DEPTH_LAYERS = 9;
  * turns. It swings round as the page scrolls and leans towards a mouse.
  * No 3D library, so it costs no JavaScript beyond the motion values.
  *
+ * Touch screens get a flat phone at a slight angle: no depth slabs, no
+ * 3D context and no float loop. The stacked layers are cheap on a
+ * desktop GPU but add up to more than iOS Safari will composite.
+ *
  * Decorative: the screenshot is a picture of a page described elsewhere.
  */
 export function Phone3D({
@@ -48,6 +52,7 @@ export function Phone3D({
   const glareX = useTransform(rotateY, [-40, 20], [110, -10]);
   const glare = useMotionTemplate`linear-gradient(115deg, transparent ${glareX}%, rgba(255,236,210,0.18) calc(${glareX}% + 8%), transparent calc(${glareX}% + 22%))`;
 
+  const depth = fine && motion;
   const height = Math.round((width * 844) / 390) + 24;
   const radius = Math.round(width * 0.16);
 
@@ -55,7 +60,7 @@ export function Phone3D({
     <div
       ref={ref}
       aria-hidden="true"
-      className={cn("pointer-events-auto relative [perspective:1600px]", className)}
+      className={cn("pointer-events-auto relative", depth && "[perspective:1600px]", className)}
       style={{ width, height }}
       onPointerMove={(e) => {
         if (!fine || !motion) return;
@@ -68,13 +73,13 @@ export function Phone3D({
         py.set(0);
       }}
     >
-      <div className="a-phone-float h-full w-full [transform-style:preserve-3d]">
+      <div className={cn("h-full w-full", depth && "a-phone-float [transform-style:preserve-3d]")}>
         <m.div
-          className="relative h-full w-full [transform-style:preserve-3d]"
-          style={motion ? { rotateY, rotateX } : { rotateY: -22, rotateX: 8 }}
+          className={cn("relative h-full w-full", depth && "[transform-style:preserve-3d]")}
+          style={depth ? { rotateY, rotateX } : { rotate: -4 }}
         >
           {/* Body: stacked slabs behind the face read as a solid edge. */}
-          {Array.from({ length: DEPTH_LAYERS }, (_, i) => (
+          {depth && Array.from({ length: DEPTH_LAYERS }, (_, i) => (
             <span
               key={i}
               className="absolute inset-0"
@@ -104,7 +109,7 @@ export function Phone3D({
                   sizes={`${width}px`}
                   className="object-cover object-top"
                 />
-                <m.span className="pointer-events-none absolute inset-0" style={motion ? { backgroundImage: glare } : undefined} />
+                <m.span className="pointer-events-none absolute inset-0" style={depth ? { backgroundImage: glare } : undefined} />
               </div>
               <span className="absolute left-1/2 top-[15px] h-[20px] w-[30%] -translate-x-1/2 rounded-full bg-black" />
             </div>
