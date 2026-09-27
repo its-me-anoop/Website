@@ -107,6 +107,22 @@ shader, logo and display type.
 `useSyncExternalStore` with a `false` server snapshot, so SSR and
 hydration always agree and motion arms right after hydration.
 
+## iPhone Duo (foldable)
+
+Follows Apple's HIG "Designing for iPhone Duo", translated to the web
+(Safari exposes no fold or reserved-region API, only a resize):
+
+- Resize, don't rearrange: the same content and controls on the folded
+  outer screen (~466×678) and the open inner screen (~626×890 / 890×626),
+  with small layout steps between them.
+- Reserved side regions (side toolbar, corner camera) show the page
+  background, so Aurora pages are dark underneath and set theme-color
+  `#0b0907` to match.
+- Even column counts where a repeating grid spans the fold (the report's
+  facts go 2 → 6, not 3). Three-item rows stay one row of three.
+- `test:browser` and `test:contrast` run every route at all three Duo
+  sizes and fold/unfold the home page mid-visit.
+
 ## Accessibility
 
 - One `<h1>` per page; the word reveal keeps a single plain accessible name.
