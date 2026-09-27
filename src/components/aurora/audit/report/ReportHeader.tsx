@@ -141,7 +141,9 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
       </div>
 
       <Reveal delay={0.2} className="mt-14">
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-y border-a-line py-6 sm:grid-cols-3 lg:grid-cols-6">
+        {/* Two columns until all six fit in a row: an even split keeps
+            every fact clear of the fold on the iPhone Duo's inner screen. */}
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-y border-a-line py-6 lg:grid-cols-6">
           {facts.map((f) => (
             <div key={f.label}>
               <dt className="a-eyebrow text-a-muted">{f.label}</dt>

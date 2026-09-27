@@ -111,6 +111,13 @@ async function auditPage(context, route, label = route) {
         brokenHash: [...new Set(brokenHash)],
         broken,
         overflow: document.documentElement.scrollWidth - window.innerWidth,
+        /* Safari paints the page background into areas it reserves at
+           the sides (landscape, and the iPhone Duo's side toolbar and
+           corner camera) and tints its chrome with theme-color, so both
+           must match the dark Aurora surface. */
+        aurora: Boolean(document.querySelector(".aurora-root")),
+        pageBackground: getComputedStyle(document.documentElement).backgroundColor,
+        themeColor: document.querySelector('meta[name="theme-color"]')?.getAttribute("content") ?? null,
         /* The root clips x-overflow, so a too-wide frame never shows in
            scrollWidth; measure the layout width of each frame instead. */
         wideFrames: [...document.querySelectorAll("figure")]
@@ -125,6 +132,11 @@ async function auditPage(context, route, label = route) {
       note(label, `broken anchor targets: ${data.brokenHash.join(", ")}`);
     if (data.broken.length) note(label, `broken images: ${data.broken.join(", ")}`);
     if (data.overflow > 1) note(label, `horizontal overflow ${data.overflow}px`);
+    if (data.aurora) {
+      const [r, g, b] = data.pageBackground.match(/\d+/g).map(Number);
+      if (r + g + b > 90) note(label, `page background is light (${data.pageBackground}); Safari shows it in side safe areas`);
+      if (data.themeColor !== "#0b0907") note(label, `theme-color is ${data.themeColor}, expected #0b0907`);
+    }
     if (data.wideFrames.length)
       note(label, `frames wider than the viewport: ${data.wideFrames.join(", ")}`);
     if (data.h1 !== 1) note(label, `expected 1 <h1>, found ${data.h1}`);
