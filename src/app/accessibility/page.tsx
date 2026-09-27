@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { AccessibilityStatement } from "@/components/wayfinder/pages/AccessibilityStatement";
+import { AccessibilityStatement } from "@/components/aurora/pages/AccessibilityStatement";
 
 const description = `Accessibility statement for ${site.domain}: the standards this website aims to meet, how it is tested, and how to report a problem.`;
 
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f3f1ea",
-  colorScheme: "light",
+  themeColor: "#05060b",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -53,10 +53,6 @@ const sections = [
         <li>Semantic HTML with a logical heading structure on every page</li>
         <li>Full keyboard operability, with visible focus styles</li>
         <li>Text and interface colours that meet AA contrast ratios</li>
-        <li>
-          Type set in Atkinson Hyperlegible, designed by the Braille Institute so
-          that easily confused letters stay distinct for readers with low vision
-        </li>
         <li>Text alternatives for meaningful images</li>
         <li>Animation that respects the reduced-motion preference in your operating system</li>
         <li>Layouts that reflow for zoom and small screens</li>
@@ -81,7 +77,7 @@ const sections = [
         please say so. It will be treated as a bug, not feedback. Email{" "}
         <a
           href={`mailto:${site.supportEmail}`}
-          className="font-bold text-wf-ink underline decoration-2 underline-offset-4"
+          className="font-medium text-a-ink underline decoration-a-lime underline-offset-4"
         >
           {site.supportEmail}
         </a>{" "}
