@@ -142,11 +142,33 @@ async function auditPage(context, route, label = route) {
   await page.close();
 }
 
+/*
+ * iPhone Duo (foldable). Apple has not published Safari viewports; these
+ * are the hardware resolutions at the usual 3x scale: the 5.4" outer
+ * screen when folded, and the near-square 7.6" inner screen open in
+ * portrait and landscape. Safari cannot see the fold, it only resizes.
+ */
+const duo = (width, height) => ({
+  viewport: { width, height },
+  deviceScaleFactor: 3,
+  isMobile: true,
+  hasTouch: true,
+  userAgent: devices["iPhone 13"].userAgent,
+});
+const DUO = {
+  folded: duo(466, 678),
+  open: duo(626, 890),
+  openLandscape: duo(890, 626),
+};
+
 const browser = await chromium.launch();
 
 for (const [label, options] of [
   ["mobile", { ...devices["iPhone 13"] }],
   ["desktop", { viewport: { width: 1440, height: 900 } }],
+  ["duo-folded", DUO.folded],
+  ["duo-open", DUO.open],
+  ["duo-open-landscape", DUO.openLandscape],
 ]) {
   const context = await browser.newContext(options);
   for (const route of ROUTES) await auditPage(context, route, `${label} ${route}`);
@@ -286,6 +308,41 @@ for (const route of ["/", "/gp-websites", "/packages", "/projects/sipli", "/proj
   await page.close();
 }
 await reducedMotion.close();
+
+/* Folding and unfolding mid-visit: the page must adapt to each screen
+   without a reload, and the shader canvas must follow the new size. */
+{
+  const context = await browser.newContext(DUO.folded);
+  const page = await context.newPage();
+  await page.goto(BASE + "/", { waitUntil: "networkidle" });
+  const states = [
+    ["unfolded", DUO.open.viewport],
+    ["unfolded landscape", DUO.openLandscape.viewport],
+    ["folded again", DUO.folded.viewport],
+  ];
+  for (const [state, size] of states) {
+    await page.setViewportSize(size);
+    await page.waitForTimeout(600);
+    const r = await page.evaluate(() => {
+      const canvas = document.querySelector("#top canvas.mix-blend-screen");
+      const box = canvas?.getBoundingClientRect();
+      return {
+        overflow: document.documentElement.scrollWidth - innerWidth,
+        wide: [...document.querySelectorAll("figure")].filter((f) => f.offsetWidth > innerWidth + 1).length,
+        h1: (() => {
+          const b = document.querySelector("h1")?.getBoundingClientRect();
+          return b ? b.left >= -1 && b.right <= innerWidth + 1 && b.width > 0 : false;
+        })(),
+        canvasFits: box ? Math.abs(box.width - innerWidth) <= 2 : true,
+      };
+    });
+    if (r.overflow > 1) note(`duo ${state}`, `horizontal overflow ${r.overflow}px`);
+    if (r.wide) note(`duo ${state}`, `${r.wide} frame(s) wider than the viewport`);
+    if (!r.h1) note(`duo ${state}`, "hero headline is not fully on screen");
+    if (!r.canvasFits) note(`duo ${state}`, "hero shader canvas did not follow the new width");
+  }
+  await context.close();
+}
 
 await browser.close();
 

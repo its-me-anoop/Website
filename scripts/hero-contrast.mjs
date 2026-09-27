@@ -31,6 +31,15 @@ const TARGETS = [
 const VIEWPORTS = [
   ["mobile", { ...devices["iPhone 13"] }],
   ["desktop", { viewport: { width: 1440, height: 900 } }],
+  /* iPhone Duo: folded outer screen, and the inner screen open both ways. */
+  ...[
+    ["duo-folded", 466, 678],
+    ["duo-open", 626, 890],
+    ["duo-open-landscape", 890, 626],
+  ].map(([name, width, height]) => [
+    name,
+    { viewport: { width, height }, deviceScaleFactor: 3, isMobile: true, hasTouch: true },
+  ]),
 ];
 
 const linear = (c) => {
