@@ -22,8 +22,6 @@ const ROUTES = [
   "/care-home-websites",
   "/packages",
   "/free-audit",
-  "/leaving-msw",
-  "/book",
   "/audit",
   "/audit?url=example.com",
   "/accessibility",

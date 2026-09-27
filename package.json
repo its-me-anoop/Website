@@ -10,7 +10,8 @@
     "test": "vitest run",
     "cms:validate": "vitest run src/lib/cms/shipped-content.test.ts",
     "test:browser": "node scripts/browser-workflow.mjs",
-    "test:a11y": "node scripts/a11y-audit.mjs"
+    "test:a11y": "node scripts/a11y-audit.mjs",
+    "test:contrast": "node scripts/hero-contrast.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

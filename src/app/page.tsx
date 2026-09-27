@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { Home as WayfinderHome } from "@/components/wayfinder/home/Home";
+import { Home as AuroraHome } from "@/components/aurora/home/Home";
 
 const title = "Websites for GP practices and care homes";
 const description =
@@ -37,12 +37,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f3f1ea",
-  colorScheme: "light",
+  themeColor: "#05060b",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function Home() {
-  return <WayfinderHome />;
+  return <AuroraHome />;
 }
