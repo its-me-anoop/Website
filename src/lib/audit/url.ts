@@ -86,7 +86,7 @@ export function isPrivateAddress(address: string): boolean {
   const ip = address.replace(/^\[|\]$/g, "").toLowerCase();
 
   if (isIPv4(ip)) {
-    const [a, b] = ip.split(".").map(Number);
+    const [a, b, c] = ip.split(".").map(Number);
     if (a === 0) return true; // 0.0.0.0/8 "this network"
     if (a === 10) return true; // 10/8
     if (a === 127) return true; // loopback
@@ -94,10 +94,13 @@ export function isPrivateAddress(address: string): boolean {
     if (a === 172 && b >= 16 && b <= 31) return true; // 172.16/12
     if (a === 192 && b === 168) return true; // 192.168/16
     if (a === 100 && b >= 64 && b <= 127) return true; // shared address space
-    if (a === 192 && b === 0) return true; // 192.0.0/24 and 192.0.2/24 test-net
+    // The next three are /24s, not /16s: the rest of 192.0.x.x, 198.51.x.x
+    // and 203.0.x.x is ordinary public space (WordPress.com serves sites
+    // from 192.0.64.0/18, for one).
+    if (a === 192 && b === 0 && (c === 0 || c === 2)) return true; // 192.0.0/24 IETF, 192.0.2/24 test-net-1
     if (a === 198 && (b === 18 || b === 19)) return true; // benchmarking
-    if (a === 198 && b === 51) return true; // test-net-2
-    if (a === 203 && b === 0) return true; // test-net-3
+    if (a === 198 && b === 51 && c === 100) return true; // test-net-2
+    if (a === 203 && b === 0 && c === 113) return true; // test-net-3
     if (a >= 224) return true; // multicast + reserved + broadcast
     return false;
   }
