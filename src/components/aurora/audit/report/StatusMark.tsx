@@ -1,13 +1,7 @@
 import { AlertTriangle, Check, Info, X } from "lucide-react";
+import { scoreBand, statusLabel } from "@/lib/audit/score";
 import type { CheckStatus } from "@/lib/audit/types";
 import { cn } from "@/lib/utils";
-
-export const statusLabel: Record<CheckStatus, string> = {
-  pass: "Passed",
-  warn: "Needs improvement",
-  fail: "Needs fixing",
-  info: "For information",
-};
 
 /** Text colour for a status on the night canvas (each ≥ 4.5:1). */
 export function statusText(status: CheckStatus) {
@@ -26,16 +20,16 @@ export function statusText(status: CheckStatus) {
 /** Score colour: green when comfortable, amber when middling, red when not. */
 export function scoreTone(score: number | null) {
   if (score === null) return "text-a-muted";
-  if (score >= 75) return "text-a-pass";
-  if (score >= 60) return "text-a-warn";
-  return "text-a-fail";
+  return { good: "text-a-pass", fair: "text-a-warn", poor: "text-a-fail" }[scoreBand(score)];
 }
 
 export function scoreBar(score: number | null) {
   if (score === null) return "bg-a-line-2";
-  if (score >= 75) return "bg-a-pass shadow-[0_0_12px_rgba(94,230,160,0.6)]";
-  if (score >= 60) return "bg-a-warn shadow-[0_0_12px_rgba(255,200,87,0.6)]";
-  return "bg-a-fail shadow-[0_0_12px_rgba(255,122,122,0.6)]";
+  return {
+    good: "bg-a-pass shadow-[0_0_12px_rgba(94,230,160,0.6)]",
+    fair: "bg-a-warn shadow-[0_0_12px_rgba(255,200,87,0.6)]",
+    poor: "bg-a-fail shadow-[0_0_12px_rgba(255,122,122,0.6)]",
+  }[scoreBand(score)];
 }
 
 export function StatusMark({

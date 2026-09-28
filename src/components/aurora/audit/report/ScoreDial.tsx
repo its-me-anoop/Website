@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { scoreBand } from "@/lib/audit/score";
 import type { Grade } from "@/lib/audit/types";
 import { cn } from "@/lib/utils";
 
@@ -8,9 +9,13 @@ const CIRC = 2 * Math.PI * RADIUS;
 
 /** Arc colours for the score band: a two-stop glow along the stroke. */
 function arcStops(score: number): [string, string] {
-  if (score >= 75) return ["#ffc24a", "#5ee6a0"];
-  if (score >= 60) return ["#ffc857", "#ff9f5a"];
-  return ["#ff5a36", "#ff7a7a"];
+  return (
+    {
+      good: ["#ffc24a", "#5ee6a0"],
+      fair: ["#ffc857", "#ff9f5a"],
+      poor: ["#ff5a36", "#ff7a7a"],
+    } as const
+  )[scoreBand(score)] as [string, string];
 }
 
 /**
