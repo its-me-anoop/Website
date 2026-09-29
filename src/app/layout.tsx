@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { site } from "@/lib/site";
 
 /* Porcelain pages render on the native SF-style system stack (see
@@ -167,7 +168,7 @@ export const viewport: Viewport = {
 };
 
 /** Person / Organization / WebSite structured data for rich results. */
-function JsonLd() {
+function SiteJsonLd() {
   const person = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -276,22 +277,7 @@ function JsonLd() {
     inLanguage: "en-GB",
   };
 
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
-      />
-    </>
-  );
+  return <JsonLd data={[person, organization, website]} />;
 }
 
 export default function RootLayout({
@@ -304,7 +290,7 @@ export default function RootLayout({
       className={`${bricolage.variable} ${instrument.variable} ${geist.variable} ${geistMono.variable} ${zodiak.variable} ${switzer.variable} ${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
     >
       <head>
-        <JsonLd />
+        <SiteJsonLd />
       </head>
       <body className="antialiased bg-canvas text-ink font-sans min-h-screen">
         <a
