@@ -41,7 +41,7 @@ describe("LittleLifelineLanding", () => {
       .getAllByRole("link", { name: /Download Little Lifeline on the App Store/i });
     expect(links.length).toBeGreaterThan(0);
     links.forEach((a) => {
-      expect(a).toHaveAttribute("href", "https://apps.apple.com/app/id6786840477");
+      expect(a).toHaveAttribute("href", "https://apps.apple.com/us/app/little-lifeline/id6786840477");
       expect(a).toHaveAttribute("target", "_blank");
       expect(a.getAttribute("rel")).toContain("noopener");
     });

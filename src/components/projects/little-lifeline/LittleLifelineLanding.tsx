@@ -29,7 +29,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
  * docs/appstore listing; the privacy policy is published from the support
  * repository, so this page links to it rather than restating it.
  */
-const APP_STORE_URL = "https://apps.apple.com/app/id6786840477";
+const APP_STORE_URL = "https://apps.apple.com/us/app/little-lifeline/id6786840477";
 const PRIVACY_URL =
   "https://github.com/its-me-anoop/gravitile-support/blob/main/privacy.md";
 

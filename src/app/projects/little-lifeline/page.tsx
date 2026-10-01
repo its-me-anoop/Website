@@ -6,7 +6,7 @@ const title = "Little Lifeline — Idle Clinic Game";
 const description =
   "Little Lifeline is a miniature 3D clinic management game for iPhone and iPad. Grow one reception desk into a busy doctors clinic, with twenty pieces of equipment per room, daily goals and offline earnings. Free, no advertisements, no account.";
 
-const appStoreUrl = "https://apps.apple.com/app/id6786840477";
+const appStoreUrl = "https://apps.apple.com/us/app/little-lifeline/id6786840477";
 const image = "/projects/little-lifeline/app-icon.png";
 
 export const metadata: Metadata = {
