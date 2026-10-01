@@ -215,6 +215,19 @@ export const projects: readonly Project[] = [
     fit: "contain",
     tags: ["SwiftUI", "Local first", "Family sharing"],
   },
+  {
+    name: "Little Lifeline",
+    type: "iOS and iPadOS game",
+    year: "2026",
+    description:
+      "A miniature 3D clinic management game: patients check in, wait, receive care and drive home while you grow the clinic one room at a time. Free, with no advertisements.",
+    href: "/projects/little-lifeline",
+    internal: true,
+    image: "/projects/little-lifeline/app-icon.png",
+    tint: "#dde8e4",
+    fit: "contain",
+    tags: ["Unity", "Idle management", "Offline first"],
+  },
 ] as const;
 
 /**
@@ -245,6 +258,7 @@ export const ticker = [
   "Sipli",
   "A reply within one working day",
   "Little Artist",
+  "Little Lifeline",
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────
@@ -854,6 +868,7 @@ export const footerColumns = [
       { label: "JJ Paper", href: "https://www.jjpaperessential.com/" },
       { label: "Sipli", href: "/projects/sipli" },
       { label: "Little Artist", href: "/projects/artling" },
+      { label: "Little Lifeline", href: "/projects/little-lifeline" },
     ],
   },
   {
