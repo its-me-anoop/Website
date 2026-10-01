@@ -236,7 +236,7 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   }
 
   const projects = await page.locator("[data-project-card]").count();
-  if (projects !== 6) note("home", `expected 6 project cards, found ${projects}`);
+  if (projects !== 7) note("home", `expected 7 project cards, found ${projects}`);
 
   /* Scroll-triggered reveals must actually uncover their content: the
      founder portrait once stayed clipped away because the in-view check
