@@ -106,6 +106,9 @@ describe("Home", () => {
     const littleArtist = linksTo("/projects/artling");
     expect(littleArtist.some((a) => /Little Artist/.test(a.textContent ?? ""))).toBe(true);
 
+    const lifeline = linksTo("/projects/little-lifeline");
+    expect(lifeline.some((a) => /Little Lifeline/.test(a.textContent ?? ""))).toBe(true);
+
     const greenmead = screen.getAllByRole("link").filter((a) => a.getAttribute("href")?.includes("greenmead.co.uk"));
     expect(greenmead.length).toBeGreaterThan(0);
     greenmead.forEach((a) => {

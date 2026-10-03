@@ -21,6 +21,7 @@ const cols = [
     links: [
       { href: "/projects/sipli", label: "Sipli" },
       { href: "/projects/artling", label: "Little Artist" },
+      { href: "/projects/little-lifeline", label: "Little Lifeline" },
       { href: "#work", label: "All projects" },
       { href: "/projects/sipli/privacy-policy", label: "Sipli privacy policy" },
       { href: "/projects/artling/privacy-policy", label: "Little Artist privacy policy" },
