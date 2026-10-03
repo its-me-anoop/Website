@@ -2,7 +2,6 @@
 
 import { useId, useState, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Magnetic, Reveal, SplitWords } from "../effects/Motion";
@@ -100,10 +99,11 @@ export function SectionIntro({
 
 const btnTone = {
   primary:
-    "a-shine bg-a-amber text-a-void shadow-[0_0_0_1px_rgba(255,176,32,0.4),0_18px_50px_-18px_rgba(255,176,32,0.65)] hover:bg-a-amber-hover",
-  glass: "a-glass text-a-ink hover:bg-white/10",
-  outline: "border border-a-line-2 text-a-ink hover:border-a-ink/60 hover:bg-white/5",
-  ghost: "text-a-ink underline decoration-a-line-2 underline-offset-[6px] hover:decoration-a-amber",
+    "a-shine bg-a-amber text-a-void hover:bg-a-amber-hover hover:-translate-y-0.5 hover:shadow-[0_12px_30px_-12px_rgba(255,176,32,0.6)]",
+  /** Kept for callers: on night a dense warm surface, on paper a raised card. */
+  glass: "a-glass text-a-ink hover:-translate-y-0.5 hover:border-a-line-2",
+  outline: "border border-a-line-2 text-a-ink hover:-translate-y-0.5 hover:border-a-ink/70 hover:bg-a-ink/5",
+  ghost: "text-a-ink underline decoration-a-line-2 underline-offset-[6px] hover:decoration-a-amber hover:underline-offset-[8px]",
 } as const;
 
 const btnSize = {
@@ -132,7 +132,7 @@ export function ButtonLink({
   magnetic?: boolean;
 }) {
   const classes = cn(
-    "group/btn inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-[-0.01em] transition-[background-color,border-color,color,box-shadow,transform] duration-300",
+    "group/btn inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-[-0.01em] transition-[background-color,border-color,color,box-shadow,transform,text-underline-offset] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:translate-y-0 active:scale-[0.98]",
     tone !== "ghost" && btnSize[size],
     btnTone[tone],
     className
@@ -204,9 +204,9 @@ export function CheckItem({ children, className }: { children: ReactNode; classN
     <li className={cn("flex items-start gap-3", className)}>
       <span
         aria-hidden
-        className="mt-[3px] flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-a-amber/15 text-a-amber ring-1 ring-a-amber/30"
+        className="mt-[3px] flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full text-a-gold"
       >
-        <Check size={11} strokeWidth={3} />
+        <Check size={16} strokeWidth={2.6} />
       </span>
       <span className="text-[15px] leading-[1.6] text-a-ink">{children}</span>
     </li>
@@ -217,7 +217,7 @@ export function FaqList({ items, className }: { items: readonly { q: string; a: 
   return (
     <div className={cn("grid gap-3", className)}>
       {items.map((item) => (
-        <details key={item.q} className="a-glass a-spot group rounded-[20px] px-6 py-5 open:bg-white/[0.06]">
+        <details key={item.q} className="a-card group rounded-[20px] px-6 py-5">
           <summary className="flex cursor-pointer list-none items-start justify-between gap-5 text-[16px] font-medium text-a-ink sm:text-[17px] [&::-webkit-details-marker]:hidden">
             <span className="min-w-0 flex-1 text-left">{item.q}</span>
             <span
@@ -279,7 +279,7 @@ export function AuditBar({
         {label}
       </label>
       <div className="a-field-ring rounded-full">
-        <div className="flex items-center gap-2 rounded-full bg-a-void/90 p-1.5 pl-5 backdrop-blur-xl">
+        <div className="flex items-center gap-2 rounded-full bg-a-void/90 p-1.5 pl-5">
           <span aria-hidden className="a-mono hidden text-[13px] text-a-muted sm:inline">
             https://
           </span>
@@ -316,59 +316,5 @@ export function AuditBar({
         {hint}
       </p>
     </form>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────
-   BrowserFrame: glass chrome around a screenshot.
-   ───────────────────────────────────────────────────────────── */
-
-export function BrowserFrame({
-  src,
-  alt,
-  url,
-  priority,
-  loading,
-  className,
-  sizes = "(min-width: 1024px) 760px, 92vw",
-}: {
-  src: string;
-  alt: string;
-  url: string;
-  priority?: boolean;
-  loading?: "eager" | "lazy";
-  className?: string;
-  sizes?: string;
-}) {
-  return (
-    <figure
-      className={cn(
-        "a-glass overflow-hidden rounded-[18px] p-1.5 shadow-[0_60px_120px_-50px_rgba(232,64,31,0.45)] sm:rounded-[22px] sm:p-2",
-        className
-      )}
-    >
-      {/* inline-size containment: a long URL truncates instead of setting
-          the frame's minimum width and pushing a grid column off screen. */}
-      <div className="flex items-center gap-2 px-2 pb-2 pt-1 [contain:inline-size]">
-        <span className="flex gap-1.5" aria-hidden>
-          <span className="h-2 w-2 rounded-full bg-[#ff5f57]/80" />
-          <span className="h-2 w-2 rounded-full bg-[#febc2e]/80" />
-          <span className="h-2 w-2 rounded-full bg-[#28c840]/80" />
-        </span>
-        <span className="a-mono mx-auto min-w-0 truncate rounded-full bg-white/5 px-3 py-1 text-[11px] text-a-ink-soft">{url}</span>
-        <span className="w-10" aria-hidden />
-      </div>
-      <div className="relative aspect-[1440/1000] overflow-hidden rounded-[12px] bg-a-deep sm:rounded-[16px]">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          priority={priority}
-          loading={loading}
-          sizes={sizes}
-          className="object-cover object-top"
-        />
-      </div>
-    </figure>
   );
 }

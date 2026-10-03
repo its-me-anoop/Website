@@ -1,31 +1,18 @@
 "use client";
 
-import { Building2, HeartHandshake, Pill, Smile, Stethoscope } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { personas } from "@/lib/marketing/content";
-import { cn } from "@/lib/utils";
 import { Reveal } from "../effects/Motion";
 import { Container, SectionIntro } from "../ui/primitives";
 
-const icons = [Stethoscope, HeartHandshake, Smile, Pill, Building2] as const;
-const layout = [
-  "md:col-span-2 md:row-span-2",
-  "md:col-span-2",
-  "",
-  "",
-  "md:col-span-2",
-] as const;
-const glow = [
-  "rgba(255,122,26,0.35)",
-  "rgba(255,194,74,0.3)",
-  "rgba(255,176,32,0.25)",
-  "rgba(232,64,31,0.3)",
-  "rgba(255,90,54,0.25)",
-] as const;
-
-/** Who it is for, as a bento of spotlight cards. The first card leads. */
+/**
+ * Who it is for: five numbered paper cards, then an ink card for
+ * everyone else that leads to a conversation.
+ */
 export function Audiences() {
   return (
-    <section id="who" className="relative scroll-mt-24 py-24 sm:py-32">
+    <section id="who" className="a-paper-2 relative scroll-mt-24 py-24 sm:py-32">
       <Container>
         <SectionIntro
           eyebrow="Who it is for"
@@ -36,38 +23,31 @@ export function Audiences() {
           }
           copy="Every sector gets a site shaped around the questions its visitors actually arrive with."
         />
-        <ul className="mt-14 grid auto-rows-[minmax(220px,auto)] gap-4 md:grid-cols-4">
-          {personas.map((p, i) => {
-            const Icon = icons[i];
-            return (
-              <Reveal as="li" key={p.who} delay={i * 0.06} className={cn("h-full", layout[i])}>
-                <article className="a-glass a-spot group relative flex h-full flex-col justify-between overflow-hidden rounded-[28px] p-7 sm:p-8">
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 opacity-60 transition-opacity duration-700 group-hover:opacity-90"
-                    style={{ background: `radial-gradient(closest-side, ${glow[i]}, transparent)` }}
-                  />
-                  <span
-                    aria-hidden
-                    className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-a-line-2 bg-white/5 text-a-ink"
-                  >
-                    <Icon size={22} strokeWidth={1.6} />
-                  </span>
-                  <div className="relative mt-10">
-                    <h3 className={cn("a-display", i === 0 ? "text-[clamp(2rem,3.4vw,3rem)]" : "text-[26px]")}>{p.who}</h3>
-                    <p
-                      className={cn(
-                        "mt-3 leading-[1.6] text-a-ink-soft",
-                        i === 0 ? "max-w-[46ch] text-[17px]" : "text-[15px]"
-                      )}
-                    >
-                      {p.statement}
-                    </p>
-                  </div>
-                </article>
-              </Reveal>
-            );
-          })}
+        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {personas.map((p, i) => (
+            <Reveal as="li" key={p.who} delay={i * 0.06} className="h-full">
+              <article className="a-card a-card-hover flex h-full flex-col gap-4 rounded-[20px] p-7">
+                <span className="a-mono text-[12px] tracking-[0.1em] text-a-gold">0{i + 1}</span>
+                <h3 className="a-display text-[26px]">{p.who}</h3>
+                <p className="text-[15.5px] leading-[1.6] text-a-ink-soft">{p.statement}</p>
+              </article>
+            </Reveal>
+          ))}
+          <Reveal as="li" delay={personas.length * 0.06} className="h-full">
+            <Link
+              href="#contact"
+              className="a-on-ink a-card group flex h-full flex-col justify-between gap-6 rounded-[20px] border-transparent p-7"
+            >
+              <span className="a-mono text-[12px] uppercase tracking-[0.1em] text-a-amber">Something else?</span>
+              <span className="a-display text-[26px]">
+                A product idea, a housing provider, a charity. Start with a conversation.
+              </span>
+              <span className="inline-flex items-center gap-2 text-[15.5px] text-a-amber">
+                Book a call
+                <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
+              </span>
+            </Link>
+          </Reveal>
         </ul>
       </Container>
     </section>

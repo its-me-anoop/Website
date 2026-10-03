@@ -2,15 +2,14 @@
 
 import Link from "next/link";
 import { CalendarClock, X } from "lucide-react";
-import { site } from "@/lib/site";
 import { clearPath, gpSector } from "@/lib/marketing/content";
-import { Reveal, Tilt } from "../effects/Motion";
+import { Reveal } from "../effects/Motion";
+import { IMacFrame } from "../ui/DeviceFrame";
 import { CtaBand } from "../layout/CtaBand";
 import { PageHero } from "../layout/PageHero";
 import { Shell } from "../layout/Shell";
 import { PackageCard } from "../ui/PackageCard";
 import {
-  BrowserFrame,
   ButtonLink,
   CheckItem,
   Container,
@@ -239,7 +238,7 @@ export function LeavingMswPage() {
           <ol className="mt-14 grid gap-5 sm:grid-cols-3">
             {clearPath.dates.map((item, i) => (
               <Reveal as="li" key={item.label} delay={i * 0.08} className="h-full">
-                <article className="a-glass a-spot flex h-full flex-col rounded-[26px] p-7">
+                <article className="a-card flex h-full flex-col rounded-[26px] p-7">
                   <span className="flex items-center gap-2 text-a-gold">
                     <CalendarClock size={16} aria-hidden />
                     <span className="a-mono text-[12px] uppercase tracking-[0.14em]">{item.label}</span>
@@ -291,15 +290,13 @@ export function LeavingMswPage() {
             </Reveal>
           </div>
           <Reveal delay={0.12}>
-            <Tilt max={6}>
-              <a
-                href={gpSector.demo.href}
-                aria-label={`Open the ${gpSector.demo.name} sample website`}
-                className="block rounded-[22px]"
-              >
-                <BrowserFrame src={gpSector.demo.image} alt={gpSector.demo.imageAlt} url={`${site.domain}${gpSector.demo.href}`} />
-              </a>
-            </Tilt>
+            <a
+              href={gpSector.demo.href}
+              aria-label={`Open the ${gpSector.demo.name} sample website`}
+              className="block rounded-[16px]"
+            >
+              <IMacFrame src={gpSector.demo.image} alt="" />
+            </a>
             <p className="mt-4 text-center text-[13px] text-a-muted">
               A live, hosted sample. The organisation shown is fictional.
             </p>

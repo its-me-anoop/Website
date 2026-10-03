@@ -1,28 +1,19 @@
 "use client";
 
 import { useRef, useState, type KeyboardEvent } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { m } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { site } from "@/lib/site";
 import { samples } from "@/lib/marketing/content";
-import { EASE, Reveal, Tilt } from "../effects/Motion";
+import { cn } from "@/lib/utils";
+import { EASE, Reveal } from "../effects/Motion";
 import { useMotionAllowed } from "../effects/hooks";
-import {
-  BrowserFrame,
-  ButtonLink,
-  CheckItem,
-  Container,
-  SectionIntro,
-} from "../ui/primitives";
-import { Phone3D } from "../ui/Phone3D";
+import { IMacFrame, IPhoneFrame } from "../ui/DeviceFrame";
+import { ButtonLink, CheckItem, Container, SectionIntro } from "../ui/primitives";
 
 /** Roving-focus index for the tab keys the WAI-ARIA tabs pattern expects. */
-export function nextTabIndex(
-  key: string,
-  current: number,
-  count: number,
-): number | null {
+export function nextTabIndex(key: string, current: number, count: number): number | null {
   switch (key) {
     case "ArrowRight":
     case "ArrowDown":
@@ -40,9 +31,9 @@ export function nextTabIndex(
 }
 
 /**
- * Five hosted sample sites behind an accessible tablist. The active
- * pill slides between tabs, the panel cross-fades with a blur, and
- * the browser frame tilts towards the pointer.
+ * Five hosted sample sites on paper, behind an accessible tablist. The
+ * panel shows the chosen site on an iMac with the same site on an
+ * iPhone in front, and a row of five thumbnails doubles as a picker.
  */
 export function Showcase() {
   const [active, setActive] = useState(0);
@@ -59,7 +50,7 @@ export function Showcase() {
   }
 
   return (
-    <section id="services" className="relative scroll-mt-24 py-24 sm:py-36">
+    <section id="services" className="a-paper relative scroll-mt-24 py-24 sm:py-32">
       <Container>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionIntro
@@ -71,126 +62,132 @@ export function Showcase() {
             }
             copy="Fictional organisations, real builds. Each one is hosted, fully navigable and built to the same standard as client work."
           />
+          <Reveal>
+            <div
+              role="tablist"
+              aria-label="Sample sites by sector"
+              className="a-tabs-scroll -mx-5 flex gap-2 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0 lg:flex-wrap lg:justify-end"
+            >
+              {samples.map((s, i) => {
+                const selected = i === active;
+                return (
+                  <button
+                    key={s.slug}
+                    ref={(el) => {
+                      tabs.current[i] = el;
+                    }}
+                    id={`sample-tab-${s.slug}`}
+                    role="tab"
+                    type="button"
+                    aria-selected={selected}
+                    aria-controls="sample-panel"
+                    tabIndex={selected ? 0 : -1}
+                    onClick={() => setActive(i)}
+                    onKeyDown={onKeyDown}
+                    className={cn(
+                      "h-11 shrink-0 rounded-full border px-[18px] text-[15px] transition-[background-color,color,border-color,transform] duration-300",
+                      selected
+                        ? "border-a-ink bg-a-ink text-a-paper"
+                        : "border-a-line-2 text-a-ink hover:-translate-y-px hover:border-a-ink"
+                    )}
+                  >
+                    {s.tab}
+                  </button>
+                );
+              })}
+            </div>
+          </Reveal>
         </div>
-
-        <Reveal className="mt-12">
-          <div
-            role="tablist"
-            aria-label="Sample sites by sector"
-            className="a-tabs-scroll -mx-5 flex gap-1 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0 md:inline-flex md:rounded-full md:border md:border-a-line md:bg-white/[0.03] md:p-1.5"
-          >
-            {samples.map((s, i) => {
-              const selected = i === active;
-              return (
-                <button
-                  key={s.slug}
-                  ref={(el) => {
-                    tabs.current[i] = el;
-                  }}
-                  id={`sample-tab-${s.slug}`}
-                  role="tab"
-                  type="button"
-                  aria-selected={selected}
-                  aria-controls="sample-panel"
-                  tabIndex={selected ? 0 : -1}
-                  onClick={() => setActive(i)}
-                  onKeyDown={onKeyDown}
-                  className="relative shrink-0 rounded-full px-5 py-2.5 text-[14.5px] text-a-ink-soft transition-colors hover:text-a-ink aria-selected:text-a-void"
-                >
-                  {selected ? (
-                    <m.span
-                      layoutId="sample-tab-pill"
-                      aria-hidden
-                      className="absolute inset-0 -z-0 rounded-full bg-a-amber"
-                      transition={
-                        motion
-                          ? { type: "spring", stiffness: 380, damping: 32 }
-                          : { duration: 0 }
-                      }
-                    />
-                  ) : null}
-                  <span className="relative">{s.tab}</span>
-                </button>
-              );
-            })}
-          </div>
-        </Reveal>
 
         <div
           id="sample-panel"
           role="tabpanel"
           aria-labelledby={`sample-tab-${sample.slug}`}
-          className="mt-10 grid items-center gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-16"
+          className="mt-12 grid items-center gap-12 lg:grid-cols-[5fr_7fr] lg:gap-14"
         >
-          <div className="relative min-w-0 pb-16 sm:pb-10 lg:pb-0">
-          <Tilt max={5}>
-            <m.div
-              key={sample.slug}
-              initial={motion ? { clipPath: "inset(100% 0% 0% 0%)", y: 24 } : false}
-              animate={{ clipPath: "inset(0% 0% 0% 0%)", y: 0 }}
-              transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
-            >
-              <Link
-                href={sample.href}
-                tabIndex={-1}
-                aria-hidden="true"
-                className="block rounded-[22px]"
-              >
-                <BrowserFrame
-                  src={sample.image}
-                  alt=""
-                  url={`${site.domain}${sample.href}`}
-                  loading="eager"
-                />
-              </Link>
-            </m.div>
-          </Tilt>
-          {/* The same sample on a phone, in 3D, overlapping the desktop frame. */}
-          <div className="pointer-events-none absolute -bottom-2 right-6 origin-bottom-right scale-[0.46] sm:right-2 sm:scale-[0.62] lg:-bottom-14 lg:-right-10 lg:scale-[0.78] xl:scale-90">
-            <Phone3D src={sample.mobileImage} width={250} />
-          </div>
-          </div>
-
           {/* Keyed remount: the new sample's content is in the DOM at once
               (no exit wait, so stale links never linger) and animates in. */}
           <m.div
-            key={sample.slug}
-            initial={
-              motion ? { opacity: 0, x: 24, filter: "blur(6px)" } : false
-            }
-            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.5, ease: EASE }}
+            key={`copy-${sample.slug}`}
+            initial={motion ? { opacity: 0, y: 18 } : false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: EASE }}
           >
-            <p className="a-mono text-[12px] uppercase tracking-[0.16em] text-a-gold">
-              {sample.sector}
-            </p>
-            <h3 className="a-display mt-4 text-[clamp(2rem,3.6vw,3rem)]">
-              {sample.name}
-            </h3>
-            <p className="mt-4 text-[18px] leading-[1.55] text-a-ink-soft">
-              {sample.strap}
-            </p>
-            <ul className="mt-8 space-y-3.5">
+            <p className="a-mono text-[12px] uppercase tracking-[0.16em] text-a-muted">{sample.sector}</p>
+            <h3 className="a-display mt-3 text-[clamp(2rem,3.4vw,2.6rem)]">{sample.name}</h3>
+            <p className="mt-5 text-[19px] leading-[1.55] text-a-ink">{sample.strap}</p>
+            <ul className="mt-7 space-y-3.5">
               {sample.points.map((p) => (
                 <CheckItem key={p}>{p}</CheckItem>
               ))}
             </ul>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-9 flex flex-wrap gap-3">
               <ButtonLink href={sample.href} arrow="up" magnetic>
                 Open the sample site
               </ButtonLink>
               {sample.sectorHref ? (
-                <ButtonLink href={sample.sectorHref} tone="glass">
+                <ButtonLink href={sample.sectorHref} tone="outline">
                   {sample.tab} websites
                 </ButtonLink>
               ) : null}
             </div>
             <p className="mt-5 flex items-center gap-1.5 text-[13px] text-a-muted">
-              <ArrowUpRight size={13} aria-hidden />A live, hosted sample. The
-              organisation shown is fictional.
+              <ArrowUpRight size={13} aria-hidden />A live, hosted sample. The organisation shown is fictional.
             </p>
           </m.div>
+
+          <m.div
+            key={`devices-${sample.slug}`}
+            initial={motion ? { opacity: 0, y: 24 } : false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="relative min-w-0 sm:pb-12 sm:pl-12"
+          >
+            <Link href={sample.href} tabIndex={-1} aria-hidden="true" className="block rounded-[16px]">
+              <IMacFrame src={sample.image} alt="" loading="eager" />
+            </Link>
+            {/* The same site on a phone, overlapping the iMac's foot. */}
+            {/* Decorative on wide screens; phones have too little room beside the iMac. */}
+            <IPhoneFrame src={sample.mobileImage} alt="" width={140} className="absolute bottom-0 left-0 hidden sm:block" />
+          </m.div>
         </div>
+
+        {/* Picker: every sample at a glance; the chosen one is ringed. */}
+        <Reveal className="mt-14">
+          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            {samples.map((s, i) => {
+              const selected = i === active;
+              return (
+                <li key={s.slug}>
+                  <button
+                    type="button"
+                    aria-pressed={selected}
+                    aria-label={`Show ${s.name}`}
+                    onClick={() => setActive(i)}
+                    className={cn(
+                      "a-card group flex w-full flex-col gap-2.5 rounded-[16px] p-2.5 pb-3.5 text-left",
+                      selected && "border-a-ink shadow-[0_0_0_1px_var(--a-ink)]"
+                    )}
+                  >
+                    <span className="relative block aspect-[1440/1000] w-full overflow-hidden rounded-[10px]">
+                      <Image
+                        src={s.image}
+                        alt=""
+                        fill
+                        sizes="(min-width: 1024px) 240px, 45vw"
+                        className="object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+                      />
+                    </span>
+                    <span className="flex flex-col gap-1 px-1">
+                      <span className="text-[14.5px] font-medium leading-snug text-a-ink">{s.name}</span>
+                      <span className="a-mono text-[11px] uppercase tracking-[0.08em] text-a-muted">{s.tab}</span>
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </Reveal>
       </Container>
     </section>
   );

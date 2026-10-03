@@ -3,10 +3,11 @@
 The site of **Flutterly Ltd**, the one-person product studio of
 **Anoop Jose** (Reading, UK). The marketing pages (home, GP practices,
 care homes, packages, Clear Path, free audit, booking, accessibility) run
-the ["Aurora" design language](./docs/AURORA.md): a night canvas lit by a
-live WebGL aurora, glass surfaces, Bricolage Grotesque display with
-gradient-lit Instrument Serif italics, one acid-lime action colour, and
-the audit bar as the hero action.
+the ["Aurora" design language, Ember edition](./docs/AURORA.md): a warm
+night canvas for the opening and the close, warm paper for the sections
+people read carefully, Bricolage Grotesque display with Instrument Serif
+italics, one amber action colour, real device frames around every sample
+site, and the audit bar as the hero action.
 Case-study pages (`/projects/*`) keep the light
 ["Porcelain" system](./docs/DESIGN-SYSTEM.md), and five fictional
 sample sites under `/demo/*` each carry their own sector-specific scope.
@@ -62,15 +63,16 @@ the demo-site scopes.
   `src/lib/audit/` (see [`docs/AUDIT.md`](./docs/AUDIT.md)); the API is
   `GET /api/audit?url=…`, rate-limited, SSRF-guarded, nothing stored.
   The bar is the hero action and the closing action on every page.
-- **Live WebGL aurora**: a domain-warped noise shader bent by the
-  pointer behind every hero, paused off-screen, still for reduced motion,
-  with a CSS light fallback.
-- **Motion that means something**: word-by-word headline reveals, a
-  showreel that stands up in 3D as you scroll, a pinned horizontal work
-  gallery, a process rail that fills with light, magnetic buttons and
-  pointer-tracked spotlight cards.
-- **Showcase tabs**: an accessible tablist of the five sample sites in
-  glass browser frames, with arrow-key navigation.
+- **Real device frames**: every sample-site capture sits in a drawn
+  iPhone (titanium rim, Dynamic Island, iOS-style status bar) or iMac,
+  built in plain CSS so nothing is cropped and nothing costs a frame.
+- **Motion that means something**: word-by-word headline reveals,
+  sections that rise into view, a process rail that fills with ember,
+  buttons and cards that lift, a glow that breathes, and nothing that
+  repaints every frame. All of it collapses under reduced motion.
+- **Showcase tabs**: an accessible tablist of the five sample sites on
+  an iMac with the same site on an iPhone in front, a five-up picker
+  row, and arrow-key navigation.
 - **Accessibility as a feature**: WCAG 2.2 AA contrast on every pair,
   one `<h1>` per page, skip link, keyboard-operable menu and tabs,
   `prefers-reduced-motion` honoured everywhere, axe audited.

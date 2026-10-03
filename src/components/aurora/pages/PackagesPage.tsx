@@ -11,7 +11,7 @@ import { PackageCard } from "../ui/PackageCard";
 import { Container, FaqList, SectionIntro } from "../ui/primitives";
 
 /**
- * Packages: the three cards straight under the hero, then the
+ * Packages: the three cards on paper straight under the hero, then the
  * anti-template table and the questions people ask before a quote.
  */
 export function PackagesPage() {
@@ -21,7 +21,7 @@ export function PackagesPage() {
         eyebrow="Packages & pricing"
         title={
           <>
-            Clear packages. <em>Honest</em> prices.
+            Published prices. <em>No surprises</em> after the call.
           </>
         }
         copy={
@@ -33,7 +33,7 @@ export function PackagesPage() {
         }
       />
 
-      <section className="-mt-8 pb-16">
+      <section className="a-paper py-20 sm:py-24">
         <Container>
           <ul className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
             {packages.map((pkg, i) => (
@@ -43,7 +43,7 @@ export function PackagesPage() {
           <Reveal className="mx-auto mt-10 max-w-[640px] text-center">
             <p className="text-[15.5px] leading-[1.65] text-a-ink-soft">
               Not sure which fits? Start with the{" "}
-              <Link href="/free-audit" className="text-a-ink underline decoration-a-amber underline-offset-4">
+              <Link href="/free-audit" className="text-a-ink underline decoration-a-gold underline-offset-4">
                 free website audit
               </Link>
               . It ends with a recommendation either way, including &ldquo;keep what you have&rdquo; when that is the
@@ -55,7 +55,7 @@ export function PackagesPage() {
 
       <Compare />
 
-      <section className="py-24 sm:py-32">
+      <section className="a-paper-2 py-24 sm:py-32">
         <Container className="grid gap-12 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-20">
           <SectionIntro eyebrow="Questions" title="Before you get in touch." size="md" />
           <Reveal delay={0.08}>

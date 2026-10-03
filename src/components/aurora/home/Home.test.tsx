@@ -36,7 +36,7 @@ describe("Home", () => {
     renderHome();
     const headings = screen.getAllByRole("heading", { level: 1 });
     expect(headings).toHaveLength(1);
-    expect(headings[0]).toHaveTextContent("Healthcare websites, beautifully built.");
+    expect(headings[0]).toHaveTextContent("Healthcare websites that answer first.");
   });
 
   it("exposes primary navigation with the sector and packages pages", () => {
@@ -121,6 +121,24 @@ describe("Home", () => {
     copies.forEach((copy) => expect(copy).toHaveAttribute("aria-hidden", "true"));
   });
 
+  it("shows the sample sites in device frames with a drawn status bar, never cropping the capture", () => {
+    const { container } = renderHome();
+    expect(container.querySelectorAll("[data-status-bar]").length).toBeGreaterThan(0);
+    const screens = container.querySelectorAll<HTMLElement>("[data-screen]");
+    expect(screens.length).toBeGreaterThan(0);
+    screens.forEach((s) => expect(s.style.aspectRatio).toMatch(/\d+ \/ \d+/));
+  });
+
+  it("lets the picker row switch the showcase like the tabs do", () => {
+    renderHome();
+    fireEvent.click(screen.getByRole("button", { name: /Show Kennet Bridge Dental/ }));
+    expect(within(screen.getByRole("tabpanel")).getByRole("link", { name: /Open the sample site/ })).toHaveAttribute(
+      "href",
+      "/demo/dental-practice"
+    );
+    expect(screen.getByRole("tab", { name: "Dental" })).toHaveAttribute("aria-selected", "true");
+  });
+
   it("renders the anti-template comparison table", () => {
     renderHome();
     expect(screen.getByRole("table", { name: /typical template builders/i })).toBeInTheDocument();
@@ -138,7 +156,7 @@ describe("Home", () => {
     const pricing = within(document.getElementById("packages")!);
     expect(pricing.getByText("£995")).toBeInTheDocument();
     expect(pricing.getByText("£1,490")).toBeInTheDocument();
-    expect(pricing.getByText("Most popular")).toBeInTheDocument();
+    expect(pricing.getByText("Most chosen")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /enquire about essentials/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /talk about partnership/i })).toBeInTheDocument();
     expect(screen.getAllByText(new RegExp(`© ${new Date().getFullYear()}`)).length).toBeGreaterThan(0);

@@ -35,7 +35,7 @@ export function AccessibilityStatement({
         <div className="grid gap-4">
           {sections.map((section, i) => (
             <Reveal key={section.title} delay={i * 0.05}>
-              <section className="a-glass a-spot grid gap-4 rounded-[26px] p-7 sm:p-9 md:grid-cols-[minmax(0,240px)_1fr] md:gap-10">
+              <section className="a-card grid gap-4 rounded-[26px] p-7 sm:p-9 md:grid-cols-[minmax(0,240px)_1fr] md:gap-10">
                 <h2 className="a-display text-[24px]">{section.title}</h2>
                 <div className="max-w-[62ch] text-[16px] leading-[1.7] text-a-ink-soft">{section.body}</div>
               </section>
