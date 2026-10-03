@@ -94,7 +94,7 @@ export function AuditLanding() {
                   delay={(i % 4) * 0.05}
                   className={i === 0 ? "h-full sm:col-span-2" : "h-full"}
                 >
-                  <article className="a-glass a-spot flex h-full flex-col rounded-[26px] p-7">
+                  <article className="a-card flex h-full flex-col rounded-[26px] p-7">
                     <div className="flex items-center justify-between">
                       <span
                         aria-hidden
@@ -128,7 +128,7 @@ export function AuditLanding() {
           <ol className="mt-16 grid gap-5 md:grid-cols-3">
             {steps.map((step, i) => (
               <Reveal as="li" key={step.title} delay={i * 0.08} className="h-full">
-                <article className="a-glass a-spot relative h-full overflow-hidden rounded-[28px] p-8">
+                <article className="a-card relative h-full overflow-hidden rounded-[28px] p-8">
                   <span aria-hidden className="a-display a-grad-text absolute -right-2 -top-6 text-[140px] opacity-25">
                     {i + 1}
                   </span>
@@ -146,7 +146,7 @@ export function AuditLanding() {
             </h2>
             <div className="mx-auto mt-10 grid max-w-[1000px] gap-5 sm:grid-cols-2">
               {instantVsWritten.map((col, i) => (
-                <div key={col.label} className={i === 1 ? "a-conic rounded-[28px] bg-a-deep p-8" : "a-glass rounded-[28px] p-8"}>
+                <div key={col.label} className={i === 1 ? "a-on-ink a-card rounded-[28px] border-transparent p-8" : "a-card rounded-[28px] p-8"}>
                   <Eyebrow>{col.label}</Eyebrow>
                   <ul className="mt-6 grid gap-3.5">
                     {col.points.map((p) => (

@@ -4,14 +4,20 @@ Six scoped design systems coexist. Never leak tokens across scopes.
 
 ## 1. Aurora (marketing: home, sectors, packages, Clear Path, audit, booking, accessibility)
 
-See docs/AURORA.md. Night canvas `#05060b` lit by a live WebGL aurora,
-glass surfaces, Bricolage Grotesque display with gradient-lit Instrument
-Serif italics for emphasis, Geist body, Geist Mono labels, **acid lime
-`#d4ff4f` as the only action colour**. Floating glass capsule nav, audit bar
-as the hero action, spotlight and conic-rim cards. Motion: shared `EASE`
-curve, `Reveal` entrances, `SplitWords` headlines, reduced-motion fallbacks
-everywhere. `.aurora-root` scope. The printed audit report alone keeps the
-old light bone/coal `--k-*` tokens, because it is paper.
+See docs/AURORA.md. Aurora, Ember edition: warm night canvas `#0b0907`
+for the opening, studio and close; warm paper `#f6f1e8` for the sections
+people read carefully; Bricolage Grotesque display with Instrument Serif
+italics for emphasis (amber on night, deep ember on paper), Geist body,
+Geist Mono labels, **amber `#ffb020` as the only action colour, always a
+fill**. Solid `.a-card` surfaces, hairlines, one breathing ember glow,
+and real device frames (`IPhoneFrame` with a drawn status bar,
+`IMacFrame`) around every capture. No shader, glass, spotlight, conic
+rim or 3D tilt. Motion: shared `EASE` curve, `Reveal` entrances,
+`SplitWords` headlines, reduced-motion fallbacks everywhere.
+`.aurora-root` scope; `.a-paper` / `.a-paper-2` remap the tokens for a
+paper section and `.a-on-ink` restores night inside one. The printed
+audit report alone keeps the old light bone/coal `--k-*` tokens, because
+it is paper.
 
 ## 2. Porcelain (case studies `/projects/*`)
 

@@ -145,6 +145,18 @@
   --a-warn: #ffc857;
   --a-fail: #ff6f5e;
   --a-grad: linear-gradient(100deg, #ffd27a 0%, #ffb020 26%, #ff8a2a 52%, #ff5a1f 78%, #ffd27a 100%);
+  /* Ember: the warm paper the long-reading sections sit on. Amber stays
+     the one action colour (as a fill with void text); on paper the
+     emphasis colour is a deep ember that passes AA as text. */
+  --a-paper: #f6f1e8; /* reading canvas */
+  --a-paper-2: #ece5d8; /* alternate paper band */
+  --a-paper-raised: #fbf8f2; /* cards on paper */
+  --a-paper-ink: #17140f; /* primary text on paper (≈16:1) */
+  --a-paper-ink-soft: #3d3730; /* body on paper (≈10:1) */
+  --a-paper-muted: #5f574c; /* captions on paper (≈6:1) */
+  --a-paper-line: rgba(23, 20, 15, 0.12);
+  --a-paper-line-2: rgba(23, 20, 15, 0.24);
+  --a-ember-deep: #b4421a; /* emphasis on paper (≈5:1); paper text on it ≈4.9:1 */
 }
 
 /* Sipli case study: light aqua product palette */
@@ -264,6 +276,14 @@
   --color-a-pass: var(--a-pass);
   --color-a-warn: var(--a-warn);
   --color-a-fail: var(--a-fail);
+  --color-a-paper: var(--a-paper);
+  --color-a-paper-2: var(--a-paper-2);
+  --color-a-paper-raised: var(--a-paper-raised);
+  --color-a-paper-ink: var(--a-paper-ink);
+  --color-a-paper-ink-soft: var(--a-paper-ink-soft);
+  --color-a-paper-muted: var(--a-paper-muted);
+  --color-a-paper-line: var(--a-paper-line);
+  --color-a-ember-deep: var(--a-ember-deep);
 
   /* Semantic + legacy aliases */
   --color-background: var(--background);
@@ -478,7 +498,8 @@ p {
    A warm near-black canvas lit by a live WebGL shader of slow,
    molten light (ember, orange, amber, gold), glass surfaces,
    Bricolage Grotesque display type with Instrument Serif italics for
-   emphasis, a Geist body and one amber action colour. Scoped to `.aurora-root`, so the case-study pages and the
+   emphasis, a Geist body, one amber action colour and warm paper for the
+   reading sections. Scoped to `.aurora-root`, so the case-study pages and the
    demo sites are untouched. Every text pairing is checked against
    WCAG 2.2 AA on --a-void and --a-night.
    ───────────────────────────────────────────────────────────── */
@@ -584,28 +605,6 @@ body:has(.aurora-root) > a[href="#main"]:focus {
   font-family: var(--font-geist-mono);
 }
 
-/* Reading plate behind text over the shader. A flat dark fill whose
-   edges feather out through two intersected masks, so the plate is
-   dense across the whole text block (not just its centre, as a radial
-   scrim would be) and the fire still shows around it. Sized so body
-   copy keeps 4.5:1 on the brightest possible shader frame
-   (scripts/hero-contrast.mjs). Static: no animation, no filter.
-   Its parent must be `isolate`: z-index -1 then sits behind that
-   block's text, not behind every positioned layer around it. */
-.a-scrim {
-  position: absolute;
-  inset: -56px -72px;
-  z-index: -1;
-  pointer-events: none;
-  background: rgba(11, 9, 7, 0.84);
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 72px, #000 calc(100% - 72px), transparent),
-    linear-gradient(to bottom, transparent, #000 56px, #000 calc(100% - 56px), transparent);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent, #000 72px, #000 calc(100% - 72px), transparent),
-    linear-gradient(to bottom, transparent, #000 56px, #000 calc(100% - 56px), transparent);
-  mask-composite: intersect;
-}
-
 /* Glass surface: a dense warm fill, hairline border, top highlight.
    Dense enough that text on it stays readable over the shader's
    brightest streaks; the blur softens what shows through the edges. */
@@ -632,128 +631,6 @@ body:has(.aurora-root) > a[href="#main"]:focus {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
-}
-
-/* Spotlight surface: a radial glow and a gradient rim follow the
-   pointer (--mx / --my set by <SpotlightTracker />). */
-.a-spot {
-  position: relative;
-  isolation: isolate;
-  --mx: 50%;
-  --my: -20%;
-}
-.a-spot::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: radial-gradient(520px circle at var(--mx) var(--my), rgba(255, 122, 26, 0.16), transparent 45%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-.a-spot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: radial-gradient(360px circle at var(--mx) var(--my), rgba(255, 176, 32, 0.75), rgba(255, 194, 74, 0.4) 30%, transparent 60%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-.a-spot:hover::before,
-.a-spot:hover::after,
-.a-spot:focus-within::before,
-.a-spot:focus-within::after {
-  opacity: 1;
-}
-
-/* Rotating conic rim for the one featured card. */
-.a-conic {
-  position: relative;
-  isolation: isolate;
-  box-shadow: 0 40px 120px -40px rgba(255, 122, 26, 0.55), 0 0 60px -30px rgba(255, 176, 32, 0.4);
-}
-.a-conic::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  z-index: -1;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: conic-gradient(from var(--a-angle), #ff7a1a, #e8401f, #ffc24a, #ffb020, #ff5a36, #ff7a1a);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-  /* Rotating a conic gradient repaints every frame, so the rim only turns
-     while someone is looking at it. */
-  animation: a-spin 6s linear infinite paused;
-}
-.a-conic:hover::before,
-.a-conic:focus-within::before {
-  animation-play-state: running;
-}
-@keyframes a-spin {
-  to {
-    --a-angle: 360deg;
-  }
-}
-
-/* Faint perspective grid that fades out from the centre. */
-.a-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
-}
-
-/* The CSS aurora: blurred drifting blobs. It is the fallback when
-   WebGL is unavailable and the base layer the shader fades over. */
-.a-blobs {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.a-blobs {
-  transition: opacity 1.6s ease;
-}
-/* The blobs are the fallback: once the shader has drawn, they bow out
-   so the canvas lights a true black. */
-[data-shader="ready"] > .a-blobs {
-  opacity: 0 !important;
-}
-.a-blobs span {
-  position: absolute;
-  width: 55vmax;
-  height: 55vmax;
-  border-radius: 999px;
-  /* A soft radial falloff instead of a 90px blur, which on phones
-     meant three animated full-screen blurred layers. */
-  background: radial-gradient(closest-side, var(--blob), transparent);
-  opacity: 0.35;
-  mix-blend-mode: screen;
-  animation: a-drift 22s ease-in-out infinite alternate;
-}
-.a-blobs span:nth-child(1) { left: -10%; top: -25%; --blob: #9a3412; }
-.a-blobs span:nth-child(2) { right: -15%; top: -10%; --blob: #b45309; animation-duration: 26s; animation-delay: -6s; }
-.a-blobs span:nth-child(3) { left: 25%; bottom: -35%; --blob: #ff5a1f; opacity: 0.45; animation-duration: 30s; animation-delay: -12s; }
-/* Hidden behind the shader: stop drifting so they cost nothing. */
-[data-shader="ready"] > .a-blobs span {
-  animation-play-state: paused;
-}
-@keyframes a-drift {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(8vw, 6vh, 0) scale(1.15); }
-  100% { transform: translate3d(-6vw, 10vh, 0) scale(0.9); }
 }
 
 /* Word-by-word headline reveal: words rise and come into focus,
@@ -794,14 +671,118 @@ body:has(.aurora-root) > a[href="#main"]:focus {
   }
 }
 
-/* The 3D phone drifts gently, like it is held rather than placed. */
-.a-phone-float {
-  animation: a-phone-float 7s ease-in-out infinite;
+/* ── Ember: paper sections ──────────────────────────────────────
+   A section opts into warm paper with `.a-paper` (or `.a-paper-2`).
+   The scope remaps the Aurora text, line and surface tokens, so every
+   component built on `text-a-ink`, `border-a-line`, `bg-a-deep` and
+   the display `<em>` reads correctly on paper without knowing where it
+   is. Amber is never remapped: it stays a fill with void text. */
+.a-paper,
+.a-paper-2 {
+  --a-ink: var(--a-paper-ink);
+  --a-ink-soft: var(--a-paper-ink-soft);
+  --a-muted: var(--a-paper-muted);
+  --a-line: var(--a-paper-line);
+  --a-line-2: var(--a-paper-line-2);
+  --a-night: var(--a-paper-2);
+  --a-deep: var(--a-paper-raised);
+  --a-gold: var(--a-ember-deep);
+  --a-grad: linear-gradient(100deg, var(--a-ember-deep), var(--a-ember-deep));
+  background: var(--a-paper);
+  color: var(--a-ink);
+  color-scheme: light;
 }
-@keyframes a-phone-float {
-  50% {
-    transform: translateY(-12px);
+.a-paper-2 {
+  background: var(--a-paper-2);
+}
+.a-paper :focus-visible,
+.a-paper-2 :focus-visible {
+  outline-color: var(--a-ember-deep);
+}
+.a-paper ::selection,
+.a-paper-2 ::selection {
+  background: var(--a-ember-deep);
+  color: var(--a-paper);
+}
+.a-paper .a-eyebrow::before,
+.a-paper-2 .a-eyebrow::before {
+  background: var(--a-ember-deep);
+  box-shadow: none;
+}
+.a-paper .a-glass,
+.a-paper-2 .a-glass {
+  background: var(--a-paper-raised);
+  border-color: var(--a-paper-line);
+  box-shadow: 0 30px 60px -40px rgba(23, 20, 15, 0.35);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* An ink card inside a paper section (the featured package, the
+   "something else" card): night tokens come back for its children. */
+.a-on-ink {
+  --a-ink: #f8f1e7;
+  --a-ink-soft: #cbbfae;
+  --a-muted: #9c8f7e;
+  --a-line: rgba(255, 236, 210, 0.1);
+  --a-line-2: rgba(255, 236, 210, 0.18);
+  --a-deep: #1b1510;
+  --a-gold: #ffc24a;
+  --a-grad: linear-gradient(100deg, #ffd27a 0%, #ffb020 26%, #ff8a2a 52%, #ff5a1f 78%, #ffd27a 100%);
+  background: var(--a-paper-ink);
+  color: var(--a-ink);
+  color-scheme: dark;
+}
+.a-on-ink :focus-visible {
+  outline-color: var(--a-amber);
+}
+
+/* Solid card: hairline, raised surface, lifts on hover. */
+.a-card {
+  background: var(--a-deep);
+  border: 1px solid var(--a-line);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.45s ease;
+}
+a.a-card:hover,
+button.a-card:hover,
+.a-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: var(--a-line-2);
+  box-shadow: 0 30px 60px -36px rgba(0, 0, 0, 0.55);
+}
+
+/* The ember glow: one soft radial at the foot of a night hero and the
+   head of the closing band. It breathes slowly; transform and opacity
+   only, so it stays on the compositor. */
+.a-glow {
+  animation: a-breathe 9s ease-in-out infinite;
+}
+@keyframes a-breathe {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: scale(1);
   }
+  50% {
+    opacity: 1;
+    transform: scale(1.07);
+  }
+}
+
+/* A device held rather than placed. */
+.a-float {
+  animation: a-float 7s ease-in-out infinite;
+}
+@keyframes a-float {
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+/* The process rail fills from the left once the section is in view. */
+.a-rail-fill {
+  transform-origin: left;
+  transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Marquee rows with soft edges. */
@@ -929,13 +910,13 @@ body:has(.aurora-root) > a[href="#main"]:focus {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .a-blobs span,
   .a-display em,
   .a-grad-text,
-  .a-conic::before,
   .a-field-ring::before,
   .a-marquee-track,
-  .a-phone-float,
+  .a-glow,
+  .a-float,
+  .a-rail-fill,
   .k-dial-arc {
     animation: none !important;
   }

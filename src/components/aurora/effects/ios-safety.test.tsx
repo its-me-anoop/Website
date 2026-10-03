@@ -4,8 +4,8 @@ import { render } from "@testing-library/react";
 import { LazyMotion, domAnimation } from "framer-motion";
 import type { ReactNode } from "react";
 import { describe, expect, it } from "vitest";
-import { Phone3D } from "../ui/Phone3D";
-import { Reveal, Tilt } from "./Motion";
+import { IMacFrame, IPhoneFrame } from "../ui/DeviceFrame";
+import { EmberGlow, Reveal } from "./Motion";
 
 /*
  * Guards against the layer-heavy patterns that made iOS Safari leave
@@ -38,12 +38,16 @@ function sources(dir: string): string[] {
 const wrap = (ui: ReactNode) => render(<LazyMotion features={domAnimation}>{ui}</LazyMotion>);
 
 describe("entrance animations", () => {
-  it.each(["@keyframes a-word-in", "@keyframes a-fade-up", "@keyframes route-enter"])("%s never animates a filter", (name) => {
-    expect(block(name)).not.toMatch(/filter/);
-  });
+  it.each(["@keyframes a-word-in", "@keyframes a-fade-up", "@keyframes route-enter", "@keyframes a-breathe", "@keyframes a-float"])(
+    "%s never animates a filter",
+    (name) => {
+      expect(block(name)).not.toMatch(/filter/);
+    }
+  );
 
-  it("the fallback blobs use gradients, not a blur filter", () => {
-    expect(block(".a-blobs span {")).not.toMatch(/filter/);
+  it("the glow breathes on the compositor: transform and opacity only", () => {
+    expect(block("@keyframes a-breathe")).toMatch(/transform/);
+    expect(block("@keyframes a-breathe")).not.toMatch(/background|width|height/);
   });
 });
 
@@ -54,6 +58,20 @@ describe("decorative glows", () => {
     );
     expect(offenders).toEqual([]);
   });
+
+  it("no Aurora component draws a WebGL canvas any more", () => {
+    const offenders = sources(join(process.cwd(), "src/components/aurora")).filter((file) =>
+      /getContext\(\s*["']webgl/.test(readFileSync(file, "utf8"))
+    );
+    expect(offenders).toEqual([]);
+  });
+
+  it("EmberGlow is a static gradient, not a filter", () => {
+    const { container } = wrap(<EmberGlow />);
+    const el = container.firstChild as HTMLElement;
+    expect(el.style.background).toMatch(/radial-gradient/);
+    expect(el.style.filter).toBe("");
+  });
 });
 
 describe("on a touch screen", () => {
@@ -62,13 +80,13 @@ describe("on a touch screen", () => {
     expect((container.firstChild as HTMLElement).style.filter).toBe("");
   });
 
-  it("Tilt creates no 3D context", () => {
-    const { container } = wrap(<Tilt>Card</Tilt>);
-    expect(container.innerHTML).not.toMatch(/preserve-3d|perspective/);
-  });
-
-  it("Phone3D renders flat, without depth slabs or a float loop", () => {
-    const { container } = wrap(<Phone3D src="/demos/gp-mobile.webp" />);
-    expect(container.innerHTML).not.toMatch(/preserve-3d|perspective|a-phone-float|translateZ/);
+  it("device frames create no 3D context", () => {
+    const { container } = wrap(
+      <>
+        <IPhoneFrame src="/demos/gp-mobile.webp" alt="" />
+        <IMacFrame src="/demos/gp-home.png" alt="" />
+      </>
+    );
+    expect(container.innerHTML).not.toMatch(/preserve-3d|perspective|translateZ/);
   });
 });

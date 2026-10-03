@@ -322,7 +322,7 @@ for (const route of ["/", "/gp-websites", "/packages", "/projects/sipli", "/proj
 await reducedMotion.close();
 
 /* Folding and unfolding mid-visit: the page must adapt to each screen
-   without a reload, and the shader canvas must follow the new size. */
+   without a reload (a hero canvas, if one ever returns, must follow too). */
 {
   const context = await browser.newContext(DUO.folded);
   const page = await context.newPage();
@@ -351,7 +351,7 @@ await reducedMotion.close();
     if (r.overflow > 1) note(`duo ${state}`, `horizontal overflow ${r.overflow}px`);
     if (r.wide) note(`duo ${state}`, `${r.wide} frame(s) wider than the viewport`);
     if (!r.h1) note(`duo ${state}`, "hero headline is not fully on screen");
-    if (!r.canvasFits) note(`duo ${state}`, "hero shader canvas did not follow the new width");
+    if (!r.canvasFits) note(`duo ${state}`, "hero canvas did not follow the new width");
   }
   await context.close();
 }

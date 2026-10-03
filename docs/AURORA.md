@@ -1,18 +1,28 @@
-# Design Language — "Aurora"
+# Design Language — "Aurora", Ember edition
 
 The marketing site (home, GP practices, care homes, packages, Clear Path,
-free audit, audit report, booking, accessibility statement) runs Aurora:
-a warm near-black canvas lit by a live WebGL shader of slow, molten
-light with embers rising through it, glass surfaces, heavy grotesque
-display type with amber-lit serif italics, and one amber action colour.
-The palette is deliberately warm (black, ember, orange, amber, gold) and
-avoids the blue, purple and neon of most generated sites. It replaced the earlier "Kiln" language. Case-study pages keep
-Porcelain and the demo sites keep their own scopes.
+free audit, audit report, booking, accessibility statement) runs Aurora
+in its Ember edition: a warm near-black canvas for the opening, the
+studio and the close; warm paper for everything a practice manager reads
+carefully (sample sites, who it is for, the comparison, the process and
+the prices); heavy grotesque display type with serif italic emphasis; and
+one amber action colour. The palette stays deliberately warm (black,
+ember, amber, paper) and avoids the blue, purple and neon of most
+generated sites.
+
+Ember replaced the shader-lit first edition in 2026-10: the live WebGL
+aurora, embers, glass, pointer spotlights, conic rims and 3D tilts are
+gone. What remains is solid surfaces, hairlines, one breathing ember
+glow, and real device frames around every sample-site capture. The
+audience (NHS-literate, risk-averse practice managers) reads long
+sections on paper, not over a shader.
 
 Everything is scoped to `.aurora-root` (see `Shell`), so no token leaks
 into `/projects/*` or `/demo/*`.
 
 ## Tokens (`src/app/globals.css`)
+
+Night (the default inside `.aurora-root`):
 
 | Token | Value | Use |
 |---|---|---|
@@ -23,10 +33,31 @@ into `/projects/*` or `/demo/*`.
 | `--a-ink-soft` | `#cbbfae` | Secondary text (≈11:1) |
 | `--a-muted` | `#9c8f7e` | Captions (≈6.2:1) |
 | `--a-line` / `--a-line-2` | warm white 10% / 18% | Hairlines |
-| `--a-amber` | `#ffb020` | **The only action colour.** Void text on it ≈11:1 |
-| `--a-ember` `--a-orange` `--a-gold` `--a-red` | | Warm hues, decoration only |
+| `--a-amber` | `#ffb020` | **The only action colour**, always a fill. Void text on it ≈11:1 |
+| `--a-gold` | `#ffc24a` | Small labels and check marks on night |
 | `--a-pass` `--a-warn` `--a-fail` | | Audit statuses, each ≥ 4.5:1 on void |
-| `--a-grad` | pale gold → amber → orange → ember | Emphasis text, rims, progress |
+| `--a-grad` | pale gold → amber → orange → ember | Emphasis text, the scroll progress bar |
+
+Paper, used by sections that carry `.a-paper` or `.a-paper-2`:
+
+| Token | Value | Use |
+|---|---|---|
+| `--a-paper` / `--a-paper-2` | `#f6f1e8` / `#ece5d8` | Reading canvas and its alternate band |
+| `--a-paper-raised` | `#fbf8f2` | Cards on paper |
+| `--a-paper-ink` | `#17140f` | Primary text (≈16:1) |
+| `--a-paper-ink-soft` | `#3d3730` | Body (≈10:1) |
+| `--a-paper-muted` | `#5f574c` | Captions (≈6:1) |
+| `--a-paper-line` / `-2` | ink 12% / 24% | Hairlines |
+| `--a-ember-deep` | `#b4421a` | Emphasis and marks on paper (≈5:1 as text) |
+
+The paper scope works by remapping: `.a-paper` redefines `--a-ink`,
+`--a-ink-soft`, `--a-muted`, `--a-line`, `--a-deep`, `--a-gold` and
+`--a-grad` to their paper values, so every component built on
+`text-a-ink`, `border-a-line`, `bg-a-deep` and the display `<em>` reads
+correctly on paper without knowing where it is. Amber is never remapped:
+on paper it stays a fill with void text. `.a-on-ink` does the reverse
+for an ink card inside a paper section (the featured package, the
+comparison column, the "something else" card).
 
 Tailwind utilities are generated as `bg-a-*`, `text-a-*`, `border-a-*`.
 
@@ -35,73 +66,72 @@ Tailwind utilities are generated as `bg-a-*`, `text-a-*`, `border-a-*`.
 - **Display**: Bricolage Grotesque (variable, weight ~640, `opsz` 96),
   tracking −0.045em, line-height 0.96 — `.a-display`.
 - **Emphasis**: `<em>` inside a display heading switches to Instrument
-  Serif italic (the only Instrument face loaded) filled with `--a-grad`.
+  Serif italic (the only Instrument face loaded), amber on night and
+  deep ember on paper.
 - **Body**: Geist. **Labels**: Geist Mono, uppercase, tracked
-  (`.a-eyebrow` adds a glowing amber dot).
+  (`.a-eyebrow` adds a pulsing amber dot; ember, still, on paper).
 
 All four are self-hosted woff2 (SIL OFL) in `src/fonts/`.
 
 ## Surfaces
 
-- `.a-glass` — translucent fill, hairline border, top highlight,
-  backdrop blur (solid under `prefers-reduced-transparency`).
-- `.a-spot` — a radial glow and gradient rim follow the pointer. One
-  delegated listener (`SpotlightTracker`) writes `--mx`/`--my`.
-- `.a-conic` — a rotating conic-gradient rim for the single featured
-  card on a page. It spins only on hover or focus: an infinite rotation
-  repaints every frame and costs mobile main-thread time for nothing.
-  A card takes `.a-spot` **or** `.a-conic`, never both (both use
-  `::before`/`::after`).
+- `.a-card` — the one card: raised surface (`--a-deep`), hairline,
+  20px-ish radius. Links and buttons that are cards lift 4px on hover;
+  `.a-card-hover` opts a static card into the same lift.
+- `.a-glass` — kept for the nav and its menu sheet (a dense warm fill
+  with a backdrop blur on night); inside `.a-paper` it is a plain
+  raised card.
+- No left-border accents, no gradient washes, no glow behind cards.
 
-## Effects (`src/components/aurora/effects/`)
+## Devices (`ui/DeviceFrame.tsx`)
+
+Every sample-site capture sits in a drawn device, never a browser box.
+
+- `IPhoneFrame` — titanium-style rim, Dynamic Island, side buttons and
+  an iOS-style status bar (9:41, signal, Wi-Fi, battery) drawn above the
+  capture, all scaled from one `width`. The screen is a 390×844 box, so
+  the captures in `public/demos/*-mobile.webp` are never cropped;
+  `iphoneHeight(width)` gives the frame's height. `float` adds the
+  gentle 7s drift.
+- `IMacFrame` — thin silver bezel with a camera dot, blank chin, neck
+  and foot. The screen takes the capture's own aspect ratio (default
+  1440×1000; pass `width`/`height` for others).
+
+Both are plain CSS: no 3D context, no blur, no per-frame work. One
+`<figure role="img">` carries the description and the screenshot inside
+is decorative; an empty `alt` makes the whole device decorative
+(`effects/ios-safety.test.tsx` and `ui/DeviceFrame.test.tsx` guard this).
+
+## Motion (`src/components/aurora/effects/`)
 
 | Effect | Where | Notes |
 |---|---|---|
-| Molten shader (`AuroraCanvas` + `aurora-gl.ts`) | Home hero, page heroes, closing band | Domain-warped fbm in ember → orange → amber → gold, drifting upwards like heat, bent by the pointer, rendered at ~½ resolution, paused off-screen and in hidden tabs, one still frame for reduced motion |
-| Embers (`Embers` + `embers.ts`) | Same places | Additive 2D sparks that rise, sway and burn out; count scales with area (max 60); off for reduced motion |
-| CSS blobs (`.a-blobs`) | Heroes, CTA band | Fallback when WebGL is unavailable; fades out once the shader has drawn (`[data-shader="ready"]`) |
-| Page curtain (`app/template.tsx`) | Every in-app navigation | A dark then an amber panel lift away to reveal the next page; never on first load, off for reduced motion |
-| Wipe reveal (`WipeReveal`) | Portrait, sector sample frame, showcase tab changes | The image uncovers upwards with a small settle in scale |
+| Ember glow (`EmberGlow`, `.a-glow`) | Home hero, page heroes, closing band | One static radial of ember that breathes over 9s. Transform and opacity only, so it stays on the compositor |
 | Word reveal (`SplitWords`) | Every h1 | Pure CSS, final state in SSR HTML |
-| Scroll tilt (`ScrollTilt`) | Showreel, sector hero | A raked 3D plane that stands up as it enters |
-| Pointer tilt (`Tilt`) | Showcase, portrait, sample frames | Fine pointers only |
+| Rise (`.a-fade-up`, `Reveal`) | Above-the-fold copy, every section below | Transform plus a partial fade; never a filter |
+| Process rail (`.a-rail-fill`) | Home | The ember line fills from the left when the section is in view; steps rise after it |
+| Lift | Buttons, cards, work rows | 2–4px translate on hover, arrows nudge forward, nav links underline |
 | Magnetic buttons (`Magnetic`) | Primary CTAs | Fine pointers only |
-| Pinned horizontal work (`Work`) | Home | ≥1024px with motion; otherwise a grid. Focus scrolls the card into view |
-| Process rail (`Process`) | Home | Gradient line fills with scroll |
 | Marquee (`Marquee`) | Home ticker | Copy row is `aria-hidden`; pauses on hover/focus |
-| 3D phone (`ui/Phone3D`) | Showcase, sector sample frame | CSS 3D: stacked body slabs for depth, warm metal rim, sliding glare. Swings round with scroll and leans to a fine pointer; a fixed angle for reduced motion. Screens are real 390×844 captures of the demos (`public/demos/*-mobile.webp`) |
-| Cursor light, scroll progress | `Shell` | Decorative, `aria-hidden` |
+| Showcase tabs | Home | Keyed remount so the new sample animates in; the picker row and the tabs share one state |
+| Scroll progress | `Shell` | Decorative, `aria-hidden` |
 
 ### Performance rules
 
-- Canvases start late: `whenIdle()` (`effects/schedule.ts`) waits for
-  `load` plus an idle period, so the shader and embers never compete
-  with first paint or hydration.
-- Small or touch screens draw at 30fps (`targetFps` + `frameGate`), the
-  shader at 0.35 scale and embers at DPR ≤ 1.5. Embers stamp
-  pre-rendered sprites instead of building gradients per frame.
-- The shader is skipped on software WebGL (SwiftShader, llvmpipe:
-  `isSoftwareRenderer`); the CSS blobs remain. `?shader=force` overrides
-  this for screenshots.
-- Entrances never start at `opacity: 0` (hero words, `.a-fade-up`, the
-  route wrapper): text that fades in on the compositor is never counted
-  as LCP. They move and un-blur instead.
-- No infinite repaint animations (no film grain, no panning gradients).
-- iOS Safari layer budget: nothing animates `filter` (entrances rise
-  and fade; `Reveal` too), glows are radial gradients rather than
-  `blur()` on large boxes, touch screens get opaque glass instead of
-  `backdrop-filter`, and `Tilt`/`Phone3D` build no 3D context on touch
-  screens (WebKit also stops reporting elements inside `preserve-3d` as
-  in view). Exceeding the budget shows as black regions and animations
-  frozen mid-frame. `effects/ios-safety.test.tsx` guards all of this.
-- `WipeReveal` observes an outer element and clips an inner one: an
-  IntersectionObserver on a fully clipped element never fires.
-- `BrowserFrame` contains its URL bar's inline size, so a long URL
-  cannot widen a grid column past the viewport. `test:browser` fails on
-  any `<figure>` wider than the viewport.
+- No canvases. Nothing runs per frame; every animation is a CSS
+  animation or a Framer Motion transition on transform and opacity.
+- Entrances never start at `opacity: 0` for hero text (`.a-fade-up`,
+  hero words): text that fades in on the compositor is never counted as
+  LCP. Sections below the fold use `Reveal`.
+- No infinite repaint animations (no film grain, no panning gradients,
+  no rotating conic rims).
+- iOS Safari layer budget: nothing animates `filter`, no `blur()` on
+  large boxes, no 3D context anywhere. `effects/ios-safety.test.tsx`
+  guards all of this.
+- `prefers-reduced-motion` stops the glow, the float, the marquee and
+  the rail, and shows every entrance in its end state.
 
-Social card: `public/og-aurora.png` (1200×630), rendered from the real
-shader, logo and display type.
+Social card: `public/og-aurora.png` (1200×630).
 
 `useMotionAllowed()` reads `prefers-reduced-motion` through
 `useSyncExternalStore` with a `false` server snapshot, so SSR and
@@ -128,12 +158,10 @@ Follows Apple's HIG "Designing for iPhone Duo", translated to the web
 - One `<h1>` per page; the word reveal keeps a single plain accessible name.
 - Sample-site showcase follows the WAI-ARIA tabs pattern (arrows,
   Home/End, roving tabindex, `aria-controls`/`aria-labelledby`).
-- Text over the shader sits on a `.a-scrim` reading plate (a flat
-  dark fill feathered by two intersected masks, inside an `isolate`
-  parent) and glass is a dense warm fill. `npm run test:contrast`
-  paints the shader canvas at its brightest possible colour and checks
-  every hero, page-hero and CTA text run for WCAG AA against the pixels
-  actually behind it; CI runs it.
+- Hero text sits on the solid night canvas with only the ember glow
+  behind it. `npm run test:contrast` hides the glyphs, samples the
+  pixels actually painted behind every hero, page-hero and CTA text
+  run, and checks WCAG AA against them; CI runs it.
 - Reduced motion: every animation is removed and all content is visible.
 - `npm run test:a11y` (axe, WCAG 2.2 A/AA) and `npm run test:browser`
   cover every route.

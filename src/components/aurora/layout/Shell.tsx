@@ -1,16 +1,14 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { CursorGlow, SpotlightTracker } from "../effects/Pointer";
 import { ScrollProgress } from "../effects/Motion";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 
 /**
  * Shared chrome for every Aurora marketing page: scroll progress,
- * floating nav, the page, the footer, and the page-wide effects
- * (cursor light, card spotlights). `.aurora-root` scopes
- * the language so case-study pages and demo sites are untouched.
+ * the nav, the page and the footer. `.aurora-root` scopes the
+ * language so case-study pages and demo sites are untouched.
  */
 export function Shell({ children, mainClassName }: { children: ReactNode; mainClassName?: string }) {
   return (
@@ -21,8 +19,6 @@ export function Shell({ children, mainClassName }: { children: ReactNode; mainCl
         {children}
       </main>
       <Footer />
-      <CursorGlow />
-      <SpotlightTracker />
     </div>
   );
 }

@@ -1,13 +1,12 @@
 /**
- * Worst-case contrast for text over the molten shader.
+ * Worst-case contrast for text in the hero bands.
  *
- * The shader animates, so a screenshot only catches one moment. This
- * paints every shader canvas at its brightest possible colour (the
- * clamp at the end of the fragment shader, see aurora-gl.ts), so the
- * scrims, glass and grid above it are measured against the worst frame
- * there can be. For each piece of text it hides the glyphs, samples
- * the pixels actually painted behind them and checks WCAG AA
- * (4.5:1, or 3:1 for large text).
+ * For each piece of text in the night heroes and the closing band it
+ * hides the glyphs, samples the pixels actually painted behind them
+ * (canvas, glow and surfaces included) and checks WCAG AA (4.5:1, or
+ * 3:1 for large text). Any canvas that still draws behind text is
+ * painted at the brightest colour the old shader could reach, so the
+ * check stays a worst case if one ever returns.
  *
  *   1. npm run build && PORT=3100 npm start
  *   2. BASE_URL=http://localhost:3100 npm run test:contrast
@@ -16,10 +15,10 @@ import { chromium, devices } from "playwright";
 
 const BASE = process.env.BASE_URL || "http://localhost:3100";
 
-/* The shader's clamp, min(outc, 0.78), reached on a gold-white core. */
+/* The brightest frame the retired shader could reach: a worst case kept for any canvas. */
 const SHADER_PEAK = "rgb(199, 199, 199)";
 
-/** Where the shader sits behind text. */
+/** The hero bands with text over a glow. */
 const TARGETS = [
   { route: "/", selector: "#top" },
   { route: "/", selector: "#contact" },
@@ -163,8 +162,8 @@ for (const [label, options] of VIEWPORTS) {
 await browser.close();
 
 if (failures.length) {
-  console.error(`\n✖ ${failures.length} text run(s) below AA over the brightest shader frame:`);
+  console.error(`\n✖ ${failures.length} text run(s) below AA against the painted background:`);
   for (const f of failures) console.error("  - " + f);
   process.exit(1);
 }
-console.log("✓ Hero text stays at WCAG AA over the brightest possible shader frame.");
+console.log("✓ Hero text stays at WCAG AA against what is painted behind it.");

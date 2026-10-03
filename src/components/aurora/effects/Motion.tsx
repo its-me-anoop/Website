@@ -1,7 +1,7 @@
 "use client";
 
-import { Children, isValidElement, useRef, type ReactNode } from "react";
-import { m, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
+import { Children, isValidElement, type ReactNode } from "react";
+import { m, useMotionValue, useScroll, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useFinePointer, useMotionAllowed } from "./hooks";
 
@@ -39,37 +39,6 @@ export function Reveal({
     >
       {children}
     </Tag>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────
-   WipeReveal: an image uncovers from the bottom edge upwards as it
-   scrolls in, with a slight settle in scale.
-   ───────────────────────────────────────────────────────────── */
-
-export function WipeReveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
-  const motion = useMotionAllowed();
-  /* The in-view check runs on the unclipped outer box: an element whose
-     own clip-path hides it entirely never reports as intersecting, so
-     observing the clipped layer would leave it hidden for good. */
-  return (
-    <m.div
-      className={cn("relative", className)}
-      initial="hidden"
-      whileInView="shown"
-      viewport={{ once: true, margin: "0px 0px -12% 0px" }}
-    >
-      <m.div
-        className="a-reveal relative h-full w-full"
-        variants={{
-          hidden: { clipPath: "inset(100% 0% 0% 0%)", scale: 1.06 },
-          shown: { clipPath: "inset(0% 0% 0% 0%)", scale: 1 },
-        }}
-        transition={{ duration: motion ? 1.1 : 0, ease: [0.76, 0, 0.24, 1], delay: motion ? delay : 0 }}
-      >
-        {children}
-      </m.div>
-    </m.div>
   );
 }
 
@@ -152,74 +121,6 @@ export function Magnetic({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Tilt: a 3D card that leans towards the pointer.
-   ───────────────────────────────────────────────────────────── */
-
-export function Tilt({
-  children,
-  className,
-  max = 8,
-}: {
-  children: ReactNode;
-  className?: string;
-  max?: number;
-}) {
-  const fine = useFinePointer();
-  const motion = useMotionAllowed();
-  const rx = useMotionValue(0);
-  const ry = useMotionValue(0);
-  const srx = useSpring(rx, { stiffness: 150, damping: 20 });
-  const sry = useSpring(ry, { stiffness: 150, damping: 20 });
-  const enabled = fine && motion;
-
-  /* Touch screens never tilt, so they get no 3D context at all: WebKit
-     reports elements inside preserve-3d as never intersecting, which
-     left scroll reveals nested in a tilt (the About portrait) hidden. */
-  return (
-    <div className={cn(enabled && "[perspective:1400px]", className)}>
-      <m.div
-        className={cn("h-full w-full", enabled && "[transform-style:preserve-3d]")}
-        style={enabled ? { rotateX: srx, rotateY: sry } : undefined}
-        onPointerMove={(e) => {
-          if (!enabled) return;
-          const rect = e.currentTarget.getBoundingClientRect();
-          const px = (e.clientX - rect.left) / rect.width - 0.5;
-          const py = (e.clientY - rect.top) / rect.height - 0.5;
-          ry.set(px * max * 2);
-          rx.set(-py * max * 2);
-        }}
-        onPointerLeave={() => {
-          rx.set(0);
-          ry.set(0);
-        }}
-      >
-        {children}
-      </m.div>
-    </div>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────
-   ScrollTilt: flattens a raked 3D plane as it scrolls into view.
-   ───────────────────────────────────────────────────────────── */
-
-export function ScrollTilt({ children, className }: { children: ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const motion = useMotionAllowed();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });
-  const rotateX = useTransform(scrollYProgress, [0, 1], [28, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.86, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.4], [0.3, 1]);
-  return (
-    <div ref={ref} className={cn("[perspective:1600px]", className)}>
-      <m.div style={motion ? { rotateX, scale, opacity, transformOrigin: "50% 100%" } : undefined}>
-        {children}
-      </m.div>
-    </div>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────
    ScrollProgress: a hairline gradient bar across the top.
    ───────────────────────────────────────────────────────────── */
 
@@ -232,6 +133,28 @@ export function ScrollProgress() {
       data-aurora-fx
       className="fixed inset-x-0 top-0 z-[130] h-[2px] origin-left"
       style={{ scaleX, background: "var(--a-grad)" }}
+    />
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   EmberGlow: the one remaining light. A static radial of ember at
+   the foot (or head) of a night section that breathes slowly.
+   ───────────────────────────────────────────────────────────── */
+
+export function EmberGlow({ position = "bottom", className }: { position?: "top" | "bottom"; className?: string }) {
+  const bottom = position === "bottom";
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        "a-glow pointer-events-none absolute inset-x-[-10%] h-[560px]",
+        bottom ? "bottom-[-40%] origin-bottom" : "top-[-40%] origin-top",
+        className
+      )}
+      style={{
+        background: `radial-gradient(60% 100% at 50% ${bottom ? "100%" : "0%"}, rgba(255,138,42,0.24) 0%, rgba(255,90,31,0.08) 45%, rgba(11,9,7,0) 75%)`,
+      }}
     />
   );
 }
