@@ -258,7 +258,7 @@ function JsonLd() {
           "@type": "Service",
           name: "Web and mobile product development",
           description:
-            "Web apps with Next.js, React and TypeScript, and iOS apps with SwiftUI, such as Sipli and Little Artist.",
+            "Web apps with Next.js, React and TypeScript, and iOS apps with SwiftUI, such as Sipli, Little Artist and Little Lifeline.",
         },
       },
     ],

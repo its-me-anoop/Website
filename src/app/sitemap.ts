@@ -22,6 +22,7 @@ const routes: readonly {
   { path: "/leaving-msw", changeFrequency: "monthly", priority: 0.8 },
   { path: "/projects/sipli", changeFrequency: "monthly", priority: 0.7 },
   { path: "/projects/artling", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/projects/little-lifeline", changeFrequency: "monthly", priority: 0.7 },
   { path: "/accessibility", changeFrequency: "yearly", priority: 0.4 },
   { path: "/projects/sipli/privacy-policy", changeFrequency: "yearly", priority: 0.3 },
   { path: "/projects/artling/privacy-policy", changeFrequency: "yearly", priority: 0.3 },
