@@ -171,3 +171,33 @@ Follows Apple's HIG "Designing for iPhone Duo", translated to the web
 The PDF (`audit/print/PrintReport.tsx`) is a paper document, so it keeps
 the light bone-and-coal palette (`--k-*` tokens, Zodiak and Switzer) via
 `audit/print/print-parts.tsx`. On screen the report is Aurora.
+
+
+## Rebrand motion layer (2026-10)
+
+The rebrand ("Your digital side, sorted." — websites, apps, IT support,
+social media and SEO under Build, Support and Grow) keeps every Aurora
+token and adds a small motion layer, all prefixed `fx-` in
+`globals.css`:
+
+- **Intro** (`Hero.tsx`): a curtain with the butterfly lifts on the first
+  load only; returning inside the site sets `.fx-quick` so the hero
+  builds at once. Frame lines draw in, the headline rises line by line
+  and fills from outline.
+- **Ember shader** (`effects/EmberShader.tsx`): WebGL, half resolution,
+  30fps cap, paused off screen, one still frame under reduced motion.
+  It only starts with a fine pointer; phones keep the CSS gradient.
+  Scrims keep hero text at AA over its brightest frame
+  (`npm run test:contrast`).
+- **Butterfly**: the real logo split down the middle. Wings turn in 3D
+  with a fine pointer, and flap flat (scaleX) on touch screens.
+- **Cursor** (`effects/Cursor.tsx`, mounted by `Shell`): amber crosshair,
+  page-coordinate readout that becomes the `data-cursor` label over
+  links, `data-magnetic` buttons, and `data-fx-glow` sections whose glow
+  follows the pointer. Fine pointers only; pure maths in `fx-math.ts`.
+- **Wireframe reveals**: `.fx-wt` headings start as outlined type with a
+  `data-wf` spec label, `.fx-wp` text sweeps in over grey bars,
+  `WireframeMedia` boxes start as dashed frames and are wiped in by an
+  amber scan line, and `.fx-grid` sections show a fading blueprint grid.
+  All scroll-linked CSS behind `@supports (animation-timeline: view())`;
+  other browsers and reduced motion show the finished page.

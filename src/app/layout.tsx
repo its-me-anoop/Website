@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { serviceHref, services } from "@/lib/marketing/services";
 
 /* Porcelain pages render on the native SF-style system stack (see
    globals.css). The Aurora marketing pages set Bricolage Grotesque
@@ -101,7 +102,7 @@ const jbMono = localFont({
   preload: false,
 });
 
-const siteTitle = `${site.studio} — Websites for GP practices and care homes`;
+const siteTitle = `${site.studio} — Websites, apps, IT support, social media and SEO`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -131,7 +132,7 @@ export const metadata: Metadata = {
         url: site.ogImage,
         width: 1200,
         height: 630,
-        alt: `${site.studio} — websites for GP practices and care homes`,
+        alt: `${site.studio} — your digital side, sorted`,
       },
     ],
   },
@@ -190,6 +191,9 @@ function JsonLd() {
       "TypeScript",
       "UI/UX Design",
       "Design Systems",
+      "IT Support",
+      "Search Engine Optimisation",
+      "Social Media Marketing",
     ],
   };
 
@@ -211,8 +215,8 @@ function JsonLd() {
       height: 900,
     },
     image: `${site.url}${site.ogImage}`,
-    description:
-      "Flutterly is an independent studio in Reading, Berkshire, designing and building accessible websites for GP practices and care homes, plus web and mobile products.",
+    description: site.description,
+    slogan: site.tagline,
     address: { "@type": "PostalAddress", ...site.address },
     contactPoint: [
       {
@@ -252,15 +256,15 @@ function JsonLd() {
             "Warm, trustworthy websites for care homes, designed for families, with CQC transparency, admissions journeys and recruitment built in.",
         },
       },
-      {
+      ...services.map((service) => ({
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Web and mobile product development",
-          description:
-            "Web apps with Next.js, React and TypeScript, and iOS apps with SwiftUI, such as Sipli, Little Artist and Little Lifeline.",
+          name: service.name,
+          url: `${site.url}${serviceHref(service.slug)}`,
+          description: service.metaDescription,
         },
-      },
+      })),
     ],
   };
 

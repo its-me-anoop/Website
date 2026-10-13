@@ -4,8 +4,10 @@
  * Drives headless Chromium over every route at mobile and desktop viewports and
  * reports console errors, failed requests, broken images, overflow, missing
  * anchor targets, heading problems, reduced-motion issues and 404 behaviour.
- * It also exercises the redesigned homepage navigation, project grid and
- * contact route, and checks that key mobile content stays inside the viewport.
+ * It also exercises the rebranded homepage (services rows, work, the
+ * wireframe reveals, the menu and the audit bar), the sample-site tabs on
+ * the websites service page, and checks that key mobile content stays
+ * inside the viewport.
  *
  * Usage:
  *   1. npm run build && PORT=3100 npm start
@@ -16,6 +18,12 @@ import { chromium, devices } from "playwright";
 const BASE = process.env.BASE_URL || "http://localhost:3100";
 const ROUTES = [
   "/",
+  "/services",
+  "/services/websites",
+  "/services/apps",
+  "/services/it-support",
+  "/services/social-media",
+  "/services/seo",
   "/gp-websites",
   "/care-home-websites",
   "/packages",
@@ -217,36 +225,22 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   if (clippedElements.length)
     note("home", `mobile elements outside viewport: ${clippedElements.join(" | ")}`);
 
-  /* Sample-site tabs: the WAI-ARIA tabs pattern. Arrow keys move the
-     selection and focus together, and the panel follows. */
-  const tabs = page.getByRole("tab");
-  if ((await tabs.count()) !== 5) {
-    note("home", `expected 5 sample-site tabs, found ${await tabs.count()}`);
-  } else {
-    await tabs.first().focus();
-    await page.keyboard.press("ArrowRight");
-    await page.waitForTimeout(200);
-    const second = tabs.nth(1);
-    if ((await second.getAttribute("aria-selected")) !== "true")
-      note("home", "ArrowRight did not select the next sample-site tab");
-    if (!(await second.evaluate((el) => el === document.activeElement)))
-      note("home", "ArrowRight did not move focus to the next sample-site tab");
-    const panelHref = await page.getByRole("tabpanel").getByRole("link", { name: /open the sample site/i }).getAttribute("href");
-    if (panelHref !== "/demo/care-home") note("home", `tab panel did not follow the selection (${panelHref})`);
-  }
+  /* Five service rows, each opening its own page. */
+  const rows = await page.locator('#services a[href^="/services/"]').count();
+  if (rows !== 5) note("home", `expected 5 service rows, found ${rows}`);
 
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 7) note("home", `expected 7 project cards, found ${projects}`);
 
-  /* Scroll-triggered reveals must actually uncover their content: the
-     founder portrait once stayed clipped away because the in-view check
-     watched the clipped layer itself. */
-  await page.locator("#about figure").scrollIntoViewIfNeeded();
+  /* Scroll-linked wireframe reveals must actually uncover their content:
+     the founder portrait once stayed clipped away because the in-view
+     check watched the clipped layer itself. */
+  await page.locator("#studio figure").scrollIntoViewIfNeeded();
   await page.waitForTimeout(1800);
   const portraitClip = await page.evaluate(() => {
-    const img = document.querySelector("#about figure img");
+    const img = document.querySelector("#studio figure img");
     let el = img;
-    while (el && el.id !== "about") {
+    while (el && el.id !== "studio") {
       const clip = getComputedStyle(el).clipPath;
       if (clip && clip !== "none" && !/^inset\(0(px|%)?( 0(px|%)?)*\)$/.test(clip)) return clip;
       el = el.parentElement;
@@ -260,7 +254,7 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   if (!(await menu.isVisible().catch(() => false))) {
     note("home", "site menu did not open");
   } else {
-    await menu.locator('a[href="/#services"]').click();
+    await menu.locator('a[href="/#work"]').click();
     await page.waitForTimeout(400);
     if (await menu.isVisible().catch(() => false))
       note("home", "site menu did not close after selecting a link");
@@ -271,6 +265,28 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
     note("home", "contact email link is not visible");
 
   await page.close();
+
+  /* Sample-site tabs on the websites service page: the WAI-ARIA tabs
+     pattern. Arrow keys move the selection and focus together, and the
+     panel follows. */
+  const websites = await mobile.newPage();
+  await websites.goto(BASE + "/services/websites", { waitUntil: "networkidle" });
+  const tabs = websites.getByRole("tab");
+  if ((await tabs.count()) !== 5) {
+    note("websites", `expected 5 sample-site tabs, found ${await tabs.count()}`);
+  } else {
+    await tabs.first().focus();
+    await websites.keyboard.press("ArrowRight");
+    await websites.waitForTimeout(200);
+    const second = tabs.nth(1);
+    if ((await second.getAttribute("aria-selected")) !== "true")
+      note("websites", "ArrowRight did not select the next sample-site tab");
+    if (!(await second.evaluate((el) => el === document.activeElement)))
+      note("websites", "ArrowRight did not move focus to the next sample-site tab");
+    const panelHref = await websites.getByRole("tabpanel").getByRole("link", { name: /open the sample site/i }).getAttribute("href");
+    if (panelHref !== "/demo/care-home") note("websites", `tab panel did not follow the selection (${panelHref})`);
+  }
+  await websites.close();
 
   /* The instant audit: the hero form must route to /audit and the report must
      settle into a result or a plain-English error, never a blank page. The
@@ -312,7 +328,7 @@ const reducedMotion = await browser.newContext({
   reducedMotion: "reduce",
   ...devices["iPhone 13"],
 });
-for (const route of ["/", "/gp-websites", "/packages", "/projects/sipli", "/projects/artling"]) {
+for (const route of ["/", "/services", "/services/seo", "/gp-websites", "/packages", "/projects/sipli", "/projects/artling"]) {
   const page = await reducedMotion.newPage();
   await page.goto(BASE + route, { waitUntil: "networkidle" });
   const visible = await page.locator("h1").isVisible().catch(() => false);

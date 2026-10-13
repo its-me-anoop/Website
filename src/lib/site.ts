@@ -16,10 +16,10 @@ export const site = {
   name: "Anoop Jose",
   legalName: "Flutterly Ltd",
   studio: "Flutterly",
-  tagline: "App & Web Developer",
+  tagline: "Your digital side, sorted.",
   role: "Developer & Designer · Founder of Flutterly",
   description:
-    "Flutterly is an independent product studio in Reading, UK — designing and building accessible websites for GP practices and care homes, plus web and mobile products with Next.js, SwiftUI and Flutter.",
+    "Flutterly is a studio in Reading, UK, for websites, apps, IT support, social media and SEO: designed, built and looked after by one person, with a specialism in accessible healthcare websites.",
   /** New business and general enquiries: quotes, audits, bookings. */
   email: "anoop@flutterly.co.uk",
   /** Existing clients and issues: accessibility reports, privacy, app support. */

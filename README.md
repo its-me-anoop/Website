@@ -1,7 +1,13 @@
-# Flutterly — Websites for GP practices and care homes
+# Flutterly — Your digital side, sorted.
 
-The site of **Flutterly Ltd**, the one-person product studio of
-**Anoop Jose** (Reading, UK). The marketing pages (home, GP practices,
+The site of **Flutterly Ltd**, the one-person studio of **Anoop Jose**
+(Reading, UK) for **websites, apps, IT support, social media and SEO**,
+with a specialism in accessible healthcare websites. The October 2026
+rebrand added `/services` and five service pages (`/services/[slug]`,
+fed by `src/lib/marketing/services.ts`), a new homepage, a WebGL ember
+shader, Heron-style cursor effects and wireframe-to-content scroll
+reveals (see "Rebrand motion layer" in [`docs/AURORA.md`](./docs/AURORA.md)).
+The marketing pages (home, GP practices,
 care homes, packages, Clear Path, free audit, booking, accessibility) run
 the ["Aurora" design language, Ember edition](./docs/AURORA.md): a warm
 night canvas for the opening and the close, warm paper for the sections

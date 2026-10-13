@@ -59,11 +59,16 @@ describe("decorative glows", () => {
     expect(offenders).toEqual([]);
   });
 
-  it("no Aurora component draws a WebGL canvas any more", () => {
-    const offenders = sources(join(process.cwd(), "src/components/aurora")).filter((file) =>
+  it("only the ember shader draws a WebGL canvas, and only behind the fine-pointer gate", () => {
+    const users = sources(join(process.cwd(), "src/components/aurora")).filter((file) =>
       /getContext\(\s*["']webgl/.test(readFileSync(file, "utf8"))
     );
-    expect(offenders).toEqual([]);
+    expect(users.map((file) => file.split("/").pop())).toEqual(["EmberShader.tsx"]);
+    const shader = readFileSync(users[0], "utf8");
+    const gate = shader.indexOf("matchMedia?.(FINE_POINTER)");
+    expect(gate).toBeGreaterThan(-1);
+    expect(gate).toBeLessThan(shader.indexOf('getContext("webgl"'));
+    expect(shader).toContain('"(hover: hover) and (pointer: fine)"');
   });
 
   it("EmberGlow is a static gradient, not a filter", () => {
@@ -75,6 +80,15 @@ describe("decorative glows", () => {
 });
 
 describe("on a touch screen", () => {
+  it("the hero butterfly only flaps in 3D with a fine pointer", () => {
+    const gated = block("@media (hover: hover) and (pointer: fine)");
+    expect(gated).toMatch(/preserve-3d/);
+    expect(gated).toMatch(/perspective/);
+    expect(block(".fx-fly {")).not.toMatch(/preserve-3d|perspective/);
+    expect(block(".fx-bob {")).not.toMatch(/preserve-3d/);
+    expect(block("@keyframes fx-flap-flat")).not.toMatch(/rotate[XY]|3d/);
+  });
+
   it("Reveal animates without a filter", () => {
     const { container } = wrap(<Reveal>Text</Reveal>);
     expect((container.firstChild as HTMLElement).style.filter).toBe("");

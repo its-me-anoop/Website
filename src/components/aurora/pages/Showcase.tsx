@@ -50,7 +50,7 @@ export function Showcase() {
   }
 
   return (
-    <section id="services" className="a-paper relative scroll-mt-24 py-24 sm:py-32">
+    <section id="samples" className="a-paper relative scroll-mt-24 py-24 sm:py-32">
       <Container>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionIntro

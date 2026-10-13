@@ -19,15 +19,15 @@ export function Footer() {
         }}
       />
       <div className="relative mx-auto w-full max-w-[1320px] px-5 pt-20 sm:px-8 sm:pt-24">
-        <div className="grid gap-14 lg:grid-cols-[1.1fr_2fr]">
+        <div className="grid gap-14 xl:grid-cols-[1fr_2.6fr]">
           <div>
             <div className="flex items-center gap-3">
               <Image src="/flutterly-logo.png" alt="" width={32} height={32} />
               <span className="a-display text-[28px]">Flutterly</span>
             </div>
             <p className="mt-6 max-w-[340px] text-[15px] leading-[1.65] text-a-ink-soft">
-              An independent product studio in Reading, Berkshire. Websites for GP practices and care homes,
-              plus web and mobile products.
+              Websites, apps, IT support, social media and SEO for businesses in Reading and beyond. Designed,
+              built and looked after by one studio.
             </p>
             <ul className="mt-8 space-y-2.5 text-[15px]">
               {[
@@ -50,7 +50,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
             {footerColumns.map((column) => (
               <div key={column.title}>
                 <h3 className="a-mono text-[11px] font-medium uppercase tracking-[0.16em] text-a-muted">
@@ -80,15 +80,16 @@ export function Footer() {
           </nav>
         </div>
 
-        <p aria-hidden className="a-wordmark mt-20 select-none text-center text-[clamp(5rem,22vw,20rem)]">
-          flutterly
-        </p>
+        <div aria-hidden className="mt-20 flex select-none items-center justify-center gap-[2vw]">
+          <Image src="/flutterly-logo.png" alt="" width={200} height={200} className="fx-rv h-auto w-[clamp(52px,13vw,200px)]" />
+          <span className="a-wordmark fx-wt text-[clamp(3rem,15vw,15.5rem)] leading-[0.8]">Flutterly</span>
+        </div>
 
         <div className="relative flex flex-col gap-2 border-t border-a-line py-7 text-[13px] text-a-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.legalName}. {site.address.addressLocality}, UK.
           </p>
-          <p>Custom-coded, accessible websites. Never a template.</p>
+          <p>Build it. Run it. Grow it.</p>
         </div>
       </div>
     </footer>

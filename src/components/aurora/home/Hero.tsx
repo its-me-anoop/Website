@@ -1,97 +1,154 @@
 "use client";
 
+import { useEffect, useState, type CSSProperties } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { samples } from "@/lib/marketing/content";
-import { EmberGlow } from "../effects/Motion";
-import { IMacFrame } from "../ui/DeviceFrame";
-import { AuditBar, ButtonLink, Container, Display } from "../ui/primitives";
+import { heroCopy } from "@/lib/marketing/content";
+import { cn } from "@/lib/utils";
+import { EmberShader } from "../effects/EmberShader";
+import { Container } from "../ui/primitives";
 
-const facts = [
-  { value: "WCAG 2.2 AA", label: "Designed in on every build" },
-  { value: "About 60 checks", label: "In the free instant audit" },
-  { value: "One person", label: "Designs, builds and supports it" },
-  { value: "From £995", label: "Published starting price, plus VAT" },
-] as const;
+/** Client-only: true once the homepage has been shown in this tab. */
+let introPlayed = false;
+
+const delay = (seconds: number) => ({ ["--fx-d" as string]: `${seconds}s` }) as CSSProperties;
 
 /**
- * Opening: a two-column night hero. Left, the word-by-word headline,
- * the audit bar as the primary action and the booking link. Right, the
- * Willowbrook sample on an iMac. One ember glow breathes beneath; the
- * fact strip closes the fold.
+ * The rebrand's opening: a short curtain with the butterfly lifts, the
+ * hero opens out from a strip, frame lines draw in, the headline rises
+ * line by line and fills from outline, and the real Flutterly
+ * butterfly flaps in 3D over a slow ember shader.
+ *
+ * The curtain only plays on the first load of the page. Returning to
+ * the homepage inside the site (where the route curtain already ran)
+ * renders without it and builds straight away. The server render and
+ * the first client render agree, so hydration stays clean.
  */
 export function Hero() {
-  const gp = samples[0];
+  const [first] = useState(() => typeof window === "undefined" || !introPlayed);
+  useEffect(() => {
+    introPlayed = true;
+  }, []);
+
   return (
-    <section id="top" className="relative isolate overflow-hidden bg-a-void pb-16 pt-28 sm:pt-32 lg:pb-20">
-      <EmberGlow className="-z-10" />
-
-      <Container className="grid items-center gap-12 lg:grid-cols-2 lg:gap-14">
-        <div className="flex flex-col items-start gap-8">
-          <Link
-            href="/leaving-msw"
-            className="a-fade-up group inline-flex items-center gap-3 rounded-full border border-a-line-2 py-1.5 pl-1.5 pr-4 text-[13.5px] text-a-ink-soft transition-colors hover:border-a-ink/60 hover:text-a-ink"
-          >
-            <span className="a-mono rounded-full bg-a-amber px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-a-void">
-              New
-            </span>
-            <span>
-              Leaving My Surgery Website?
-              <span className="sr-only sm:not-sr-only"> Meet Clear Path</span>
-            </span>
-            <ArrowRight size={14} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
-          </Link>
-
-          <Display as="h1" size="hero" split delay={0} className="max-w-[14ch]">
-            Healthcare websites that <em>answer first.</em>
-          </Display>
-
-          <p
-            className="a-fade-up max-w-[56ch] text-[17px] leading-[1.65] text-a-ink-soft sm:text-[19px]"
-            style={{ ["--d" as string]: "250ms" }}
-          >
-            Flutterly designs and builds websites for GP practices, care homes and clinics. Custom-coded in Reading,
-            accessible to WCAG 2.2 AA, and looked after by the person who built them.
-          </p>
-
-          <div className="a-fade-up flex w-full flex-col items-start gap-5" style={{ ["--d" as string]: "320ms" }}>
-            <AuditBar hint="Free instant audit: about sixty checks, nothing stored." />
-            <div className="flex flex-wrap items-center gap-3">
-              <ButtonLink href="/book" tone="outline" size="sm" arrow="right" magnetic>
-                Book a call
-              </ButtonLink>
-              <ButtonLink href="#services" tone="ghost" size="sm">
-                See the five sample sites
-              </ButtonLink>
-            </div>
+    <>
+      {first ? (
+        <div aria-hidden="true" className="fx-curtain" data-fx-curtain>
+          <Image src="/flutterly-logo.png" alt="" width={92} height={92} priority />
+          <div className="fx-curtain-bar">
+            <span />
           </div>
         </div>
+      ) : null}
 
-        <figure className="a-fade-up relative m-0 lg:pl-6" style={{ ["--d" as string]: "200ms" }}>
-          <div
-            aria-hidden
-            className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2"
-            style={{ background: "radial-gradient(circle, rgba(255,138,42,0.2) 0%, rgba(11,9,7,0) 70%)" }}
-          />
-          <Link href={gp.href} className="relative block rounded-[16px]" aria-label={`Open the ${gp.name} sample website`}>
-            <IMacFrame src={gp.image} alt="" priority sizes="(min-width: 1024px) 640px, 92vw" />
-          </Link>
-          <figcaption className="a-mono absolute left-0 top-0 -translate-y-1/2 rounded-full border border-a-line-2 bg-a-void px-3 py-1.5 text-[11px] uppercase tracking-[0.1em] text-a-ink-soft">
-            Sample · {gp.name}
-          </figcaption>
-        </figure>
-      </Container>
+      <section
+        id="top"
+        aria-labelledby="hero-title"
+        className={cn("fx-open relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-a-void", !first && "fx-quick")}
+      >
+        <EmberShader className="-z-20" />
+        {/* Scrims keep every line of hero text at AA over the brightest
+            frame the shader can draw: from the left on wide screens,
+            from the top where the text spans the full width. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(11,9,7,0.94)_0%,rgba(11,9,7,0.9)_62%,rgba(11,9,7,0.35)_100%)] lg:bg-[linear-gradient(90deg,rgba(11,9,7,0.96)_0%,rgba(11,9,7,0.9)_46%,rgba(11,9,7,0)_76%)]"
+        />
 
-      <Container className="mt-16">
-        <dl style={{ ["--d" as string]: "420ms" }} className="a-fade-up grid grid-cols-2 gap-px overflow-hidden rounded-[22px] border border-a-line bg-a-line lg:grid-cols-4">
-          {facts.map((fact) => (
-            <div key={fact.value} className="flex flex-col gap-1 bg-a-void px-5 py-5 sm:px-7">
-              <dt className="order-2 text-[13.5px] leading-snug text-a-muted">{fact.label}</dt>
-              <dd className="a-display order-1 text-[clamp(1.35rem,2.4vw,1.9rem)]">{fact.value}</dd>
-            </div>
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden md:block">
+          <div className="fx-dx absolute inset-x-6 top-[92px] h-px bg-a-ink/15" style={delay(0.75)} />
+          <div className="fx-dx absolute inset-x-6 bottom-[72px] h-px bg-a-ink/15" style={delay(0.85)} />
+          <div className="fx-dy absolute bottom-[72px] left-6 top-[92px] w-px bg-a-ink/15" style={delay(0.8)} />
+          <div className="fx-dy absolute bottom-[72px] right-6 top-[92px] w-px bg-a-ink/15" style={delay(0.9)} />
+          {[
+            "left-[22px] top-[90px]",
+            "right-[22px] top-[90px]",
+            "bottom-[70px] left-[22px]",
+            "bottom-[70px] right-[22px]",
+          ].map((pos, i) => (
+            <div key={pos} className={cn("fx-fade absolute h-[5px] w-[5px] bg-a-amber", pos)} style={delay(1.45 + i * 0.05)} />
           ))}
-        </dl>
-      </Container>
-    </section>
+        </div>
+
+        <Container className="relative flex flex-1 flex-wrap items-center gap-10 pb-32 pt-32 sm:pt-36 lg:flex-nowrap">
+          <div className="flex min-w-0 flex-[1_1_560px] flex-col items-start gap-8">
+            <h1
+              id="hero-title"
+              className="fx-h1-fill a-display text-[clamp(3.5rem,7vw,6.75rem)] leading-[0.92] tracking-[-0.045em] text-a-ink"
+            >
+              {heroCopy.lines.map((line, i) => (
+                <span key={line}>
+                  <span className="fx-line">
+                    <span style={delay(0.6 + i * 0.1)}>{line}</span>
+                  </span>{" "}
+                </span>
+              ))}
+              <span className="fx-line">
+                <span style={delay(0.8)} className="font-[family-name:var(--font-instrument)] font-normal italic tracking-[-0.015em] text-a-amber">
+                  {heroCopy.emphasis}
+                </span>
+              </span>
+            </h1>
+            <p className="fx-fade max-w-[520px] text-[clamp(17px,1.4vw,20px)] leading-[1.6] text-a-ink-soft" style={delay(1.05)}>
+              {heroCopy.copy}
+            </p>
+            <div className="fx-fade flex flex-wrap items-center gap-x-8 gap-y-4" style={delay(1.2)}>
+              <Link
+                href="/book"
+                data-magnetic
+                data-cursor="Book a call"
+                className="inline-flex min-h-14 items-center gap-3 rounded-full bg-a-amber px-7 text-[17px] font-medium text-a-void transition-colors duration-300 hover:bg-a-ink"
+              >
+                Book a call
+                <ArrowRight size={18} aria-hidden />
+              </Link>
+              <Link
+                href="#work"
+                data-cursor="See the work"
+                className="fx-ul inline-flex min-h-11 items-center text-[17px] font-medium text-a-ink"
+              >
+                See the work
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex min-w-0 flex-[1_1_420px] items-center justify-center">
+            <div className="fx-fly relative aspect-[684/520] w-[min(100%,540px)]">
+              <div
+                aria-hidden="true"
+                className="absolute inset-[6%_10%] rounded-full bg-[radial-gradient(closest-side,rgba(255,176,32,0.26),rgba(255,176,32,0.08)_55%,rgba(255,176,32,0))]"
+              />
+              <div className="fx-bob absolute inset-0">
+                <Image
+                  src="/flutterly-logo.png"
+                  alt="The Flutterly butterfly"
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 540px, 90vw"
+                  className="fx-wing-l object-contain [clip-path:inset(0_50%_0_0)]"
+                />
+                <Image
+                  src="/flutterly-logo.png"
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 540px, 90vw"
+                  className="fx-wing-r object-contain [clip-path:inset(0_0_0_50%)]"
+                />
+              </div>
+            </div>
+          </div>
+        </Container>
+
+        <div
+          className="fx-fade a-mono absolute inset-x-6 bottom-0 flex h-[72px] items-center justify-between gap-4 px-4 text-[11px] uppercase tracking-[0.12em] text-a-muted"
+          style={delay(1.35)}
+        >
+          <span>{heroCopy.strip[0]}</span>
+          <span className="hidden md:inline">{heroCopy.strip[1]}</span>
+          <span className="hidden sm:inline">{heroCopy.strip[2]}</span>
+        </div>
+      </section>
+    </>
   );
 }

@@ -18,6 +18,12 @@ const axeSource = require("fs").readFileSync(
 const BASE = process.env.BASE_URL || "http://localhost:3100";
 const ROUTES = [
   "/",
+  "/services",
+  "/services/websites",
+  "/services/apps",
+  "/services/it-support",
+  "/services/social-media",
+  "/services/seo",
   "/gp-websites",
   "/care-home-websites",
   "/packages",
