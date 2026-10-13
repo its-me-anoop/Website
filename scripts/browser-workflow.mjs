@@ -234,7 +234,7 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const logos = await page.locator("#clients [data-client-logo]").evaluateAll((els) =>
     els.map((el) => ({ src: el.dataset.clientLogo, w: el.getBoundingClientRect().width }))
   );
-  if (logos.length !== 4) note("home", `expected 4 client logos, found ${logos.length}`);
+  if (logos.length !== 6) note("home", `expected 6 client logos, found ${logos.length}`);
   for (const logo of logos) {
     const res = await page.request.get(new URL(logo.src, page.url()).href);
     if (!res.ok()) note("home", `client logo ${logo.src} returned ${res.status()}`);

@@ -43,4 +43,14 @@ export const clients: readonly Client[] = [
     name: "Goodwill Dairy",
     logo: { src: "/clients/goodwill-dairy.png", width: 199, height: 113, displayHeight: 64 },
   },
+  {
+    name: "Uniq Health Care",
+    logo: { src: "/clients/uniq-health-care.png", width: 600, height: 259, displayHeight: 56 },
+  },
+  { name: "Greenmead Housing", href: "https://www.greenmead.co.uk/" },
+  {
+    name: "JJ Paper Essentials",
+    href: "https://www.jjpaperessential.com/",
+    logo: { src: "/clients/jj-paper-essentials.png", width: 256, height: 256, displayHeight: 72 },
+  },
 ];

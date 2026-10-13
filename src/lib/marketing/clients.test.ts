@@ -4,13 +4,16 @@ import { describe, expect, it } from "vitest";
 import { clients } from "./clients";
 
 describe("clients", () => {
-  it("lists Anoop's five clients in his order", () => {
+  it("lists Anoop's clients in the order he gave them", () => {
     expect(clients.map((c) => c.name)).toEqual([
       "Pembroke Care",
       "Sandbourne Care",
       "Montis Care",
       "20X",
       "Goodwill Dairy",
+      "Uniq Health Care",
+      "Greenmead Housing",
+      "JJ Paper Essentials",
     ]);
   });
 
@@ -33,7 +36,14 @@ describe("clients", () => {
 
   it("uses the real logo for every client that has one on file", () => {
     const withLogo = clients.filter((c) => c.logo).map((c) => c.name);
-    expect(withLogo).toEqual(["Pembroke Care", "Sandbourne Care", "20X", "Goodwill Dairy"]);
+    expect(withLogo).toEqual([
+      "Pembroke Care",
+      "Sandbourne Care",
+      "20X",
+      "Goodwill Dairy",
+      "Uniq Health Care",
+      "JJ Paper Essentials",
+    ]);
   });
 
   it("only links to client sites over https", () => {

@@ -29,7 +29,7 @@ export function ClientLogos() {
           </p>
         </div>
 
-        <ul className="m-0 grid list-none grid-cols-2 border-l border-t border-a-line p-0 sm:grid-cols-3 lg:grid-cols-5">
+        <ul className="m-0 grid list-none grid-cols-2 border-l border-t border-a-line p-0 md:grid-cols-4">
           {clients.map((client) => (
             <li key={client.name} className="fx-rv border-b border-r border-a-line max-sm:odd:last:col-span-2">
               <ClientCell client={client} />
