@@ -4,6 +4,7 @@ import { render, screen, within } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
 import { clients } from "@/lib/marketing/clients";
+import { featuredWork, projects } from "@/lib/marketing/content";
 import { services } from "@/lib/marketing/services";
 import { Home } from "./Home";
 
@@ -87,16 +88,27 @@ describe("Home (rebrand)", () => {
     });
   });
 
-  it("links to all five hosted sample sites", () => {
+  it("keeps the sample sites out of the work section", () => {
     renderHome();
-    ["/demo/gp-practice", "/demo/care-home", "/demo/dental-practice", "/demo/pharmacy", "/demo/physio-clinic"].forEach(
-      (href) => expect(linksTo(href).length).toBeGreaterThan(0)
-    );
+    const work = document.getElementById("work")!;
+    within(work)
+      .getAllByRole("link")
+      .forEach((a) => expect(a.getAttribute("href")).not.toMatch(/^\/demo\//));
+    expect(within(work).queryByText(/sample site/i)).toBeNull();
+  });
+
+  it("shows every real project as a tile with a real capture", () => {
+    renderHome();
+    const work = document.getElementById("work")!;
+    const tiles = work.querySelectorAll("article[data-project-card]");
+    expect(Array.from(tiles, (t) => t.querySelector("h3")?.textContent)).toEqual(featuredWork.map((t) => t.title));
+    expect(featuredWork.map((t) => t.project).sort()).toEqual(projects.map((p) => p.name).sort());
+    tiles.forEach((tile) => expect(tile.querySelector("img")).not.toBeNull());
   });
 
   it("shows every project once, case studies internally and client sites in a new tab", () => {
     const { container } = renderHome();
-    expect(container.querySelectorAll("[data-project-card]")).toHaveLength(7);
+    expect(container.querySelectorAll("[data-project-card]")).toHaveLength(projects.length);
     ["/projects/sipli", "/projects/artling", "/projects/little-lifeline"].forEach((href) =>
       expect(linksTo(href).length).toBeGreaterThan(0)
     );

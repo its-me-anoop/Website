@@ -898,22 +898,30 @@ export const heroCopy = {
   strip: ["Reading, UK · 51.4543° N 0.9781° W", "Websites / Apps / IT support / Social / SEO", "Build · Run · Grow"] as const,
 } as const;
 
-/** The four large tiles in the work section, in grid order (7, 5, 5, 7 columns). */
+/**
+ * The work section's tiles, in grid order. Rows pair a wide tile (7 of
+ * 12 columns) with a narrow one (5); a "full" tile takes the whole row.
+ * `project` names the matching entry in `projects`, so every project
+ * appears exactly once.
+ */
 export const featuredWork = [
   {
-    key: "samples",
+    key: "pembroke",
+    project: "Pembroke Care",
     span: "wide",
-    eyebrow: "Sample sites · GP practices and care homes",
-    title: "Willowbrook Surgery and Oakfield House",
-    copy: "Front doors for the people who answer the phone. Custom-coded and accessible to WCAG 2.2 AA.",
-    href: "/demo/gp-practice",
-    linkLabel: "Open the sample sites",
-    cursor: "Open the sample sites",
+    eyebrow: "Care provider · Website rebuild · 2026",
+    title: "Pembroke Care",
+    copy: "A full rebuild for a boutique residential, respite and transitional-living provider in Reading, written for families choosing care.",
+    href: "https://pembrokecare.com/",
+    linkLabel: "Visit pembrokecare.com",
+    cursor: "Visit Pembroke Care",
     sketch: "site",
-    sketchLabel: "IMG · Sample sites · 1440 × 1000",
+    sketchLabel: "IMG · Live site · 1920 × 1200",
+    image: { src: "/project-pembroke.png", alt: "Pembroke Care website, home page" },
   },
   {
     key: "sipli",
+    project: "Sipli",
     span: "narrow",
     eyebrow: "iPhone, iPad and Apple Watch · Our app",
     title: "Sipli",
@@ -926,6 +934,7 @@ export const featuredWork = [
   },
   {
     key: "lifeline",
+    project: "Little Lifeline",
     span: "narrow",
     eyebrow: "iPhone and iPad game · Our app",
     title: "Little Lifeline",
@@ -937,21 +946,61 @@ export const featuredWork = [
     sketchLabel: "Icon · 512 × 512",
   },
   {
-    key: "pembroke",
+    key: "sandbourne",
+    project: "Sandbourne",
     span: "wide",
-    eyebrow: "Care provider · Website rebuild",
-    title: "Pembroke Care",
-    copy: "A full rebuild for a boutique residential, respite and transitional-living provider in Reading, written for families choosing care.",
-    href: "https://pembrokecare.com/",
-    linkLabel: "Visit pembrokecare.com",
-    cursor: "Visit Pembroke Care",
+    eyebrow: "Care provider · Website · 2024",
+    title: "Sandbourne Care",
+    copy: "A reassuring digital presence for residential, supported-living and respite care services.",
+    href: "https://sandbournecare.co.uk/",
+    linkLabel: "Visit sandbournecare.co.uk",
+    cursor: "Visit Sandbourne Care",
     sketch: "site",
     sketchLabel: "IMG · Live site · 1920 × 1200",
+    image: { src: "/project-sandbourne.png", alt: "Sandbourne Care website, home page" },
+  },
+  {
+    key: "greenmead",
+    project: "Greenmead",
+    span: "wide",
+    eyebrow: "Housing organisation · Accessible website · 2024",
+    title: "Greenmead Housing",
+    copy: "A clear, person-centred website for a housing organisation supporting adults with complex needs.",
+    href: "https://www.greenmead.co.uk/",
+    linkLabel: "Visit greenmead.co.uk",
+    cursor: "Visit Greenmead Housing",
+    sketch: "site",
+    sketchLabel: "IMG · Live site · 1920 × 1200",
+    image: { src: "/project-greenmead.png", alt: "Greenmead Housing website, home page" },
+  },
+  {
+    key: "artling",
+    project: "Little Artist",
+    span: "narrow",
+    eyebrow: "iPhone and iPad app · Our app",
+    title: "Little Artist",
+    copy: "A private archive for children's artwork, milestones and family memories, designed to feel quiet and lasting.",
+    href: "/projects/artling",
+    linkLabel: "Read the Little Artist story",
+    cursor: "Little Artist case study",
+    sketch: "portrait",
+    sketchLabel: "Art · 600 × 840",
+  },
+  {
+    key: "jjpaper",
+    project: "JJ Paper",
+    span: "full",
+    eyebrow: "B2B supplier · Website · 2024",
+    title: "JJ Paper Essentials",
+    copy: "A commercial site that explains a sustainable paper supply chain without losing speed or credibility.",
+    href: "https://www.jjpaperessential.com/",
+    linkLabel: "Visit jjpaperessential.com",
+    cursor: "Visit JJ Paper Essentials",
+    sketch: "site",
+    sketchLabel: "IMG · Live site · 1920 × 1200",
+    image: { src: "/project-jjpaper.png", alt: "JJ Paper Essentials website, home page" },
   },
 ] as const;
-
-/** Project names shown as tiles above; the rest of `projects` is listed below them. */
-export const featuredProjectNames = ["Sipli", "Little Lifeline", "Pembroke Care"] as const;
 
 export const rebrandProcess = [
   ["Call", "A short call about what you need and what good looks like."],

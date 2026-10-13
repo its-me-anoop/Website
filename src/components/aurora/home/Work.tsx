@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { featuredProjectNames, featuredWork, projects, samples } from "@/lib/marketing/content";
+import { featuredWork } from "@/lib/marketing/content";
 import { cn } from "@/lib/utils";
 import { WireframeMedia } from "../effects/Wireframe";
 import { Container } from "../ui/primitives";
@@ -10,30 +10,30 @@ type Tile = (typeof featuredWork)[number];
 
 const isExternal = (href: string) => href.startsWith("http");
 
+const spanClass: Record<Tile["span"], string> = {
+  wide: "lg:col-span-7",
+  narrow: "lg:col-span-5",
+  full: "lg:col-span-12",
+};
+
+/** A live site's home page, filling the tile from the top. */
+function SiteShot({ image }: { image: { src: string; alt: string } }) {
+  return (
+    <div className="fx-par absolute inset-0 bg-a-deep">
+      <Image
+        src={image.src}
+        alt={image.alt}
+        fill
+        sizes="(min-width: 960px) 60vw, 92vw"
+        className="fx-zoom object-cover object-left-top"
+      />
+    </div>
+  );
+}
+
 /** The artwork inside each tile, drawn from real captures. */
 function TileMedia({ tile }: { tile: Tile }) {
   switch (tile.key) {
-    case "samples":
-      return (
-        <div className="fx-par absolute inset-0 bg-a-deep">
-          <Image
-            src="/demos/gp-home.png"
-            alt="Willowbrook Surgery sample site, home page"
-            width={1440}
-            height={1000}
-            sizes="(min-width: 960px) 52vw, 80vw"
-            className="fx-zoom absolute left-[6%] top-[9%] h-auto w-[72%] rounded-[10px] shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
-          />
-          <Image
-            src="/demos/care-home.png"
-            alt="Oakfield House sample site, home page"
-            width={1440}
-            height={1000}
-            sizes="(min-width: 960px) 36vw, 56vw"
-            className="fx-zoom absolute bottom-[8%] right-[5%] h-auto w-1/2 rounded-[10px] shadow-[0_30px_60px_rgba(0,0,0,0.55)]"
-          />
-        </div>
-      );
     case "sipli":
       return (
         <div className="absolute inset-0 bg-[#d9e2e6]">
@@ -69,32 +69,34 @@ function TileMedia({ tile }: { tile: Tile }) {
           />
         </div>
       );
-    case "pembroke":
+    case "artling":
       return (
-        <div className="fx-par absolute inset-0 bg-a-deep">
+        <div className="absolute inset-0 flex items-end justify-center bg-[#ede1cd]">
           <Image
-            src="/project-pembroke.png"
-            alt="Pembroke Care website, home page"
-            fill
-            sizes="(min-width: 960px) 52vw, 92vw"
-            className="fx-zoom object-cover object-top"
+            src="/projects/artling/fox-painter.png"
+            alt="Little Artist's fox painter mascot"
+            width={600}
+            height={840}
+            sizes="(min-width: 960px) 24vw, 60vw"
+            className="fx-zoom fx-par h-[92%] w-auto"
           />
         </div>
       );
+    default:
+      return <SiteShot image={tile.image} />;
   }
 }
 
 function WorkTile({ tile }: { tile: Tile }) {
   const external = isExternal(tile.href);
   const linkProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
-  const project = projects.find((p) => p.name === tile.title);
   return (
     <article
       className={cn(
         "fx-tile flex min-w-0 flex-col gap-5",
-        tile.span === "wide" ? "lg:col-span-7" : "lg:col-span-5"
+        spanClass[tile.span]
       )}
-      data-project-card={project ? "" : undefined}
+      data-project-card
     >
       <Link href={tile.href} data-cursor={tile.cursor} tabIndex={-1} aria-hidden="true" {...linkProps}>
         <WireframeMedia
@@ -128,12 +130,10 @@ function WorkTile({ tile }: { tile: Tile }) {
 }
 
 /**
- * Shipped, live and looked after: four large tiles that build from a
- * wireframe as they scroll in, every sample site one click away, then
- * the rest of the work as a plain list.
+ * Shipped, live and looked after: every client site and app as a tile
+ * that builds from a wireframe as it scrolls in.
  */
 export function Work() {
-  const more = projects.filter((p) => !(featuredProjectNames as readonly string[]).includes(p.name));
   return (
     <section id="work" aria-labelledby="work-title" className="fx-grid scroll-mt-24 bg-a-void py-[clamp(88px,10vw,152px)]">
       <Container className="flex flex-col gap-16">
@@ -146,8 +146,7 @@ export function Work() {
             Shipped, live and <em>looked after.</em>
           </h2>
           <p className="fx-wp max-w-[380px] text-[17px] leading-[1.6] text-a-ink-soft">
-            Client websites, apps we build and run ourselves, and the sample sites that show what a practice or care
-            home gets.
+            Websites for care providers, housing and suppliers, and the apps we build and run ourselves.
           </p>
         </div>
 
@@ -155,44 +154,6 @@ export function Work() {
           {featuredWork.map((tile) => (
             <WorkTile key={tile.key} tile={tile} />
           ))}
-        </div>
-
-        <nav aria-label="Sample sites" className="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-a-line pt-6">
-          <span className="a-mono text-[11px] uppercase tracking-[0.12em] text-a-muted">All five sample sites</span>
-          {samples.map((s) => (
-            <Link key={s.slug} href={s.href} data-cursor={s.tab} className="fx-ul inline-flex min-h-11 items-center text-[15px] text-a-ink">
-              {s.name}
-            </Link>
-          ))}
-        </nav>
-
-        <div>
-          <h3 className="a-mono text-[11px] font-medium uppercase tracking-[0.12em] text-a-muted">More work</h3>
-          <ul className="mt-4 border-t border-a-line">
-            {more.map((p) => {
-              const external = !p.internal;
-              return (
-                <li key={p.name} data-project-card className="border-b border-a-line">
-                  <Link
-                    href={p.href}
-                    data-cursor={external ? `Visit ${p.name}` : `${p.name} case study`}
-                    className="group grid min-h-16 items-center gap-x-8 gap-y-1 py-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)_auto]"
-                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  >
-                    <span className="a-display text-[24px] tracking-[-0.03em] transition-colors group-hover:text-a-amber">
-                      {p.name}
-                    </span>
-                    <span className="text-[15px] text-a-ink-soft">{p.type}</span>
-                    <span className="a-mono flex items-center gap-3 text-[12px] text-a-muted">
-                      {p.year}
-                      <ArrowUpRight size={18} aria-hidden className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                      {external ? <span className="sr-only">(opens in a new tab)</span> : null}
-                    </span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
         </div>
       </Container>
     </section>
