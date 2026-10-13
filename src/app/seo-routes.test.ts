@@ -62,4 +62,11 @@ describe("canonical host", () => {
       .filter((url) => url !== `${site.url}/`)
       .forEach((url) => expect(url.endsWith("/")).toBe(false));
   });
+
+  it("sitemap lists the services index and all five service pages", () => {
+    const urls = sitemap().map((entry) => entry.url);
+    ["/services", "/services/websites", "/services/apps", "/services/it-support", "/services/social-media", "/services/seo"].forEach(
+      (path) => expect(urls).toContain(`${site.url}${path}`)
+    );
+  });
 });

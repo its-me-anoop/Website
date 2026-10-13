@@ -7,6 +7,8 @@
  * statistics. Fictional sample sites are always called sample sites.
  */
 
+import { serviceHref, services } from "./services";
+
 /* ─────────────────────────────────────────────────────────────
    Sample sites — the studio's proof of work.
    ───────────────────────────────────────────────────────────── */
@@ -830,34 +832,34 @@ export const clearPath = {
    ───────────────────────────────────────────────────────────── */
 
 export const navLinks = [
-  { href: "/#services", label: "Sample sites" },
-  { href: "/gp-websites", label: "GP practices" },
-  { href: "/care-home-websites", label: "Care homes" },
-  { href: "/packages", label: "Packages" },
-  { href: "/leaving-msw", label: "Clear Path" },
+  { href: "/services", label: "Services" },
+  { href: "/#work", label: "Work" },
+  { href: "/gp-websites", label: "Healthcare" },
+  { href: "/#studio", label: "Studio" },
+  { href: "/#contact", label: "Contact" },
 ] as const;
 
 export const footerColumns = [
   {
     title: "Services",
     links: [
+      ...services.map((s) => ({ label: s.name, href: serviceHref(s.slug) })),
+      { label: "All services", href: "/services" },
+    ],
+  },
+  {
+    title: "Healthcare",
+    links: [
       { label: "GP practice websites", href: "/gp-websites" },
-      { label: "Leaving My Surgery Website", href: "/leaving-msw" },
       { label: "Care home websites", href: "/care-home-websites" },
-      { label: "Packages", href: "/packages" },
+      { label: "Leaving My Surgery Website", href: "/leaving-msw" },
+      { label: "Website packages", href: "/packages" },
       { label: "Free website audit", href: "/free-audit" },
-      { label: "Book a call", href: "/book" },
     ],
   },
   {
     title: "Sample sites",
-    links: [
-      { label: "Willowbrook Surgery", href: "/demo/gp-practice" },
-      { label: "Oakfield House", href: "/demo/care-home" },
-      { label: "Kennet Bridge Dental", href: "/demo/dental-practice" },
-      { label: "Willowbrook Pharmacy", href: "/demo/pharmacy" },
-      { label: "Forbury Physiotherapy", href: "/demo/physio-clinic" },
-    ],
+    links: samples.map((s) => ({ label: s.name, href: s.href })),
   },
   {
     title: "Work",
@@ -874,11 +876,86 @@ export const footerColumns = [
   {
     title: "Studio",
     links: [
+      { label: "About", href: "/#studio" },
       { label: "Process", href: "/#process" },
-      { label: "About", href: "/#about" },
+      { label: "Book a call", href: "/book" },
       { label: "Accessibility statement", href: "/accessibility" },
       { label: "GitHub", href: "https://github.com/its-me-anoop" },
       { label: "LinkedIn", href: "https://www.linkedin.com/in/anoop-jose-0b308a296/" },
     ],
   },
+] as const;
+
+/* ─────────────────────────────────────────────────────────────
+   Rebrand homepage: the hero line, the work tiles and the process.
+   ───────────────────────────────────────────────────────────── */
+
+export const heroCopy = {
+  lines: ["Your", "digital side,"] as const,
+  emphasis: "sorted.",
+  copy: "Websites and apps, the IT that runs underneath them, and the search and social that bring people in. Designed, coded and looked after in Reading by the person you brief.",
+  /** Bottom strip of the hero frame. */
+  strip: ["Reading, UK · 51.4543° N 0.9781° W", "Websites / Apps / IT support / Social / SEO", "Build · Run · Grow"] as const,
+} as const;
+
+/** The four large tiles in the work section, in grid order (7, 5, 5, 7 columns). */
+export const featuredWork = [
+  {
+    key: "samples",
+    span: "wide",
+    eyebrow: "Sample sites · GP practices and care homes",
+    title: "Willowbrook Surgery and Oakfield House",
+    copy: "Front doors for the people who answer the phone. Custom-coded and accessible to WCAG 2.2 AA.",
+    href: "/demo/gp-practice",
+    linkLabel: "Open the sample sites",
+    cursor: "Open the sample sites",
+    sketch: "site",
+    sketchLabel: "IMG · Sample sites · 1440 × 1000",
+  },
+  {
+    key: "sipli",
+    span: "narrow",
+    eyebrow: "iPhone, iPad and Apple Watch · Our app",
+    title: "Sipli",
+    copy: "An adaptive hydration companion that turns goals, weather and Apple Health data into one calm daily rhythm.",
+    href: "/projects/sipli",
+    linkLabel: "Read the Sipli story",
+    cursor: "Sipli case study",
+    sketch: "phone",
+    sketchLabel: "Screen · 1284 × 2778",
+  },
+  {
+    key: "lifeline",
+    span: "narrow",
+    eyebrow: "iPhone and iPad game · Our app",
+    title: "Little Lifeline",
+    copy: "A miniature 3D clinic management game. Start with one reception desk and grow from there.",
+    href: "/projects/little-lifeline",
+    linkLabel: "Read the Little Lifeline story",
+    cursor: "Little Lifeline case study",
+    sketch: "type",
+    sketchLabel: "Icon · 512 × 512",
+  },
+  {
+    key: "pembroke",
+    span: "wide",
+    eyebrow: "Care provider · Website rebuild",
+    title: "Pembroke Care",
+    copy: "A full rebuild for a boutique residential, respite and transitional-living provider in Reading, written for families choosing care.",
+    href: "https://pembrokecare.com/",
+    linkLabel: "Visit pembrokecare.com",
+    cursor: "Visit Pembroke Care",
+    sketch: "site",
+    sketchLabel: "IMG · Live site · 1920 × 1200",
+  },
+] as const;
+
+/** Project names shown as tiles above; the rest of `projects` is listed below them. */
+export const featuredProjectNames = ["Sipli", "Little Lifeline", "Pembroke Care"] as const;
+
+export const rebrandProcess = [
+  ["Call", "A short call about what you need and what good looks like."],
+  ["Plan", "A written proposal with scope, price and timeline before anything gets built."],
+  ["Build", "Designed, coded and tested, with a working link you can click through as it grows."],
+  ["Look after", "Hosting, updates, IT, search and social for as long as you want them."],
 ] as const;

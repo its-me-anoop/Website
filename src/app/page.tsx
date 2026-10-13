@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { Home as AuroraHome } from "@/components/aurora/home/Home";
 
-const title = "Websites for GP practices and care homes";
+const title = "Websites, apps, IT support, social media and SEO in Reading";
 const description =
-  "Flutterly designs and builds accessible, fast websites for GP practices and care homes. Custom-coded in Reading, Berkshire, never a template, and looked after by the person who built them.";
+  "Your digital side, sorted. Flutterly designs, builds and looks after websites, apps, IT, social media and SEO from Reading, Berkshire, all from the person you brief.";
 
 export const metadata: Metadata = {
   /* The root layout's title template only applies to child segments, so
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         url: site.ogImage,
         width: 1200,
         height: 630,
-        alt: "Flutterly: websites for GP practices and care homes",
+        alt: "Flutterly: your digital side, sorted",
       },
     ],
   },

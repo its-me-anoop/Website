@@ -6,15 +6,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { navLinks, samples } from "@/lib/marketing/content";
+import { navLinks } from "@/lib/marketing/content";
+import { serviceHref, services } from "@/lib/marketing/services";
 import { cn } from "@/lib/utils";
 import { EASE } from "../effects/Motion";
 import { useMotionAllowed } from "../effects/hooks";
 
 /**
- * Floating glass capsule. Wordmark, inline links from `lg`, then the
- * two actions. It tightens once the page scrolls, and below `lg` a
- * menu button opens a full-height sheet with every route.
+ * Floating glass capsule. The butterfly and wordmark, inline links from
+ * `lg`, then the two actions. It tightens once the page scrolls, and
+ * below `lg` a menu button opens a sheet with every route and the five
+ * services.
  */
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -54,7 +56,8 @@ export function Nav() {
     return () => document.removeEventListener("focusin", onFocus);
   }, [open]);
 
-  const isActive = (href: string) => !href.includes("#") && pathname === href;
+  const isActive = (href: string) =>
+    !href.includes("#") && (pathname === href || !!pathname?.startsWith(`${href}/`));
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-[120] px-3 pt-3 sm:px-5 sm:pt-4">
@@ -69,6 +72,7 @@ export function Nav() {
         <Link
           href="/"
           aria-label="Flutterly home"
+          data-cursor="Flutterly"
           className="flex h-10 items-center gap-2.5 rounded-full px-3 transition-colors hover:bg-white/5"
         >
           <Image src="/flutterly-logo.png" alt="" width={24} height={24} priority />
@@ -105,6 +109,8 @@ export function Nav() {
           </Link>
           <Link
             href="/book"
+            data-magnetic
+            data-cursor="Book a call"
             className="a-shine inline-flex h-10 items-center rounded-full bg-a-amber px-4 text-[14px] font-medium text-a-void transition-colors hover:bg-a-amber-hover"
           >
             Book a call
@@ -159,12 +165,12 @@ export function Nav() {
               ))}
             </ul>
 
-            <p className="a-eyebrow mt-5 px-4">Sample sites</p>
+            <p className="a-eyebrow mt-5 px-4">Services</p>
             <ul className="mt-2 grid gap-0.5 sm:grid-cols-2">
-              {samples.map((s) => (
+              {services.map((s) => (
                 <li key={s.slug}>
                   <Link
-                    href={s.href}
+                    href={serviceHref(s.slug)}
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between gap-2 rounded-[14px] px-4 py-2.5 text-[15px] text-a-ink-soft transition-colors hover:bg-white/5 hover:text-a-ink"
                   >

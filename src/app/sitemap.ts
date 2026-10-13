@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
+import { serviceHref, services } from "@/lib/marketing/services";
 
 /**
  * Indexable routes only, on the canonical host. Demo sites (`/demo/*`)
@@ -14,6 +15,8 @@ const routes: readonly {
   priority: number;
 }[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
+  { path: "/services", changeFrequency: "monthly", priority: 0.9 },
+  ...services.map((s) => ({ path: serviceHref(s.slug), changeFrequency: "monthly" as const, priority: 0.9 })),
   { path: "/gp-websites", changeFrequency: "monthly", priority: 0.9 },
   { path: "/care-home-websites", changeFrequency: "monthly", priority: 0.9 },
   { path: "/packages", changeFrequency: "monthly", priority: 0.8 },

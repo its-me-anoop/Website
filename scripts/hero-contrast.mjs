@@ -22,6 +22,8 @@ const SHADER_PEAK = "rgb(199, 199, 199)";
 const TARGETS = [
   { route: "/", selector: "#top" },
   { route: "/", selector: "#contact" },
+  { route: "/services", selector: "#top" },
+  { route: "/services/websites", selector: "#top" },
   { route: "/gp-websites", selector: "#top" },
   { route: "/packages", selector: "#top" },
   { route: "/leaving-msw", selector: "#top" },

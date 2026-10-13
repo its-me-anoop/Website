@@ -1,49 +1,64 @@
-"use client";
+import { rebrandProcess } from "@/lib/marketing/content";
+import { Container } from "../ui/primitives";
 
-import { m } from "framer-motion";
-import { processSteps } from "@/lib/marketing/content";
-import { EASE, Reveal } from "../effects/Motion";
-import { useMotionAllowed } from "../effects/hooks";
-import { Container, SectionIntro } from "../ui/primitives";
+/* Where each step's dot sits on the drawn line (percent across, px down). */
+const dots = [
+  [2, 84],
+  [27, 36],
+  [52, 74],
+  [77, 31],
+] as const;
 
 /**
- * Four steps across a horizontal rail on paper. The rail fills with
- * ember once the section scrolls into view; the steps rise after it.
+ * From first call to launch, and long after: an ember line that draws
+ * itself as it scrolls in, a dot per step, and the four steps below.
  */
 export function Process() {
-  const motion = useMotionAllowed();
   return (
-    <section id="process" className="a-paper-2 relative scroll-mt-24 py-24 sm:py-32">
-      <Container>
-        <SectionIntro
-          eyebrow="Process"
-          title={
-            <>
-              From first call to <em>launch</em>.
-            </>
-          }
-          copy="Working pages early, small reviewable slices, and accessibility checked all the way through, not bolted on at the end."
-        />
-        <div className="mt-14">
-          <div aria-hidden className="relative h-[2px] overflow-hidden bg-a-line-2">
-            <m.span
-              className="a-rail-fill absolute inset-0 bg-a-gold"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, margin: "0px 0px -15% 0px" }}
-              transition={{ duration: motion ? 1.8 : 0, ease: EASE }}
+    <section
+      id="process"
+      aria-labelledby="process-title"
+      className="a-paper scroll-mt-24 bg-a-paper pb-[clamp(88px,10vw,152px)] text-a-paper-ink"
+    >
+      <Container className="flex flex-col gap-10">
+        <div aria-hidden="true" className="mb-[clamp(40px,5vw,80px)] h-px bg-a-paper-line-2" />
+        <h2
+          id="process-title"
+          className="fx-wt a-display max-w-[900px] text-[clamp(2.6rem,5.6vw,5.25rem)] leading-[0.95] text-a-ink"
+          data-wf="H2 · Display 84 / 95"
+        >
+          From first call to <em>launch,</em> and long after.
+        </h2>
+        <div aria-hidden="true" className="relative hidden h-[120px] md:block">
+          <svg
+            className="fx-wipex absolute inset-0 h-full w-full overflow-visible"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0 70 L2 70 C14.5 70 14.5 30 27 30 C39.5 30 39.5 62 52 62 C64.5 62 64.5 26 77 26 C89.5 26 89.5 14 100 14"
+              fill="none"
+              stroke="var(--a-ember-deep)"
+              strokeWidth="1.5"
+              vectorEffect="non-scaling-stroke"
             />
-          </div>
-          <ol className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-            {processSteps.map(([title, copy], i) => (
-              <Reveal as="li" key={title} delay={0.15 + i * 0.18} className="pt-8 lg:pr-6">
-                <p className="a-mono text-[12px] tracking-[0.14em] text-a-gold">STEP 0{i + 1}</p>
-                <h3 className="a-display mt-4 text-[clamp(1.9rem,2.6vw,2.2rem)]">{title}</h3>
-                <p className="mt-3 text-[15.5px] leading-[1.65] text-a-ink-soft">{copy}</p>
-              </Reveal>
-            ))}
-          </ol>
+          </svg>
+          {dots.map(([left, top]) => (
+            <div
+              key={left}
+              className="fx-rv absolute -ml-1.5 -mt-1.5 h-3 w-3 rounded-full bg-a-amber shadow-[0_0_0_4px_var(--a-paper),0_0_0_5px_var(--a-ember-deep)]"
+              style={{ left: `${left}%`, top }}
+            />
+          ))}
         </div>
+        <ol className="m-0 grid list-none gap-y-9 p-0 sm:grid-cols-2 lg:grid-cols-4">
+          {rebrandProcess.map(([step, copy]) => (
+            <li key={step} className="flex flex-col gap-2.5 pr-8">
+              <h3 className="fx-wt a-display text-[28px] tracking-[-0.03em] text-a-ink">{step}</h3>
+              <p className="fx-wp text-[16px] leading-[1.6] text-a-ink-soft">{copy}</p>
+            </li>
+          ))}
+        </ol>
       </Container>
     </section>
   );

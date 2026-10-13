@@ -19,6 +19,6 @@ describe("Footer Component", () => {
     expect(screen.getByRole("link", { name: /Services/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /^Work$/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Process/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /About/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /^Studio$/i })).toBeInTheDocument();
   });
 });

@@ -18,7 +18,7 @@ describe("Navbar component", () => {
     expect(screen.getAllByRole("link", { name: "Services" })[0]).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: "Work" })[0]).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: "Process" })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "About" })[0]).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: "Studio" })[0]).toBeInTheDocument();
   });
 
   it("opens mobile menu when toggle button is clicked", () => {

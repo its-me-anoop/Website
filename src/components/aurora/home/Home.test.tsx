@@ -1,8 +1,10 @@
 import React from "react";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
+import { clients } from "@/lib/marketing/clients";
+import { services } from "@/lib/marketing/services";
 import { Home } from "./Home";
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/" }));
@@ -31,34 +33,53 @@ function linksTo(href: string) {
   return screen.getAllByRole("link").filter((a) => a.getAttribute("href") === href);
 }
 
-describe("Home", () => {
-  it("renders one hero headline with a plain accessible name", () => {
+describe("Home (rebrand)", () => {
+  it("renders one hero headline that reads as a sentence", () => {
     renderHome();
     const headings = screen.getAllByRole("heading", { level: 1 });
     expect(headings).toHaveLength(1);
-    expect(headings[0]).toHaveTextContent("Healthcare websites that answer first.");
+    expect(headings[0].textContent?.replace(/\s+/g, " ").trim()).toBe("Your digital side, sorted.");
   });
 
-  it("exposes primary navigation with the sector and packages pages", () => {
+  it("uses the real Flutterly butterfly in the hero", () => {
+    renderHome();
+    const logo = screen.getByRole("img", { name: "The Flutterly butterfly" });
+    expect(decodeURIComponent(logo.getAttribute("src") ?? "")).toContain("/flutterly-logo.png");
+  });
+
+  it("lists all five services as rows that open their pages", () => {
+    renderHome();
+    const section = document.getElementById("services")!;
+    const rows = within(section).getAllByRole("link");
+    expect(rows.map((a) => a.getAttribute("href"))).toEqual(services.map((s) => `/services/${s.slug}`));
+    services.forEach((s) => expect(within(section).getByText(s.summary)).toBeInTheDocument());
+  });
+
+  it("labels the custom cursor for every service row and primary action", () => {
+    renderHome();
+    const section = document.getElementById("services")!;
+    within(section)
+      .getAllByRole("link")
+      .forEach((a) => expect(a.dataset.cursor).toMatch(/^Talk /));
+    linksTo("/book").forEach((a) => expect(a.dataset.cursor ?? "Book a call").toBeTruthy());
+  });
+
+  it("exposes primary navigation with services, work and healthcare", () => {
     renderHome();
     expect(screen.getByRole("navigation", { name: /primary/i })).toBeInTheDocument();
-    ["/gp-websites", "/care-home-websites", "/packages"].forEach((href) => {
-      expect(linksTo(href).length).toBeGreaterThan(0);
-    });
+    ["/services", "/#work", "/gp-websites"].forEach((href) => expect(linksTo(href).length).toBeGreaterThan(0));
   });
 
-  it("links to the booking page from the nav, closing band and footer", () => {
+  it("links to the booking page from the nav, hero and close", () => {
     renderHome();
     expect(linksTo("/book").length).toBeGreaterThanOrEqual(3);
-    expect(screen.getAllByRole("link", { name: /^Book a call$/i }).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: /Book a 15-minute call/i })).toHaveAttribute("href", "/book");
   });
 
-  it("offers the free website audit as a form and as a route", () => {
+  it("keeps the free website audit as a GET form to /audit", () => {
     renderHome();
-    expect(linksTo("/free-audit").length).toBeGreaterThan(0);
     const inputs = screen.getAllByRole("textbox", { name: /your website address/i });
-    expect(inputs.length).toBeGreaterThanOrEqual(2);
+    expect(inputs.length).toBeGreaterThanOrEqual(1);
     inputs.forEach((input) => {
       const form = input.closest("form");
       expect(form).toHaveAttribute("action", "/audit");
@@ -73,96 +94,88 @@ describe("Home", () => {
     );
   });
 
-  it("exposes the sample showcase as an accessible tab interface with arrow keys", () => {
-    renderHome();
-    const tablist = screen.getByRole("tablist", { name: /sample sites by sector/i });
-    const tabs = within(tablist).getAllByRole("tab");
-    expect(tabs).toHaveLength(5);
-    expect(tabs.filter((t) => t.getAttribute("aria-selected") === "true")).toHaveLength(1);
-    expect(tabs[0]).toHaveAttribute("aria-selected", "true");
-
-    const panel = screen.getByRole("tabpanel");
-    expect(panel).toHaveAttribute("aria-labelledby", tabs[0].id);
-    expect(within(panel).getByRole("link", { name: /Open the sample site/ })).toHaveAttribute("href", "/demo/gp-practice");
-
-    tabs[0].focus();
-    fireEvent.keyDown(tabs[0], { key: "ArrowRight" });
-    expect(tabs[1]).toHaveAttribute("aria-selected", "true");
-    expect(tabs[1]).toHaveFocus();
-    expect(within(screen.getByRole("tabpanel")).getByRole("link", { name: /Open the sample site/ })).toHaveAttribute(
-      "href",
-      "/demo/care-home"
+  it("shows every project once, case studies internally and client sites in a new tab", () => {
+    const { container } = renderHome();
+    expect(container.querySelectorAll("[data-project-card]")).toHaveLength(7);
+    ["/projects/sipli", "/projects/artling", "/projects/little-lifeline"].forEach((href) =>
+      expect(linksTo(href).length).toBeGreaterThan(0)
     );
-
-    fireEvent.keyDown(tabs[1], { key: "End" });
-    expect(tabs[4]).toHaveAttribute("aria-selected", "true");
-    fireEvent.keyDown(tabs[4], { key: "ArrowRight" });
-    expect(tabs[0]).toHaveAttribute("aria-selected", "true");
-  });
-
-  it("links case studies internally and client sites externally", () => {
-    renderHome();
-    expect(linksTo("/projects/sipli").length).toBeGreaterThan(0);
-    const littleArtist = linksTo("/projects/artling");
-    expect(littleArtist.some((a) => /Little Artist/.test(a.textContent ?? ""))).toBe(true);
-
-    const lifeline = linksTo("/projects/little-lifeline");
-    expect(lifeline.some((a) => /Little Lifeline/.test(a.textContent ?? ""))).toBe(true);
-
-    const greenmead = screen.getAllByRole("link").filter((a) => a.getAttribute("href")?.includes("greenmead.co.uk"));
-    expect(greenmead.length).toBeGreaterThan(0);
-    greenmead.forEach((a) => {
+    const external = screen
+      .getAllByRole("link")
+      .filter((a) => /pembrokecare\.com|greenmead\.co\.uk|sandbournecare|jjpaperessential/.test(a.getAttribute("href") ?? ""));
+    expect(external.length).toBeGreaterThanOrEqual(4);
+    external.forEach((a) => {
       expect(a).toHaveAttribute("target", "_blank");
       expect(a.getAttribute("rel")).toContain("noopener");
     });
   });
 
-  it("keeps duplicated marquee copies out of the accessibility tree", () => {
-    const { container } = renderHome();
-    const copies = container.querySelectorAll("[data-marquee-copy]");
-    expect(copies.length).toBeGreaterThan(0);
-    copies.forEach((copy) => expect(copy).toHaveAttribute("aria-hidden", "true"));
-  });
-
-  it("shows the sample sites in device frames with a drawn status bar, never cropping the capture", () => {
-    const { container } = renderHome();
-    expect(container.querySelectorAll("[data-status-bar]").length).toBeGreaterThan(0);
-    const screens = container.querySelectorAll<HTMLElement>("[data-screen]");
-    expect(screens.length).toBeGreaterThan(0);
-    screens.forEach((s) => expect(s.style.aspectRatio).toMatch(/\d+ \/ \d+/));
-  });
-
-  it("lets the picker row switch the showcase like the tabs do", () => {
+  it("shows every client by name, with their real logo where one is on file", () => {
     renderHome();
-    fireEvent.click(screen.getByRole("button", { name: /Show Kennet Bridge Dental/ }));
-    expect(within(screen.getByRole("tabpanel")).getByRole("link", { name: /Open the sample site/ })).toHaveAttribute(
-      "href",
-      "/demo/dental-practice"
+    const section = document.getElementById("clients")!;
+    expect(within(section).getByRole("heading", { level: 2 })).toBeInTheDocument();
+    const logos = within(section).getAllByRole("img");
+    expect(logos.map((img) => img.getAttribute("aria-label"))).toEqual(
+      clients.filter((c) => c.logo).map((c) => c.name)
     );
-    expect(screen.getByRole("tab", { name: "Dental" })).toHaveAttribute("aria-selected", "true");
+    logos.forEach((img) => expect(img.dataset.clientLogo).toMatch(/^\/clients\//));
+    const names = within(section)
+      .getAllByRole("listitem")
+      .map((li) => li.querySelector("[role=img]")?.getAttribute("aria-label") ?? li.textContent);
+    expect(names).toEqual(clients.map((c) => c.name));
   });
 
-  it("renders the anti-template comparison table", () => {
+  it("sets clients without a logo file as a typeset wordmark", () => {
     renderHome();
-    expect(screen.getByRole("table", { name: /typical template builders/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/A Flutterly build/).length).toBeGreaterThan(0);
+    const section = document.getElementById("clients")!;
+    const wordmarks = section.querySelectorAll("[data-client-wordmark]");
+    expect(Array.from(wordmarks, (el) => el.textContent)).toEqual(clients.filter((c) => !c.logo).map((c) => c.name));
   });
 
-  it("renders the process steps, packages and footer contact details", () => {
+  it("opens client sites in a new tab", () => {
     renderHome();
-    ["Listen", "Shape", "Build", "Ship"].forEach((step) => {
-      expect(screen.getByRole("heading", { level: 3, name: step })).toBeInTheDocument();
+    const section = document.getElementById("clients")!;
+    const links = within(section).getAllByRole("link");
+    expect(links.length).toBe(clients.filter((c) => c.href).length);
+    links.forEach((a) => {
+      expect(a).toHaveAttribute("target", "_blank");
+      expect(a.getAttribute("rel")).toContain("noopener");
     });
-    ["Essentials", "Standard", "Partnership"].forEach((name) =>
-      expect(screen.getByRole("heading", { name })).toBeInTheDocument()
+  });
+
+  it("builds media from wireframes that stay out of the accessibility tree", () => {
+    const { container } = renderHome();
+    const marks = container.querySelectorAll("[data-wireframe]");
+    expect(marks.length).toBeGreaterThanOrEqual(5);
+    marks.forEach((mark) => expect(mark).toHaveAttribute("aria-hidden", "true"));
+  });
+
+  it("introduces the founder with a real portrait", () => {
+    renderHome();
+    const studio = document.getElementById("studio")!;
+    expect(within(studio).getByRole("heading", { level: 2 })).toHaveTextContent("The person you brief is the person who builds.");
+    expect(within(studio).getByRole("img", { name: /Anoop Jose, founder of Flutterly/ })).toBeInTheDocument();
+  });
+
+  it("renders the four process steps and the footer contact details", () => {
+    renderHome();
+    ["Call", "Plan", "Build", "Look after"].forEach((step) =>
+      expect(screen.getByRole("heading", { level: 3, name: step })).toBeInTheDocument()
     );
-    const pricing = within(document.getElementById("packages")!);
-    expect(pricing.getByText("£995")).toBeInTheDocument();
-    expect(pricing.getByText("£1,490")).toBeInTheDocument();
-    expect(pricing.getByText("Most chosen")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /enquire about essentials/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /talk about partnership/i })).toBeInTheDocument();
     expect(screen.getAllByText(new RegExp(`© ${new Date().getFullYear()}`)).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: /anoop@flutterly\.co\.uk/i }).length).toBeGreaterThan(0);
+  });
+
+  it("plays the intro curtain once, hidden from assistive technology", async () => {
+    vi.resetModules();
+    const { Hero } = await import("./Hero");
+    const first = render(<Hero />);
+    const curtain = first.container.querySelector("[data-fx-curtain]");
+    expect(curtain).toHaveAttribute("aria-hidden", "true");
+    expect(first.container.querySelector("#top")).not.toHaveClass("fx-quick");
+    first.unmount();
+    const again = render(<Hero />);
+    expect(again.container.querySelector("[data-fx-curtain]")).toBeNull();
+    expect(again.container.querySelector("#top")).toHaveClass("fx-quick");
   });
 });

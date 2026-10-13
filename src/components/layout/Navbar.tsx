@@ -18,7 +18,7 @@ const navItems = [
   { name: "Work", href: "#work" },
   { name: "Services", href: "#services" },
   { name: "Process", href: "#process" },
-  { name: "About", href: "#about" },
+  { name: "Studio", href: "#studio" },
 ];
 
 /** Section ids observed to drive the active-link state. */

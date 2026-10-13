@@ -11,8 +11,10 @@ italics for emphasis (amber on night, deep ember on paper), Geist body,
 Geist Mono labels, **amber `#ffb020` as the only action colour, always a
 fill**. Solid `.a-card` surfaces, hairlines, one breathing ember glow,
 and real device frames (`IPhoneFrame` with a drawn status bar,
-`IMacFrame`) around every capture. No shader, glass, spotlight, conic
-rim or 3D tilt. Motion: shared `EASE` curve, `Reveal` entrances,
+`IMacFrame`) around every capture. Since the 2026-10 rebrand the homepage hero
+carries one WebGL ember shader and a 3D butterfly flap, both only with a
+fine pointer (touch screens get a static gradient and a flat flap), plus
+the `fx-` cursor and wireframe reveals (docs/AURORA.md). Motion: shared `EASE` curve, `Reveal` entrances,
 `SplitWords` headlines, reduced-motion fallbacks everywhere.
 `.aurora-root` scope; `.a-paper` / `.a-paper-2` remap the tokens for a
 paper section and `.a-on-ink` restores night inside one. The printed

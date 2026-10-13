@@ -13,7 +13,7 @@ const cols = [
       { href: "#services", label: "Services" },
       { href: "#work", label: "Work" },
       { href: "#process", label: "Process" },
-      { href: "#about", label: "About" },
+      { href: "#studio", label: "Studio" },
     ],
   },
   {
@@ -65,7 +65,7 @@ export function Footer() {
             </Link>
             <p className="mt-3 text-[14px] leading-[1.6] text-ink-3">
               Developer &amp; designer crafting web and mobile apps. Built to
-              last, shipped with care — through Flutterly, my product studio.
+              last, shipped with care — through Flutterly, my studio for websites, apps, IT, social and SEO.
             </p>
             <div className="mt-5 flex items-center gap-2">
               <SocialButton href={`mailto:${site.email}`} label="Email">
