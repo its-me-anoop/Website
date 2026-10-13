@@ -3,6 +3,7 @@ import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
+import { clients } from "@/lib/marketing/clients";
 import { services } from "@/lib/marketing/services";
 import { Home } from "./Home";
 
@@ -104,6 +105,39 @@ describe("Home (rebrand)", () => {
       .filter((a) => /pembrokecare\.com|greenmead\.co\.uk|sandbournecare|jjpaperessential/.test(a.getAttribute("href") ?? ""));
     expect(external.length).toBeGreaterThanOrEqual(4);
     external.forEach((a) => {
+      expect(a).toHaveAttribute("target", "_blank");
+      expect(a.getAttribute("rel")).toContain("noopener");
+    });
+  });
+
+  it("shows every client by name, with their real logo where one is on file", () => {
+    renderHome();
+    const section = document.getElementById("clients")!;
+    expect(within(section).getByRole("heading", { level: 2 })).toBeInTheDocument();
+    const logos = within(section).getAllByRole("img");
+    expect(logos.map((img) => img.getAttribute("aria-label"))).toEqual(
+      clients.filter((c) => c.logo).map((c) => c.name)
+    );
+    logos.forEach((img) => expect(img.dataset.clientLogo).toMatch(/^\/clients\//));
+    const names = within(section)
+      .getAllByRole("listitem")
+      .map((li) => li.querySelector("[role=img]")?.getAttribute("aria-label") ?? li.textContent);
+    expect(names).toEqual(clients.map((c) => c.name));
+  });
+
+  it("sets clients without a logo file as a typeset wordmark", () => {
+    renderHome();
+    const section = document.getElementById("clients")!;
+    const wordmarks = section.querySelectorAll("[data-client-wordmark]");
+    expect(Array.from(wordmarks, (el) => el.textContent)).toEqual(clients.filter((c) => !c.logo).map((c) => c.name));
+  });
+
+  it("opens client sites in a new tab", () => {
+    renderHome();
+    const section = document.getElementById("clients")!;
+    const links = within(section).getAllByRole("link");
+    expect(links.length).toBe(clients.filter((c) => c.href).length);
+    links.forEach((a) => {
       expect(a).toHaveAttribute("target", "_blank");
       expect(a.getAttribute("rel")).toContain("noopener");
     });

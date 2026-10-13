@@ -229,6 +229,18 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const rows = await page.locator('#services a[href^="/services/"]').count();
   if (rows !== 5) note("home", `expected 5 service rows, found ${rows}`);
 
+  /* Client logos are CSS masks, which fail silently, so fetch each one
+     and check it has a visible size. */
+  const logos = await page.locator("#clients [data-client-logo]").evaluateAll((els) =>
+    els.map((el) => ({ src: el.dataset.clientLogo, w: el.getBoundingClientRect().width }))
+  );
+  if (logos.length !== 4) note("home", `expected 4 client logos, found ${logos.length}`);
+  for (const logo of logos) {
+    const res = await page.request.get(new URL(logo.src, page.url()).href);
+    if (!res.ok()) note("home", `client logo ${logo.src} returned ${res.status()}`);
+    if (logo.w < 24) note("home", `client logo ${logo.src} rendered ${logo.w}px wide`);
+  }
+
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 7) note("home", `expected 7 project cards, found ${projects}`);
 
