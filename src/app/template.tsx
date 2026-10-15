@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { LazyMotion } from "framer-motion";
 
@@ -35,16 +35,19 @@ const loadFeatures = () =>
  * delay first paint, and CSS removes it for reduced motion.
  */
 
-/** Client-only: flips once the first page has mounted. */
+/**
+ * Client-only: flips once the first page has committed. It is written in an
+ * effect, never during render: React can throw away and restart a render
+ * (an interrupted hydration does), and a flag set by the first attempt
+ * would make the retry render a curtain the server never sent.
+ */
 let hasMounted = false;
 export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const [curtain] = useState(() => {
-    if (typeof window === "undefined") return false;
-    const show = hasMounted;
+  const [curtain] = useState(() => typeof window !== "undefined" && hasMounted);
+  useEffect(() => {
     hasMounted = true;
-    return show;
-  });
+  }, []);
 
   if (pathname?.startsWith("/demo")) {
     return children;
