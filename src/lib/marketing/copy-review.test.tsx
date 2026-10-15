@@ -95,7 +95,8 @@ describe("pricing matched to My Surgery Website", () => {
   ] as const)("%s: £999 plus £29 a month, just under MSW Bronze over five years", (name, list) => {
     const p = byName<(typeof list)[number]>(list, name);
     expect(p.price).toBe("£999");
-    expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)?$/);
+    expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)? on a 5-year term$/);
+    expect(p.priceNote).toMatch(/^or £49\/mo(nth)? on a 1-year term$/);
     expect(fiveYears(p)).toBe(2739);
     expect(fiveYears(p)).toBeLessThanOrEqual(2750);
   });
@@ -106,7 +107,8 @@ describe("pricing matched to My Surgery Website", () => {
   ] as const)("%s: £1,499 plus £29 a month, just under MSW Silver over five years", (name, list) => {
     const p = byName<(typeof list)[number]>(list, name);
     expect(p.price).toBe("£1,499");
-    expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)?$/);
+    expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)? on a 5-year term$/);
+    expect(p.priceNote).toMatch(/^or £49\/mo(nth)? on a 1-year term$/);
     expect(fiveYears(p)).toBe(3239);
     expect(fiveYears(p)).toBeLessThanOrEqual(3250);
   });
@@ -138,7 +140,7 @@ describe("pricing matched to My Surgery Website", () => {
     expect(t).toMatch(/£999/);
     expect(t).toMatch(/£1,499/);
     expect(t).toMatch(/£29 a month/);
-    expect(t).not.toMatch(/£995|£1,490|£1,000|£1,010|£1,510|£310|£49|£10 a month|first year|year-one/);
+    expect(t).not.toMatch(/£995|£1,490|£1,000|£1,010|£1,510|£310|£10 a month|first year|year-one/);
   });
 });
 
@@ -162,19 +164,21 @@ describe("services defined against the price", () => {
   });
 });
 
-describe("five-year minimum term", () => {
+describe("term options", () => {
   it.each([...packages, ...clearPath.packages].map((p) => [p.name, p] as const))(
-    "%s states the 5-year minimum term on its card",
+    "%s offers a 1-year or a 5-year term",
     (_name, p) => {
-      expect(p.priceNote).toBe("Minimum 5-year term");
+      expect(`${p.pricePeriod} ${p.priceNote}`).toMatch(/5-year/);
+      expect(`${p.pricePeriod} ${p.priceNote}`).toMatch(/1-year/);
     }
   );
 
-  it("is explained in the FAQs and metadata, and nothing implies leaving early", () => {
+  it("is explained in the FAQs and metadata", () => {
     const faqs = JSON.stringify(packagesFaq);
-    expect(faqs).toMatch(/minimum term of five years/i);
-    expect(String(packagesMetadata.description)).toMatch(/5-year minimum term/);
+    expect(faqs).toMatch(/one year at £49 a month, or five years at £29 a month/i);
+    expect(String(packagesMetadata.description)).toMatch(/£29 a month on a 5-year term, or £49 a month on a 1-year term/);
     expect(faqs).not.toMatch(/if you ever move on/i);
+    expect(faqs).not.toMatch(/minimum term of five years/i);
   });
 });
 
