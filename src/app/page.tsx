@@ -20,12 +20,7 @@ export const metadata: Metadata = {
     locale: site.locale,
     type: "website",
     images: [
-      {
-        url: site.ogImage,
-        width: 1200,
-        height: 630,
-        alt: "Flutterly: your digital side, sorted",
-      },
+      { url: site.ogImage, width: 1200, height: 630, alt: site.ogImageAlt },
     ],
   },
   twitter: {

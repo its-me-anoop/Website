@@ -128,12 +128,7 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: site.description,
     images: [
-      {
-        url: site.ogImage,
-        width: 1200,
-        height: 630,
-        alt: `${site.studio} — your digital side, sorted`,
-      },
+      { url: site.ogImage, width: 1200, height: 630, alt: site.ogImageAlt },
     ],
   },
   twitter: {

@@ -39,11 +39,19 @@ export const site = {
     linkedin: "https://www.linkedin.com/in/anoop-jose-0b308a296/",
   },
   /**
-   * 1200×630 social card in the warm Aurora language. The filename carries the
-   * design name so scrapers that cached the previous card (LinkedIn,
-   * Facebook, Slack) fetch the new one instead of serving the stale image.
+   * 1200×630 default social card for the broad studio, rendered by
+   * `scripts/og-card.mjs`. A new filename makes scrapers that cached an
+   * earlier card (LinkedIn, Facebook, Slack) fetch this one.
    */
-  ogImage: "/og-aurora.png",
+  ogImage: "/og-studio.png",
+  ogImageAlt: "Flutterly: your digital side, sorted. Websites, apps, IT support, social media and SEO, from Reading, UK.",
+  /** The healthcare card, kept on the GP, care-home and Clear Path pages only. */
+  healthcareOgImage: {
+    url: "/og-aurora.png",
+    width: 1200,
+    height: 630,
+    alt: "Flutterly: healthcare websites, beautifully built. Accessible, fast websites for GP practices and care homes.",
+  },
   logo: "/flutterly-logo.png",
   /**
    * Cal.com booking. `calLink` is what the embed takes (username/event

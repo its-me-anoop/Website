@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, defaultOgImage } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { AccessibilityStatement } from "@/components/aurora/pages/AccessibilityStatement";
 
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: site.studio,
     locale: site.locale,
     type: "website",
-    images: [{ url: site.ogImage, width: 1200, height: 630 }],
+    images: [defaultOgImage],
   },
   twitter: {
     card: "summary_large_image",
