@@ -868,6 +868,7 @@ export const clearPath = {
 
 export const navLinks = [
   { href: "/services", label: "Services" },
+  { href: "/packages", label: "Packages" },
   { href: "/#work", label: "Work" },
   { href: "/gp-websites", label: "Healthcare" },
   { href: "/#studio", label: "Studio" },
@@ -888,7 +889,6 @@ export const footerColumns = [
       { label: "GP practice websites", href: "/gp-websites" },
       { label: "Care home websites", href: "/care-home-websites" },
       { label: "Leaving My Surgery Website", href: "/leaving-msw" },
-      { label: "Website packages", href: "/packages" },
       { label: "Free website audit", href: "/free-audit" },
     ],
   },
@@ -913,6 +913,7 @@ export const footerColumns = [
     links: [
       { label: "About", href: "/#studio" },
       { label: "Process", href: "/#process" },
+      { label: "Packages", href: "/packages" },
       { label: "Book a call", href: "/book" },
       { label: "Accessibility statement", href: "/accessibility" },
       { label: "GitHub", href: "https://github.com/its-me-anoop" },

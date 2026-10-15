@@ -157,7 +157,8 @@ export function Nav({ solid = false }: { solid?: boolean }) {
                   <Link
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="a-display flex items-baseline gap-4 rounded-[18px] px-4 py-3 text-[30px] transition-colors hover:bg-white/5"
+                    aria-current={isActive(link.href) ? "page" : undefined}
+                    className="a-display flex items-baseline gap-4 rounded-[18px] px-4 py-3 text-[30px] transition-colors hover:bg-white/5 aria-[current=page]:bg-white/[0.08]"
                   >
                     <span aria-hidden className="a-mono w-6 text-[11px] font-normal tracking-normal text-a-muted">
                       0{i + 1}
