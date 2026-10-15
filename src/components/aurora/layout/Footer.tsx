@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { site } from "@/lib/site";
 import { footerColumns } from "@/lib/marketing/content";
 
-export function Footer() {
+/** `credit` replaces the closing line, e.g. a product's creator credit. */
+export function Footer({ credit }: { credit?: ReactNode } = {}) {
   const year = new Date().getFullYear();
 
   return (
@@ -89,7 +91,7 @@ export function Footer() {
           <p>
             © {year} {site.legalName}. {site.address.addressLocality}, UK.
           </p>
-          <p>Build it. Run it. Grow it.</p>
+          <p>{credit ?? "Build it. Run it. Grow it."}</p>
         </div>
       </div>
     </footer>
