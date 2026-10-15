@@ -440,11 +440,13 @@ export const packages: readonly Package[] = [
       "Up to eight core pages, written in plain English",
       "WCAG 2.2 AA accessibility target with a published statement",
       "Local SEO foundations and Google Business guidance",
+      "Your existing online tools linked in; for GP practices, your eConsult, Accurx or Patchs forms, the NHS App and NHS.uk health information",
       "Training so your team can edit with confidence",
     ],
     monthly: [
-      "UK-served hosting and SSL",
-      "Daily backups and monitoring",
+      "Hosted on Vercel (ISO 27001 certified, SOC 2 Type 2), with SSL",
+      "99.9% uptime target, daily backups and monitoring",
+      "Same-week response on support requests",
       "You make your own content changes, as trained",
     ],
   },
@@ -461,9 +463,10 @@ export const packages: readonly Package[] = [
       "Larger sitemap with news, vacancies and forms",
     ],
     monthly: [
-      "UK-served hosting, SSL, daily backups and monitoring",
+      "Hosted on Vercel (ISO 27001 certified, SOC 2 Type 2), with SSL",
+      "99.9% uptime target, daily backups and monitoring",
       "Security updates applied for you",
-      "Content changes made for you on request, within a monthly allowance",
+      "Content changes made for you, up to 2 hours a month",
       "Quarterly accessibility and performance checks",
       "Same-week response on support requests",
     ],
@@ -491,7 +494,7 @@ export const packages: readonly Package[] = [
 export const packagesFaq = [
   {
     q: "How much does a website cost?",
-    a: "Every package is £29 a month on a 5-year term, or £49 a month on a 1-year term, with hosting and backups included. Essentials is £999 to build and you make your own content changes. Standard is £1,499 to build, with a larger site, and Flutterly makes your content changes, applies updates and runs regular checks. Partnership is scoped after a short call, with a written quote within two working days.",
+    a: "Every package is £29 a month on a 5-year term, or £49 a month on a 1-year term, with hosting and backups included. Essentials is £999 to build and you make your own content changes. Standard is £1,499 to build, with a larger site, and Flutterly makes your content changes (up to 2 hours a month), applies updates and runs regular checks. Both include same-week support. Partnership is scoped after a short call, with a written quote within two working days.",
   },
   {
     q: "Is there a minimum term?",
@@ -515,7 +518,11 @@ export const packagesFaq = [
   },
   {
     q: "Where is the website hosted?",
-    a: "On UK-served edge infrastructure with SSL, daily backups and monitoring. Every package includes hosting in the monthly fee. There is no plugin stack to patch, which removes the most common source of small-site security incidents.",
+    a: "On Vercel, which is ISO 27001 certified and holds a SOC 2 Type 2 attestation, with SSL, daily backups, monitoring and a 99.9% uptime target. Every package includes hosting in the monthly fee. There is no plugin stack to patch, which removes the most common source of small-site security incidents. Flutterly is registered with the ICO.",
+  },
+  {
+    q: "Do you provide online forms and NHS health content?",
+    a: "For GP practices, yes, through the tools the NHS already approves. Flutterly links your online consultation and forms tool, such as eConsult, Accurx or Patchs, which sends requests into your clinical system, alongside the NHS App and NHS.uk health information. Patient data goes through those tools, never through Flutterly.",
   },
 ] as const;
 
@@ -781,13 +788,15 @@ export const clearPath = {
       features: [
         "Content moved from your current MSW site",
         "Domain sorted, on a site you own",
+        "Your eConsult, Accurx or Patchs forms, the NHS App and NHS.uk health information linked prominently",
         "Built for WCAG 2.2 AA",
         "No WordPress page-builder stack",
         "Founder-led: you brief the person who builds",
       ],
       monthly: [
-        "UK-served hosting and SSL",
-        "Daily backups and monitoring",
+        "Hosted on Vercel (ISO 27001 certified, SOC 2 Type 2), with SSL",
+        "99.9% uptime target, daily backups and monitoring",
+        "Same-week response on support requests",
         "You make your own content changes, as trained",
       ],
     },
@@ -808,9 +817,10 @@ export const clearPath = {
         "Handover: who updates what, hosting path, support",
       ],
       monthly: [
-        "UK-served hosting, SSL, daily backups and monitoring",
+        "Hosted on Vercel (ISO 27001 certified, SOC 2 Type 2), with SSL",
+        "99.9% uptime target, daily backups and monitoring",
         "Security updates applied for you",
-        "Content changes made for you on request",
+        "Content changes made for you, up to 2 hours a month",
         "Same-week response on support requests",
       ],
     },

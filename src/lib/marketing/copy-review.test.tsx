@@ -157,7 +157,7 @@ describe("services defined against the price", () => {
   it("Essentials is self-managed and Standard makes changes for you, as MSW Bronze and Silver do", () => {
     const essentials = packages.find((p) => p.name === "Essentials")!.monthly!.join(" ");
     const standard = packages.find((p) => p.name === "Standard")!.monthly!.join(" ");
-    expect(essentials).toMatch(/hosting/i);
+    expect(essentials).toMatch(/host(ing|ed)/i);
     expect(essentials).toMatch(/you make your own (content )?changes/i);
     expect(standard).toMatch(/changes made for you/i);
     expect(standard).toMatch(/security updates/i);
@@ -186,5 +186,37 @@ describe("no VAT is charged", () => {
   it("no package, FAQ or packages metadata mentions VAT", () => {
     const t = JSON.stringify([packages, clearPath, packagesFaq]) + String(packagesMetadata.description);
     expect(t).not.toMatch(/\bVAT\b/i);
+  });
+});
+
+describe("gaps against MSW closed with stated commitments", () => {
+  const all = [...packages, ...clearPath.packages].filter((p) => p.monthly);
+  const text = (p: { features: readonly string[]; monthly?: readonly string[] }) =>
+    [...p.features, ...(p.monthly ?? [])].join(" | ");
+
+  it.each(all.map((p) => [p.name, p] as const))("%s states support, uptime and the host's certifications", (_n, p) => {
+    const t = text(p);
+    expect(t).toMatch(/Same-week response on support requests/);
+    expect(t).toMatch(/99\.9% uptime target/);
+    expect(t).toMatch(/Hosted on Vercel \(ISO 27001 certified, SOC 2 Type 2\)/);
+  });
+
+  it.each(["Standard", "Move Standard"])("%s states the content-change allowance in hours", (name) => {
+    const p = all.find((x) => x.name === name)!;
+    expect(text(p)).toMatch(/Content changes made for you, up to 2 hours a month/);
+  });
+
+  it.each(["Essentials", "Move Essentials"])("%s links the practice's online consultation tool and NHS services", (name) => {
+    const p = all.find((x) => x.name === name)!;
+    expect(text(p)).toMatch(/eConsult/);
+    expect(text(p)).toMatch(/NHS App/);
+    expect(text(p)).toMatch(/NHS\.uk/);
+  });
+
+  it("explains forms, NHS content and data protection in the FAQ", () => {
+    const faqs = JSON.stringify(packagesFaq);
+    expect(faqs).toMatch(/online forms/i);
+    expect(faqs).toMatch(/clinical system/i);
+    expect(faqs).toMatch(/registered with the ICO/);
   });
 });
