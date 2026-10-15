@@ -6,7 +6,7 @@ import { packagesFaq } from "@/lib/marketing/content";
 import { PackagesPage } from "@/components/aurora/pages/PackagesPage";
 
 const description =
-  "Website packages from Flutterly. Essentials is £1,000 to build, then £29 a month; Standard is £1,000, then £49 a month. Plus VAT, with hosting included. Partnership quoted after a short call.";
+  "Website packages from Flutterly. Essentials is £1,000 to build, then £29 a month; Standard is £310 to build, then £49 a month with changes made for you. Plus VAT, hosting included. Partnership quoted after a short call.";
 
 export const metadata: Metadata = {
   title: "Website packages and pricing",

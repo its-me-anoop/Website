@@ -80,29 +80,33 @@ describe("Clear Path wording", () => {
 });
 
 describe("pricing matched to My Surgery Website", () => {
-  /* MSW (FPM Group, G-Cloud 14 pricing, April 2024): £1,000 setup on every
-     package; the cheapest licence is Bronze on a 5-year term at £350 a year.
-     Essentials matches that floor (£29 a month = £348 a year); the fuller
-     packages are £49 a month. */
-  const byName = (list: readonly { name: string }[], name: string) => list.find((p) => p.name === name)!;
+  /* MSW (FPM Group, G-Cloud 14 pricing, April 2024), 5-year fixed licence:
+     £1,000 setup, then Bronze £350/yr, Silver £450/yr. Five-year totals:
+     Bronze £2,750, Silver £3,250. Essentials sits against Bronze
+     (self-managed), Standard against Silver (changes made for you). */
+  const pounds = (s: string) => Number(s.replace(/[^0-9]/g, ""));
+  const fiveYears = (p: { price: string; pricePeriod: string }) =>
+    pounds(p.price) + 60 * pounds(p.pricePeriod.match(/£(\d+)/)![1]);
+  const byName = <T extends { name: string }>(list: readonly T[], name: string) => list.find((p) => p.name === name)!;
 
   it.each([
     ["Essentials", packages],
     ["Move Essentials", clearPath.packages],
-  ] as const)("%s matches MSW's lowest price: £1,000 plus £29 a month", (name, list) => {
-    const p = byName(list, name) as (typeof list)[number];
+  ] as const)("%s: £1,000 plus £29 a month, within MSW Bronze over five years", (name, list) => {
+    const p = byName<(typeof list)[number]>(list, name);
     expect(p.price).toBe("£1,000");
     expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)? \+ VAT$/);
-    expect(29 * 12).toBeLessThanOrEqual(350);
+    expect(fiveYears(p)).toBeLessThanOrEqual(2750);
   });
 
   it.each([
     ["Standard", packages],
     ["Move Standard", clearPath.packages],
-  ] as const)("%s stays at £1,000 plus £49 a month", (name, list) => {
-    const p = byName(list, name) as (typeof list)[number];
-    expect(p.price).toBe("£1,000");
+  ] as const)("%s: £310 plus £49 a month, exactly MSW Silver over five years", (name, list) => {
+    const p = byName<(typeof list)[number]>(list, name);
+    expect(p.price).toBe("£310");
     expect(p.pricePeriod).toMatch(/^\+ £49\/mo(nth)? \+ VAT$/);
+    expect(fiveYears(p)).toBe(3250);
   });
 
   it("leaves no year-one or £10 hosting wording on any priced package", () => {
@@ -112,14 +116,35 @@ describe("pricing matched to My Surgery Website", () => {
   });
 
   it("keeps Partnership quoted", () => {
-    expect(packages.find((p) => p.name === "Partnership")?.price).toBe("Quoted");
+    expect(byName(packages, "Partnership").price).toBe("Quoted");
   });
 
   it("states the new prices in the packages metadata and FAQs, with no old figures left", () => {
     const t = String(packagesMetadata.description) + JSON.stringify(packagesFaq);
     expect(t).toMatch(/£1,000/);
+    expect(t).toMatch(/£310/);
     expect(t).toMatch(/£29 a month/);
     expect(t).toMatch(/£49 a month/);
     expect(t).not.toMatch(/£995|£1,490|£10 a month|first year|year-one/);
+  });
+});
+
+describe("services defined against the price", () => {
+  it.each(["Essentials", "Standard", "Move Essentials", "Move Standard"])(
+    "%s says what the build delivers and what the monthly fee covers",
+    (name) => {
+      const p = [...packages, ...clearPath.packages].find((x) => x.name === name)!;
+      expect(p.features.length).toBeGreaterThan(0);
+      expect(p.monthly?.length ?? 0).toBeGreaterThan(0);
+    }
+  );
+
+  it("Essentials is self-managed and Standard makes changes for you, as MSW Bronze and Silver do", () => {
+    const essentials = packages.find((p) => p.name === "Essentials")!.monthly!.join(" ");
+    const standard = packages.find((p) => p.name === "Standard")!.monthly!.join(" ");
+    expect(essentials).toMatch(/hosting/i);
+    expect(essentials).toMatch(/you make your own (content )?changes/i);
+    expect(standard).toMatch(/changes made for you/i);
+    expect(standard).toMatch(/security updates/i);
   });
 });

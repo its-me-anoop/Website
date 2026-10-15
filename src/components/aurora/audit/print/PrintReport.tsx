@@ -475,14 +475,24 @@ function NextSteps({ report }: { report: AuditReport }) {
           {recommended.priceNote ? (
             <p className="mt-[1mm] text-[8pt] leading-[1.4] text-k-ink-soft">{recommended.priceNote}</p>
           ) : null}
-          <ul className="mt-[3.5mm] grid gap-[1.2mm] border-t border-k-line pt-[3.5mm] text-[8pt] leading-[1.4] text-k-ink">
-            {recommended.features.map((f) => (
-              <li key={f} className="flex items-start gap-[2mm]">
-                <CheckIcon size={11} strokeWidth={2.6} aria-hidden className="mt-[0.9mm] shrink-0 text-k-fire" />
-                <span>{f}</span>
-              </li>
+          {[
+            ["The build", recommended.features],
+            ["Every month", recommended.monthly ?? []],
+          ]
+            .filter(([, items]) => items.length)
+            .map(([label, items]) => (
+              <div key={label as string} className="mt-[3.5mm] border-t border-k-line pt-[3mm]">
+                <p className="k-eyebrow !text-[6.5pt] text-k-muted">{label as string}</p>
+                <ul className="mt-[2mm] grid gap-[1.2mm] text-[8pt] leading-[1.4] text-k-ink">
+                  {(items as readonly string[]).map((f) => (
+                    <li key={f} className="flex items-start gap-[2mm]">
+                      <CheckIcon size={11} strokeWidth={2.6} aria-hidden className="mt-[0.9mm] shrink-0 text-k-fire" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
           <p className="mt-[4mm] text-[7.5pt] leading-[1.45] text-k-muted">
             Plus VAT. All three packages at {`${shortDomain}/packages`}.
           </p>

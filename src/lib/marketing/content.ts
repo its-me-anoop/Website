@@ -412,13 +412,16 @@ export type Package = {
   name: string;
   strap: string;
   copy: string;
+  /** What the one-off build delivers. */
   features: readonly string[];
+  /** What the monthly fee covers; absent for quoted work. */
+  monthly?: readonly string[];
   featured?: boolean;
   /** Large figure, or a short stand-in for quoted work. */
   price: string;
   /** Cadence / VAT line under the figure. */
   pricePeriod: string;
-  /** Optional extra, e.g. year-1 hosting. */
+  /** Optional short note under the cadence line. */
   priceNote?: string;
   cta: string;
 };
@@ -435,23 +438,30 @@ export const packages: readonly Package[] = [
       "Custom design and build, no themes or page builders",
       "Up to eight core pages, written in plain English",
       "WCAG 2.2 AA accessibility target with a published statement",
-      "UK-served hosting, SSL and daily backups in the monthly fee",
       "Local SEO foundations and Google Business guidance",
       "Training so your team can edit with confidence",
+    ],
+    monthly: [
+      "UK-served hosting and SSL",
+      "Daily backups and monitoring",
+      "You make your own content changes, as trained",
     ],
   },
   {
     name: "Standard",
     strap: "Build plus a care plan",
     copy: "The full build with Flutterly looking after hosting, updates and small changes month to month.",
-    price: "£1,000",
+    price: "£310",
     pricePeriod: "+ £49/month + VAT",
     cta: "Enquire about Standard",
     features: [
-      "Everything in Essentials",
+      "Everything in the Essentials build",
       "Larger sitemap with news, vacancies and forms",
-      "Managed hosting, monitoring and security updates",
-      "A monthly allowance for content changes",
+    ],
+    monthly: [
+      "UK-served hosting, SSL, daily backups and monitoring",
+      "Security updates applied for you",
+      "Content changes made for you on request, within a monthly allowance",
       "Quarterly accessibility and performance checks",
       "Same-week response on support requests",
     ],
@@ -478,7 +488,7 @@ export const packages: readonly Package[] = [
 export const packagesFaq = [
   {
     q: "How much does a website cost?",
-    a: "Essentials is £1,000 to build, then £29 a month, plus VAT, with hosting and backups included. Standard is £1,000 to build, then £49 a month, plus VAT, and adds updates, content changes and regular checks. Partnership is scoped after a short call, with a written quote within two working days.",
+    a: "Essentials is £1,000 to build, then £29 a month, plus VAT, with hosting and backups included. Standard is £310 to build, then £49 a month, plus VAT, and Flutterly makes your content changes, applies updates and runs regular checks. Partnership is scoped after a short call, with a written quote within two working days.",
   },
   {
     q: "How long does a build take?",
@@ -767,22 +777,31 @@ export const clearPath = {
         "No WordPress page-builder stack",
         "Founder-led: you brief the person who builds",
       ],
+      monthly: [
+        "UK-served hosting and SSL",
+        "Daily backups and monitoring",
+        "You make your own content changes, as trained",
+      ],
     },
     {
       name: "Move Standard",
       strap: "Custom build plus ongoing care",
       copy: "A custom website migration with ongoing hosting and support.",
-      price: "£1,000",
+      price: "£310",
       pricePeriod: "+ £49/mo + VAT",
       cta: "Book a free audit",
       ctaHref: "/free-audit",
       featured: true,
       features: [
-        "Everything in Move Essentials",
+        "Everything in the Move Essentials build",
         "Custom design, not a managed template",
         "Appointments and prescriptions still easy to find",
-        "Managed hosting in the monthly fee",
         "Handover: who updates what, hosting path, support",
+      ],
+      monthly: [
+        "UK-served hosting, SSL, daily backups and monitoring",
+        "Security updates applied for you",
+        "Content changes made for you on request",
         "Same-week response on support requests",
       ],
     },
