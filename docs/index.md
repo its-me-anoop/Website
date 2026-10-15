@@ -41,9 +41,9 @@ src/
 │   └── projects/           # Case-study subpages (sipli, artling)
 ├── components/
 │   ├── aurora/             # Aurora marketing site (effects, ui, layout,
-│   │                       # home, pages, booking, audit report + print)
+│   │                       # home, pages, booking, audit report + print);
+│   │                       # layout/ProductShell frames the case-study pages
 │   ├── ui/                 # Porcelain primitives (Button, LiftCard, …)
-│   ├── layout/             # Porcelain Navbar/Footer (case-study pages)
 │   └── projects/           # Per-product landing UIs
 ├── fonts/                  # Self-hosted variable woff2 subsets
 └── lib/

@@ -525,7 +525,11 @@ html:has(.aurora-root) body {
   background: var(--a-void);
 }
 
-.aurora-root {
+/* `.aurora-chrome` carries the same type and colour onto the Flutterly
+   nav and footer when they frame a light product page, without
+   repainting that page's html background. */
+.aurora-root,
+.aurora-chrome {
   position: relative;
   isolation: isolate;
   background: var(--a-void);
@@ -534,11 +538,21 @@ html:has(.aurora-root) body {
   letter-spacing: -0.006em;
   font-feature-settings: "ss01", "cv11";
 }
+.aurora-chrome {
+  /* No stacking context of its own, so the fixed nav keeps its z-index. */
+  position: static;
+  isolation: auto;
+  background: transparent;
+}
+.aurora-chrome > footer {
+  background: var(--a-void);
+}
 .aurora-root ::selection {
   background: var(--a-amber);
   color: var(--a-void);
 }
-.aurora-root :focus-visible {
+.aurora-root :focus-visible,
+.aurora-chrome :focus-visible {
   outline: 2px solid var(--a-amber);
   outline-offset: 3px;
   border-radius: 10px;
@@ -1660,7 +1674,10 @@ body:has(.demo-physio-root) > a[href="#main"]:focus {
     animation-range: entry 5% cover 42%;
   }
   .fx-wt[data-wf]::before {
+    /* The spec label is decoration: the empty alternative after the
+       slash keeps it out of the heading's accessible name. */
     content: attr(data-wf);
+    content: attr(data-wf) / "";
     position: absolute;
     left: 0;
     bottom: 100%;

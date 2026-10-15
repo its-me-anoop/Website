@@ -26,8 +26,7 @@ const forWho = [
 ] as const;
 
 const notForWho = [
-  "Practices that only need a managed NHS template at the lowest annual fee — say so; a template SaaS may fit better",
-  "Anyone hoping we'll undercut £269–£500/year SaaS bands — Standard stays a different product class",
+  "If you only need a low-cost managed template, that may be the better fit. I can help you compare the options.",
 ] as const;
 
 const proofLinks = [
@@ -88,7 +87,7 @@ export function LeavingMswPage() {
             size="md"
             title={
               <>
-                MSW is shutting down. That&rsquo;s <em>Clear Path</em>.
+                A clear route from your current <em>MSW</em> website.
               </>
             }
           />
@@ -102,7 +101,6 @@ export function LeavingMswPage() {
               If you&rsquo;re a practice manager in Berkshire or the Thames Valley, you need a clear quote, a
               migration checklist, and a go-live date that won&rsquo;t leave reception under pressure.
             </p>
-            <p className="a-display text-[26px] text-a-ink">That&rsquo;s Clear Path.</p>
           </Reveal>
         </Container>
       </section>
@@ -214,9 +212,8 @@ export function LeavingMswPage() {
           </ol>
           <Reveal className="a-glass mx-auto mt-16 max-w-[760px] rounded-[24px] p-7 text-center">
             <p className="text-[16px] leading-[1.7] text-a-ink-soft">
-              Capacity is capped (about 2–3 builds/mo) so delivery stays honest. We won&rsquo;t claim thousands of
-              surgeries. We will show you a live GP demo, our accessibility statement, and what the audit found on your
-              site.
+              Capacity is capped (about 2–3 builds/mo) so delivery stays honest. Explore the live GP sample, read the
+              accessibility statement and ask for an audit of your current site.
             </p>
           </Reveal>
         </Container>
@@ -233,7 +230,7 @@ export function LeavingMswPage() {
                 The dates that <em>matter</em>.
               </>
             }
-            copy="Website migration path only. Not inventing clinical-system deadlines — check your own MSW letter for your exact dates."
+            copy="These dates cover the website move only. Check the dates in your own provider letter before planning the move."
           />
           <ol className="mt-14 grid gap-5 sm:grid-cols-3">
             {clearPath.dates.map((item, i) => (

@@ -131,7 +131,9 @@ is decorative; an empty `alt` makes the whole device decorative
 - `prefers-reduced-motion` stops the glow, the float, the marquee and
   the rail, and shows every entrance in its end state.
 
-Social card: `public/og-aurora.png` (1200×630).
+Social cards (1200×630): `public/og-studio.png` is the default for the
+broad studio, rendered by `node scripts/og-card.mjs`; `public/og-aurora.png`
+(healthcare copy) stays on the GP, care-home and Clear Path pages only.
 
 `useMotionAllowed()` reads `prefers-reduced-motion` through
 `useSyncExternalStore` with a `false` server snapshot, so SSR and

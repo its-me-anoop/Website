@@ -244,7 +244,7 @@ export function AuditBar({
   className,
   label = "Your website address",
   placeholder = "yourpractice.nhs.uk",
-  hint = "Paste your address for an instant, free report on accessibility, speed, search and more. Nothing is stored.",
+  hint = "Paste your address for an instant, free report on accessibility, speed, search and more. No sign-up needed.",
   defaultValue = "",
   autoFocus,
   align = "left",

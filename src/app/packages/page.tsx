@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, faqJsonLd, defaultOgImage } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { packagesFaq } from "@/lib/marketing/content";
 import { PackagesPage } from "@/components/aurora/pages/PackagesPage";
@@ -9,21 +9,21 @@ const description =
   "Website packages for GP practices and care homes. Essentials from £995 plus VAT with year-one hosting. Standard from £1,490 plus £49 a month. Partnership quoted after a short call.";
 
 export const metadata: Metadata = {
-  title: "Packages & pricing",
+  title: "Website packages and pricing",
   description,
   alternates: { canonical: "/packages" },
   openGraph: {
-    title: `Packages & pricing — ${site.studio}`,
+    title: `Website packages and pricing — ${site.studio}`,
     description,
     url: `${site.url}/packages`,
     siteName: site.studio,
     locale: site.locale,
     type: "website",
-    images: [{ url: site.ogImage, width: 1200, height: 630 }],
+    images: [defaultOgImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: `Packages & pricing — ${site.studio}`,
+    title: `Website packages and pricing — ${site.studio}`,
     description,
     images: [site.ogImage],
   },

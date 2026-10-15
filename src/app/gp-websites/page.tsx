@@ -16,13 +16,13 @@ export const metadata: Metadata = {
     siteName: site.studio,
     locale: site.locale,
     type: "website",
-    images: [{ url: site.ogImage, width: 1200, height: 630 }],
+    images: [site.healthcareOgImage],
   },
   twitter: {
     card: "summary_large_image",
     title: `${gpSector.metaTitle} — ${site.studio}`,
     description: gpSector.metaDescription,
-    images: [site.ogImage],
+    images: [site.healthcareOgImage.url],
   },
 };
 

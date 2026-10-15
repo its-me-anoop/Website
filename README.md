@@ -15,7 +15,8 @@ people read carefully, Bricolage Grotesque display with Instrument Serif
 italics, one amber action colour, real device frames around every sample
 site, and the audit bar as the hero action.
 Case-study pages (`/projects/*`) keep the light
-["Porcelain" system](./docs/DESIGN-SYSTEM.md), and five fictional
+["Porcelain" system](./docs/DESIGN-SYSTEM.md) for their content inside the
+Flutterly nav and footer (`ProductShell`), and five fictional
 sample sites under `/demo/*` each carry their own sector-specific scope.
 
 ## Stack

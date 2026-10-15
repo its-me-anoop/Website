@@ -81,4 +81,28 @@ describe("BookPage", () => {
     expect(bookLinks.length).toBeGreaterThan(0);
     bookLinks.forEach((a) => expect(a).toHaveTextContent(/Book a call/));
   });
+
+  it("speaks to all five services, not only website buyers", () => {
+    const { container } = renderBook();
+    const text = container.textContent ?? "";
+    expect(text).toMatch(/a website, an app, IT support, social media or search/i);
+    expect(text).not.toMatch(/designs and builds every Flutterly site/i);
+    expect(text).not.toMatch(/Which package fits/i);
+    expect(text).toMatch(/What you want to improve or build/);
+  });
+
+  it("puts the email alternative right beside the calendar", () => {
+    renderBook();
+    const embed = screen.getByTestId("cal-inline");
+    const note = screen.getByText(/No suitable time\?/);
+    expect(note.querySelector(`a[href="mailto:${site.email}"]`)).not.toBeNull();
+    /* The note follows the calendar in reading order. */
+    expect(embed.compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it("describes the audit as an instant report plus an optional written review", () => {
+    const { container } = renderBook();
+    expect(container.textContent).not.toMatch(/will send a written, scored review/);
+    expect(container.textContent).toMatch(/instant report/i);
+  });
 });

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { ProductShell } from "@/components/aurora/layout/ProductShell";
 import { site } from "@/lib/site";
 
 const title = "Sipli — Privacy Policy";
@@ -71,8 +70,7 @@ function Bullet({ bold, children }: { bold?: string; children?: ReactNode }) {
 
 export default function SipliPrivacyPolicy() {
   return (
-    <main id="main" className="sipli-theme min-h-screen bg-background text-ink">
-      <Navbar />
+    <ProductShell mainClassName="sipli-theme min-h-screen bg-background text-ink">
 
       <header className="relative overflow-hidden border-b border-line px-[var(--gutter)] pb-20 pt-36 md:pt-48">
         <div
@@ -254,7 +252,6 @@ export default function SipliPrivacyPolicy() {
         </div>
       </PolicySection>
 
-      <Footer />
-    </main>
+    </ProductShell>
   );
 }

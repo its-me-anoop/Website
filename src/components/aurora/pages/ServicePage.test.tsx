@@ -48,8 +48,8 @@ describe("ServicePage", () => {
     ]);
   });
 
-  it("offers a booking call and the free audit", () => {
-    wrap(<ServicePage service={getService("apps")!} />);
+  it("offers a booking call and the free audit on the websites page", () => {
+    wrap(<ServicePage service={getService("websites")!} />);
     expect(screen.getAllByRole("link", { name: /book a call/i })[0]).toHaveAttribute("href", "/book");
     expect(screen.getAllByRole("textbox", { name: /your website address/i }).length).toBeGreaterThan(0);
   });
@@ -74,5 +74,25 @@ describe("ServicesIndexPage", () => {
       const links = screen.getAllByRole("link").filter((a) => a.getAttribute("href") === `/services/${s.slug}`);
       expect(links.length).toBeGreaterThan(0);
     });
+  });
+
+  it.each([
+    ["apps", "Tell me what your app needs to do, who it is for and whether you have a prototype."],
+    ["it-support", "Tell me what is getting in the way, how many people need help and what you use today."],
+    ["social-media", "Tell me which channels you use, who you want to reach and what you need help creating."],
+  ])("%s closes with its own next step, and the audit only as a small cross-link", (slug, prompt) => {
+    wrap(<ServicePage service={getService(slug)!} />);
+    const band = document.getElementById("contact")!;
+    expect(within(band).getByText(prompt, { exact: false })).toBeInTheDocument();
+    expect(band.textContent).not.toMatch(/start with a free audit of the website you have today/);
+    expect(within(band).queryByRole("textbox")).toBeNull();
+    expect(within(band).getByRole("link", { name: /free website audit/i })).toHaveAttribute("href", "/free-audit");
+    expect(within(band).getByRole("link", { name: /Book a 15-minute call/i })).toHaveAttribute("href", "/book");
+  });
+
+  it.each(["websites", "seo"])("%s keeps the audit bar as the main alternative", (slug) => {
+    wrap(<ServicePage service={getService(slug)!} />);
+    const band = document.getElementById("contact")!;
+    expect(within(band).getByRole("textbox")).toBeInTheDocument();
   });
 });

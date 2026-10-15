@@ -20,7 +20,7 @@ export function PackageCard({
   pkg,
   index,
   headingLevel = "h3",
-  badge = "Most chosen",
+  badge = "Build plus ongoing care",
 }: {
   pkg: CardPackage;
   index: number;

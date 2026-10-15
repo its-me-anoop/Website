@@ -9,10 +9,10 @@ import { ButtonLink, CheckItem, Container, Display, Eyebrow } from "../ui/primit
 import { CalEmbed } from "./CalEmbed";
 
 const covered = [
-  "What your organisation needs the website to do",
-  "What is working and what is not on the site you have",
-  "Which package fits, or whether you need one at all",
-  "What happens next, in writing, if you want to go further",
+  "What you want to improve or build",
+  "What you already have and what is getting in the way",
+  "The scope, priorities and budget to consider",
+  "The next step, in writing, if you want to go further",
 ] as const;
 
 /**
@@ -35,7 +35,8 @@ export function BookPage() {
         copy={
           <>
             <p>
-              Fifteen minutes with {site.founder}, the person who designs and builds every Flutterly site. Pick a
+              Fifteen minutes with {site.founder}, the person behind Flutterly. Tell me what you need help with: a
+              website, an app, IT support, social media or search. We&rsquo;ll work out a sensible next step. Pick a
               time that suits you and a video link arrives by email. No pitch, no obligation.
             </p>
             <p className="mt-4 text-[15.5px] text-a-muted">
@@ -55,6 +56,16 @@ export function BookPage() {
       <Container className="-mt-6 max-w-[1120px]">
         <Reveal>
           <CalEmbed />
+          <p className="a-glass mx-auto mt-4 max-w-[640px] rounded-[18px] px-5 py-4 text-center text-[15.5px] leading-snug text-a-ink-soft">
+            No suitable time? Email{" "}
+            <a
+              href={`mailto:${site.email}`}
+              className="text-a-ink underline decoration-a-amber underline-offset-4 transition-colors hover:text-a-amber"
+            >
+              {site.email}
+            </a>{" "}
+            with a little about your project.
+          </p>
         </Reveal>
       </Container>
 
@@ -76,7 +87,7 @@ export function BookPage() {
             </ul>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/free-audit" tone="glass" size="sm">
-                Prefer a free written audit first?
+                Prefer a free website audit first?
               </ButtonLink>
               <ButtonLink href={url} tone="ghost" size="sm" external arrow="up">
                 Open on Cal.com
@@ -92,7 +103,7 @@ export function BookPage() {
             Not ready to talk? Start with a free <em>audit</em>.
           </>
         }
-        copy="Paste your website address and Flutterly will send a written, scored review of what you have today. Yours to keep, whoever ends up making the fixes."
+        copy="Paste your website address for an instant report, then request a free written review if you'd like a second look. Yours to keep, whoever ends up making the fixes."
         id="contact"
         showBooking={false}
       />

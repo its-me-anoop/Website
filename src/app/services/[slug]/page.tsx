@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { site } from "@/lib/site";
-import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd, defaultOgImage } from "@/lib/seo";
 import { getService, headingText, serviceHref, serviceSlugs } from "@/lib/marketing/services";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServicePage } from "@/components/aurora/pages/ServicePage";
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       siteName: site.studio,
       locale: site.locale,
       type: "website",
-      images: [{ url: site.ogImage, width: 1200, height: 630 }],
+      images: [defaultOgImage],
     },
     twitter: {
       card: "summary_large_image",

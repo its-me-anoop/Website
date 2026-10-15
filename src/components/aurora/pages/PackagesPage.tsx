@@ -18,7 +18,7 @@ export function PackagesPage() {
   return (
     <Shell>
       <PageHero
-        eyebrow="Packages & pricing"
+        eyebrow="Website packages & pricing"
         title={
           <>
             Published prices. <em>No surprises</em> after the call.

@@ -16,8 +16,7 @@ import {
   Target,
   Users,
 } from "lucide-react";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { ProductShell } from "@/components/aurora/layout/ProductShell";
 import { Button } from "@/components/ui/Button";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
@@ -161,8 +160,7 @@ export function LittleLifelineLanding() {
   const reduce = useReducedMotion();
 
   return (
-    <main id="main-content" className="bg-canvas text-ink">
-      <Navbar />
+    <ProductShell mainClassName="bg-canvas text-ink">
       <header className="relative overflow-hidden px-[var(--gutter)] pb-[var(--space-section)] pt-28 md:pt-36">
         <div className="mx-auto grid w-full max-w-[1200px] gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <motion.div
@@ -422,7 +420,6 @@ export function LittleLifelineLanding() {
         </Reveal>
       </section>
 
-      <Footer />
-    </main>
+    </ProductShell>
   );
 }

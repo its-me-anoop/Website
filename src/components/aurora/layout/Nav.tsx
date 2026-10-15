@@ -16,9 +16,10 @@ import { useMotionAllowed } from "../effects/hooks";
  * Floating glass capsule. The butterfly and wordmark, inline links from
  * `lg`, then the two actions. It tightens once the page scrolls, and
  * below `lg` a menu button opens a sheet with every route and the five
- * services.
+ * services. `solid` keeps the capsule filled from the first paint, for
+ * light product pages where a transparent bar would vanish.
  */
-export function Nav() {
+export function Nav({ solid = false }: { solid?: boolean }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const motion = useMotionAllowed();
@@ -64,9 +65,11 @@ export function Nav() {
       <div
         className={cn(
           "pointer-events-auto mx-auto flex h-14 items-center justify-between gap-3 rounded-full border pl-2 pr-2 transition-[max-width,background-color,border-color,box-shadow] duration-500",
-          scrolled || open
+          scrolled || open || solid
             ? "max-w-[1080px] border-a-line-2 bg-a-void/70 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-2xl"
-            : "max-w-[1320px] border-transparent bg-transparent"
+            : "max-w-[1320px] border-transparent bg-transparent",
+          /* Over a light page the translucent fill reads grey: go near-opaque. */
+          solid && "bg-a-void/95"
         )}
       >
         <Link

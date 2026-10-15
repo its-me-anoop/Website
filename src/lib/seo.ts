@@ -6,6 +6,14 @@ import { site } from "./site";
  * Service and FAQPage where they earn rich results.
  */
 
+/** Open Graph entry for the default studio card. */
+export const defaultOgImage = {
+  url: site.ogImage,
+  width: 1200,
+  height: 630,
+  alt: site.ogImageAlt,
+} as const;
+
 export type Crumb = { name: string; path: string };
 
 export function breadcrumbJsonLd(crumbs: readonly Crumb[]) {

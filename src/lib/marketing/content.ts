@@ -323,22 +323,22 @@ export const processSteps = [
    ───────────────────────────────────────────────────────────── */
 
 export const comparison = {
-  them: "Typical template builders",
+  them: "Off-the-shelf builders",
   us: "A Flutterly build",
   rows: [
     {
-      label: "Platform",
-      them: "A generic theme shared with thousands of sites",
+      label: "Custom design",
+      them: "Usually a theme shared with other sites",
       us: "Designed and coded for your organisation",
     },
     {
-      label: "Security",
-      them: "A plugin stack that needs constant patching",
+      label: "Managed updates",
+      them: "Plugins and themes you keep up to date yourself",
       us: "No plugins. A small, auditable surface area",
     },
     {
       label: "Speed",
-      them: "Heavy page builders and slow scores",
+      them: "Depends on the theme, plugins and hosting",
       us: "Static-first Next.js that stays fast on a poor signal",
     },
     {
@@ -347,13 +347,13 @@ export const comparison = {
       us: "WCAG 2.2 AA designed in from the first wireframe",
     },
     {
-      label: "Ownership",
-      them: "Content locked inside a subscription",
+      label: "Clear ownership",
+      them: "Depends on the platform's terms",
       us: "You own the code, the content and the domain",
     },
     {
-      label: "Support",
-      them: "Ticket queues and account managers",
+      label: "Direct support",
+      them: "Usually the platform's general support",
       us: "A direct line to the person who built it",
     },
   ],
@@ -367,7 +367,7 @@ export const comparison = {
 export const auditChecks = [
   {
     title: "Accessibility",
-    copy: "Language, alt text, labels, headings, landmarks, zoom and a published statement: the WCAG 2.2 basics every NHS-facing site is held to.",
+    copy: "Language, alt text, labels, headings, landmarks, zoom and a published statement: the WCAG 2.2 basics that help everyone use a site.",
   },
   {
     title: "Speed",
@@ -427,7 +427,7 @@ export const packages: readonly Package[] = [
   {
     name: "Essentials",
     strap: "A focused site, done properly",
-    copy: "For a practice or home that needs a clear, accessible website without ongoing extras.",
+    copy: "For a small business or organisation that needs a clear, accessible website without ongoing extras.",
     price: "£995",
     pricePeriod: "one-off + VAT",
     priceNote: "Hosting year 1 included. Then £10/month if you stay.",
@@ -772,17 +772,16 @@ export const clearPath = {
     },
     {
       name: "Move Standard",
-      strap: "Premium custom — not a SaaS band",
-      copy: "The full custom build with a monthly care plan. A different product class from £269–£500/year template SaaS.",
+      strap: "Custom build plus ongoing care",
+      copy: "A custom website migration with ongoing hosting and support.",
       price: "£1,490",
       pricePeriod: "+ £49/mo + VAT",
-      priceNote: "Premium custom — not discounted to SaaS bands.",
       cta: "Book a free audit",
       ctaHref: "/free-audit",
       featured: true,
       features: [
         "Everything in Move Essentials",
-        "Premium custom, not a managed NHS template",
+        "Custom design, not a managed template",
         "Appointments and prescriptions still easy to find",
         "Managed hosting in the monthly fee",
         "Handover: who updates what, hosting path, support",

@@ -22,8 +22,7 @@ import {
   Tags,
   WandSparkles,
 } from "lucide-react";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { ProductShell } from "@/components/aurora/layout/ProductShell";
 import { Button } from "@/components/ui/Button";
 import { PhoneFrame } from "@/components/ui/PhoneFrame";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
@@ -299,8 +298,7 @@ export function ArtlingLanding() {
   const reduce = useReducedMotion();
 
   return (
-    <main id="main" className="artling-theme min-h-screen overflow-x-hidden bg-background text-ink">
-      <Navbar />
+    <ProductShell mainClassName="artling-theme min-h-screen overflow-x-hidden bg-background text-ink">
 
       {/* ── HERO ── */}
       <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-24 pt-36 md:pt-44">
@@ -801,7 +799,6 @@ export function ArtlingLanding() {
         </Reveal>
       </section>
 
-      <Footer />
-    </main>
+    </ProductShell>
   );
 }
