@@ -6,7 +6,7 @@ import { packagesFaq } from "@/lib/marketing/content";
 import { PackagesPage } from "@/components/aurora/pages/PackagesPage";
 
 const description =
-  "Website packages for GP practices and care homes. Essentials from £995 plus VAT with year-one hosting. Standard from £1,490 plus £49 a month. Partnership quoted after a short call.";
+  "Website packages from Flutterly. Essentials and Standard are £1,000 to build, then £49 a month, plus VAT, with hosting included. Partnership quoted after a short call.";
 
 export const metadata: Metadata = {
   title: "Website packages and pricing",

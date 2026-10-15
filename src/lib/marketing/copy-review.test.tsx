@@ -3,7 +3,7 @@ import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { render } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
-import { clearPath, comparison, packages } from "./content";
+import { clearPath, comparison, packagesFaq, packages } from "./content";
 import { getService } from "./services";
 import { LeavingMswPage } from "@/components/aurora/pages/LeavingMswPage";
 import { PackagesPage } from "@/components/aurora/pages/PackagesPage";
@@ -30,7 +30,7 @@ describe("SEO service promise", () => {
 describe("website packages", () => {
   it("speak to any small business or organisation", () => {
     expect(packages[0].copy).toBe(
-      "For a small business or organisation that needs a clear, accessible website without ongoing extras."
+      "For a small business or organisation that needs a clear, accessible website, hosted and backed up."
     );
   });
 
@@ -74,8 +74,34 @@ describe("Clear Path wording", () => {
     expect(t).toMatch(/Explore the live GP sample, read the accessibility statement and ask for an audit of your current site\./);
   });
 
-  it("keeps the published prices and dates unchanged", () => {
-    expect(clearPath.packages.map((p) => p.price)).toEqual(["£995", "£1,490"]);
+  it("keeps the published dates unchanged", () => {
     expect(clearPath.dates.map((d) => d.when)).toEqual(["1 September 2026", "31 March 2027", "31 October 2026"]);
+  });
+});
+
+describe("pricing matched to My Surgery Website", () => {
+  /* MSW (FPM Group, G-Cloud 14 pricing, April 2024): £1,000 setup on every
+     package. Flutterly matches the setup fee and charges £49 a month. */
+  it.each([
+    ["website packages", packages.filter((p) => p.name !== "Partnership")],
+    ["Clear Path packages", clearPath.packages],
+  ])("%s: £1,000 setup plus £49 a month, plus VAT", (_name, list) => {
+    expect(list.length).toBeGreaterThan(0);
+    list.forEach((p) => {
+      expect(p.price).toBe("£1,000");
+      expect(p.pricePeriod).toMatch(/^\+ £49\/mo(nth)? \+ VAT$/);
+      expect(JSON.stringify(p)).not.toMatch(/£10\/|year 1|year-one|first year/i);
+    });
+  });
+
+  it("keeps Partnership quoted", () => {
+    expect(packages.find((p) => p.name === "Partnership")?.price).toBe("Quoted");
+  });
+
+  it("states the new prices in the packages metadata and FAQs, with no old figures left", () => {
+    const t = String(packagesMetadata.description) + JSON.stringify(packagesFaq);
+    expect(t).toMatch(/£1,000/);
+    expect(t).toMatch(/£49 a month/);
+    expect(t).not.toMatch(/£995|£1,490|£10 a month|first year|year-one/);
   });
 });

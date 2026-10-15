@@ -26,7 +26,7 @@ export function PackagesPage() {
         }
         copy={
           <p>
-            Essentials is a one-off build with year-one hosting included. Standard adds a monthly care plan.
+            Essentials and Standard are £1,000 to build, then £49 a month with hosting included. Standard&rsquo;s monthly fee also covers updates and content changes.
             Partnership is for organisations that want a digital partner, quoted after a short call. All prices
             exclude VAT.
           </p>

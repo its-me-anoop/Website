@@ -427,16 +427,15 @@ export const packages: readonly Package[] = [
   {
     name: "Essentials",
     strap: "A focused site, done properly",
-    copy: "For a small business or organisation that needs a clear, accessible website without ongoing extras.",
-    price: "£995",
-    pricePeriod: "one-off + VAT",
-    priceNote: "Hosting year 1 included. Then £10/month if you stay.",
+    copy: "For a small business or organisation that needs a clear, accessible website, hosted and backed up.",
+    price: "£1,000",
+    pricePeriod: "+ £49/month + VAT",
     cta: "Enquire about Essentials",
     features: [
       "Custom design and build, no themes or page builders",
       "Up to eight core pages, written in plain English",
       "WCAG 2.2 AA accessibility target with a published statement",
-      "UK-served hosting, SSL and daily backups included for year 1",
+      "UK-served hosting, SSL and daily backups in the monthly fee",
       "Local SEO foundations and Google Business guidance",
       "Training so your team can edit with confidence",
     ],
@@ -445,7 +444,7 @@ export const packages: readonly Package[] = [
     name: "Standard",
     strap: "Build plus a care plan",
     copy: "The full build with Flutterly looking after hosting, updates and small changes month to month.",
-    price: "£1,490",
+    price: "£1,000",
     pricePeriod: "+ £49/month + VAT",
     cta: "Enquire about Standard",
     features: [
@@ -479,7 +478,7 @@ export const packages: readonly Package[] = [
 export const packagesFaq = [
   {
     q: "How much does a website cost?",
-    a: "Essentials is £995 one-off plus VAT, with hosting included for the first year and £10 a month if you stay afterwards. Standard is £1,490 plus £49 a month, plus VAT. Partnership is scoped after a short call, with a written quote within two working days.",
+    a: "Essentials and Standard are each £1,000 to build, then £49 a month, plus VAT. They differ in what the monthly fee covers: Standard adds updates, content changes and regular checks. Partnership is scoped after a short call, with a written quote within two working days.",
   },
   {
     q: "How long does a build take?",
@@ -499,7 +498,7 @@ export const packagesFaq = [
   },
   {
     q: "Where is the website hosted?",
-    a: "On UK-served edge infrastructure with SSL, daily backups and monitoring. Essentials includes hosting for the first year, then £10 a month if you stay. Standard and Partnership include managed hosting in the monthly fee. There is no plugin stack to patch, which removes the most common source of small-site security incidents.",
+    a: "On UK-served edge infrastructure with SSL, daily backups and monitoring. Every package includes hosting in the monthly fee. There is no plugin stack to patch, which removes the most common source of small-site security incidents.",
   },
 ] as const;
 
@@ -755,10 +754,9 @@ export const clearPath = {
     {
       name: "Move Essentials",
       strap: "A time-boxed move, done properly",
-      copy: "We move your content, sort the domain, and get you live on a modern site you own. One-off.",
-      price: "£995",
-      pricePeriod: "one-off + VAT",
-      priceNote: "Year-one hosting included, then £10/mo if you stay.",
+      copy: "We move your content, sort the domain, and get you live on a modern site you own, hosted and backed up.",
+      price: "£1,000",
+      pricePeriod: "+ £49/mo + VAT",
       cta: "Book a free audit",
       ctaHref: "/free-audit",
       featured: false,
@@ -774,7 +772,7 @@ export const clearPath = {
       name: "Move Standard",
       strap: "Custom build plus ongoing care",
       copy: "A custom website migration with ongoing hosting and support.",
-      price: "£1,490",
+      price: "£1,000",
       pricePeriod: "+ £49/mo + VAT",
       cta: "Book a free audit",
       ctaHref: "/free-audit",
