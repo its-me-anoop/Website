@@ -24,6 +24,18 @@ describe("normaliseUrl", () => {
     expect(() => normaliseUrl("http://app.localhost:3000")).toThrow(/local/i);
   });
 
+  it("accepts the default ports, written or not", () => {
+    expect(normaliseUrl("https://example.com:443/").toString()).toBe("https://example.com/");
+    expect(normaliseUrl("http://example.com:80/a").toString()).toBe("http://example.com/a");
+  });
+
+  it.each(["example.com:22", "http://example.com:6379/", "https://example.com:8443/", "http://example.com:443/", "https://example.com:80/"])(
+    "rejects the non-standard port in %j",
+    (input) => {
+      expect(() => normaliseUrl(input)).toThrow(/standard web ports/);
+    }
+  );
+
   it("accepts IP literals so the guard can classify them", () => {
     expect(normaliseUrl("http://8.8.8.8/").hostname).toBe("8.8.8.8");
   });

@@ -47,9 +47,26 @@ export function normaliseUrl(input: string): URL {
     );
   }
 
+  if (!isStandardWebPort(url)) {
+    throw new AuditError("blocked_host", STANDARD_PORTS_MESSAGE);
+  }
+
   url.hash = "";
   url.hostname = host;
   return url;
+}
+
+export const STANDARD_PORTS_MESSAGE = "Only websites on the standard web ports (80 and 443) can be audited.";
+
+/**
+ * True when the URL uses its scheme's default port. WHATWG URL parsing
+ * empties `port` for http:80 and https:443, so anything else is explicit.
+ * Websites live on the default ports; allowing others would let the audit
+ * be pointed at arbitrary services (SSH, Redis, admin panels) on public
+ * hosts and report back whether they answered.
+ */
+export function isStandardWebPort(url: URL): boolean {
+  return url.port === "";
 }
 
 /** Bare host plus path for display; drops the scheme and trailing slash. */
