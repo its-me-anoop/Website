@@ -405,20 +405,23 @@ export const auditPromises = [
 
 /* ─────────────────────────────────────────────────────────────
    Packages. Essentials and Standard publish a figure; Partnership
-   is scoped after a short call. All prices exclude VAT.
+   is scoped after a short call.
    ───────────────────────────────────────────────────────────── */
 
 export type Package = {
   name: string;
   strap: string;
   copy: string;
+  /** What the one-off build delivers. */
   features: readonly string[];
+  /** What the monthly fee covers; absent for quoted work. */
+  monthly?: readonly string[];
   featured?: boolean;
   /** Large figure, or a short stand-in for quoted work. */
   price: string;
-  /** Cadence / VAT line under the figure. */
+  /** Cadence line under the figure. */
   pricePeriod: string;
-  /** Optional extra, e.g. year-1 hosting. */
+  /** Optional short note under the cadence line. */
   priceNote?: string;
   cta: string;
 };
@@ -427,32 +430,43 @@ export const packages: readonly Package[] = [
   {
     name: "Essentials",
     strap: "A focused site, done properly",
-    copy: "For a small business or organisation that needs a clear, accessible website without ongoing extras.",
-    price: "£995",
-    pricePeriod: "one-off + VAT",
-    priceNote: "Hosting year 1 included. Then £10/month if you stay.",
+    copy: "For a small business or organisation that needs a clear, accessible website, hosted and backed up.",
+    price: "£999",
+    pricePeriod: "+ £29/month on a 5-year term",
+    priceNote: "or £49/month on a 1-year term",
     cta: "Enquire about Essentials",
     features: [
       "Custom design and build, no themes or page builders",
       "Up to eight core pages, written in plain English",
       "WCAG 2.2 AA accessibility target with a published statement",
-      "UK-served hosting, SSL and daily backups included for year 1",
       "Local SEO foundations and Google Business guidance",
+      "Your existing online tools linked in; for GP practices, your eConsult, Accurx or Patchs forms, the NHS App and NHS.uk health information",
       "Training so your team can edit with confidence",
+    ],
+    monthly: [
+      "Hosted on Vercel (ISO 27001 certified, SOC 2 Type 2), with SSL",
+      "99.9% uptime target, daily backups and monitoring",
+      "Same-week response on support requests",
+      "You make your own content changes, as trained",
     ],
   },
   {
     name: "Standard",
     strap: "Build plus a care plan",
     copy: "The full build with Flutterly looking after hosting, updates and small changes month to month.",
-    price: "£1,490",
-    pricePeriod: "+ £49/month + VAT",
+    price: "£1,499",
+    pricePeriod: "+ £29/month on a 5-year term",
+    priceNote: "or £49/month on a 1-year term",
     cta: "Enquire about Standard",
     features: [
-      "Everything in Essentials",
+      "Everything in the Essentials build",
       "Larger sitemap with news, vacancies and forms",
-      "Managed hosting, monitoring and security updates",
-      "A monthly allowance for content changes",
+    ],
+    monthly: [
+      "Hosted on Vercel (ISO 27001 certified, SOC 2 Type 2), with SSL",
+      "99.9% uptime target, daily backups and monitoring",
+      "Security updates applied for you",
+      "Content changes made for you, up to 2 hours a month",
       "Quarterly accessibility and performance checks",
       "Same-week response on support requests",
     ],
@@ -464,6 +478,7 @@ export const packages: readonly Package[] = [
     copy: "For organisations that want the website continuously improved, not just maintained.",
     price: "Quoted",
     pricePeriod: "After a short scoping call",
+    priceNote: "On a 1-year or 5-year term",
     cta: "Talk about Partnership",
     features: [
       "Everything in Standard",
@@ -479,7 +494,11 @@ export const packages: readonly Package[] = [
 export const packagesFaq = [
   {
     q: "How much does a website cost?",
-    a: "Essentials is £995 one-off plus VAT, with hosting included for the first year and £10 a month if you stay afterwards. Standard is £1,490 plus £49 a month, plus VAT. Partnership is scoped after a short call, with a written quote within two working days.",
+    a: "Every package is £29 a month on a 5-year term, or £49 a month on a 1-year term, with hosting and backups included. Essentials is £999 to build and you make your own content changes. Standard is £1,499 to build, with a larger site, and Flutterly makes your content changes (up to 2 hours a month), applies updates and runs regular checks. Both include same-week support. Partnership is scoped after a short call, with a written quote within two working days.",
+  },
+  {
+    q: "Is there a minimum term?",
+    a: "Yes. You choose the term when you sign: one year at £49 a month, or five years at £29 a month. The build fee is the same either way, and Partnership is quoted on either term.",
   },
   {
     q: "How long does a build take?",
@@ -487,7 +506,7 @@ export const packagesFaq = [
   },
   {
     q: "Do we own the website?",
-    a: "Yes. The code, the content and the domain are yours. If you ever move on, everything is handed over cleanly. Nothing is held hostage in a subscription.",
+    a: "Yes. The code, the content and the domain are yours. If you move on at the end of your term, everything is handed over cleanly.",
   },
   {
     q: "Can you move our existing content across?",
@@ -499,7 +518,11 @@ export const packagesFaq = [
   },
   {
     q: "Where is the website hosted?",
-    a: "On UK-served edge infrastructure with SSL, daily backups and monitoring. Essentials includes hosting for the first year, then £10 a month if you stay. Standard and Partnership include managed hosting in the monthly fee. There is no plugin stack to patch, which removes the most common source of small-site security incidents.",
+    a: "On Vercel, which is ISO 27001 certified and holds a SOC 2 Type 2 attestation, with SSL, daily backups, monitoring and a 99.9% uptime target. Every package includes hosting in the monthly fee. There is no plugin stack to patch, which removes the most common source of small-site security incidents. Flutterly is registered with the ICO.",
+  },
+  {
+    q: "Do you provide online forms and NHS health content?",
+    a: "For GP practices, yes, through the tools the NHS already approves. Flutterly links your online consultation and forms tool, such as eConsult, Accurx or Patchs, which sends requests into your clinical system, alongside the NHS App and NHS.uk health information. Patient data goes through those tools, never through Flutterly.",
   },
 ] as const;
 
@@ -755,36 +778,49 @@ export const clearPath = {
     {
       name: "Move Essentials",
       strap: "A time-boxed move, done properly",
-      copy: "We move your content, sort the domain, and get you live on a modern site you own. One-off.",
-      price: "£995",
-      pricePeriod: "one-off + VAT",
-      priceNote: "Year-one hosting included, then £10/mo if you stay.",
+      copy: "We move your content, sort the domain, and get you live on a modern site you own, hosted and backed up.",
+      price: "£999",
+      pricePeriod: "+ £29/mo on a 5-year term",
+      priceNote: "or £49/mo on a 1-year term",
       cta: "Book a free audit",
       ctaHref: "/free-audit",
       featured: false,
       features: [
         "Content moved from your current MSW site",
         "Domain sorted, on a site you own",
+        "Your eConsult, Accurx or Patchs forms, the NHS App and NHS.uk health information linked prominently",
         "Built for WCAG 2.2 AA",
         "No WordPress page-builder stack",
         "Founder-led: you brief the person who builds",
+      ],
+      monthly: [
+        "Hosted on Vercel (ISO 27001 certified, SOC 2 Type 2), with SSL",
+        "99.9% uptime target, daily backups and monitoring",
+        "Same-week response on support requests",
+        "You make your own content changes, as trained",
       ],
     },
     {
       name: "Move Standard",
       strap: "Custom build plus ongoing care",
       copy: "A custom website migration with ongoing hosting and support.",
-      price: "£1,490",
-      pricePeriod: "+ £49/mo + VAT",
+      price: "£1,499",
+      pricePeriod: "+ £29/mo on a 5-year term",
+      priceNote: "or £49/mo on a 1-year term",
       cta: "Book a free audit",
       ctaHref: "/free-audit",
       featured: true,
       features: [
-        "Everything in Move Essentials",
+        "Everything in the Move Essentials build",
         "Custom design, not a managed template",
         "Appointments and prescriptions still easy to find",
-        "Managed hosting in the monthly fee",
         "Handover: who updates what, hosting path, support",
+      ],
+      monthly: [
+        "Hosted on Vercel (ISO 27001 certified, SOC 2 Type 2), with SSL",
+        "99.9% uptime target, daily backups and monitoring",
+        "Security updates applied for you",
+        "Content changes made for you, up to 2 hours a month",
         "Same-week response on support requests",
       ],
     },

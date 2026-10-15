@@ -163,7 +163,7 @@ export function LeavingMswPage() {
                 Two ways to <em>move</em>.
               </>
             }
-            copy="Published prices, plus VAT. Reserve by 31 October 2026. Capacity is capped, so the quote includes a go-live date you can plan around."
+            copy="Published prices. Reserve by 31 October 2026. Capacity is capped, so the quote includes a go-live date you can plan around."
           />
           <ul className="mx-auto mt-14 grid max-w-[980px] items-stretch gap-5 md:grid-cols-2">
             {clearPath.packages.map((pkg, i) => (

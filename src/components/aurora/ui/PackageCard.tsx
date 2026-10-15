@@ -1,20 +1,22 @@
 "use client";
 
+import { useId } from "react";
 import { site } from "@/lib/site";
 import type { Package } from "@/lib/marketing/content";
 import { cn } from "@/lib/utils";
 import { Reveal } from "../effects/Motion";
 import { ButtonLink, CheckItem, Tag } from "./primitives";
 
-type CardPackage = Pick<Package, "name" | "strap" | "copy" | "price" | "pricePeriod" | "priceNote" | "cta" | "features"> & {
+type CardPackage = Pick<Package, "name" | "strap" | "copy" | "price" | "pricePeriod" | "priceNote" | "cta" | "features" | "monthly"> & {
   featured?: boolean;
   /** Where the action goes; defaults to a prefilled enquiry email. */
   ctaHref?: string;
 };
 
 /**
- * One package: name, published figure, a plain list and one action.
- * The featured package is set in ink and carries the amber action.
+ * One package: name, published figure, what the build delivers and what
+ * the monthly fee covers, and one action. The featured package is set in
+ * ink and carries the amber action.
  */
 export function PackageCard({
   pkg,
@@ -49,11 +51,18 @@ export function PackageCard({
           <p className="mt-1 max-w-[38ch] text-[14px] leading-[1.5] text-a-muted">{pkg.priceNote}</p>
         ) : null}
         <p className="mt-6 text-[15.5px] leading-[1.6] text-a-ink">{pkg.copy}</p>
-        <ul className="mt-7 space-y-3 border-t border-a-line pt-7">
-          {pkg.features.map((feature) => (
-            <CheckItem key={feature}>{feature}</CheckItem>
-          ))}
-        </ul>
+        {pkg.monthly?.length ? (
+          <>
+            <IncludedList label="The build" items={pkg.features} />
+            <IncludedList label="Every month" items={pkg.monthly} />
+          </>
+        ) : (
+          <ul className="mt-7 space-y-3 border-t border-a-line pt-7">
+            {pkg.features.map((feature) => (
+              <CheckItem key={feature}>{feature}</CheckItem>
+            ))}
+          </ul>
+        )}
         <div className="mt-auto pt-9">
           <ButtonLink href={href} tone={pkg.featured ? "primary" : "outline"} className="w-full">
             {pkg.cta}
@@ -61,5 +70,22 @@ export function PackageCard({
         </div>
       </article>
     </Reveal>
+  );
+}
+
+/** A labelled group of inclusions; the label names the list for screen readers. */
+function IncludedList({ label, items }: { label: string; items: readonly string[] }) {
+  const id = useId();
+  return (
+    <div className="mt-7 border-t border-a-line pt-6">
+      <p id={id} className="a-mono text-[11.5px] uppercase tracking-[0.14em] text-a-muted">
+        {label}
+      </p>
+      <ul aria-labelledby={id} className="mt-4 space-y-3">
+        {items.map((item) => (
+          <CheckItem key={item}>{item}</CheckItem>
+        ))}
+      </ul>
+    </div>
   );
 }
