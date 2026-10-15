@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { site } from "@/lib/site";
 import { footerColumns } from "@/lib/marketing/content";
@@ -9,6 +10,7 @@ import { footerColumns } from "@/lib/marketing/content";
 /** `credit` replaces the closing line, e.g. a product's creator credit. */
 export function Footer({ credit }: { credit?: ReactNode } = {}) {
   const year = new Date().getFullYear();
+  const pathname = usePathname();
 
   return (
     <footer className="relative overflow-hidden border-t border-a-line bg-a-void">
@@ -61,7 +63,8 @@ export function Footer({ credit }: { credit?: ReactNode } = {}) {
                 <ul className="mt-5 space-y-3">
                   {column.links.map((link) => {
                     const external = link.href.startsWith("http");
-                    const classes = "text-[14.5px] text-a-ink-soft transition-colors hover:text-a-amber";
+                    const classes =
+                      "text-[14.5px] text-a-ink-soft transition-colors hover:text-a-amber aria-[current=page]:text-a-ink";
                     return (
                       <li key={link.label}>
                         {external ? (
@@ -69,7 +72,11 @@ export function Footer({ credit }: { credit?: ReactNode } = {}) {
                             {link.label}
                           </a>
                         ) : (
-                          <Link href={link.href} className={classes}>
+                          <Link
+                            href={link.href}
+                            aria-current={pathname === link.href ? "page" : undefined}
+                            className={classes}
+                          >
                             {link.label}
                           </Link>
                         )}
