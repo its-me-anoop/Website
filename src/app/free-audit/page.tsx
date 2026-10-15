@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, serviceJsonLd, defaultOgImage } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { AuditLanding } from "@/components/aurora/pages/AuditLanding";
 
 const description =
-  "Free instant website audit for GP practices, care homes and clinics: paste your address for a scored report on accessibility, speed, search, content, mobile, security and local presence, with plain-English fixes. Then a written review by a person, if you want one.";
+  "Get a free website review from Flutterly: accessibility, speed, search, content, mobile experience, security and local presence, with clear fixes to consider.";
 
 export const metadata: Metadata = {
   title: "Free website audit",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: site.studio,
     locale: site.locale,
     type: "website",
-    images: [{ url: site.ogImage, width: 1200, height: 630 }],
+    images: [defaultOgImage],
   },
   twitter: {
     card: "summary_large_image",

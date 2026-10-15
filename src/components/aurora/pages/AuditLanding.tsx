@@ -11,7 +11,7 @@ import { AuditBar, ButtonLink, CheckItem, Container, Eyebrow, SectionIntro } fro
 const steps = [
   {
     title: "Paste your website address",
-    copy: "Press the arrow and the instant audit runs in a few seconds. No form, no sign-up, nothing stored.",
+    copy: "Press the arrow and the instant audit runs in a few seconds. No form, no sign-up. The report is held in a short-lived cache for about ten minutes, then discarded.",
   },
   {
     title: "Read the scored report",
@@ -27,10 +27,10 @@ const instantVsWritten = [
   {
     label: "Instant audit",
     points: [
-      "Runs in seconds, in your browser",
+      "Runs in seconds on Flutterly\u2019s server",
       "Reads the page’s HTML and response headers",
       "Around sixty checks across seven areas",
-      "Sector-aware: GP, care home, dental, pharmacy, physio",
+      "General checks for any website, plus extra content checks for GP, care home, dental, pharmacy and physio sites",
       "Shareable link, and a designed PDF to hand round",
     ],
   },
@@ -40,7 +40,7 @@ const instantVsWritten = [
       "Reviewed by hand, usually within a week",
       "Real devices, real connections, JavaScript included",
       "Design, content quality and the journeys visitors take",
-      "Set against the standards NHS and CQC-regulated sites are held to",
+      "For healthcare websites, the written review can also consider relevant NHS and CQC guidance",
       "A scored, written report with fixes in priority order",
     ],
   },
@@ -82,7 +82,7 @@ export function AuditLanding() {
                 Seven areas, scored and <em>explained</em>.
               </>
             }
-            copy="Each area is weighted by how much it affects the people your website serves. Accessibility and content count most, because those are what patients and families feel first."
+            copy="Each area is weighted by how much it affects the people your website serves. Accessibility and content count most: accessibility and clear content help visitors find what they need and take the next step."
           />
           <ol className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {auditChecks.map((check, i) => {

@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, defaultOgImage } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { BookPage } from "@/components/aurora/booking/BookPage";
 
 const title = site.booking.label;
-const description = `Book a free ${site.booking.durationMinutes}-minute discovery call with ${site.founder} at Flutterly. Talk through what your GP practice or care home needs from its website. No pitch, no obligation.`;
+const description = `Book a free ${site.booking.durationMinutes}-minute discovery call with ${site.founder} at Flutterly. Talk through a website, an app, IT support, social media or search, and agree a sensible next step. No pitch, no obligation.`;
 
 export const metadata: Metadata = {
   title,
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: site.studio,
     locale: site.locale,
     type: "website",
-    images: [{ url: site.ogImage, width: 1200, height: 630 }],
+    images: [defaultOgImage],
   },
   twitter: {
     card: "summary_large_image",

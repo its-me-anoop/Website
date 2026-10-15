@@ -149,7 +149,8 @@ export function ServicePage({ service }: { service: Service }) {
             Tell me what needs <em>sorting.</em>
           </>
         }
-        copy={`A short call about your ${/^[A-Z]{2}/.test(service.name) ? service.name : service.name.toLowerCase()} is the quickest way to a written plan and a price. Or start with a free audit of the website you have today.`}
+        copy={service.nextStep.prompt}
+        audit={service.nextStep.audit === "primary" ? "bar" : "link"}
       />
     </Shell>
   );
