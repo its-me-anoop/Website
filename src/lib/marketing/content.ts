@@ -431,7 +431,7 @@ export const packages: readonly Package[] = [
     name: "Essentials",
     strap: "A focused site, done properly",
     copy: "For a small business or organisation that needs a clear, accessible website, hosted and backed up.",
-    price: "£1,000",
+    price: "£1,010",
     pricePeriod: "+ £29/month + VAT",
     priceNote: "Minimum 5-year term",
     cta: "Enquire about Essentials",
@@ -452,8 +452,8 @@ export const packages: readonly Package[] = [
     name: "Standard",
     strap: "Build plus a care plan",
     copy: "The full build with Flutterly looking after hosting, updates and small changes month to month.",
-    price: "£310",
-    pricePeriod: "+ £49/month + VAT",
+    price: "£1,510",
+    pricePeriod: "+ £29/month + VAT",
     priceNote: "Minimum 5-year term",
     cta: "Enquire about Standard",
     features: [
@@ -491,7 +491,7 @@ export const packages: readonly Package[] = [
 export const packagesFaq = [
   {
     q: "How much does a website cost?",
-    a: "Essentials is £1,000 to build, then £29 a month, plus VAT, with hosting and backups included. Standard is £310 to build, then £49 a month, plus VAT, and Flutterly makes your content changes, applies updates and runs regular checks. Partnership is scoped after a short call, with a written quote within two working days.",
+    a: "Every package is £29 a month, plus VAT, with hosting and backups included. Essentials is £1,010 to build and you make your own content changes. Standard is £1,510 to build, with a larger site, and Flutterly makes your content changes, applies updates and runs regular checks. Partnership is scoped after a short call, with a written quote within two working days.",
   },
   {
     q: "Is there a minimum term?",
@@ -772,7 +772,7 @@ export const clearPath = {
       name: "Move Essentials",
       strap: "A time-boxed move, done properly",
       copy: "We move your content, sort the domain, and get you live on a modern site you own, hosted and backed up.",
-      price: "£1,000",
+      price: "£1,010",
       pricePeriod: "+ £29/mo + VAT",
       priceNote: "Minimum 5-year term",
       cta: "Book a free audit",
@@ -795,8 +795,8 @@ export const clearPath = {
       name: "Move Standard",
       strap: "Custom build plus ongoing care",
       copy: "A custom website migration with ongoing hosting and support.",
-      price: "£310",
-      pricePeriod: "+ £49/mo + VAT",
+      price: "£1,510",
+      pricePeriod: "+ £29/mo + VAT",
       priceNote: "Minimum 5-year term",
       cta: "Book a free audit",
       ctaHref: "/free-audit",
