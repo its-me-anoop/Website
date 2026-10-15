@@ -27,8 +27,7 @@ export function PackagesPage() {
         copy={
           <p>
             Every package is £29 a month with hosting included. Essentials is £999 to build and you make your own changes. Standard is £1,499 to build and Flutterly makes the changes for you.
-            Partnership is for organisations that want a digital partner, quoted after a short call. All prices
-            exclude VAT.
+            Partnership is for organisations that want a digital partner, quoted after a short call.
           </p>
         }
       />

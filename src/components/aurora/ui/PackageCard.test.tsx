@@ -12,7 +12,7 @@ const pkg = {
   strap: "Build plus a care plan",
   copy: "Copy",
   price: "£310",
-  pricePeriod: "+ £49/month + VAT",
+  pricePeriod: "+ £49/month",
   cta: "Enquire",
   features: ["Custom build"],
   monthly: ["Hosting", "Changes made for you on request"],

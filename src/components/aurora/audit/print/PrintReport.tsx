@@ -494,7 +494,7 @@ function NextSteps({ report }: { report: AuditReport }) {
               </div>
             ))}
           <p className="mt-[4mm] text-[7.5pt] leading-[1.45] text-k-muted">
-            Plus VAT. All three packages at {`${shortDomain}/packages`}.
+            All three packages at {`${shortDomain}/packages`}.
           </p>
         </article>
       </div>

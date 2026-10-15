@@ -95,7 +95,7 @@ export function Pitch({ report }: { report: AuditReport }) {
                 {recommended.featured
                   ? `With ${report.totals.fail} failing checks${report.page.platform?.kind === "page-builder" ? ` and a ${report.page.platform.name} build to maintain` : ""}, a managed build with monitoring and monthly checks keeps it fixed once it is fixed.`
                   : "A focused custom build resolves most of the list above in one go, with hosting included in the monthly fee."}{" "}
-                Published prices, plus VAT.
+                Published prices.
               </p>
             </Reveal>
             <ul className="mt-6 grid">

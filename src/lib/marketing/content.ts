@@ -405,7 +405,7 @@ export const auditPromises = [
 
 /* ─────────────────────────────────────────────────────────────
    Packages. Essentials and Standard publish a figure; Partnership
-   is scoped after a short call. All prices exclude VAT.
+   is scoped after a short call.
    ───────────────────────────────────────────────────────────── */
 
 export type Package = {
@@ -419,7 +419,7 @@ export type Package = {
   featured?: boolean;
   /** Large figure, or a short stand-in for quoted work. */
   price: string;
-  /** Cadence / VAT line under the figure. */
+  /** Cadence line under the figure. */
   pricePeriod: string;
   /** Optional short note under the cadence line. */
   priceNote?: string;
@@ -432,7 +432,7 @@ export const packages: readonly Package[] = [
     strap: "A focused site, done properly",
     copy: "For a small business or organisation that needs a clear, accessible website, hosted and backed up.",
     price: "£999",
-    pricePeriod: "+ £29/month + VAT",
+    pricePeriod: "+ £29/month",
     priceNote: "Minimum 5-year term",
     cta: "Enquire about Essentials",
     features: [
@@ -453,7 +453,7 @@ export const packages: readonly Package[] = [
     strap: "Build plus a care plan",
     copy: "The full build with Flutterly looking after hosting, updates and small changes month to month.",
     price: "£1,499",
-    pricePeriod: "+ £29/month + VAT",
+    pricePeriod: "+ £29/month",
     priceNote: "Minimum 5-year term",
     cta: "Enquire about Standard",
     features: [
@@ -491,7 +491,7 @@ export const packages: readonly Package[] = [
 export const packagesFaq = [
   {
     q: "How much does a website cost?",
-    a: "Every package is £29 a month, plus VAT, with hosting and backups included. Essentials is £999 to build and you make your own content changes. Standard is £1,499 to build, with a larger site, and Flutterly makes your content changes, applies updates and runs regular checks. Partnership is scoped after a short call, with a written quote within two working days.",
+    a: "Every package is £29 a month, with hosting and backups included. Essentials is £999 to build and you make your own content changes. Standard is £1,499 to build, with a larger site, and Flutterly makes your content changes, applies updates and runs regular checks. Partnership is scoped after a short call, with a written quote within two working days.",
   },
   {
     q: "Is there a minimum term?",
@@ -773,7 +773,7 @@ export const clearPath = {
       strap: "A time-boxed move, done properly",
       copy: "We move your content, sort the domain, and get you live on a modern site you own, hosted and backed up.",
       price: "£999",
-      pricePeriod: "+ £29/mo + VAT",
+      pricePeriod: "+ £29/mo",
       priceNote: "Minimum 5-year term",
       cta: "Book a free audit",
       ctaHref: "/free-audit",
@@ -796,7 +796,7 @@ export const clearPath = {
       strap: "Custom build plus ongoing care",
       copy: "A custom website migration with ongoing hosting and support.",
       price: "£1,499",
-      pricePeriod: "+ £29/mo + VAT",
+      pricePeriod: "+ £29/mo",
       priceNote: "Minimum 5-year term",
       cta: "Book a free audit",
       ctaHref: "/free-audit",

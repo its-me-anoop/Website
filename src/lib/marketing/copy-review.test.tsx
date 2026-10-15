@@ -95,7 +95,7 @@ describe("pricing matched to My Surgery Website", () => {
   ] as const)("%s: £999 plus £29 a month, just under MSW Bronze over five years", (name, list) => {
     const p = byName<(typeof list)[number]>(list, name);
     expect(p.price).toBe("£999");
-    expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)? \+ VAT$/);
+    expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)?$/);
     expect(fiveYears(p)).toBe(2739);
     expect(fiveYears(p)).toBeLessThanOrEqual(2750);
   });
@@ -106,7 +106,7 @@ describe("pricing matched to My Surgery Website", () => {
   ] as const)("%s: £1,499 plus £29 a month, just under MSW Silver over five years", (name, list) => {
     const p = byName<(typeof list)[number]>(list, name);
     expect(p.price).toBe("£1,499");
-    expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)? \+ VAT$/);
+    expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)?$/);
     expect(fiveYears(p)).toBe(3239);
     expect(fiveYears(p)).toBeLessThanOrEqual(3250);
   });
@@ -175,5 +175,12 @@ describe("five-year minimum term", () => {
     expect(faqs).toMatch(/minimum term of five years/i);
     expect(String(packagesMetadata.description)).toMatch(/5-year minimum term/);
     expect(faqs).not.toMatch(/if you ever move on/i);
+  });
+});
+
+describe("no VAT is charged", () => {
+  it("no package, FAQ or packages metadata mentions VAT", () => {
+    const t = JSON.stringify([packages, clearPath, packagesFaq]) + String(packagesMetadata.description);
+    expect(t).not.toMatch(/\bVAT\b/i);
   });
 });
