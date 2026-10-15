@@ -84,6 +84,19 @@ describe("Packages link", () => {
     expect(link).not.toHaveAttribute("aria-current");
   });
 
+  it("links to /packages only once in the footer, with no old Healthcare entry", () => {
+    nav.pathname = "/";
+    withMotion(<Footer />);
+    const footer = screen.getByRole("navigation", { name: "Footer" });
+    const toPackages = within(footer)
+      .getAllByRole("link")
+      .filter((l) => l.getAttribute("href") === "/packages");
+    expect(toPackages).toHaveLength(1);
+    expect(within(footer).queryByRole("link", { name: "Website packages" })).not.toBeInTheDocument();
+    const healthcare = within(footer).getByRole("heading", { name: "Healthcare" }).parentElement!;
+    expect(within(healthcare).queryByRole("link", { name: /packages/i })).not.toBeInTheDocument();
+  });
+
   it("is marked as the current page in the footer on /packages", () => {
     withMotion(<Footer />);
     const footer = screen.getByRole("navigation", { name: "Footer" });

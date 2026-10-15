@@ -889,7 +889,6 @@ export const footerColumns = [
       { label: "GP practice websites", href: "/gp-websites" },
       { label: "Care home websites", href: "/care-home-websites" },
       { label: "Leaving My Surgery Website", href: "/leaving-msw" },
-      { label: "Website packages", href: "/packages" },
       { label: "Free website audit", href: "/free-audit" },
     ],
   },
