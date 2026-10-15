@@ -81,17 +81,34 @@ describe("Clear Path wording", () => {
 
 describe("pricing matched to My Surgery Website", () => {
   /* MSW (FPM Group, G-Cloud 14 pricing, April 2024): £1,000 setup on every
-     package. Flutterly matches the setup fee and charges £49 a month. */
+     package; the cheapest licence is Bronze on a 5-year term at £350 a year.
+     Essentials matches that floor (£29 a month = £348 a year); the fuller
+     packages are £49 a month. */
+  const byName = (list: readonly { name: string }[], name: string) => list.find((p) => p.name === name)!;
+
   it.each([
-    ["website packages", packages.filter((p) => p.name !== "Partnership")],
-    ["Clear Path packages", clearPath.packages],
-  ])("%s: £1,000 setup plus £49 a month, plus VAT", (_name, list) => {
-    expect(list.length).toBeGreaterThan(0);
-    list.forEach((p) => {
-      expect(p.price).toBe("£1,000");
-      expect(p.pricePeriod).toMatch(/^\+ £49\/mo(nth)? \+ VAT$/);
-      expect(JSON.stringify(p)).not.toMatch(/£10\/|year 1|year-one|first year/i);
-    });
+    ["Essentials", packages],
+    ["Move Essentials", clearPath.packages],
+  ] as const)("%s matches MSW's lowest price: £1,000 plus £29 a month", (name, list) => {
+    const p = byName(list, name) as (typeof list)[number];
+    expect(p.price).toBe("£1,000");
+    expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)? \+ VAT$/);
+    expect(29 * 12).toBeLessThanOrEqual(350);
+  });
+
+  it.each([
+    ["Standard", packages],
+    ["Move Standard", clearPath.packages],
+  ] as const)("%s stays at £1,000 plus £49 a month", (name, list) => {
+    const p = byName(list, name) as (typeof list)[number];
+    expect(p.price).toBe("£1,000");
+    expect(p.pricePeriod).toMatch(/^\+ £49\/mo(nth)? \+ VAT$/);
+  });
+
+  it("leaves no year-one or £10 hosting wording on any priced package", () => {
+    [...packages, ...clearPath.packages].forEach((p) =>
+      expect(JSON.stringify(p)).not.toMatch(/£10\/|year 1|year-one|first year/i)
+    );
   });
 
   it("keeps Partnership quoted", () => {
@@ -101,6 +118,7 @@ describe("pricing matched to My Surgery Website", () => {
   it("states the new prices in the packages metadata and FAQs, with no old figures left", () => {
     const t = String(packagesMetadata.description) + JSON.stringify(packagesFaq);
     expect(t).toMatch(/£1,000/);
+    expect(t).toMatch(/£29 a month/);
     expect(t).toMatch(/£49 a month/);
     expect(t).not.toMatch(/£995|£1,490|£10 a month|first year|year-one/);
   });

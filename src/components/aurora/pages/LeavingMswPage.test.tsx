@@ -47,6 +47,7 @@ describe("LeavingMswPage", () => {
     expect(screen.getByRole("heading", { name: "Move Essentials" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Move Standard" })).toBeInTheDocument();
     expect(text).toContain("£1,000");
+    expect(text).toContain("£29/mo");
     expect(text).toContain("£49/mo");
     expect(text).not.toMatch(/£995|£1,490|£10\/mo/);
     expect(text).toMatch(/31 October 2026/);

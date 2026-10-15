@@ -429,7 +429,7 @@ export const packages: readonly Package[] = [
     strap: "A focused site, done properly",
     copy: "For a small business or organisation that needs a clear, accessible website, hosted and backed up.",
     price: "£1,000",
-    pricePeriod: "+ £49/month + VAT",
+    pricePeriod: "+ £29/month + VAT",
     cta: "Enquire about Essentials",
     features: [
       "Custom design and build, no themes or page builders",
@@ -478,7 +478,7 @@ export const packages: readonly Package[] = [
 export const packagesFaq = [
   {
     q: "How much does a website cost?",
-    a: "Essentials and Standard are each £1,000 to build, then £49 a month, plus VAT. They differ in what the monthly fee covers: Standard adds updates, content changes and regular checks. Partnership is scoped after a short call, with a written quote within two working days.",
+    a: "Essentials is £1,000 to build, then £29 a month, plus VAT, with hosting and backups included. Standard is £1,000 to build, then £49 a month, plus VAT, and adds updates, content changes and regular checks. Partnership is scoped after a short call, with a written quote within two working days.",
   },
   {
     q: "How long does a build take?",
@@ -756,7 +756,7 @@ export const clearPath = {
       strap: "A time-boxed move, done properly",
       copy: "We move your content, sort the domain, and get you live on a modern site you own, hosted and backed up.",
       price: "£1,000",
-      pricePeriod: "+ £49/mo + VAT",
+      pricePeriod: "+ £29/mo + VAT",
       cta: "Book a free audit",
       ctaHref: "/free-audit",
       featured: false,
