@@ -181,7 +181,11 @@ const DUO = {
   openLandscape: duo(890, 626),
 };
 
-const browser = await chromium.launch();
+/* CHROMIUM_PATH lets a machine with a preinstalled Chromium run this
+   without downloading Playwright's build. */
+const browser = await chromium.launch(
+  process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}
+);
 
 for (const [label, options] of [
   ["mobile", { ...devices["iPhone 13"] }],
@@ -380,6 +384,120 @@ await reducedMotion.close();
     if (r.wide) note(`duo ${state}`, `${r.wide} frame(s) wider than the viewport`);
     if (!r.h1) note(`duo ${state}`, "hero headline is not fully on screen");
     if (!r.canvasFits) note(`duo ${state}`, "hero canvas did not follow the new width");
+  }
+  await context.close();
+}
+
+/* Foldable and landscape layouts. Roomy screens (unfolded, or a phone
+   on its side) put the hero copy and butterfly side by side and the
+   packages two or three across; folded and portrait phones stack, and
+   desktop keeps its own breakpoints. */
+const LAYOUTS = [
+  ["duo-folded", DUO.folded, { hero: "stacked", packages: 1 }],
+  ["iphone", { ...devices["iPhone 13"] }, { hero: "stacked", packages: 1 }],
+  ["duo-open", DUO.open, { hero: "side", packages: 2 }],
+  ["duo-open-landscape", DUO.openLandscape, { hero: "side", packages: 3 }],
+  ["iphone-landscape", { ...devices["iPhone 13 landscape"] }, { hero: "side", packages: 2 }],
+  ["laptop", { viewport: { width: 1024, height: 768 } }, { hero: "side", packages: 2 }],
+  ["desktop", { viewport: { width: 1440, height: 900 } }, { hero: "side", packages: 3 }],
+];
+const heroLayout = (page) =>
+  page.evaluate(() => {
+    const copy = document.querySelector("#top [data-hero-copy]").getBoundingClientRect();
+    const art = document.querySelector("#top [data-hero-art]").getBoundingClientRect();
+    if (art.left >= copy.right - 1 && art.top < copy.bottom && art.bottom > copy.top) return "side";
+    if (art.top >= copy.bottom - 1) return "stacked";
+    return `overlapping (copy ${Math.round(copy.left)}..${Math.round(copy.right)}, art ${Math.round(art.left)}..${Math.round(art.right)})`;
+  });
+/** Cards in the first row of the packages grid. */
+const packagesPerRow = (page) =>
+  page.evaluate(() => {
+    const cards = [...document.querySelectorAll("main ul > li > article")];
+    const top = Math.round(cards[0].getBoundingClientRect().top);
+    return cards.filter((c) => Math.abs(c.getBoundingClientRect().top - top) < 2).length;
+  });
+for (const [label, options, expected] of LAYOUTS) {
+  const context = await browser.newContext({ ...options, reducedMotion: "reduce" });
+  const page = await context.newPage();
+  await page.goto(BASE + "/", { waitUntil: "networkidle" });
+  const hero = await heroLayout(page);
+  if (hero !== expected.hero) note(`layout ${label}`, `hero is ${hero}, expected ${expected.hero}`);
+  await page.goto(BASE + "/packages", { waitUntil: "networkidle" });
+  const perRow = await packagesPerRow(page);
+  if (perRow !== expected.packages) note(`layout ${label}`, `${perRow} package card(s) per row, expected ${expected.packages}`);
+  await context.close();
+}
+
+/* Tap targets on the folded screen: header controls, footer links and
+   FAQ questions are at least 44px tall for a finger. */
+{
+  const context = await browser.newContext(DUO.folded);
+  const page = await context.newPage();
+  await page.goto(BASE + "/packages", { waitUntil: "networkidle" });
+  const small = await page.evaluate(() =>
+    [...document.querySelectorAll("header a, header button, footer a, details > summary")]
+      .filter((el) => el.getBoundingClientRect().width > 0)
+      .filter((el) => el.getBoundingClientRect().height < 44)
+      .map((el) => `"${(el.textContent || el.getAttribute("aria-label") || "").trim().slice(0, 30)}" ${Math.round(el.getBoundingClientRect().height)}px`)
+  );
+  if (small.length) note("duo-folded tap targets", `under 44px: ${small.join(", ")}`);
+  await context.close();
+}
+
+/* Unfolding mid-visit plays the butterfly's one-time wing unfurl. */
+{
+  const context = await browser.newContext(DUO.folded);
+  const page = await context.newPage();
+  await page.goto(BASE + "/", { waitUntil: "networkidle" });
+  const unfurling = () =>
+    page.evaluate(() =>
+      document.querySelector("#top .fx-unfurl").getAnimations().some((a) => a.animationName === "fx-unfurl")
+    );
+  if (await unfurling()) note("duo unfurl", "the wings unfurl on the folded screen");
+  await page.setViewportSize(DUO.open.viewport);
+  await page.waitForTimeout(100);
+  if (!(await unfurling())) note("duo unfurl", "the wings did not unfurl when the phone opened");
+  await context.close();
+}
+
+/* A browser that reports the fold: emulate a vertical hinge down the
+   middle of the open landscape screen. Copy keeps to the left screen,
+   the butterfly to the right, and the seam lights the hinge. Skipped
+   where the browser does not support viewport segments. */
+{
+  const context = await browser.newContext(DUO.openLandscape);
+  const page = await context.newPage();
+  const cdp = await context.newCDPSession(page);
+  const { width, height } = DUO.openLandscape.viewport;
+  const fold = width / 2;
+  await cdp
+    .send("Emulation.setDeviceMetricsOverride", {
+      width,
+      height,
+      deviceScaleFactor: 3,
+      mobile: true,
+      displayFeature: { orientation: "vertical", offset: fold, maskLength: 0 },
+    })
+    .catch(() => null);
+  await page.goto(BASE + "/", { waitUntil: "networkidle" });
+  const r = await page.evaluate(() => {
+    if (!matchMedia("(horizontal-viewport-segments: 2)").matches) return null;
+    const box = (sel) => document.querySelector(sel).getBoundingClientRect();
+    const seam = box("#top .hero-seam");
+    return {
+      seam: seam.width > 0 ? seam.left : null,
+      copyRight: box("#top [data-hero-copy]").right,
+      artLeft: box("#top [data-hero-art]").left,
+      overflow: document.documentElement.scrollWidth - innerWidth,
+    };
+  });
+  if (!r) {
+    console.log("· Viewport segments are not supported by this Chromium; skipped the fold check.");
+  } else {
+    if (r.seam === null || Math.abs(r.seam - fold) > 1) note("duo spanning", `hinge seam at ${r.seam}, expected ${fold}`);
+    if (r.copyRight > fold + 1) note("duo spanning", `hero copy crosses the fold (ends at ${Math.round(r.copyRight)})`);
+    if (r.artLeft < fold - 1) note("duo spanning", `butterfly crosses the fold (starts at ${Math.round(r.artLeft)})`);
+    if (r.overflow > 1) note("duo spanning", `horizontal overflow ${r.overflow}px`);
   }
   await context.close();
 }

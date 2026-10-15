@@ -37,7 +37,7 @@ export function Contact() {
           <a
             href={`mailto:${site.email}`}
             data-cursor="Email Anoop"
-            className="fx-ul a-display pb-1.5 text-[clamp(22px,2.4vw,34px)] font-medium tracking-[-0.02em] text-a-ink"
+            className="fx-ul tap-target a-display inline-flex items-center pb-1.5 text-[clamp(22px,2.4vw,34px)] font-medium tracking-[-0.02em] text-a-ink"
           >
             {site.email}
           </a>

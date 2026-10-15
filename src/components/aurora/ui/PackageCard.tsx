@@ -36,11 +36,11 @@ export function PackageCard({
     <Reveal as="li" delay={index * 0.1} className="h-full">
       <article
         className={cn(
-          "a-card a-card-hover relative flex h-full flex-col rounded-[22px] p-7 sm:p-8",
+          "a-card a-card-hover relative flex h-full flex-col rounded-[22px] p-7 sm:p-8 wide-landscape:max-lg:p-6",
           pkg.featured && "a-on-ink border-transparent"
         )}
       >
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex flex-wrap items-start justify-between gap-3">
           <Heading className="a-display text-[30px]">{pkg.name}</Heading>
           {pkg.featured ? <Tag tone="amber">{badge}</Tag> : null}
         </div>
