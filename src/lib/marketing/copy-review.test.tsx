@@ -92,21 +92,23 @@ describe("pricing matched to My Surgery Website", () => {
   it.each([
     ["Essentials", packages],
     ["Move Essentials", clearPath.packages],
-  ] as const)("%s: £1,010 plus £29 a month, exactly MSW Bronze over five years", (name, list) => {
+  ] as const)("%s: £999 plus £29 a month, just under MSW Bronze over five years", (name, list) => {
     const p = byName<(typeof list)[number]>(list, name);
-    expect(p.price).toBe("£1,010");
+    expect(p.price).toBe("£999");
     expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)? \+ VAT$/);
-    expect(fiveYears(p)).toBe(2750);
+    expect(fiveYears(p)).toBe(2739);
+    expect(fiveYears(p)).toBeLessThanOrEqual(2750);
   });
 
   it.each([
     ["Standard", packages],
     ["Move Standard", clearPath.packages],
-  ] as const)("%s: £1,510 plus £29 a month, exactly MSW Silver over five years", (name, list) => {
+  ] as const)("%s: £1,499 plus £29 a month, just under MSW Silver over five years", (name, list) => {
     const p = byName<(typeof list)[number]>(list, name);
-    expect(p.price).toBe("£1,510");
+    expect(p.price).toBe("£1,499");
     expect(p.pricePeriod).toMatch(/^\+ £29\/mo(nth)? \+ VAT$/);
-    expect(fiveYears(p)).toBe(3250);
+    expect(fiveYears(p)).toBe(3239);
+    expect(fiveYears(p)).toBeLessThanOrEqual(3250);
   });
 
   it("charges the same £29 a month on every priced package", () => {
@@ -133,10 +135,10 @@ describe("pricing matched to My Surgery Website", () => {
 
   it("states the new prices in the packages metadata and FAQs, with no old figures left", () => {
     const t = String(packagesMetadata.description) + JSON.stringify(packagesFaq);
-    expect(t).toMatch(/£1,010/);
-    expect(t).toMatch(/£1,510/);
+    expect(t).toMatch(/£999/);
+    expect(t).toMatch(/£1,499/);
     expect(t).toMatch(/£29 a month/);
-    expect(t).not.toMatch(/£995|£1,490|£1,000|£310|£49|£10 a month|first year|year-one/);
+    expect(t).not.toMatch(/£995|£1,490|£1,000|£1,010|£1,510|£310|£49|£10 a month|first year|year-one/);
   });
 });
 
