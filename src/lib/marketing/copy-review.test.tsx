@@ -148,3 +148,19 @@ describe("services defined against the price", () => {
     expect(standard).toMatch(/security updates/i);
   });
 });
+
+describe("five-year minimum term", () => {
+  it.each([...packages, ...clearPath.packages].map((p) => [p.name, p] as const))(
+    "%s states the 5-year minimum term on its card",
+    (_name, p) => {
+      expect(p.priceNote).toBe("Minimum 5-year term");
+    }
+  );
+
+  it("is explained in the FAQs and metadata, and nothing implies leaving early", () => {
+    const faqs = JSON.stringify(packagesFaq);
+    expect(faqs).toMatch(/minimum term of five years/i);
+    expect(String(packagesMetadata.description)).toMatch(/5-year minimum term/);
+    expect(faqs).not.toMatch(/if you ever move on/i);
+  });
+});

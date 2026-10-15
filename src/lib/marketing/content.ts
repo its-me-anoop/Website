@@ -433,6 +433,7 @@ export const packages: readonly Package[] = [
     copy: "For a small business or organisation that needs a clear, accessible website, hosted and backed up.",
     price: "£1,000",
     pricePeriod: "+ £29/month + VAT",
+    priceNote: "Minimum 5-year term",
     cta: "Enquire about Essentials",
     features: [
       "Custom design and build, no themes or page builders",
@@ -453,6 +454,7 @@ export const packages: readonly Package[] = [
     copy: "The full build with Flutterly looking after hosting, updates and small changes month to month.",
     price: "£310",
     pricePeriod: "+ £49/month + VAT",
+    priceNote: "Minimum 5-year term",
     cta: "Enquire about Standard",
     features: [
       "Everything in the Essentials build",
@@ -473,6 +475,7 @@ export const packages: readonly Package[] = [
     copy: "For organisations that want the website continuously improved, not just maintained.",
     price: "Quoted",
     pricePeriod: "After a short scoping call",
+    priceNote: "Minimum 5-year term",
     cta: "Talk about Partnership",
     features: [
       "Everything in Standard",
@@ -491,12 +494,16 @@ export const packagesFaq = [
     a: "Essentials is £1,000 to build, then £29 a month, plus VAT, with hosting and backups included. Standard is £310 to build, then £49 a month, plus VAT, and Flutterly makes your content changes, applies updates and runs regular checks. Partnership is scoped after a short call, with a written quote within two working days.",
   },
   {
+    q: "Is there a minimum term?",
+    a: "Yes. Every package, including Partnership, has a minimum term of five years from launch.",
+  },
+  {
     q: "How long does a build take?",
     a: "The timeline is agreed at the first call and written into the quote. In practice the pace is set by how quickly content and photography come together, so that is where the plan starts.",
   },
   {
     q: "Do we own the website?",
-    a: "Yes. The code, the content and the domain are yours. If you ever move on, everything is handed over cleanly. Nothing is held hostage in a subscription.",
+    a: "Yes. The code, the content and the domain are yours. If you move on at the end of your term, everything is handed over cleanly.",
   },
   {
     q: "Can you move our existing content across?",
@@ -767,6 +774,7 @@ export const clearPath = {
       copy: "We move your content, sort the domain, and get you live on a modern site you own, hosted and backed up.",
       price: "£1,000",
       pricePeriod: "+ £29/mo + VAT",
+      priceNote: "Minimum 5-year term",
       cta: "Book a free audit",
       ctaHref: "/free-audit",
       featured: false,
@@ -789,6 +797,7 @@ export const clearPath = {
       copy: "A custom website migration with ongoing hosting and support.",
       price: "£310",
       pricePeriod: "+ £49/mo + VAT",
+      priceNote: "Minimum 5-year term",
       cta: "Book a free audit",
       ctaHref: "/free-audit",
       featured: true,
