@@ -299,6 +299,9 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
+      /* globals.css smooth-scrolls in-page anchors; this tells Next to switch
+         that off for route changes, so a new page opens at its top. */
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${bricolage.variable} ${instrument.variable} ${geist.variable} ${geistMono.variable} ${zodiak.variable} ${switzer.variable} ${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
     >
