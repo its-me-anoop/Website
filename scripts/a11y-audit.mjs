@@ -80,7 +80,9 @@ const RUN_OPTIONS = {
 };
 
 const problems = [];
-const browser = await chromium.launch();
+const browser = await chromium.launch(
+  process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}
+);
 
 for (const [label, options] of [
   ["mobile", { ...devices["iPhone 13"] }],

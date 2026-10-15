@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { heroCopy } from "@/lib/marketing/content";
+import { heroArtSizes } from "@/lib/layout/viewport";
 import { cn } from "@/lib/utils";
 import { EmberShader } from "../effects/EmberShader";
 import { Container } from "../ui/primitives";
@@ -24,6 +25,12 @@ const delay = (seconds: number) => ({ ["--fx-d" as string]: `${seconds}s` }) as 
  * the homepage inside the site (where the route curtain already ran)
  * renders without it and builds straight away. The server render and
  * the first client render agree, so hydration stays clean.
+ *
+ * Copy and butterfly sit side by side on desktop and on any roomy
+ * screen (an unfolded foldable, a tablet, a phone on its side), and
+ * stack on narrow ones. Where a browser reports a fold, the copy takes
+ * the left screen and the butterfly the right, with a faint seam of
+ * light along the hinge.
  */
 export function Hero() {
   const [first] = useState(() => typeof window === "undefined" || !introPlayed);
@@ -53,8 +60,15 @@ export function Hero() {
             from the top where the text spans the full width. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(11,9,7,0.94)_0%,rgba(11,9,7,0.9)_62%,rgba(11,9,7,0.35)_100%)] lg:bg-[linear-gradient(90deg,rgba(11,9,7,0.96)_0%,rgba(11,9,7,0.9)_46%,rgba(11,9,7,0)_76%)]"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(11,9,7,0.94)_0%,rgba(11,9,7,0.9)_62%,rgba(11,9,7,0.35)_100%)] roomy:max-lg:bg-[linear-gradient(90deg,rgba(11,9,7,0.96)_0%,rgba(11,9,7,0.9)_56%,rgba(11,9,7,0)_88%)] lg:bg-[linear-gradient(90deg,rgba(11,9,7,0.96)_0%,rgba(11,9,7,0.9)_46%,rgba(11,9,7,0)_76%)]"
         />
+        {/* In the roomy layout the hero is short enough for its bottom
+            strip to be on screen at once: a band keeps it legible. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 hidden h-[104px] bg-[linear-gradient(0deg,rgba(11,9,7,0.95)_0%,rgba(11,9,7,0.93)_70%,rgba(11,9,7,0)_100%)] roomy:max-lg:block"
+        />
+        <div aria-hidden="true" className="hero-seam" />
 
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden md:block">
           <div className="fx-dx absolute inset-x-6 top-[92px] h-px bg-a-ink/15" style={delay(0.75)} />
@@ -71,11 +85,11 @@ export function Hero() {
           ))}
         </div>
 
-        <Container className="relative flex flex-1 flex-wrap items-center gap-10 pb-32 pt-32 sm:pt-36 lg:flex-nowrap">
-          <div className="flex min-w-0 flex-[1_1_560px] flex-col items-start gap-8">
+        <Container data-hero-row className="relative flex flex-1 flex-wrap items-center gap-10 pb-32 pt-32 sm:pt-36 roomy:max-lg:flex-nowrap roomy:max-lg:gap-8 short:pb-20 short:pt-28 lg:flex-nowrap">
+          <div data-hero-copy className="flex min-w-0 flex-[1_1_560px] flex-col items-start gap-8 short:gap-6">
             <h1
               id="hero-title"
-              className="fx-h1-fill a-display text-[clamp(3.5rem,7vw,6.75rem)] leading-[0.92] tracking-[-0.045em] text-a-ink"
+              className="fx-h1-fill a-display text-[clamp(3.5rem,7vw,6.75rem)] leading-[0.92] tracking-[-0.045em] text-a-ink short:text-[clamp(2.75rem,6vw,3.5rem)]"
             >
               {heroCopy.lines.map((line, i) => (
                 <span key={line}>
@@ -113,28 +127,30 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="flex min-w-0 flex-[1_1_420px] items-center justify-center">
+          <div data-hero-art className="flex min-w-0 flex-[1_1_420px] items-center justify-center">
             <div className="fx-fly relative aspect-[684/520] w-[min(100%,540px)]">
               <div
                 aria-hidden="true"
                 className="absolute inset-[6%_10%] rounded-full bg-[radial-gradient(closest-side,rgba(255,176,32,0.26),rgba(255,176,32,0.08)_55%,rgba(255,176,32,0))]"
               />
               <div className="fx-bob absolute inset-0">
-                <Image
-                  src="/flutterly-logo.png"
-                  alt="The Flutterly butterfly"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 540px, 90vw"
-                  className="fx-wing-l object-contain [clip-path:inset(0_50%_0_0)]"
-                />
-                <Image
-                  src="/flutterly-logo.png"
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 540px, 90vw"
-                  className="fx-wing-r object-contain [clip-path:inset(0_0_0_50%)]"
-                />
+                <div className="fx-unfurl absolute inset-0">
+                  <Image
+                    src="/flutterly-logo.png"
+                    alt="The Flutterly butterfly"
+                    fill
+                    priority
+                    sizes={heroArtSizes}
+                    className="fx-wing-l object-contain [clip-path:inset(0_50%_0_0)]"
+                  />
+                  <Image
+                    src="/flutterly-logo.png"
+                    alt=""
+                    fill
+                    sizes={heroArtSizes}
+                    className="fx-wing-r object-contain [clip-path:inset(0_0_0_50%)]"
+                  />
+                </div>
               </div>
             </div>
           </div>

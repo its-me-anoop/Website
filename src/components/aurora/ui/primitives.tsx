@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type FormEvent, type ReactNode } from "react";
+import { useId, useState, type FormEvent, type HTMLAttributes, type ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -10,8 +10,12 @@ import { Magnetic, Reveal, SplitWords } from "../effects/Motion";
    Layout
    ───────────────────────────────────────────────────────────── */
 
-export function Container({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn("mx-auto w-full max-w-[1320px] px-5 sm:px-8", className)}>{children}</div>;
+export function Container({ children, className, ...props }: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div {...props} className={cn("mx-auto w-full max-w-[1320px] px-5 sm:px-8", className)}>
+      {children}
+    </div>
+  );
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -217,8 +221,8 @@ export function FaqList({ items, className }: { items: readonly { q: string; a: 
   return (
     <div className={cn("grid gap-3", className)}>
       {items.map((item) => (
-        <details key={item.q} className="a-card group rounded-[20px] px-6 py-5">
-          <summary className="flex cursor-pointer list-none items-start justify-between gap-5 text-[16px] font-medium text-a-ink sm:text-[17px] [&::-webkit-details-marker]:hidden">
+        <details key={item.q} className="a-card group rounded-[20px] px-6 py-5 touch:py-3">
+          <summary className="tap-target flex cursor-pointer list-none items-start justify-between gap-5 text-[16px] font-medium text-a-ink sm:text-[17px] [&::-webkit-details-marker]:hidden">
             <span className="min-w-0 flex-1 text-left">{item.q}</span>
             <span
               aria-hidden
