@@ -27,6 +27,25 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Baseline hardening only. A Content-Security-Policy is deferred: Cal.com
+  // embeds and third-party scripts would break under a strict policy. HSTS
+  // is left to the Vercel/edge host for the production domain.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
