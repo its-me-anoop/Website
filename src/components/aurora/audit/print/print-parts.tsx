@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { AlertTriangle, Check, Info, X } from "lucide-react";
+import { scoreBand, statusLabel } from "@/lib/audit/score";
 import type { CheckStatus, Grade } from "@/lib/audit/types";
 import { cn } from "@/lib/utils";
 
@@ -41,13 +42,6 @@ export function Tag({
   );
 }
 
-export const statusLabel: Record<CheckStatus, string> = {
-  pass: "Passed",
-  warn: "Needs improvement",
-  fail: "Needs fixing",
-  info: "For information",
-};
-
 /** Text colour for a status on bone or coal. */
 export function statusText(status: CheckStatus, onCoal?: boolean) {
   switch (status) {
@@ -65,16 +59,14 @@ export function statusText(status: CheckStatus, onCoal?: boolean) {
 /** Score colour: green when comfortable, amber when middling, fire when not. */
 export function scoreTone(score: number | null, onCoal?: boolean) {
   if (score === null) return onCoal ? "text-k-coal-soft" : "text-k-muted";
-  if (score >= 75) return onCoal ? "text-k-moss-lite" : "text-k-moss";
-  if (score >= 60) return onCoal ? "text-k-ochre-lite" : "text-k-ochre";
-  return onCoal ? "text-k-fire-lite" : "text-k-fire";
+  const band = scoreBand(score);
+  if (onCoal) return { good: "text-k-moss-lite", fair: "text-k-ochre-lite", poor: "text-k-fire-lite" }[band];
+  return { good: "text-k-moss", fair: "text-k-ochre", poor: "text-k-fire" }[band];
 }
 
 export function scoreBar(score: number | null) {
   if (score === null) return "bg-k-line-2";
-  if (score >= 75) return "bg-k-moss";
-  if (score >= 60) return "bg-k-ochre";
-  return "bg-k-fire";
+  return { good: "bg-k-moss", fair: "bg-k-ochre", poor: "bg-k-fire" }[scoreBand(score)];
 }
 
 export function StatusMark({
@@ -120,7 +112,7 @@ export function ScoreDial({
 }) {
   const clamped = Math.max(0, Math.min(100, score));
   const offset = CIRC * (1 - clamped / 100);
-  const stroke = score >= 75 ? "var(--k-moss)" : score >= 60 ? "var(--k-ochre)" : "var(--k-fire)";
+  const stroke = { good: "var(--k-moss)", fair: "var(--k-ochre)", poor: "var(--k-fire)" }[scoreBand(score)];
 
   return (
     <div

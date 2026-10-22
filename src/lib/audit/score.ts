@@ -3,6 +3,7 @@ import {
   type CategoryId,
   type CategoryScore,
   type Check,
+  type CheckStatus,
   type Grade,
   type Impact,
   type Sector,
@@ -110,10 +111,35 @@ export function overallScore(categories: CategoryScore[]): number {
   return totalWeight ? Math.round(weighted / totalWeight) : 0;
 }
 
+/** Lower bounds of the B and C grades, which are also the colour bands. */
+const GOOD_FROM = 75;
+const FAIR_FROM = 60;
+
+export type ScoreBand = "good" | "fair" | "poor";
+
+/**
+ * Which colour band a score falls in (green, amber, red). Every score
+ * display, on screen and in print, colours by this so the bands can
+ * never drift from each other or from the grades.
+ */
+export function scoreBand(score: number): ScoreBand {
+  if (score >= GOOD_FROM) return "good";
+  if (score >= FAIR_FROM) return "fair";
+  return "poor";
+}
+
+/** Plain-English name for a check status, shared by the screen and print reports. */
+export const statusLabel: Record<CheckStatus, string> = {
+  pass: "Passed",
+  warn: "Needs improvement",
+  fail: "Needs fixing",
+  info: "For information",
+};
+
 export function gradeFor(score: number): Grade {
   if (score >= 90) return "A";
-  if (score >= 75) return "B";
-  if (score >= 60) return "C";
+  if (score >= GOOD_FROM) return "B";
+  if (score >= FAIR_FROM) return "C";
   if (score >= 45) return "D";
   return "E";
 }

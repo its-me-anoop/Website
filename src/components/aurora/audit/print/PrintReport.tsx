@@ -3,12 +3,12 @@
 import Image from "next/image";
 import { Check as CheckIcon } from "lucide-react";
 import { site } from "@/lib/site";
-import { aSector, categoryMeta, sectorLabel } from "@/lib/audit/score";
+import { aSector, categoryMeta, sectorLabel, statusLabel } from "@/lib/audit/score";
 import type { AuditReport, CategoryScore, Check, Impact } from "@/lib/audit/types";
 import { displayUrl } from "@/lib/audit/url";
 import { cn } from "@/lib/utils";
 import { pitchModel, promise } from "../report/pitch-model";
-import { Eyebrow, ScoreDial, scoreBar, scoreTone, StatusMark, statusLabel, Tag } from "./print-parts";
+import { Eyebrow, ScoreDial, scoreBar, scoreTone, StatusMark, Tag } from "./print-parts";
 import { QrBook } from "./QrBook";
 
 /**
