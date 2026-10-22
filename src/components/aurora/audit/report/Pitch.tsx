@@ -9,8 +9,6 @@ import { ButtonLink, Display, Eyebrow } from "../../ui/primitives";
 import { pitchModel, promise } from "./pitch-model";
 import { scoreTone } from "./StatusMark";
 
-export { summaryForEmail } from "./pitch-model";
-
 /**
  * The sell, kept honest. The three weakest areas are set against what a
  * Flutterly build does about them, a package is suggested from the

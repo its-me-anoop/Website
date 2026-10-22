@@ -254,31 +254,6 @@ export function PharmacySection({
   );
 }
 
-/** Rounded service tile; a full border, never a side stripe. */
-export function PharmacyCard({
-  title,
-  copy,
-  href,
-}: {
-  title: string;
-  copy: string;
-  href: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group block rounded-xl border border-[var(--dph-line)] bg-white p-5 transition-colors hover:border-[var(--dph-green)]"
-    >
-      <h3 className="text-lg font-bold text-[var(--dph-green)] underline-offset-2 group-hover:underline">
-        {title}
-      </h3>
-      <p className="mt-1.5 text-base leading-relaxed text-[var(--dph-ink-soft)]">
-        {copy}
-      </p>
-    </Link>
-  );
-}
-
 /** Large primary task tile — the two things most patients come to do. */
 export function PharmacyPrimaryCard({
   title,
