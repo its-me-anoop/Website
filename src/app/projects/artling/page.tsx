@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArtlingLanding } from "@/components/projects/artling/ArtlingLanding";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { site } from "@/lib/site";
 
 const title = "Little Artist";
@@ -64,10 +65,7 @@ const jsonLd = {
 export default function ArtlingPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <ArtlingLanding />
     </>
   );

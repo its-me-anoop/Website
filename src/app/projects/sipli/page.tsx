@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SipliLanding } from "@/components/projects/sipli/SipliLanding";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { site } from "@/lib/site";
 
 const title = "Sipli — Water Tracker";
@@ -64,10 +65,7 @@ const jsonLd = {
 export default function SipliPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <SipliLanding />
     </>
   );
