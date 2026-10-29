@@ -78,3 +78,7 @@ person to a named fictional clinician.
 
 WCAG 2.2 AA: 4.5:1 body contrast, 3:1 large text/UI, visible focus, skip
 link to `#main`, `prefers-reduced-motion` honoured, keyboard operable.
+
+## 7. Duo Discover (`/duo`, standalone public document)
+
+See docs/DUO-UX-CONTRACT.md. The app directory is intentionally isolated from the marketing styles above. Its runtime token owner is public/duo/styles.css: lilac paper, dark ink and iris actions; readable system sans with compact Arial display headings. Real app icons and genuine owned Duo simulator media supply visual interest. Evidence, unavailable-media and ownership labels remain visible. Changes here must not affect other Flutterly routes.
