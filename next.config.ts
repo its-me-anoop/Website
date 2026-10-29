@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
     // by path, so a long TTL is safe and saves repeat optimisation work.
     minimumCacheTTL: 31536000,
   },
+  async rewrites() {
+    return [{ source: "/duo", destination: "/duo/index.html" }];
+  },
   async redirects() {
     return [
       // Artling shipped as "Little Artist"; the App Store still links the
