@@ -13,6 +13,8 @@ import { Container, FaqList, SectionIntro } from "../ui/primitives";
 /**
  * Packages: the three cards on paper straight under the hero, then the
  * anti-template table and the questions people ask before a quote.
+ * Two across on an unfolded foldable, all three side by side whenever
+ * a landscape screen has the room.
  */
 export function PackagesPage() {
   return (
@@ -34,7 +36,7 @@ export function PackagesPage() {
 
       <section className="a-paper py-20 sm:py-24">
         <Container>
-          <ul className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <ul className="grid items-stretch gap-5 roomy:max-md:grid-cols-2 md:grid-cols-2 wide-landscape:max-lg:grid-cols-3 xl:grid-cols-3">
             {packages.map((pkg, i) => (
               <PackageCard key={pkg.name} pkg={pkg} index={i} headingLevel="h2" />
             ))}

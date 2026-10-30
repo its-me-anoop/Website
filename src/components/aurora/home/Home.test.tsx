@@ -191,3 +191,28 @@ describe("Home (rebrand)", () => {
     expect(again.container.querySelector("#top")).toHaveClass("fx-quick");
   });
 });
+
+describe("Home hero on foldables and landscape screens", () => {
+  it("lays the hero out as one row of copy and butterfly that can split at a fold", () => {
+    renderHome();
+    const row = document.querySelector("#top [data-hero-row]")!;
+    expect(row).not.toBeNull();
+    expect(row.querySelector("[data-hero-copy] h1")).not.toBeNull();
+    expect(row.querySelector("[data-hero-art]")).toContainElement(screen.getByRole("img", { name: "The Flutterly butterfly" }));
+    expect(row).toHaveClass("roomy:max-lg:flex-nowrap");
+  });
+
+  it("draws the hinge seam as decoration only", () => {
+    renderHome();
+    const seam = document.querySelector("#top .hero-seam");
+    expect(seam).toHaveAttribute("aria-hidden", "true");
+  });
+
+  it("opens the butterfly's wings inside a dedicated wrapper so its other animations keep running", () => {
+    renderHome();
+    const unfurl = document.querySelector("#top .fx-unfurl");
+    expect(unfurl).not.toBeNull();
+    expect(unfurl!.closest(".fx-bob")).not.toBeNull();
+    expect(unfurl!.querySelector(".fx-wing-l")).not.toBeNull();
+  });
+});

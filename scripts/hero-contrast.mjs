@@ -32,6 +32,8 @@ const TARGETS = [
 const VIEWPORTS = [
   ["mobile", { ...devices["iPhone 13"] }],
   ["desktop", { viewport: { width: 1440, height: 900 } }],
+  /* A phone on its side gets the roomy two-column hero too. */
+  ["mobile-landscape", { ...devices["iPhone 13 landscape"] }],
   /* iPhone Duo: folded outer screen, and the inner screen open both ways. */
   ...[
     ["duo-folded", 466, 678],
@@ -51,7 +53,9 @@ const luminance = ([r, g, b]) => 0.2126 * linear(r) + 0.7152 * linear(g) + 0.072
 const ratio = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 
 const failures = [];
-const browser = await chromium.launch();
+const browser = await chromium.launch(
+  process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}
+);
 
 for (const [label, options] of VIEWPORTS) {
   const context = await browser.newContext({ ...options, reducedMotion: "reduce" });

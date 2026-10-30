@@ -33,16 +33,16 @@ export function Footer({ credit }: { credit?: ReactNode } = {}) {
               Websites, apps, IT support, social media and SEO for businesses in Reading and beyond. Designed,
               built and looked after by one studio.
             </p>
-            <ul className="mt-8 space-y-2.5 text-[15px]">
+            <ul className="mt-8 space-y-2.5 text-[15px] touch:space-y-0">
               {[
                 { label: "New projects", email: site.email },
                 { label: "Existing clients", email: site.supportEmail },
               ].map((row) => (
-                <li key={row.email} className="flex flex-wrap gap-x-3">
+                <li key={row.email} className="flex flex-wrap items-center gap-x-3">
                   <span className="text-a-muted">{row.label}</span>
                   <a
                     href={`mailto:${row.email}`}
-                    className="text-a-ink underline decoration-a-line-2 underline-offset-4 transition-colors hover:decoration-a-amber"
+                    className="tap-target inline-flex items-center text-a-ink underline decoration-a-line-2 underline-offset-4 transition-colors hover:decoration-a-amber"
                   >
                     {row.email}
                   </a>
@@ -60,11 +60,11 @@ export function Footer({ credit }: { credit?: ReactNode } = {}) {
                 <h3 className="a-mono text-[11px] font-medium uppercase tracking-[0.16em] text-a-muted">
                   {column.title}
                 </h3>
-                <ul className="mt-5 space-y-3">
+                <ul className="mt-5 space-y-3 touch:mt-3 touch:space-y-0">
                   {column.links.map((link) => {
                     const external = link.href.startsWith("http");
                     const classes =
-                      "text-[14.5px] text-a-ink-soft transition-colors hover:text-a-amber aria-[current=page]:text-a-ink";
+                      "tap-target inline-flex items-center text-[14.5px] text-a-ink-soft transition-colors hover:text-a-amber aria-[current=page]:text-a-ink";
                     return (
                       <li key={link.label}>
                         {external ? (

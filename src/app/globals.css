@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+/* Viewport variants (mirrored in src/lib/layout/viewport.ts; a unit test
+   keeps them in step). Foldables are handled by width, aspect ratio and
+   orientation first; `spanning` only adds to that where a browser
+   reports the fold. */
+@custom-variant touch (@media (pointer: coarse));
+@custom-variant roomy (@media (min-width: 600px) and (min-aspect-ratio: 2/3));
+@custom-variant wide-landscape (@media (orientation: landscape) and (min-width: 860px));
+@custom-variant short (@media (orientation: landscape) and (max-height: 540px));
+@custom-variant spanning (@media (horizontal-viewport-segments: 2));
+
+/* A comfortable 44px target for a finger; mouse layouts are untouched.
+   Pair it with a box display (inline-flex, flex) on inline links. */
+@utility tap-target {
+  @media (pointer: coarse) {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    Anoop Jose · Design System — "Porcelain"
    ───────────────────────────────────────────────────────────────────
@@ -1436,7 +1455,8 @@ body:has(.demo-physio-root) > a[href="#main"]:focus {
     perspective: 1400px;
     transform-style: preserve-3d;
   }
-  .fx-bob {
+  .fx-bob,
+  .fx-unfurl {
     transform-style: preserve-3d;
   }
   .fx-wing-l {
@@ -1444,6 +1464,57 @@ body:has(.demo-physio-root) > a[href="#main"]:focus {
   }
   .fx-wing-r {
     animation-name: fx-flap-r;
+  }
+}
+
+/* Unfolding: when a touch screen opens out into the roomy layout (a
+   foldable unfolding, or a tablet), the butterfly opens its wings once.
+   The animation exists only inside this query, so it starts each time
+   the query begins to match, mid-visit included. Flat 2D only. */
+@keyframes fx-unfurl {
+  from {
+    transform: scaleX(0.6);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (pointer: coarse) and (min-width: 600px) and (min-aspect-ratio: 2/3) {
+  .fx-unfurl {
+    animation: fx-unfurl 1.2s var(--fx-ease) both;
+  }
+}
+
+/* The hinge seam: a faint line of amber light along the fold, drawn
+   only where the browser reports one. Everywhere else it is absent. */
+.hero-seam {
+  display: none;
+}
+@media (horizontal-viewport-segments: 2) {
+  .hero-seam {
+    display: block;
+    position: absolute;
+    inset-block: 0;
+    left: env(viewport-segment-right 0 0, 50%);
+    width: max(1px, calc(env(viewport-segment-left 1 0, 50%) - env(viewport-segment-right 0 0, 50%)));
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 176, 32, 0), rgba(255, 176, 32, 0.28) 40%, rgba(255, 176, 32, 0.28) 60%, rgba(255, 176, 32, 0));
+    box-shadow: 0 0 24px 2px rgba(255, 176, 32, 0.12);
+  }
+  /* Copy on the left screen, butterfly on the right, nothing on the hinge. */
+  [data-hero-row] {
+    max-width: none;
+    padding-inline: 0;
+    flex-wrap: nowrap;
+    gap: calc(env(viewport-segment-left 1 0, 50%) - env(viewport-segment-right 0 0, 50%));
+  }
+  [data-hero-row] > [data-hero-copy] {
+    flex: 0 0 env(viewport-segment-width 0 0, 50%);
+    padding-inline: 2rem;
+  }
+  [data-hero-row] > [data-hero-art] {
+    flex: 0 0 env(viewport-segment-width 1 0, 50%);
+    padding-inline: 2rem;
   }
 }
 
