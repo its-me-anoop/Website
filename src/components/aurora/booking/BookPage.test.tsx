@@ -3,7 +3,10 @@ import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 
-vi.mock("next/navigation", () => ({ usePathname: () => "/book" }));
+vi.mock("next/navigation", () => ({
+  usePathname: () => "/book",
+  useSearchParams: () => new URLSearchParams(),
+}));
 import domMax from "@/lib/motion-features";
 import { site } from "@/lib/site";
 import { BookPage } from "./BookPage";
@@ -80,6 +83,14 @@ describe("BookPage", () => {
       .filter((a) => a.getAttribute("href") === "/book");
     expect(bookLinks.length).toBeGreaterThan(0);
     bookLinks.forEach((a) => expect(a).toHaveTextContent(/Book a call/));
+  });
+
+  it("publishes website prices above the calendar", () => {
+    renderBook();
+    expect(screen.getByText(/Essentials is £999 to build/)).toBeInTheDocument();
+    expect(screen.getByText(/Standard is £1,499/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Compare the packages" })).toHaveAttribute("href", "/packages");
+    expect(screen.getByRole("link", { name: "Pick a figure for your organisation" })).toHaveAttribute("href", "/#figure");
   });
 
   it("speaks to all five services, not only website buyers", () => {

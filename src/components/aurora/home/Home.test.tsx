@@ -178,6 +178,17 @@ describe("Home (rebrand)", () => {
     expect(screen.getAllByRole("link", { name: /anoop@flutterly\.co\.uk/i }).length).toBeGreaterThan(0);
   });
 
+  it("publishes the Standard price for a GP practice on the first screen", () => {
+    renderHome();
+    const figure = document.getElementById("figure")!;
+    expect(within(figure).getByRole("radio", { name: "A GP practice" })).toBeChecked();
+    expect(within(figure).getByText("£1,499")).toBeInTheDocument();
+    expect(within(figure).getByRole("link", { name: "Book a call about a GP website" })).toHaveAttribute(
+      "href",
+      "/book?for=gp"
+    );
+  });
+
   it("plays the intro curtain once, hidden from assistive technology", async () => {
     vi.resetModules();
     const { Hero } = await import("./Hero");

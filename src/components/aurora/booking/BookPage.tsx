@@ -1,6 +1,10 @@
 "use client";
 
+import { Suspense } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { site } from "@/lib/site";
+import { quoteBookingLine, quoteCalNote, quotePathById, type QuotePath } from "@/lib/marketing/quote";
 import { Reveal } from "../effects/Motion";
 import { CtaBand } from "../layout/CtaBand";
 import { PageHero } from "../layout/PageHero";
@@ -16,10 +20,53 @@ const covered = [
 ] as const;
 
 /**
+ * The figure the visitor already chose, or the published range when
+ * they came straight to the calendar. Sits on paper so it reads as a
+ * written price, not another line of night-hero copy.
+ */
+function BookingPrice({ path }: { path: QuotePath | undefined }) {
+  return (
+    <aside className="a-paper mx-auto mb-6 max-w-[760px] rounded-[22px] px-5 py-4 text-[15.5px] leading-[1.6] text-a-ink sm:px-6">
+      <p>{quoteBookingLine(path)}</p>
+      <p className="mt-2">
+        <Link href="/packages" className="underline decoration-a-line-2 underline-offset-4 hover:decoration-[#b4421a]">
+          Compare the packages
+        </Link>
+        <span aria-hidden="true"> · </span>
+        <Link href="/#figure" className="underline decoration-a-line-2 underline-offset-4 hover:decoration-[#b4421a]">
+          {path ? "Choose a different figure" : "Pick a figure for your organisation"}
+        </Link>
+      </p>
+    </aside>
+  );
+}
+
+function BookingBody() {
+  const path = quotePathById(useSearchParams().get("for"));
+  return (
+    <>
+      <BookingPrice path={path} />
+      <Reveal>
+        <CalEmbed notes={path ? quoteCalNote(path) : undefined} />
+        <p className="a-glass mx-auto mt-4 max-w-[640px] rounded-[18px] px-5 py-4 text-center text-[15.5px] leading-snug text-a-ink-soft">
+          No suitable time? Email{" "}
+          <a
+            href={`mailto:${site.email}`}
+            className="text-a-ink underline decoration-a-amber underline-offset-4 transition-colors hover:text-a-amber"
+          >
+            {site.email}
+          </a>{" "}
+          with a little about your project.
+        </p>
+      </Reveal>
+    </>
+  );
+}
+
+/**
  * Booking page: a short introduction, then the inline Cal.com booker
- * in a glass frame. Everything needed to decide sits above the
- * calendar, including the email route for anyone who would rather
- * not book.
+ * in a glass frame. The published website price sits above the calendar,
+ * including the figure chosen on the homepage when one was.
  */
 export function BookPage() {
   const { durationMinutes, url } = site.booking;
@@ -54,19 +101,9 @@ export function BookPage() {
       />
 
       <Container className="-mt-6 max-w-[1120px]">
-        <Reveal>
-          <CalEmbed />
-          <p className="a-glass mx-auto mt-4 max-w-[640px] rounded-[18px] px-5 py-4 text-center text-[15.5px] leading-snug text-a-ink-soft">
-            No suitable time? Email{" "}
-            <a
-              href={`mailto:${site.email}`}
-              className="text-a-ink underline decoration-a-amber underline-offset-4 transition-colors hover:text-a-amber"
-            >
-              {site.email}
-            </a>{" "}
-            with a little about your project.
-          </p>
-        </Reveal>
+        <Suspense fallback={<BookingPrice path={undefined} />}>
+          <BookingBody />
+        </Suspense>
       </Container>
 
       <section className="py-24 sm:py-32">
