@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -8,6 +8,8 @@ import { heroCopy } from "@/lib/marketing/content";
 import { cn } from "@/lib/utils";
 import { EmberShader } from "../effects/EmberShader";
 import { Container } from "../ui/primitives";
+import { HeroAuditCard, HeroAuditForm } from "./HeroAudit";
+import { useInstantAudit } from "./useInstantAudit";
 
 /** Client-only: true once the homepage has been shown in this tab. */
 let introPlayed = false;
@@ -18,7 +20,10 @@ const delay = (seconds: number) => ({ ["--fx-d" as string]: `${seconds}s` }) as 
  * The rebrand's opening: a short curtain with the butterfly lifts, the
  * hero opens out from a strip, frame lines draw in, the headline rises
  * line by line and fills from outline, and the real Flutterly
- * butterfly flaps in 3D over a slow ember shader.
+ * butterfly flaps in 3D over a slow ember shader. Under the calls to
+ * action, an address field runs the free audit in place: the score
+ * card takes the butterfly's spot, so a visitor sees their own site
+ * judged without leaving the page.
  *
  * The curtain only plays on the first load of the page. Returning to
  * the homepage inside the site (where the route curtain already ran)
@@ -30,6 +35,12 @@ export function Hero() {
   useEffect(() => {
     introPlayed = true;
   }, []);
+  const audit = useInstantAudit();
+  const addressRef = useRef<HTMLInputElement>(null);
+  const resetAudit = () => {
+    audit.reset();
+    addressRef.current?.focus();
+  };
 
   return (
     <>
@@ -111,32 +122,48 @@ export function Hero() {
                 See the work
               </Link>
             </div>
+            <div className="fx-fade w-full" style={delay(1.3)}>
+              <HeroAuditForm inputRef={addressRef} busy={audit.state.kind === "running"} onCheck={audit.start} />
+            </div>
+            <p aria-live="polite" className="sr-only" data-hero-audit-status>
+              {audit.state.kind === "running"
+                ? `Checking ${audit.state.host}.`
+                : audit.state.kind === "done"
+                  ? `${audit.state.summary.host} scored ${audit.state.summary.score} out of 100, grade ${audit.state.summary.grade}.`
+                  : audit.state.kind === "error"
+                    ? `The check could not be completed. ${audit.state.message}`
+                    : ""}
+            </p>
           </div>
 
           <div className="flex min-w-0 flex-[1_1_420px] items-center justify-center">
-            <div className="fx-fly relative aspect-[684/520] w-[min(100%,540px)]">
-              <div
-                aria-hidden="true"
-                className="absolute inset-[6%_10%] rounded-full bg-[radial-gradient(closest-side,rgba(255,176,32,0.26),rgba(255,176,32,0.08)_55%,rgba(255,176,32,0))]"
-              />
-              <div className="fx-bob absolute inset-0">
-                <Image
-                  src="/flutterly-logo.png"
-                  alt="The Flutterly butterfly"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 540px, 90vw"
-                  className="fx-wing-l object-contain [clip-path:inset(0_50%_0_0)]"
+            {audit.state.kind !== "idle" ? (
+              <HeroAuditCard state={audit.state} onReset={resetAudit} />
+            ) : (
+              <div className="fx-fly relative aspect-[684/520] w-[min(100%,540px)]">
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-[6%_10%] rounded-full bg-[radial-gradient(closest-side,rgba(255,176,32,0.26),rgba(255,176,32,0.08)_55%,rgba(255,176,32,0))]"
                 />
-                <Image
-                  src="/flutterly-logo.png"
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 540px, 90vw"
-                  className="fx-wing-r object-contain [clip-path:inset(0_0_0_50%)]"
-                />
+                <div className="fx-bob absolute inset-0">
+                  <Image
+                    src="/flutterly-logo.png"
+                    alt="The Flutterly butterfly"
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 540px, 90vw"
+                    className="fx-wing-l object-contain [clip-path:inset(0_50%_0_0)]"
+                  />
+                  <Image
+                    src="/flutterly-logo.png"
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 540px, 90vw"
+                    className="fx-wing-r object-contain [clip-path:inset(0_0_0_50%)]"
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </Container>
 
