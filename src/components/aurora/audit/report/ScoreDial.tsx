@@ -17,7 +17,18 @@ function arcStops(score: number): [string, string] {
  * The overall score as a large numeral inside a glowing arc that draws
  * in on load. The arc colour follows the score band.
  */
-export function ScoreDial({ score, grade, className }: { score: number; grade: Grade; className?: string }) {
+export function ScoreDial({
+  score,
+  grade,
+  className,
+  compact = false,
+}: {
+  score: number;
+  grade: Grade;
+  className?: string;
+  /** Smaller numeral and label, for dials under about 150px (the hero card). */
+  compact?: boolean;
+}) {
   const id = useId();
   const clamped = Math.max(0, Math.min(100, score));
   const offset = CIRC * (1 - clamped / 100);
@@ -53,8 +64,15 @@ export function ScoreDial({ score, grade, className }: { score: number; grade: G
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="a-display text-[72px] leading-none sm:text-[84px]">{score}</span>
-        <span className="a-mono mt-1 text-[11px] uppercase tracking-[0.16em] text-a-muted">out of 100</span>
+        <span className={cn("a-display leading-none", compact ? "text-[44px]" : "text-[72px] sm:text-[84px]")}>{score}</span>
+        <span
+          className={cn(
+            "a-mono mt-1 uppercase text-a-muted",
+            compact ? "text-[9px] tracking-[0.12em]" : "text-[11px] tracking-[0.16em]"
+          )}
+        >
+          out of 100
+        </span>
       </div>
     </div>
   );
