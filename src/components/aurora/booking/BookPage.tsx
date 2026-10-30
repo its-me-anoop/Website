@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { briefLines, briefText, parseBrief, type Brief } from "@/lib/marketing/brief";
 import { site } from "@/lib/site";
 import { Reveal } from "../effects/Motion";
 import { CtaBand } from "../layout/CtaBand";
@@ -23,6 +25,7 @@ const covered = [
  */
 export function BookPage() {
   const { durationMinutes, url } = site.booking;
+  const brief = useBriefFromQuery();
   return (
     <Shell>
       <PageHero
@@ -55,7 +58,9 @@ export function BookPage() {
 
       <Container className="-mt-6 max-w-[1120px]">
         <Reveal>
-          <CalEmbed />
+          {brief && <BriefSummary brief={brief} />}
+          {/* Remounts once a brief is read, so Cal starts with the notes filled. */}
+          <CalEmbed key={brief ? "brief" : "plain"} notes={brief ? briefText(brief) : undefined} />
           <p className="a-glass mx-auto mt-4 max-w-[640px] rounded-[18px] px-5 py-4 text-center text-[15.5px] leading-snug text-a-ink-soft">
             No suitable time? Email{" "}
             <a
@@ -108,5 +113,32 @@ export function BookPage() {
         showBooking={false}
       />
     </Shell>
+  );
+}
+
+/**
+ * The brief built on the homepage arrives as query parameters. It is
+ * read after mount (the page stays static) and validated by `parseBrief`.
+ */
+function useBriefFromQuery(): Brief | null {
+  const [brief, setBrief] = useState<Brief | null>(null);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reading the URL once after hydration
+    setBrief(parseBrief(new URLSearchParams(window.location.search)));
+  }, []);
+  return brief;
+}
+
+function BriefSummary({ brief }: { brief: Brief }) {
+  return (
+    <section
+      aria-label="Your brief"
+      className="a-glass mx-auto mb-5 max-w-[760px] rounded-[22px] px-6 py-5 text-[16.5px] leading-[1.55] text-a-ink"
+    >
+      <p className="a-mono mb-2 text-[12px] uppercase tracking-[0.14em] text-a-muted">
+        Your brief · added to your booking notes
+      </p>
+      <p>{briefLines(brief).join(" ")}</p>
+    </section>
   );
 }

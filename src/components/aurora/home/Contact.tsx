@@ -1,12 +1,11 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { site } from "@/lib/site";
 import { AuditBar, Container } from "../ui/primitives";
+import { BriefBuilder } from "./BriefBuilder";
 
 /**
- * The close: a glow that follows the pointer, one question, the booking
- * link, the email address, and the free website audit for anyone who
- * would rather start with a report.
+ * The close: a glow that follows the pointer, one question, and a
+ * three-tap brief builder that books the call (or drafts the email)
+ * with the visitor's brief attached. The free website audit sits
+ * beneath for anyone who would rather start with a report.
  */
 export function Contact() {
   return (
@@ -24,25 +23,8 @@ export function Contact() {
         >
           Got something that needs <em>sorting?</em>
         </h2>
-        <div className="flex flex-wrap items-center gap-x-11 gap-y-5">
-          <Link
-            href="/book"
-            data-magnetic
-            data-cursor="Book a call"
-            className="inline-flex min-h-16 items-center gap-3 rounded-full bg-a-amber px-8 text-[18px] font-medium text-a-void transition-colors duration-300 hover:bg-a-ink"
-          >
-            Book a {site.booking.durationMinutes}-minute call
-            <ArrowRight size={18} aria-hidden />
-          </Link>
-          <a
-            href={`mailto:${site.email}`}
-            data-cursor="Email Anoop"
-            className="fx-ul a-display pb-1.5 text-[clamp(22px,2.4vw,34px)] font-medium tracking-[-0.02em] text-a-ink"
-          >
-            {site.email}
-          </a>
-        </div>
-        <div className="flex flex-col gap-4 border-t border-a-line pt-10">
+        <BriefBuilder />
+        <div id="audit" className="flex scroll-mt-28 flex-col gap-4 border-t border-a-line pt-10">
           <p className="max-w-[560px] text-[17px] leading-[1.6] text-a-ink-soft">
             Rather start with a report? Paste your website address for a free check of its accessibility, speed and
             search.
