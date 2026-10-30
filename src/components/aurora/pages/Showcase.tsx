@@ -12,23 +12,8 @@ import { useMotionAllowed } from "../effects/hooks";
 import { IMacFrame, IPhoneFrame } from "../ui/DeviceFrame";
 import { ButtonLink, CheckItem, Container, SectionIntro } from "../ui/primitives";
 
-/** Roving-focus index for the tab keys the WAI-ARIA tabs pattern expects. */
-export function nextTabIndex(key: string, current: number, count: number): number | null {
-  switch (key) {
-    case "ArrowRight":
-    case "ArrowDown":
-      return (current + 1) % count;
-    case "ArrowLeft":
-    case "ArrowUp":
-      return (current - 1 + count) % count;
-    case "Home":
-      return 0;
-    case "End":
-      return count - 1;
-    default:
-      return null;
-  }
-}
+import { nextTabIndex } from "../ui/tabs";
+export { nextTabIndex } from "../ui/tabs";
 
 /**
  * Five hosted sample sites on paper, behind an accessible tablist. The

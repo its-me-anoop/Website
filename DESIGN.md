@@ -82,3 +82,16 @@ link to `#main`, `prefers-reduced-motion` honoured, keyboard operable.
 ## 7. Duo Discover (`/duo`, standalone public document)
 
 See docs/DUO-UX-CONTRACT.md. The app directory is intentionally isolated from the marketing styles above. Its runtime token owner is public/duo/styles.css: lilac paper, dark ink and iris actions; readable system sans with compact Arial display headings. Real app icons and genuine owned Duo simulator media supply visual interest. Evidence, unavailable-media and ownership labels remain visible. Changes here must not affect other Flutterly routes.
+
+## Homepage project room (beta)
+
+The work section uses a project selector beside one visible evidence panel.
+It keeps all seven existing real projects; owned apps are explicitly labelled.
+Client website and case-study destinations remain the content.ts source of truth.
+The goal is shorter evaluation and a booking action beside relevant evidence,
+without asserting unmeasured conversion gains. Panels use Aurora paper and the
+existing ink/amber tokens from globals.css; no new palette. The selector uses
+native buttons with the shared ui/tabs.ts roving-focus model, Home/End and arrow
+keys. Mobile uses a wrapping two-column selector, then the preview and actions.
+Selection is transient local browsing state, with no visitor data or URL changes.
+No autoplay, additional motion, external embeds or third-party requests are added.
