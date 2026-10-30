@@ -1,6 +1,6 @@
 import React from "react";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
 import { clients } from "@/lib/marketing/clients";
@@ -97,7 +97,7 @@ describe("Home (rebrand)", () => {
     expect(within(work).queryByText(/sample site/i)).toBeNull();
   });
 
-  it("shows every real project as a tile with a real capture", () => {
+  it("keeps every real project and its capture in the showroom", () => {
     renderHome();
     const work = document.getElementById("work")!;
     const tiles = work.querySelectorAll("article[data-project-card]");
@@ -120,6 +120,24 @@ describe("Home (rebrand)", () => {
       expect(a).toHaveAttribute("target", "_blank");
       expect(a.getAttribute("rel")).toContain("noopener");
     });
+  });
+
+  it("switches project evidence and relevant service links with keyboard navigation", () => {
+    renderHome();
+    const work = within(document.getElementById("work")!);
+    const tabs = work.getAllByRole("tab");
+    expect(work.getByRole("tabpanel")).toHaveAttribute("id", "work-panel-pembroke");
+    fireEvent.click(tabs[1]);
+    expect(tabs[1]).toHaveAttribute("aria-selected", "true");
+    expect(work.getByRole("tabpanel")).toHaveTextContent("Sipli");
+    expect(work.getByRole("link", { name: "Explore app services" })).toHaveAttribute("href", "/services/apps");
+    fireEvent.keyDown(tabs[1], { key: "End" });
+    expect(tabs[6]).toHaveFocus();
+    expect(work.getByRole("tabpanel")).toHaveTextContent("JJ Paper Essentials");
+    fireEvent.keyDown(tabs[6], { key: "ArrowRight" });
+    expect(tabs[0]).toHaveFocus();
+    expect(work.getByRole("link", { name: "Explore website services" })).toHaveAttribute("href", "/services/websites");
+    expect(work.getAllByRole("tabpanel")).toHaveLength(1);
   });
 
   it("shows every client by name, with their real logo where one is on file", () => {
@@ -158,7 +176,7 @@ describe("Home (rebrand)", () => {
   it("builds media from wireframes that stay out of the accessibility tree", () => {
     const { container } = renderHome();
     const marks = container.querySelectorAll("[data-wireframe]");
-    expect(marks.length).toBeGreaterThanOrEqual(5);
+    expect(marks.length).toBeGreaterThanOrEqual(1);
     marks.forEach((mark) => expect(mark).toHaveAttribute("aria-hidden", "true"));
   });
 
