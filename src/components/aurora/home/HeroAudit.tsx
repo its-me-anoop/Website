@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent, type RefObject } from "react";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check, RotateCcw } from "lucide-react";
+import { auditMailto } from "@/lib/marketing/audit-links";
 import { cn } from "@/lib/utils";
 import { stages } from "../audit/report/Progress";
 import { ScoreDial } from "../audit/report/ScoreDial";
@@ -34,7 +35,7 @@ export function HeroAuditForm({
   }
 
   return (
-    <form action="/audit" method="get" onSubmit={submit} className="w-full max-w-[520px]">
+    <form action="/audit" method="get" onSubmit={submit} data-hero-audit className="w-full max-w-[520px]">
       <label htmlFor="hero-audit-url" className="mb-3 block text-[15px] text-a-ink-soft">
         Or get a free, instant score for your website address:
       </label>
@@ -125,6 +126,7 @@ export function HeroAuditCard({ state, onReset }: { state: Exclude<InstantAuditS
     <section
       ref={ref}
       aria-label="Instant website check"
+      data-hero-audit-state={state.kind}
       className="a-card w-[min(100%,520px)] rounded-[28px] p-6 shadow-[0_30px_120px_-40px_rgba(255,140,40,0.45)] sm:p-7"
     >
       <div className="mb-5 flex items-center justify-between gap-4">
@@ -154,6 +156,12 @@ export function HeroAuditCard({ state, onReset }: { state: Exclude<InstantAuditS
         <div className="flex flex-col gap-4">
           <p className="a-display text-[24px] leading-tight text-a-ink">That one didn&rsquo;t work.</p>
           <p className="text-[16px] leading-[1.55] text-a-ink-soft">{state.message}</p>
+          <a
+            href={auditMailto(state.host)}
+            className="fx-ul self-start text-[15px] text-a-ink underline decoration-a-amber underline-offset-4"
+          >
+            Ask for a written audit instead
+          </a>
         </div>
       )}
 

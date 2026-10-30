@@ -74,6 +74,9 @@ describe("Hero instant audit", () => {
     render(<Hero />);
     submit("nope.invalid");
     expect(await screen.findByText("We could not find that website.")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /ask for a written audit/i }).getAttribute("href")).toMatch(
+      /^mailto:.*nope\.invalid/
+    );
     fireEvent.click(screen.getByRole("button", { name: /check another site/i }));
     expect(screen.getByRole("img", { name: "The Flutterly butterfly" })).toBeInTheDocument();
     expect(address()).toHaveFocus();

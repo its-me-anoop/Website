@@ -300,13 +300,37 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   }
   await websites.close();
 
-  /* The instant audit: the hero form must route to /audit and the report must
-     settle into a result or a plain-English error, never a blank page. The
-     target is the site's own origin so the run does not depend on the outside
-     network being reachable from the test machine. */
+  /* The instant audit, twice. The hero form checks the site in place: a
+     card replaces the butterfly and settles into a score or a plain-English
+     error with a route to the written audit. The closing audit bar routes to
+     /audit, where the report must settle the same way, never a blank page.
+     The target is the site's own origin so the run does not depend on the
+     outside network being reachable from the test machine. */
   const audit = await mobile.newPage();
   await audit.goto(BASE + "/", { waitUntil: "networkidle" });
-  const auditForm = audit.locator('form[action="/audit"]').first();
+  const heroForm = audit.locator("form[data-hero-audit]");
+  if (!(await heroForm.isVisible().catch(() => false))) {
+    note("audit", "hero instant check is missing");
+  } else {
+    await heroForm.getByRole("textbox").fill(new URL(BASE).host);
+    await heroForm.getByRole("button").click();
+    const card = audit.locator('[data-hero-audit-state="done"], [data-hero-audit-state="error"]');
+    await card.first().waitFor({ timeout: 45000 }).catch(() => note("audit", "hero check never settled into a result or error"));
+    if (!audit.url().startsWith(BASE + "/") || audit.url().includes("/audit")) note("audit", "hero check left the homepage");
+    const heroState = await card.first().getAttribute("data-hero-audit-state").catch(() => null);
+    if (heroState === "done") {
+      if (!(await card.getByRole("img", { name: /overall score/i }).isVisible().catch(() => false)))
+        note("audit", "hero check finished but the score dial is not visible");
+      if (!(await card.getByRole("link", { name: /see the full report/i }).isVisible().catch(() => false)))
+        note("audit", "hero check has no link to the full report");
+    } else if (heroState === "error") {
+      if (!(await card.locator('a[href^="mailto:"]').first().isVisible().catch(() => false)))
+        note("audit", "hero check error has no route to the written audit");
+    }
+  }
+
+  const auditForm = audit.locator('form[action="/audit"]:not([data-hero-audit])').last();
+  await auditForm.scrollIntoViewIfNeeded().catch(() => {});
   if (!(await auditForm.isVisible().catch(() => false))) {
     note("audit", "homepage audit bar is missing");
   } else {
