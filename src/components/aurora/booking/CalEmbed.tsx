@@ -19,7 +19,7 @@ const NAMESPACE = "discovery";
  * `month_view` is requested for the desktop booker; Cal switches to its
  * own mobile layout automatically under narrow viewports.
  */
-export function CalEmbed({ className }: { className?: string }) {
+export function CalEmbed({ className, notes }: { className?: string; notes?: string }) {
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -47,7 +47,7 @@ export function CalEmbed({ className }: { className?: string }) {
         <Cal
           namespace={NAMESPACE}
           calLink={site.booking.calLink}
-          config={{ layout: "month_view", theme: "dark" }}
+          config={{ layout: "month_view", theme: "dark", ...(notes ? { notes } : {}) }}
           style={{ width: "100%", height: "100%", overflow: "auto" }}
         />
       </div>

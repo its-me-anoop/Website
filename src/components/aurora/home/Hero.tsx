@@ -8,6 +8,7 @@ import { heroCopy } from "@/lib/marketing/content";
 import { cn } from "@/lib/utils";
 import { EmberShader } from "../effects/EmberShader";
 import { Container } from "../ui/primitives";
+import { QuoteDesk } from "./QuoteDesk";
 
 /** Client-only: true once the homepage has been shown in this tab. */
 let introPlayed = false;
@@ -71,11 +72,11 @@ export function Hero() {
           ))}
         </div>
 
-        <Container className="relative flex flex-1 flex-wrap items-center gap-10 pb-32 pt-32 sm:pt-36 lg:flex-nowrap">
-          <div className="flex min-w-0 flex-[1_1_560px] flex-col items-start gap-8">
+        <Container className="relative flex flex-1 flex-col justify-center pb-28 pt-28 sm:pt-32">
+          <div className="flex flex-col gap-6 min-[880px]:grid min-[880px]:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] min-[880px]:items-center min-[880px]:gap-x-10 min-[880px]:gap-y-6">
             <h1
               id="hero-title"
-              className="fx-h1-fill a-display text-[clamp(3.5rem,7vw,6.75rem)] leading-[0.92] tracking-[-0.045em] text-a-ink"
+              className="fx-h1-fill a-display order-1 text-[clamp(3.25rem,5.6vw,6rem)] leading-[0.92] tracking-[-0.045em] text-a-ink min-[880px]:col-start-1 min-[880px]:row-start-1"
             >
               {heroCopy.lines.map((line, i) => (
                 <span key={line}>
@@ -90,10 +91,16 @@ export function Hero() {
                 </span>
               </span>
             </h1>
-            <p className="fx-fade max-w-[520px] text-[clamp(17px,1.4vw,20px)] leading-[1.6] text-a-ink-soft" style={delay(1.05)}>
+            <p
+              className="fx-fade order-2 max-w-[520px] text-[clamp(17px,1.4vw,20px)] leading-[1.6] text-a-ink-soft min-[880px]:col-start-1 min-[880px]:row-start-2"
+              style={delay(1.05)}
+            >
               {heroCopy.copy}
             </p>
-            <div className="fx-fade flex flex-wrap items-center gap-x-8 gap-y-4" style={delay(1.2)}>
+            <div
+              className="fx-fade order-3 flex flex-wrap items-center gap-x-8 gap-y-4 min-[880px]:col-start-1 min-[880px]:row-start-3"
+              style={delay(1.2)}
+            >
               <Link
                 href="/book"
                 data-magnetic
@@ -111,32 +118,34 @@ export function Hero() {
                 See the work
               </Link>
             </div>
-          </div>
 
-          <div className="flex min-w-0 flex-[1_1_420px] items-center justify-center">
-            <div className="fx-fly relative aspect-[684/520] w-[min(100%,540px)]">
-              <div
-                aria-hidden="true"
-                className="absolute inset-[6%_10%] rounded-full bg-[radial-gradient(closest-side,rgba(255,176,32,0.26),rgba(255,176,32,0.08)_55%,rgba(255,176,32,0))]"
-              />
-              <div className="fx-bob absolute inset-0">
-                <Image
-                  src="/flutterly-logo.png"
-                  alt="The Flutterly butterfly"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 540px, 90vw"
-                  className="fx-wing-l object-contain [clip-path:inset(0_50%_0_0)]"
+            <div className="order-5 w-[132px] min-[880px]:col-start-1 min-[880px]:row-start-4 min-[880px]:w-[148px]">
+              <div className="fx-fly relative aspect-[684/520] w-full">
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-[6%_10%] rounded-full bg-[radial-gradient(closest-side,rgba(255,176,32,0.26),rgba(255,176,32,0.08)_55%,rgba(255,176,32,0))]"
                 />
-                <Image
-                  src="/flutterly-logo.png"
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 540px, 90vw"
-                  className="fx-wing-r object-contain [clip-path:inset(0_0_0_50%)]"
-                />
+                <div className="fx-bob absolute inset-0">
+                  <Image
+                    src="/flutterly-logo.png"
+                    alt="The Flutterly butterfly"
+                    fill
+                    priority
+                    sizes="148px"
+                    className="fx-wing-l object-contain [clip-path:inset(0_50%_0_0)]"
+                  />
+                  <Image
+                    src="/flutterly-logo.png"
+                    alt=""
+                    fill
+                    sizes="148px"
+                    className="fx-wing-r object-contain [clip-path:inset(0_0_0_50%)]"
+                  />
+                </div>
               </div>
             </div>
+
+            <QuoteDesk className="order-4 min-[880px]:col-start-2 min-[880px]:row-start-1 min-[880px]:row-span-4" />
           </div>
         </Container>
 
