@@ -7,6 +7,7 @@ import { ProductShell } from "./ProductShell";
 import { SipliLanding } from "@/components/projects/sipli/SipliLanding";
 import { ArtlingLanding } from "@/components/projects/artling/ArtlingLanding";
 import { LittleLifelineLanding } from "@/components/projects/little-lifeline/LittleLifelineLanding";
+import { StreetCrewLanding } from "@/components/projects/streetcrew/StreetCrewLanding";
 import SipliPrivacyPolicy from "@/app/projects/sipli/privacy-policy/page";
 import ArtlingPrivacyPolicyPage from "@/app/projects/artling/privacy-policy/page";
 
@@ -74,6 +75,7 @@ describe.each([
   ["Sipli", () => <SipliLanding />],
   ["Little Artist", () => <ArtlingLanding />],
   ["Little Lifeline", () => <LittleLifelineLanding />],
+  ["StreetCrew", () => <StreetCrewLanding />],
   ["Sipli privacy policy", () => <SipliPrivacyPolicy />],
   ["Little Artist privacy policy", () => <ArtlingPrivacyPolicyPage />],
 ])("%s page", (_name, Page) => {

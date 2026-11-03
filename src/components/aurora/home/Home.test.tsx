@@ -109,7 +109,7 @@ describe("Home (rebrand)", () => {
   it("shows every project once, case studies internally and client sites in a new tab", () => {
     const { container } = renderHome();
     expect(container.querySelectorAll("[data-project-card]")).toHaveLength(projects.length);
-    ["/projects/sipli", "/projects/artling", "/projects/little-lifeline"].forEach((href) =>
+    ["/projects/sipli", "/projects/artling", "/projects/little-lifeline", "/projects/streetcrew"].forEach((href) =>
       expect(linksTo(href).length).toBeGreaterThan(0)
     );
     const external = screen

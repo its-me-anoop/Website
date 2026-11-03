@@ -230,6 +230,19 @@ export const projects: readonly Project[] = [
     fit: "contain",
     tags: ["Unity", "Idle management", "Offline first"],
   },
+  {
+    name: "StreetCrew",
+    type: "iOS and iPadOS app",
+    year: "2026",
+    description:
+      "A GPS tracker for runs, walks and hikes that lights up every street you explore, square by square. Free, with no ads, and routes stay on the device.",
+    href: "/projects/streetcrew",
+    internal: true,
+    image: "/projects/streetcrew/app-icon.png",
+    tint: "#e9edf3",
+    fit: "contain",
+    tags: ["SwiftUI", "MapKit", "HealthKit"],
+  },
 ] as const;
 
 /**
@@ -261,6 +274,7 @@ export const ticker = [
   "A reply within one working day",
   "Little Artist",
   "Little Lifeline",
+  "StreetCrew",
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────
@@ -906,6 +920,7 @@ export const footerColumns = [
       { label: "Sipli", href: "/projects/sipli" },
       { label: "Little Artist", href: "/projects/artling" },
       { label: "Little Lifeline", href: "/projects/little-lifeline" },
+      { label: "StreetCrew", href: "/projects/streetcrew" },
     ],
   },
   {
@@ -1025,7 +1040,7 @@ export const featuredWork = [
   {
     key: "jjpaper",
     project: "JJ Paper",
-    span: "full",
+    span: "wide",
     eyebrow: "B2B supplier · Website · 2024",
     title: "JJ Paper Essentials",
     copy: "A commercial site that explains a sustainable paper supply chain without losing speed or credibility.",
@@ -1035,6 +1050,19 @@ export const featuredWork = [
     sketch: "site",
     sketchLabel: "IMG · Live site · 1920 × 1200",
     image: { src: "/project-jjpaper.png", alt: "JJ Paper Essentials website, home page" },
+  },
+  {
+    key: "streetcrew",
+    project: "StreetCrew",
+    span: "narrow",
+    eyebrow: "iPhone and iPad · Our app",
+    title: "StreetCrew",
+    copy: "A GPS tracker for runs, walks and hikes that lights up every street you explore.",
+    href: "/projects/streetcrew",
+    linkLabel: "Read the StreetCrew story",
+    cursor: "StreetCrew case study",
+    sketch: "type",
+    sketchLabel: "Icon · 1024 × 1024",
   },
 ] as const;
 

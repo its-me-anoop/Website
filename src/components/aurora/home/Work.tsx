@@ -10,7 +10,7 @@ type Tile = (typeof featuredWork)[number];
 
 const isExternal = (href: string) => href.startsWith("http");
 
-const spanClass: Record<Tile["span"], string> = {
+const spanClass: Record<"wide" | "narrow" | "full", string> = {
   wide: "lg:col-span-7",
   narrow: "lg:col-span-5",
   full: "lg:col-span-12",
@@ -79,6 +79,19 @@ function TileMedia({ tile }: { tile: Tile }) {
             height={840}
             sizes="(min-width: 960px) 24vw, 60vw"
             className="fx-zoom fx-par h-[92%] w-auto"
+          />
+        </div>
+      );
+    case "streetcrew":
+      return (
+        <div className="absolute inset-0 flex items-center justify-center bg-[radial-gradient(70%_80%_at_50%_60%,#22385a,#0b1626_75%)]">
+          <Image
+            src="/projects/streetcrew/app-icon.png"
+            alt="StreetCrew app icon"
+            width={1024}
+            height={1024}
+            sizes="(min-width: 960px) 18vw, 50vw"
+            className="fx-zoom fx-par w-[46%] rounded-[22%] shadow-[0_30px_60px_rgba(11,22,38,0.45)]"
           />
         </div>
       );

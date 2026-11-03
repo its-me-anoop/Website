@@ -200,6 +200,36 @@
   background: var(--background);
 }
 
+/* StreetCrew case study: the app's Ink, Street and Signal palette.
+   Signal (#ff5a1f) is too light for text on the light canvas, so the
+   accent is a deeper signal that keeps AA for text and white button
+   labels; pure Signal is kept for the map art and the dark band. */
+.streetcrew-theme {
+  --background: #f4f6f9;
+  --canvas-2: #e9edf3;
+  --surface: #ffffff;
+  --surface-2: #eef1f6;
+  --ink: #0b1626;
+  --ink-2: #22385a;
+  --ink-3: #4a5a70; /* AA (≥4.5:1) on both canvases */
+  --muted: #4a5a70;
+  --accent: #c93c0a; /* ≥4.5:1 as text on the canvas and under white text */
+  --accent-hover: #b03408;
+  --accent-deep: #b03408;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(255, 90, 31, 0.12);
+  --line: rgba(11, 22, 38, 0.1);
+  --line-2: rgba(11, 22, 38, 0.18);
+  --night: #0b1626; /* Ink: the dark band */
+  --orange: #ff5a1f; /* Signal on Ink ≈5.8:1 */
+  --sc-signal: #ff5a1f;
+  --sc-street: #22385a;
+  --sc-street-ink: #13243d;
+  --sc-street-lit: #2f5a8f;
+  color: var(--ink);
+  background: var(--background);
+}
+
 @theme inline {
   --color-canvas: var(--canvas);
   --color-canvas-2: var(--canvas-2);

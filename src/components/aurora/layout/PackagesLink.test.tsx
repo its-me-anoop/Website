@@ -104,3 +104,12 @@ describe("Packages link", () => {
     expect(within(studio).getByRole("link", { name: "Packages" })).toHaveAttribute("aria-current", "page");
   });
 });
+
+describe("Footer Work column", () => {
+  it("links to the StreetCrew case study", () => {
+    withMotion(<Footer />);
+    const footer = screen.getByRole("navigation", { name: "Footer" });
+    const work = within(footer).getByRole("heading", { name: "Work" }).parentElement!;
+    expect(within(work).getByRole("link", { name: "StreetCrew" })).toHaveAttribute("href", "/projects/streetcrew");
+  });
+});
