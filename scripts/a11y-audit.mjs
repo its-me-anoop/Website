@@ -69,6 +69,7 @@ const ROUTES = [
   "/demo/physio-clinic/accessibility",
   "/projects/sipli",
   "/projects/artling",
+  "/projects/streetcrew",
 ];
 
 /** WCAG 2.x A/AA only — the legal floor; best-practice rules stay advisory. */
