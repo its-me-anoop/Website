@@ -213,9 +213,9 @@
   --ink-2: #22385a;
   --ink-3: #4a5a70; /* AA (≥4.5:1) on both canvases */
   --muted: #4a5a70;
-  --accent: #c93c0a; /* ≥4.5:1 as text on the canvas and under white text */
-  --accent-hover: #b03408;
-  --accent-deep: #b03408;
+  --accent: #b83709; /* ≥4.5:1 as text on both canvases (≈5:1 on canvas-2) and under white text */
+  --accent-hover: #9e2f07;
+  --accent-deep: #9e2f07;
   --accent-ink: #ffffff;
   --accent-soft: rgba(255, 90, 31, 0.12);
   --line: rgba(11, 22, 38, 0.1);
