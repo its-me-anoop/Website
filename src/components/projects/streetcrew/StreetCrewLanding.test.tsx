@@ -76,12 +76,14 @@ describe("StreetCrewLanding", () => {
     expect(screen.getAllByText(/stay on your device/i).length).toBeGreaterThan(0);
   });
 
-  it("gives the app icon a text alternative and hides the decorative map", () => {
+  it("shows the real App Store screenshots and no drawn stand-ins", () => {
     renderPage();
+    streetcrew.screenshots.forEach((shot) => {
+      const imgs = screen.getAllByAltText(shot.alt);
+      imgs.forEach((img) => expect(decodeURIComponent(img.getAttribute("src") ?? "")).toContain(shot.src));
+    });
     expect(screen.getAllByAltText(/StreetCrew app icon/i).length).toBeGreaterThan(0);
-    document
-      .querySelectorAll("svg[data-explored-map]")
-      .forEach((svg) => expect(svg).toHaveAttribute("aria-hidden", "true"));
+    expect(document.querySelector("svg[data-explored-map]")).toBeNull();
   });
 
   it("credits the build to Flutterly with a link to app services", () => {

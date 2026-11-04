@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { SipliLanding } from "@/components/projects/sipli/SipliLanding";
+import { sipli } from "@/lib/projects/sipli";
 import { site } from "@/lib/site";
 
 const title = "Sipli — Water Tracker";
 const description =
-  "Sipli is a hydration tracker for iPhone, iPad, and Apple Watch: a Home bottle that shows what's left of your goal, Siri Shortcuts, a Trophy Room of 31 badges, 35+ beverages, adaptive goals, on-device AI tips, and Apple Health sync. Free to start, with an optional Sipli Premium subscription.";
+  "Sipli is a water tracker for iPhone, iPad and Apple Watch. A Home bottle shows what's left of your daily goal, Siri logs a drink by name, and it is made for iPhone Duo. Free to start, with optional Sipli Premium. No account, no ad tracking.";
 
-const appStoreUrl =
-  "https://apps.apple.com/us/app/sipli-water-tracker/id6758851574";
-const heroImage = "/images/sipli/iphone/01-hero-1320x2868.jpg";
+const appStoreUrl = sipli.appStoreUrl;
+const heroImage = sipli.hero.src;
 
 export const metadata: Metadata = {
   title,
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         url: heroImage,
         width: 1320,
         height: 2868,
-        alt: "Sipli water tracker — home screen",
+        alt: sipli.hero.alt,
       },
     ],
   },
@@ -44,7 +44,7 @@ const jsonLd = {
   name: "Sipli — Water Tracker",
   operatingSystem: "iOS 17.0 or later, iPadOS, watchOS",
   applicationCategory: "HealthApplication",
-  softwareVersion: "5.0.2",
+  softwareVersion: sipli.version,
   description,
   url: `${site.url}/projects/sipli`,
   downloadUrl: appStoreUrl,

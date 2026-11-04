@@ -1,72 +1,32 @@
 "use client";
 
-import { useRef } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import {
-  m as motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type Variants,
-} from "framer-motion";
-import {
-  ArrowLeft,
-  Bell,
-  Calendar,
-  Check,
-  ChevronRight,
-  CloudRain,
-  Droplets,
-  Gauge,
-  Heart,
-  Leaf,
-  Mic,
-  Shield,
-  Share2,
-  Smartphone,
-  Snowflake,
-  Sparkles,
-  Star,
-  Trophy,
-  Watch,
-  Zap,
-} from "lucide-react";
+import Link from "next/link";
+import { m as motion, useReducedMotion } from "framer-motion";
+import { Check, Shield } from "lucide-react";
 import { ProductShell } from "@/components/aurora/layout/ProductShell";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
-import { LiftCard } from "@/components/ui/LiftCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-
-const APP_STORE_URL =
-  "https://apps.apple.com/us/app/sipli-water-tracker/id6758851574";
+import { sipli, type SipliSection, type StoreImage } from "@/lib/projects/sipli";
+import { cn } from "@/lib/utils";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-/* ── Shared building blocks ─────────────────────────────── */
-
-function AppStoreBadge({ className = "" }: { className?: string }) {
+function AppStoreBadge() {
   return (
     <Link
-      href={APP_STORE_URL}
+      href={sipli.appStoreUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 font-sans text-accent-ink shadow-[0_12px_28px_-12px_var(--accent)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-accent-hover ${className}`}
+      aria-label="Download Sipli on the App Store"
+      className="inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 font-sans text-accent-ink shadow-[0_12px_28px_-12px_var(--accent)] transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-accent-hover"
     >
-      <svg
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="h-5 w-5 flex-shrink-0"
-        aria-hidden="true"
-      >
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 flex-shrink-0" aria-hidden="true">
         <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
       </svg>
       <span className="text-left">
-        <span className="block text-[10px] leading-tight opacity-75">
-          Download on the
-        </span>
-        <span className="block text-base font-semibold leading-tight">
-          App Store
-        </span>
+        <span className="block text-[10px] leading-tight opacity-75">Download on the</span>
+        <span className="block text-base font-semibold leading-tight">App Store</span>
       </span>
     </Link>
   );
@@ -87,855 +47,118 @@ function CheckItem({ children }: { children: React.ReactNode }) {
       <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-accent-soft">
         <Check className="h-3 w-3 text-accent" aria-hidden="true" />
       </span>
-      <span className="text-[14.5px] leading-relaxed text-ink-2">
-        {children}
-      </span>
+      <span className="text-[14.5px] leading-relaxed text-ink-2">{children}</span>
     </li>
   );
 }
 
-/** A phone screenshot floating on a soft aqua tint. */
-function PhoneShot({
-  src,
-  alt,
-  priority = false,
-  className = "",
-}: {
-  src: string;
-  alt: string;
-  priority?: boolean;
-  className?: string;
-}) {
+/** One App Store screenshot, shown as Apple publishes it. */
+function StoreShot({ image, priority = false, className }: { image: StoreImage; priority?: boolean; className?: string }) {
   return (
-    <div className={`relative w-[260px] flex-shrink-0 md:w-[290px] ${className}`}>
-      <div
-        className="pointer-events-none absolute inset-0 rounded-full"
-        style={{
-          background: "var(--accent-soft)",
-          filter: "blur(64px)",
-          transform: "scale(0.85)",
-        }}
-        aria-hidden="true"
-      />
-      <Image
-        src={src}
-        alt={alt}
-        width={1320}
-        height={2868}
-        priority={priority}
-        className="relative h-auto w-full rounded-[var(--r-xl)]"
-        style={{ filter: "drop-shadow(0 28px 56px rgba(12,42,51,0.22))" }}
-      />
-    </div>
+    <Image
+      src={image.src}
+      alt={image.alt}
+      width={image.width}
+      height={image.height}
+      priority={priority}
+      sizes="(min-width: 1024px) 300px, 60vw"
+      className={cn("h-auto w-full rounded-[22px] shadow-[0_28px_56px_rgba(12,42,51,0.18)]", className)}
+    />
   );
 }
 
-/* ── Page ───────────────────────────────────────────────── */
+/** A listing section: copy on one side, its App Store screenshots on the other. */
+function FeatureSection({ section, flip, tinted }: { section: SipliSection; flip: boolean; tinted: boolean }) {
+  const headingId = `${section.id}-heading`;
+  return (
+    <section
+      id={section.id}
+      aria-labelledby={headingId}
+      className={cn("px-[var(--gutter)] py-[var(--space-section)]", tinted && "bg-canvas-2")}
+    >
+      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        <Reveal className={cn(flip && "lg:order-2")}>
+          <Eyebrow>{section.eyebrow}</Eyebrow>
+          <h2
+            id={headingId}
+            className="mt-5 text-[clamp(30px,4vw,48px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink"
+          >
+            {section.title}
+          </h2>
+          <p className="mt-5 max-w-[520px] text-[16px] leading-[1.7] text-ink-3">{section.body}</p>
+          {section.points ? (
+            <ul className="mt-7 space-y-3">
+              {section.points.map((p) => (
+                <CheckItem key={p}>{p}</CheckItem>
+              ))}
+            </ul>
+          ) : null}
+        </Reveal>
+        <div className={cn("mx-auto flex w-full max-w-[560px] justify-center gap-4 sm:gap-6", flip && "lg:order-1")}>
+          {section.images.map((image, i) => (
+            <Reveal key={image.src} delay={i * 0.08} className={cn(section.images.length > 1 ? "w-1/2" : "w-[62%] sm:w-1/2", i === 1 && "mt-10")}>
+              <StoreShot image={image} />
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function SipliLanding() {
   const reduce = useReducedMotion();
 
-  const heroStagger: Variants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
-  };
-  const heroItem: Variants = reduce
-    ? { hidden: {}, visible: {} }
-    : {
-        hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
-        visible: {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-          transition: { duration: 0.8, ease },
-        },
-      };
-
-  // Scroll-scrub: the hero phone settles into place as it enters the viewport.
-  const phoneRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: phoneRef,
-    offset: ["start end", "center center"],
-  });
-  const phoneScale = useTransform(scrollYProgress, [0, 1], [0.93, 1]);
-  const phoneY = useTransform(scrollYProgress, [0, 1], [36, 0]);
-
   return (
     <ProductShell mainClassName="sipli-theme min-h-screen overflow-x-hidden bg-background text-ink">
-
-      {/* ── HERO ── */}
-      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-20 pt-36 md:pt-44">
-        <div
-          className="pointer-events-none absolute left-1/2 top-[-12%] h-[520px] w-[820px] -translate-x-1/2 rounded-full"
-          style={{ background: "var(--accent-soft)", filter: "blur(120px)" }}
-          aria-hidden="true"
-        />
-
-        <div className="relative mx-auto w-full max-w-[1200px]">
-          <Link
-            href="/"
-            className="group mb-12 inline-flex min-h-[44px] items-center gap-2 text-sm text-ink-3 transition-colors hover:text-accent"
-          >
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-            Back to Home
-          </Link>
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={heroStagger}
-            className="mx-auto flex max-w-[760px] flex-col items-center text-center"
-          >
-            <motion.div
-              variants={heroItem}
-              className="mb-7 flex flex-wrap justify-center gap-2"
-            >
-              <Eyebrow>
-                <Droplets className="h-3 w-3 text-accent" aria-hidden="true" />
-                Version 5.0 · Free to start
-              </Eyebrow>
-              <Eyebrow>
-                <Watch className="h-3 w-3 text-accent" aria-hidden="true" />
-                iPhone · iPad · Apple Watch
-              </Eyebrow>
+      <header className="relative overflow-hidden px-[var(--gutter)] pb-[var(--space-section)] pt-28 md:pt-36">
+        <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+          <motion.div initial={reduce ? false : "hidden"} animate="visible" variants={staggerContainer}>
+            <motion.div variants={reduce ? undefined : staggerItem} className="flex items-center gap-3">
+              <Image src={sipli.mark.src} alt={sipli.mark.alt} width={56} height={56} priority className="h-14 w-14" />
+              <span className="text-[22px] font-semibold tracking-tight text-ink">{sipli.name}</span>
             </motion.div>
-
+            <motion.div variants={reduce ? undefined : staggerItem} className="mt-6 flex flex-wrap gap-2">
+              <Eyebrow>Version {sipli.version} · Free to start</Eyebrow>
+              <Eyebrow>{sipli.platforms}</Eyebrow>
+            </motion.div>
             <motion.h1
-              variants={heroItem}
-              className="text-[clamp(56px,9vw,104px)] font-semibold leading-[0.98] tracking-[-0.04em] text-ink"
+              variants={reduce ? undefined : staggerItem}
+              className="mt-7 max-w-[14ch] text-[clamp(40px,6vw,76px)] font-semibold leading-[1.0] tracking-[-0.035em] text-ink"
             >
-              Sipli
+              See what&apos;s left <span className="text-accent">to drink.</span>
             </motion.h1>
-
             <motion.p
-              variants={heroItem}
-              className="mt-4 font-display text-[clamp(22px,3vw,32px)] font-semibold leading-snug tracking-[-0.02em] text-accent"
+              variants={reduce ? undefined : staggerItem}
+              className="mt-6 max-w-[540px] text-[16px] leading-[1.7] text-ink-3 md:text-[18px]"
             >
-              Stay Hydrated, Effortlessly.
+              {sipli.intro}
             </motion.p>
-
-            <motion.p
-              variants={heroItem}
-              className="mt-6 max-w-[560px] text-[16px] leading-[1.7] text-ink-3 md:text-[17px]"
-            >
-              A Home bottle that shows exactly what&apos;s left of today&apos;s
-              goal. One-tap logging from your wrist, Siri, Control Center, or
-              the lock screen. Adaptive goals, 35+ beverages, a Trophy Room of
-              31 badges, and reminders that think with you, not at you.
-            </motion.p>
-
-            <motion.div
-              variants={heroItem}
-              className="mt-9 flex flex-col items-center gap-4 sm:flex-row"
-            >
+            <motion.div variants={reduce ? undefined : staggerItem} className="mt-9 flex flex-wrap items-center gap-3">
               <AppStoreBadge />
-              <div className="flex items-center gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-3.5 w-3.5 fill-accent text-accent"
-                    aria-hidden="true"
-                  />
-                ))}
-                <span className="ml-2 text-sm text-ink-3">
-                  Free to download · Premium optional
-                </span>
-              </div>
             </motion.div>
+            <p className="mt-4 text-sm text-ink-3">
+              Free to download, with optional Sipli Premium. {sipli.requirement}.
+            </p>
           </motion.div>
 
-          {/* Scroll-scrubbed hero device */}
           <motion.div
-            ref={phoneRef}
-            style={reduce ? undefined : { scale: phoneScale, y: phoneY }}
-            initial={reduce ? false : { opacity: 0 }}
-            animate={reduce ? undefined : { opacity: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease }}
-            className="mt-16 flex justify-center md:mt-20"
+            initial={reduce ? false : { opacity: 0, y: 34 }}
+            animate={reduce ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.12, ease }}
+            className="mx-auto w-[min(320px,72vw)]"
           >
-            <PhoneShot
-              src="/images/sipli/iphone/01-hero-1320x2868.jpg"
-              alt="Sipli app — home screen"
-              priority
-              className="md:w-[320px]"
-            />
+            <StoreShot image={sipli.hero} priority />
           </motion.div>
         </div>
       </header>
 
-      {/* ── FEATURE STRIP ── */}
-      <section
-        className="border-y border-line bg-surface px-[var(--gutter)] py-14"
-        aria-label="Sipli highlights"
-      >
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-10% 0px" }}
-          className="mx-auto grid w-full max-w-[1200px] grid-cols-2 gap-4 md:grid-cols-4"
-        >
-          {[
-            { icon: Watch, label: "Apple Watch", desc: "One-tap logging on your wrist" },
-            { icon: Mic, label: "Siri Shortcuts", desc: "Log, check, and undo by voice" },
-            { icon: Trophy, label: "Trophy Room", desc: "31 badges and weekly quests" },
-            { icon: Heart, label: "Apple Health", desc: "Two-way HealthKit sync" },
-          ].map((item) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={item.label}
-                variants={staggerItem}
-                className="flex flex-col items-center gap-3 rounded-[var(--r-md)] bg-surface-2 px-4 py-6 text-center transition-transform duration-300 hover:-translate-y-0.5"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <div>
-                  <p className="mb-0.5 text-sm font-semibold text-ink">
-                    {item.label}
-                  </p>
-                  <p className="text-xs text-muted">{item.desc}</p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-      </section>
+      {sipli.sections.map((section, i) => (
+        <FeatureSection key={section.id} section={section} flip={i % 2 === 1} tinted={i % 2 === 0} />
+      ))}
 
-      {/* ── HOME BOTTLE (5.0) ── */}
-      <section
-        className="relative overflow-hidden px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="bottle-heading"
-      >
-        <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <Reveal className="order-2 flex justify-center lg:order-1 lg:justify-start">
-            <BottleMock reduce={!!reduce} />
-          </Reveal>
-          <Reveal delay={0.08} className="order-1 lg:order-2">
-            <div className="mb-6">
-              <Eyebrow>
-                <Sparkles className="h-3 w-3 text-accent" aria-hidden="true" /> New in 5.0
-              </Eyebrow>
-            </div>
-            <h2
-              id="bottle-heading"
-              className="text-[clamp(32px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink"
-            >
-              A bottle that <span className="text-accent">follows your day.</span>
-            </h2>
-            <p className="mb-8 mt-5 max-w-[440px] text-[15.5px] leading-[1.7] text-ink-3">
-              The Home bottle starts full and drains as you log drinks. Its
-              percentage shows how much of today&apos;s goal is left. Tilt your
-              phone and the water moves with it, then settles.
-            </p>
-            <ul className="space-y-3.5">
-              <CheckItem>See what&apos;s left at a glance — a clear percentage remaining, not a running total</CheckItem>
-              <CheckItem>Water that tilts with your phone and settles after each logged drink</CheckItem>
-              <CheckItem>Edit or delete a drink and the bottle updates to your corrected total</CheckItem>
-              <CheckItem>With Reduce Motion on, the level still updates without the motion effects</CheckItem>
-              <CheckItem>Quick Log presets for the amounts you pour most often</CheckItem>
-            </ul>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── APPLE WATCH ── */}
-      <section
-        className="relative overflow-hidden border-y border-line bg-surface px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="watch-heading"
-      >
-        <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <Reveal>
-            <div className="mb-6">
-              <Eyebrow>
-                <Watch className="h-3 w-3 text-accent" aria-hidden="true" /> Apple Watch
-              </Eyebrow>
-            </div>
-            <h2
-              id="watch-heading"
-              className="text-[clamp(32px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink"
-            >
-              Sipli on <span className="text-accent">your wrist.</span>
-            </h2>
-            <p className="mb-8 mt-5 max-w-[440px] text-[15.5px] leading-[1.7] text-ink-3">
-              A full Apple Watch app. Log a sip in one tap, glance at your
-              progress ring from any watch face, and celebrate goal-met
-              trophies right where you&apos;ll see them.
-            </p>
-            <ul className="space-y-3.5">
-              <CheckItem>One-tap logging for water, coffee, tea — whatever you&apos;re drinking</CheckItem>
-              <CheckItem>Live progress ring complication on your watch face</CheckItem>
-              <CheckItem>Smart Stack widgets in small, medium, and large</CheckItem>
-              <CheckItem>Full two-way sync with iPhone and Apple Health — instant</CheckItem>
-              <CheckItem>Goal-met trophy on your wrist, right when you hit it</CheckItem>
-            </ul>
-          </Reveal>
-
-          <Reveal delay={0.1} className="flex justify-center lg:justify-end">
-            <WatchMock reduce={!!reduce} />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── SIRI, CONTROL CENTER & QUICK LOGGING ── */}
-      <section
-        className="relative overflow-hidden px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="quick-log-heading"
-      >
-        <div className="relative mx-auto w-full max-w-[1200px]">
-          <SectionHeader
-            align="center"
-            eyebrow="Log from anywhere"
-            headingId="quick-log-heading"
-            title={
-              <>
-                Never open the app <em>unless you want to.</em>
-              </>
-            }
-            lede="Siri, Control Center, the lock screen, widgets, and your watch all log a drink in one step. Sipli is designed to be used mostly without being looked at."
-          />
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-8% 0px" }}
-            className="grid gap-5 md:grid-cols-2 lg:grid-cols-4"
-          >
-            {[
-              {
-                icon: Mic,
-                title: "Siri Shortcuts",
-                desc: "Ask Siri to log water, check today's progress or your streak, undo the last sip, or show your achievements — hands free.",
-              },
-              {
-                icon: Gauge,
-                title: "Control Center",
-                desc: "On iOS 18 and later, add a Sipli control to Control Center and log a drink from anywhere on your phone.",
-              },
-              {
-                icon: Smartphone,
-                title: "Lock screen actions",
-                desc: "Log from lock-screen widgets and log actions without unlocking your phone.",
-              },
-              {
-                icon: Zap,
-                title: "Quick Log presets",
-                desc: "Set up the amounts you pour most often and log them in a single tap.",
-              },
-            ].map((item) => {
-              const Icon = item.icon;
-              return (
-                <motion.div key={item.title} variants={staggerItem}>
-                  <LiftCard className="h-full">
-                    <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-accent">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <h3 className="mb-2.5 font-display text-base font-semibold tracking-tight text-ink">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-ink-3">
-                      {item.desc}
-                    </p>
-                  </LiftCard>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── TROPHY ROOM ── */}
-      <section
-        className="relative overflow-hidden border-y border-line bg-surface px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="trophy-heading"
-      >
-        <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <Reveal>
-            <div className="mb-6">
-              <Eyebrow>
-                <Trophy className="h-3 w-3 text-accent" aria-hidden="true" /> Trophy Room
-              </Eyebrow>
-            </div>
-            <h2
-              id="trophy-heading"
-              className="text-[clamp(32px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink"
-            >
-              Small reasons to <span className="text-accent">keep going.</span>
-            </h2>
-            <p className="mb-8 mt-5 max-w-[440px] text-[15.5px] leading-[1.7] text-ink-3">
-              Build a streak, take on weekly quests, and discover 31 badges in
-              the Trophy Room. Celebrations are brief and earned, never
-              nagging.
-            </p>
-            <div className="space-y-3">
-              {[
-                {
-                  icon: Trophy,
-                  label: "31 badges",
-                  desc: "From your first logged glass to long streaks and beverage explorers",
-                },
-                {
-                  icon: Star,
-                  label: "Weekly quests",
-                  desc: "A fresh, achievable challenge each week to keep the habit interesting",
-                },
-                {
-                  icon: Snowflake,
-                  label: "Streak freezes",
-                  desc: "Miss a day without losing a streak you've spent weeks building",
-                },
-                {
-                  icon: Share2,
-                  label: "Share cards",
-                  desc: "Share a daily summary, a week of progress, or a badge you've earned",
-                },
-              ].map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.label}
-                    className="flex items-center gap-4 rounded-[var(--r-md)] border border-line bg-surface-2 p-4 transition-colors hover:border-line-2"
-                  >
-                    <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-surface text-accent shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <div>
-                      <p className="text-sm font-semibold text-ink">
-                        {item.label}
-                      </p>
-                      <p className="mt-0.5 text-xs text-muted">{item.desc}</p>
-                    </div>
-                    <ChevronRight className="ml-auto h-4 w-4 text-muted" aria-hidden="true" />
-                  </div>
-                );
-              })}
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08} className="flex justify-center lg:justify-end">
-            <TrophyMock />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── AI COACH ── */}
-      <section
-        className="relative overflow-hidden px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="coach-heading"
-      >
-        <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <Reveal className="order-2 flex justify-center lg:order-1 lg:justify-start">
-            <PhoneShot
-              src="/images/sipli/iphone/02-coach-1320x2868.jpg"
-              alt="Sipli AI Coach screen"
-            />
-          </Reveal>
-          <Reveal delay={0.08} className="order-1 lg:order-2">
-            <div className="mb-6">
-              <Eyebrow>
-                <Sparkles className="h-3 w-3 text-accent" aria-hidden="true" /> AI Coach
-              </Eyebrow>
-            </div>
-            <h2
-              id="coach-heading"
-              className="text-[clamp(32px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink"
-            >
-              Your personal{" "}
-              <span className="text-accent">hydration coach.</span>
-            </h2>
-            <p className="mb-8 mt-5 max-w-[420px] text-[15.5px] leading-[1.7] text-ink-3">
-              Powered by on-device Apple Intelligence, the AI Coach analyzes
-              your habits and delivers personalized tips — privately, without
-              ever leaving your device.
-            </p>
-            <ul className="space-y-3.5">
-              <CheckItem>Context-aware advice based on your actual data</CheckItem>
-              <CheckItem>Understands your beverage mix, streak, and schedule</CheckItem>
-              <CheckItem>Completely private — processed on-device only</CheckItem>
-              <CheckItem>Smart nudges when you fall behind your daily goal</CheckItem>
-            </ul>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── BEVERAGES ── */}
-      <section
-        className="relative overflow-hidden border-y border-line bg-surface px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="beverages-heading"
-      >
-        <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <Reveal>
-            <div className="mb-6">
-              <Eyebrow>
-                <Droplets className="h-3 w-3 text-accent" aria-hidden="true" /> Beverages
-              </Eyebrow>
-            </div>
-            <h2
-              id="beverages-heading"
-              className="text-[clamp(32px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink"
-            >
-              Not just water —{" "}
-              <span className="text-accent">every sip counts.</span>
-            </h2>
-            <p className="mb-7 mt-5 max-w-[420px] text-[15.5px] leading-[1.7] text-ink-3">
-              Track 35+ drinks with science-backed hydration factors —
-              specialty coffees, teas, matcha, kombucha, plant milks, juices,
-              sports drinks, and more. Caffeine and alcohol are accounted for,
-              so a cold brew doesn&apos;t count like water.
-            </p>
-            <motion.ul
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-10% 0px" }}
-              className="flex flex-wrap gap-2"
-            >
-              {[
-                { name: "Water", pct: "100%" },
-                { name: "Sparkling", pct: "100%" },
-                { name: "Herbal Tea", pct: "100%" },
-                { name: "Coconut Water", pct: "95%" },
-                { name: "Matcha", pct: "90%" },
-                { name: "Kombucha", pct: "90%" },
-                { name: "Plant Milk", pct: "90%" },
-                { name: "Green Tea", pct: "90%" },
-                { name: "Cold Brew", pct: "80%" },
-                { name: "Cappuccino", pct: "80%" },
-                { name: "Sports Drink", pct: "80%" },
-                { name: "+ 25 more", pct: "" },
-              ].map((b) => (
-                <motion.li
-                  key={b.name}
-                  variants={staggerItem}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-2 px-3 py-1.5 text-xs font-medium text-ink-2 transition-colors hover:border-line-2"
-                >
-                  {b.name}
-                  {b.pct && <span className="font-bold text-accent">{b.pct}</span>}
-                </motion.li>
-              ))}
-            </motion.ul>
-          </Reveal>
-
-          <Reveal delay={0.08} className="flex justify-center lg:justify-end">
-            <PhoneShot
-              src="/images/sipli/iphone/03-beverages-1320x2868.jpg"
-              alt="Sipli beverages screen"
-            />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── INSIGHTS (iPad) ── */}
-      <section
-        className="relative overflow-hidden px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="insights-heading"
-      >
-        <div className="relative mx-auto w-full max-w-[1200px]">
-          <SectionHeader
-            align="center"
-            eyebrow="Insights"
-            headingId="insights-heading"
-            title={
-              <>
-                Understand your <em>habits.</em>
-              </>
-            }
-            lede="Weekly charts, hydration heatmaps, beverage breakdowns, and streak tracking — everything you need to stay consistent."
-          />
-
-          <Reveal blur className="mb-14 flex justify-center">
-            <div className="relative w-full max-w-[620px]">
-              <div
-                className="pointer-events-none absolute inset-0 rounded-[var(--r-xl)]"
-                style={{
-                  background: "var(--accent-soft)",
-                  filter: "blur(70px)",
-                  transform: "scale(0.9)",
-                }}
-                aria-hidden="true"
-              />
-              <Image
-                src="/images/sipli/ipad/02-ipad-insights.jpg"
-                alt="Sipli insights on iPad"
-                width={1668}
-                height={2388}
-                className="relative h-auto w-full rounded-[var(--r-xl)]"
-                style={{ filter: "drop-shadow(0 36px 70px rgba(12,42,51,0.25))" }}
-              />
-            </div>
-          </Reveal>
-
-          <motion.ul
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-10% 0px" }}
-            className="mx-auto grid max-w-2xl grid-cols-2 gap-3 md:grid-cols-3"
-          >
-            {[
-              "Weekly & monthly bar charts",
-              "Hydration heatmap calendar",
-              "Current & longest streaks",
-              "Week-over-week trends",
-              "Beverage breakdown chart",
-              "AI coaching tips",
-            ].map((feat) => (
-              <motion.li
-                key={feat}
-                variants={staggerItem}
-                className="flex items-center gap-2.5 rounded-[var(--r-sm)] border border-line bg-surface p-3.5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
-              >
-                <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                <span className="text-xs text-ink-2">{feat}</span>
-              </motion.li>
-            ))}
-          </motion.ul>
-        </div>
-      </section>
-
-      {/* ── DIARY ── */}
-      <section
-        className="relative overflow-hidden border-y border-line bg-surface px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="diary-heading"
-      >
-        <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <Reveal>
-            <div className="mb-6">
-              <Eyebrow>
-                <Calendar className="h-3 w-3 text-accent" aria-hidden="true" /> Diary
-              </Eyebrow>
-            </div>
-            <h2
-              id="diary-heading"
-              className="text-[clamp(32px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink"
-            >
-              Every day, <span className="text-accent">captured.</span>
-            </h2>
-            <p className="mb-8 mt-5 max-w-[420px] text-[15.5px] leading-[1.7] text-ink-3">
-              Go back any day in your hydration history. See exactly what you
-              drank, when you drank it, and how close you got to your goal —
-              perfect for spotting patterns.
-            </p>
-            <ul className="space-y-3.5">
-              <CheckItem>Browse any past date with a single tap</CheckItem>
-              <CheckItem>Full log of every beverage and time of day</CheckItem>
-              <CheckItem>See goal progress and completion for any date</CheckItem>
-              <CheckItem>Syncs seamlessly with Apple Health history</CheckItem>
-            </ul>
-          </Reveal>
-          <Reveal delay={0.08} className="flex justify-center lg:justify-end">
-            <PhoneShot
-              src="/images/sipli/iphone/06-diary-1320x2868.jpg"
-              alt="Sipli diary screen"
-            />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── WIDGETS ── */}
-      <section
-        className="relative overflow-hidden px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="widgets-heading"
-      >
-        <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <Reveal className="order-2 flex justify-center lg:order-1 lg:justify-start">
-            <PhoneShot
-              src="/images/sipli/iphone/07-widgets-1320x2868.jpg"
-              alt="Sipli widgets"
-            />
-          </Reveal>
-          <Reveal delay={0.08} className="order-1 lg:order-2">
-            <div className="mb-6">
-              <Eyebrow>
-                <Smartphone className="h-3 w-3 text-accent" aria-hidden="true" /> Widgets
-              </Eyebrow>
-            </div>
-            <h2
-              id="widgets-heading"
-              className="text-[clamp(32px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink"
-            >
-              Always within <span className="text-accent">reach.</span>
-            </h2>
-            <p className="mb-8 mt-5 max-w-[420px] text-[15.5px] leading-[1.7] text-ink-3">
-              Log a drink or check progress without opening the app. Home screen
-              and lock screen widgets keep your hydration goal front and center
-              at all times.
-            </p>
-            <ul className="space-y-3.5">
-              <CheckItem>Home screen widgets in small, medium, and large</CheckItem>
-              <CheckItem>Lock screen widgets for instant glanceable data</CheckItem>
-              <CheckItem>Tap-to-log quick-add from your home screen</CheckItem>
-              <CheckItem>Live progress ring updates in real time</CheckItem>
-            </ul>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── GALLERY ── */}
-      <section
-        className="overflow-hidden bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="gallery-heading"
-      >
+      <section className="bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]" aria-labelledby="pricing-heading">
         <div className="mx-auto w-full max-w-[1200px]">
-          <Reveal className="mb-14 text-center">
-            <h2
-              id="gallery-heading"
-              className="text-[clamp(24px,3vw,36px)] font-semibold tracking-tight text-ink"
-            >
-              Beautifully crafted,{" "}
-              <span className="text-accent">every screen.</span>
-            </h2>
-          </Reveal>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-8% 0px" }}
-            className="flex items-end justify-center gap-4 md:gap-8"
-          >
-            <motion.div
-              variants={staggerItem}
-              className="mb-10 flex-shrink-0"
-              style={{ width: "clamp(120px, 14vw, 180px)" }}
-            >
-              <Image
-                src="/images/sipli/iphone/04-insights-1320x2868.jpg"
-                alt="Sipli insights"
-                width={1320}
-                height={2868}
-                className="h-auto w-full rounded-[var(--r-lg)]"
-                style={{ filter: "drop-shadow(0 18px 36px rgba(12,42,51,0.18))" }}
-              />
-            </motion.div>
-            <motion.div
-              variants={staggerItem}
-              className="relative flex-shrink-0"
-              style={{ width: "clamp(150px, 18vw, 230px)" }}
-            >
-              <div
-                className="pointer-events-none absolute inset-0 rounded-full"
-                style={{
-                  background: "var(--accent-soft)",
-                  filter: "blur(54px)",
-                  transform: "scale(0.8)",
-                }}
-                aria-hidden="true"
-              />
-              <Image
-                src="/images/sipli/iphone/01-hero-1320x2868.jpg"
-                alt="Sipli home"
-                width={1320}
-                height={2868}
-                className="relative h-auto w-full rounded-[var(--r-lg)]"
-                style={{ filter: "drop-shadow(0 26px 52px rgba(12,42,51,0.22))" }}
-              />
-            </motion.div>
-            <motion.div
-              variants={staggerItem}
-              className="mb-10 flex-shrink-0"
-              style={{ width: "clamp(120px, 14vw, 180px)" }}
-            >
-              <Image
-                src="/images/sipli/iphone/05-breakdown-1320x2868.jpg"
-                alt="Sipli breakdown"
-                width={1320}
-                height={2868}
-                className="h-auto w-full rounded-[var(--r-lg)]"
-                style={{ filter: "drop-shadow(0 18px 36px rgba(12,42,51,0.18))" }}
-              />
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── FEATURES GRID ── */}
-      <section
-        className="px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="features-heading"
-      >
-        <div className="mx-auto w-full max-w-[1200px]">
-          <Reveal className="mx-auto mb-14 max-w-2xl text-center">
-            <h2
-              id="features-heading"
-              className="text-[clamp(30px,4vw,48px)] font-semibold tracking-[-0.02em] text-ink"
-            >
-              Everything you <span className="text-accent">need.</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-[420px] text-[15.5px] leading-[1.7] text-ink-3">
-              Smart reminders, weather-adjusted goals, HealthKit sync, and a
-              design crafted to delight.
-            </p>
-          </Reveal>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-8% 0px" }}
-            className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
-          >
-            {[
-              {
-                icon: Bell,
-                title: "Smart Reminders",
-                desc: "Fit to your waking hours. Pauses when you're ahead, nudges when you drift — no 2 a.m. buzzes, no pestering.",
-              },
-              {
-                icon: Heart,
-                title: "Apple Health Sync",
-                desc: "Two-way HealthKit sync. Reads workouts to adjust your goal, writes hydration data back automatically.",
-              },
-              {
-                icon: Shield,
-                title: "Privacy First",
-                desc: "No accounts, no cloud servers, no tracking. Your data stays on your device and only talks to Apple services.",
-              },
-              {
-                icon: CloudRain,
-                title: "Weather Adjusted",
-                desc: "On hot, humid days your goal automatically increases. Powered by WeatherKit — always accurate.",
-              },
-              {
-                icon: Smartphone,
-                title: "iPhone, iPad & Watch",
-                desc: "Full native support across iPhone, iPad, and Apple Watch with layouts optimised for every screen size.",
-              },
-              {
-                icon: Zap,
-                title: "Dark & Light Mode",
-                desc: "Follow your system theme or set a preference. Both modes are crafted with equal precision and care.",
-              },
-            ].map((item) => {
-              const Icon = item.icon;
-              return (
-                <motion.div key={item.title} variants={staggerItem}>
-                  <LiftCard className="h-full">
-                    <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-accent">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <h3 className="mb-2.5 font-display text-base font-semibold tracking-tight text-ink">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-ink-3">
-                      {item.desc}
-                    </p>
-                  </LiftCard>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── FREE & PREMIUM ── */}
-      <section
-        className="relative overflow-hidden border-t border-line bg-surface px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="pricing-heading"
-      >
-        <div className="relative mx-auto w-full max-w-[1200px]">
           <SectionHeader
             align="center"
             eyebrow="Free & Premium"
@@ -945,407 +168,79 @@ export function SipliLanding() {
                 Free to start. <em>Premium when you want more.</em>
               </>
             }
-            lede="The essentials are free with no time limit. Sipli Premium is an optional monthly or annual subscription; prices and any eligible trial are shown in the app before you buy."
+            lede="The essentials are free with no time limit. Sipli Premium is an optional subscription."
           />
-
           <div className="mx-auto grid max-w-[960px] gap-5 md:grid-cols-2">
             <Reveal className="rounded-[var(--r-xl)] border border-line bg-surface-2 p-8 md:p-10">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">
-                Free
-              </p>
-              <h3 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink">
-                Everything you need to build the habit
-              </h3>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">Free</p>
+              <h3 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink">Everything to build the habit</h3>
               <ul className="mt-6 space-y-3.5">
-                <CheckItem>Basic water logging with quick amounts or your own serving size</CheckItem>
-                <CheckItem>Custom daily goals</CheckItem>
-                <CheckItem>Diary history — add a missed entry, edit, or delete a log</CheckItem>
-                <CheckItem>Standard reminders that fit your waking hours</CheckItem>
-                <CheckItem>No account, no ad tracking, no time limit</CheckItem>
+                {sipli.free.map((item) => (
+                  <CheckItem key={item}>{item}</CheckItem>
+                ))}
               </ul>
             </Reveal>
-
-            <Reveal
-              delay={0.08}
-              className="relative overflow-hidden rounded-[var(--r-xl)] border border-line bg-surface p-8 shadow-[var(--shadow-sm)] md:p-10"
-            >
-              <div
-                className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full"
-                style={{ background: "var(--accent-soft)", filter: "blur(50px)" }}
-                aria-hidden="true"
-              />
-              <p className="relative text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
-                Sipli Premium
-              </p>
-              <h3 className="relative mt-3 font-display text-2xl font-semibold tracking-tight text-ink">
-                Goals that adapt to your life
-              </h3>
-              <ul className="relative mt-6 space-y-3.5">
-                <CheckItem>35+ beverage types with drink-specific hydration estimates</CheckItem>
-                <CheckItem>Apple Health sync for water, workouts, and active energy</CheckItem>
-                <CheckItem>Daily goals adjusted for temperature, humidity, and workouts</CheckItem>
-                <CheckItem>Smart reminders that respond to your schedule and progress</CheckItem>
-                <CheckItem>Hydration tips and insight summaries with on-device Apple Intelligence</CheckItem>
+            <Reveal delay={0.08} className="rounded-[var(--r-xl)] border border-line bg-surface p-8 shadow-[var(--shadow-sm)] md:p-10">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">Optional</p>
+              <h3 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink">Sipli Premium</h3>
+              <ul className="mt-6 space-y-3.5">
+                {sipli.premium.map((item) => (
+                  <CheckItem key={item}>{item}</CheckItem>
+                ))}
               </ul>
             </Reveal>
           </div>
-
-          <Reveal>
-            <p className="mx-auto mt-8 max-w-[560px] text-center text-xs leading-relaxed text-muted">
-              Subscriptions renew automatically unless cancelled at least 24
-              hours before the current period ends, and can be managed in your
-              App Store account settings. Hydration goals and beverage factors
-              are estimates for general wellness, not medical advice.
-            </p>
-          </Reveal>
+          <p className="mx-auto mt-8 max-w-[760px] text-center text-[13px] leading-relaxed text-ink-3">{sipli.billing}</p>
         </div>
       </section>
 
-      {/* ── EARTH WEEK · annual ── */}
-      <section
-        className="relative overflow-hidden bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]"
-        aria-labelledby="earth-week-heading"
-      >
-        <div className="relative mx-auto w-full max-w-[1200px]">
-          <Reveal blur>
-            <div
-              className="relative overflow-hidden rounded-[var(--r-xl)] p-10 shadow-[var(--shadow-lg)] md:p-14 lg:p-16"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgb(56,158,107) 0%, rgb(20,115,77) 55%, rgb(10,77,56) 100%)",
-              }}
-            >
-              <div
-                className="pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full"
-                style={{ background: "rgba(255,255,255,0.08)", filter: "blur(60px)" }}
-                aria-hidden="true"
-              />
-              <div
-                className="pointer-events-none absolute -bottom-24 -left-16 h-80 w-80 rounded-full"
-                style={{ background: "rgba(0,0,0,0.18)", filter: "blur(80px)" }}
-                aria-hidden="true"
-              />
-              <div className="relative max-w-[640px]">
-                <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/20 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
-                  <Leaf className="h-3 w-3" aria-hidden="true" />
-                  Every April · Earth Week
-                </span>
-                <h2
-                  id="earth-week-heading"
-                  className="text-[clamp(36px,5vw,60px)] font-semibold leading-[1.04] tracking-[-0.03em] text-white"
+      <section className="px-[var(--gutter)] py-[var(--space-section)]" aria-labelledby="privacy-heading">
+        <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+          <Reveal>
+            <Eyebrow>Private by default</Eyebrow>
+            <h2 id="privacy-heading" className="mt-5 text-[clamp(30px,4vw,48px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink">
+              Your data stays <span className="text-accent">yours.</span>
+            </h2>
+            <ul className="mt-8 space-y-3">
+              {sipli.privacy.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 rounded-[var(--r-md)] border border-line bg-surface px-4 py-3 text-sm text-ink-2 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
                 >
-                  Refill,{" "}
-                  <span className="font-light italic text-white/90">
-                    not rebuy.
-                  </span>
-                </h2>
-                <p className="mb-8 mt-5 max-w-[480px] text-[15.5px] leading-[1.7] text-white/85">
-                  Each April, Sipli joins Earth Week with a quiet in-app moment
-                  for the refill habit — a shareable Refill Pledge, a
-                  leaf-green home banner, and an Insights tile that counts
-                  every sip you log during the week. Outside April, the case
-                  for reusable bottles lives year-round in Settings.
-                </p>
-                <blockquote className="border-l-2 border-white/40 pl-5">
-                  <p className="font-display text-[clamp(18px,2vw,22px)] italic leading-snug text-white">
-                    &ldquo;I pledge to refill, not rebuy, this Earth Week.&rdquo;
-                  </p>
-                  <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-white/70">
-                    The Sipli Refill Pledge
-                  </p>
-                </blockquote>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal>
-            <p className="mx-auto mt-8 max-w-[520px] text-center text-xs leading-relaxed text-muted">
-              Sipli doesn&rsquo;t count bottles saved or fabricate eco-metrics.
-              It just helps you notice each sip — and noticing is usually what
-              makes a habit stick.
+                  <Shield className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 text-sm text-ink-3">
+              {sipli.disclaimer}{" "}
+              <Link href={sipli.privacyPolicy} className="underline decoration-line-2 underline-offset-4 hover:text-accent">
+                Read the privacy policy
+              </Link>
+              .
             </p>
+          </Reveal>
+          <Reveal delay={0.08} className="mx-auto w-[min(420px,86vw)]">
+            <StoreShot image={sipli.ipad} />
+            <p className="mt-4 text-center text-sm text-ink-3">Sipli on iPad</p>
           </Reveal>
         </div>
       </section>
 
-      {/* ── FINAL CTA · dark contrast band ── */}
-      <section
-        className="relative overflow-hidden bg-night px-[var(--gutter)] py-[var(--space-section)] text-night-ink"
-        aria-labelledby="cta-heading"
-      >
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[460px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{ background: "rgba(48,176,199,0.12)", filter: "blur(130px)" }}
-          aria-hidden="true"
-        />
-        <Reveal className="relative mx-auto max-w-[640px] text-center">
-          <Droplets className="mx-auto mb-6 h-12 w-12 text-teal" aria-hidden="true" />
-          <h2
-            id="cta-heading"
-            className="text-[clamp(40px,6vw,64px)] font-semibold leading-[1.04] tracking-[-0.03em] text-white"
-          >
-            Start your hydration{" "}
-            <span className="text-teal">journey.</span>
-          </h2>
-          <p className="mt-5 text-lg text-white/60">
-            Free to download on the App Store, with an optional Sipli Premium
-            subscription. iPhone, iPad, and Apple Watch.
-          </p>
-          <div className="mt-10 flex justify-center">
-            <AppStoreBadge />
+      <section className="bg-night px-[var(--gutter)] py-[var(--space-section)] text-night-ink" aria-labelledby="cta-heading">
+        <Reveal className="mx-auto flex w-full max-w-[1200px] flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 id="cta-heading" className="max-w-[640px] text-[clamp(28px,4vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-white">
+              Start your hydration habit.
+            </h2>
+            <p className="mt-5 max-w-[620px] text-[15.5px] leading-[1.7] text-white/70">
+              Free to download on the App Store, with an optional Sipli Premium subscription. {sipli.requirement}. Works on{" "}
+              {sipli.platforms}.
+            </p>
           </div>
-          <p className="mt-8 text-xs text-white/40">
-            Requires iOS 17.0 or later. Works on iPhone, iPad, and Apple Watch.
-          </p>
+          <AppStoreBadge />
         </Reveal>
       </section>
-
     </ProductShell>
-  );
-}
-
-/* ── Home bottle mock (decorative) ──────────────────────── */
-
-function BottleMock({ reduce }: { reduce: boolean }) {
-  // 62% of the goal remaining, so the water sits a little above halfway.
-  const remaining = 62;
-  return (
-    <div className="relative" aria-hidden="true">
-      <div
-        className="pointer-events-none absolute inset-0 rounded-full"
-        style={{
-          background: "var(--accent-soft)",
-          filter: "blur(70px)",
-          transform: "scale(0.95)",
-        }}
-      />
-      <motion.div
-        animate={reduce ? undefined : { rotate: [0, -3, 0, 2.5, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        className="relative flex flex-col items-center"
-      >
-        <div
-          className="h-7 w-[92px] rounded-t-[18px]"
-          style={{
-            background: "linear-gradient(180deg, #1f2f36 0%, #3a4c55 100%)",
-            boxShadow: "inset 0 -2px 0 rgba(255,255,255,0.08)",
-          }}
-        />
-        <div
-          className="h-4 w-[124px]"
-          style={{
-            background: "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.55))",
-            clipPath: "polygon(12% 0, 88% 0, 100% 100%, 0 100%)",
-          }}
-        />
-        <div
-          className="relative w-[210px] overflow-hidden rounded-[44px] border border-white/70 bg-white/40 backdrop-blur-sm"
-          style={{
-            height: "380px",
-            boxShadow:
-              "0 30px 60px rgba(12,42,51,0.28), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -12px 24px rgba(12,42,51,0.06)",
-          }}
-        >
-          <motion.div
-            className="absolute inset-x-0 bottom-0"
-            style={{ height: `${remaining}%` }}
-            animate={reduce ? undefined : { y: [0, -4, 0, 3, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <div
-              className="absolute -top-3 left-[-20%] h-8 w-[140%] rounded-[50%]"
-              style={{ background: "var(--accent)", opacity: 0.85 }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, var(--accent) 0%, rgb(24,128,150) 100%)",
-              }}
-            />
-          </motion.div>
-          <div
-            className="pointer-events-none absolute left-5 top-8 h-[70%] w-3 rounded-full"
-            style={{ background: "rgba(255,255,255,0.45)", filter: "blur(2px)" }}
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-            <div className="font-display text-[56px] font-semibold leading-none tracking-[-0.04em] text-white drop-shadow-[0_2px_8px_rgba(12,42,51,0.35)]">
-              {remaining}%
-            </div>
-            <div className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85 drop-shadow-[0_1px_4px_rgba(12,42,51,0.35)]">
-              left today
-            </div>
-          </div>
-        </div>
-        <div className="mt-5 flex items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 py-1.5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-          <Droplets className="h-3.5 w-3.5 text-accent" />
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-ink-3">
-            0.9L of 2.4L logged
-          </span>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
-/* ── Trophy Room mock (decorative) ──────────────────────── */
-
-function TrophyMock() {
-  const badges: { icon: typeof Trophy; label: string; earned: boolean }[] = [
-    { icon: Droplets, label: "First sip", earned: true },
-    { icon: Zap, label: "7-day streak", earned: true },
-    { icon: Watch, label: "Wrist logger", earned: true },
-    { icon: Sparkles, label: "Explorer", earned: true },
-    { icon: CloudRain, label: "Heatwave", earned: true },
-    { icon: Star, label: "Quest master", earned: false },
-    { icon: Snowflake, label: "Ice cold", earned: false },
-    { icon: Heart, label: "Health sync", earned: true },
-    { icon: Trophy, label: "30-day streak", earned: false },
-  ];
-  return (
-    <div className="relative" aria-hidden="true">
-      <div
-        className="pointer-events-none absolute inset-0 rounded-full"
-        style={{
-          background: "var(--accent-soft)",
-          filter: "blur(70px)",
-          transform: "scale(0.95)",
-        }}
-      />
-      <div className="relative w-[300px] rounded-[var(--r-xl)] border border-line bg-surface p-6 shadow-[var(--shadow-lg)] sm:w-[340px]">
-        <div className="mb-5 flex items-center justify-between">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-3">
-              Trophy Room
-            </p>
-            <p className="mt-1 font-display text-lg font-semibold tracking-tight text-ink">
-              6 of 31 earned
-            </p>
-          </div>
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent">
-            <Trophy className="h-5 w-5" />
-          </span>
-        </div>
-        <div className="grid grid-cols-3 gap-3">
-          {badges.map((b) => {
-            const Icon = b.icon;
-            return (
-              <div
-                key={b.label}
-                className={`flex flex-col items-center gap-2 rounded-[var(--r-md)] px-2 py-4 text-center ${
-                  b.earned ? "bg-surface-2" : "border border-dashed border-line-2"
-                }`}
-              >
-                <span
-                  className={`flex h-11 w-11 items-center justify-center rounded-full ${
-                    b.earned
-                      ? "bg-accent text-accent-ink shadow-[0_8px_18px_-8px_var(--accent)]"
-                      : "bg-surface-2 text-muted"
-                  }`}
-                >
-                  <Icon className="h-5 w-5" />
-                </span>
-                <span
-                  className={`text-[10px] font-semibold leading-tight ${
-                    b.earned ? "text-ink-2" : "text-muted"
-                  }`}
-                >
-                  {b.label}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-        <div className="mt-5 flex items-center justify-between rounded-[var(--r-md)] bg-surface-2 px-4 py-3">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-              Weekly quest
-            </p>
-            <p className="mt-0.5 text-xs font-semibold text-ink">
-              Hit your goal 5 days this week
-            </p>
-          </div>
-          <span className="text-xs font-bold text-accent">3/5</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ── Apple Watch mock (decorative) ──────────────────────── */
-
-function WatchMock({ reduce }: { reduce: boolean }) {
-  return (
-    <div className="relative" aria-hidden="true">
-      <div
-        className="pointer-events-none absolute inset-0 rounded-full"
-        style={{
-          background: "var(--accent-soft)",
-          filter: "blur(70px)",
-          transform: "scale(0.95)",
-        }}
-      />
-      <div
-        className="relative flex items-center justify-center rounded-[56px] border-[6px] border-[#3a3a3e]"
-        style={{
-          width: "260px",
-          height: "310px",
-          background: "linear-gradient(145deg, #0b0b0d 0%, #1c1c1f 100%)",
-          boxShadow:
-            "0 30px 60px rgba(12,42,51,0.35), inset 0 1px 0 rgba(255,255,255,0.06)",
-        }}
-      >
-        <div
-          className="absolute right-[-8px] top-12 h-16 w-3 rounded-r-md"
-          style={{ background: "linear-gradient(90deg, #3a3a3e, #55555a)" }}
-        />
-        <div
-          className="absolute bottom-12 right-[-6px] h-10 w-2.5 rounded-r-md"
-          style={{ background: "linear-gradient(90deg, #3a3a3e, #55555a)" }}
-        />
-        <div className="relative flex h-[240px] w-[200px] flex-col items-center justify-center">
-          <div className="relative mb-3 h-[150px] w-[150px]">
-            <svg viewBox="0 0 150 150" className="h-full w-full -rotate-90">
-              <circle
-                cx="75"
-                cy="75"
-                r="62"
-                fill="none"
-                stroke="rgba(255,255,255,0.12)"
-                strokeWidth="10"
-              />
-              <circle
-                cx="75"
-                cy="75"
-                r="62"
-                fill="none"
-                stroke="var(--teal)"
-                strokeWidth="10"
-                strokeLinecap="round"
-                strokeDasharray="389"
-                strokeDashoffset="97"
-              />
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <Droplets className="mb-1 h-7 w-7 text-teal" />
-              <div className="font-display text-xl font-semibold leading-none text-white">
-                1.9L
-              </div>
-              <div className="mt-1 text-[10px] uppercase tracking-wider text-white/50">
-                of 2.4L
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1">
-            <span
-              className={`h-1 w-1 rounded-full bg-teal ${reduce ? "" : "animate-pulse"}`}
-            />
-            <span className="text-[9px] font-semibold uppercase tracking-widest text-teal">
-              12 day streak
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }

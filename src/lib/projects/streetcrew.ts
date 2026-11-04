@@ -1,7 +1,8 @@
 /**
  * StreetCrew case-study content. Copy follows the app's own App Store
- * listing (its-me-anoop/streetcrew, ios/appstore/listing-1.0.md), so the
- * page never promises more than the app does. The page component takes
+ * listing (its-me-anoop/streetcrew, ios/appstore/listing-1.0.md) and every
+ * image is the app's own App Store artwork (ios/appstore/marketing), so
+ * the page never shows or promises more than the app does. The page component takes
  * this as a prop, which keeps copy changes out of the layout code.
  */
 
@@ -10,9 +11,22 @@ export interface FeatureGroup {
   points: readonly string[];
 }
 
+export interface Screenshot {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  /** The listing group this screen illustrates. */
+  group: string;
+}
+
 export interface StreetCrewContent {
   name: string;
+  /** App Store name and subtitle, as submitted. */
+  storeName: string;
   subtitle: string;
+  /** The line used in the App Store artwork and promotional text. */
+  tagline: string;
   category: string;
   platforms: string;
   price: string;
@@ -22,13 +36,19 @@ export interface StreetCrewContent {
   featureGroups: readonly FeatureGroup[];
   privacyPoints: readonly string[];
   craft: readonly { title: string; description: string }[];
+  /** App Store screenshots, from ios/appstore/marketing in the app repo. */
+  screenshots: readonly Screenshot[];
+  /** App Store product page header artwork. */
+  header: { src: string; alt: string; width: number; height: number };
 }
 
 const APP_SITE = "https://streetcrew-api-xi.vercel.app";
 
 export const streetcrew: StreetCrewContent = {
   name: "StreetCrew",
-  subtitle: "Every walk, somewhere new",
+  storeName: "StreetCrew: Walk & Run Tracker",
+  subtitle: "Explore new streets & routes",
+  tagline: "Every walk, somewhere new",
   category: "Health & Fitness",
   platforms: "iPhone and iPad",
   price: "Free, with no in-app purchases",
@@ -103,6 +123,35 @@ export const streetcrew: StreetCrewContent = {
         "Routes are trimmed and thinned on the phone before anything is shared, and nothing leaves the device by default.",
     },
   ],
+  screenshots: [
+    {
+      src: "/projects/streetcrew/record.jpg",
+      alt: "StreetCrew recording a run: live distance, time, pace and climb, with new squares lighting up on the map",
+      width: 1206,
+      height: 2622,
+      group: "Record",
+    },
+    {
+      src: "/projects/streetcrew/explore.jpg",
+      alt: "StreetCrew Explore tab: explored squares on the map, new ground this week and the nearest new ground",
+      width: 1206,
+      height: 2622,
+      group: "Explore",
+    },
+    {
+      src: "/projects/streetcrew/loop-planner.jpg",
+      alt: "StreetCrew loop planner: a 45-minute loop with new squares and a weather tip",
+      width: 1206,
+      height: 2622,
+      group: "Plan",
+    },
+  ],
+  header: {
+    src: "/projects/streetcrew/header.jpg",
+    alt: "StreetCrew: Every walk, somewhere new",
+    width: 1920,
+    height: 823,
+  },
 };
 
 export type StoreStatus = { kind: "coming-soon" } | { kind: "available"; url: string };

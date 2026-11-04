@@ -3,12 +3,12 @@ import { StreetCrewLanding } from "@/components/projects/streetcrew/StreetCrewLa
 import { streetcrew } from "@/lib/projects/streetcrew";
 import { site } from "@/lib/site";
 
-const title = "StreetCrew — Every walk, somewhere new";
+const title = "StreetCrew: Walk & Run Tracker";
 const description =
   "StreetCrew is a free GPS tracker for runs, walks and hikes on iPhone and iPad. Your map fills in square by square as you explore, with loop planning, friends and group events. No ads, and your routes stay on your device.";
 
 const path = "/projects/streetcrew";
-const image = "/projects/streetcrew/app-icon.png";
+const image = streetcrew.header.src;
 
 export const metadata: Metadata = {
   title,
@@ -19,10 +19,10 @@ export const metadata: Metadata = {
     description,
     url: path,
     type: "website",
-    images: [{ url: image, width: 1024, height: 1024, alt: "StreetCrew app icon" }],
+    images: [{ url: image, width: streetcrew.header.width, height: streetcrew.header.height, alt: streetcrew.header.alt }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `${title} — ${site.studio}`,
     description,
     images: [image],

@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { storeStatus, streetcrew } from "./streetcrew";
 
@@ -8,8 +10,10 @@ describe("StreetCrew content", () => {
     expect(text).not.toMatch(/\bPace\b/);
   });
 
-  it("matches the App Store listing's subtitle and pricing", () => {
-    expect(streetcrew.subtitle).toBe("Every walk, somewhere new");
+  it("matches the App Store listing's name, subtitle, tagline and pricing", () => {
+    expect(streetcrew.storeName).toBe("StreetCrew: Walk & Run Tracker");
+    expect(streetcrew.subtitle).toBe("Explore new streets & routes");
+    expect(streetcrew.tagline).toBe("Every walk, somewhere new");
     expect(streetcrew.price).toMatch(/free/i);
     expect(streetcrew.price).toMatch(/no in-app purchases/i);
   });
@@ -36,6 +40,32 @@ describe("StreetCrew content", () => {
     [streetcrew.links.privacy, streetcrew.links.support, streetcrew.links.terms].forEach((url) =>
       expect(url).toMatch(/^https:\/\//)
     );
+  });
+});
+
+describe("StreetCrew images", () => {
+  const publicFile = (src: string) => path.join(process.cwd(), "public", src);
+
+  it("uses only the app's own App Store screenshots, each on disk with alt text", () => {
+    expect(streetcrew.screenshots.map((s) => s.src)).toEqual([
+      "/projects/streetcrew/record.jpg",
+      "/projects/streetcrew/explore.jpg",
+      "/projects/streetcrew/loop-planner.jpg",
+    ]);
+    streetcrew.screenshots.forEach((shot) => {
+      expect(existsSync(publicFile(shot.src))).toBe(true);
+      expect(shot.alt).toMatch(/^StreetCrew/);
+      expect([shot.width, shot.height]).toEqual([1206, 2622]);
+    });
+  });
+
+  it("pairs each screenshot with a feature group from the listing", () => {
+    const titles = streetcrew.featureGroups.map((g) => g.title);
+    streetcrew.screenshots.forEach((shot) => expect(titles).toContain(shot.group));
+  });
+
+  it("uses the App Store header artwork", () => {
+    expect(existsSync(publicFile(streetcrew.header.src))).toBe(true);
   });
 });
 

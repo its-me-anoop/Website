@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { storeStatus, streetcrew, type StreetCrewContent } from "@/lib/projects/streetcrew";
+import { storeStatus, streetcrew, type Screenshot, type StreetCrewContent } from "@/lib/projects/streetcrew";
 import { serviceHref } from "@/lib/marketing/services";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -75,70 +75,25 @@ function StoreBadge({ appStoreUrl }: { appStoreUrl: string | null }) {
   );
 }
 
-/* A fixed pattern of explored squares on a 10 × 8 grid, so the art is
-   the same on every render (no hydration mismatch). */
-const explored = new Set([
-  "1,5", "2,5", "2,4", "3,4", "3,3", "4,3", "4,2", "5,2", "5,3", "6,3", "6,4", "7,4",
-  "7,5", "6,5", "5,5", "4,5", "4,6", "3,6", "8,4", "8,3", "2,6", "1,6",
-]);
-const freshThisWeek = new Set(["7,4", "8,4", "8,3", "7,5"]);
-const route = "M 30 230 L 70 230 L 70 190 L 110 190 L 110 150 L 150 150 L 150 110 L 190 110 L 190 70 L 230 70 L 230 130 L 270 130 L 270 170 L 310 170 L 350 170 L 350 130";
-
-/**
- * Decorative: how the Explore map looks as squares light up. Drawn in
- * SVG rather than a screenshot until the App Store screenshots are on
- * file; hidden from assistive tech because the copy says the same.
- */
-function ExploredMap({ className }: { className?: string }) {
-  const cells = [];
-  for (let x = 0; x < 10; x++) {
-    for (let y = 0; y < 8; y++) {
-      const key = `${x},${y}`;
-      const fill = freshThisWeek.has(key)
-        ? "var(--sc-signal)"
-        : explored.has(key)
-          ? "var(--sc-street-lit)"
-          : "transparent";
-      cells.push(
-        <rect
-          key={key}
-          x={x * 40 + 2}
-          y={y * 40 + 2}
-          width={36}
-          height={36}
-          rx={4}
-          fill={fill}
-          opacity={freshThisWeek.has(key) ? 0.55 : 1}
-        />
-      );
-    }
-  }
+/** One App Store screenshot, with rounded corners and a soft shadow. */
+function Shot({ shot, priority = false, className = "" }: { shot: Screenshot; priority?: boolean; className?: string }) {
   return (
-    <svg
-      viewBox="0 0 400 320"
-      className={className}
-      aria-hidden="true"
-      focusable="false"
-      data-explored-map
-    >
-      <rect width="400" height="320" rx="20" fill="var(--sc-street-ink)" />
-      {cells}
-      {[...Array(11)].map((_, i) => (
-        <line key={`v${i}`} x1={i * 40} y1={0} x2={i * 40} y2={320} stroke="var(--sc-street)" strokeWidth={1.5} />
-      ))}
-      {[...Array(9)].map((_, i) => (
-        <line key={`h${i}`} x1={0} y1={i * 40} x2={400} y2={i * 40} stroke="var(--sc-street)" strokeWidth={1.5} />
-      ))}
-      <path d={route} fill="none" stroke="var(--sc-signal)" strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx={30} cy={230} r={9} fill="#fff" stroke="var(--sc-signal)" strokeWidth={4} />
-      <circle cx={350} cy={130} r={9} fill="var(--sc-signal)" stroke="#fff" strokeWidth={4} />
-    </svg>
+    <Image
+      src={shot.src}
+      alt={shot.alt}
+      width={shot.width}
+      height={shot.height}
+      priority={priority}
+      sizes="(min-width: 1024px) 260px, 45vw"
+      className={`h-auto rounded-[28px] shadow-[0_28px_56px_rgba(11,22,38,0.28)] ${className}`}
+    />
   );
 }
 
 export function StreetCrewLanding({ content = streetcrew }: { content?: StreetCrewContent }) {
   const reduce = useReducedMotion();
   const live = content.appStoreUrl !== null;
+  const shots = Object.fromEntries(content.screenshots.map((shot) => [shot.group, shot])) as Record<string, Screenshot | undefined>;
   const policyLink = (
     <Link
       href={content.links.privacy}
@@ -197,7 +152,10 @@ export function StreetCrewLanding({ content = streetcrew }: { content?: StreetCr
             transition={{ duration: 0.8, delay: 0.12, ease }}
             className="relative mx-auto w-full max-w-[520px]"
           >
-            <ExploredMap className="h-auto w-full rounded-[20px] shadow-[var(--shadow)]" />
+            <div className="relative mx-auto flex max-w-[460px] items-end justify-center">
+              {shots.Record ? <Shot shot={shots.Record} priority className="w-[46%] translate-x-[8%] -rotate-3 opacity-95" /> : null}
+              {shots.Explore ? <Shot shot={shots.Explore} priority className="relative z-10 w-[50%] -translate-x-[4%] rotate-2" /> : null}
+            </div>
             <Image
               src="/projects/streetcrew/app-icon.png"
               alt="StreetCrew app icon"
@@ -205,7 +163,7 @@ export function StreetCrewLanding({ content = streetcrew }: { content?: StreetCr
               height={1024}
               priority
               sizes="120px"
-              className="absolute -bottom-6 left-3 h-auto sm:-left-4 w-[96px] rounded-[22%] shadow-[var(--shadow)] sm:w-[120px]"
+              className="absolute -bottom-6 left-3 z-20 h-auto w-[84px] rounded-[22%] shadow-[var(--shadow)] sm:-left-2 sm:w-[110px]"
             />
           </motion.div>
         </div>
@@ -221,7 +179,7 @@ export function StreetCrewLanding({ content = streetcrew }: { content?: StreetCr
                 Record, explore, <em>go somewhere new.</em>
               </>
             }
-            lede={`${content.subtitle}. Your map fills in square by square, and the nearest place you have never been is always one tap away.`}
+            lede={`${content.tagline}. Record runs, walks and hikes, plan a loop to fit the time you have, and watch your map fill in.`}
           />
 
           <motion.div
@@ -253,7 +211,34 @@ export function StreetCrewLanding({ content = streetcrew }: { content?: StreetCr
         </div>
       </section>
 
-      <section className="px-[var(--gutter)] py-[var(--space-section)]" aria-labelledby="privacy-heading">
+      <section className="px-[var(--gutter)] py-[var(--space-section)]" aria-labelledby="screens-heading">
+        <div className="mx-auto w-full max-w-[1200px]">
+          <SectionHeader
+            align="center"
+            eyebrow="On the App Store"
+            headingId="screens-heading"
+            title={
+              <>
+                Record, explore <em>and plan.</em>
+              </>
+            }
+          />
+          <ul className="grid gap-10 sm:grid-cols-3 sm:gap-6">
+            {content.screenshots.map((shot, i) => {
+              const group = content.featureGroups.find((g) => g.title === shot.group);
+              return (
+                <Reveal key={shot.src} delay={i * 0.06} as="li" className="flex flex-col items-center text-center">
+                  <Shot shot={shot} className="w-[min(260px,70vw)] sm:w-full sm:max-w-[260px]" />
+                  <p className="mt-6 font-display text-lg font-semibold tracking-tight text-ink">{shot.group}</p>
+                  {group ? <p className="mt-2 max-w-[30ch] text-sm leading-relaxed text-ink-3">{group.points[0]}</p> : null}
+                </Reveal>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+
+      <section className="bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]" aria-labelledby="privacy-heading">
         <div className="mx-auto grid w-full max-w-[1200px] gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <Reveal>
             <div className="mb-5">
@@ -286,7 +271,7 @@ export function StreetCrewLanding({ content = streetcrew }: { content?: StreetCr
         </div>
       </section>
 
-      <section className="bg-canvas-2 px-[var(--gutter)] py-[var(--space-section)]" aria-labelledby="craft-heading">
+      <section className="px-[var(--gutter)] py-[var(--space-section)]" aria-labelledby="craft-heading">
         <div className="mx-auto w-full max-w-[1200px]">
           <SectionHeader
             eyebrow="How it is built"
@@ -338,7 +323,7 @@ export function StreetCrewLanding({ content = streetcrew }: { content?: StreetCr
                 id="project-cta-heading"
                 className="max-w-[660px] text-[clamp(28px,4vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-white"
               >
-                The nearest street you have never walked is <span className="text-orange">closer than you think.</span>
+                Every walk, <span className="text-orange">somewhere new.</span>
               </h2>
               <p className="mt-5 max-w-[660px] text-[15.5px] leading-[1.7] text-white/70">
                 {content.name} is free for {content.platforms}, with no ads and
