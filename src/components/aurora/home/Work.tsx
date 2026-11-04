@@ -10,7 +10,7 @@ type Tile = (typeof featuredWork)[number];
 
 const isExternal = (href: string) => href.startsWith("http");
 
-const spanClass: Record<Tile["span"], string> = {
+const spanClass: Record<"wide" | "narrow" | "full", string> = {
   wide: "lg:col-span-7",
   narrow: "lg:col-span-5",
   full: "lg:col-span-12",
@@ -39,20 +39,20 @@ function TileMedia({ tile }: { tile: Tile }) {
         <div className="absolute inset-0 bg-[#d9e2e6]">
           <div className="fx-par absolute inset-0 flex justify-center pt-[8%]">
             <Image
-              src="/projects/sipli/dashboard.png"
-              alt="Sipli on iPhone: today's hydration dashboard"
-              width={1284}
-              height={2778}
+              src="/projects/sipli/home-half.jpg"
+              alt="Sipli on iPhone: the Home bottle half full, 1000 ml of a 2000 ml goal"
+              width={1206}
+              height={2622}
               sizes="(min-width: 960px) 20vw, 50vw"
               className="fx-zoom h-full w-auto rounded-2xl shadow-[0_30px_60px_rgba(23,20,15,0.25)]"
             />
           </div>
           <Image
-            src="/projects/sipli/app-icon.png"
+            src="/projects/sipli/mark.png"
             alt=""
             width={52}
             height={52}
-            className="absolute left-5 top-5 rounded-xl shadow-[0_6px_16px_rgba(23,20,15,0.18)]"
+            className="absolute left-5 top-5"
           />
         </div>
       );
@@ -79,6 +79,28 @@ function TileMedia({ tile }: { tile: Tile }) {
             height={840}
             sizes="(min-width: 960px) 24vw, 60vw"
             className="fx-zoom fx-par h-[92%] w-auto"
+          />
+        </div>
+      );
+    case "streetcrew":
+      return (
+        <div className="absolute inset-0 bg-[#0b1626]">
+          <div className="fx-par absolute inset-0 flex justify-center pt-[8%]">
+            <Image
+              src="/projects/streetcrew/explore.jpg"
+              alt="StreetCrew on iPhone: the Explore map with squares explored this week"
+              width={1206}
+              height={2622}
+              sizes="(min-width: 960px) 20vw, 50vw"
+              className="fx-zoom h-full w-auto rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.45)]"
+            />
+          </div>
+          <Image
+            src="/projects/streetcrew/app-icon.png"
+            alt=""
+            width={52}
+            height={52}
+            className="absolute left-5 top-5 rounded-xl shadow-[0_6px_16px_rgba(0,0,0,0.35)]"
           />
         </div>
       );

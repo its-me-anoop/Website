@@ -51,6 +51,11 @@ describe("services content model", () => {
     expect(copy).not.toMatch(/\d+\s?%/);
   });
 
+  it("lists every app case study, StreetCrew included, under the apps service", () => {
+    const apps = services.find((s) => s.slug === "apps")!;
+    expect(apps.related.map((l) => l.href)).toContain("/projects/streetcrew");
+  });
+
   it("only links related content to internal routes", () => {
     services.flatMap((s) => s.related).forEach((link) => expect(link.href.startsWith("/")).toBe(true));
   });

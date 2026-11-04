@@ -164,6 +164,7 @@ export const services: readonly Service[] = [
       { label: "Sipli case study", href: "/projects/sipli" },
       { label: "Little Artist case study", href: "/projects/artling" },
       { label: "Little Lifeline case study", href: "/projects/little-lifeline" },
+      { label: "StreetCrew case study", href: "/projects/streetcrew" },
     ],
     metaDescription:
       "iPhone, Apple Watch and Android apps in SwiftUI and Flutter from Flutterly in Reading, from first prototype to the App Store and beyond.",

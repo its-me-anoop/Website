@@ -196,10 +196,10 @@ export const projects: readonly Project[] = [
     type: "iOS, iPadOS and watchOS app",
     year: "2026",
     description:
-      "An adaptive hydration companion for iPhone, iPad and Apple Watch that turns changing goals, weather and Apple Health data into one calm daily rhythm.",
+      "A water tracker for iPhone, iPad and Apple Watch: a Home bottle shows what's left of your daily goal, and Siri logs a drink by name.",
     href: "/projects/sipli",
     internal: true,
-    image: "/projects/sipli/iphone_and_ipad.png",
+    image: "/projects/sipli/home-half.jpg",
     tint: "#d9e2e6",
     fit: "contain",
     tags: ["SwiftUI", "HealthKit", "On-device intelligence"],
@@ -229,6 +229,19 @@ export const projects: readonly Project[] = [
     tint: "#dde8e4",
     fit: "contain",
     tags: ["Unity", "Idle management", "Offline first"],
+  },
+  {
+    name: "StreetCrew",
+    type: "iOS and iPadOS app",
+    year: "2026",
+    description:
+      "A GPS tracker for runs, walks and hikes that lights up every street you explore, square by square. Free, with no ads, and routes stay on the device.",
+    href: "/projects/streetcrew",
+    internal: true,
+    image: "/projects/streetcrew/explore.jpg",
+    tint: "#0b1626",
+    fit: "contain",
+    tags: ["SwiftUI", "MapKit", "HealthKit"],
   },
 ] as const;
 
@@ -261,6 +274,7 @@ export const ticker = [
   "A reply within one working day",
   "Little Artist",
   "Little Lifeline",
+  "StreetCrew",
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────
@@ -906,6 +920,7 @@ export const footerColumns = [
       { label: "Sipli", href: "/projects/sipli" },
       { label: "Little Artist", href: "/projects/artling" },
       { label: "Little Lifeline", href: "/projects/little-lifeline" },
+      { label: "StreetCrew", href: "/projects/streetcrew" },
     ],
   },
   {
@@ -961,12 +976,12 @@ export const featuredWork = [
     span: "narrow",
     eyebrow: "iPhone, iPad and Apple Watch · Our app",
     title: "Sipli",
-    copy: "An adaptive hydration companion that turns goals, weather and Apple Health data into one calm daily rhythm.",
+    copy: "A water tracker whose Home bottle shows what's left of your daily goal, made for iPhone, iPad, Apple Watch and iPhone Duo.",
     href: "/projects/sipli",
     linkLabel: "Read the Sipli story",
     cursor: "Sipli case study",
     sketch: "phone",
-    sketchLabel: "Screen · 1284 × 2778",
+    sketchLabel: "Screen · 1206 × 2622",
   },
   {
     key: "lifeline",
@@ -1025,7 +1040,7 @@ export const featuredWork = [
   {
     key: "jjpaper",
     project: "JJ Paper",
-    span: "full",
+    span: "wide",
     eyebrow: "B2B supplier · Website · 2024",
     title: "JJ Paper Essentials",
     copy: "A commercial site that explains a sustainable paper supply chain without losing speed or credibility.",
@@ -1035,6 +1050,19 @@ export const featuredWork = [
     sketch: "site",
     sketchLabel: "IMG · Live site · 1920 × 1200",
     image: { src: "/project-jjpaper.png", alt: "JJ Paper Essentials website, home page" },
+  },
+  {
+    key: "streetcrew",
+    project: "StreetCrew",
+    span: "narrow",
+    eyebrow: "iPhone and iPad · Our app",
+    title: "StreetCrew",
+    copy: "A GPS tracker for runs, walks and hikes that lights up every street you explore.",
+    href: "/projects/streetcrew",
+    linkLabel: "Read the StreetCrew story",
+    cursor: "StreetCrew case study",
+    sketch: "phone",
+    sketchLabel: "Screen · 1206 × 2622",
   },
 ] as const;
 

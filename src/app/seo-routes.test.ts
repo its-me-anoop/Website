@@ -42,6 +42,11 @@ describe("canonical host", () => {
     expect(urls).toContain(`${site.url}/projects/little-lifeline`);
   });
 
+  it("sitemap lists the StreetCrew project page", () => {
+    const urls = sitemap().map((entry) => entry.url);
+    expect(urls).toContain(`${site.url}/projects/streetcrew`);
+  });
+
   it("sitemap lists the audit landing page but not the per-site report or the API", () => {
     const urls = sitemap().map((entry) => entry.url);
     expect(urls).toContain(`${site.url}/free-audit`);

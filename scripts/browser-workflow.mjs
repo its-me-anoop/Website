@@ -69,6 +69,7 @@ const ROUTES = [
   "/demo/physio-clinic/accessibility",
   "/projects/sipli",
   "/projects/artling",
+  "/projects/streetcrew",
   "/projects/sipli/privacy-policy",
   "/projects/artling/privacy-policy",
   "/little-artist/privacy-policy",
@@ -242,7 +243,7 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   }
 
   const projects = await page.locator("[data-project-card]").count();
-  if (projects !== 7) note("home", `expected 7 project cards, found ${projects}`);
+  if (projects !== 8) note("home", `expected 8 project cards, found ${projects}`);
 
   /* Scroll-linked wireframe reveals must actually uncover their content:
      the founder portrait once stayed clipped away because the in-view
