@@ -4,79 +4,29 @@ import "./globals.css";
 import { site } from "@/lib/site";
 import { serviceHref, services } from "@/lib/marketing/services";
 
-/* Porcelain pages render on the native SF-style system stack (see
-   globals.css). The Aurora marketing pages set Bricolage Grotesque
-   (display), Instrument Serif (italic emphasis), Geist (body) and
-   Geist Mono (labels), all SIL OFL. Zodiak and Switzer (Fontshare, ITF
-   Free Font Licence) only typeset the printed audit report now, and
-   Syne and Space Grotesk stay available to the demo sites. Everything
-   is self-hosted woff2 so builds never depend on a font CDN. */
+/* Case-study pages render on the native SF-style system stack (see
+   globals.css). The Sorted marketing pages and the printed audit report
+   set one face, Archivo (SIL OFL), a variable font with weight and width
+   axes: wide and heavy for display, condensed capitals for labels,
+   regular for reading. Syne and Space Grotesk stay available to the demo
+   sites. Everything is self-hosted woff2 so builds never depend on a
+   font CDN. */
 
-const bricolage = localFont({
-  src: "../fonts/bricolage-grotesque-latin-var.woff2",
-  weight: "200 800",
-  variable: "--font-bricolage-v",
+const archivo = localFont({
+  src: "../fonts/archivo-latin-var.woff2",
+  weight: "100 900",
+  variable: "--font-archivo-v",
   display: "swap",
+  declarations: [{ prop: "font-stretch", value: "62% 125%" }],
   fallback: ["Arial", "Helvetica", "sans-serif"],
   adjustFontFallback: "Arial",
 });
 
-const instrument = localFont({
-  /* Only the italic is ever used (emphasis inside headings). */
-  src: [{ path: "../fonts/instrument-serif-italic.woff2", weight: "400", style: "italic" }],
-  variable: "--font-instrument-v",
-  display: "swap",
-  fallback: ["Georgia", "Times New Roman", "serif"],
-  adjustFontFallback: "Times New Roman",
-});
-
-const geist = localFont({
-  src: "../fonts/geist-latin-var.woff2",
-  weight: "100 900",
-  variable: "--font-geist-v",
-  display: "swap",
-  fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "sans-serif"],
-  adjustFontFallback: "Arial",
-});
-
-const geistMono = localFont({
-  src: "../fonts/geist-mono-latin-var.woff2",
-  weight: "100 900",
-  variable: "--font-geist-mono-v",
-  display: "swap",
-  preload: false,
-});
-
-const zodiak = localFont({
-  src: [
-    { path: "../fonts/zodiak-regular.woff2", weight: "400", style: "normal" },
-    { path: "../fonts/zodiak-italic.woff2", weight: "400", style: "italic" },
-  ],
-  variable: "--font-zodiak-v",
-  display: "swap",
-  preload: false,
-  fallback: ["Georgia", "Times New Roman", "serif"],
-  adjustFontFallback: "Times New Roman",
-});
-
-const switzer = localFont({
-  src: [
-    { path: "../fonts/switzer-regular.woff2", weight: "400", style: "normal" },
-    { path: "../fonts/switzer-medium.woff2", weight: "500", style: "normal" },
-    { path: "../fonts/switzer-semibold.woff2", weight: "600", style: "normal" },
-  ],
-  variable: "--font-switzer-v",
-  display: "swap",
-  preload: false,
-  fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "sans-serif"],
-  adjustFontFallback: "Arial",
-});
-
 /* Syne and Space Grotesk are only used by the care-home and physio demo
-   display styles, and JetBrains Mono only sits behind a CSS variable, so
-   none of them should be preloaded on every marketing page: the extra
-   font requests compete with the hero images for bandwidth before LCP.
-   The @font-face rules still ship, so the demos load them on demand. */
+   display styles, so neither should be preloaded on every marketing
+   page: the extra font requests compete with the hero for bandwidth
+   before LCP. The @font-face rules still ship, so the demos load them on
+   demand. */
 
 const syne = localFont({
   src: "../fonts/syne-latin-var.woff2",
@@ -90,14 +40,6 @@ const grotesk = localFont({
   src: "../fonts/space-grotesk-latin-var.woff2",
   weight: "300 700",
   variable: "--font-grotesk-v",
-  display: "swap",
-  preload: false,
-});
-
-const jbMono = localFont({
-  src: "../fonts/jetbrains-mono-latin-var.woff2",
-  weight: "100 800",
-  variable: "--font-jb-v",
   display: "swap",
   preload: false,
 });
@@ -156,7 +98,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#f4f3ee",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -303,15 +245,19 @@ export default function RootLayout({
          that off for route changes, so a new page opens at its top. */
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${bricolage.variable} ${instrument.variable} ${geist.variable} ${geistMono.variable} ${zodiak.variable} ${switzer.variable} ${syne.variable} ${grotesk.variable} ${jbMono.variable}`}
+      className={`${archivo.variable} ${syne.variable} ${grotesk.variable}`}
     >
       <head>
         <JsonLd />
+        {/* Sections tilt into view with JavaScript; without it they are simply there. */}
+        <noscript>
+          <style>{".s-reveal{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
       </head>
       <body className="antialiased bg-canvas text-ink font-sans min-h-screen">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-a-amber focus:px-4 focus:py-2 focus:text-a-void focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-[8px] focus:bg-s-sun focus:px-4 focus:py-2 focus:font-semibold focus:text-s-navy focus:shadow-lg"
         >
           Skip to main content
         </a>

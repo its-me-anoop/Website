@@ -2,24 +2,28 @@
 
 Six scoped design systems coexist. Never leak tokens across scopes.
 
-## 1. Aurora (marketing: home, sectors, packages, Clear Path, audit, booking, accessibility)
+## 1. Sorted (marketing: home, services, sectors, packages, Clear Path, audit, booking, accessibility, 404)
 
-See docs/AURORA.md. Aurora, Ember edition: warm night canvas `#0b0907`
-for the opening, studio and close; warm paper `#f6f1e8` for the sections
-people read carefully; Bricolage Grotesque display with Instrument Serif
-italics for emphasis (amber on night, deep ember on paper), Geist body,
-Geist Mono labels, **amber `#ffb020` as the only action colour, always a
-fill**. Solid `.a-card` surfaces, hairlines, one breathing ember glow,
-and real device frames (`IPhoneFrame` with a drawn status bar,
-`IMacFrame`) around every capture. Since the 2026-10 rebrand the homepage hero
-carries one WebGL ember shader and a 3D butterfly flap, both only with a
-fine pointer (touch screens get a static gradient and a flat flap), plus
-the `fx-` cursor and wireframe reveals (docs/AURORA.md). Motion: shared `EASE` curve, `Reveal` entrances,
-`SplitWords` headlines, reduced-motion fallbacks everywhere.
-`.aurora-root` scope; `.a-paper` / `.a-paper-2` remap the tokens for a
-paper section and `.a-on-ink` restores night inside one. The printed
-audit report alone keeps the old light bone/coal `--k-*` tokens, because
-it is paper.
+See docs/SORTED.md. "Your digital side, sorted." taken literally: the
+page is a desk of chalk `#f4f3ee` and navy `#0b1026`, flat colour and
+hard edges, no gradients. Cobalt `#2238e8` is the studio's colour and
+**flame `#ff5c1f` is the only action colour, always a fill with navy
+text**. Sun, jade and pink complete the five colours that code the five
+services (`ui/tones.ts`). One typeface, Archivo: wide and heavy for
+display (`.s-display`), condensed capitals for labels (`.s-label`); an
+emphasised word wears a label (`<em>` is a tilted colour block, never
+italic). Buttons are keys with a side that presses (`.s-key`); cards are
+flat sheets with a navy rule. 3D is DOM only, in small bounded scenes:
+the sorting table in the home hero, the card index, turning screen
+slabs, the exploded audit page, slab stacks, the staff pass, and flaps
+for section, headline and route transitions. `tone-*` classes remap the
+semantic tokens for a coloured band. `.s-root` scope; `.s-chrome` for
+the bar and footer around a case study. Reduced-motion and no-JS
+fallbacks everywhere; the first paint is always the finished layout.
+Sorted pages have their own dark theme (`prefers-color-scheme: dark`)
+and declare `color-scheme: light dark`, which also keeps Safari 27.3's
+Adaptive Dark Mode from repainting them; use `border-s-rule` /
+`var(--s-rule)` for rules that must show in both.
 
 ## 2. Porcelain (case studies `/projects/*`)
 

@@ -43,11 +43,11 @@ export const site = {
    * `scripts/og-card.mjs`. A new filename makes scrapers that cached an
    * earlier card (LinkedIn, Facebook, Slack) fetch this one.
    */
-  ogImage: "/og-studio.png",
+  ogImage: "/og-flutterly.png",
   ogImageAlt: "Flutterly: your digital side, sorted. Websites, apps, IT support, social media and SEO, from Reading, UK.",
   /** The healthcare card, kept on the GP, care-home and Clear Path pages only. */
   healthcareOgImage: {
-    url: "/og-aurora.png",
+    url: "/og-healthcare.png",
     width: 1200,
     height: 630,
     alt: "Flutterly: healthcare websites, beautifully built. Accessible, fast websites for GP practices and care homes.",

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
+import { caseStudies } from "@/lib/marketing/case-studies";
 import { serviceHref, services } from "@/lib/marketing/services";
 
 /**
@@ -26,6 +27,7 @@ const routes: readonly {
   { path: "/projects/sipli", changeFrequency: "monthly", priority: 0.7 },
   { path: "/projects/artling", changeFrequency: "monthly", priority: 0.7 },
   { path: "/projects/little-lifeline", changeFrequency: "monthly", priority: 0.7 },
+  ...caseStudies.map((c) => ({ path: `/projects/${c.slug}`, changeFrequency: "monthly" as const, priority: 0.6 })),
   { path: "/accessibility", changeFrequency: "yearly", priority: 0.4 },
   { path: "/projects/sipli/privacy-policy", changeFrequency: "yearly", priority: 0.3 },
   { path: "/projects/artling/privacy-policy", changeFrequency: "yearly", priority: 0.3 },

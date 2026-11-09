@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { ProductShell } from "@/components/aurora/layout/ProductShell";
+import { ProductShell } from "@/components/sorted/layout/ProductShell";
 import { site } from "@/lib/site";
 
 const title = "Sipli — Privacy Policy";

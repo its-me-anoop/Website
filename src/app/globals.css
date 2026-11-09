@@ -87,76 +87,84 @@
   --signal: var(--accent);
   --signal-ink: var(--accent-ink);
 
-  /* ── "Kiln" marketing palette ───────────────────────────────────
-     The marketing routes (home, sectors, packages, audit,
-     accessibility) run a two-tone editorial language: a warm bone
-     canvas, deep coal bands, Zodiak serif display type, and one
-     fired vermilion for actions with butter yellow as the quiet
-     second highlight. Case-study pages stay on the Porcelain ramp;
-     demo sites have their own scopes further down. Every pairing
-     below is measured against WCAG 2.2 AA. */
-  --k-bone: #f3f0ea; /* page canvas */
-  --k-bone-2: #e9e4db; /* deeper band on bone */
-  --k-paper: #faf8f4; /* raised surfaces on bone */
-  --k-ink: #17140f; /* primary text on bone */
-  --k-ink-soft: #4a443c; /* secondary text on bone (≈8.5:1) */
-  --k-muted: #6b645a; /* captions on bone (≈5.1:1) */
-  --k-line: rgba(23, 20, 15, 0.1);
-  --k-line-2: rgba(23, 20, 15, 0.2);
-  --k-coal: #141210; /* dark bands and footer */
-  --k-coal-2: #211e1a; /* raised surfaces on coal */
-  --k-coal-3: #2c2823; /* hover / pressed on coal */
-  --k-coal-ink: #f3f0ea; /* text on coal */
-  --k-coal-soft: #b9b2a6; /* secondary text on coal (≈9:1) */
-  --k-coal-line: rgba(243, 240, 234, 0.12);
-  --k-fire: #bf3a15; /* the action colour; bone text on it ≈4.8:1 */
-  --k-fire-hover: #a83210;
-  --k-fire-soft: #f6dccf; /* tint behind fire accents on bone */
-  --k-fire-lite: #ff8a5b; /* fire as text on coal (≈8:1) */
-  --k-butter: #f1e27c; /* second highlight: tags, secondary action */
-  --k-butter-soft: #f8f1c4;
-  /* Audit report status glazes. Fire marks failures; these two mark
-     passes and warnings, each ≥4.5:1 as text on bone. */
-  --k-moss: #35702f; /* pass on bone (≈5.6:1) */
-  --k-moss-lite: #8fd08a; /* pass on coal (≈9:1) */
-  --k-ochre: #7a5200; /* warn on bone (≈6:1) */
-  --k-ochre-lite: #e9b949; /* warn on coal (≈9:1) */
+  /* ── Printed audit report (`--k-*`) ─────────────────────────────
+     The PDF is a paper document, so it has its own small ramp: chalk
+     sheets, navy bands, cobalt for marks and sun as the highlight. It
+     follows the Sorted palette below so the report and the site read
+     as one studio. Every pairing is measured against WCAG 2.2 AA. */
+  --k-bone: #f4f3ee; /* page */
+  --k-bone-2: #e9e8e0; /* deeper band */
+  --k-paper: #ffffff; /* raised surfaces */
+  --k-ink: #0b1026; /* primary text */
+  --k-ink-soft: #343a5a; /* secondary text (≈10:1) */
+  --k-muted: #596080; /* captions (≈5.5:1) */
+  --k-line: rgba(11, 16, 38, 0.12);
+  --k-line-2: rgba(11, 16, 38, 0.24);
+  --k-coal: #0b1026; /* dark bands */
+  --k-coal-2: #141a3a;
+  --k-coal-3: #1d2550;
+  --k-coal-ink: #f4f3ee;
+  --k-coal-soft: #c5c9de; /* secondary text on navy (≈11:1) */
+  --k-coal-line: rgba(244, 243, 238, 0.14);
+  --k-fire: #2238e8; /* marks and actions; chalk text on it ≈6.7:1 */
+  --k-fire-hover: #1727b3;
+  --k-fire-soft: #dfe4ff;
+  --k-fire-lite: #8fa0ff; /* cobalt as text on navy (≈7.7:1) */
+  --k-butter: #ffd23a;
+  --k-butter-soft: #fff0b3;
+  --k-moss: #0a7446; /* pass on chalk (≈5.2:1) */
+  --k-moss-lite: #5fe0a3; /* pass on navy (≈11:1) */
+  --k-ochre: #8a5600; /* warn on chalk (≈5.5:1) */
+  --k-ochre-lite: #ffd23a; /* warn on navy (≈13:1) */
 
-  /* ── "Aurora" marketing palette ─────────────────────────────────
-     Warm night: a near-black canvas with a brown undertone, lit by a
-     molten shader in ember, orange, amber and gold. Amber is the one
-     action colour. The --k-* tokens above now serve only the printed
-     audit report. Pairings measured against WCAG 2.2 AA. */
-  --a-void: #0b0907; /* page canvas */
-  --a-night: #120e0b; /* alternate bands */
-  --a-deep: #1b1510; /* raised solid surfaces */
-  --a-ink: #f8f1e7; /* primary text (≈18:1 on void) */
-  --a-ink-soft: #cbbfae; /* secondary text (≈11:1) */
-  --a-muted: #9c8f7e; /* captions (≈6.2:1) */
-  --a-line: rgba(255, 236, 210, 0.1);
-  --a-line-2: rgba(255, 236, 210, 0.18);
-  --a-ember: #ff5a1f;
-  --a-orange: #ff8a2a;
-  --a-gold: #ffc24a;
-  --a-amber: #ffb020; /* the action colour; void text on it ≈11:1 */
-  --a-amber-hover: #ffc555;
-  --a-red: #d9361c;
-  --a-pass: #7ddc8f;
-  --a-warn: #ffc857;
-  --a-fail: #ff6f5e;
-  --a-grad: linear-gradient(100deg, #ffd27a 0%, #ffb020 26%, #ff8a2a 52%, #ff5a1f 78%, #ffd27a 100%);
-  /* Ember: the warm paper the long-reading sections sit on. Amber stays
-     the one action colour (as a fill with void text); on paper the
-     emphasis colour is a deep ember that passes AA as text. */
-  --a-paper: #f6f1e8; /* reading canvas */
-  --a-paper-2: #ece5d8; /* alternate paper band */
-  --a-paper-raised: #fbf8f2; /* cards on paper */
-  --a-paper-ink: #17140f; /* primary text on paper (≈16:1) */
-  --a-paper-ink-soft: #3d3730; /* body on paper (≈10:1) */
-  --a-paper-muted: #5f574c; /* captions on paper (≈6:1) */
-  --a-paper-line: rgba(23, 20, 15, 0.12);
-  --a-paper-line-2: rgba(23, 20, 15, 0.24);
-  --a-ember-deep: #b4421a; /* emphasis on paper (≈5:1); paper text on it ≈4.9:1 */
+  /* ── "Sorted" marketing palette ─────────────────────────────────
+     Flat colour, hard edges, no gradients. Chalk is the desk the page
+     sits on; navy is the ink; cobalt is the studio's own colour; flame
+     (lifted from the butterfly) is the one action colour. Sun, jade
+     and pink complete the five colours that code the five services.
+     Raw values first, then the semantic tokens every component reads;
+     `.tone-*` classes remap the semantic tokens for a coloured band. */
+  --s-chalk: #f4f3ee;
+  --s-chalk-2: #e9e8e0;
+  --s-white: #ffffff;
+  --s-navy: #0b1026;
+  --s-navy-2: #141a3a;
+  --s-navy-3: #1d2550;
+  --s-cobalt: #2238e8;
+  --s-cobalt-deep: #1727b3;
+  --s-flame: #ff5c1f;
+  --s-flame-deep: #c9400d;
+  --s-sun: #ffd23a;
+  --s-sun-deep: #c99a00;
+  --s-jade: #1fb57a;
+  --s-jade-deep: #128556;
+  --s-pink: #ff93d1;
+  --s-pink-deep: #d9589f;
+  --s-sky: #dfe4ff;
+
+  --s-bg: var(--s-chalk); /* the band's canvas */
+  --s-bg-2: var(--s-chalk-2); /* inset wells */
+  --s-raised: var(--s-white); /* cards */
+  --s-ink: var(--s-navy); /* primary text (≈17:1 on chalk) */
+  --s-ink-soft: #343a5a; /* body (≈10:1) */
+  --s-muted: #596080; /* captions (≈5.5:1) */
+  --s-line: rgba(11, 16, 38, 0.14);
+  --s-line-2: rgba(11, 16, 38, 0.32);
+  --s-accent: var(--s-cobalt); /* marks, ticks and links as text (≈6.7:1) */
+  --s-mark: var(--s-cobalt); /* the label stuck behind an emphasised word */
+  --s-mark-ink: #ffffff;
+  --s-action: var(--s-flame); /* the action colour: navy text on it ≈6:1 */
+  --s-action-ink: var(--s-navy);
+  --s-action-edge: var(--s-flame-deep);
+  --s-plain-edge: #c2c1b6; /* the side of a white key */
+  --s-rule: var(--s-navy); /* firm rules and the sides of cards */
+  --s-key-shadow: var(--s-navy); /* the side of the audit field */
+  --s-page: var(--s-chalk); /* what Safari paints behind the page */
+  --s-pass: #0a7446;
+  --s-warn: #8a5600;
+  --s-fail: #c22a0a;
+  --s-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+  --s-spring: cubic-bezier(0.22, 1.25, 0.36, 1);
 }
 
 /* Sipli case study: light aqua product palette */
@@ -259,31 +267,37 @@
   --color-k-ochre: var(--k-ochre);
   --color-k-ochre-lite: var(--k-ochre-lite);
 
-  --color-a-void: var(--a-void);
-  --color-a-night: var(--a-night);
-  --color-a-deep: var(--a-deep);
-  --color-a-ink: var(--a-ink);
-  --color-a-ink-soft: var(--a-ink-soft);
-  --color-a-muted: var(--a-muted);
-  --color-a-line: var(--a-line);
-  --color-a-line-2: var(--a-line-2);
-  --color-a-ember: var(--a-ember);
-  --color-a-orange: var(--a-orange);
-  --color-a-gold: var(--a-gold);
-  --color-a-amber: var(--a-amber);
-  --color-a-amber-hover: var(--a-amber-hover);
-  --color-a-red: var(--a-red);
-  --color-a-pass: var(--a-pass);
-  --color-a-warn: var(--a-warn);
-  --color-a-fail: var(--a-fail);
-  --color-a-paper: var(--a-paper);
-  --color-a-paper-2: var(--a-paper-2);
-  --color-a-paper-raised: var(--a-paper-raised);
-  --color-a-paper-ink: var(--a-paper-ink);
-  --color-a-paper-ink-soft: var(--a-paper-ink-soft);
-  --color-a-paper-muted: var(--a-paper-muted);
-  --color-a-paper-line: var(--a-paper-line);
-  --color-a-ember-deep: var(--a-ember-deep);
+  --color-s-chalk: var(--s-chalk);
+  --color-s-chalk-2: var(--s-chalk-2);
+  --color-s-white: var(--s-white);
+  --color-s-navy: var(--s-navy);
+  --color-s-navy-2: var(--s-navy-2);
+  --color-s-navy-3: var(--s-navy-3);
+  --color-s-cobalt: var(--s-cobalt);
+  --color-s-cobalt-deep: var(--s-cobalt-deep);
+  --color-s-flame: var(--s-flame);
+  --color-s-flame-deep: var(--s-flame-deep);
+  --color-s-sun: var(--s-sun);
+  --color-s-jade: var(--s-jade);
+  --color-s-pink: var(--s-pink);
+  --color-s-sky: var(--s-sky);
+  --color-s-bg: var(--s-bg);
+  --color-s-bg-2: var(--s-bg-2);
+  --color-s-raised: var(--s-raised);
+  --color-s-ink: var(--s-ink);
+  --color-s-ink-soft: var(--s-ink-soft);
+  --color-s-muted: var(--s-muted);
+  --color-s-line: var(--s-line);
+  --color-s-line-2: var(--s-line-2);
+  --color-s-rule: var(--s-rule);
+  --color-s-accent: var(--s-accent);
+  --color-s-mark: var(--s-mark);
+  --color-s-mark-ink: var(--s-mark-ink);
+  --color-s-action: var(--s-action);
+  --color-s-action-ink: var(--s-action-ink);
+  --color-s-pass: var(--s-pass);
+  --color-s-warn: var(--s-warn);
+  --color-s-fail: var(--s-fail);
 
   /* Semantic + legacy aliases */
   --color-background: var(--background);
@@ -305,15 +319,8 @@
   /* Display type system (self-hosted via next/font, see layout.tsx) */
   --font-syne: var(--font-syne-v), "Syne", var(--font-display);
   --font-grotesk: var(--font-grotesk-v), "Space Grotesk", var(--font-sans);
-  --font-jb: var(--font-jb-v), "JetBrains Mono", var(--font-mono);
-  /* Kiln marketing pages: Zodiak serif display over Switzer body. */
-  --font-zodiak: var(--font-zodiak-v), "Zodiak", Georgia, "Times New Roman", serif;
-  --font-switzer: var(--font-switzer-v), "Switzer", var(--font-sans);
-  /* Aurora marketing pages. */
-  --font-bricolage: var(--font-bricolage-v), "Bricolage Grotesque", var(--font-display);
-  --font-instrument: var(--font-instrument-v), "Instrument Serif", Georgia, serif;
-  --font-geist: var(--font-geist-v), "Geist", var(--font-sans);
-  --font-geist-mono: var(--font-geist-mono-v), "Geist Mono", var(--font-mono);
+  /* Sorted marketing pages: one variable face, weight and width. */
+  --font-archivo: var(--font-archivo-v), "Archivo", var(--font-sans);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -448,447 +455,1079 @@ p {
   animation: float-y 6s var(--ease-in-out) infinite;
 }
 
-/* Route enter (app/template.tsx): soft blur-and-rise on every navigation.
-   Deliberately a CSS animation with no fill mode — once it finishes the
-   wrapper carries no filter or transform, so fixed chrome (the site nav)
-   stays anchored to the viewport rather than to the page. */
-/* No opacity here: a page that first paints transparent and fades in on
-   the compositor never records a Largest Contentful Paint. */
-/* No filter either: on iOS Safari a filter on the page wrapper
-   rasterises the whole page as one layer, which runs out of GPU memory
-   and leaves regions black and animations frozen mid-frame. */
+/* Route enter (app/template.tsx). A CSS animation with no fill mode:
+   once it finishes the wrapper carries no transform, so the fixed nav
+   stays anchored to the viewport rather than to the page. No opacity
+   (a page that first paints transparent never records an LCP) and no
+   filter (it rasterises the whole page as one layer on iOS Safari). */
 @keyframes route-enter {
   from {
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
 }
 .route-enter {
-  animation: route-enter 0.5s var(--ease-out-expo);
+  animation: route-enter 0.45s var(--s-ease);
 }
 
-/* Curtain between marketing pages (template.tsx): the dark layer lifts
-   first, then the amber one, revealing the new page underneath. */
-.route-curtain span {
+/* Between pages (template.tsx): five flaps, one per service colour,
+   cover the new page and turn away in 3D like a departure board. They
+   never render on the first load, so they cannot delay first paint. */
+.route-flaps {
   position: fixed;
   inset: 0;
   z-index: 190;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   pointer-events: none;
-  animation: route-curtain 0.8s cubic-bezier(0.76, 0, 0.24, 1) both;
+  perspective: 1400px;
+  perspective-origin: 50% 0%;
 }
-.route-curtain span:first-child {
-  background: linear-gradient(180deg, #ffb020, #ff5a1f);
-  animation-delay: 0.12s;
+.route-flaps span {
+  transform-origin: 50% 0%;
+  backface-visibility: hidden;
+  animation: route-flap 0.62s cubic-bezier(0.7, 0, 0.25, 1) both;
+  animation-delay: calc(var(--i) * 55ms);
 }
-.route-curtain span:last-child {
-  background: #0b0907;
-  z-index: 191;
-  animation-duration: 0.7s;
-}
-@keyframes route-curtain {
-  from {
-    clip-path: inset(0 0 0 0);
-  }
+@keyframes route-flap {
   to {
-    clip-path: inset(0 0 100% 0);
+    transform: rotateX(-96deg);
   }
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Aurora: the marketing-site design language
-   A warm near-black canvas lit by a live WebGL shader of slow,
-   molten light (ember, orange, amber, gold), glass surfaces,
-   Bricolage Grotesque display type with Instrument Serif italics for
-   emphasis, a Geist body, one amber action colour and warm paper for the
-   reading sections. Scoped to `.aurora-root`, so the case-study pages and the
-   demo sites are untouched. Every text pairing is checked against
-   WCAG 2.2 AA on --a-void and --a-night.
+   Sorted: the marketing-site design language
+   "Your digital side, sorted." The page is a desk: chalk sheets,
+   navy ink, flat colour and hard edges. Things arrive scattered and
+   settle into rows; cards have real thickness and turn in 3D; an
+   emphasised word wears a label. One typeface, Archivo, set wide for
+   display and condensed for labels. Scoped to `.s-root` (and
+   `.s-chrome` for the nav and footer around a product page), so the
+   case studies and the demo sites are untouched. Every text pairing
+   is checked against WCAG 2.2 AA on its tone.
    ───────────────────────────────────────────────────────────── */
 
-@property --a-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
+@property --s-k {
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
 }
 
-html:has(.aurora-root) {
-  background: var(--a-void);
-  color-scheme: dark;
+/* Sorted pages have a light and a dark theme of their own, and say so:
+   `color-scheme: light dark` is what tells Safari's Adaptive Dark Mode
+   (27.3) to leave the page alone rather than repaint it. */
+html:has(.s-root) {
+  background: var(--s-page);
+  color-scheme: light dark;
 }
-html:has(.aurora-root)::-webkit-scrollbar-track {
-  background: var(--a-void);
+html:has(.s-root)::-webkit-scrollbar-track {
+  background: var(--s-page);
 }
-html:has(.aurora-root)::-webkit-scrollbar-thumb {
-  background: #262a3b;
-  border-color: var(--a-void);
+html:has(.s-root)::-webkit-scrollbar-thumb {
+  background: var(--s-rule);
+  border-color: var(--s-page);
+  border-radius: 3px;
 }
-html:has(.aurora-root) body {
-  background: var(--a-void);
+html:has(.s-root) body {
+  background: var(--s-page);
 }
 
-/* `.aurora-chrome` carries the same type and colour onto the Flutterly
-   nav and footer when they frame a light product page, without
-   repainting that page's html background. */
-.aurora-root,
-.aurora-chrome {
+.s-root,
+.s-chrome {
   position: relative;
   isolation: isolate;
-  background: var(--a-void);
-  color: var(--a-ink);
-  font-family: var(--font-geist);
-  letter-spacing: -0.006em;
-  font-feature-settings: "ss01", "cv11";
+  background: var(--s-bg);
+  color: var(--s-ink);
+  font-family: var(--font-archivo);
+  font-stretch: 100%;
+  letter-spacing: -0.004em;
 }
-.aurora-chrome {
+.s-chrome {
   /* No stacking context of its own, so the fixed nav keeps its z-index. */
   position: static;
   isolation: auto;
   background: transparent;
 }
-.aurora-chrome > footer {
-  background: var(--a-void);
+.s-root :is(h1, h2, h3, h4),
+.s-chrome :is(h1, h2, h3, h4) {
+  font-family: inherit;
 }
-.aurora-root ::selection {
-  background: var(--a-amber);
-  color: var(--a-void);
+.s-root ::selection,
+.s-chrome ::selection {
+  background: var(--s-sun);
+  color: var(--s-navy);
 }
-.aurora-root :focus-visible,
-.aurora-chrome :focus-visible {
-  outline: 2px solid var(--a-amber);
-  outline-offset: 3px;
-  border-radius: 10px;
+/* Two rings, navy inside sun, so focus shows on every tone. */
+.s-root :focus-visible,
+.s-chrome :focus-visible {
+  outline: 3px solid var(--s-navy);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 7px var(--s-sun);
+  border-radius: 6px;
 }
-body:has(.aurora-root) > a[href="#main"]:focus {
-  background: var(--a-amber);
-  color: var(--a-void);
+body:has(.s-root) > a[href="#main"]:focus,
+body:has(.s-chrome) > a[href="#main"]:focus {
+  background: var(--s-sun);
+  color: var(--s-navy);
 }
 
-/* Display type: tight, heavy grotesque; emphasis switches to a
-   gradient-lit serif italic. */
-.a-display {
-  font-family: var(--font-bricolage);
-  font-weight: 640;
-  font-variation-settings: "opsz" 96;
-  letter-spacing: -0.045em;
-  line-height: 0.96;
+/* ── Tones ─────────────────────────────────────────────────────
+   A band or a card picks a tone; everything inside reads the same
+   semantic tokens and comes out right. */
+.tone-chalk,
+.tone-white,
+.tone-sky,
+.tone-cobalt,
+.tone-navy,
+.tone-flame,
+.tone-sun,
+.tone-jade,
+.tone-pink {
+  background-color: var(--s-bg);
+  color: var(--s-ink);
+}
+.tone-chalk,
+.tone-white,
+.tone-sky {
+  --s-bg: var(--s-chalk);
+  --s-bg-2: var(--s-chalk-2);
+  --s-raised: var(--s-white);
+  --s-ink: var(--s-navy);
+  --s-ink-soft: #343a5a;
+  --s-muted: #596080;
+  --s-line: rgba(11, 16, 38, 0.14);
+  --s-line-2: rgba(11, 16, 38, 0.32);
+  --s-accent: var(--s-cobalt);
+  --s-mark: var(--s-cobalt);
+  --s-mark-ink: #ffffff;
+  --s-action: var(--s-flame);
+  --s-action-ink: var(--s-navy);
+  --s-action-edge: var(--s-flame-deep);
+  --s-plain-edge: #c2c1b6;
+  --s-rule: var(--s-navy);
+  --s-key-shadow: var(--s-navy);
+  --s-pass: #0a7446;
+  --s-warn: #8a5600;
+  --s-fail: #c22a0a;
+}
+.tone-white {
+  --s-bg: var(--s-white);
+  --s-bg-2: var(--s-chalk);
+  --s-raised: var(--s-chalk);
+}
+.tone-sky {
+  --s-bg: var(--s-sky);
+  --s-bg-2: #cfd6ff;
+  --s-muted: #4d5475;
+  --s-plain-edge: #aab3ee;
+}
+.tone-cobalt {
+  --s-bg: var(--s-cobalt);
+  --s-bg-2: var(--s-cobalt-deep);
+  --s-raised: var(--s-cobalt-deep);
+  --s-ink: #ffffff;
+  --s-ink-soft: #e1e5ff;
+  --s-muted: #c6cdff;
+  --s-line: rgba(255, 255, 255, 0.24);
+  --s-line-2: rgba(255, 255, 255, 0.5);
+  --s-accent: var(--s-sun);
+  --s-mark: var(--s-flame);
+  --s-mark-ink: var(--s-navy);
+  --s-action: var(--s-flame);
+  --s-action-ink: var(--s-navy);
+  --s-action-edge: var(--s-navy);
+  --s-plain-edge: #9aa6ff;
+  --s-rule: var(--s-navy);
+  --s-key-shadow: var(--s-navy);
+  --s-pass: #b9f5d6;
+  --s-warn: var(--s-sun);
+  --s-fail: #ffd3c2;
+}
+.tone-navy {
+  --s-bg: var(--s-navy);
+  --s-bg-2: var(--s-navy-2);
+  --s-raised: var(--s-navy-2);
+  --s-ink: var(--s-chalk);
+  --s-ink-soft: #c5c9de;
+  --s-muted: #9aa0bf;
+  --s-line: rgba(244, 243, 238, 0.16);
+  --s-line-2: rgba(244, 243, 238, 0.36);
+  --s-accent: var(--s-sun);
+  --s-mark: var(--s-flame);
+  --s-mark-ink: var(--s-navy);
+  --s-action: var(--s-flame);
+  --s-action-ink: var(--s-navy);
+  --s-action-edge: var(--s-flame-deep);
+  --s-plain-edge: #8a90b4;
+  --s-rule: var(--s-navy);
+  --s-key-shadow: #000000;
+  --s-pass: #5fe0a3;
+  --s-warn: var(--s-sun);
+  --s-fail: #ff8a6b;
+}
+.tone-flame,
+.tone-sun,
+.tone-jade,
+.tone-pink {
+  --s-ink: var(--s-navy);
+  --s-line: rgba(11, 16, 38, 0.22);
+  --s-line-2: rgba(11, 16, 38, 0.5);
+  --s-accent: var(--s-navy);
+  --s-mark: var(--s-navy);
+  --s-mark-ink: #ffffff;
+  --s-action: var(--s-navy);
+  --s-action-ink: #ffffff;
+  --s-action-edge: #000000;
+  --s-rule: var(--s-navy);
+  --s-key-shadow: var(--s-navy);
+  --s-raised: var(--s-white);
+  --s-pass: var(--s-navy);
+  --s-warn: var(--s-navy);
+  --s-fail: var(--s-navy);
+}
+.tone-flame {
+  --s-bg: var(--s-flame);
+  --s-bg-2: #ff7a47;
+  --s-ink-soft: #1b1433;
+  --s-muted: #1b1433;
+  --s-plain-edge: var(--s-flame-deep);
+}
+.tone-sun {
+  --s-bg: var(--s-sun);
+  --s-bg-2: #ffe07a;
+  --s-ink-soft: #3b3412;
+  --s-muted: #574a14;
+  --s-plain-edge: var(--s-sun-deep);
+}
+.tone-jade {
+  --s-bg: var(--s-jade);
+  --s-bg-2: #4fc998;
+  --s-ink-soft: var(--s-navy);
+  --s-muted: var(--s-navy);
+  --s-plain-edge: var(--s-jade-deep);
+}
+.tone-pink {
+  --s-bg: var(--s-pink);
+  --s-bg-2: #ffb5df;
+  --s-ink-soft: #3a1830;
+  --s-muted: #3a1830;
+  --s-plain-edge: var(--s-pink-deep);
+}
+
+
+/* ── Dark ──────────────────────────────────────────────────────
+   The same desk at night. Only the neutral tones change: chalk, white
+   and sky become three depths of navy, with chalk ink and a pale
+   cobalt for marks. The coloured bands (cobalt, flame, sun, jade,
+   pink) are the brand and stay exactly as they are, as do captures of
+   real sites and the audit field, which stays a white slot. Scoped to
+   `.s-root`, so the bar and footer around a light case-study page
+   (`.s-chrome`) do not turn dark on their own. Every pairing is
+   checked against WCAG 2.2 AA. */
+@media (prefers-color-scheme: dark) {
+  .s-root {
+    --s-page: #10162f;
+  }
+  .s-root,
+  .s-root .tone-chalk,
+  .s-root .tone-white,
+  .s-root .tone-sky {
+    --s-bg: #10162f;
+    --s-bg-2: #0b1026;
+    --s-raised: #1a2145;
+    --s-ink: var(--s-chalk);
+    --s-ink-soft: #c5c9de;
+    --s-muted: #a3a9c8;
+    --s-line: rgba(244, 243, 238, 0.16);
+    --s-line-2: rgba(244, 243, 238, 0.36);
+    --s-accent: #a9b8ff;
+    --s-mark: var(--s-cobalt);
+    --s-mark-ink: #ffffff;
+    --s-action: var(--s-flame);
+    --s-action-ink: var(--s-navy);
+    --s-action-edge: var(--s-flame-deep);
+    --s-plain-edge: #8a90b4;
+    --s-rule: #8f99d6;
+    --s-key-shadow: #8f99d6;
+    --s-pass: #5fe0a3;
+    --s-warn: var(--s-sun);
+    --s-fail: #ff8a6b;
+  }
+  .s-root .tone-white {
+    --s-bg: #161d3d;
+    --s-bg-2: #10162f;
+    --s-raised: #1f2850;
+  }
+  .s-root .tone-sky {
+    --s-bg: #1a2350;
+    --s-bg-2: #141b40;
+    --s-raised: #242e63;
+  }
+  /* A navy card on a navy page needs an edge it did not need on chalk. */
+  .s-root .tone-navy {
+    --s-rule: #8f99d6;
+    --s-key-shadow: #8f99d6;
+  }
+  .s-root ::selection {
+    background: var(--s-sun);
+    color: var(--s-navy);
+  }
+}
+
+/* ── Type ──────────────────────────────────────────────────────
+   Display is Archivo pushed wide and heavy. Emphasis is not italic:
+   the word gets a label stuck behind it, slightly off square, the
+   way you would mark a box you have just packed. */
+.s-display {
+  font-weight: 800;
+  font-stretch: 116%;
+  letter-spacing: -0.038em;
+  line-height: var(--lh, 0.94);
   text-wrap: balance;
 }
-.a-display em,
-.a-display i {
-  font-family: var(--font-instrument);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  padding-right: 0.06em;
-  background: var(--a-grad);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.s-display em,
+.s-mark {
+  display: inline-block;
+  font-style: normal;
+  background: var(--s-mark);
+  color: var(--s-mark-ink);
+  padding: 0.02em 0.16em 0.07em;
+  margin: 0 0.03em;
+  border-radius: 0.09em;
+  transform: rotate(-1.4deg);
+  /* A label never breaks: a long emphasis is marked up as two labels. */
+  white-space: nowrap;
 }
-
-.a-grad-text {
-  background: var(--a-grad);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Labels: the same face squeezed narrow, in capitals. */
+.s-label {
+  font-stretch: 74%;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.085em;
+  line-height: 1.2;
 }
-
-/* Mono label with a glowing dot, used as a section opener. */
-.a-eyebrow {
+.s-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-geist-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  gap: 0.6em;
+  font-size: 13px;
+  font-stretch: 74%;
+  font-weight: 650;
   text-transform: uppercase;
-  color: var(--a-ink-soft);
+  letter-spacing: 0.09em;
+  line-height: 1.2;
+  color: var(--s-ink-soft);
 }
-.a-eyebrow::before {
+.s-eyebrow::before {
   content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--a-amber);
-  box-shadow: 0 0 12px 2px rgba(255, 176, 32, 0.6);
+  width: 0.72em;
+  height: 0.72em;
+  flex-shrink: 0;
+  background: var(--s-action);
+  transform: rotate(45deg);
+}
+.s-num {
+  font-variant-numeric: tabular-nums;
 }
 
-.a-mono {
-  font-family: var(--font-geist-mono);
-}
-
-/* Glass surface: a dense warm fill, hairline border, top highlight.
-   Dense enough that text on it stays readable over the shader's
-   brightest streaks; the blur softens what shows through the edges. */
-.a-glass {
-  background: linear-gradient(180deg, rgba(40, 32, 26, 0.82), rgba(22, 17, 13, 0.86));
-  border: 1px solid var(--a-line);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 80px -40px rgba(0, 0, 0, 0.8);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  backdrop-filter: blur(18px) saturate(140%);
-}
-/* Touch screens get a denser fill instead of a backdrop blur: every
-   glass card was its own backdrop layer, and iOS Safari runs out of
-   layer memory long before a desktop GPU does. */
-@media (pointer: coarse) {
-  .a-glass {
-    background: linear-gradient(180deg, rgba(40, 32, 26, 0.92), rgba(24, 19, 15, 0.92));
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .a-glass {
-    background: var(--a-deep);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-}
-
-/* Word-by-word headline reveal: words rise and come into focus,
-   staggered by --i. Pure CSS so the SSR output is final.
-   Hero text is never drawn transparent or clipped away at the start:
-   opacity and transform animations run on the compositor without a
-   repaint, so text that first paints invisible is never recorded as
-   the Largest Contentful Paint (and LCP goes missing entirely). */
-.a-words .a-w {
+/* Headline words turn up one at a time, like flaps on a board. Only a
+   transform, so the text is in the first paint and counts for LCP. */
+.s-words .s-w {
   display: inline-block;
-  vertical-align: top;
+  perspective: 700px;
 }
-.a-words .a-w > span {
+.s-words .s-w > span {
   display: inline-block;
-  animation: a-word-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: calc(var(--i, 0) * 45ms + var(--d, 0ms));
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
+  animation: s-word 0.7s var(--s-spring) both;
+  animation-delay: calc(var(--d, 0ms) + var(--i) * 60ms);
 }
-/* Transform and a partial fade only. Never a filter: per-word blur
-   layers are what iOS Safari left frozen, blurred, mid-animation. The
-   fade starts above zero so the text still counts as painted for LCP. */
-@keyframes a-word-in {
+@keyframes s-word {
   from {
-    transform: translateY(0.35em);
-    opacity: 0.15;
+    transform: rotateX(-88deg);
   }
 }
-
-/* Rise-and-focus for above-the-fold copy; visible without JavaScript
-   and from the very first frame (see above). */
-.a-fade-up {
-  animation: a-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+.s-rise {
+  animation: s-rise 0.7s var(--s-ease) both;
   animation-delay: var(--d, 0ms);
 }
-@keyframes a-fade-up {
+@keyframes s-rise {
   from {
+    opacity: 0.25;
     transform: translateY(16px);
-    opacity: 0.15;
   }
 }
 
-/* ── Ember: paper sections ──────────────────────────────────────
-   A section opts into warm paper with `.a-paper` (or `.a-paper-2`).
-   The scope remaps the Aurora text, line and surface tokens, so every
-   component built on `text-a-ink`, `border-a-line`, `bg-a-deep` and
-   the display `<em>` reads correctly on paper without knowing where it
-   is. Amber is never remapped: it stays a fill with void text. */
-.a-paper,
-.a-paper-2 {
-  --a-ink: var(--a-paper-ink);
-  --a-ink-soft: var(--a-paper-ink-soft);
-  --a-muted: var(--a-paper-muted);
-  --a-line: var(--a-paper-line);
-  --a-line-2: var(--a-paper-line-2);
-  --a-night: var(--a-paper-2);
-  --a-deep: var(--a-paper-raised);
-  --a-gold: var(--a-ember-deep);
-  --a-grad: linear-gradient(100deg, var(--a-ember-deep), var(--a-ember-deep));
-  background: var(--a-paper);
-  color: var(--a-ink);
-  color-scheme: light;
-}
-.a-paper-2 {
-  background: var(--a-paper-2);
-}
-.a-paper :focus-visible,
-.a-paper-2 :focus-visible {
-  outline-color: var(--a-ember-deep);
-}
-.a-paper ::selection,
-.a-paper-2 ::selection {
-  background: var(--a-ember-deep);
-  color: var(--a-paper);
-}
-.a-paper .a-eyebrow::before,
-.a-paper-2 .a-eyebrow::before {
-  background: var(--a-ember-deep);
-  box-shadow: none;
-}
-.a-paper .a-glass,
-.a-paper-2 .a-glass {
-  background: var(--a-paper-raised);
-  border-color: var(--a-paper-line);
-  box-shadow: 0 30px 60px -40px rgba(23, 20, 15, 0.35);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-
-/* An ink card inside a paper section (the featured package, the
-   "something else" card): night tokens come back for its children. */
-.a-on-ink {
-  --a-ink: #f8f1e7;
-  --a-ink-soft: #cbbfae;
-  --a-muted: #9c8f7e;
-  --a-line: rgba(255, 236, 210, 0.1);
-  --a-line-2: rgba(255, 236, 210, 0.18);
-  --a-deep: #1b1510;
-  --a-gold: #ffc24a;
-  --a-grad: linear-gradient(100deg, #ffd27a 0%, #ffb020 26%, #ff8a2a 52%, #ff5a1f 78%, #ffd27a 100%);
-  background: var(--a-paper-ink);
-  color: var(--a-ink);
-  color-scheme: dark;
-}
-.a-on-ink :focus-visible {
-  outline-color: var(--a-amber);
-}
-
-/* Solid card: hairline, raised surface, lifts on hover. */
-.a-card {
-  background: var(--a-deep);
-  border: 1px solid var(--a-line);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.45s ease;
-}
-a.a-card:hover,
-button.a-card:hover,
-.a-card-hover:hover {
-  transform: translateY(-4px);
-  border-color: var(--a-line-2);
-  box-shadow: 0 30px 60px -36px rgba(0, 0, 0, 0.55);
-}
-
-/* The ember glow: one soft radial at the foot of a night hero and the
-   head of the closing band. It breathes slowly; transform and opacity
-   only, so it stays on the compositor. */
-.a-glow {
-  animation: a-breathe 9s ease-in-out infinite;
-}
-@keyframes a-breathe {
-  0%,
-  100% {
-    opacity: 0.78;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.07);
-  }
-}
-
-/* A device held rather than placed. */
-.a-float {
-  animation: a-float 7s ease-in-out infinite;
-}
-@keyframes a-float {
-  50% {
-    transform: translateY(-14px);
-  }
-}
-
-/* The process rail fills from the left once the section is in view. */
-.a-rail-fill {
-  transform-origin: left;
-  transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Marquee rows with soft edges. */
-.a-marquee {
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-}
-.a-marquee-track {
-  animation: marquee var(--marquee-duration, 40s) linear infinite;
-}
-.a-marquee:hover .a-marquee-track,
-.a-marquee:focus-within .a-marquee-track {
-  animation-play-state: paused;
-}
-
-/* Primary button: a light sweep crosses it on hover. */
-.a-shine {
+/* ── Keys: buttons with a side you can press ─────────────────── */
+.s-key {
+  --key-face: var(--s-action);
+  --key-ink: var(--s-action-ink);
+  --key-edge: var(--s-action-edge);
+  --key-depth: 5px;
   position: relative;
-  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  border-radius: var(--key-radius, 9px);
+  background: var(--key-face);
+  color: var(--key-ink);
+  font-weight: 700;
+  font-stretch: 104%;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 var(--key-depth) 0 0 var(--key-edge);
+  transition:
+    transform 0.16s var(--s-ease),
+    box-shadow 0.16s var(--s-ease),
+    background-color 0.2s;
 }
-.a-shine::after {
+/* Display sits in a layer so `hidden` and `lg:hidden` still apply. */
+@layer components {
+  .s-key {
+    display: inline-flex;
+  }
+}
+.s-key:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 calc(var(--key-depth) + 2px) 0 0 var(--key-edge);
+}
+.s-key:active {
+  transform: translateY(calc(var(--key-depth) - 1px));
+  box-shadow: 0 1px 0 0 var(--key-edge);
+}
+.s-key-plain {
+  --key-face: var(--s-white);
+  --key-ink: var(--s-navy);
+  --key-edge: var(--s-plain-edge);
+}
+.s-key-navy {
+  --key-face: var(--s-navy);
+  --key-ink: #ffffff;
+  --key-edge: #000000;
+}
+.s-key-outline {
+  --key-face: transparent;
+  --key-ink: var(--s-ink);
+  --key-edge: var(--s-ink);
+  --key-depth: 3px;
+  border: 2px solid var(--s-ink);
+}
+
+/* ── Cards ─────────────────────────────────────────────────────
+   A sheet on the desk: flat fill, one firm rule. A card that is a
+   link lifts and shows its side. */
+.s-card {
+  background: var(--s-raised);
+  border: 1.5px solid var(--s-line-2);
+  border-radius: var(--card-radius, 12px);
+}
+.s-card-lift {
+  transition:
+    transform 0.3s var(--s-ease),
+    box-shadow 0.3s var(--s-ease),
+    border-color 0.3s;
+}
+.s-card-lift:hover,
+a.s-card:hover,
+button.s-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--s-ink);
+  box-shadow: 0 5px 0 0 var(--s-ink);
+}
+a.s-card,
+button.s-card {
+  transition:
+    transform 0.3s var(--s-ease),
+    box-shadow 0.3s var(--s-ease),
+    border-color 0.3s;
+}
+
+/* Underline that draws in from the left. */
+.s-ul {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
+  transition: background-size 0.35s var(--s-ease);
+  padding-bottom: 3px;
+}
+.s-ul:hover,
+.s-ul:focus-visible {
+  background-size: 100% 2px;
+}
+
+/* A square grid of dots, like the cutting mat under the work. */
+.s-dots {
+  background-image: radial-gradient(var(--s-line-2) 1.1px, transparent 1.3px);
+  background-size: 22px 22px;
+}
+
+/* ── Slabs: boxes with real sides ──────────────────────────────
+   The face is the element; ::after is the side below it and ::before
+   the side to its right (or left with data-edge="left"). They only
+   show once an ancestor turns the slab in 3D. Never put overflow on
+   a slab: clip inside `.slab-face` instead, or the sides flatten. */
+.slab {
+  --t: 12px;
+  --edge: var(--s-navy);
+  --edge-2: var(--edge);
+  position: relative;
+  transform-style: preserve-3d;
+}
+.slab::after,
+.slab::before {
   content: "";
   position: absolute;
-  inset: 0;
-  transform: translateX(-120%) skewX(-20deg);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
-.a-shine:hover::after {
-  transform: translateX(120%) skewX(-20deg);
+.slab::after {
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: var(--t);
+  background: var(--edge);
+  transform-origin: 50% 0%;
+  transform: rotateX(-90deg);
 }
-
-/* Audit bar: a live gradient ring blooms when the field has focus. */
-.a-field-ring {
-  position: relative;
-  isolation: isolate;
+.slab::before {
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: var(--t);
+  background: var(--edge-2);
+  transform-origin: 0% 50%;
+  transform: rotateY(90deg);
 }
-.a-field-ring::before {
-  content: "";
+.slab[data-edge="left"]::before {
+  left: auto;
+  right: 100%;
+  transform-origin: 100% 50%;
+  transform: rotateY(-90deg);
+}
+.slab-face {
   position: absolute;
-  inset: -1px;
-  z-index: -1;
-  border-radius: inherit;
-  background: conic-gradient(from var(--a-angle), #ff7a1a, #ffc24a, #ffb020, #ff5a36, #ff7a1a);
-  animation: a-spin 5s linear infinite paused;
-  opacity: 0.55;
-  transition: opacity 0.3s ease, filter 0.3s ease;
-}
-.a-field-ring:hover::before,
-.a-field-ring:focus-within::before {
-  animation-play-state: running;
-}
-.a-field-ring:focus-within::before {
-  opacity: 1;
-  filter: drop-shadow(0 0 18px rgba(255, 122, 26, 0.55));
-}
-.a-field-ring:focus-within {
-  outline: 2px solid var(--a-amber);
-  outline-offset: 4px;
-}
-.a-field-ring input:focus-visible {
-  outline: none;
+  inset: 0;
+  overflow: hidden;
 }
 
-/* Horizontal tab chips on phone: fade the ends so scroll is obvious. */
-.a-tabs-scroll {
-  -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent);
-  mask-image: linear-gradient(90deg, #000 85%, transparent);
+/* ── The sorting table (home hero) ─────────────────────────────
+   Twelve pieces of a digital side. `data-state="mess"` scatters them
+   in depth with their problems showing; `sorted` drops each into its
+   slot with the problem fixed. The first paint is the sorted layout
+   and `data-intro` plays the scatter-to-sorted move as a CSS
+   animation, so it runs without JavaScript and ends in the real
+   layout. Sizes are container units, so the whole table scales. */
+.sort-stage {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.3;
+  perspective: 1500px;
+  perspective-origin: 50% 42%;
 }
-@media (min-width: 768px) {
-  .a-tabs-scroll {
-    -webkit-mask-image: none;
-    mask-image: none;
+.sort-parallax,
+.sort-table {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.sort-parallax {
+  transform: rotateX(var(--py, 0deg)) rotateY(var(--px, 0deg));
+  transition: transform 0.35s ease-out;
+}
+.sort-table {
+  transform: rotateX(12deg) rotateY(-20deg);
+  transition: transform 1.1s var(--s-ease);
+}
+[data-state="mess"] .sort-table {
+  transform: rotateX(26deg) rotateY(-24deg);
+}
+.sort-piece,
+.sort-slot {
+  --w: 45cqw;
+  --h: 27cqw;
+  --x: calc((var(--mc) - 0.5) * 49cqw);
+  --y: calc((var(--mr) - 1.5) * 31.5cqw);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--w);
+  height: var(--h);
+  margin: calc(var(--h) / -2) 0 0 calc(var(--w) / -2);
+}
+.sort-piece {
+  --t: 4cqw;
+  --edge: var(--chip);
+  --edge-2: color-mix(in srgb, var(--chip) 66%, #000);
+  --home: translate3d(var(--x), var(--y), 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  --away: translate3d(calc(var(--x) + var(--mx) * 1cqw), calc(var(--y) + var(--my) * 1cqw), calc(var(--mz) * 1cqw))
+    rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz));
+  transform: var(--home);
+  transition: transform 1s var(--s-spring);
+  transition-delay: calc(var(--n) * 45ms);
+}
+[data-state="mess"] .sort-piece {
+  transform: var(--away);
+}
+.sort-slot {
+  transform: translate3d(var(--x), var(--y), -1px);
+  border: 0.4cqw dashed rgba(255, 255, 255, 0.5);
+  border-radius: 1.2cqw;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+[data-state="mess"] .sort-slot {
+  opacity: 1;
+}
+.sort-bob {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+[data-state="mess"] .sort-bob {
+  animation: sort-bob 5.5s ease-in-out infinite;
+  animation-delay: calc(var(--n) * -0.7s);
+}
+@keyframes sort-bob {
+  50% {
+    transform: translate3d(0, -1.8cqw, 2.5cqw) rotateZ(1.6deg);
+  }
+}
+.sort-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.6cqw 2.8cqw 2.4cqw;
+  border-radius: 1.2cqw;
+  background: #ffffff;
+  color: var(--s-navy);
+  font-size: 3.7cqw;
+  line-height: 1.12;
+}
+.sort-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 7.6cqw;
+  height: 7.6cqw;
+  border-radius: 1cqw;
+  background: var(--chip);
+  color: var(--chip-ink, var(--s-navy));
+}
+.sort-chip svg {
+  width: 4.6cqw;
+  height: 4.6cqw;
+}
+.sort-status {
+  display: grid;
+  font-weight: 600;
+}
+.sort-status > span {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  gap: 1.3cqw;
+  transition:
+    opacity 0.35s,
+    transform 0.45s var(--s-ease);
+  transition-delay: calc(0.35s + var(--n) * 45ms);
+}
+.sort-status i {
+  width: 1.9cqw;
+  height: 1.9cqw;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+.sort-bad {
+  color: #b3250a;
+  opacity: 0;
+  transform: translateY(-70%);
+}
+.sort-bad i {
+  background: #e23b12;
+}
+.sort-good i {
+  background: var(--s-jade);
+}
+[data-state="mess"] .sort-bad {
+  opacity: 1;
+  transform: none;
+}
+[data-state="mess"] .sort-good {
+  opacity: 0;
+  transform: translateY(70%);
+}
+[data-state="mess"] .sort-status > span {
+  transition-delay: 0s;
+}
+.sort-table [data-extra] {
+  display: none;
+}
+@container (min-width: 430px) {
+  .sort-piece,
+  .sort-slot {
+    --w: 30cqw;
+    --h: 20.5cqw;
+    --x: calc((var(--c) - 1) * 33.6cqw);
+    --y: calc((var(--r) - 1.5) * 24.2cqw);
+  }
+  .sort-piece {
+    --t: 3cqw;
+  }
+  .sort-table [data-extra] {
+    display: block;
+  }
+  .sort-face {
+    padding: 1.8cqw 2cqw 1.7cqw;
+    font-size: 2.55cqw;
+    border-radius: 0.9cqw;
+  }
+  .sort-chip {
+    width: 5.4cqw;
+    height: 5.4cqw;
+    border-radius: 0.8cqw;
+  }
+  .sort-chip svg {
+    width: 3.2cqw;
+    height: 3.2cqw;
+  }
+  .sort-status i {
+    width: 1.4cqw;
+    height: 1.4cqw;
+  }
+}
+@media (min-width: 640px) {
+  .sort-stage {
+    aspect-ratio: 1 / 1;
+  }
+}
+/* The opening move. */
+[data-intro] .sort-piece {
+  animation: sort-in 1.15s var(--s-spring) both;
+  animation-delay: calc(0.75s + var(--n) * 55ms);
+}
+[data-intro] .sort-table {
+  animation: sort-table-in 1.5s var(--s-ease) 0.6s both;
+}
+[data-intro] .sort-bad {
+  animation: sort-bad-out 0.4s ease both;
+  animation-delay: calc(1.5s + var(--n) * 55ms);
+}
+[data-intro] .sort-good {
+  animation: sort-good-in 0.45s var(--s-ease) both;
+  animation-delay: calc(1.55s + var(--n) * 55ms);
+}
+[data-intro] .sort-slot {
+  animation: sort-slot-out 0.6s ease 1.9s both;
+}
+@keyframes sort-in {
+  from {
+    transform: var(--away);
+  }
+}
+@keyframes sort-table-in {
+  from {
+    transform: rotateX(26deg) rotateY(-24deg);
+  }
+}
+@keyframes sort-bad-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sort-good-in {
+  from {
+    opacity: 0;
+    transform: translateY(70%);
+  }
+}
+@keyframes sort-slot-out {
+  from {
+    opacity: 1;
   }
 }
 
-/* Giant footer wordmark, lit from below. */
-.a-wordmark {
-  font-family: var(--font-bricolage);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 0.8;
-  background: linear-gradient(180deg, rgba(248, 241, 231, 0.92) 0%, rgba(255, 138, 42, 0.55) 55%, rgba(255, 90, 31, 0.04) 92%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* "sorted." in the headline: the letters start out of order and find
+   their places with the pieces. */
+.sort-word {
+  display: inline-flex;
+  perspective: 600px;
+}
+.sort-word > span {
+  display: inline-block;
+  transition: transform 0.8s var(--s-spring);
+  transition-delay: calc(var(--i) * 45ms);
+}
+[data-state="mess"] .sort-word > span {
+  transform: translate(calc(var(--lx) * 1em), calc(var(--ly) * 1em)) rotateX(var(--lrx)) rotate(var(--lr));
+}
+[data-intro] .sort-word > span {
+  animation: sort-letter 0.9s var(--s-spring) both;
+  animation-delay: calc(0.95s + var(--i) * 60ms);
+}
+@keyframes sort-letter {
+  from {
+    transform: translate(calc(var(--lx) * 1em), calc(var(--ly) * 1em)) rotateX(var(--lrx)) rotate(var(--lr));
+  }
 }
 
-/* Hairline rows on night. */
-.a-rule > * + * {
-  border-top: 1px solid var(--a-line);
+/* The switch between the two states. */
+.sort-switch {
+  --key-depth: 4px;
+  position: relative;
+  width: 68px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: var(--s-navy);
+  box-shadow: inset 0 0 0 2px var(--s-navy);
+  transition: background-color 0.3s;
+}
+.sort-switch[aria-checked="true"] {
+  background: var(--s-jade);
+}
+.sort-switch::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 28px;
+  height: 24px;
+  border-radius: 5px;
+  background: #ffffff;
+  box-shadow: 0 4px 0 0 #b9bfd6;
+  transition: transform 0.35s var(--s-spring);
+}
+.sort-switch[aria-checked="true"]::after {
+  transform: translateX(32px);
+}
+
+/* ── The card index (services) ─────────────────────────────────
+   Five dividers standing in a drawer, each in its service's colour
+   with a tab on top. Point at one and it stands up and opens. */
+.idx {
+  perspective: 1800px;
+  perspective-origin: 50% 0%;
+}
+.idx-item {
+  position: relative;
+  margin-top: -14px;
+}
+.idx-item:first-child {
+  margin-top: 34px;
+}
+.idx-tab {
+  position: absolute;
+  bottom: calc(100% - 1px);
+  left: calc(var(--i) * 15.5% + 2%);
+  height: 34px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  border-radius: 9px 9px 0 0;
+  background: var(--s-bg);
+  color: var(--s-ink);
+}
+.idx-card {
+  position: relative;
+  display: block;
+  border-radius: 14px 14px 0 0;
+  background: var(--s-bg);
+  color: var(--s-ink);
+  padding-bottom: 14px;
+  transform-origin: 50% 100%;
+  transform: rotateX(-7deg);
+  transition: transform 0.55s var(--s-ease);
+}
+.idx-item:last-child .idx-card {
+  border-radius: 14px;
+  padding-bottom: 0;
+}
+.idx-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s var(--s-ease);
+}
+.idx-body > * {
+  min-height: 0;
+  overflow: hidden;
+}
+.idx-arrow {
+  transition: transform 0.45s var(--s-ease);
+}
+.idx-card:hover,
+.idx-card:focus-visible,
+.idx:not(:hover):not(:focus-within) .idx-item:first-child .idx-card {
+  transform: rotateX(0deg) translateY(-6px);
+}
+.idx-card:hover .idx-body,
+.idx-card:focus-visible .idx-body,
+.idx:not(:hover):not(:focus-within) .idx-item:first-child .idx-body {
+  grid-template-rows: 1fr;
+}
+.idx-card:hover .idx-arrow,
+.idx-card:focus-visible .idx-arrow {
+  transform: rotate(-45deg);
+}
+/* No hover: every divider is open, and nothing leans. */
+@media (hover: none) {
+  .idx-card,
+  .idx-card:hover,
+  .idx-card:focus-visible {
+    transform: none !important;
+  }
+  .idx-body {
+    grid-template-rows: 1fr;
+  }
+}
+
+/* ── Screens that turn (work, samples) ─────────────────────────
+   A capture on a slab. It starts turned away, comes round as it
+   scrolls into view, and squares up under the pointer. */
+.shot {
+  perspective: 1500px;
+}
+.shot-turn {
+  transform-style: preserve-3d;
+  transform: rotateY(var(--turn-y, -11deg)) rotateX(5deg);
+}
+.shot-slab {
+  --t: 16px;
+  transition: transform 0.6s var(--s-ease);
+}
+.shot:hover .shot-slab,
+a:focus-visible .shot-slab {
+  transform: rotateY(calc(var(--turn-y, -11deg) * -1)) rotateX(-5deg) translateZ(24px);
+}
+@supports (animation-timeline: view()) {
+  .shot-turn {
+    animation: shot-turn linear both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 42%;
+  }
+  @keyframes shot-turn {
+    from {
+      transform: rotateY(calc(var(--turn-y, -11deg) * 3.4)) rotateX(16deg) translateZ(-90px);
+    }
+  }
+}
+
+/* ── The exploded website (audit) ──────────────────────────────
+   One page pulled apart into the seven things the audit reads.
+   `--s-k` runs 0 → 1 as the stack scrolls into view (1 where scroll
+   timelines are missing), and sets how far apart the sheets sit. */
+.xray {
+  container-type: inline-size;
+  position: relative;
+  aspect-ratio: 1 / 1.12;
+  perspective: 2200px;
+}
+.xray-stack {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translateY(16%) rotateX(57deg) rotateZ(-40deg);
+}
+.xray-sheet {
+  position: absolute;
+  left: 21%;
+  top: 21%;
+  width: 58%;
+  height: 58%;
+  transform: translateZ(calc(var(--z) * (1.2cqw + var(--s-k) * 6.6cqw) + var(--lift, 0cqw)));
+  transition:
+    transform 0.5s var(--s-ease),
+    opacity 0.4s;
+  background: var(--sheet);
+  color: var(--sheet-ink, var(--s-navy));
+  border: 0.3cqw solid var(--s-navy);
+  border-radius: 1cqw;
+  padding: 3cqw;
+  font-size: 3.1cqw;
+}
+.xray[data-active] .xray-sheet {
+  opacity: 0.28;
+}
+.xray[data-active] .xray-sheet[data-on] {
+  opacity: 1;
+  --lift: 3cqw;
+}
+@supports (animation-timeline: view()) {
+  .xray-stack {
+    animation: xray-open linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 48%;
+  }
+  @keyframes xray-open {
+    from {
+      --s-k: 0;
+    }
+    to {
+      --s-k: 1;
+    }
+  }
+}
+
+/* ── Stacked slabs (page heroes) ───────────────────────────────
+   Five slabs in the service colours, seen from above, breathing a
+   little apart. */
+.stack {
+  container-type: inline-size;
+  position: relative;
+  aspect-ratio: 1 / 1;
+  perspective: 2000px;
+}
+.stack-iso {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translateY(12%) rotateX(56deg) rotateZ(-42deg);
+}
+.stack-slab {
+  --t: 5cqw;
+  position: absolute;
+  left: 24%;
+  top: 24%;
+  width: 52%;
+  height: 52%;
+  background: var(--face);
+  --edge: color-mix(in srgb, var(--face) 74%, #000);
+  --edge-2: color-mix(in srgb, var(--face) 54%, #000);
+  transform: translateZ(calc(var(--z) * 9cqw)) translate(calc(var(--ox, 0) * 1cqw), calc(var(--oy, 0) * 1cqw));
+  animation: stack-settle 1s var(--s-spring) both, stack-breathe 7s ease-in-out infinite;
+  animation-delay: calc(0.15s + var(--z) * 90ms), calc(1.5s + var(--z) * 0.3s);
+}
+@keyframes stack-settle {
+  from {
+    transform: translateZ(calc(var(--z) * 9cqw + 60cqw)) translate(calc(var(--ox, 0) * 1cqw), calc(var(--oy, 0) * 1cqw))
+      rotateZ(calc((var(--z) - 2) * 14deg));
+  }
+}
+@keyframes stack-breathe {
+  50% {
+    transform: translateZ(calc(var(--z) * 11.5cqw)) translate(calc(var(--ox, 0) * 1cqw), calc(var(--oy, 0) * 1cqw));
+  }
+}
+
+/* ── The staff badge (studio) ──────────────────────────────── */
+.badge-hang {
+  transform-origin: 50% -140px;
+  animation: badge-sway 6s ease-in-out infinite;
+}
+@keyframes badge-sway {
+  0%,
+  100% {
+    transform: rotate(-1.6deg);
+  }
+  50% {
+    transform: rotate(1.6deg);
+  }
+}
+
+/* ── Process flaps ─────────────────────────────────────────── */
+.flap-row {
+  perspective: 1400px;
 }
 
 /* Audit report: the score dial's arc draws in on load. */
@@ -898,55 +1537,75 @@ button.a-card:hover,
   }
 }
 .k-dial-arc {
-  animation: k-dial-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: k-dial-in 1.4s var(--s-ease) both;
 }
 
-/* Printed audit report typography (the document keeps its light,
-   paper-first look: see PrintReport.tsx). */
-.k-pdf {
-  font-family: var(--font-switzer);
+/* Horizontal tab chips on phone: fade the ends so scroll is obvious. */
+.s-tabs-scroll {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 20px, #000 calc(100% - 32px), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 20px, #000 calc(100% - 32px), transparent);
 }
-.k-pdf .k-display {
-  font-family: var(--font-zodiak);
-  font-weight: 400;
-  letter-spacing: -0.022em;
-  line-height: 1.02;
-  text-wrap: balance;
-}
-.k-pdf .k-display em {
-  font-style: italic;
-}
-.k-pdf .k-eyebrow {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+@media (min-width: 768px) {
+  .s-tabs-scroll {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 
+/* Touch screens: scenes stay 3D but stop following anything, and the
+   pieces of a scene never bob while nobody is looking. */
 @media (prefers-reduced-motion: reduce) {
-  .a-display em,
-  .a-grad-text,
-  .a-field-ring::before,
-  .a-marquee-track,
-  .a-glow,
-  .a-float,
-  .a-rail-fill,
+  .s-words .s-w > span,
+  .s-rise,
+  .s-reveal,
+  .sort-piece,
+  .sort-table,
+  .sort-bob,
+  .sort-word > span,
+  .stack-slab,
+  .badge-hang,
+  .shot-turn,
+  .xray-stack,
   .k-dial-arc {
     animation: none !important;
   }
-  .a-words .a-w > span,
-  .a-fade-up,
-  .a-reveal {
-    animation: none !important;
+  .s-reveal {
     opacity: 1 !important;
     transform: none !important;
-    filter: none !important;
+  }
+  .idx-card {
+    transform: none !important;
+  }
+  .xray-stack {
+    --s-k: 1;
   }
 }
 
+/* Printed audit report typography (see PrintReport.tsx). */
+.k-pdf {
+  font-family: var(--font-archivo);
+}
+.k-pdf .k-display {
+  font-weight: 800;
+  font-stretch: 112%;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-wrap: balance;
+}
+.k-pdf .k-display em {
+  font-style: normal;
+  color: var(--k-fire);
+}
+.k-pdf .k-eyebrow {
+  font-size: 11px;
+  font-stretch: 76%;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
 
 /* ─────────────────────────────────────────────────────────────
-   Printed audit report (aurora/audit/print/PrintReport.tsx).
+   Printed audit report (sorted/audit/print/PrintReport.tsx).
 
    On screen the document is hidden and the interactive report shows;
    in print they swap. Chrome and Firefox honour the zero @page margin,
@@ -971,13 +1630,13 @@ button.a-card:hover,
   body {
     background: var(--k-bone) !important;
   }
-  .aurora-root > header,
-  .aurora-root > footer,
-  .aurora-root > [data-aurora-fx],
+  .s-root > header,
+  .s-root > footer,
+  .s-root > [data-s-fx],
   .k-screen {
     display: none !important;
   }
-  .aurora-root {
+  .s-root {
     min-height: 0;
     background: var(--k-bone) !important;
     color: var(--k-ink);
@@ -1075,7 +1734,7 @@ button.a-card:hover,
    Demo sites — two self-contained sample-client languages.
    These routes exist to show prospective GP practices and care
    homes a finished site, so each gets its own scope and palette
-   and deliberately does NOT reuse Kiln styling.
+   and deliberately does NOT reuse the marketing styling.
    ───────────────────────────────────────────────────────────── */
 
 /* "Willowbrook Surgery" — NHS-service-manual-inspired GP demo:
@@ -1275,487 +1934,12 @@ body:has(.demo-physio-root) > a[href="#main"]:focus {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .route-enter { animation: none; }
-  .route-curtain { display: none; }
+  .route-flaps { display: none; }
   /* Stable SSR styles; reduced-motion content is visible before hydration. */
-  .a-reveal { opacity: 1 !important; transform: none !important; }
+  .s-reveal { opacity: 1 !important; transform: none !important; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-/* ─────────────────────────────────────────────────────────────
-   Rebrand motion layer ("fx-"): the homepage intro, the hero frame,
-   the flapping butterfly, the services rows and the wireframe-to-
-   content scroll reveals. Everything here is CSS, so it costs no
-   JavaScript. Scroll-linked reveals sit behind
-   `@supports (animation-timeline: view())`; browsers without scroll
-   timelines simply show the finished page. Reduced motion turns all
-   of it off at the end of this block.
-
-   `--fx-intro` is the delay before the hero builds. The first visit
-   waits for the curtain; a return to the homepage inside the site
-   (where the route curtain already played) sets `.fx-quick` and
-   builds straight away.
-   ───────────────────────────────────────────────────────────── */
-.aurora-root {
-  --fx-ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --fx-ease-io: cubic-bezier(0.83, 0, 0.17, 1);
-  --fx-intro: 0.55s;
-}
-.fx-quick {
-  --fx-intro: 0s;
-}
-
-@keyframes fx-curtain {
-  from { clip-path: inset(0 0 0 0); }
-  to { clip-path: inset(0 0 100% 0); }
-}
-@keyframes fx-open {
-  from { clip-path: inset(44% 8% 44% 8%); }
-  to { clip-path: inset(0 0 0 0); }
-}
-@keyframes fx-rise {
-  from { transform: translate3d(0, 108%, 0); }
-  to { transform: none; }
-}
-@keyframes fx-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes fx-drawx {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
-}
-@keyframes fx-drawy {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
-}
-@keyframes fx-fly-in {
-  from { opacity: 0; transform: translate3d(0, 48px, 0) scale(0.9); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes fx-bob {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -16px, 0); }
-}
-@keyframes fx-flap-l {
-  0%, 100% { transform: rotateY(0); }
-  50% { transform: rotateY(32deg); }
-}
-@keyframes fx-flap-r {
-  0%, 100% { transform: rotateY(0); }
-  50% { transform: rotateY(-32deg); }
-}
-@keyframes fx-fill-in {
-  from { -webkit-text-fill-color: transparent; -webkit-text-stroke: 1px currentcolor; }
-  to { -webkit-text-fill-color: currentcolor; -webkit-text-stroke: 0 currentcolor; }
-}
-
-/* Intro curtain: the butterfly over a loading hairline, lifting away. */
-.fx-curtain {
-  position: fixed;
-  inset: 0;
-  z-index: 140;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  background: var(--a-void);
-  pointer-events: none;
-  clip-path: inset(0 0 100% 0);
-  animation: fx-curtain 0.9s var(--fx-ease-io) 0.5s both;
-}
-.fx-curtain-bar {
-  width: 168px;
-  height: 1px;
-  overflow: hidden;
-  background: rgba(248, 241, 231, 0.16);
-}
-.fx-curtain-bar > span {
-  display: block;
-  height: 100%;
-  background: var(--a-amber);
-  transform-origin: left center;
-  animation: fx-drawx 0.6s cubic-bezier(0.65, 0, 0.35, 1) 0.05s both;
-}
-
-.fx-open {
-  animation: fx-open 1.1s var(--fx-ease-io) calc(var(--fx-intro) * 0.4) both;
-}
-.fx-fade {
-  animation: fx-fade 0.9s ease calc(var(--fx-intro) + var(--fx-d, 0s)) both;
-}
-.fx-dx {
-  transform-origin: left center;
-  animation: fx-drawx 1.4s var(--fx-ease-io) calc(var(--fx-intro) + var(--fx-d, 0s)) both;
-}
-.fx-dy {
-  transform-origin: center top;
-  animation: fx-drawy 1.4s var(--fx-ease-io) calc(var(--fx-intro) + var(--fx-d, 0s)) both;
-}
-
-/* Hero headline: each line rises out of its own mask, then the
-   outlined letters fill in. */
-.fx-line {
-  display: block;
-  overflow: clip;
-  padding: 0 0.12em 0.08em 0;
-  margin-bottom: -0.08em;
-}
-.fx-line > span {
-  display: block;
-  animation: fx-rise 1.1s var(--fx-ease) calc(var(--fx-intro) + var(--fx-d, 0s)) both;
-}
-.fx-h1-fill {
-  animation: fx-fill-in 1.1s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--fx-intro) + 1.1s) backwards;
-}
-
-/* The butterfly: flies in, hovers and flaps. On touch screens the
-   wings flap flat (a 2D squeeze towards the body), because 3D
-   contexts once froze iOS Safari; with a mouse or trackpad each half
-   turns in real 3D. */
-.fx-fly {
-  animation: fx-fly-in 1.6s var(--fx-ease) calc(var(--fx-intro) + 0.2s) both;
-}
-.fx-bob {
-  animation: fx-bob 7s ease-in-out infinite;
-}
-.fx-wing-l,
-.fx-wing-r {
-  animation: fx-flap-flat 3.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
-@keyframes fx-flap-flat {
-  0%, 100% { transform: scaleX(1); }
-  50% { transform: scaleX(0.84); }
-}
-@media (hover: hover) and (pointer: fine) {
-  .fx-fly {
-    perspective: 1400px;
-    transform-style: preserve-3d;
-  }
-  .fx-bob {
-    transform-style: preserve-3d;
-  }
-  .fx-wing-l {
-    animation-name: fx-flap-l;
-  }
-  .fx-wing-r {
-    animation-name: fx-flap-r;
-  }
-}
-
-/* Underline that draws in from the left. */
-.fx-ul {
-  text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 0% 1px;
-  background-repeat: no-repeat;
-  background-position: 0 calc(100% - 6px);
-  transition: background-size 0.6s var(--fx-ease);
-}
-.fx-ul:hover,
-.fx-ul:focus-visible {
-  background-size: 100% 1px;
-}
-
-/* Services rows: amber floods in from the left and the arrow turns. */
-.fx-row {
-  position: relative;
-  isolation: isolate;
-}
-.fx-row-fill {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--a-amber);
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.7s var(--fx-ease);
-}
-.fx-row:hover .fx-row-fill,
-.fx-row:focus-within .fx-row-fill {
-  clip-path: inset(0 0 0 0);
-}
-.fx-row-arrow {
-  transition: transform 0.6s var(--fx-ease);
-}
-.fx-row:hover .fx-row-arrow,
-.fx-row:focus-within .fx-row-arrow {
-  transform: rotate(-45deg);
-}
-/* On the amber fill every row colour becomes void ink (≈11:1). */
-.fx-row:hover .fx-row-ink,
-.fx-row:focus-within .fx-row-ink {
-  color: var(--a-void);
-}
-
-.fx-zoom {
-  transition: transform 1.2s var(--fx-ease);
-}
-.fx-tile:hover .fx-zoom {
-  transform: scale(1.035);
-}
-
-/* The closing band's glow follows the pointer (set by Cursor). */
-.fx-glow {
-  background:
-    radial-gradient(680px circle at var(--mx, 72%) var(--my, 30%), rgba(255, 114, 27, 0.24), rgba(217, 54, 28, 0.06) 45%, rgba(11, 9, 7, 0) 70%),
-    var(--a-void);
-}
-
-/* Custom cursor parts (see effects/Cursor.tsx). Hidden until a fine
-   pointer moves; never shown on touch. */
-.fx-cursor {
-  position: fixed;
-  left: 0;
-  top: 0;
-  pointer-events: none;
-  z-index: 150;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.fx-cursor[data-on="true"] {
-  opacity: 1;
-}
-
-/* Wireframe marks for media boxes: a dashed frame, crossed
-   diagonals and a spec label, painted under the real content. */
-.fx-wf-box {
-  position: relative;
-  view-timeline-name: --fx-media;
-}
-.fx-wf-mark {
-  position: absolute;
-  inset: 0;
-  border: 1px dashed currentColor;
-  border-radius: inherit;
-  pointer-events: none;
-}
-.fx-wf-mark svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-.fx-wf-mark span {
-  position: absolute;
-  left: 16px;
-  top: 14px;
-  font-family: var(--font-geist-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.fx-wf-reveal {
-  position: absolute;
-  inset: 0;
-}
-.fx-scan {
-  display: none;
-}
-.fx-wt,
-.fx-wp {
-  position: relative;
-}
-.fx-grid {
-  position: relative;
-  isolation: isolate;
-}
-
-@keyframes fx-rv {
-  from { opacity: 0; transform: translate3d(0, 56px, 0); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes fx-wipex {
-  from { clip-path: inset(0 100% 0 0); }
-  to { clip-path: inset(0 0 0 0); }
-}
-@keyframes fx-par {
-  from { transform: translate3d(0, -4%, 0) scale(1.1); }
-  to { transform: translate3d(0, 4%, 0) scale(1.1); }
-}
-@keyframes fx-wf-reveal {
-  0%, 14% { clip-path: inset(0 0 100% 0); }
-  100% { clip-path: inset(0 0 0 0); }
-}
-@keyframes fx-scan {
-  0%, 14% { top: 0%; opacity: 1; }
-  97% { top: 100%; opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-@keyframes fx-wt {
-  0%, 48% {
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1px currentcolor;
-    outline-color: color-mix(in srgb, currentcolor 35%, transparent);
-  }
-  100% {
-    -webkit-text-fill-color: currentcolor;
-    -webkit-text-stroke: 0 currentcolor;
-    outline-color: transparent;
-  }
-}
-@keyframes fx-wt-label {
-  0%, 45% { opacity: 0.6; }
-  100% { opacity: 0; }
-}
-@keyframes fx-wp {
-  0%, 25% {
-    background-image: linear-gradient(90deg, currentcolor 50%, transparent 50%);
-    background-size: 200% 100%;
-    background-position: 100% 0;
-    -webkit-text-fill-color: transparent;
-  }
-  100% {
-    background-image: linear-gradient(90deg, currentcolor 50%, transparent 50%);
-    background-size: 200% 100%;
-    background-position: 0% 0;
-    -webkit-text-fill-color: transparent;
-  }
-}
-@keyframes fx-wpb {
-  0%, 25% { background-size: 100% 1lh; }
-  100% { background-size: 0% 1lh; }
-}
-@keyframes fx-grid {
-  0%, 35% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-@supports (animation-timeline: view()) {
-  .fx-rv {
-    animation: fx-rv linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 80%;
-  }
-  .fx-wipex {
-    animation: fx-wipex linear both;
-    animation-timeline: view();
-    animation-range: entry 20% cover 60%;
-  }
-  .fx-par {
-    animation: fx-par linear both;
-    animation-timeline: view();
-    animation-range: cover 0% cover 100%;
-  }
-  /* Media: the real content wipes in under an amber scan line. */
-  .fx-wf-reveal {
-    animation: fx-wf-reveal linear backwards;
-    animation-timeline: --fx-media;
-    animation-range: entry 0% entry 100%;
-  }
-  .fx-scan {
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 1px;
-    z-index: 3;
-    background: var(--a-amber);
-    box-shadow: 0 0 14px 2px rgba(255, 176, 32, 0.55);
-    opacity: 0;
-    pointer-events: none;
-    animation: fx-scan linear backwards;
-    animation-timeline: --fx-media;
-    animation-range: entry 0% entry 100%;
-  }
-  /* Headings: outlined letters in a dashed box with a spec label,
-     then solid. */
-  .fx-wt {
-    outline: 1px dashed transparent;
-    outline-offset: 10px;
-    animation: fx-wt linear backwards;
-    animation-timeline: view();
-    animation-range: entry 5% cover 42%;
-  }
-  .fx-wt[data-wf]::before {
-    /* The spec label is decoration: the empty alternative after the
-       slash keeps it out of the heading's accessible name. */
-    content: attr(data-wf);
-    content: attr(data-wf) / "";
-    position: absolute;
-    left: 0;
-    bottom: 100%;
-    margin-bottom: 16px;
-    font-family: var(--font-geist-mono);
-    font-size: 11px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    color: inherit;
-    -webkit-text-fill-color: currentcolor;
-    -webkit-text-stroke: 0;
-    opacity: 0;
-    pointer-events: none;
-    animation: fx-wt-label linear backwards;
-    animation-timeline: view();
-    animation-range: entry 5% cover 42%;
-  }
-  /* Paragraphs: grey line bars that pull back as the text sweeps in. */
-  .fx-wp {
-    -webkit-background-clip: text;
-    background-clip: text;
-    background-repeat: no-repeat;
-    animation: fx-wp linear backwards;
-    animation-timeline: view();
-    animation-range: entry 0% cover 38%;
-  }
-  .fx-wp::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: linear-gradient(
-      to bottom,
-      transparent 0.28lh,
-      color-mix(in srgb, currentcolor 16%, transparent) 0.28lh 0.74lh,
-      transparent 0.74lh
-    );
-    background-size: 0% 1lh;
-    background-repeat: repeat-y;
-    background-position: 100% 0;
-    animation: fx-wpb linear backwards;
-    animation-timeline: view();
-    animation-range: entry 0% cover 38%;
-  }
-  /* Sections: a faint blueprint grid that fades as they arrive. */
-  .fx-grid::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      linear-gradient(color-mix(in srgb, currentcolor 8%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in srgb, currentcolor 8%, transparent) 1px, transparent 1px);
-    background-size: 56px 56px;
-    background-position: center top;
-    opacity: 0;
-    animation: fx-grid linear backwards;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .fx-curtain {
-    display: none;
-  }
-  .aurora-root [class*="fx-"],
-  .aurora-root [class*="fx-"]::before,
-  .aurora-root [class*="fx-"]::after {
-    animation: none !important;
-    transition: none !important;
-  }
-  .fx-scan {
-    display: none !important;
   }
 }

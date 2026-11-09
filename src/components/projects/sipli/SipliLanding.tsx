@@ -32,7 +32,7 @@ import {
   Watch,
   Zap,
 } from "lucide-react";
-import { ProductShell } from "@/components/aurora/layout/ProductShell";
+import { ProductShell } from "@/components/sorted/layout/ProductShell";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -192,7 +192,7 @@ export function SipliLanding() {
             >
               <Eyebrow>
                 <Droplets className="h-3 w-3 text-accent" aria-hidden="true" />
-                Version 5.0 · Free to start
+                Version 6.1 · Free to start
               </Eyebrow>
               <Eyebrow>
                 <Watch className="h-3 w-3 text-accent" aria-hidden="true" />
@@ -338,6 +338,62 @@ export function SipliLanding() {
             </ul>
           </Reveal>
         </div>
+      </section>
+
+      {/* ── IPHONE DUO + SIRI (6.0) ── */}
+      <section
+        className="relative overflow-hidden border-t border-line bg-surface px-[var(--gutter)] py-[var(--space-section)]"
+        aria-labelledby="duo-heading"
+      >
+        <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <Reveal>
+            <div className="mb-6">
+              <Eyebrow>
+                <Sparkles className="h-3 w-3 text-accent" aria-hidden="true" /> New in 6
+              </Eyebrow>
+            </div>
+            <h2
+              id="duo-heading"
+              className="text-[clamp(32px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink"
+            >
+              Made for <span className="text-accent">iPhone Duo.</span>
+            </h2>
+            <p className="mb-8 mt-5 max-w-[440px] text-[15.5px] leading-[1.7] text-ink-3">
+              Open the Duo and Sipli fills the inner display, splitting Home,
+              Insights and Diary around the fold. Close it and your bottle is
+              waiting on the cover screen.
+            </p>
+            <ul className="space-y-3.5">
+              <CheckItem>The inner display shows your bottle, weekly quests and coach side by side</CheckItem>
+              <CheckItem>Every orientation, with two-column layouts in landscape</CheckItem>
+              <CheckItem>Log with Siri: say &ldquo;Log a latte in Sipli&rdquo; and hear your progress back</CheckItem>
+              <CheckItem>A new icon, with five more to choose from in Settings</CheckItem>
+            </ul>
+          </Reveal>
+          <Reveal delay={0.08} className="relative flex justify-center pb-10 pr-[12%] lg:justify-end">
+            <Image
+              src="/images/sipli/duo/inner-home.webp"
+              alt="Sipli on the open inner display of an iPhone Duo: the Home bottle beside today's total, with weekly quests and the hydration coach below"
+              width={1100}
+              height={1564}
+              sizes="(min-width: 1024px) 420px, 76vw"
+              className="h-auto w-[min(100%,420px)] rounded-[26px] border-[8px] border-[#0c1a2b]"
+              style={{ filter: "drop-shadow(0 28px 56px rgba(12,42,51,0.22))" }}
+            />
+            <Image
+              src="/images/sipli/duo/outer-today.webp"
+              alt="Sipli on the folded Duo's cover screen, showing the same bottle"
+              width={800}
+              height={1164}
+              sizes="200px"
+              className="absolute bottom-0 right-0 h-auto w-[38%] max-w-[190px] rounded-[20px] border-[6px] border-[#0c1a2b]"
+              style={{ filter: "drop-shadow(0 20px 40px rgba(12,42,51,0.3))" }}
+            />
+          </Reveal>
+        </div>
+        <p className="mx-auto mt-10 max-w-[1200px] text-[13px] text-ink-3">
+          Captured in the iPhone Duo simulator from Sipli 6.
+        </p>
       </section>
 
       {/* ── APPLE WATCH ── */}

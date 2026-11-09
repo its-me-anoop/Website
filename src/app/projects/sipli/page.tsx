@@ -44,7 +44,7 @@ const jsonLd = {
   name: "Sipli — Water Tracker",
   operatingSystem: "iOS 17.0 or later, iPadOS, watchOS",
   applicationCategory: "HealthApplication",
-  softwareVersion: "5.0.2",
+  softwareVersion: "6.1",
   description,
   url: `${site.url}/projects/sipli`,
   downloadUrl: appStoreUrl,
