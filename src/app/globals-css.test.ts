@@ -4,12 +4,62 @@ import { describe, expect, it } from "vitest";
 
 const css = readFileSync(path.join(__dirname, "globals.css"), "utf8");
 
-describe("decorative wireframe labels", () => {
-  it("give the heading spec label an empty alternative so it stays out of accessible names", () => {
-    const rule = css.match(/\.fx-wt\[data-wf\]::before\s*\{([^}]*)\}/);
-    expect(rule).not.toBeNull();
-    const contents = [...rule![1].matchAll(/content:\s*([^;]+);/g)].map((m) => m[1].trim());
-    /* The last declaration wins where alt text is supported. */
-    expect(contents.at(-1)).toBe('attr(data-wf) / ""');
+/** The whole block that opens at `selector`. */
+function block(selector: string): string {
+  const start = css.indexOf(selector);
+  expect(start, `${selector} not found in globals.css`).toBeGreaterThan(-1);
+  let depth = 0;
+  for (let i = css.indexOf("{", start); i < css.length; i++) {
+    if (css[i] === "{") depth++;
+    if (css[i] === "}" && --depth === 0) return css.slice(start, i + 1);
+  }
+  return css.slice(start);
+}
+
+describe("Sorted tones", () => {
+  it.each(["chalk", "white", "sky", "cobalt", "navy", "flame", "sun", "jade", "pink"])(
+    "tone-%s paints its own canvas and ink",
+    (tone) => {
+      expect(css).toMatch(new RegExp(`\\.tone-${tone}[,\\s{]`));
+    }
+  );
+
+  it("a tone sets the background and the text colour together", () => {
+    const rule = block(".tone-chalk,\n.tone-white,\n.tone-sky,\n.tone-cobalt");
+    expect(rule).toMatch(/background-color: var\(--s-bg\)/);
+    expect(rule).toMatch(/color: var\(--s-ink\)/);
   });
+});
+
+describe("the opening animation", () => {
+  it("ends on the sorted layout, so the page is right without JavaScript", () => {
+    /* `from` only: the animation always finishes on the element's own transform. */
+    expect(block("@keyframes sort-in")).toMatch(/from\s*\{\s*transform: var\(--away\)/);
+    expect(block("@keyframes sort-in")).not.toMatch(/\bto\s*\{/);
+  });
+
+  it("keeps the hero's key display in a layer so `hidden` utilities still win", () => {
+    expect(css).toMatch(/@layer components\s*\{\s*\.s-key\s*\{\s*display: inline-flex;/);
+  });
+});
+
+describe("motion that respects the visitor", () => {
+  const reduced = css.slice(css.lastIndexOf(".s-words .s-w > span,\n  .s-rise"));
+
+  it("stops every scene under reduced motion", () => {
+    [".sort-piece", ".sort-bob", ".stack-slab", ".badge-hang", ".shot-turn", ".xray-stack"].forEach((selector) =>
+      expect(reduced).toContain(selector)
+    );
+  });
+
+  it("removes the route flaps under reduced motion", () => {
+    expect(css).toMatch(/\.route-flaps \{ display: none; \}/);
+  });
+
+  it.each(["@keyframes s-word", "@keyframes s-rise", "@keyframes route-enter", "@keyframes sort-in", "@keyframes stack-settle"])(
+    "%s never animates a filter",
+    (name) => {
+      expect(block(name)).not.toMatch(/filter/);
+    }
+  );
 });

@@ -30,7 +30,8 @@ async function metadataFor(path: string): Promise<Metadata> {
 describe("social preview images", () => {
   it("the default card is not the healthcare-only card", () => {
     expect(site.ogImage).not.toBe(site.healthcareOgImage.url);
-    expect(site.ogImage).not.toBe("/og-aurora.png");
+    expect(site.ogImage).toBe("/og-flutterly.png");
+    expect(site.healthcareOgImage.url).toBe("/og-healthcare.png");
   });
 
   it.each([

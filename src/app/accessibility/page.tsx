@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, defaultOgImage } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { AccessibilityStatement } from "@/components/aurora/pages/AccessibilityStatement";
+import { AccessibilityStatement } from "@/components/sorted/pages/AccessibilityStatement";
 
 const description = `Accessibility statement for ${site.domain}: the standards this website aims to meet, how it is tested, and how to report a problem.`;
 
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0907",
-  colorScheme: "dark",
+  themeColor: "#f4f3ee",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -77,7 +77,7 @@ const sections = [
         please say so. It will be treated as a bug, not feedback. Email{" "}
         <a
           href={`mailto:${site.supportEmail}`}
-          className="font-medium text-a-ink underline decoration-a-lime underline-offset-4"
+          className="font-semibold text-s-ink underline decoration-s-accent decoration-2 underline-offset-4"
         >
           {site.supportEmail}
         </a>{" "}

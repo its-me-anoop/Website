@@ -32,7 +32,7 @@ import {
   Watch,
   Zap,
 } from "lucide-react";
-import { ProductShell } from "@/components/aurora/layout/ProductShell";
+import { ProductShell } from "@/components/sorted/layout/ProductShell";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";

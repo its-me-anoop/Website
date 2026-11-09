@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd, defaultOgImage } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { packagesFaq } from "@/lib/marketing/content";
-import { PackagesPage } from "@/components/aurora/pages/PackagesPage";
+import { PackagesPage } from "@/components/sorted/pages/PackagesPage";
 
 const description =
   "Website packages from Flutterly. Essentials is £999 to build; Standard is £1,499, with changes made for you. Then £29 a month on a 5-year term, or £49 a month on a 1-year term, hosting included. Partnership quoted after a short call.";
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0907",
-  colorScheme: "dark",
+  themeColor: "#f4f3ee",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };

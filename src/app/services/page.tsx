@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 import { breadcrumbJsonLd, defaultOgImage } from "@/lib/seo";
 import { serviceHref, services } from "@/lib/marketing/services";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ServicesIndexPage } from "@/components/aurora/pages/ServicesIndexPage";
+import { ServicesIndexPage } from "@/components/sorted/pages/ServicesIndexPage";
 
 const title = "Services: websites, apps, IT support, social media and SEO";
 const description =
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0907",
-  colorScheme: "dark",
+  themeColor: "#f4f3ee",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };

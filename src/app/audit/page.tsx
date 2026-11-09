@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
-import { ReportPage } from "@/components/aurora/audit/ReportPage";
+import { ReportPage } from "@/components/sorted/audit/ReportPage";
 
 /**
  * The instant audit report. Each report is specific to the address in
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0907",
-  colorScheme: "dark",
+  themeColor: "#f4f3ee",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };

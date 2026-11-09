@@ -11,10 +11,10 @@ beforeEach(async () => {
   Template = (await import("./template")).default;
 });
 
-const curtain = (container: HTMLElement) => container.querySelector(".route-curtain");
+const flaps = (container: HTMLElement) => container.querySelector(".route-flaps");
 
 describe("route template", () => {
-  it("never shows the curtain on the first page, even when React restarts the render", async () => {
+  it("never shows the flaps on the first page, even when React restarts the render", async () => {
     /* A page that suspends once makes React throw away the uncommitted
        render and run it again, as an interrupted hydration does. The retry
        must not flip the first page to "navigated" and render markup the
@@ -39,14 +39,16 @@ describe("route template", () => {
       await ready;
     });
     expect(await screen.findByText("page")).toBeInTheDocument();
-    expect(curtain(container)).toBeNull();
+    expect(flaps(container)).toBeNull();
   });
 
-  it("shows the curtain on later in-app navigations", () => {
+  it("covers later in-app navigations with five flaps, hidden from assistive technology", () => {
     const first = render(<Template><p>first</p></Template>);
-    expect(curtain(first.container)).toBeNull();
+    expect(flaps(first.container)).toBeNull();
     first.unmount();
     const next = render(<Template><p>next</p></Template>);
-    expect(curtain(next.container)).not.toBeNull();
+    const cover = flaps(next.container);
+    expect(cover).toHaveAttribute("aria-hidden", "true");
+    expect(cover?.children).toHaveLength(5);
   });
 });

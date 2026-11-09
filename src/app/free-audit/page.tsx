@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, serviceJsonLd, defaultOgImage } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { AuditLanding } from "@/components/aurora/pages/AuditLanding";
+import { AuditLanding } from "@/components/sorted/pages/AuditLanding";
 
 const description =
   "Get a free website review from Flutterly: accessibility, speed, search, content, mobile experience, security and local presence, with clear fixes to consider.";
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0907",
-  colorScheme: "dark",
+  themeColor: "#f4f3ee",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };

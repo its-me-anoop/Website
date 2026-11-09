@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd, defaultOgImage } from "@/lib/seo";
 import { getService, headingText, serviceHref, serviceSlugs } from "@/lib/marketing/services";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ServicePage } from "@/components/aurora/pages/ServicePage";
+import { ServicePage } from "@/components/sorted/pages/ServicePage";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -43,8 +43,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0b0907",
-  colorScheme: "dark",
+  themeColor: "#f4f3ee",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };

@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { careSector } from "@/lib/marketing/content";
-import { SectorPage } from "@/components/aurora/pages/SectorPage";
+import { SectorPage } from "@/components/sorted/pages/SectorPage";
 
 export const metadata: Metadata = {
   title: careSector.metaTitle,
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0907",
-  colorScheme: "dark",
+  themeColor: "#f4f3ee",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };

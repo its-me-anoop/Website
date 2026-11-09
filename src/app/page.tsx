@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
-import { Home as AuroraHome } from "@/components/aurora/home/Home";
+import { Home as StudioHome } from "@/components/sorted/home/Home";
 
 const title = "Websites, apps, IT support, social media and SEO in Reading";
 const description =
@@ -32,12 +32,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0907",
-  colorScheme: "dark",
+  themeColor: "#f4f3ee",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function Home() {
-  return <AuroraHome />;
+  return <StudioHome />;
 }

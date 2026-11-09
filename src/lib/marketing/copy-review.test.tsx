@@ -5,8 +5,8 @@ import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
 import { clearPath, comparison, packagesFaq, packages } from "./content";
 import { getService } from "./services";
-import { LeavingMswPage } from "@/components/aurora/pages/LeavingMswPage";
-import { PackagesPage } from "@/components/aurora/pages/PackagesPage";
+import { LeavingMswPage } from "@/components/sorted/pages/LeavingMswPage";
+import { PackagesPage } from "@/components/sorted/pages/PackagesPage";
 import { metadata as packagesMetadata } from "@/app/packages/page";
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/", useRouter: () => ({ push: vi.fn() }) }));

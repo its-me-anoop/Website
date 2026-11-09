@@ -4,8 +4,9 @@
  * Drives headless Chromium over every route at mobile and desktop viewports and
  * reports console errors, failed requests, broken images, overflow, missing
  * anchor targets, heading problems, reduced-motion issues and 404 behaviour.
- * It also exercises the rebranded homepage (services rows, work, the
- * wireframe reveals, the menu and the audit bar), the sample-site tabs on
+ * It also exercises the homepage (the sorting table and its switch, the
+ * card index, work, the studio badge, the menu and the audit bar), the
+ * sample-site tabs on
  * the websites service page, and checks that key mobile content stays
  * inside the viewport.
  *
@@ -122,8 +123,8 @@ async function auditPage(context, route, label = route) {
         /* Safari paints the page background into areas it reserves at
            the sides (landscape, and the iPhone Duo's side toolbar and
            corner camera) and tints its chrome with theme-color, so both
-           must match the dark Aurora surface. */
-        aurora: Boolean(document.querySelector(".aurora-root")),
+           must match the chalk bar across the top of a Sorted page. */
+        sorted: Boolean(document.querySelector(".s-root")),
         pageBackground: getComputedStyle(document.documentElement).backgroundColor,
         themeColor: document.querySelector('meta[name="theme-color"]')?.getAttribute("content") ?? null,
         /* The root clips x-overflow, so a too-wide frame never shows in
@@ -140,10 +141,10 @@ async function auditPage(context, route, label = route) {
       note(label, `broken anchor targets: ${data.brokenHash.join(", ")}`);
     if (data.broken.length) note(label, `broken images: ${data.broken.join(", ")}`);
     if (data.overflow > 1) note(label, `horizontal overflow ${data.overflow}px`);
-    if (data.aurora) {
-      const [r, g, b] = data.pageBackground.match(/\d+/g).map(Number);
-      if (r + g + b > 90) note(label, `page background is light (${data.pageBackground}); Safari shows it in side safe areas`);
-      if (data.themeColor !== "#0b0907") note(label, `theme-color is ${data.themeColor}, expected #0b0907`);
+    if (data.sorted) {
+      if (data.pageBackground !== "rgb(244, 243, 238)")
+        note(label, `page background is ${data.pageBackground}, expected chalk; Safari shows it in side safe areas`);
+      if (data.themeColor !== "#f4f3ee") note(label, `theme-color is ${data.themeColor}, expected #f4f3ee`);
     }
     if (data.wideFrames.length)
       note(label, `frames wider than the viewport: ${data.wideFrames.join(", ")}`);
@@ -225,9 +226,9 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   if (clippedElements.length)
     note("home", `mobile elements outside viewport: ${clippedElements.join(" | ")}`);
 
-  /* Five service rows, each opening its own page. */
+  /* Five dividers in the card index, each opening its own page. */
   const rows = await page.locator('#services a[href^="/services/"]').count();
-  if (rows !== 5) note("home", `expected 5 service rows, found ${rows}`);
+  if (rows !== 5) note("home", `expected 5 service dividers, found ${rows}`);
 
   /* Client logos are CSS masks, which fail silently, so fetch each one
      and check it has a visible size. */
@@ -244,22 +245,37 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 7) note("home", `expected 7 project cards, found ${projects}`);
 
-  /* Scroll-linked wireframe reveals must actually uncover their content:
-     the founder portrait once stayed clipped away because the in-view
-     check watched the clipped layer itself. */
-  await page.locator("#studio figure").scrollIntoViewIfNeeded();
-  await page.waitForTimeout(1800);
-  const portraitClip = await page.evaluate(() => {
-    const img = document.querySelector("#studio figure img");
-    let el = img;
-    while (el && el.id !== "studio") {
-      const clip = getComputedStyle(el).clipPath;
-      if (clip && clip !== "none" && !/^inset\(0(px|%)?( 0(px|%)?)*\)$/.test(clip)) return clip;
-      el = el.parentElement;
-    }
-    return null;
+  /* The sorting table: the switch must flip it to "as found" and back,
+     and every piece must be on screen once sorted. */
+  const table = page.locator("#top");
+  const toggle = table.getByRole("switch");
+  await toggle.click();
+  if ((await table.getAttribute("data-state")) !== "mess") note("home", "the switch did not scatter the sorting table");
+  await toggle.click();
+  await page.waitForTimeout(1600);
+  if ((await table.getAttribute("data-state")) !== "sorted") note("home", "the switch did not sort the table again");
+  const strays = await page.evaluate(() =>
+    [...document.querySelectorAll("#top .sort-piece")]
+      .filter((el) => getComputedStyle(el).display !== "none")
+      .map((el) => el.getBoundingClientRect())
+      .filter((r) => r.left < -2 || r.right > innerWidth + 2).length
+  );
+  if (strays) note("home", `${strays} sorted piece(s) sit outside the viewport`);
+
+  /* The founder's portrait sits on a badge that tilts: it must still be
+     painted, unclipped, once scrolled to. */
+  /* The badge sways, so it never counts as "stable": scroll by hand. */
+  await page.evaluate(() => document.querySelector("#studio figure").scrollIntoView({ block: "center" }));
+  await page
+    .waitForFunction(() => document.querySelector("#studio figure img[alt]:not([alt=''])")?.naturalWidth > 0, null, { timeout: 15000 })
+    .catch(() => {});
+  const portrait = await page.evaluate(() => {
+    const img = document.querySelector("#studio figure img[alt]:not([alt=''])");
+    const r = img?.getBoundingClientRect();
+    return r ? { w: r.width, h: r.height, loaded: img.naturalWidth > 0 } : null;
   });
-  if (portraitClip) note("home", `founder portrait is still clipped after scrolling to it (${portraitClip})`);
+  if (!portrait || portrait.w < 200 || portrait.h < 200 || !portrait.loaded)
+    note("home", `founder portrait is not painted at size (${JSON.stringify(portrait)})`);
 
   await page.getByRole("button", { name: /open menu/i }).click();
   const menu = page.getByRole("navigation", { name: /site menu/i });
@@ -350,7 +366,7 @@ for (const route of ["/", "/services", "/services/seo", "/gp-websites", "/packag
 await reducedMotion.close();
 
 /* Folding and unfolding mid-visit: the page must adapt to each screen
-   without a reload (a hero canvas, if one ever returns, must follow too). */
+   without a reload. */
 {
   const context = await browser.newContext(DUO.folded);
   const page = await context.newPage();
@@ -364,8 +380,6 @@ await reducedMotion.close();
     await page.setViewportSize(size);
     await page.waitForTimeout(600);
     const r = await page.evaluate(() => {
-      const canvas = document.querySelector("#top canvas.mix-blend-screen");
-      const box = canvas?.getBoundingClientRect();
       return {
         overflow: document.documentElement.scrollWidth - innerWidth,
         wide: [...document.querySelectorAll("figure")].filter((f) => f.offsetWidth > innerWidth + 1).length,
@@ -373,13 +387,11 @@ await reducedMotion.close();
           const b = document.querySelector("h1")?.getBoundingClientRect();
           return b ? b.left >= -1 && b.right <= innerWidth + 1 && b.width > 0 : false;
         })(),
-        canvasFits: box ? Math.abs(box.width - innerWidth) <= 2 : true,
       };
     });
     if (r.overflow > 1) note(`duo ${state}`, `horizontal overflow ${r.overflow}px`);
     if (r.wide) note(`duo ${state}`, `${r.wide} frame(s) wider than the viewport`);
     if (!r.h1) note(`duo ${state}`, "hero headline is not fully on screen");
-    if (!r.canvasFits) note(`duo ${state}`, "hero canvas did not follow the new width");
   }
   await context.close();
 }

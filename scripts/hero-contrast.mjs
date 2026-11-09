@@ -1,12 +1,11 @@
 /**
- * Worst-case contrast for text in the hero bands.
+ * Worst-case contrast for text in the opening and closing bands.
  *
- * For each piece of text in the night heroes and the closing band it
+ * For each piece of text in the coloured heroes and the closing band it
  * hides the glyphs, samples the pixels actually painted behind them
- * (canvas, glow and surfaces included) and checks WCAG AA (4.5:1, or
- * 3:1 for large text). Any canvas that still draws behind text is
- * painted at the brightest colour the old shader could reach, so the
- * check stays a worst case if one ever returns.
+ * (the tone, a label behind an emphasised word, a card, a 3D scene that
+ * strays behind the copy) and checks WCAG AA (4.5:1, or 3:1 for large
+ * text). The home hero is measured sorted and scattered.
  *
  *   1. npm run build && PORT=3100 npm start
  *   2. BASE_URL=http://localhost:3100 npm run test:contrast
@@ -15,13 +14,15 @@ import { chromium, devices } from "playwright";
 
 const BASE = process.env.BASE_URL || "http://localhost:3100";
 
-/* The brightest frame the retired shader could reach: a worst case kept for any canvas. */
-const SHADER_PEAK = "rgb(199, 199, 199)";
-
-/** The hero bands with text over a glow. */
+/** The bands with text on a colour. `mess` flips the sorting table first. */
 const TARGETS = [
   { route: "/", selector: "#top" },
+  { route: "/", selector: "#top", mess: true },
   { route: "/", selector: "#contact" },
+  { route: "/services/apps", selector: "#top" },
+  { route: "/services/seo", selector: "#top" },
+  { route: "/book", selector: "#top" },
+  { route: "/free-audit", selector: "#top" },
   { route: "/services", selector: "#top" },
   { route: "/services/websites", selector: "#top" },
   { route: "/gp-websites", selector: "#top" },
@@ -57,23 +58,21 @@ for (const [label, options] of VIEWPORTS) {
   const context = await browser.newContext({ ...options, reducedMotion: "reduce" });
   const page = await context.newPage();
 
-  for (const { route, selector } of TARGETS) {
+  for (const { route, selector, mess } of TARGETS) {
     await page.goto(BASE + route, { waitUntil: "networkidle" });
     const exists = await page.locator(selector).count();
     if (!exists) continue;
+    if (mess) {
+      await page.locator(selector).getByRole("switch").click();
+      await page.waitForTimeout(400);
+    }
 
     /* Measure each block in turn, scrolled to the top of the viewport. */
     const texts = await page.evaluate(
-      ({ selector, peak }) => {
+      ({ selector }) => {
         document.documentElement.style.scrollBehavior = "auto";
         const root = document.querySelector(selector);
         root.scrollIntoView({ block: "start" });
-
-        for (const canvas of root.querySelectorAll("canvas.mix-blend-screen")) {
-          canvas.dataset.ready = "true";
-          canvas.style.background = peak;
-        }
-        for (const canvas of root.querySelectorAll("canvas:not(.mix-blend-screen)")) canvas.style.display = "none";
 
         const out = [];
         const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
@@ -82,7 +81,8 @@ for (const [label, options] of VIEWPORTS) {
           const node = walker.currentNode;
           const el = node.parentElement;
           if (!node.textContent.trim() || seen.has(el)) continue;
-          if (el.closest("[aria-hidden=true], .sr-only, input, textarea")) continue;
+          /* The sorting table is one labelled image; its tiles carry their own white faces. */
+          if (el.closest("[aria-hidden=true], [role=img], .sr-only, input, textarea")) continue;
           const style = getComputedStyle(el);
           if (style.visibility === "hidden" || style.display === "none") continue;
           seen.add(el);
@@ -90,26 +90,31 @@ for (const [label, options] of VIEWPORTS) {
           range.selectNodeContents(node);
           for (const rect of range.getClientRects()) {
             if (rect.width < 4 || rect.height < 4 || rect.bottom < 0 || rect.top > innerHeight) continue;
-            /* Gradient text (the italic <em>): judge its darkest stop. */
-            const gradient = style.backgroundClip === "text" || style.webkitBackgroundClip === "text";
             const size = parseFloat(style.fontSize);
+            /* An emphasised word sits on a label turned 1.4°, so the
+               corners of its upright box fall off the label: sample the
+               band the glyphs actually cross. */
+            const label = Boolean(el.closest("em"));
+            const slack = Math.min(rect.height * 0.3, rect.width * 0.03 + 3);
             const bold = parseInt(style.fontWeight, 10) >= 700;
             out.push({
               text: node.textContent.trim().slice(0, 40),
-              color: gradient ? "rgb(255, 90, 31)" : style.color,
+              color: style.color,
               large: size >= 24 || (bold && size >= 18.66),
-              rect: { x: rect.left, y: rect.top, w: rect.width, h: rect.height },
+              rect: label
+                ? { x: rect.left + 4, y: rect.top + slack, w: rect.width - 8, h: rect.height - 2 * slack }
+                : { x: rect.left, y: rect.top, w: rect.width, h: rect.height },
             });
           }
         }
         return out;
       },
-      { selector, peak: SHADER_PEAK }
+      { selector }
     );
 
     /* Hide the glyphs and photograph what is painted behind them. */
     await page.addStyleTag({
-      content: `${selector} * { color: transparent !important; -webkit-text-fill-color: transparent !important; text-shadow: none !important; caret-color: transparent !important; } ${selector} em { background: none !important; }`,
+      content: `${selector} * { color: transparent !important; -webkit-text-fill-color: transparent !important; text-shadow: none !important; caret-color: transparent !important; }`,
     });
     await page.waitForTimeout(150);
     const shot = await page.screenshot();
@@ -155,7 +160,7 @@ for (const [label, options] of VIEWPORTS) {
       const got = ratio(luminance(fg), bg);
       const need = t.large ? 3 : 4.5;
       if (got < need)
-        failures.push(`[${label} ${route} ${selector}] "${t.text}" ${got.toFixed(2)}:1 (needs ${need}:1)`);
+        failures.push(`[${label} ${route} ${selector}${mess ? " (as found)" : ""}] "${t.text}" ${got.toFixed(2)}:1 (needs ${need}:1)`);
     });
   }
   await context.close();
@@ -168,4 +173,4 @@ if (failures.length) {
   for (const f of failures) console.error("  - " + f);
   process.exit(1);
 }
-console.log("✓ Hero text stays at WCAG AA against what is painted behind it.");
+console.log("✓ Hero and closing-band text stays at WCAG AA against what is painted behind it.");
