@@ -68,6 +68,10 @@ const ROUTES = [
   "/demo/physio-clinic/trust",
   "/demo/physio-clinic/accessibility",
   "/projects/sipli",
+  "/projects/little-lifeline",
+  "/projects/rotaowl",
+  "/projects/streetcrew",
+  "/projects/catholic-bible",
   "/projects/artling",
 ];
 

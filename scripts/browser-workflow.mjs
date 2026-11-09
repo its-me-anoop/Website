@@ -69,6 +69,10 @@ const ROUTES = [
   "/demo/physio-clinic/trust",
   "/demo/physio-clinic/accessibility",
   "/projects/sipli",
+  "/projects/little-lifeline",
+  "/projects/rotaowl",
+  "/projects/streetcrew",
+  "/projects/catholic-bible",
   "/projects/artling",
   "/projects/sipli/privacy-policy",
   "/projects/artling/privacy-policy",
@@ -243,7 +247,7 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   }
 
   const projects = await page.locator("[data-project-card]").count();
-  if (projects !== 7) note("home", `expected 7 project cards, found ${projects}`);
+  if (projects !== 10) note("home", `expected 10 project cards, found ${projects}`);
 
   /* The sorting table: the switch must flip it to "as found" and back,
      and every piece must be on screen once sorted. */

@@ -15,7 +15,6 @@ const host = (href: string) => href.replace(/^https?:\/\/(www\.)?/, "").replace(
 const spanClass: Record<Tile["span"], string> = {
   wide: "lg:col-span-7",
   narrow: "lg:col-span-5",
-  full: "lg:col-span-12",
 };
 
 /** A slab that carries a capture; `left` shows its left side instead of its right. */
@@ -37,16 +36,31 @@ function Slab({ children, left, className, edge }: { children: ReactNode; left: 
 function TileMedia({ tile, left }: { tile: Tile; left: boolean }) {
   switch (tile.key) {
     case "sipli":
-      /* The capture already shows the phone, so it turns without a slab. */
+      /* Simulator captures from an iPhone Duo: the open inner display, with the cover screen in front. */
       return (
-        <div className="shot-turn h-[118%]">
+        <div className="shot-turn relative h-[84%]">
+          <div
+            className="slab shot-slab h-full"
+            data-edge={left ? "left" : undefined}
+            style={{ "--edge": "#3a4270", "--edge-2": "#1d2550" } as CSSProperties}
+          >
+            <Image
+              src="/images/sipli/duo/inner-home.webp"
+              alt="Sipli on the inner display of an iPhone Duo: today's bottle, weekly quests and the hydration coach"
+              width={1100}
+              height={1564}
+              sizes="280px"
+              className="block h-full w-auto rounded-[14px] border-[5px] border-[#0b1026]"
+            />
+          </div>
           <Image
-            src="/projects/sipli/dashboard.png"
-            alt="Sipli on iPhone: today's hydration dashboard"
-            width={1284}
-            height={2778}
-            sizes="260px"
-            className="shot-slab block h-full w-auto"
+            src="/images/sipli/duo/outer-today.webp"
+            alt=""
+            width={800}
+            height={1164}
+            sizes="130px"
+            className="absolute bottom-[-6%] right-[-22%] h-[56%] w-auto rounded-[10px] border-[4px] border-[#0b1026]"
+            style={{ transform: "translateZ(60px)" }}
           />
         </div>
       );
@@ -59,6 +73,32 @@ function TileMedia({ tile, left }: { tile: Tile; left: boolean }) {
             width={512}
             height={512}
             sizes="210px"
+            className="block h-auto w-full"
+          />
+        </Slab>
+      );
+    case "streetcrew":
+      return (
+        <Slab left={left} edge="#ff5c1f" className="w-[min(46%,210px)]">
+          <Image
+            src="/projects/streetcrew/app-icon.png"
+            alt="StreetCrew app icon: an orange route drawn across a street grid"
+            width={512}
+            height={512}
+            sizes="210px"
+            className="block h-auto w-full"
+          />
+        </Slab>
+      );
+    case "bible":
+      return (
+        <Slab left={left} edge="#4d121a" className="w-[min(44%,200px)]">
+          <Image
+            src="/projects/catholic-bible/cover.svg"
+            alt="Catholic Bible, Catholic Public Domain Version"
+            width={600}
+            height={800}
+            unoptimized
             className="block h-auto w-full"
           />
         </Slab>
@@ -78,11 +118,11 @@ function TileMedia({ tile, left }: { tile: Tile; left: boolean }) {
       );
     default:
       return (
-        <Slab left={left} edge="#d6d5ca" className={cn(tile.span === "full" ? "w-[min(84%,880px)]" : "w-[84%]")}>
+        <Slab left={left} edge="#d6d5ca" className="w-[84%]">
           <BrowserFrame
             src={tile.image.src}
             alt={tile.image.alt}
-            url={host(tile.href)}
+            url={isExternal(tile.href) ? host(tile.href) : undefined}
             width={1920}
             height={1200}
             sizes="(min-width: 1024px) 56vw, 80vw"
@@ -92,11 +132,16 @@ function TileMedia({ tile, left }: { tile: Tile; left: boolean }) {
   }
 }
 
+const kindClass: Record<Tile["kind"], string> = {
+  Website: "bg-s-cobalt text-white",
+  App: "bg-s-flame text-s-navy",
+  "Web app": "bg-s-jade text-s-navy",
+};
+
 function WorkTile({ tile, index }: { tile: Tile; index: number }) {
   const external = isExternal(tile.href);
   const linkProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
   const left = index % 2 === 1;
-  const app = tile.sketch !== "site";
   return (
     <article className={cn("flex min-w-0 flex-col", spanClass[tile.span])} data-project-card>
       <Link
@@ -112,9 +157,7 @@ function WorkTile({ tile, index }: { tile: Tile; index: number }) {
       <div className="mt-6 flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
         <div className="flex min-w-0 flex-[1_1_260px] flex-col gap-2.5">
           <span className="flex flex-wrap items-center gap-2.5">
-            <span className={cn("s-label rounded-[5px] px-2 py-1 text-[12px] leading-none", app ? "bg-s-flame text-s-navy" : "bg-s-cobalt text-white")}>
-              {app ? "App" : "Website"}
-            </span>
+            <span className={cn("s-label rounded-[5px] px-2 py-1 text-[12px] leading-none", kindClass[tile.kind])}>{tile.kind}</span>
             <span className="s-label text-[12.5px] text-s-muted">{tile.eyebrow}</span>
           </span>
           <h3 className="s-display text-[clamp(1.6rem,2.4vw,2.1rem)]">{tile.title}</h3>
