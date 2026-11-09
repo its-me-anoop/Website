@@ -32,8 +32,8 @@ export function Progress({ host }: { host: string }) {
   }, []);
 
   return (
-    <div className="mx-auto w-full max-w-[640px] overflow-hidden rounded-[14px] border-2 border-s-navy bg-white text-s-ink shadow-[0_8px_0_0_var(--s-navy)]">
-      <div className="flex h-9 items-center gap-1.5 border-b-2 border-s-navy bg-s-chalk px-3">
+    <div className="mx-auto w-full max-w-[640px] overflow-hidden rounded-[14px] border-2 border-s-rule bg-s-raised text-s-ink shadow-[0_8px_0_0_var(--s-rule)]">
+      <div className="flex h-9 items-center gap-1.5 border-b-2 border-s-rule bg-s-bg-2 px-3">
         <span className="flex gap-1.5" aria-hidden>
           <span className="h-2.5 w-2.5 rounded-[2px] bg-s-flame" />
           <span className="h-2.5 w-2.5 rounded-[2px] bg-s-sun" />

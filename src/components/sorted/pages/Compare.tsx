@@ -12,7 +12,7 @@ import { Container, SectionIntro } from "../ui/primitives";
  */
 export function Compare() {
   return (
-    <section className="tone-chalk s-dots relative border-y-2 border-s-navy py-20 sm:py-28">
+    <section className="tone-chalk s-dots relative border-y-2 border-s-rule py-20 sm:py-28">
       <Container>
         <SectionIntro
           eyebrow="Never a page builder"
@@ -24,10 +24,10 @@ export function Compare() {
           copy="Most small-organisation websites sit on a page builder someone has to keep patching. Flutterly builds a different way."
         />
         <Reveal className="mt-12" turn={14}>
-          <table className="w-full border-collapse overflow-hidden rounded-[14px] border-2 border-s-navy bg-white text-left max-md:block max-md:border-0 max-md:bg-transparent">
+          <table className="w-full border-collapse overflow-hidden rounded-[14px] border-2 border-s-rule bg-s-raised text-left max-md:block max-md:border-0 max-md:bg-transparent">
             <caption className="sr-only">Comparison of typical template builders against a Flutterly build</caption>
             <thead className="max-md:hidden">
-              <tr className="border-b-2 border-s-navy">
+              <tr className="border-b-2 border-s-rule">
                 <th scope="col" className="s-label w-[18%] px-5 py-4 text-[12.5px] text-s-muted">
                   Area
                 </th>
@@ -43,7 +43,7 @@ export function Compare() {
               {comparison.rows.map((row) => (
                 <tr
                   key={row.label}
-                  className="border-t-[1.5px] border-s-line-2 first:border-t-0 max-md:mb-3 max-md:block max-md:overflow-hidden max-md:rounded-[12px] max-md:border-2 max-md:border-s-navy max-md:bg-white first:max-md:border-t-2"
+                  className="border-t-[1.5px] border-s-line-2 first:border-t-0 max-md:mb-3 max-md:block max-md:overflow-hidden max-md:rounded-[12px] max-md:border-2 max-md:border-s-rule max-md:bg-s-raised first:max-md:border-t-2"
                 >
                   <th scope="row" className="px-5 py-5 align-top text-[16.5px] font-bold text-s-ink max-md:block max-md:px-4 max-md:pb-0 max-md:pt-4">
                     {row.label}

@@ -42,7 +42,7 @@ export function ServicesIndexPage() {
           <section
             key={pillar.name}
             aria-labelledby={`pillar-${pillar.name}`}
-            className="border-t-2 border-s-navy py-[clamp(56px,7vw,104px)] first:border-t-0"
+            className="border-t-2 border-s-rule py-[clamp(56px,7vw,104px)] first:border-t-0"
           >
             <Container className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
               <div className="flex flex-col gap-4">
@@ -59,7 +59,7 @@ export function ServicesIndexPage() {
                   <Reveal as="li" key={service.slug} turn={50} delay={n * 0.1}>
                     <Link
                       href={serviceHref(service.slug)}
-                      className={`${serviceTone[service.slug]} group grid items-center gap-x-10 gap-y-3 rounded-[16px] border-2 border-s-navy px-6 py-7 shadow-[0_7px_0_0_var(--s-navy)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_11px_0_0_var(--s-navy)] sm:px-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)_auto]`}
+                      className={`${serviceTone[service.slug]} group grid items-center gap-x-10 gap-y-3 rounded-[16px] border-2 border-s-rule px-6 py-7 shadow-[0_7px_0_0_var(--s-rule)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_11px_0_0_var(--s-rule)] sm:px-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)_auto]`}
                     >
                       <span className="s-display text-[clamp(2rem,3.4vw,3rem)]">{service.name}</span>
                       <span className="text-[17px] font-medium leading-[1.5] text-s-ink-soft">{service.summary}</span>

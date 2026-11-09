@@ -103,7 +103,7 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
             </h2>
           </Reveal>
           <Reveal turn={0} delay={0.08}>
-            <dl className="grid gap-x-8 border-t-2 border-s-navy sm:grid-cols-2">
+            <dl className="grid gap-x-8 border-t-2 border-s-rule sm:grid-cols-2">
               {study.facts.map(([label, value]) => (
                 <div key={label} className="flex flex-col gap-1 border-b-[1.5px] border-s-line-2 py-4">
                   <dt className="s-label text-[12.5px] text-s-muted">{label}</dt>
@@ -115,7 +115,7 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
         </Container>
       </section>
 
-      <section aria-labelledby="does-title" className="tone-chalk s-dots border-y-2 border-s-navy py-[clamp(64px,8vw,112px)]">
+      <section aria-labelledby="does-title" className="tone-chalk s-dots border-y-2 border-s-rule py-[clamp(64px,8vw,112px)]">
         <Container>
           <Eyebrow>{study.name}</Eyebrow>
           <h2 id="does-title" className="s-display mt-5 text-[clamp(2.2rem,4.6vw,4rem)]">
@@ -124,7 +124,7 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
           <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {study.features.map((feature, i) => (
               <Reveal as="li" key={feature.title} turn={60} delay={(i % 3) * 0.08} className="h-full">
-                <article className="tone-white flex h-full flex-col rounded-[14px] border-2 border-s-navy p-6 shadow-[0_6px_0_0_var(--s-navy)]">
+                <article className="tone-white flex h-full flex-col rounded-[14px] border-2 border-s-rule p-6 shadow-[0_6px_0_0_var(--s-rule)]">
                   <span aria-hidden className="s-display s-num text-[38px] text-s-accent">
                     0{i + 1}
                   </span>
@@ -163,7 +163,7 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
         </section>
       ) : null}
 
-      <nav aria-label="More work" className="border-t-2 border-s-navy">
+      <nav aria-label="More work" className="border-t-2 border-s-rule">
         <ul className="m-0 grid list-none p-0 sm:grid-cols-2">
           {others.map((c) => (
             <li key={c.slug}>

@@ -105,7 +105,7 @@ export function AuditLanding() {
               >
                 <article
                   onPointerEnter={() => setActive(i)}
-                  className={`${sheetTones[i]} flex h-full flex-col rounded-[14px] border-2 border-s-navy p-6 shadow-[0_6px_0_0_var(--s-navy)]`}
+                  className={`${sheetTones[i]} flex h-full flex-col rounded-[14px] border-2 border-s-rule p-6 shadow-[0_6px_0_0_var(--s-rule)]`}
                 >
                   <span aria-hidden className="s-display s-num text-[44px]">
                     0{i + 1}
@@ -119,7 +119,7 @@ export function AuditLanding() {
         </Container>
       </section>
 
-      <section className="tone-chalk s-dots border-t-2 border-s-navy py-20 sm:py-28">
+      <section className="tone-chalk s-dots border-t-2 border-s-rule py-20 sm:py-28">
         <Container>
           <SectionIntro
             eyebrow="How it works"
@@ -132,7 +132,7 @@ export function AuditLanding() {
           <ol className="mt-14 grid gap-5 md:grid-cols-3">
             {steps.map((step, i) => (
               <Reveal as="li" key={step.title} turn={80} delay={i * 0.12} className="h-full">
-                <article className="tone-white relative h-full rounded-[14px] border-2 border-s-navy p-7 shadow-[0_6px_0_0_var(--s-navy)]">
+                <article className="tone-white relative h-full rounded-[14px] border-2 border-s-rule p-7 shadow-[0_6px_0_0_var(--s-rule)]">
                   <p className="s-label inline-flex rounded-[5px] bg-s-navy px-2 py-1.5 text-[12.5px] leading-none text-white">STEP {i + 1}</p>
                   <h3 className="s-display mt-7 text-[25px]">{step.title}</h3>
                   <p className="mt-3 text-[15.5px] leading-[1.6] text-s-ink-soft">{step.copy}</p>
@@ -149,7 +149,7 @@ export function AuditLanding() {
               {instantVsWritten.map((col, i) => (
                 <div
                   key={col.label}
-                  className={`${i === 1 ? "tone-navy" : "tone-white"} rounded-[14px] border-2 border-s-navy p-7`}
+                  className={`${i === 1 ? "tone-navy" : "tone-white"} rounded-[14px] border-2 border-s-rule p-7`}
                 >
                   <Eyebrow>{col.label}</Eyebrow>
                   <ul className="mt-6 grid gap-3.5">
@@ -164,7 +164,7 @@ export function AuditLanding() {
 
           <Reveal turn={0} className="mt-20 max-w-[900px]">
             <h2 className="s-display text-[clamp(1.7rem,3vw,2.5rem)]">The audit promise</h2>
-            <ul className="mt-7 grid gap-x-10 border-t-2 border-s-navy sm:grid-cols-2">
+            <ul className="mt-7 grid gap-x-10 border-t-2 border-s-rule sm:grid-cols-2">
               {auditPromises.map((promise) => (
                 <CheckItem key={promise} className="border-b-[1.5px] border-s-line-2 py-4">
                   {promise}

@@ -14,7 +14,7 @@ import { Container, Eyebrow } from "../ui/primitives";
  */
 export function ClientLogos() {
   return (
-    <section id="clients" aria-labelledby="clients-title" className="tone-chalk scroll-mt-20 border-b-2 border-s-navy py-[clamp(56px,6vw,88px)]">
+    <section id="clients" aria-labelledby="clients-title" className="tone-chalk scroll-mt-20 border-b-2 border-s-rule py-[clamp(56px,6vw,88px)]">
       <Container className="flex flex-col gap-9">
         <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-3">
           <h2 id="clients-title" className="s-display text-[clamp(1.7rem,3vw,2.5rem)]">
@@ -35,7 +35,7 @@ export function ClientLogos() {
 }
 
 const cellClass =
-  "group flex h-full min-h-[124px] flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-[10px] border-[1.5px] border-s-line-2 bg-white px-4 py-7 text-s-navy";
+  "group flex h-full min-h-[124px] flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-[10px] border-[1.5px] border-s-line-2 bg-s-raised px-4 py-7 text-s-ink";
 
 function ClientCell({ client }: { client: Client }) {
   const body = <ClientMark client={client} />;
@@ -45,7 +45,7 @@ function ClientCell({ client }: { client: Client }) {
       href={client.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${cellClass} transition-[background-color,color,transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-s-navy hover:bg-s-cobalt hover:text-white hover:shadow-[0_5px_0_0_var(--s-navy)]`}
+      className={`${cellClass} transition-[background-color,color,transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-s-rule hover:bg-s-cobalt hover:text-white hover:shadow-[0_5px_0_0_var(--s-rule)]`}
     >
       {body}
     </a>

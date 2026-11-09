@@ -45,6 +45,34 @@ and `--s-pass` / `--s-warn` / `--s-fail`. A component built on
 `text-s-ink`, `border-s-line-2` and `.s-key` therefore comes out right
 on any tone without knowing where it is. Every pairing is ≥ 4.5:1.
 
+### Dark theme and Safari's Adaptive Dark Mode
+
+Sorted pages carry their own dark theme under
+`@media (prefers-color-scheme: dark)`, and declare
+`color-scheme: light dark` (CSS on `html:has(.s-root)` and the
+`color-scheme` meta from each page's `viewport`). That declaration is
+what tells Safari 27.3's Adaptive Dark Mode to leave a page alone
+instead of repainting it, so visitors with a dark system get the site's
+own design rather than an inverted guess.
+
+- Only the neutral tones change: chalk, white and sky become three
+  depths of navy (`#10162f`, `#161d3d`, `#1a2350`) with chalk ink and a
+  pale cobalt (`#a9b8ff`) for marks. Cobalt, flame, sun, jade and pink
+  bands are the brand and stay as they are.
+- `--s-rule` is the colour of firm rules and card sides: navy in light,
+  `#8f99d6` in dark. Use `border-s-rule` and
+  `shadow-[0_6px_0_0_var(--s-rule)]`, never a literal navy, for
+  anything that must show on both.
+- Captures of real sites (`Frames.tsx`), the audit field and the Cal.com
+  booker stay light islands on purpose.
+- The dark block is scoped to `.s-root`, so the bar and footer around a
+  light case-study page (`.s-chrome`) do not turn dark on their own.
+- `theme-color` is `#f4f3ee` in light and `#10162f` in dark.
+- Case-study pages (`/projects/sipli`, `/projects/artling`,
+  `/projects/little-lifeline`), `/duo` and the `/demo/*` sample sites
+  have no dark theme and declare light only. If a visitor turns Adaptive
+  Dark Mode on, Safari adapts those itself.
+
 ### The colour code
 
 `ui/tones.ts` maps each service to one tone, used for its divider in the

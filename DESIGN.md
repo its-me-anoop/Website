@@ -20,6 +20,10 @@ for section, headline and route transitions. `tone-*` classes remap the
 semantic tokens for a coloured band. `.s-root` scope; `.s-chrome` for
 the bar and footer around a case study. Reduced-motion and no-JS
 fallbacks everywhere; the first paint is always the finished layout.
+Sorted pages have their own dark theme (`prefers-color-scheme: dark`)
+and declare `color-scheme: light dark`, which also keeps Safari 27.3's
+Adaptive Dark Mode from repainting them; use `border-s-rule` /
+`var(--s-rule)` for rules that must show in both.
 
 ## 2. Porcelain (case studies `/projects/*`)
 

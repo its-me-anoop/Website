@@ -11,7 +11,7 @@ import { Container, Eyebrow } from "../ui/primitives";
  */
 export function Process() {
   return (
-    <section id="process" aria-labelledby="process-title" className="tone-sun scroll-mt-20 border-y-2 border-s-navy py-[clamp(72px,9vw,128px)]">
+    <section id="process" aria-labelledby="process-title" className="tone-sun scroll-mt-20 border-y-2 border-s-rule py-[clamp(72px,9vw,128px)]">
       <Container className="flex flex-col gap-12">
         <div>
           <Eyebrow>Process</Eyebrow>
@@ -22,7 +22,7 @@ export function Process() {
         <ol className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
           {rebrandProcess.map(([step, copy], i) => (
             <Reveal as="li" key={step} turn={84} delay={i * 0.13} className="h-full">
-              <div className="tone-white relative flex h-full flex-col gap-3 rounded-[12px] border-2 border-s-navy p-6 shadow-[0_6px_0_0_var(--s-navy)]">
+              <div className="tone-white relative flex h-full flex-col gap-3 rounded-[12px] border-2 border-s-rule p-6 shadow-[0_6px_0_0_var(--s-rule)]">
                 <div className="flex items-center justify-between">
                   <span aria-hidden className="s-display s-num text-[52px] leading-none text-s-accent">
                     {i + 1}

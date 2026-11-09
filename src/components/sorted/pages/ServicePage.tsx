@@ -67,7 +67,7 @@ export function ServicePage({ service }: { service: Service }) {
               What&apos;s <em>included.</em>
             </h2>
           </div>
-          <ol className="m-0 list-none border-t-2 border-s-navy p-0">
+          <ol className="m-0 list-none border-t-2 border-s-rule p-0">
             {service.includes.map((item, i) => (
               <Reveal
                 as="li"
@@ -89,7 +89,7 @@ export function ServicePage({ service }: { service: Service }) {
 
       {service.slug === "websites" ? <Showcase /> : null}
 
-      <section aria-labelledby="fit-title" className="tone-chalk s-dots border-t-2 border-s-navy py-[clamp(72px,9vw,128px)]">
+      <section aria-labelledby="fit-title" className="tone-chalk s-dots border-t-2 border-s-rule py-[clamp(72px,9vw,128px)]">
         <Container className="grid gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
           <div className="flex flex-col gap-8">
             <h2 id="fit-title" className="s-display text-[clamp(2.1rem,4.2vw,3.5rem)]">
@@ -100,7 +100,7 @@ export function ServicePage({ service }: { service: Service }) {
                 <CheckItem key={line}>{line}</CheckItem>
               ))}
             </ul>
-            <div className="flex flex-col gap-1 border-t-2 border-s-navy pt-5">
+            <div className="flex flex-col gap-1 border-t-2 border-s-rule pt-5">
               <p className="s-label text-[12.5px] text-s-muted">See also</p>
               <ul className="m-0 list-none p-0">
                 {service.related.map((link) => (
@@ -121,7 +121,7 @@ export function ServicePage({ service }: { service: Service }) {
         </Container>
       </section>
 
-      <nav aria-label="Other services" className="border-t-2 border-s-navy">
+      <nav aria-label="Other services" className="border-t-2 border-s-rule">
         <ul className="m-0 grid list-none p-0 sm:grid-cols-2 lg:grid-cols-4">
           {others.map((s) => (
             <li key={s.slug}>

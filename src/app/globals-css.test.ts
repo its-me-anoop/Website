@@ -63,3 +63,28 @@ describe("motion that respects the visitor", () => {
     }
   );
 });
+
+describe("dark theme", () => {
+  const dark = block("@media (prefers-color-scheme: dark)");
+
+  it("declares both schemes, so Safari's Adaptive Dark Mode leaves Sorted pages to their own dark theme", () => {
+    expect(block("html:has(.s-root) {")).toMatch(/color-scheme: light dark/);
+  });
+
+  it("re-inks only the neutral tones and leaves the coloured bands as they are", () => {
+    [".tone-chalk", ".tone-white", ".tone-sky"].forEach((tone) => expect(dark).toContain(`.s-root ${tone}`));
+    [".tone-cobalt", ".tone-flame", ".tone-sun", ".tone-jade", ".tone-pink"].forEach((tone) =>
+      expect(dark).not.toContain(tone)
+    );
+  });
+
+  it("is scoped to .s-root, so the bar and footer around a light case-study page stay light", () => {
+    expect(dark).not.toMatch(/\.s-chrome/);
+    expect(dark).not.toMatch(/(^|\n)\s*\.tone-/);
+  });
+
+  it("gives rules and card sides a colour that shows on navy", () => {
+    expect(dark).toMatch(/--s-rule: #8f99d6/);
+    expect(css).toMatch(/--color-s-rule: var\(--s-rule\)/);
+  });
+});

@@ -56,7 +56,7 @@ export function Nav() {
     !href.includes("#") && (pathname === href || !!pathname?.startsWith(`${href}/`));
 
   return (
-    <header className="tone-chalk fixed inset-x-0 top-0 z-[120] border-b-2 border-s-navy">
+    <header className="tone-chalk fixed inset-x-0 top-0 z-[120] border-b-2 border-s-rule">
       <div className="mx-auto flex h-16 w-full max-w-[1320px] items-center justify-between gap-3 px-4 sm:px-8">
         <Link href="/" aria-label="Flutterly home" className="-ml-1 flex h-11 items-center gap-2 rounded-[8px] px-1">
           <Image src="/flutterly-logo.png" alt="" width={34} height={34} priority />
@@ -105,7 +105,7 @@ export function Nav() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="site-menu"
-            className="s-key s-key-plain h-10 w-10 border-2 border-s-navy [--key-depth:4px] [--key-edge:var(--s-navy)] lg:hidden"
+            className="s-key s-key-plain h-10 w-10 border-2 border-s-rule [--key-depth:4px] [--key-edge:var(--s-rule)] lg:hidden"
           >
             {open ? <X size={19} strokeWidth={2.4} aria-hidden /> : <Menu size={19} strokeWidth={2.4} aria-hidden />}
           </button>
@@ -118,7 +118,7 @@ export function Nav() {
             ref={sheetRef}
             id="site-menu"
             aria-label="Site menu"
-            className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto border-b-2 border-s-navy bg-s-chalk lg:hidden"
+            className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto border-b-2 border-s-rule bg-s-bg lg:hidden"
             initial={motion ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -159,7 +159,7 @@ export function Nav() {
                     <Link
                       href={serviceHref(s.slug)}
                       onClick={() => setOpen(false)}
-                      className="flex min-h-12 items-center gap-2.5 rounded-[9px] border-[1.5px] border-s-line-2 bg-white px-3 text-[15.5px] font-semibold text-s-ink"
+                      className="flex min-h-12 items-center gap-2.5 rounded-[9px] border-[1.5px] border-s-line-2 bg-s-raised px-3 text-[15.5px] font-semibold text-s-ink"
                     >
                       <span aria-hidden className={`${serviceTone[s.slug]} h-3 w-3 shrink-0 rounded-[3px]`} />
                       {s.name}
@@ -168,7 +168,7 @@ export function Nav() {
                 ))}
               </ul>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                <Link href="/free-audit" onClick={() => setOpen(false)} className="s-key s-key-plain h-12 border-2 border-s-navy text-[15.5px] [--key-edge:var(--s-navy)]">
+                <Link href="/free-audit" onClick={() => setOpen(false)} className="s-key s-key-plain h-12 border-2 border-s-rule text-[15.5px] [--key-edge:var(--s-rule)]">
                   Free website audit
                 </Link>
                 <Link href="/book" onClick={() => setOpen(false)} className="s-key h-12 text-[15.5px]">

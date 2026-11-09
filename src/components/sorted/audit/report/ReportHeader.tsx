@@ -93,7 +93,7 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
                 name="sector"
                 defaultValue={report.sector}
                 onChange={(e) => e.currentTarget.form?.requestSubmit()}
-                className="rounded-[8px] border border-s-line-2 bg-white px-2.5 py-1.5 text-[14px] text-s-ink"
+                className="rounded-[8px] border border-s-line-2 bg-s-raised px-2.5 py-1.5 text-[14px] text-s-ink"
               >
                 {sectorOptions.map((o) => (
                   <option key={o.value} value={o.value}>
@@ -103,7 +103,7 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
                 ))}
               </select>
               <noscript>
-                <button type="submit" className="rounded-[8px] bg-white px-3 py-1.5 text-s-ink">
+                <button type="submit" className="rounded-[8px] bg-s-raised px-3 py-1.5 text-s-ink">
                   Re-run
                 </button>
               </noscript>
@@ -143,7 +143,7 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
       <Reveal delay={0.2} className="mt-14">
         {/* Two columns until all six fit in a row: an even split keeps
             every fact clear of the fold on the iPhone Duo's inner screen. */}
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-y-2 border-s-navy py-6 lg:grid-cols-6">
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-y-2 border-s-rule py-6 lg:grid-cols-6">
           {facts.map((f) => (
             <div key={f.label}>
               <dt className="s-label text-[12.5px] text-s-muted">{f.label}</dt>

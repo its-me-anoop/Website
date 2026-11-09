@@ -272,7 +272,7 @@ export function AuditBar({
       <label htmlFor={id} className="sr-only">
         {label}
       </label>
-      <div className="flex items-center gap-2 rounded-[12px] border-2 border-s-navy bg-white p-1.5 pl-4 shadow-[0_5px_0_0_var(--s-navy)] has-[input:focus-visible]:shadow-[0_0_0_3px_var(--s-navy),0_0_0_8px_var(--s-sun)]">
+      <div className="flex items-center gap-2 rounded-[12px] border-2 border-s-navy bg-white p-1.5 pl-4 shadow-[0_5px_0_0_var(--s-key-shadow)] has-[input:focus-visible]:shadow-[0_0_0_3px_var(--s-rule),0_0_0_8px_var(--s-sun)]">
         <span aria-hidden className="hidden text-[14px] font-semibold text-[#596080] sm:inline">
           https://
         </span>

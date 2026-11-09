@@ -152,7 +152,7 @@ export function ReportPage() {
       {state.kind === "done" ? (
         <>
           <div className="k-screen">
-            <section className="s-dots relative isolate overflow-hidden border-b-2 border-s-navy pb-16 pt-12 sm:pb-20 sm:pt-16">
+            <section className="s-dots relative isolate overflow-hidden border-b-2 border-s-rule pb-16 pt-12 sm:pb-20 sm:pt-16">
               <ReportHeader report={state.report} url={url} />
             </section>
             <CategoryList categories={state.report.categories} />

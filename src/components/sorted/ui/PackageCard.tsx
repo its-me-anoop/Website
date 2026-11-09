@@ -35,7 +35,7 @@ export function PackageCard({
     <Reveal as="li" turn={50} delay={index * 0.12} className="h-full">
       <article
         className={cn(
-          "relative flex h-full flex-col rounded-[16px] border-2 border-s-navy p-6 shadow-[0_8px_0_0_var(--s-navy)] sm:p-8",
+          "relative flex h-full flex-col rounded-[16px] border-2 border-s-rule p-6 shadow-[0_8px_0_0_var(--s-rule)] sm:p-8",
           pkg.featured ? "tone-navy" : "tone-white"
         )}
       >

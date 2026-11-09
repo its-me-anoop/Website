@@ -36,7 +36,7 @@ export function PageHero({
 }) {
   const hasArt = art !== null;
   return (
-    <section id="top" className={cn(tone, "relative isolate overflow-hidden border-b-2 border-s-navy")}>
+    <section id="top" className={cn(tone, "relative isolate overflow-hidden border-b-2 border-s-rule")}>
       <Container
         className={cn(
           "grid items-center gap-x-10 gap-y-6 pb-14 pt-12 sm:pb-20 sm:pt-16",

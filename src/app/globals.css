@@ -157,6 +157,9 @@
   --s-action-ink: var(--s-navy);
   --s-action-edge: var(--s-flame-deep);
   --s-plain-edge: #c2c1b6; /* the side of a white key */
+  --s-rule: var(--s-navy); /* firm rules and the sides of cards */
+  --s-key-shadow: var(--s-navy); /* the side of the audit field */
+  --s-page: var(--s-chalk); /* what Safari paints behind the page */
   --s-pass: #0a7446;
   --s-warn: #8a5600;
   --s-fail: #c22a0a;
@@ -286,6 +289,7 @@
   --color-s-muted: var(--s-muted);
   --color-s-line: var(--s-line);
   --color-s-line-2: var(--s-line-2);
+  --color-s-rule: var(--s-rule);
   --color-s-accent: var(--s-accent);
   --color-s-mark: var(--s-mark);
   --color-s-mark-ink: var(--s-mark-ink);
@@ -508,19 +512,23 @@ p {
   inherits: true;
 }
 
+/* Sorted pages have a light and a dark theme of their own, and say so:
+   `color-scheme: light dark` is what tells Safari's Adaptive Dark Mode
+   (27.3) to leave the page alone rather than repaint it. */
 html:has(.s-root) {
-  background: var(--s-chalk);
+  background: var(--s-page);
+  color-scheme: light dark;
 }
 html:has(.s-root)::-webkit-scrollbar-track {
-  background: var(--s-chalk);
+  background: var(--s-page);
 }
 html:has(.s-root)::-webkit-scrollbar-thumb {
-  background: var(--s-navy);
-  border-color: var(--s-chalk);
+  background: var(--s-rule);
+  border-color: var(--s-page);
   border-radius: 3px;
 }
 html:has(.s-root) body {
-  background: var(--s-chalk);
+  background: var(--s-page);
 }
 
 .s-root,
@@ -595,6 +603,8 @@ body:has(.s-chrome) > a[href="#main"]:focus {
   --s-action-ink: var(--s-navy);
   --s-action-edge: var(--s-flame-deep);
   --s-plain-edge: #c2c1b6;
+  --s-rule: var(--s-navy);
+  --s-key-shadow: var(--s-navy);
   --s-pass: #0a7446;
   --s-warn: #8a5600;
   --s-fail: #c22a0a;
@@ -626,6 +636,8 @@ body:has(.s-chrome) > a[href="#main"]:focus {
   --s-action-ink: var(--s-navy);
   --s-action-edge: var(--s-navy);
   --s-plain-edge: #9aa6ff;
+  --s-rule: var(--s-navy);
+  --s-key-shadow: var(--s-navy);
   --s-pass: #b9f5d6;
   --s-warn: var(--s-sun);
   --s-fail: #ffd3c2;
@@ -646,6 +658,8 @@ body:has(.s-chrome) > a[href="#main"]:focus {
   --s-action-ink: var(--s-navy);
   --s-action-edge: var(--s-flame-deep);
   --s-plain-edge: #8a90b4;
+  --s-rule: var(--s-navy);
+  --s-key-shadow: #000000;
   --s-pass: #5fe0a3;
   --s-warn: var(--s-sun);
   --s-fail: #ff8a6b;
@@ -663,6 +677,8 @@ body:has(.s-chrome) > a[href="#main"]:focus {
   --s-action: var(--s-navy);
   --s-action-ink: #ffffff;
   --s-action-edge: #000000;
+  --s-rule: var(--s-navy);
+  --s-key-shadow: var(--s-navy);
   --s-raised: var(--s-white);
   --s-pass: var(--s-navy);
   --s-warn: var(--s-navy);
@@ -695,6 +711,66 @@ body:has(.s-chrome) > a[href="#main"]:focus {
   --s-ink-soft: #3a1830;
   --s-muted: #3a1830;
   --s-plain-edge: var(--s-pink-deep);
+}
+
+
+/* ── Dark ──────────────────────────────────────────────────────
+   The same desk at night. Only the neutral tones change: chalk, white
+   and sky become three depths of navy, with chalk ink and a pale
+   cobalt for marks. The coloured bands (cobalt, flame, sun, jade,
+   pink) are the brand and stay exactly as they are, as do captures of
+   real sites and the audit field, which stays a white slot. Scoped to
+   `.s-root`, so the bar and footer around a light case-study page
+   (`.s-chrome`) do not turn dark on their own. Every pairing is
+   checked against WCAG 2.2 AA. */
+@media (prefers-color-scheme: dark) {
+  .s-root {
+    --s-page: #10162f;
+  }
+  .s-root,
+  .s-root .tone-chalk,
+  .s-root .tone-white,
+  .s-root .tone-sky {
+    --s-bg: #10162f;
+    --s-bg-2: #0b1026;
+    --s-raised: #1a2145;
+    --s-ink: var(--s-chalk);
+    --s-ink-soft: #c5c9de;
+    --s-muted: #a3a9c8;
+    --s-line: rgba(244, 243, 238, 0.16);
+    --s-line-2: rgba(244, 243, 238, 0.36);
+    --s-accent: #a9b8ff;
+    --s-mark: var(--s-cobalt);
+    --s-mark-ink: #ffffff;
+    --s-action: var(--s-flame);
+    --s-action-ink: var(--s-navy);
+    --s-action-edge: var(--s-flame-deep);
+    --s-plain-edge: #8a90b4;
+    --s-rule: #8f99d6;
+    --s-key-shadow: #8f99d6;
+    --s-pass: #5fe0a3;
+    --s-warn: var(--s-sun);
+    --s-fail: #ff8a6b;
+  }
+  .s-root .tone-white {
+    --s-bg: #161d3d;
+    --s-bg-2: #10162f;
+    --s-raised: #1f2850;
+  }
+  .s-root .tone-sky {
+    --s-bg: #1a2350;
+    --s-bg-2: #141b40;
+    --s-raised: #242e63;
+  }
+  /* A navy card on a navy page needs an edge it did not need on chalk. */
+  .s-root .tone-navy {
+    --s-rule: #8f99d6;
+    --s-key-shadow: #8f99d6;
+  }
+  .s-root ::selection {
+    background: var(--s-sun);
+    color: var(--s-navy);
+  }
 }
 
 /* ── Type ──────────────────────────────────────────────────────

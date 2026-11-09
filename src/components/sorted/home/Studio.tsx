@@ -29,9 +29,9 @@ export function Studio() {
           {/* The lanyard: a strap from above the section down to the clip. */}
           <span aria-hidden className="absolute left-1/2 top-[-260px] h-[330px] w-8 -translate-x-1/2 bg-s-cobalt" />
           <div className="badge-hang relative">
-            <span aria-hidden className="absolute left-1/2 top-[-22px] z-10 h-9 w-14 -translate-x-1/2 rounded-[6px] border-2 border-s-navy bg-s-chalk-2" />
+            <span aria-hidden className="absolute left-1/2 top-[-22px] z-10 h-9 w-14 -translate-x-1/2 rounded-[6px] border-2 border-s-rule bg-s-chalk-2" />
             <Tilt max={7}>
-              <figure className="m-0 overflow-hidden rounded-[18px] border-2 border-s-navy bg-white shadow-[0_10px_0_0_var(--s-navy)]">
+              <figure className="m-0 overflow-hidden rounded-[18px] border-2 border-s-rule bg-s-raised shadow-[0_10px_0_0_var(--s-rule)]">
                 <div className="flex items-center justify-between gap-3 bg-s-navy px-5 pb-3.5 pt-6 text-white">
                   <span className="flex items-center gap-2.5">
                     <Image src="/flutterly-logo.png" alt="" width={28} height={28} />
@@ -77,7 +77,7 @@ export function Studio() {
             and the app to the email, devices and search behind them. Nothing gets lost between a designer, a developer,
             an IT company and a marketing agency, because they are the same person.
           </p>
-          <dl className="mt-2 grid grid-cols-[repeat(auto-fit,minmax(min(210px,100%),1fr))] gap-x-8 border-t-2 border-s-navy">
+          <dl className="mt-2 grid grid-cols-[repeat(auto-fit,minmax(min(210px,100%),1fr))] gap-x-8 border-t-2 border-s-rule">
             {facts.map(([label, value]) => (
               <div key={label} className="flex flex-col gap-1 border-b-[1.5px] border-s-line-2 py-4">
                 <dt className="s-label text-[12.5px] text-s-muted">{label}</dt>
