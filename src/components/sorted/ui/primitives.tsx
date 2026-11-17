@@ -267,21 +267,18 @@ export function AuditBar({
       method="get"
       onSubmit={submit}
       className={cn("w-full max-w-[600px]", className)}
-      aria-describedby={`${id}-hint`}
     >
       <label htmlFor={id} className="sr-only">
         {label}
       </label>
       <div className="flex items-center gap-2 rounded-full border border-[#7b9388] bg-white p-1.5 pl-5 has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-s-accent">
-        <span aria-hidden className="hidden text-[14px] font-semibold text-[#52625b] sm:inline">
-          https://
-        </span>
         <input
           id={id}
           name="url"
           type="text"
           inputMode="url"
           autoComplete="url"
+          aria-describedby={`${id}-hint`}
           autoCapitalize="none"
           spellCheck={false}
           autoFocus={autoFocus}
