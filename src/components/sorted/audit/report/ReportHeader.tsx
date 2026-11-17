@@ -25,14 +25,15 @@ const sectorOptions: { value: (typeof sectors)[number]; label: string }[] = [
 
 export function ReportHeader({ report, url }: { report: AuditReport; url: string }) {
   const { page } = report;
-  const [copyStatus, setCopyStatus] = useState("");
+  const [copied, setCopied] = useState(false);
 
   async function copyLink() {
     try {
       await navigator.clipboard.writeText(window.location.href);
-      setCopyStatus("Link copied");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch {
-      setCopyStatus("Copy the link from your address bar instead.");
+      /* Clipboard unavailable: the address bar still has the link. */
     }
   }
 
@@ -113,9 +114,8 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
               className="inline-flex items-center gap-1.5 text-s-ink-soft underline-offset-4 hover:underline"
             >
               <Link2 size={14} aria-hidden />
-              Copy report link
+              {copied ? "Link copied" : "Copy report link"}
             </button>
-            <span role="status" className={copyStatus ? undefined : "sr-only"}>{copyStatus}</span>
             <button
               type="button"
               onClick={() => window.print()}
@@ -143,7 +143,7 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
       <Reveal delay={0.2} className="mt-14">
         {/* Two columns until all six fit in a row: an even split keeps
             every fact clear of the fold on the iPhone Duo's inner screen. */}
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-y border-s-line-2 py-6 lg:grid-cols-6">
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-y-2 border-s-rule py-6 lg:grid-cols-6">
           {facts.map((f) => (
             <div key={f.label}>
               <dt className="s-label text-[12.5px] text-s-muted">{f.label}</dt>
@@ -153,14 +153,10 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
         </dl>
         <p className="mt-4 max-w-[760px] text-[13.5px] leading-[1.55] text-s-muted">
           Automated check of the page&rsquo;s HTML and response headers, fetched just now from a UK server.
-          The written review covers design, JavaScript and real-device speed. Your instant report is cached for about ten minutes.
+          It cannot run JavaScript, judge design, or measure real visitors&rsquo; speed; the written audit
+          covers those. Nothing you enter is stored.
         </p>
       </Reveal>
-      <nav aria-label="In this report" className="cv-report-links">
-        <a className="cv-inline-link" href="#fix-first">Priority fixes ↓</a>
-        <a className="cv-inline-link" href="#categories">All checks ↓</a>
-        <a className="cv-inline-link" href="#next-steps">Next steps ↓</a>
-      </nav>
     </header>
   );
 }

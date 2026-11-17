@@ -1,11 +1,10 @@
-import { studioViewport } from "@/lib/marketing/viewport";
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { Home as StudioHome } from "@/components/sorted/home/Home";
 
 const title = "Websites, apps, IT support, social media and SEO in Reading";
 const description =
-  "Flutterly designs, builds and looks after websites, apps, IT, social media and SEO from Reading, Berkshire, all from the person you brief.";
+  "Your digital side, sorted. Flutterly designs, builds and looks after websites, apps, IT, social media and SEO from Reading, Berkshire, all from the person you brief.";
 
 export const metadata: Metadata = {
   /* The root layout's title template only applies to child segments, so
@@ -32,7 +31,15 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = studioViewport;
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4f3ee" },
+    { media: "(prefers-color-scheme: dark)", color: "#10162f" },
+  ],
+  colorScheme: "light dark",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export default function Home() {
   return <StudioHome />;

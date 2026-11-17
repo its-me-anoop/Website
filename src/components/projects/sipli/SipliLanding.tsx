@@ -1,11 +1,17 @@
 "use client";
 
+import { useRef } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import {
   m as motion,
   useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
 } from "framer-motion";
 import {
+  ArrowLeft,
   Bell,
   Calendar,
   Check,
@@ -26,7 +32,6 @@ import {
   Watch,
   Zap,
 } from "lucide-react";
-import { ProductCover, StoreLink } from "../ProductCover";
 import { ProductShell } from "@/components/sorted/layout/ProductShell";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
@@ -35,8 +40,37 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 const APP_STORE_URL =
   "https://apps.apple.com/us/app/sipli-water-tracker/id6758851574";
 
+const ease = [0.16, 1, 0.3, 1] as const;
 
 /* ── Shared building blocks ─────────────────────────────── */
+
+function AppStoreBadge({ className = "" }: { className?: string }) {
+  return (
+    <Link
+      href={APP_STORE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 font-sans text-accent-ink shadow-[0_12px_28px_-12px_var(--accent)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-accent-hover ${className}`}
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="h-5 w-5 flex-shrink-0"
+        aria-hidden="true"
+      >
+        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+      </svg>
+      <span className="text-left">
+        <span className="block text-[10px] leading-tight opacity-75">
+          Download on the
+        </span>
+        <span className="block text-base font-semibold leading-tight">
+          App Store
+        </span>
+      </span>
+    </Link>
+  );
+}
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -101,25 +135,133 @@ function PhoneShot({
 export function SipliLanding() {
   const reduce = useReducedMotion();
 
+  const heroStagger: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+  };
+  const heroItem: Variants = reduce
+    ? { hidden: {}, visible: {} }
+    : {
+        hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
+        visible: {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          transition: { duration: 0.8, ease },
+        },
+      };
+
+  // Scroll-scrub: the hero phone settles into place as it enters the viewport.
+  const phoneRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: phoneRef,
+    offset: ["start end", "center center"],
+  });
+  const phoneScale = useTransform(scrollYProgress, [0, 1], [0.93, 1]);
+  const phoneY = useTransform(scrollYProgress, [0, 1], [36, 0]);
+
   return (
     <ProductShell mainClassName="sipli-theme min-h-screen overflow-x-hidden bg-background text-ink">
 
       {/* ── HERO ── */}
-      <ProductCover
-        variant="water"
-        name="Sipli"
-        category="Hydration tracker"
-        title={<>Your day in drinks.</>}
-        description="A bottle on your home screen shows what you’ve had and what’s left. Log a drink from your wrist, with Siri, or in one tap on your phone."
-        platform="iPhone, iPad and Apple Watch · Version 6.1"
-        availability="Free to download, with optional Premium."
-        store={APP_STORE_URL}
-        policy="/projects/sipli/privacy-policy"
-        sections={[[ "#duo-heading", "iPhone Duo" ], [ "#gallery-heading", "Screens" ], [ "#features-heading", "Features" ], [ "#pricing-heading", "Pricing" ]]}
-      >
-        <Image src="/images/sipli/duo/inner-home.webp" alt="Sipli’s daily bottle on the open iPhone Duo display" width={1100} height={1564} sizes="(max-width: 760px) 46vw, 27vw" priority />
-        <Image src="/images/sipli/duo/outer-today.webp" alt="Sipli’s daily goal on the folded display" width={800} height={1164} sizes="(max-width: 760px) 34vw, 20vw" priority />
-      </ProductCover>
+      <header className="relative isolate overflow-hidden px-[var(--gutter)] pb-20 pt-36 md:pt-44">
+        <div
+          className="pointer-events-none absolute left-1/2 top-[-12%] h-[520px] w-[820px] -translate-x-1/2 rounded-full"
+          style={{ background: "var(--accent-soft)", filter: "blur(120px)" }}
+          aria-hidden="true"
+        />
+
+        <div className="relative mx-auto w-full max-w-[1200px]">
+          <Link
+            href="/"
+            className="group mb-12 inline-flex min-h-[44px] items-center gap-2 text-sm text-ink-3 transition-colors hover:text-accent"
+          >
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+            Back to Home
+          </Link>
+
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={heroStagger}
+            className="mx-auto flex max-w-[760px] flex-col items-center text-center"
+          >
+            <motion.div
+              variants={heroItem}
+              className="mb-7 flex flex-wrap justify-center gap-2"
+            >
+              <Eyebrow>
+                <Droplets className="h-3 w-3 text-accent" aria-hidden="true" />
+                Version 6.1 · Free to start
+              </Eyebrow>
+              <Eyebrow>
+                <Watch className="h-3 w-3 text-accent" aria-hidden="true" />
+                iPhone · iPad · Apple Watch
+              </Eyebrow>
+            </motion.div>
+
+            <motion.h1
+              variants={heroItem}
+              className="text-[clamp(56px,9vw,104px)] font-semibold leading-[0.98] tracking-[-0.04em] text-ink"
+            >
+              Sipli
+            </motion.h1>
+
+            <motion.p
+              variants={heroItem}
+              className="mt-4 font-display text-[clamp(22px,3vw,32px)] font-semibold leading-snug tracking-[-0.02em] text-accent"
+            >
+              Stay Hydrated, Effortlessly.
+            </motion.p>
+
+            <motion.p
+              variants={heroItem}
+              className="mt-6 max-w-[560px] text-[16px] leading-[1.7] text-ink-3 md:text-[17px]"
+            >
+              A Home bottle that shows exactly what&apos;s left of today&apos;s
+              goal. One-tap logging from your wrist, Siri, Control Center, or
+              the lock screen. Adaptive goals, 35+ beverages, a Trophy Room of
+              31 badges, and reminders that think with you, not at you.
+            </motion.p>
+
+            <motion.div
+              variants={heroItem}
+              className="mt-9 flex flex-col items-center gap-4 sm:flex-row"
+            >
+              <AppStoreBadge />
+              <div className="flex items-center gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    className="h-3.5 w-3.5 fill-accent text-accent"
+                    aria-hidden="true"
+                  />
+                ))}
+                <span className="ml-2 text-sm text-ink-3">
+                  Free to download · Premium optional
+                </span>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Scroll-scrubbed hero device */}
+          <motion.div
+            ref={phoneRef}
+            style={reduce ? undefined : { scale: phoneScale, y: phoneY }}
+            initial={reduce ? false : { opacity: 0 }}
+            animate={reduce ? undefined : { opacity: 1 }}
+            transition={{ duration: 1, delay: 0.3, ease }}
+            className="mt-16 flex justify-center md:mt-20"
+          >
+            <PhoneShot
+              src="/images/sipli/iphone/01-hero-1320x2868.jpg"
+              alt="Sipli app — home screen"
+              priority
+              className="md:w-[320px]"
+            />
+          </motion.div>
+        </div>
+      </header>
 
       {/* ── FEATURE STRIP ── */}
       <section
@@ -1006,7 +1148,7 @@ export function SipliLanding() {
             subscription. iPhone, iPad, and Apple Watch.
           </p>
           <div className="mt-10 flex justify-center">
-            <StoreLink name="Sipli" href={APP_STORE_URL} />
+            <AppStoreBadge />
           </div>
           <p className="mt-8 text-xs text-white/40">
             Requires iOS 17.0 or later. Works on iPhone, iPad, and Apple Watch.

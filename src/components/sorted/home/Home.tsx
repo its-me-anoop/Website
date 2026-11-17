@@ -10,16 +10,22 @@ import { Studio } from "./Studio";
 import { Process } from "./Process";
 import { Contact } from "./Contact";
 
+/**
+ * The homepage: one studio for websites, apps, IT support, social
+ * media and SEO. Cobalt for the opening, chalk for the clients, the
+ * card index and the studio, navy for the work, sky for the audit, sun
+ * for the process and flame for the close.
+ */
 export function Home() {
   return (
     <Shell>
       <Hero />
-      <Work />
       <ClientLogos />
       <Services />
+      <Work />
+      <Audit />
       <Studio />
       <Process />
-      <Audit />
       <Contact />
     </Shell>
   );

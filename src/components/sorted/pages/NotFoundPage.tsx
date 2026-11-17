@@ -2,6 +2,7 @@
 
 import { PageHero } from "../layout/PageHero";
 import { Shell } from "../layout/Shell";
+import { SlabStack } from "../ui/SlabStack";
 import { ButtonLink } from "../ui/primitives";
 
 /** 404: the one thing on the site that is not where it should be. */
@@ -10,12 +11,14 @@ export function NotFoundPage() {
     <Shell>
       <PageHero
         eyebrow="Error 404"
+        tone="tone-cobalt"
+        art={<SlabStack order={["navy", "pink", "jade", "sun", "flame", "white"]} />}
         title={
           <>
-            Page <em>not found.</em>
+            This page is not <em>sorted</em> yet.
           </>
         }
-        copy={<p>Check the address, or use one of these links to find your way back.</p>}
+        copy={<p>The address may be mistyped, or the page may have moved. Everything else is where it should be.</p>}
       >
         <div className="flex flex-wrap gap-4">
           <ButtonLink href="/" size="lg" arrow="right">

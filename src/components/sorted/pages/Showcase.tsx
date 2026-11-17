@@ -33,7 +33,9 @@ export function nextTabIndex(key: string, current: number, count: number): numbe
 
 /**
  * Five hosted sample sites behind an accessible tablist. The panel
- * pairs the service description with desktop and mobile captures.
+ * shows the chosen site as a turned slab with its phone, swung into
+ * place in 3D each time the tab changes, and a row of five thumbnails
+ * doubles as a picker.
  */
 export function Showcase() {
   const [active, setActive] = useState(0);
@@ -57,7 +59,7 @@ export function Showcase() {
             eyebrow="Sample sites"
             title={
               <>
-                Explore the sample <em>sites.</em>
+                Five live sites. <em>Click</em> any of them.
               </>
             }
             copy="Fictional organisations, real builds. Each one is hosted, fully navigable and built to the same standard as client work."
@@ -99,7 +101,7 @@ export function Showcase() {
           className="mt-12 grid items-center gap-12 lg:grid-cols-[5fr_7fr] lg:gap-14"
         >
           {/* Keyed remount: the new sample's content is in the DOM at once
-              (no exit wait, so stale links never linger) and fades in. */}
+              (no exit wait, so stale links never linger) and swings in. */}
           <m.div
             key={`copy-${sample.slug}`}
             initial={motion ? { opacity: 0, y: 18 } : false}
@@ -131,9 +133,10 @@ export function Showcase() {
 
           <m.div
             key={`devices-${sample.slug}`}
-            initial={motion ? { opacity: 0, y: 8 } : false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.25, ease: EASE }}
+            style={{ transformOrigin: "0% 50%" }}
+            initial={motion ? { opacity: 0, rotateY: 55, transformPerspective: 1400 } : false}
+            animate={{ opacity: 1, rotateY: 0, transformPerspective: 1400 }}
+            transition={{ duration: 0.75, ease: EASE }}
             className="relative min-w-0"
           >
             <Link href={sample.href} tabIndex={-1} aria-hidden="true" className="block rounded-[12px]">
@@ -157,7 +160,7 @@ export function Showcase() {
                     className={cn(
                       "group flex w-full flex-col gap-2.5 rounded-[12px] border-2 p-2 pb-3 text-left transition-[border-color,transform,box-shadow] duration-300",
                       selected
-                        ? "-translate-y-1 border-s-accent"
+                        ? "-translate-y-1 border-s-flame shadow-[0_5px_0_0_var(--s-flame)]"
                         : "border-s-line-2 hover:-translate-y-1 hover:border-s-ink"
                     )}
                   >

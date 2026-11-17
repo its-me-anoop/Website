@@ -19,7 +19,7 @@ export function Priorities({ report }: { report: AuditReport }) {
   const who = sectorAudience(report.sector);
 
   return (
-    <section id="fix-first" aria-labelledby="fix-first-heading">
+    <section id="fix-first" aria-labelledby="fix-first-heading" className="">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-20 sm:px-8 sm:py-28">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-16">
           <Reveal>
@@ -38,7 +38,7 @@ export function Priorities({ report }: { report: AuditReport }) {
             <p className="mt-5 text-[15.5px] leading-[1.6] text-s-ink-soft">
               {top.length === 0
                 ? "Every automated check passed or came back as informational. The written audit looks at the things a machine cannot: design, content quality and how real visitors get on."
-                : `Ranked by how much each one affects ${who}, then by how badly it is failing. Everything here can be handed to whoever looks after the site${rest > 0 ? `; the other ${rest} sit in the area breakdown below` : ""}.`}
+                : `Ranked by how much each one affects ${who}, then by how badly it is failing. Everything here can be handed to whoever looks after the site${rest > 0 ? `; the other ${rest} sit in the area breakdown above` : ""}.`}
             </p>
           </Reveal>
 

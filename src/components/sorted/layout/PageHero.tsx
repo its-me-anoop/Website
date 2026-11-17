@@ -2,10 +2,16 @@
 
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { Container } from "../ui/primitives";
-import "./interiors.css";
+import { SlabStack } from "../ui/SlabStack";
+import { Container, Display, Eyebrow } from "../ui/primitives";
 
-/** The masthead pairs the page title with its next action or a live work sample. */
+/**
+ * Opening band for inner pages. Words on the left: a label, an h1 that
+ * turns up word by word, supporting copy and whatever actions the page
+ * passes in. On the right, something in 3D: by default the stack of
+ * slabs, or whatever the page passes as `art`. `tone` colours the band
+ * (a service page takes its service's colour).
+ */
 export function PageHero({
   eyebrow,
   title,
@@ -21,26 +27,44 @@ export function PageHero({
   copy?: ReactNode;
   children?: ReactNode;
   size?: "hero" | "xl" | "lg";
+  /** A `tone-*` class. */
   tone?: string;
+  /** Replaces the slab stack; `null` leaves the words the full width. */
   art?: ReactNode;
+  /** Full-width content under the opening block (e.g. a screenshot). */
   after?: ReactNode;
 }) {
-  const introduction = (copy || children) && (
-    <div className="inner-mast-intro">
-      {copy && <div className="inner-mast-copy">{copy}</div>}
-      {children && <div className="inner-mast-actions">{children}</div>}
-    </div>
-  );
-
+  const hasArt = art !== null;
   return (
-    <section id="top" className={cn("inner-mast", tone)}>
-      <Container className={cn("inner-mast-grid", art && "inner-mast-with-art")}>
-        <div className="inner-mast-title">
-          <p className="inner-kicker">{eyebrow}</p>
-          <h1 className={cn("s-display inner-title", size === "lg" && "inner-title-compact")}>{title}</h1>
-          {art && introduction}
+    <section id="top" className={cn(tone, "relative isolate overflow-hidden border-b-2 border-s-rule")}>
+      <Container
+        className={cn(
+          "grid items-center gap-x-10 gap-y-6 pb-14 pt-12 sm:pb-20 sm:pt-16",
+          hasArt && "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]"
+        )}
+      >
+        <div className="min-w-0">
+          <Eyebrow className="s-rise">{eyebrow}</Eyebrow>
+          <Display as="h1" size={size} split delay={60} className="mt-6 max-w-[18ch]">
+            {title}
+          </Display>
+          {copy ? (
+            <div
+              className="s-rise mt-7 max-w-[640px] text-[17.5px] leading-[1.6] text-s-ink-soft sm:text-[19px]"
+              style={{ ["--d" as string]: "260ms" }}
+            >
+              {copy}
+            </div>
+          ) : null}
+          {children ? (
+            <div className="s-rise mt-9 flex w-full flex-col items-start" style={{ ["--d" as string]: "340ms" }}>
+              {children}
+            </div>
+          ) : null}
         </div>
-        {art ? <div className="inner-mast-art">{art}</div> : introduction}
+        {hasArt ? (
+          <div className="mx-auto w-full max-w-[300px] max-lg:order-first max-lg:hidden lg:max-w-[440px]">{art ?? <SlabStack />}</div>
+        ) : null}
       </Container>
       {after}
     </section>

@@ -7,6 +7,7 @@ import { CtaBand } from "../layout/CtaBand";
 import { PageHero } from "../layout/PageHero";
 import { Shell } from "../layout/Shell";
 import { PackageCard } from "../ui/PackageCard";
+import { SlabStack } from "../ui/SlabStack";
 import { Container, FaqList, SectionIntro } from "../ui/primitives";
 import { Compare } from "./Compare";
 
@@ -19,26 +20,29 @@ export function PackagesPage() {
     <Shell>
       <PageHero
         eyebrow="Website packages & pricing"
+        tone="tone-sun"
+        art={<SlabStack order={["navy", "cobalt", "white"]} />}
         title={
           <>
-            Website <em>packages.</em>
+            Published prices. <em>No surprises</em> after the call.
           </>
         }
         copy={
           <p>
-            Choose how much you want to manage after launch. Hosting is included at £29 a month on a five-year term or £49 a month on a one-year term.
+            Every package is £29 a month on a 5-year term, or £49 a month on a 1-year term, with hosting included. Essentials is £999 to build and you make your own changes. Standard is £1,499 to build and Flutterly makes the changes for you.
+            Partnership is for organisations that want a digital partner, quoted after a short call.
           </p>
         }
       />
 
       <section className="tone-chalk py-16 sm:py-24">
         <Container>
-          <ul className="inner-price-grid">
+          <ul className="grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">
             {packages.map((pkg, i) => (
               <PackageCard key={pkg.name} pkg={pkg} index={i} headingLevel="h2" />
             ))}
           </ul>
-          <Reveal turn={0} className="inner-package-note">
+          <Reveal turn={0} className="mx-auto mt-12 max-w-[660px] text-center">
             <p className="text-[16.5px] leading-[1.6] text-s-ink-soft">
               Not sure which fits? Start with the{" "}
               <Link href="/free-audit" className="font-semibold text-s-ink underline decoration-s-accent decoration-2 underline-offset-4">

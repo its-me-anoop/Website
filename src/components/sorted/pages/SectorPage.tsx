@@ -13,7 +13,9 @@ import { ButtonLink, CheckItem, Container, Display, Eyebrow, FaqList, SectionInt
 /**
  * Shared landing page for the GP-practice and care-home sectors, driven
  * entirely by a `Sector` so both stay consistent as the offer evolves.
- * The opening spread pairs the live sample with its audience and next step.
+ * The sample site stands in the hero as a turned slab with its phone;
+ * then what the site does, the sample again from the inside, the
+ * standards on sun, what is included and the questions.
  */
 export function SectorPage({ sector }: { sector: Sector }) {
   return (
@@ -33,21 +35,25 @@ export function SectorPage({ sector }: { sector: Sector }) {
           </>
         }
         copy={<p>{sector.intro}</p>}
-        art={
-          <a href={sector.demo.href} aria-label={`Open the ${sector.demo.name} sample website`} className="block rounded-2xl">
-            <SampleScene
-              image={sector.demo.image}
-              mobileImage={sector.demo.mobileImage}
-              url={`${site.domain}${sector.demo.href}`}
-              alt={`The ${sector.demo.name} sample site on desktop and mobile`}
-              priority
-            />
-          </a>
-        }
+        art={null}
         after={
-          <Container>
-            <ul className="inner-sector-points">
-              {sector.heroPoints.map((point) => <li key={point}>{point}</li>)}
+          <Container className="pb-14 sm:pb-20">
+            <a href={sector.demo.href} aria-label={`Open the ${sector.demo.name} sample website`} className="mx-auto block max-w-[1040px] rounded-[12px]">
+              <SampleScene
+                image={sector.demo.image}
+                mobileImage={sector.demo.mobileImage}
+                url={`${site.domain}${sector.demo.href}`}
+                alt={`The ${sector.demo.name} sample site on a desktop and on a phone`}
+                priority
+              />
+            </a>
+            <ul className="mt-12 grid gap-4 sm:grid-cols-3">
+              {sector.heroPoints.map((point, i) => (
+                <Reveal as="li" key={point} turn={60} delay={i * 0.08} className="rounded-[12px] border-2 border-s-rule bg-s-raised px-5 py-4 shadow-[0_5px_0_0_var(--s-rule)]">
+                  <span className="s-label s-num text-[13px] text-s-accent">0{i + 1}</span>
+                  <p className="mt-2 text-[16px] font-medium leading-[1.5] text-s-ink">{point}</p>
+                </Reveal>
+              ))}
             </ul>
           </Container>
         }
@@ -69,14 +75,15 @@ export function SectorPage({ sector }: { sector: Sector }) {
             eyebrow="What the website does"
             title={
               <>
-                What visitors can <em>do</em>.
+                Designed around real journeys, not <em>page templates</em>.
               </>
             }
           />
           <ol className="mt-14 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
             {sector.features.map((feature, i) => (
-              <Reveal as="li" key={feature.title} turn={0} delay={(i % 3) * 0.06} className="border-t border-s-line-2 pb-10 pt-5">
-                <h3 className="s-display text-[26px]">{feature.title}</h3>
+              <Reveal as="li" key={feature.title} turn={0} delay={(i % 3) * 0.06} className="border-t-2 border-s-rule pb-10 pt-5">
+                <span className="s-display s-num text-[40px] text-s-accent">0{i + 1}</span>
+                <h3 className="s-display mt-4 text-[24px]">{feature.title}</h3>
                 <p className="mt-3 text-[16px] leading-[1.6] text-s-ink-soft">{feature.copy}</p>
               </Reveal>
             ))}
@@ -124,7 +131,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
       </section>
 
       {/* Standards */}
-      <section className="tone-chalk border-y border-s-line-2 py-20 sm:py-28">
+      <section className="tone-sun border-y-2 border-s-rule py-20 sm:py-28">
         <Container>
           <Reveal turn={0} className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
@@ -139,7 +146,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
             </div>
             <ul className="space-y-3 self-center">
               {sector.compliance.points.map((point) => (
-                <CheckItem key={point} className="tone-white border-b border-s-line-2 py-4">
+                <CheckItem key={point} className="tone-white rounded-[12px] border-2 border-s-rule p-4">
                   {point}
                 </CheckItem>
               ))}
@@ -155,14 +162,14 @@ export function SectorPage({ sector }: { sector: Sector }) {
             eyebrow="Every build includes"
             title={
               <>
-                Included with your <em>website</em>.
+                Nothing essential is an <em>add-on</em>.
               </>
             }
           />
           <Reveal turn={0} className="mt-12 max-w-[1000px]">
-            <ul className="grid gap-x-10 border-t border-s-line-2 sm:grid-cols-2">
+            <ul className="grid gap-x-10 border-t-2 border-s-rule sm:grid-cols-2">
               {sector.included.map((item) => (
-                <CheckItem key={item} className="border-b border-s-line-2 py-4">
+                <CheckItem key={item} className="border-b-[1.5px] border-s-line-2 py-4">
                   {item}
                 </CheckItem>
               ))}
@@ -172,7 +179,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
       </section>
 
       {/* FAQ */}
-      <section className="tone-white border-t border-s-line-2 py-20 sm:py-28">
+      <section className="tone-white border-t-2 border-s-rule py-20 sm:py-28">
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-20">
           <SectionIntro eyebrow="Questions" title="Asked and answered." size="md" />
           <Reveal turn={0} delay={0.08}>

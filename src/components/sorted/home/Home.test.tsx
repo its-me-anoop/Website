@@ -7,6 +7,7 @@ import { clients } from "@/lib/marketing/clients";
 import { auditChecks, featuredWork, projects } from "@/lib/marketing/content";
 import { services } from "@/lib/marketing/services";
 import { Home } from "./Home";
+import { pieces, scatterOf } from "./pieces";
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/" }));
 
@@ -39,17 +40,44 @@ describe("Home", () => {
     renderHome();
     const headings = screen.getAllByRole("heading", { level: 1 });
     expect(headings).toHaveLength(1);
-    expect(headings[0]).toHaveAccessibleName("Digital by nature.");
+    expect(headings[0].textContent?.replace(/\s+/g, " ").trim()).toBe("Your digital side, sorted.");
+    /* The last word is split into letters that sort themselves; the label keeps it one sentence. */
+    expect(headings[0]).toHaveAccessibleName("Your digital side, sorted.");
   });
 
-  it("leads visitors to the portfolio or a conversation with the studio", () => {
+  it("opens on the sorting table: every piece fixed and filed, described once for assistive technology", () => {
     renderHome();
-    const hero = within(screen.getByRole("region", { name: "Digital by nature." }));
-    expect(hero.getByRole("link", { name: "Explore the work" })).toHaveAttribute("href", "#work");
-    expect(hero.getByRole("link", { name: "Book a call" })).toHaveAttribute("href", "/book");
+    const hero = document.getElementById("top")!;
+    expect(hero).toHaveAttribute("data-state", "sorted");
+    const table = within(hero).getByRole("img", { name: /Twelve parts of an organisation's digital side/ });
+    expect(table.querySelectorAll(".sort-piece")).toHaveLength(pieces.length);
+    pieces.forEach((piece) => expect(within(table).getByText(piece.sorted)).toBeInTheDocument());
   });
 
-  it("links each service description to its detail page", () => {
+  it("flips the table back to how things were found, and sorted again, with one switch", () => {
+    renderHome();
+    const hero = document.getElementById("top")!;
+    const toggle = within(hero).getByRole("switch", { name: "Show everything sorted" });
+    expect(toggle).toHaveAttribute("aria-checked", "true");
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-checked", "false");
+    expect(hero).toHaveAttribute("data-state", "mess");
+    /* The opening animation must not fight the switch once it has been used. */
+    expect(hero).not.toHaveAttribute("data-intro");
+    fireEvent.click(toggle);
+    expect(hero).toHaveAttribute("data-state", "sorted");
+  });
+
+  it("scatters the pieces the same way on the server and the client", () => {
+    expect(scatterOf(3)).toEqual(scatterOf(3));
+    expect(scatterOf(3)).not.toEqual(scatterOf(4));
+    pieces.forEach((_, i) => {
+      const s = scatterOf(i);
+      [s.rx, s.ry, s.rz].forEach((turn) => expect(Math.abs(turn)).toBeLessThanOrEqual(44));
+    });
+  });
+
+  it("lists all five services as dividers that open their pages", () => {
     renderHome();
     const section = document.getElementById("services")!;
     const rows = within(section).getAllByRole("link");
@@ -57,15 +85,17 @@ describe("Home", () => {
     services.forEach((s) => expect(within(section).getByText(s.summary)).toBeInTheDocument());
   });
 
-  it("gives each service a visible name, pillar and description", () => {
+  it("files each service under its own colour, with its pillar on the tab", () => {
     renderHome();
-    const items = within(document.getElementById("services")!).getAllByRole("listitem");
+    const section = document.getElementById("services")!;
+    const items = within(section).getAllByRole("listitem");
     expect(items).toHaveLength(services.length);
-    services.forEach((service, index) => {
-      const link = within(items[index]).getByRole("link");
-      expect(link).toHaveTextContent(service.pillar);
-      expect(link).toHaveTextContent(service.name);
-      expect(link).toHaveTextContent(service.summary);
+    const tones = items.map((li) => Array.from(li.classList).find((c) => c.startsWith("tone-")));
+    expect(new Set(tones).size).toBe(services.length);
+    items.forEach((li, i) => {
+      const tab = li.querySelector(".idx-tab")!;
+      expect(tab).toHaveTextContent(services[i].pillar);
+      expect(tab).toHaveAttribute("aria-hidden", "true");
     });
   });
 
@@ -159,21 +189,20 @@ describe("Home", () => {
     });
   });
 
-  it("keeps the decorative cover image out of the reading order", () => {
-    renderHome();
-    expect(document.querySelector("#top img")).toHaveAttribute("alt", "");
+  it("keeps the 3D scenes out of the accessibility tree", () => {
+    const { container } = renderHome();
+    const scenes = container.querySelectorAll("[data-scene]");
+    expect(scenes.length).toBeGreaterThanOrEqual(1);
+    scenes.forEach((scene) => expect(scene).toHaveAttribute("aria-hidden", "true"));
   });
 
-  it("lets visitors inspect the seven audit checks before running a report", () => {
+  it("lists the seven audit areas beside the exploded page", () => {
     renderHome();
     const audit = document.getElementById("audit")!;
-    const disclosure = within(audit).getByText("What does the audit check?").closest("details")!;
-    expect(disclosure).not.toHaveAttribute("open");
-    fireEvent.click(disclosure.querySelector("summary")!);
-    expect(disclosure).toHaveAttribute("open");
-    expect(within(disclosure).getAllByRole("listitem").map((li) => li.textContent)).toEqual(
-      auditChecks.map((check) => check.title)
+    expect(within(audit).getAllByRole("listitem").map((li) => li.textContent?.replace(/^0\d/, ""))).toEqual(
+      auditChecks.map((c) => c.title)
     );
+    expect(audit.querySelectorAll(".xray-sheet")).toHaveLength(auditChecks.length);
   });
 
   it("introduces the founder with a real portrait", () => {

@@ -4,9 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { AuditFailure, AuditReport, AuditResponse } from "@/lib/audit/types";
 import { CtaBand } from "../layout/CtaBand";
-import { AuditEntry } from "./AuditEntry";
-import "../conversion.css";
+import { PageHero } from "../layout/PageHero";
 import { Shell } from "../layout/Shell";
+import { AuditBar } from "../ui/primitives";
+import { XRay } from "../ui/XRay";
 import { PrintReport } from "./print/PrintReport";
 import { CategoryList } from "./report/CategoryList";
 import { ErrorState } from "./report/ErrorState";
@@ -110,10 +111,29 @@ export function ReportPage() {
               : ""}
       </div>
 
-      {state.kind === "idle" ? <AuditEntry compact /> : null}
+      {state.kind === "idle" ? (
+        <PageHero
+          eyebrow="Instant website audit"
+          tone="tone-sky"
+          art={<XRay />}
+          title={
+            <>
+              Check any website in <em>seconds</em>.
+            </>
+          }
+          copy={
+            <p>
+              Accessibility, speed, search, content, mobile, security and local presence, scored and explained in
+              plain English. Free, instant, and nothing is stored.
+            </p>
+          }
+        >
+          <AuditBar autoFocus hint="Enter the address and press the arrow." />
+        </PageHero>
+      ) : null}
 
       {state.kind === "loading" ? (
-        <section className="relative pt-14 sm:pt-20">
+        <section className="s-dots relative pt-14 sm:pt-20">
           <div className="mx-auto w-full max-w-[1280px] px-5 pb-24 sm:px-8 sm:pb-32">
             <h1 className="sr-only">Auditing {hostOf(url)}</h1>
             <Progress host={hostOf(url)} />
@@ -122,7 +142,7 @@ export function ReportPage() {
       ) : null}
 
       {state.kind === "error" ? (
-        <section className="relative pt-14 sm:pt-20">
+        <section className="s-dots relative pt-14 sm:pt-20">
           <div className="mx-auto w-full max-w-[1280px] px-5 pb-24 sm:px-8 sm:pb-32">
             <ErrorState failure={state.failure} url={url} onRetry={retry} />
           </div>
@@ -131,12 +151,12 @@ export function ReportPage() {
 
       {state.kind === "done" ? (
         <>
-          <div className="k-screen cv-report-screen">
-            <section className="cv-report-intro">
+          <div className="k-screen">
+            <section className="s-dots relative isolate overflow-hidden border-b-2 border-s-rule pb-16 pt-12 sm:pb-20 sm:pt-16">
               <ReportHeader report={state.report} url={url} />
             </section>
-            <Priorities report={state.report} />
             <CategoryList categories={state.report.categories} />
+            <Priorities report={state.report} />
             <Pitch report={state.report} />
             <CtaBand
               title={
