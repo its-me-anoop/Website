@@ -131,6 +131,18 @@ describe("Home", () => {
     expect(within(work).queryByText(/sample site/i)).toBeNull();
   });
 
+  it("filters the original work tiles by website or app", () => {
+    renderHome();
+    const work = within(document.getElementById("work")!);
+    const group = within(work.getByRole("group", { name: "Filter projects" }));
+    for (const [label, count] of [["Websites", 4], ["Apps", 6], ["All work", 10]] as const) {
+      const button = group.getByRole("button", { name: label });
+      fireEvent.click(button);
+      expect(button).toHaveAttribute("aria-pressed", "true");
+      expect(work.getAllByRole("article")).toHaveLength(count);
+    }
+  });
+
   it("shows every real project as a tile with a real capture", () => {
     renderHome();
     const work = document.getElementById("work")!;

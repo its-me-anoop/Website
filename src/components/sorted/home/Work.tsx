@@ -1,4 +1,6 @@
-import type { CSSProperties, ReactNode } from "react";
+"use client";
+
+import { useState, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -178,7 +180,14 @@ function WorkTile({ tile, index }: { tile: Tile; index: number }) {
  * each capture on a slab that comes round to face you as it scrolls in
  * and squares up under the pointer.
  */
+const filters = ["All work", "Websites", "Apps"] as const;
+type WorkFilter = (typeof filters)[number];
+
 export function Work() {
+  const [filter, setFilter] = useState<WorkFilter>("All work");
+  const visible = featuredWork.filter((tile) =>
+    filter === "All work" || (filter === "Websites" ? tile.kind === "Website" : tile.kind !== "Website")
+  );
   return (
     <section id="work" aria-labelledby="work-title" className="tone-navy scroll-mt-20 py-[clamp(72px,9vw,136px)]">
       <Container className="flex flex-col gap-14">
@@ -193,8 +202,23 @@ export function Work() {
             Websites for care providers, housing and suppliers, and the apps we build and run ourselves.
           </p>
         </div>
-        <div className="grid gap-x-6 gap-y-14 lg:grid-cols-12">
-          {featuredWork.map((tile, i) => (
+        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter projects">
+          {filters.map((label) => (
+            <button
+              type="button"
+              key={label}
+              aria-pressed={label === filter}
+              aria-controls="work-projects"
+              onClick={() => setFilter(label)}
+              className="s-label min-h-11 cursor-pointer rounded-md border border-current px-4 text-[14px] text-s-ink hover:underline aria-pressed:border-s-flame aria-pressed:bg-s-flame aria-pressed:text-s-navy"
+            >
+              {label}
+            </button>
+          ))}
+          <span className="ml-1 text-sm text-s-ink-soft" role="status">{visible.length} projects</span>
+        </div>
+        <div id="work-projects" className="grid gap-x-6 gap-y-14 lg:grid-cols-12">
+          {visible.map((tile, i) => (
             <WorkTile key={tile.key} tile={tile} index={i} />
           ))}
         </div>

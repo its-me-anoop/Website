@@ -20,9 +20,9 @@ export function Home() {
   return (
     <Shell>
       <Hero />
+      <Work />
       <ClientLogos />
       <Services />
-      <Work />
       <Audit />
       <Studio />
       <Process />
