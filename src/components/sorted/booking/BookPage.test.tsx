@@ -52,6 +52,7 @@ describe("BookPage", () => {
   });
 
   it("keeps booking accessible when the embedded calendar fails", async () => {
+    calUi.mockClear();
     renderBook();
     const subscription = await vi.waitFor(() => {
       const event = calUi.mock.calls.findLast(([method, details]) => method === "on" && details.action === "linkFailed");

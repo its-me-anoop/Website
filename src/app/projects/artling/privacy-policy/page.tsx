@@ -40,7 +40,7 @@ function PolicySection({
   return (
     <section className="border-b border-line px-[var(--gutter)] py-14 last:border-b-0 md:py-20">
       <div className="mx-auto grid max-w-[920px] gap-x-14 gap-y-4 md:grid-cols-[64px_1fr] md:items-start">
-        <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-accent md:pt-1.5">
+        <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-ink-2 md:pt-1.5">
           {label}
         </p>
         <div>
@@ -276,7 +276,7 @@ export default function ArtlingPrivacyPolicyPage() {
           data practices, contact{" "}
           <a
             href={`mailto:${site.supportEmail}`}
-            className="font-medium text-accent underline-offset-4 hover:underline"
+            className="font-medium text-ink underline underline-offset-4 hover:decoration-2"
           >
             {site.supportEmail}
           </a>

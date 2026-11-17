@@ -70,7 +70,7 @@ export function CalEmbed() {
         </a>
       </div>
       {status !== "failed" && (
-        <div className="cv-calendar" aria-label="Booking calendar">
+        <div className="cv-calendar" role="region" aria-label="Booking calendar">
           <Cal namespace={NAMESPACE} calLink={site.booking.calLink}
             config={{ layout: "month_view", theme: "light" }}
             style={{ width: "100%", height: "100%", overflow: "auto" }} />
