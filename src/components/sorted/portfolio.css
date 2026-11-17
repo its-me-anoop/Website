@@ -1,0 +1,138 @@
+.folio-work,
+.case-file {
+  --folio-ink: var(--s-ink, #101818);
+  --folio-paper: var(--s-bg, #f7f7f1);
+  --folio-muted: var(--s-muted, #47574e);
+  --folio-rule: color-mix(in srgb, var(--folio-ink) 19%, transparent);
+  background: var(--folio-paper);
+  color: var(--folio-ink);
+}
+
+.folio-work { padding-block: clamp(4rem, 6.7vw, 7rem); scroll-margin-top: 4rem; }
+.folio-wrap { width: 100%; max-width: 1380px; padding-inline: clamp(1.25rem, 4.2vw, 4.2rem); margin-inline: auto; }
+.folio-heading, .folio-caption { display: flex; align-items: end; justify-content: space-between; gap: 1rem; }
+.folio-heading { margin-bottom: clamp(1.75rem, 3.2vw, 3.3rem); }
+.folio-kicker, .folio-medium {
+  margin: 0; font-size: .72rem; line-height: 1.5; font-weight: 550; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--folio-muted);
+}
+.folio-kicker { display: flex; align-items: center; gap: .65rem; }
+.folio-kicker::before { content: ""; display: inline-block; width: 1.4rem; border-top: 2px solid currentColor; }
+.folio-heading h2, .case-file h1, .case-file h2, .case-file h3, .folio-caption h3 {
+  margin: 0; font-weight: 500; letter-spacing: -.06em; line-height: 1.04;
+}
+.folio-heading h2 { margin-top: .9rem; font-size: clamp(3rem, 5.8vw, 6rem); }
+.folio-heading h2 span { color: #aa5339; }
+.folio-tabs { display: flex; gap: .15rem; align-items: center; padding: .2rem; border: 1px solid var(--folio-rule); border-radius: 100px; }
+.folio-tabs button { border: none; border-radius: 100px; padding: .65rem 1.05rem; min-height: 44px; font-size: .825rem; cursor: pointer; transition: color .2s, background .2s; }
+.folio-tabs button[aria-pressed="true"] { background: var(--folio-ink); color: var(--folio-paper); }
+.folio-tabs button:hover:not([aria-pressed="true"]) { background: var(--folio-rule); }
+.folio-leads, .folio-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2.2vw, 2.25rem); }
+.folio-index { margin-top: clamp(2.25rem, 4vw, 4rem); gap: 0 clamp(1rem, 2.2vw, 2.25rem); }
+.folio-feature, .folio-entry { min-width: 0; }
+.folio-feature > a, .folio-entry > a { display: block; text-decoration: none; }
+.folio-art { position: relative; overflow: hidden; isolation: isolate; display: grid; place-items: center; background: #dbe2da; }
+.folio-feature .folio-art { border-radius: .375rem; aspect-ratio: 1.56; }
+.folio-piece { position: relative; width: 77%; transition: transform .65s cubic-bezier(.17,.77,.25,1); }
+.folio-piece img { display: block; width: 100%; height: auto; }
+.folio-feature .folio-piece > img:first-child { box-shadow: 0 18px 30px -15px #15231d60; border-radius: .18rem; }
+.folio-art--pembroke { background: linear-gradient(128deg, #c3ccad, #a5b18e 52%, #c8d0b6); }
+.folio-art--pembroke::before { content: ""; position: absolute; inset: 0; background: linear-gradient(140deg, transparent 48%, #50633d20 49%, #a4b18c22 72%, #dfe8cd55); }
+.folio-art--pembroke .folio-piece { transform: rotate(-4deg); }
+.folio-art--sipli { background-color: #accedf; background-image: repeating-radial-gradient(ellipse at 102% 155%, transparent 0 13%, #dbefff45 13.4% 13.65%, transparent 14% 21%); }
+.folio-feature .folio-art--sipli .folio-piece { width: 34%; transform: rotate(5deg) translateX(-8%); }
+.folio-feature .folio-art--sipli .folio-piece img { border: clamp(2px, .3vw, 5px) solid #172936; border-radius: .8rem; }
+.folio-piece .folio-companion { position: absolute; bottom: -6%; right: -32%; width: 52%; box-shadow: 0 6px 12px #10233045; }
+.folio-art--lifeline { background: #d9b492; }
+.folio-art--sandbourne { background: #c3dacf; }
+.folio-art--rotaowl { background: #e4ccdd; }
+.folio-art--streetcrew { background: #dfae92; }
+.folio-art--greenmead { background: #dfbb8a; }
+.folio-art--artling { background: #ede0ce; }
+.folio-art--bible { background: #d9c9c5; }
+.folio-art--jjpaper { background: #c1d1ae; }
+.folio-feature .folio-art--lifeline .folio-piece, .folio-feature .folio-art--streetcrew .folio-piece,
+.folio-feature .folio-art--bible .folio-piece, .folio-feature .folio-art--artling .folio-piece { width: 35%; }
+.folio-feature .folio-description { padding: 1.25rem 0 .5rem; }
+.folio-medium { font-size: .68rem; letter-spacing: .05em; }
+.folio-caption { align-items: center; }
+.folio-caption h3 { font-size: clamp(1.5rem, 2.15vw, 2.25rem); margin-top: .32rem; letter-spacing: -.045em; }
+.folio-caption svg { flex: none; transition: transform .25s; }
+.folio-summary { max-width: 52ch; color: var(--folio-muted); margin-top: .6rem; line-height: 1.5; font-size: .97rem; }
+.folio-entry > a { display: flex; align-items: center; gap: 1rem; border-top: 1px solid var(--folio-rule); padding-block: .95rem; }
+.folio-entry .folio-art { width: 64px; height: 54px; border-radius: .2rem; flex: none; }
+.folio-entry .folio-description { flex: 1; }
+.folio-entry .folio-caption h3 { margin-top: .2rem; font-size: 1.25rem; }
+.folio-entry .folio-medium { font-size: .63rem; }
+.folio-entry .folio-art--lifeline img, .folio-entry .folio-art--streetcrew img, .folio-entry .folio-art--bible img,.folio-entry .folio-art--artling img { width: auto; max-height: 42px; margin: auto; }
+@media (hover:hover) {
+  .folio-feature > a:hover .folio-piece { transform: scale(1.04); }
+  .folio-feature > a:hover .folio-art--sipli .folio-piece { transform: rotate(1deg) translateX(-8%) scale(1.04); }
+  .folio-work article a:hover .folio-caption svg { transform: translate(2px, -2px); }
+  .folio-entry a:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+}
+@media (max-width: 720px) {
+  .folio-heading { align-items: start; flex-direction: column; }
+  .folio-leads, .folio-index { grid-template-columns: 1fr; }
+  .folio-leads { gap: 1.65rem; }
+  .folio-index { margin-top: 2rem; }
+  .folio-entry .folio-medium { letter-spacing: .01em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .folio-work *, .case-file * { transition-duration: 0s !important; }
+}
+
+.case-head { padding: clamp(1.75rem, 3vw, 3rem) 0 clamp(3rem, 6vw, 6.5rem); }
+.case-back, .case-book { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 44px; font-size: .9rem; font-weight: 550; }
+.case-back { color: var(--folio-muted); text-decoration: underline; text-underline-offset: 4px; }
+.case-lead { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(2rem, 5vw, 5.8rem); margin-top: clamp(2rem, 4vw, 4.5rem); }
+.case-lead h1 { margin: 1.2rem 0; font-size: clamp(3.15rem, 6.8vw, 7.35rem); line-height: .94; }
+.case-strap { font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.2; letter-spacing: -.025em; }
+.case-intro, .case-status p, .case-capabilities p, .case-gallery-note { color: var(--folio-muted); line-height: 1.65; max-width: 57ch; }
+.case-intro { margin: .75rem 0 1.5rem; }
+.case-book { background: var(--folio-ink); color: var(--folio-paper); padding: .8rem 1.3rem; border-radius: 5rem; }
+.case-book:hover { text-decoration: underline; text-underline-offset: 3px; }
+.case-mark { aspect-ratio: 1.3; display: grid; place-items: center; border-radius: .35rem; overflow: hidden; }
+.case-mark--rotaowl { background: #d2c8d6; }
+.case-mark--streetcrew { background: #dbb99e; }
+.case-mark--catholic-bible { background: #d1b7ac; }
+.case-mark img { width: 38%; height: auto; max-height: 83%; object-fit: contain; filter: drop-shadow(0 18px 15px #2e1f1b26); transform: rotate(-4deg); }
+.case-mark--rotaowl img { width: 84%; border-radius: 4px; }
+.case-mark--streetcrew img { border-radius: 20%; }
+.case-status, .case-capabilities { display: grid; grid-template-columns: 1fr 1.6fr; gap: 10%; border-top: 1px solid var(--folio-rule); padding-block: clamp(2.5rem, 5vw, 5rem); }
+.case-file .case-section-title { font-size: clamp(2rem, 3.5vw, 3.9rem); }
+.case-status p { margin-top: 1.1rem; }
+.case-status dl { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 2rem; }
+.case-status dl > div { padding: 1rem 0; border-bottom: 1px solid var(--folio-rule); }
+.case-status dt, .case-next small { display: block; color: var(--folio-muted); font-size: .75rem; font-weight: 500; line-height: 1.5; margin-bottom: .35rem; }
+.case-status dd { font-size: 1.05rem; font-weight: 500; }
+.case-capabilities ul { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 2rem; }
+.case-capabilities h3 { font-size: 1.45rem; letter-spacing: -.035em; }
+.case-capabilities p { margin-top: .6rem; }
+.case-gallery { background: #103236; color: #f7f7f1; padding-block: clamp(3rem, 6vw, 6rem); }
+.case-gallery .folio-kicker, .case-gallery-note, .case-shots figcaption { color: #c4d5ce; }
+.case-gallery h2 { margin-top: 1.1rem; }
+.case-gallery-note { margin-top: 1rem; }
+.case-shots { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: clamp(1rem, 2vw, 2rem); margin-top: 2.5rem; }
+.case-shots figure[data-frame="browser"] { grid-column: 1/-1; }
+.case-shots figure > div { display: grid; place-items: center; height: clamp(200px,25vw,365px); padding: clamp(.4rem, 1.5vw, 1.5rem); background: #1b4144; border-radius: .25rem; }
+.case-shots figure[data-frame="browser"] > div { height: auto; padding: clamp(.8rem, 3vw, 3rem); }
+.case-shots img { width: auto; max-width: 100%; max-height: 100%; object-fit: contain; min-height: 0; }
+.case-shots [data-frame="browser"] img { width: min(100%, 850px); }
+.case-shots figcaption { margin-top: .65rem; font-size: .83rem; }
+.case-next { padding-block: clamp(2.75rem, 5.5vw, 6rem); }
+.case-next > div { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 2rem; margin-top: 2rem; }
+.case-next a { display: flex; justify-content: space-between; align-items: center; gap: .7rem; border-block: 1px solid var(--folio-rule); font-size: clamp(1.4rem,2vw,2rem); letter-spacing: -.035em; padding-block: 1.2rem; }
+.case-next a:hover span { text-decoration: underline; text-underline-offset: 4px; }
+.case-next small { letter-spacing: normal; }
+@media (max-width: 760px) {
+  .case-lead, .case-status, .case-capabilities, .case-next > div { grid-template-columns: 1fr; gap: 1.65rem; }
+  .case-mark { aspect-ratio: 1.5; }
+  .case-shots { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .case-next > div { gap: 0; }
+  .case-next a + a { border-top: 0; }
+}
+@media (max-width: 480px) {
+  .case-capabilities ul { grid-template-columns: 1fr; gap: 1.25rem; }
+  .case-status dl { gap: 0 1.25rem; }
+}

@@ -6,35 +6,34 @@ import { Reveal } from "../effects/Motion";
 import { Container, SectionIntro } from "../ui/primitives";
 
 /**
- * "Never a page builder": a real <table> with the Flutterly column set
- * on cobalt. On phones the table reflows into stacked rows so nothing
- * scrolls sideways.
+ * Column headings are repeated within each mobile row so side-by-side
+ * figures remain attributable when the table stacks.
  */
 export function Compare() {
   return (
-    <section className="tone-chalk s-dots relative border-y-2 border-s-rule py-20 sm:py-28">
+    <section className="tone-white relative border-y border-s-line-2 py-20 sm:py-28">
       <Container>
         <SectionIntro
-          eyebrow="Never a page builder"
+          eyebrow="Build comparison"
           title={
             <>
-              No templates. No plugins. <em>No excuses.</em>
+              How the two builds <em>compare.</em>
             </>
           }
-          copy="Most small-organisation websites sit on a page builder someone has to keep patching. Flutterly builds a different way."
+          copy="Compare a custom Flutterly build with a typical page-builder website, from everyday editing to longer-term ownership."
         />
-        <Reveal className="mt-12" turn={14}>
-          <table className="w-full border-collapse overflow-hidden rounded-[14px] border-2 border-s-rule bg-s-raised text-left max-md:block max-md:border-0 max-md:bg-transparent">
+        <Reveal className="mt-12" turn={0}>
+          <table className="w-full border-collapse overflow-hidden rounded-[14px] border border-s-line-2 bg-s-raised text-left max-md:block max-md:border-0 max-md:bg-transparent">
             <caption className="sr-only">Comparison of typical template builders against a Flutterly build</caption>
             <thead className="max-md:hidden">
-              <tr className="border-b-2 border-s-rule">
+              <tr className="border-b border-s-line-2">
                 <th scope="col" className="s-label w-[18%] px-5 py-4 text-[12.5px] text-s-muted">
                   Area
                 </th>
                 <th scope="col" className="w-[41%] px-5 py-4 text-[16.5px] font-bold text-s-ink">
                   {comparison.them}
                 </th>
-                <th scope="col" className="tone-cobalt w-[41%] px-6 py-4 text-[16.5px] font-bold">
+                <th scope="col" className="tone-navy w-[41%] px-6 py-4 text-[16.5px] font-bold">
                   {comparison.us}
                 </th>
               </tr>
@@ -57,7 +56,7 @@ export function Compare() {
                       </span>
                     </span>
                   </td>
-                  <td className="tone-cobalt px-6 py-5 align-top text-[15.5px] font-medium leading-[1.55] max-md:block max-md:px-4 max-md:py-4">
+                  <td className="tone-navy px-6 py-5 align-top text-[15.5px] font-medium leading-[1.55] max-md:block max-md:px-4 max-md:py-4">
                     <span className="flex items-start gap-3">
                       <Check size={17} strokeWidth={3} aria-hidden className="mt-0.5 shrink-0 text-s-accent" />
                       <span>

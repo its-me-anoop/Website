@@ -971,14 +971,6 @@ export const footerColumns = [
    Rebrand homepage: the hero line, the work tiles and the process.
    ───────────────────────────────────────────────────────────── */
 
-export const heroCopy = {
-  lines: ["Your", "digital side,"] as const,
-  emphasis: "sorted.",
-  copy: "Websites and apps, the IT that runs underneath them, and the search and social that bring people in. Designed, coded and looked after in Reading by the person you brief.",
-  /** Bottom strip of the hero frame. */
-  strip: ["Reading, UK · 51.4543° N 0.9781° W", "Websites / Apps / IT support / Social / SEO", "Build · Run · Grow"] as const,
-} as const;
-
 /**
  * The work section's tiles, in grid order. Rows pair a wide tile (7 of
  * 12 columns) with a narrow one (5). `kind` sets the colour-coded tab.

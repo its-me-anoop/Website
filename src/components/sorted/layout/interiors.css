@@ -1,0 +1,84 @@
+/* Studio interiors use the same colour roles as the navigation and homepage.
+   The opening spread sets title, explanation and action on one reading line. */
+.inner-mast { border-bottom: 1px solid var(--s-line-2); }
+.inner-mast .inner-mast-grid {
+  display: grid;
+  align-items: end;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+  gap: clamp(24px, 6vw, 100px);
+  padding-block: clamp(56px, 8vw, 120px);
+}
+.inner-mast .inner-mast-with-art { align-items: center; grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+.inner-kicker {
+  display: flex; align-items: center; gap: 0.8rem;
+  color: var(--s-muted); font-family: ui-monospace, monospace;
+  font-size: 0.73rem; letter-spacing: 0.095em; text-transform: uppercase;
+}
+.inner-kicker::before { content: ""; width: 2rem; border-top: 1px solid currentColor; }
+.inner-mast .inner-title {
+  margin-top: clamp(24px,3vw,48px); max-width: 17ch;
+  font-size: clamp(3.1rem, 6.8vw, 6.7rem); font-weight: 510;
+  font-stretch: 98%; letter-spacing: -0.065em; line-height: 0.98;
+  overflow-wrap: break-word;
+}
+.inner-mast .inner-title-compact {font-size: clamp(2.8rem,5.2vw,5.3rem);}
+.inner-mast .inner-title em {
+  display: inline; padding: 0; color: var(--s-accent); background: none;
+  font-style: normal; transform: none; box-shadow: none; border: none; border-radius: 0;
+}
+.inner-mast-intro { min-width: 0; max-width: 42ch; }
+.inner-mast-with-art .inner-mast-intro { max-width: 55ch; margin-top: 1.8rem; }
+.inner-mast-copy { font-size: clamp(1.035rem,1.35vw,1.25rem); line-height: 1.56; color: var(--s-ink-soft); }
+.inner-mast-actions { margin-top: 1.7rem; }
+.inner-mast-art { min-width: 0; }
+.inner-directory { padding-block: clamp(40px,6vw,96px); }
+.inner-directory-group {
+  display: grid; grid-template-columns: minmax(0,.65fr) minmax(0,1.35fr);
+  gap: clamp(28px,5vw,80px); padding-block: clamp(28px,4vw,64px);
+  border-top: 1px solid var(--s-line-2); scroll-margin-top: 84px;
+}
+.inner-directory-group h2 { font-size: clamp(2.15rem,4vw,4rem); }
+.inner-directory-group header > p { margin-top: .8rem; max-width: 32ch; line-height: 1.55; color: var(--s-ink-soft); }
+.inner-directory-group ul {display: grid; gap: 0.15rem;}
+.inner-directory-link { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1.5rem;
+  padding: 1rem 0 1.4rem; border-bottom: 1px solid var(--s-line-2); }
+.inner-directory-group li:first-child .inner-directory-link { padding-top: 0.25rem; }
+.inner-directory-link h3 { font-size: clamp(1.6rem,2.65vw,2.7rem); }
+.inner-directory-link p { max-width: 54ch; margin-top: .4rem; color: var(--s-ink-soft); line-height: 1.55; }
+.inner-directory-arrow { display: grid; place-items: center; width: 2.75rem; height: 2.75rem;
+  border-radius: 50%; border: 1px solid var(--s-line-2); transition: background .2s, color .2s, transform .2s; }
+.inner-directory-link:hover .inner-directory-arrow, .inner-directory-link:focus-visible .inner-directory-arrow {
+  background: var(--s-ink); color: var(--s-bg); transform: translate(2px,-2px); }
+.inner-sector-points { display: flex; flex-wrap: wrap; column-gap: 2rem; row-gap: .8rem;
+  border-top: 1px solid var(--s-line-2); padding-block: 1.4rem; }
+.inner-sector-points li {display: flex; gap: .55rem; align-items: baseline; font-size: .94rem; line-height: 1.45; }
+.inner-sector-points li::before { content: ""; height:.4rem; width:.4rem; flex:none; align-self:center; border-radius:50%; background:var(--s-accent); }
+.inner-related { border-block: 1px solid var(--s-line-2); }
+.inner-related a { display:flex; align-items:center; justify-content:space-between; gap:1rem; min-height: 5.5rem; padding: 1.25rem; border-bottom:1px solid var(--s-line-2); transition:background .2s; }
+.inner-related a:hover { background: var(--s-bg-2); }
+.inner-sample { position:relative; padding: 7%; border-radius: 1rem; background: var(--s-bg-2); isolation:isolate; border:1px solid var(--s-line-2); }
+.inner-sample-with-phone { padding-right:12%; padding-bottom:8%; }
+.inner-sample figure { border-width: 1px; }
+.inner-sample [data-browser-bar] { background:#e4ebe7; border-color:#b7c6bf; height: 1.65rem; }
+.inner-sample [data-browser-bar] > span:nth-child(-n+3) { border-radius:50%; background:#839991; width:.35rem; height:.35rem; }
+.inner-sample-phone { position:absolute; right:3%; bottom:3%; }
+.inner-sample-phone figure {width:clamp(52px,8vw,112px)!important; height:auto!important; aspect-ratio: 1/2.13; box-shadow:0 9px 18px #0b27282b;}
+.inner-price-grid { display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr)); }
+.inner-package-note { max-width: 69ch; margin: 2rem auto 0; text-align: center; line-height: 1.65; color: var(--s-ink-soft); }
+.inner-document { display:grid; gap:clamp(32px,5vw,80px); grid-template-columns: minmax(12rem,1fr) minmax(0,2fr); padding-block: clamp(48px,6vw,96px); }
+.inner-document nav { align-self:start; position:sticky; top:6rem; border-top:1px solid var(--s-line-2); padding-top:1.5rem; }
+.inner-document nav a { display:inline-block; padding:.45rem 0; color:var(--s-ink-soft); text-decoration:underline; text-underline-offset:.26em; text-decoration-color:var(--s-line-2); }
+.inner-document nav a:hover {text-decoration-color:currentColor;}
+.inner-document section {scroll-margin-top:7rem; padding-block:1.6rem 2.25rem; border-top:1px solid var(--s-line-2);}
+.inner-document section h2 {font-size:clamp(1.5rem,2.5vw,2.25rem);margin-bottom:1rem;}
+.inner-document section p {font-size:1.04rem;line-height:1.65;max-width:62ch;}
+@media(min-width:640px){.inner-related a{border-right:1px solid var(--s-line-2);}}
+@media(max-width:800px) {
+  .inner-mast .inner-mast-grid, .inner-mast .inner-mast-with-art, .inner-directory-group, .inner-document {grid-template-columns:1fr;}
+  .inner-mast .inner-title{max-width:18ch;}
+  .inner-mast-intro {max-width:58ch;}
+  .inner-mast-art {max-width:40rem;width:100%;}
+  .inner-document nav {position:static;}
+  .inner-directory-arrow {width:2.5rem;height:2.5rem;}
+}
+@media(prefers-reduced-motion:reduce) {.inner-directory-arrow,.inner-related a {transition:none;}}

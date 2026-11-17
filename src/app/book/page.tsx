@@ -1,3 +1,4 @@
+import { studioViewport } from "@/lib/marketing/viewport";
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import { breadcrumbJsonLd, defaultOgImage } from "@/lib/seo";
@@ -28,15 +29,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f3ee" },
-    { media: "(prefers-color-scheme: dark)", color: "#10162f" },
-  ],
-  colorScheme: "light dark",
-  width: "device-width",
-  initialScale: 1,
-};
+export const viewport: Viewport = studioViewport;
 
 export default function Book() {
   return (

@@ -16,7 +16,7 @@ export const site = {
   name: "Anoop Jose",
   legalName: "Flutterly Ltd",
   studio: "Flutterly",
-  tagline: "Your digital side, sorted.",
+  tagline: "Digital by nature.",
   role: "Developer & Designer · Founder of Flutterly",
   description:
     "Flutterly is a studio in Reading, UK, for websites, apps, IT support, social media and SEO: designed, built and looked after by one person, with a specialism in accessible healthcare websites.",
@@ -44,15 +44,15 @@ export const site = {
    * earlier card (LinkedIn, Facebook, Slack) fetch this one.
    */
   ogImage: "/og-flutterly.png",
-  ogImageAlt: "Flutterly: your digital side, sorted. Websites, apps, IT support, social media and SEO, from Reading, UK.",
+  ogImageAlt: "Flutterly. Digital by nature. A copper wing over water for the independent digital studio in Reading.",
   /** The healthcare card, kept on the GP, care-home and Clear Path pages only. */
   healthcareOgImage: {
     url: "/og-healthcare.png",
     width: 1200,
     height: 630,
-    alt: "Flutterly: healthcare websites, beautifully built. Accessible, fast websites for GP practices and care homes.",
+    alt: "Flutterly. Websites for healthcare. GP practices and care homes.",
   },
-  logo: "/flutterly-logo.png",
+  logo: "/icon.png",
   /**
    * Cal.com booking. `calLink` is what the embed takes (username/event
    * slug); `url` is the public page used by fallback links. The event

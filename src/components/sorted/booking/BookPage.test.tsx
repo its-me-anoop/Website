@@ -1,6 +1,6 @@
 import React from "react";
 import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/book" }));
@@ -45,10 +45,23 @@ describe("BookPage", () => {
         theme: "light",
         layout: "month_view",
         cssVarsPerTheme: expect.objectContaining({
-          light: { "cal-brand": "#2238e8" },
+          light: { "cal-brand": "#092c30" },
         }),
       })
     );
+  });
+
+  it("keeps booking accessible when the embedded calendar fails", async () => {
+    renderBook();
+    const subscription = await vi.waitFor(() => {
+      const event = calUi.mock.calls.findLast(([method, details]) => method === "on" && details.action === "linkFailed");
+      expect(event).toBeDefined();
+      return event!;
+    });
+    act(() => subscription[1].callback());
+    expect(screen.getByText("The calendar could not load.")).toBeInTheDocument();
+    expect(screen.queryByTestId("cal-inline")).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /open the booking page on cal.com/i })).toHaveAttribute("href", site.booking.url);
   });
 
   it("offers a plain fallback link to the public Cal.com page", () => {

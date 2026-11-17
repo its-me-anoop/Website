@@ -2,28 +2,13 @@
 
 Six scoped design systems coexist. Never leak tokens across scopes.
 
-## 1. Sorted (marketing: home, services, sectors, packages, Clear Path, audit, booking, accessibility, 404)
+## 1. Flutterly studio
 
-See docs/SORTED.md. "Your digital side, sorted." taken literally: the
-page is a desk of chalk `#f4f3ee` and navy `#0b1026`, flat colour and
-hard edges, no gradients. Cobalt `#2238e8` is the studio's colour and
-**flame `#ff5c1f` is the only action colour, always a fill with navy
-text**. Sun, jade and pink complete the five colours that code the five
-services (`ui/tones.ts`). One typeface, Archivo: wide and heavy for
-display (`.s-display`), condensed capitals for labels (`.s-label`); an
-emphasised word wears a label (`<em>` is a tilted colour block, never
-italic). Buttons are keys with a side that presses (`.s-key`); cards are
-flat sheets with a navy rule. 3D is DOM only, in small bounded scenes:
-the sorting table in the home hero, the card index, turning screen
-slabs, the exploded audit page, slab stacks, the staff pass, and flaps
-for section, headline and route transitions. `tone-*` classes remap the
-semantic tokens for a coloured band. `.s-root` scope; `.s-chrome` for
-the bar and footer around a case study. Reduced-motion and no-JS
-fallbacks everywhere; the first paint is always the finished layout.
-Sorted pages have their own dark theme (`prefers-color-scheme: dark`)
-and declare `color-scheme: light dark`, which also keeps Safari 27.3's
-Adaptive Dark Mode from repainting them; use `border-s-rule` /
-`var(--s-rule)` for rules that must show in both.
+The homepage leads with Tidal wing, a copper study over dark water, followed by a filterable portfolio of real websites and apps. Visitors can choose a service, see the work, try a healthcare demo or talk directly with Anoop. Reading and the one-person studio are visible throughout the site.
+
+The canonical palette lives in `src/app/globals.css` as `--studio-*` tokens. Petrol (#092c30) anchors the navigation, oyster (#f7f7f1) and carbon (#101818) carry the editorial pages, and copper (#be6749) and mint (#d5eae0) accent artwork and actions. Scoped `--s-*` roles adapt the palette to marketing surfaces and the supported colour schemes.
+
+Archivo supplies the shared display and reading face. The homepage uses a self-hosted Newsreader italic for the word “nature.” Portfolio images use real product captures. Keep CTAs explicit, use rules to group related content, and reserve continuous motion for the pausable hero artwork. Respect reduced motion and keep the full layout legible before hydration.
 
 ## 2. Porcelain (case studies `/projects/*`)
 

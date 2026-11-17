@@ -2,7 +2,7 @@ import type { Grade } from "@/lib/audit/types";
 import { cn } from "@/lib/utils";
 
 const RADIUS = 54;
-const STROKE = 12;
+const STROKE = 5;
 const CIRC = 2 * Math.PI * RADIUS;
 
 /** Arc colour for the score band: jade when comfortable, sun when middling, flame when not. */
@@ -23,7 +23,7 @@ export function ScoreDial({ score, grade, className }: { score: number; grade: G
   return (
     <div
       className={cn(
-        "relative h-[200px] w-[200px] rounded-[20px] bg-s-navy p-4 text-white shadow-[0_8px_0_0_var(--s-cobalt)] sm:h-[232px] sm:w-[232px]",
+        "relative h-[200px] w-[200px] rounded-full bg-s-navy p-3 text-white sm:h-[232px] sm:w-[232px]",
         className
       )}
       role="img"
@@ -46,7 +46,7 @@ export function ScoreDial({ score, grade, className }: { score: number; grade: G
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="s-display s-num text-[64px] sm:text-[76px]">{score}</span>
-        <span className="s-label mt-1 text-[11.5px] text-[#c5c9de]">out of 100</span>
+        <span className="s-label mt-1 text-[11.5px] text-[#d5eae0]">out of 100</span>
       </div>
     </div>
   );

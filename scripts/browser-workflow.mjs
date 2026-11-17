@@ -4,8 +4,8 @@
  * Drives headless Chromium over every route at mobile and desktop viewports and
  * reports console errors, failed requests, broken images, overflow, missing
  * anchor targets, heading problems, reduced-motion issues and 404 behaviour.
- * It also exercises the homepage (the sorting table and its switch, the
- * card index, work, the studio badge, the menu and the audit bar), the
+ * It also exercises the homepage (the artwork motion control, the
+ * services, work, the studio portrait, the menu and the audit bar), the
  * sample-site tabs on
  * the websites service page, and checks that key mobile content stays
  * inside the viewport.
@@ -29,7 +29,10 @@ const ROUTES = [
   "/care-home-websites",
   "/packages",
   "/free-audit",
+  "/book",
   "/leaving-msw",
+  "/clear-path",
+  "/duo",
   "/audit",
   "/accessibility",
   "/demo/gp-practice",
@@ -127,33 +130,47 @@ async function auditPage(context, route, label = route) {
         /* Safari paints the page background into areas it reserves at
            the sides (landscape, and the iPhone Duo's side toolbar and
            corner camera) and tints its chrome with theme-color, so both
-           must match the chalk bar across the top of a Sorted page. */
+           must match the fixed studio masthead in either colour scheme. */
         sorted: Boolean(document.querySelector(".s-root")),
         pageBackground: getComputedStyle(document.documentElement).backgroundColor,
-        themeColor: document.querySelector('meta[name="theme-color"]')?.getAttribute("content") ?? null,
+        headerBackground: document.querySelector(".studio-header")
+          ? getComputedStyle(document.querySelector(".studio-header")).backgroundColor
+          : null,
+        themeColor: [...document.querySelectorAll('meta[name="theme-color"]')]
+          .find((meta) => !meta.media || matchMedia(meta.media).matches)?.content ?? null,
         /* The root clips x-overflow, so a too-wide frame never shows in
            scrollWidth; measure the layout width of each frame instead. */
         wideFrames: [...document.querySelectorAll("figure")]
           .filter((figure) => figure.offsetWidth > window.innerWidth + 1)
           .map((figure) => `${figure.offsetWidth}px`),
         h1: document.querySelectorAll("h1").length,
-        hasMain: ids.includes("main"),
+        hasMain: Boolean(document.querySelector("main")),
+        hasSkipTarget: [...document.querySelectorAll('a[href^="#"]')].some((link) =>
+          /skip/i.test(link.textContent) && ids.includes(link.hash.slice(1))
+        ),
       };
     });
 
+    if (route === "/book") {
+      const calendarLink = page.locator('#calendar a[href^="https://cal.com/"]');
+      if (!(await calendarLink.first().isVisible()))
+        note(label, "calendar fallback link is missing");
+    }
     if (data.brokenHash.length)
       note(label, `broken anchor targets: ${data.brokenHash.join(", ")}`);
     if (data.broken.length) note(label, `broken images: ${data.broken.join(", ")}`);
     if (data.overflow > 1) note(label, `horizontal overflow ${data.overflow}px`);
     if (data.sorted) {
-      if (data.pageBackground !== "rgb(244, 243, 238)")
-        note(label, `page background is ${data.pageBackground}, expected chalk; Safari shows it in side safe areas`);
-      if (data.themeColor !== "#f4f3ee") note(label, `theme-color is ${data.themeColor}, expected #f4f3ee`);
+      if (data.pageBackground !== data.headerBackground)
+        note(label, `Safari safe areas (${data.pageBackground}) differ from the masthead (${data.headerBackground})`);
+      if (data.themeColor !== "#092c30")
+        note(label, `theme-color is ${data.themeColor}, expected the studio masthead colour #092c30`);
     }
     if (data.wideFrames.length)
       note(label, `frames wider than the viewport: ${data.wideFrames.join(", ")}`);
     if (data.h1 !== 1) note(label, `expected 1 <h1>, found ${data.h1}`);
-    if (!data.hasMain) note(label, "missing #main (skip-link target)");
+    if (!data.hasMain) note(label, "missing main landmark");
+    if (!data.hasSkipTarget) note(label, "skip link has no destination");
     if (consoleErrors.length)
       note(label, `console errors: ${consoleErrors.slice(0, 3).join(" | ")}`);
     if (pageErrors.length) note(label, `page errors: ${pageErrors.join(" | ")}`);
@@ -188,17 +205,20 @@ const DUO = {
 
 const browser = await chromium.launch();
 
-for (const [label, options] of [
+const viewports = [
   ["mobile", { ...devices["iPhone 13"] }],
   ["desktop", { viewport: { width: 1440, height: 900 } }],
   ["duo-folded", DUO.folded],
   ["duo-open", DUO.open],
-  ["duo-open-landscape", DUO.openLandscape],
-]) {
+  ["duo-open-landscape", { ...DUO.openLandscape, colorScheme: "dark" } ],
+];
+
+await Promise.all(viewports.map(async ([label, options]) => {
   const context = await browser.newContext(options);
   for (const route of ROUTES) await auditPage(context, route, `${label} ${route}`);
   await context.close();
-}
+  console.log(`Checked ${ROUTES.length} routes on ${label}.`);
+}));
 
 const mobile = await browser.newContext({ ...devices["iPhone 13"] });
 {
@@ -230,9 +250,9 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   if (clippedElements.length)
     note("home", `mobile elements outside viewport: ${clippedElements.join(" | ")}`);
 
-  /* Five dividers in the card index, each opening its own page. */
+  /* Each studio service has a link to its detail page. */
   const rows = await page.locator('#services a[href^="/services/"]').count();
-  if (rows !== 5) note("home", `expected 5 service dividers, found ${rows}`);
+  if (rows !== 5) note("home", `expected 5 service links, found ${rows}`);
 
   /* Client logos are CSS masks, which fail silently, so fetch each one
      and check it has a visible size. */
@@ -249,26 +269,22 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 10) note("home", `expected 10 project cards, found ${projects}`);
 
-  /* The sorting table: the switch must flip it to "as found" and back,
-     and every piece must be on screen once sorted. */
-  const table = page.locator("#top");
-  const toggle = table.getByRole("switch");
-  await toggle.click();
-  if ((await table.getAttribute("data-state")) !== "mess") note("home", "the switch did not scatter the sorting table");
-  await toggle.click();
-  await page.waitForTimeout(1600);
-  if ((await table.getAttribute("data-state")) !== "sorted") note("home", "the switch did not sort the table again");
-  const strays = await page.evaluate(() =>
-    [...document.querySelectorAll("#top .sort-piece")]
-      .filter((el) => getComputedStyle(el).display !== "none")
-      .map((el) => el.getBoundingClientRect())
-      .filter((r) => r.left < -2 || r.right > innerWidth + 2).length
-  );
-  if (strays) note("home", `${strays} sorted piece(s) sit outside the viewport`);
+  const filters = page.getByRole("group", { name: "Filter projects" });
+  for (const name of ["Websites", "Apps", "All"]) {
+    const filter = filters.getByRole("button", { name, exact: true });
+    await filter.click();
+    const count = await page.locator("[data-project-card]").count();
+    if (await filter.getAttribute("aria-pressed") !== "true" ||
+      (name === "All" ? count !== projects : count < 1 || count >= projects))
+      note("home", `portfolio filter ${name} did not update the project list`);
+  }
 
-  /* The founder's portrait sits on a badge that tilts: it must still be
-     painted, unclipped, once scrolled to. */
-  /* The badge sways, so it never counts as "stable": scroll by hand. */
+  const hero = page.locator("#top");
+  await hero.getByRole("button", { name: "Pause artwork motion" }).click();
+  if ((await hero.getAttribute("data-motion")) !== "off") note("home", "artwork motion did not pause");
+  await hero.getByRole("button", { name: "Play artwork motion" }).click();
+  if ((await hero.getAttribute("data-motion")) !== "on") note("home", "artwork motion did not resume");
+
   await page.evaluate(() => document.querySelector("#studio figure").scrollIntoView({ block: "center" }));
   await page
     .waitForFunction(() => document.querySelector("#studio figure img[alt]:not([alt=''])")?.naturalWidth > 0, null, { timeout: 15000 })

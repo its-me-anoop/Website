@@ -1,11 +1,10 @@
 "use client";
 
-import { m as motion, useReducedMotion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import {
-  ArrowRight,
   Check,
   Gem,
   Hammer,
@@ -16,8 +15,8 @@ import {
   Target,
   Users,
 } from "lucide-react";
+import { ProductCover, StoreLink } from "../ProductCover";
 import { ProductShell } from "@/components/sorted/layout/ProductShell";
-import { Button } from "@/components/ui/Button";
 import { Reveal, staggerContainer, staggerItem } from "@/components/ui/Reveal";
 import { LiftCard } from "@/components/ui/LiftCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -32,7 +31,6 @@ const APP_STORE_URL = "https://apps.apple.com/us/app/little-lifeline/id678684047
 const PRIVACY_URL =
   "https://github.com/its-me-anoop/gravitile-support/blob/main/privacy.md";
 
-const ease = [0.16, 1, 0.3, 1] as const;
 
 const pillars: { icon: LucideIcon; title: string; description: string }[] = [
   {
@@ -125,26 +123,6 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-function AppStoreBadge() {
-  return (
-    <Link
-      href={APP_STORE_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Download Little Lifeline on the App Store"
-      className="inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 font-sans text-accent-ink shadow-[0_12px_28px_-12px_var(--accent)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-accent-hover"
-    >
-      <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 flex-shrink-0" aria-hidden="true">
-        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-      </svg>
-      <span className="text-left">
-        <span className="block text-[10px] leading-tight">Download on the</span>
-        <span className="block text-base font-semibold leading-tight">App Store</span>
-      </span>
-    </Link>
-  );
-}
-
 function CheckItem({ children }: { children: React.ReactNode }) {
   return (
     <li className="flex items-start gap-3">
@@ -157,83 +135,23 @@ function CheckItem({ children }: { children: React.ReactNode }) {
 }
 
 export function LittleLifelineLanding() {
-  const reduce = useReducedMotion();
 
   return (
     <ProductShell mainClassName="bg-canvas text-ink">
-      <header className="relative overflow-hidden px-[var(--gutter)] pb-[var(--space-section)] pt-28 md:pt-36">
-        <div className="mx-auto grid w-full max-w-[1200px] gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <motion.div
-            initial={reduce ? false : "hidden"}
-            animate="visible"
-            variants={staggerContainer}
-          >
-            <motion.div variants={reduce ? undefined : staggerItem} className="flex flex-wrap gap-2">
-              <Eyebrow>Now on the App Store</Eyebrow>
-              <Eyebrow>iPhone &amp; iPad · Free</Eyebrow>
-            </motion.div>
-
-            <motion.h1
-              variants={reduce ? undefined : staggerItem}
-              className="mt-7 max-w-[16ch] text-[clamp(40px,6vw,76px)] font-semibold leading-[1.0] tracking-[-0.035em] text-ink"
-            >
-              A miniature 3D clinic you{" "}
-              <span className="text-accent">grow one room at a time.</span>
-            </motion.h1>
-
-            <motion.p
-              variants={reduce ? undefined : staggerItem}
-              className="mt-6 max-w-[560px] text-[16px] leading-[1.7] text-ink-3 md:text-[18px]"
-            >
-              Little Lifeline is an idle management game. Patients check in,
-              wait, receive care and find their way home, and the money they
-              leave pays for your next improvement.
-            </motion.p>
-
-            <motion.div
-              variants={reduce ? undefined : staggerItem}
-              className="mt-9 flex flex-wrap items-center gap-3"
-            >
-              <AppStoreBadge />
-              <Link href="#features" aria-label="Explore features">
-                <Button variant="outline" size="lg" className="group">
-                  Explore features
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                </Button>
-              </Link>
-            </motion.div>
-
-            <p className="mt-4 text-sm text-ink-3">
-              Free, with optional in-app purchases. Requires iOS 18 or later.{" "}
-              <Link
-                href={PRIVACY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline decoration-line-2 underline-offset-4 transition-colors hover:text-accent"
-              >
-                Read the privacy policy
-              </Link>
-              .
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 34 }}
-            animate={reduce ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.12, ease }}
-            className="mx-auto w-full max-w-[360px]"
-          >
-            <Image
-              src="/projects/little-lifeline/app-icon.png"
-              alt="Little Lifeline app icon"
-              width={512}
-              height={512}
-              priority
-              className="h-auto w-full rounded-[22%] shadow-[var(--shadow)]"
-            />
-          </motion.div>
-        </div>
-      </header>
+      <ProductCover
+        variant="clinic"
+        name="Little Lifeline"
+        category="Idle management game"
+        title={<>A little clinic of your own.</>}
+        description="One desk, one nurse, and the first patient at the door. Follow each visit through your miniature clinic and put the day’s earnings towards its next room."
+        platform="iPhone and iPad · iOS 18 or later"
+        availability="Free to play, with optional in-app purchases."
+        store={APP_STORE_URL}
+        policy={PRIVACY_URL}
+        sections={[[ "#features", "How to play" ], [ "#inside-heading", "Inside the game" ], [ "#pricing-heading", "Purchases" ]]}
+      >
+        <Image src="/projects/little-lifeline/app-icon.png" alt="Little Lifeline app icon showing the first clinic" width={512} height={512} sizes="(max-width: 760px) 76vw, 42vw" priority />
+      </ProductCover>
 
       <section
         id="features"
@@ -406,14 +324,15 @@ export function LittleLifelineLanding() {
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
-              <AppStoreBadge />
+              <StoreLink name="Little Lifeline" href={APP_STORE_URL} />
               <Link
                 href={PRIVACY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center gap-2 underline underline-offset-4"
                 aria-label="Read the Little Lifeline privacy policy"
               >
-                <Button variant="outline">Privacy policy</Button>
+                Privacy policy
               </Link>
             </div>
           </div>

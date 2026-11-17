@@ -97,13 +97,13 @@ export function SectionIntro({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Buttons: keys with a side that presses down
+   Primary, secondary and text actions
    ───────────────────────────────────────────────────────────── */
 
 const btnTone = {
-  /** The action: flame on most tones, navy on a bright one. */
+  /** Inherits the primary action colours of its surface. */
   primary: "s-key",
-  /** A white key, for the second choice. */
+  /** The secondary surface action. */
   plain: "s-key s-key-plain",
   navy: "s-key s-key-navy",
   outline: "s-key s-key-outline",
@@ -143,12 +143,12 @@ export function ButtonLink({
     <>
       <span>{children}</span>
       {arrow === "right" ? (
-        <ArrowRight size={17} strokeWidth={2.4} aria-hidden className="transition-transform duration-300 group-hover/btn:translate-x-1" />
+        <ArrowRight size={17} strokeWidth={1.8} aria-hidden className="transition-transform duration-300 group-hover/btn:translate-x-1" />
       ) : null}
       {arrow === "up" ? (
         <ArrowUpRight
           size={17}
-          strokeWidth={2.4}
+          strokeWidth={1.8}
           aria-hidden
           className="transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5"
         />
@@ -188,7 +188,7 @@ export function Tag({
     fail: "border-[1.5px] border-s-fail text-s-fail",
   } as const;
   return (
-    <span className={cn("s-label inline-flex items-center rounded-[5px] px-2 py-1 text-[12px] leading-none", tones[tone], className)}>
+    <span className={cn("s-label inline-flex items-center rounded-full px-2.5 py-1 text-[12px] leading-none", tones[tone], className)}>
       {children}
     </span>
   );
@@ -208,16 +208,16 @@ export function CheckItem({ children, className }: { children: ReactNode; classN
 
 export function FaqList({ items, className }: { items: readonly { q: string; a: string }[]; className?: string }) {
   return (
-    <div className={cn("border-t-2 border-s-ink", className)}>
+    <div className={cn("border-t border-s-line-2", className)}>
       {items.map((item) => (
-        <details key={item.q} className="group border-b-[1.5px] border-s-line-2">
+        <details key={item.q} className="group border-b border-s-line-2">
           <summary className="flex cursor-pointer list-none items-start justify-between gap-5 py-5 text-[17px] font-semibold leading-snug text-s-ink sm:text-[18.5px] [&::-webkit-details-marker]:hidden">
             <span className="min-w-0 flex-1 text-left">{item.q}</span>
             <span
               aria-hidden
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[7px] border-2 border-s-ink text-s-ink transition-[transform,background-color,color] duration-500 group-open:rotate-[135deg] group-open:bg-s-ink group-open:text-s-bg"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-s-line-2 text-s-ink transition-[transform,background-color,color] duration-500 group-open:rotate-[135deg] group-open:bg-s-ink group-open:text-s-bg"
             >
-              <Plus size={16} strokeWidth={2.6} />
+              <Plus size={16} strokeWidth={1.85} />
             </span>
           </summary>
           <p className="max-w-[700px] pb-6 text-[16px] leading-[1.65] text-s-ink-soft">{item.a}</p>
@@ -237,7 +237,7 @@ export function FaqList({ items, className }: { items: readonly { q: string; a: 
 export function AuditBar({
   className,
   label = "Your website address",
-  placeholder = "yourpractice.nhs.uk",
+  placeholder = "example.co.uk",
   hint = "Paste your address for an instant, free report on accessibility, speed, search and more. No sign-up needed.",
   defaultValue = "",
   autoFocus,
@@ -272,8 +272,8 @@ export function AuditBar({
       <label htmlFor={id} className="sr-only">
         {label}
       </label>
-      <div className="flex items-center gap-2 rounded-[12px] border-2 border-s-navy bg-white p-1.5 pl-4 shadow-[0_5px_0_0_var(--s-key-shadow)] has-[input:focus-visible]:shadow-[0_0_0_3px_var(--s-rule),0_0_0_8px_var(--s-sun)]">
-        <span aria-hidden className="hidden text-[14px] font-semibold text-[#596080] sm:inline">
+      <div className="flex items-center gap-2 rounded-full border border-[#7b9388] bg-white p-1.5 pl-5 has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-s-accent">
+        <span aria-hidden className="hidden text-[14px] font-semibold text-[#52625b] sm:inline">
           https://
         </span>
         <input
@@ -288,17 +288,17 @@ export function AuditBar({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}
-          className="min-w-0 flex-1 rounded-[6px] bg-transparent py-2.5 text-[16.5px] font-medium text-s-navy placeholder:font-normal placeholder:text-[#596080] focus-visible:!shadow-none focus-visible:!outline-none"
+          className="min-w-0 flex-1 rounded-[6px] bg-transparent py-2.5 text-[16.5px] font-medium text-s-navy placeholder:font-normal placeholder:text-[#52625b] focus-visible:!shadow-none focus-visible:!outline-none"
         />
         <button
           type="submit"
-          className="s-key h-11 shrink-0 px-4 text-[15px] [--key-depth:0px] [--key-face:var(--s-flame)] [--key-ink:var(--s-navy)] hover:!translate-y-0 hover:bg-[#ff7440] sm:px-5"
+          className="s-key h-11 shrink-0 px-4 text-[15px] [--key-face:var(--studio-petrol)] [--key-ink:var(--studio-oyster)] hover:!translate-y-0 sm:px-5"
           aria-label="Run the free website audit"
         >
           <span aria-hidden className="hidden sm:inline">
             Audit
           </span>
-          <ArrowRight size={18} strokeWidth={2.6} aria-hidden />
+          <ArrowRight size={18} strokeWidth={1.85} aria-hidden />
         </button>
       </div>
       <p id={`${id}-hint`} className={cn("mt-4 text-[14px] leading-snug text-s-muted", align === "center" && "text-center")}>

@@ -5,7 +5,7 @@
  * hides the glyphs, samples the pixels actually painted behind them
  * (the tone, a label behind an emphasised word, a card, a 3D scene that
  * strays behind the copy) and checks WCAG AA (4.5:1, or 3:1 for large
- * text). The home hero is measured sorted and scattered.
+ * text).
  *
  *   1. npm run build && PORT=3100 npm start
  *   2. BASE_URL=http://localhost:3100 npm run test:contrast
@@ -14,15 +14,14 @@ import { chromium, devices } from "playwright";
 
 const BASE = process.env.BASE_URL || "http://localhost:3100";
 
-/** The bands with text on a colour. `mess` flips the sorting table first. */
+/** The bands with text on a colour. */
 const TARGETS = [
   { route: "/", selector: "#top" },
-  { route: "/", selector: "#top", mess: true },
   { route: "/", selector: "#contact" },
   { route: "/services/apps", selector: "#top" },
   { route: "/services/seo", selector: "#top" },
-  { route: "/book", selector: "#top" },
-  { route: "/free-audit", selector: "#top" },
+  { route: "/book", selector: ".cv-intake" },
+  { route: "/free-audit", selector: ".cv-intake" },
   { route: "/services", selector: "#top" },
   { route: "/services/websites", selector: "#top" },
   { route: "/gp-websites", selector: "#top" },
@@ -58,15 +57,10 @@ for (const [label, options] of VIEWPORTS) {
   const context = await browser.newContext({ ...options, reducedMotion: "reduce" });
   const page = await context.newPage();
 
-  for (const { route, selector, mess } of TARGETS) {
+  for (const { route, selector } of TARGETS) {
     await page.goto(BASE + route, { waitUntil: "networkidle" });
     const exists = await page.locator(selector).count();
-    if (!exists) continue;
-    if (mess) {
-      await page.locator(selector).getByRole("switch").click();
-      await page.waitForTimeout(400);
-    }
-
+    if (!exists) throw new Error(`No contrast target ${selector} on ${route}`);
     /* Measure each block in turn, scrolled to the top of the viewport. */
     const texts = await page.evaluate(
       ({ selector }) => {
@@ -81,7 +75,6 @@ for (const [label, options] of VIEWPORTS) {
           const node = walker.currentNode;
           const el = node.parentElement;
           if (!node.textContent.trim() || seen.has(el)) continue;
-          /* The sorting table is one labelled image; its tiles carry their own white faces. */
           if (el.closest("[aria-hidden=true], [role=img], .sr-only, input, textarea")) continue;
           const style = getComputedStyle(el);
           if (style.visibility === "hidden" || style.display === "none") continue;
@@ -160,7 +153,7 @@ for (const [label, options] of VIEWPORTS) {
       const got = ratio(luminance(fg), bg);
       const need = t.large ? 3 : 4.5;
       if (got < need)
-        failures.push(`[${label} ${route} ${selector}${mess ? " (as found)" : ""}] "${t.text}" ${got.toFixed(2)}:1 (needs ${need}:1)`);
+        failures.push(`[${label} ${route} ${selector}] "${t.text}" ${got.toFixed(2)}:1 (needs ${need}:1)`);
     });
   }
   await context.close();
