@@ -180,11 +180,11 @@ export function Hero() {
       style={{ "--q": 0, "--count": pieces.length } as CSSProperties}
     >
       <div className="hero-pin flex min-h-svh flex-col overflow-hidden">
-        <Container className="relative flex min-h-0 flex-1 flex-col gap-y-8 pb-10 pt-24 wide:gap-y-4 wide:pb-6 short:wide:gap-y-2 short:wide:pb-3 short:wide:pt-[76px]">
+        <Container className="relative flex min-h-0 flex-1 flex-col gap-y-8 pb-10 pt-24 wide:gap-y-4 wide:pb-6 short:wide:gap-y-2 short:wide:pb-3 short:wide:pt-[90px]">
           <h1
             id="hero-title"
             aria-label={headline}
-            className="s-display relative z-10 text-[clamp(2.7rem,13.4vw,5.6rem)] [--lh:0.9] wide:text-[clamp(3.6rem,min(7.9vw,12.5svh),7.4rem)] short:wide:text-[clamp(2.6rem,min(7.4vw,9.6svh),4.4rem)]"
+            className="s-display relative z-10 text-[clamp(2.7rem,13.4vw,5.6rem)] [--lh:0.9] wide:text-[clamp(3.6rem,min(7.9vw,12.5svh),7.4rem)] short:wide:text-[clamp(2.6rem,min(7.2vw,9svh),4.2rem)]"
           >
             {heroCopy.lines.map((line) => (
               <span key={line}>
@@ -227,7 +227,7 @@ export function Hero() {
               ref={stage}
               role="img"
               aria-label="Twelve parts of an organisation's digital side, from the website and email to backups, Wi-Fi and search, each one fixed and filed in its place."
-              className="sort-stage relative z-0 mx-auto w-full max-w-[520px] wide:max-w-[min(560px,56svh)] wide:justify-self-end short:wide:max-w-[max(436px,68svh)]"
+              className="sort-stage relative z-0 mx-auto w-full max-w-[520px] wide:max-w-[min(560px,56svh)] wide:justify-self-end short:wide:max-w-[max(432px,66svh)]"
             >
               <div className="sort-parallax">
                 <div className="sort-table">
