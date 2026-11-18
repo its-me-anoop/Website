@@ -1,5 +1,6 @@
 import { AuditError } from "./types";
 import { assertPublicHost } from "./guard";
+import { isStandardWebPort, STANDARD_PORTS_MESSAGE } from "./url";
 
 /**
  * A careful fetch for untrusted third-party sites: manual redirects with
@@ -90,6 +91,8 @@ export async function safeFetch(
   let current = new URL(input);
 
   for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+    // Checked per hop, like the host: a site on :443 can still redirect to :6379.
+    if (!isStandardWebPort(current)) throw new AuditError("blocked_host", STANDARD_PORTS_MESSAGE);
     await assertPublicHost(current.hostname);
 
     const remaining = deadline - performance.now();
