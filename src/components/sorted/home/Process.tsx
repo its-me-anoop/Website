@@ -21,10 +21,10 @@ export function Process() {
             From first call to <em>launch,</em> and long after.
           </h2>
         </div>
-        <ol className="relative z-10 m-0 -mb-[clamp(32px,5vw,74px)] grid list-none gap-3 p-0 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+        <ol data-dot="steps" className="relative z-10 m-0 -mb-[clamp(32px,5vw,74px)] grid list-none gap-3 p-0 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {rebrandProcess.map(([step, copy], i) => (
             <Reveal as="li" key={step} turn={i % 2 ? 1 : -1} delay={i * 0.1} className="h-full">
-              <div className="tone-white relative flex h-full flex-col gap-3 rounded-[28px] p-6 sm:p-7">
+              <div data-dot-step data-dot-x="-40px" className="dot-lift tone-white relative flex h-full flex-col gap-3 rounded-[28px] p-6 sm:p-7">
                 <div className="flex items-center justify-between">
                   <span aria-hidden className="s-mark s-num text-[72px] leading-[0.8]">
                     {i + 1}

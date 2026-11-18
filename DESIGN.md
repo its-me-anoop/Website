@@ -18,7 +18,10 @@ colour); Cutive Mono for captions (`.s-label`), with `##` before a
 section label and `>` before small print. Every control is a flat pill
 (`.s-key`); cards are flat sheets with 24–28px corners and no outline or
 shadow. The bar is a row of floating pills; the pink **index** pill
-opens the site as cards on an ochre wall. Motion is flat except two
+opens the site as cards on an ochre wall. One vermilion dot travels
+down every page from anchor to anchor (`data-dot`, see
+`effects/DotTrail.tsx`), and the home hero is a scene the scroll plays:
+the dot fixes twelve stickers one by one. Motion is flat except two
 small DOM scenes (the exploded audit page and the slab stack). `tone-*`
 classes remap the semantic tokens for a coloured room. `.s-root` scope;
 `.s-chrome` for the bar and footer around a case study. Reduced-motion

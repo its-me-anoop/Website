@@ -136,7 +136,7 @@ function WorkTile({ tile, index }: { tile: Tile; index: number }) {
   const linkProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
   const left = index % 2 === 1;
   return (
-    <article className={cn("tone-white flex min-w-0 flex-col rounded-[24px] p-3 pb-7 sm:p-4 sm:pb-8", spanClass[tile.span])} data-project-card>
+    <article className={cn("tone-white flex min-w-0 flex-col rounded-[24px] p-3 pb-7 sm:p-4 sm:pb-8", spanClass[tile.span])} data-project-card data-dot-step data-dot-x="-34px">
       <Link
         href={tile.href}
         tabIndex={-1}
@@ -190,7 +190,7 @@ export function Work() {
             Websites for care providers, housing and suppliers, and the apps we build and run ourselves.
           </p>
         </div>
-        <div className="grid gap-x-5 gap-y-5 lg:grid-cols-12">
+        <div data-dot="steps" className="grid gap-x-5 gap-y-5 lg:grid-cols-12">
           {featuredWork.map((tile, i) => (
             <WorkTile key={tile.key} tile={tile} index={i} />
           ))}

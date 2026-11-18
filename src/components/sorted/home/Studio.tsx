@@ -29,7 +29,7 @@ export function Studio() {
         <div className="relative z-10 mx-auto w-full max-w-[380px] max-lg:order-last lg:-mb-[clamp(40px,6vw,96px)]">
           <Tilt max={5}>
             <figure className="m-0">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-t-full bg-s-pink">
+              <div data-dot="top" className="relative aspect-[4/5] overflow-hidden rounded-t-full bg-s-pink">
                 <Image
                   src="/anoop-jose.jpg"
                   alt={`${site.founder}, founder of Flutterly, at the studio in Reading`}

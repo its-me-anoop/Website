@@ -24,7 +24,7 @@ export function Footer({ credit }: { credit?: ReactNode } = {}) {
       <div className="mx-auto w-full max-w-[1440px] pl-[calc(var(--margin)+18px)] pr-5 pt-16 sm:pr-8 sm:pt-24">
         <div className="grid gap-14 xl:grid-cols-[1fr_2.5fr]">
           <div>
-            <div className="flex items-center gap-3">
+            <div data-dot="top" data-dot-x="22px" className="flex w-fit items-center gap-3">
               <Image src="/flutterly-logo.png" alt="" width={44} height={44} />
               <span className="s-display text-[30px]">Flutterly</span>
             </div>
@@ -82,7 +82,7 @@ export function Footer({ credit }: { credit?: ReactNode } = {}) {
         {/* The name as large as the page allows. Decorative: the brand is named above. */}
         <p aria-hidden className="s-display mt-16 flex select-none items-baseline whitespace-nowrap text-[clamp(3.6rem,19.5vw,17.5rem)] leading-[0.8] [--lh:0.8] sm:mt-24">
           Flutterly
-          <Dot className="ml-[0.04em] text-[0.62em]" />
+          <Dot slot className="ml-[0.04em] text-[0.62em]" />
         </p>
 
         <div className="s-label mt-8 flex flex-col gap-2 border-t-[1.5px] border-s-ink py-6 text-[13px] text-s-muted sm:flex-row sm:items-center sm:justify-between">

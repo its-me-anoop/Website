@@ -52,7 +52,11 @@ export function Porthole({ colour, className }: { colour: string; className?: st
   return <span aria-hidden="true" className={cn("s-porthole", className)} style={{ "--hole": colour } as CSSProperties} />;
 }
 
-/** The vermilion dot. */
-export function Dot({ className }: { className?: string }) {
-  return <span aria-hidden="true" className={cn("s-dot", className)} />;
+/**
+ * The vermilion dot. As a `slot` it is also a place the travelling dot
+ * (effects/DotTrail) comes to rest: where that dot is running the slot
+ * is left empty for it, and everywhere else it shows its own.
+ */
+export function Dot({ className, slot }: { className?: string; slot?: boolean }) {
+  return <span aria-hidden="true" {...(slot ? { "data-dot": "slot" } : {})} className={cn("s-dot", className)} />;
 }

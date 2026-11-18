@@ -40,7 +40,8 @@ export function CtaBand({
           <p className="mt-7 max-w-[560px] text-[18px] leading-[1.55] text-s-ink-soft sm:text-[20px]">{copy}</p>
         </Reveal>
 
-        <Reveal delay={0.1} turn={1} className="tone-white rounded-[28px] p-6 sm:p-9">
+        <Reveal delay={0.1} turn={1} className="tone-white relative rounded-[28px] p-6 sm:p-9">
+          <span aria-hidden data-dot="top" data-dot-x="-48px" className="absolute inset-x-0 top-0 h-px" />
           {audit === "bar" ? (
             <>
               <p className="s-label text-[13.5px] text-s-muted">&gt; Free and instant. No sign-up.</p>

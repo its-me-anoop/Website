@@ -270,9 +270,9 @@ export default function RootLayout({
     >
       <head>
         <JsonLd />
-        {/* Sections rise into view with JavaScript; without it they are simply there. */}
+        {/* Sections rise into view, and the hero plays, with JavaScript; without it they are simply there, finished. */}
         <noscript>
-          <style>{".s-reveal{opacity:1!important;transform:none!important}"}</style>
+          <style>{".s-reveal{opacity:1!important;transform:none!important}.hero-scene{--q:99!important;height:auto!important}.hero-scene .hero-pin{position:static!important;height:auto!important}"}</style>
         </noscript>
       </head>
       <body className="antialiased bg-canvas text-ink font-sans min-h-screen">

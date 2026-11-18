@@ -62,7 +62,7 @@ export function PageHero({
       >
         <div className="min-w-0">
           <Eyebrow className="s-rise">{eyebrow}</Eyebrow>
-          <Display as="h1" size={size} split delay={60} className="mt-6 max-w-[17ch]">
+          <Display as="h1" size={size} split delay={60} dotEm className="mt-6 max-w-[17ch]">
             {title}
           </Display>
           {copy ? (

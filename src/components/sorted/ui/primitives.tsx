@@ -19,7 +19,11 @@ export function Container({ children, className }: { children: ReactNode; classN
    ───────────────────────────────────────────────────────────── */
 
 export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
-  return <p className={cn("s-eyebrow", className)}>{children}</p>;
+  return (
+    <p data-dot="top" data-dot-x="9px" className={cn("s-eyebrow", className)}>
+      {children}
+    </p>
+  );
 }
 
 const displaySize = {
@@ -35,11 +39,14 @@ export function Display({
   size = "lg",
   split,
   delay,
+  dotEm,
   className,
   children,
   id,
 }: {
   as?: "h1" | "h2" | "h3" | "p";
+  /** Let the travelling dot land on the emphasised word. */
+  dotEm?: boolean;
   size?: keyof typeof displaySize;
   /** Raise the words one at a time (CSS, visible without JavaScript). */
   split?: boolean;
@@ -50,7 +57,7 @@ export function Display({
 }) {
   const Tag = as;
   return (
-    <Tag id={id} className={cn("s-display text-s-ink", displaySize[size], className)}>
+    <Tag id={id} {...(dotEm ? { "data-dot-em": "" } : {})} className={cn("s-display text-s-ink", displaySize[size], className)}>
       {split ? <SplitWords delay={delay}>{children}</SplitWords> : children}
     </Tag>
   );
@@ -292,6 +299,7 @@ export function AuditBar({
         />
         <button
           type="submit"
+          data-dot="top"
           className="s-key h-11 shrink-0 px-4 text-[15px] [--key-edge:#ff6a3d] [--key-face:var(--s-flame)] [--key-ink:var(--s-navy)] hover:!translate-y-0 sm:px-5"
           aria-label="Run the free website audit"
         >

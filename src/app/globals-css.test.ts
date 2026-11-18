@@ -31,11 +31,22 @@ describe("Rooms tones", () => {
   });
 });
 
-describe("the opening animation", () => {
-  it("ends on the sorted layout, so the page is right without JavaScript", () => {
-    /* `from` only: the animation always finishes on the element's own transform. */
-    expect(block("@keyframes sort-in")).toMatch(/from\s*\{\s*transform: var\(--away\)/);
-    expect(block("@keyframes sort-in")).not.toMatch(/\bto\s*\{/);
+describe("the hero's scroll scene", () => {
+  it("is sorted unless a script is playing it, so the page is right without JavaScript", () => {
+    expect(block(".hero-scene {")).toMatch(/--q: 99;/);
+  });
+
+  it("works every sticker out from the one number the scroll sets", () => {
+    const piece = block(".sort-piece,\n.sort-slot {");
+    expect(piece).toMatch(/--t: clamp\(0, calc\(\(var\(--q\) - var\(--n\)/);
+    expect(block(".sort-piece {")).toMatch(/var\(--u\)/);
+  });
+
+  it("holds the room still only on a wide, tall window, and never under reduced motion", () => {
+    const start = css.indexOf("@media (min-width: 1024px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)");
+    expect(start).toBeGreaterThan(-1);
+    expect(css.slice(start, start + 400)).toMatch(/\.hero-scene\[data-pin\] \.hero-pin \{\s*position: sticky;/);
+    expect(css.match(/position: sticky/g)).toHaveLength(1);
   });
 
   it("keeps the hero's key display in a layer so `hidden` utilities still win", () => {
@@ -43,20 +54,47 @@ describe("the opening animation", () => {
   });
 });
 
+describe("the travelling dot", () => {
+  it("leaves its resting places empty only where it is running", () => {
+    expect(css).toMatch(/\.dot-live \[data-dot="slot"\] \{\s*visibility: hidden;/);
+  });
+
+  it("nudges what it lands on without replacing that element's own transform", () => {
+    const hit = block("@keyframes dot-hit");
+    expect(hit).toMatch(/translate:/);
+    expect(hit).toMatch(/scale:/);
+    expect(hit).not.toMatch(/transform/);
+  });
+
+  it("turns ink on the vermilion wall, where vermilion would not show", () => {
+    expect(block(".tone-flame {")).toMatch(/--s-dot: var\(--s-navy\)/);
+    expect(block(".s-dot {")).toMatch(/background: var\(--s-dot\)/);
+  });
+
+  it("never gets in the way of the pointer, and is not printed", () => {
+    expect(block(".dot-trail {")).toMatch(/pointer-events: none/);
+    expect(css).toMatch(/@media print \{\s*\.dot-trail \{\s*display: none;/);
+  });
+});
+
 describe("motion that respects the visitor", () => {
   const reduced = css.slice(css.lastIndexOf(".s-words .s-w > span,\n  .s-rise"));
 
   it("stops every scene under reduced motion", () => {
-    [".sort-piece", ".sort-bob", ".stack-slab", ".shot-turn", ".xray-stack", ".menu-card", ".s-caret"].forEach((selector) =>
+    [".sort-bob", ".stack-slab", ".shot-turn", ".xray-stack", ".menu-card", ".s-caret"].forEach((selector) =>
       expect(reduced).toContain(selector)
     );
+  });
+
+  it("shows the hero sorted under reduced motion, whatever a script has set", () => {
+    expect(reduced).toMatch(/\.hero-scene \{\s*--q: 99 !important;/);
   });
 
   it("removes the route flaps under reduced motion", () => {
     expect(css).toMatch(/\.route-flaps \{ display: none; \}/);
   });
 
-  it.each(["@keyframes s-word", "@keyframes s-rise", "@keyframes route-enter", "@keyframes sort-in", "@keyframes stack-settle"])(
+  it.each(["@keyframes s-word", "@keyframes s-rise", "@keyframes route-enter", "@keyframes sort-bob", "@keyframes dot-hit", "@keyframes stack-settle"])(
     "%s never animates a filter",
     (name) => {
       expect(block(name)).not.toMatch(/filter/);

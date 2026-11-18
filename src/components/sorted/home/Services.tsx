@@ -45,7 +45,7 @@ export function Services() {
                   </span>
                   <span className="flex items-center justify-between gap-5">
                     <span className="s-label text-[13.5px] text-s-ink-soft">{service.tag}</span>
-                    <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-s-ink text-s-bg">
+                    <span aria-hidden data-dot="top" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-s-ink text-s-bg">
                       <ArrowRight className="idx-arrow" size={22} strokeWidth={2.4} />
                     </span>
                   </span>

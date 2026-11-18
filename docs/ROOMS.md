@@ -128,7 +128,8 @@ Three faces, all SIL OFL and self-hosted in `src/fonts/`.
 - **Porthole** (`.s-porthole`): a disc of another colour let into the
   wall, behind the content.
 - **Dot** (`.s-dot`): the vermilion dot after the wordmark, beside the
-  hero's serif word and under the current link.
+  hero's serif word and under the current link. Its colour is `--s-dot`:
+  vermilion, or ink on the vermilion wall.
 - **Frames** (`ui/Frames.tsx`): `BrowserFrame` and `PhoneFrame` draw a
   flat window or phone around a real capture. One `<figure role="img">`
   carries the description; an empty `alt` makes the frame decorative.
@@ -153,7 +154,7 @@ page behind does not scroll.
 
 | Room | Wall | Floor | What stands in it |
 |---|---|---|---|
-| Hero | cobalt | paper | The tagline across the wall with "sorted." in the serif; twelve stickers that arrive askew with a problem showing and line up fixed; a switch between "as found" and "sorted"; three typewritten lines on the floor |
+| Hero | cobalt | paper | The tagline across the wall with "sorted." in the serif; twelve stickers, askew with a problem showing, that the dot fixes one by one as the page scrolls; three typewritten lines on the floor |
 | Clients | paper | – | Logos as ink masks on rounded tiles |
 | Services | ink | pink | Five rounded rows in the service colours that open under the pointer (`.idx`, CSS only; all open on touch) |
 | Work | ochre | bottle | Every project as a card with its picture on a coloured mat, a degree or two off square |
@@ -162,11 +163,48 @@ page behind does not scroll.
 | Process | mint | tomato | Four paper cards numbered in the serif |
 | Contact | vermilion | cobalt | The question beside a sun porthole |
 
+## The travelling dot
+
+`effects/DotTrail.tsx`, mounted once in `Shell`. One dot is carried down
+every Rooms page. It stands on whichever **anchor** is nearest the
+middle of the window, moves with that element as the page scrolls, and
+hops to the next in an arc when another comes nearer: it stretches as it
+flies, squashes as it lands, and what it lands on gives a little. It
+starts as the dot beside "sorted." in the hero and ends, grown to size,
+as the dot of the footer's wordmark.
+
+An anchor is any element with `data-dot`:
+
+| `data-dot` | The dot… |
+|---|---|
+| `top` (or empty) | perches on the element's top edge; `data-dot-x` says where along it (`"0.25"`, `"12px"`, `"-20px"` from the right) |
+| `slot` | fills a placeholder at the placeholder's own size (`<Dot slot />`) |
+| `start` | stands just before a line of text |
+| `steps` | visits the element's `data-dot-step` children in turn: a row left to right as it rises past the eye's line, a grid like a page |
+
+The serif word of every section heading is an anchor without being
+marked, as is that of a page heading (`Display dotEm`). `Eyebrow` and
+the audit bar's button are anchors wherever they appear, so inner pages
+get a route for free. `data-dot-pin` holds the dot on one anchor
+whatever else is nearer (the hero's sticker being fixed).
+
+What the dot lands on is told in attributes, and answers in CSS:
+`data-dot-hit` for the moment of landing (a nudge, written with
+`translate` and `scale` so it adds to the element's own transform) and
+`data-dot-on` while the dot stays (a service's arrow turns, a client's
+tile turns pink and leans, a picture straightens, a process card lifts).
+
+The arithmetic (where the dot stands, which anchor wins, the spring) is
+in `effects/dot-math.ts` and tested there. The loop only runs while
+something is moving. The dot is `aria-hidden`, takes no pointer events,
+is not printed, and does not exist under reduced motion or without
+JavaScript, where the placeholders show their own dots.
+
 ## Motion
 
 | Motion | Where | What it does |
 |---|---|---|
-| **Sticker wall** (`home/Hero.tsx`, `.sort-*`) | Home hero | Flat. Stickers move between where they were found and their slots; the letters of "sorted." sort with them; the wall drifts away from a mouse |
+| **Sticker wall** (`home/Hero.tsx`, `.sort-*`, `.hero-scene`) | Home hero | Flat, and played by the scroll. One number, `--q` (`home/hero-scroll.ts`), runs from 0, the wall as found, through one unit per sticker to the letters of "sorted." settling; CSS works each sticker out from it. On a wide, tall window the room holds still (`position: sticky`) while it plays; on a small one it plays as the wall scrolls past. The wall drifts away from a mouse |
 | **Rise** (`Reveal`, `SplitWords`, `.s-rise`) | Everywhere | Blocks rise into place, some landing a degree or two off square; headline words rise one at a time |
 | **Pictures** (`.shot`) | Work, sample sites, case studies | A capture hangs off square, drifts in on scroll (CSS scroll timeline) and straightens under the pointer |
 | **Exploded page** (`ui/XRay.tsx`) and **slab stack** (`ui/SlabStack.tsx`) | Audit, inner-page heroes, 404 | The only 3D left: two small, bounded DOM scenes with their own `perspective` |
@@ -174,10 +212,12 @@ page behind does not scroll.
 
 ### Rules that keep it fast and safe
 
-- **The first paint is the finished layout.** The hero's arrival is a
-  CSS animation with only a `from` keyframe (`data-intro`), so it plays
-  without JavaScript, never delays the headline and always ends on the
-  server-rendered layout. Hero text never starts at `opacity: 0`.
+- **The page is right without JavaScript.** The hero's scene is one
+  custom property; the stylesheet's default for it is past the end, a
+  `<noscript>` rule keeps it there and lets go of the pin, and reduced
+  motion does the same. The headline is never hidden or delayed: at the
+  first frame its last word is askew, still readable, and its
+  accessible name is the whole sentence.
 - Transform and opacity only. No animated `filter`, no `blur()`, no
   backdrop blur, no canvas (`effects/scene-safety.test.tsx` guards this).
 - The page shell is never a 3D context.
@@ -185,7 +225,8 @@ page behind does not scroll.
   view())`; other browsers show the finished state.
 - Pointer-following runs only with a fine pointer.
 - `prefers-reduced-motion` stops every scene and shows every entrance in
-  its end state; the switch still works, instantly.
+  its end state: the hero is sorted and does not hold, and there is no
+  travelling dot.
 - Component classes in `globals.css` are unlayered, so they beat
   Tailwind utilities. `.s-key`'s `display` alone sits in
   `@layer components` so `hidden` and `lg:hidden` still apply. For the
@@ -198,7 +239,7 @@ WCAG 2.2 AA. Focus is two rings, ink inside sun, so it shows on every
 wall. Decorative scenes, floors without content, portholes and dots are
 `aria-hidden`. `npm run test:contrast` measures the text of every
 opening and closing room against the pixels actually painted behind it
-(wall, porthole, floor), sorted and scattered, at five screen sizes.
+(wall, porthole, floor), sorted and as found, at five screen sizes.
 
 ## Social cards
 

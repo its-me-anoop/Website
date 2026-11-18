@@ -23,7 +23,7 @@ export function ClientLogos() {
           </h2>
           <Eyebrow>Clients</Eyebrow>
         </div>
-        <ul className="m-0 grid list-none grid-cols-2 gap-3 p-0 md:grid-cols-4">
+        <ul data-dot="steps" className="m-0 grid list-none grid-cols-2 gap-3 p-0 md:grid-cols-4">
           {clients.map((client, i) => (
             <Reveal as="li" key={client.name} turn={i % 2 ? 1 : -1} delay={(i % 4) * 0.07} className="max-sm:odd:last:col-span-2">
               <ClientCell client={client} />
@@ -36,16 +36,22 @@ export function ClientLogos() {
 }
 
 const cellClass =
-  "group flex h-full min-h-[124px] flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-[24px] bg-s-raised px-4 py-7 text-s-ink";
+  "client-tile group flex h-full min-h-[124px] flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-[24px] bg-s-raised px-4 py-7 text-s-ink";
 
 function ClientCell({ client }: { client: Client }) {
   const body = <ClientMark client={client} />;
-  if (!client.href) return <div className={cellClass}>{body}</div>;
+  if (!client.href)
+    return (
+      <div data-dot-step className={cellClass}>
+        {body}
+      </div>
+    );
   return (
     <a
       href={client.href}
       target="_blank"
       rel="noopener noreferrer"
+      data-dot-step
       className={`${cellClass} transition-[background-color,color,transform] duration-300 hover:-translate-y-1 hover:-rotate-1 hover:bg-s-pink hover:text-s-navy`}
     >
       {body}

@@ -72,10 +72,14 @@ the demo-site scopes.
   `GET /api/audit?url=…`, rate-limited, SSRF-guarded, nothing stored.
   The bar is the hero action and the closing action on every page.
 - **The sticker wall**: the home hero is twelve stickers (website,
-  domain, email, backups, Wi-Fi, search…) that arrive askew with a
-  problem showing, then line up with it fixed. A switch puts the wall
-  back to "as found". Plain DOM and CSS: it plays without JavaScript and
-  the first paint is the finished layout.
+  domain, email, backups, Wi-Fi, search…), askew with a problem showing.
+  As you scroll, the room holds still and the dot lands on each one in
+  turn; it straightens and the problem turns into the fix. Without
+  JavaScript, and under reduced motion, the wall is simply sorted.
+- **The travelling dot**: one vermilion dot is carried down every page,
+  hopping from element to element as you scroll and nudging what it
+  lands on. It starts in the headline and ends as the dot of the
+  footer's wordmark.
 - **A colour for each service**: cobalt, vermilion, mint, pink and sun
   follow Websites, Apps, IT support, Social media and SEO from the
   services index on the home page to each service's own page.

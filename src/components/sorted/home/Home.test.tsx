@@ -1,6 +1,6 @@
 import React from "react";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { LazyMotion } from "framer-motion";
 import domMax from "@/lib/motion-features";
 import { clients } from "@/lib/marketing/clients";
@@ -45,27 +45,47 @@ describe("Home", () => {
     expect(headings[0]).toHaveAccessibleName("Your digital side, sorted.");
   });
 
-  it("opens on the sticker wall: every piece fixed and filed, described once for assistive technology", () => {
+  it("opens on the sticker wall as it was found, described once for assistive technology", () => {
     renderHome();
     const hero = document.getElementById("top")!;
-    expect(hero).toHaveAttribute("data-state", "sorted");
+    expect(hero).toHaveAttribute("data-state", "mess");
     const table = within(hero).getByRole("img", { name: /Twelve parts of an organisation's digital side/ });
     expect(table.querySelectorAll(".sort-piece")).toHaveLength(pieces.length);
-    pieces.forEach((piece) => expect(within(table).getByText(piece.sorted)).toBeInTheDocument());
+    /* Both the problem and the fix are in the markup; CSS shows the one the scroll has reached. */
+    pieces.forEach((piece) => {
+      expect(within(table).getByText(piece.found)).toBeInTheDocument();
+      expect(within(table).getByText(piece.sorted)).toBeInTheDocument();
+    });
   });
 
-  it("puts the wall back to how things were found, and sorted again, with one switch", () => {
+  it("lets the scroll play the scene: no switch, one number for CSS to read, and a room that can hold", () => {
     renderHome();
     const hero = document.getElementById("top")!;
-    const toggle = within(hero).getByRole("switch", { name: "Show everything sorted" });
-    expect(toggle).toHaveAttribute("aria-checked", "true");
-    fireEvent.click(toggle);
-    expect(toggle).toHaveAttribute("aria-checked", "false");
-    expect(hero).toHaveAttribute("data-state", "mess");
-    /* The opening animation must not fight the switch once it has been used. */
-    expect(hero).not.toHaveAttribute("data-intro");
-    fireEvent.click(toggle);
-    expect(hero).toHaveAttribute("data-state", "sorted");
+    expect(within(hero).queryByRole("switch")).toBeNull();
+    expect(hero.style.getPropertyValue("--q")).toBe("0");
+    expect(hero.style.getPropertyValue("--count")).toBe(String(pieces.length));
+    expect(hero).toHaveAttribute("data-pin");
+    expect(hero.querySelector(".hero-pin")).not.toBeNull();
+    /* Each sticker knows its place in the order the dot visits them. */
+    const order = Array.from(hero.querySelectorAll<HTMLElement>(".sort-piece"), (el) => el.style.getPropertyValue("--n"));
+    expect(order).toEqual(pieces.map((_, i) => String(i)));
+  });
+
+  it("gives the travelling dot a place to start, in the headline, and one to end, in the footer's wordmark", () => {
+    const { container } = renderHome();
+    const slots = container.querySelectorAll('[data-dot="slot"]');
+    expect(slots).toHaveLength(2);
+    expect(document.getElementById("hero-title")).toContainElement(slots[0] as HTMLElement);
+    expect(container.querySelector("footer")).toContainElement(slots[1] as HTMLElement);
+    slots.forEach((slot) => expect(slot).toHaveAttribute("aria-hidden", "true"));
+  });
+
+  it("marks something for the dot to land on in every room", () => {
+    renderHome();
+    ["top", "clients", "services", "work", "audit", "studio", "process", "contact"].forEach((id) =>
+      expect(document.getElementById(id)!.querySelector("[data-dot]"), `#${id}`).not.toBeNull()
+    );
+    expect(document.getElementById("work")!.querySelectorAll("[data-dot-step]")).toHaveLength(featuredWork.length);
   });
 
   it("scatters the pieces the same way on the server and the client", () => {
@@ -233,7 +253,7 @@ describe("Home", () => {
     const floor = document.getElementById("top")!.querySelector("[data-floor]")!;
     expect(floor).not.toHaveAttribute("aria-hidden");
     expect(within(floor as HTMLElement).getAllByRole("listitem")).toHaveLength(3);
-    expect(within(floor as HTMLElement).getByRole("link", { name: "Scroll to services" })).toHaveAttribute("href", "#services");
+    expect(within(floor as HTMLElement).getByRole("link", { name: "Scroll to clients" })).toHaveAttribute("href", "#clients");
   });
 
   it("renders the four process steps and the footer contact details", () => {

@@ -18,11 +18,11 @@ export function Contact() {
           Got something that needs <em>sorting?</em>
         </h2>
         <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
-          <Link href="/book" className="s-key group/btn h-16 px-8 text-[19px]">
+          <Link href="/book" data-dot="top" className="s-key group/btn h-16 px-8 text-[19px]">
             Book a {site.booking.durationMinutes}-minute call
             <ArrowRight size={20} strokeWidth={2.6} aria-hidden className="transition-transform duration-300 group-hover/btn:translate-x-1" />
           </Link>
-          <a href={`mailto:${site.email}`} className="s-ul s-display text-[clamp(21px,2.6vw,36px)] text-s-ink">
+          <a href={`mailto:${site.email}`} data-dot="top" data-dot-x="0.5" className="s-ul s-display text-[clamp(21px,2.6vw,36px)] text-s-ink">
             {site.email}
           </a>
         </div>

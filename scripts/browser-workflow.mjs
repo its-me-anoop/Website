@@ -249,15 +249,26 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 10) note("home", `expected 10 project cards, found ${projects}`);
 
-  /* The sticker wall: the switch must flip it to "as found" and back,
-     and every piece must be on screen once sorted. */
+  /* The sticker wall: it opens as found, the scroll must sort it and
+     bring the travelling dot with it, and every piece must be on screen
+     once sorted. */
   const table = page.locator("#top");
-  const toggle = table.getByRole("switch");
-  await toggle.click();
-  if ((await table.getAttribute("data-state")) !== "mess") note("home", "the switch did not scatter the sticker wall");
-  await toggle.click();
-  await page.waitForTimeout(1600);
-  if ((await table.getAttribute("data-state")) !== "sorted") note("home", "the switch did not sort the wall again");
+  if ((await table.getAttribute("data-state")) !== "mess") note("home", "the hero did not open as found");
+  if (!(await page.locator("[data-dot-trail]").count())) note("home", "the travelling dot is missing");
+  await page.evaluate(() => {
+    document.documentElement.style.scrollBehavior = "auto";
+    const hero = document.querySelector("#top");
+    scrollTo(0, hero.offsetTop + hero.offsetHeight / 2);
+  });
+  await page.waitForTimeout(500);
+  if (!(await page.locator("#top .sort-piece[data-dot-pin]").count()) && (await table.getAttribute("data-state")) === "sorting")
+    note("home", "the dot is not on a sticker while the wall is being sorted");
+  await page.evaluate(() => {
+    const hero = document.querySelector("#top");
+    scrollTo(0, hero.offsetTop + hero.offsetHeight - innerHeight);
+  });
+  await page.waitForTimeout(1200);
+  if ((await table.getAttribute("data-state")) !== "sorted") note("home", "scrolling through the hero did not sort the wall");
   const strays = await page.evaluate(() =>
     [...document.querySelectorAll("#top .sort-piece")]
       .filter((el) => getComputedStyle(el).display !== "none")
@@ -265,6 +276,18 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
       .filter((r) => r.left < -2 || r.right > innerWidth + 2).length
   );
   if (strays) note("home", `${strays} sorted piece(s) sit outside the viewport`);
+
+  /* At the foot of the page the dot comes to rest as the dot of the wordmark. */
+  await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(1500);
+  const rest = await page.evaluate(() => {
+    const dot = document.querySelector("[data-dot-trail]").getBoundingClientRect();
+    const slot = document.querySelector('footer [data-dot="slot"]').getBoundingClientRect();
+    return Math.hypot(dot.x + dot.width / 2 - slot.x - slot.width / 2, dot.y + dot.height / 2 - slot.y - slot.height / 2);
+  });
+  if (rest > 6) note("home", `the dot rests ${Math.round(rest)}px from the footer wordmark's dot`);
+  await page.evaluate(() => scrollTo(0, 0));
+  await page.waitForTimeout(600);
 
   /* The founder's portrait sits on a badge that tilts: it must still be
      painted, unclipped, once scrolled to. */

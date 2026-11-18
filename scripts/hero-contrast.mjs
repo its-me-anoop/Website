@@ -5,7 +5,7 @@
  * hides the glyphs, samples the pixels actually painted behind them
  * (the wall, a porthole, the floor, a card, a scene that strays behind
  * the copy) and checks WCAG AA (4.5:1, or 3:1 for large
- * text). The home hero is measured sorted and scattered.
+ * text). The home hero is measured sorted and as found.
  *
  *   1. npm run build && PORT=3100 npm start
  *   2. BASE_URL=http://localhost:3100 npm run test:contrast
@@ -14,7 +14,7 @@ import { chromium, devices } from "playwright";
 
 const BASE = process.env.BASE_URL || "http://localhost:3100";
 
-/** The bands with text on a colour. `mess` flips the sticker wall first. */
+/** The bands with text on a colour. `mess` measures the home hero as found, its first frame. */
 const TARGETS = [
   { route: "/", selector: "#top" },
   { route: "/", selector: "#top", mess: true },
@@ -63,8 +63,9 @@ for (const [label, options] of VIEWPORTS) {
     const exists = await page.locator(selector).count();
     if (!exists) continue;
     if (mess) {
-      await page.locator(selector).getByRole("switch").click();
-      await page.waitForTimeout(400);
+      /* Reduced motion shows the wall sorted; put the scene back to its first frame by hand. */
+      await page.locator(selector).evaluate((el) => el.style.setProperty("--q", "0", "important"));
+      await page.waitForTimeout(500);
     }
 
     /* Measure each block in turn, scrolled to the top of the viewport. */
