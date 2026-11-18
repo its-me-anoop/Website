@@ -2032,3 +2032,14 @@ body:has(.demo-physio-root) > a[href="#main"]:focus {
     mask-image: linear-gradient(100deg, transparent 32%, #0009);
   }
 }
+@media screen {
+  .studio-project :is(h1, h2),
+  :is(.demo-care-root, .demo-dental-root, .demo-gp-root, .demo-pharm-root, .demo-physio-root) main h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    letter-spacing: -.045em;
+    text-wrap: balance;
+  }
+  .studio-project main, .studio-project section[id] { scroll-margin-top: 5rem; }
+  .studio-project section + section { border-block-start: 1px solid color-mix(in srgb, currentColor 16%, transparent); }
+}

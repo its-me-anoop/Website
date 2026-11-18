@@ -16,7 +16,7 @@ export function ProductShell({ children, mainClassName }: { children: ReactNode;
       <div className="s-chrome">
         <Nav />
       </div>
-      <main id="main" className={mainClassName}>
+      <main id="main" className={`studio-project ${mainClassName ?? ""}`}>
         {children}
       </main>
       <div className="s-chrome">
