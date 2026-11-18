@@ -3,16 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { site } from "@/lib/site";
 import { footerColumns } from "@/lib/marketing/content";
-
-const WORDMARK = "Flutterly";
-const letterTones = ["#ffffff", "var(--s-sun)", "var(--s-pink)", "var(--s-jade)", "var(--s-flame)"] as const;
+import { Dot } from "../ui/Room";
 
 /**
- * The navy foot of every page: who to write to, every route in five
- * columns, and the name spelled out in keys you can press.
+ * The foot of every page is the last sheet in the file: a ruled
+ * notebook page with a margin line. Who to write to, every route in
+ * five columns (the pointer runs a pink highlighter under a link), and
+ * the name written as large as the page allows.
  * `credit` replaces the closing line, e.g. a product's creator credit.
  */
 export function Footer({ credit }: { credit?: ReactNode } = {}) {
@@ -20,12 +20,12 @@ export function Footer({ credit }: { credit?: ReactNode } = {}) {
   const pathname = usePathname();
 
   return (
-    <footer className="tone-navy relative overflow-hidden">
-      <div className="mx-auto w-full max-w-[1320px] px-5 pt-16 sm:px-8 sm:pt-20">
+    <footer className="tone-chalk s-ruled relative overflow-hidden [--margin:clamp(14px,4vw,64px)]">
+      <div className="mx-auto w-full max-w-[1440px] pl-[calc(var(--margin)+18px)] pr-5 pt-16 sm:pr-8 sm:pt-24">
         <div className="grid gap-14 xl:grid-cols-[1fr_2.5fr]">
           <div>
-            <div className="flex items-center gap-3">
-              <Image src="/flutterly-logo.png" alt="" width={40} height={40} />
+            <div data-dot="top" data-dot-x="22px" className="flex w-fit items-center gap-3">
+              <Image src="/flutterly-logo.png" alt="" width={44} height={44} />
               <span className="s-display text-[30px]">Flutterly</span>
             </div>
             <p className="mt-5 max-w-[360px] text-[16px] leading-[1.6] text-s-ink-soft">
@@ -38,27 +38,27 @@ export function Footer({ credit }: { credit?: ReactNode } = {}) {
                 { label: "Existing clients", email: site.supportEmail },
               ].map((row) => (
                 <li key={row.email} className="flex flex-col gap-0.5">
-                  <span className="s-label text-[12px] text-s-muted">{row.label}</span>
-                  <a href={`mailto:${row.email}`} className="s-ul w-fit font-semibold text-s-ink">
+                  <span className="s-label text-[13px] text-s-muted">&gt; {row.label}</span>
+                  <a href={`mailto:${row.email}`} className="s-hl w-fit font-semibold text-s-ink">
                     {row.email}
                   </a>
                 </li>
               ))}
-              <li className="pt-1 text-s-muted">
-                {site.address.addressLocality}, {site.address.addressRegion}, UK
+              <li className="s-label pt-1 text-[13px] text-s-muted">
+                &gt; {site.address.addressLocality}, {site.address.addressRegion}, UK
               </li>
             </ul>
           </div>
 
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 wide:grid-cols-5">
             {footerColumns.map((column) => (
               <div key={column.title}>
-                <h3 className="s-label border-b-2 border-s-line-2 pb-2.5 text-[13px] text-s-accent">{column.title}</h3>
+                <h3 className="s-eyebrow">{column.title}</h3>
                 <ul className="mt-4 space-y-2.5">
                   {column.links.map((link) => {
                     const external = link.href.startsWith("http");
                     const classes =
-                      "inline-flex min-h-6 items-center text-[15px] text-s-ink-soft transition-colors hover:text-white aria-[current=page]:font-semibold aria-[current=page]:text-white";
+                      "s-hl inline min-h-6 text-[15px] leading-[1.6] text-s-ink-soft transition-colors hover:text-s-ink aria-[current=page]:font-semibold aria-[current=page]:text-s-ink";
                     return (
                       <li key={link.label}>
                         {external ? (
@@ -79,26 +79,13 @@ export function Footer({ credit }: { credit?: ReactNode } = {}) {
           </nav>
         </div>
 
-        {/* The name as a row of keys. Decorative: the brand is named above. */}
-        <div aria-hidden className="mt-16 flex select-none justify-between gap-[0.9vw] sm:mt-20">
-          {WORDMARK.split("").map((letter, i) => (
-            <span
-              key={i}
-              className="s-key s-display flex aspect-[5/6] min-w-0 flex-1 items-center justify-center [--key-radius:1vw] text-[clamp(1.5rem,7.6vw,6.6rem)] [--key-depth:clamp(4px,0.9vw,12px)]"
-              style={
-                {
-                  "--key-face": letterTones[i % letterTones.length],
-                  "--key-ink": "var(--s-navy)",
-                  "--key-edge": `color-mix(in srgb, ${letterTones[i % letterTones.length]} 58%, #000)`,
-                } as CSSProperties
-              }
-            >
-              {letter}
-            </span>
-          ))}
-        </div>
+        {/* The name as large as the page allows. Decorative: the brand is named above. */}
+        <p aria-hidden className="s-display mt-16 flex select-none items-baseline whitespace-nowrap text-[clamp(3.6rem,19.5vw,17.5rem)] leading-[0.8] [--lh:0.8] sm:mt-24">
+          Flutterly
+          <Dot slot className="ml-[0.04em] text-[0.62em]" />
+        </p>
 
-        <div className="mt-10 flex flex-col gap-2 border-t-2 border-s-line-2 py-6 text-[14px] text-s-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="s-label mt-8 flex flex-col gap-2 border-t-[1.5px] border-s-ink py-6 text-[13px] text-s-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.legalName}. {site.address.addressLocality}, UK.
           </p>

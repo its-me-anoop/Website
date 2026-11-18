@@ -48,7 +48,7 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
 
   return (
     <header className="mx-auto w-full max-w-[1280px] px-5 sm:px-8">
-      <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-start lg:gap-16">
+      <div className="grid gap-10 wide:grid-cols-[1fr_auto] wide:items-start wide:gap-16">
         <div>
           <Reveal>
             <Eyebrow className="text-s-muted">Instant website audit</Eyebrow>
@@ -93,7 +93,7 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
                 name="sector"
                 defaultValue={report.sector}
                 onChange={(e) => e.currentTarget.form?.requestSubmit()}
-                className="rounded-[8px] border border-s-line-2 bg-s-raised px-2.5 py-1.5 text-[14px] text-s-ink"
+                className="rounded-full border border-s-line-2 bg-s-raised px-2.5 py-1.5 text-[14px] text-s-ink"
               >
                 {sectorOptions.map((o) => (
                   <option key={o.value} value={o.value}>
@@ -103,7 +103,7 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
                 ))}
               </select>
               <noscript>
-                <button type="submit" className="rounded-[8px] bg-s-raised px-3 py-1.5 text-s-ink">
+                <button type="submit" className="rounded-full bg-s-raised px-4 py-1.5 text-s-ink">
                   Re-run
                 </button>
               </noscript>
@@ -128,7 +128,7 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
           </Reveal>
         </div>
 
-        <Reveal delay={0.1} className="flex flex-col items-center lg:items-end">
+        <Reveal delay={0.1} className="flex flex-col items-center wide:items-end">
           <ScoreDial score={report.score} grade={report.grade} />
           <p className="mt-4 flex items-center gap-2 text-[14px] text-s-ink-soft">
             <span className="s-display text-[28px] text-s-ink">{report.grade}</span>
@@ -143,7 +143,7 @@ export function ReportHeader({ report, url }: { report: AuditReport; url: string
       <Reveal delay={0.2} className="mt-14">
         {/* Two columns until all six fit in a row: an even split keeps
             every fact clear of the fold on the iPhone Duo's inner screen. */}
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-y-2 border-s-rule py-6 lg:grid-cols-6">
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-y-[1.5px] border-s-rule py-6 wide:grid-cols-6">
           {facts.map((f) => (
             <div key={f.label}>
               <dt className="s-label text-[12.5px] text-s-muted">{f.label}</dt>

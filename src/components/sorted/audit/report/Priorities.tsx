@@ -21,7 +21,7 @@ export function Priorities({ report }: { report: AuditReport }) {
   return (
     <section id="fix-first" aria-labelledby="fix-first-heading" className="">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-20 sm:px-8 sm:py-28">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-16">
+        <div className="grid gap-10 wide:grid-cols-[minmax(0,320px)_1fr] wide:gap-16">
           <Reveal>
             <Eyebrow className="text-s-ink-soft">Fix first</Eyebrow>
             <Display as="h2" id="fix-first-heading" size="md" className="mt-5 text-s-ink">
@@ -43,10 +43,10 @@ export function Priorities({ report }: { report: AuditReport }) {
           </Reveal>
 
           {top.length > 0 ? (
-            <ol className="grid">
+            <ol data-dot="steps" className="grid">
               {top.map((check, i) => (
                 <Reveal as="li" key={check.id} delay={i * 0.06} className="grid grid-cols-[2.5rem_1fr] gap-x-4 border-t-[1.5px] border-s-line-2 py-7 sm:grid-cols-[4rem_1fr] sm:gap-x-6">
-                  <span className="s-display text-[40px] text-s-accent sm:text-[48px]">{i + 1}</span>
+                  <span data-dot-step className="s-display h-fit w-fit text-[40px] text-s-accent sm:text-[48px]">{i + 1}</span>
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
                       <h3 className="s-display text-[24px] text-s-ink">{check.title}</h3>

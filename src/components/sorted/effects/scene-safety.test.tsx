@@ -9,7 +9,7 @@ import { XRay, XRAY_SHEETS } from "../ui/XRay";
 import { Reveal, SplitWords, Tilt } from "./Motion";
 
 /*
- * Sorted turns things in 3D on purpose, so these guard the patterns
+ * Rooms is flat apart from two small 3D scenes, so these guard the patterns
  * that made iOS Safari leave regions black and freeze animations
  * mid-frame on an earlier version of the site: filter animations, large
  * blur layers, canvases, and 3D contexts that swallow the page. Every

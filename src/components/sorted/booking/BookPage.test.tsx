@@ -45,7 +45,7 @@ describe("BookPage", () => {
         theme: "light",
         layout: "month_view",
         cssVarsPerTheme: expect.objectContaining({
-          light: { "cal-brand": "#2238e8" },
+          light: { "cal-brand": "#0b41c2" },
         }),
       })
     );

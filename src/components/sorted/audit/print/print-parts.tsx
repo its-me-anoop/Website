@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 /*
  * Paper-first pieces for the printed audit report. The on-screen report
- * runs the Sorted language; the PDF has its own small ramp (the --k-*
+ * runs the Rooms language; the PDF has its own small ramp (the --k-*
  * tokens: chalk sheets, navy bands, cobalt marks) in the same palette,
  * because it is printed and handed round.
  */

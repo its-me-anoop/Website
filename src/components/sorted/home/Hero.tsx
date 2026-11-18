@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import Link from "next/link";
 import {
   Accessibility,
@@ -21,7 +21,9 @@ import {
 import { heroCopy } from "@/lib/marketing/content";
 import { useFinePointer, useMotionAllowed } from "../effects/hooks";
 import { Container } from "../ui/primitives";
+import { Dot, Floor } from "../ui/Room";
 import { serviceColour } from "../ui/tones";
+import { activePiece, heroState, scrollQ } from "./hero-scroll";
 import { pieces, scatterOf, type Piece } from "./pieces";
 
 const icons: Record<Piece["icon"], LucideIcon> = {
@@ -39,33 +41,41 @@ const icons: Record<Piece["icon"], LucideIcon> = {
   pin: MapPin,
 };
 
-/** How far each letter of the emphasised word sits from its place before it is sorted (em, em, degrees, degrees). */
+/** How far each letter of the emphasised word sits out of line before it is sorted (em, em, degrees): askew, still readable. */
 const letterScatter = [
-  [3.05, -0.06, -9, 40],
-  [0.62, 0.1, 7, -30],
-  [0.6, -0.08, -6, 24],
-  [-1.3, 0.09, 10, -44],
-  [0, -0.1, -8, 36],
-  [-3.2, 0.07, 6, -22],
-  [0, 0.12, 14, 0],
+  [0.02, -0.07, -9],
+  [-0.03, 0.09, 7],
+  [0.03, -0.06, -6],
+  [-0.02, 0.1, 10],
+  [0, -0.08, -8],
+  [0.03, 0.07, 6],
+  [0, 0.1, 14],
 ] as const;
 
 /**
- * The opening: the tagline on cobalt beside a table of twelve pieces
- * of a digital side. They arrive scattered, with their problems
- * showing, and drop into rows with each one fixed; the last word of
- * the headline sorts its own letters at the same moment. A switch
- * flips the table back to how things were found, and the table leans
- * towards a mouse.
+ * The opening room: a cobalt wall and a paper floor. The tagline runs
+ * across the wall, heavy, with its last word in the serif; under it,
+ * the offer and, stuck to the wall, twelve stickers for the pieces of
+ * a digital side.
  *
- * The first paint is the sorted layout. The arrival is a CSS animation
- * (`data-intro`), so it plays without JavaScript, cannot delay the
- * headline, and ends in the layout the server sent. Reduced motion
- * shows the sorted table and the switch changes it at once.
+ * The room is a scene the scroll plays. It opens as things were found:
+ * the stickers askew with their problems showing, the letters of
+ * "sorted." out of line. As the page scrolls, the dot leaves the
+ * headline and goes into each sticker's red status light in turn; the
+ * sticker straightens and its problem turns into the fix. When the last
+ * one is done the letters settle, the headline keeps a dot of its own,
+ * and the travelling one goes where the room wants you to look: into
+ * the booking pill. On a wide, tall
+ * window the room holds still while this happens (`data-pin`); on a
+ * small one it plays as the wall scrolls past.
+ *
+ * One number drives it, `--q` on the section (see hero-scroll.ts); CSS
+ * works out every sticker from it. Without JavaScript, and under
+ * reduced motion, `--q` is past the end: the wall is sorted and the
+ * room does not hold.
  */
 export function Hero() {
-  const [sorted, setSorted] = useState(true);
-  const [intro, setIntro] = useState(true);
+  const section = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const fine = useFinePointer();
   const motion = useMotionAllowed();
@@ -79,8 +89,8 @@ export function Hero() {
     const onMove = (e: PointerEvent) => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        el.style.setProperty("--px", `${((e.clientX / window.innerWidth - 0.5) * 12).toFixed(2)}deg`);
-        el.style.setProperty("--py", `${((e.clientY / window.innerHeight - 0.5) * -9).toFixed(2)}deg`);
+        el.style.setProperty("--px", `${((e.clientX / window.innerWidth - 0.5) * -16).toFixed(1)}px`);
+        el.style.setProperty("--py", `${((e.clientY / window.innerHeight - 0.5) * -12).toFixed(1)}px`);
       });
     };
     window.addEventListener("pointermove", onMove, { passive: true });
@@ -92,148 +102,229 @@ export function Hero() {
     };
   }, [follow]);
 
+  /* The scroll plays the scene. */
+  useEffect(() => {
+    const root = section.current;
+    const wall = stage.current;
+    if (!motion || !root || !wall) return;
+
+    let shown: HTMLElement[] = [];
+    let held: HTMLElement | null = null;
+    let frame = 0;
+
+    /** Let go of whatever the dot was being held on: it is an anchor only while the scene holds the dot there. */
+    const release = () => {
+      held?.removeAttribute("data-dot-pin");
+      held?.removeAttribute("data-dot");
+      held = null;
+    };
+
+    /* The stickers on this size of wall, numbered in the order the dot visits them. */
+    const number = () => {
+      shown = Array.from(wall.querySelectorAll<HTMLElement>(".sort-piece")).filter((piece) => piece.offsetParent !== null);
+      const slots = wall.querySelectorAll<HTMLElement>(".sort-slot");
+      Array.from(wall.querySelectorAll<HTMLElement>(".sort-piece")).forEach((piece, i) => {
+        const n = String(shown.indexOf(piece));
+        piece.style.setProperty("--n", n);
+        slots[i]?.style.setProperty("--n", n);
+      });
+      root.style.setProperty("--count", String(shown.length));
+    };
+
+    const play = () => {
+      frame = 0;
+      const box = root.getBoundingClientRect();
+      const pinned = getComputedStyle(root.firstElementChild!).position === "sticky";
+      const wallBox = wall.getBoundingClientRect();
+      /* Not held, the scene lasts until the wall has nearly crossed the window, and never past the hero's own end. */
+      const whole = root.offsetHeight - window.innerHeight;
+      const across = wallBox.top - box.top + wallBox.height - window.innerHeight * 0.3;
+      const distance = pinned ? whole : Math.max(240, whole > 240 ? Math.min(across, whole) : across);
+      const q = scrollQ(-box.top, distance, shown.length);
+      root.style.setProperty("--q", q.toFixed(3));
+      root.dataset.state = heroState(q, shown.length);
+
+      /* The dot goes into the status light of the sticker being fixed; once the wall is sorted, into the booking pill. */
+      const active = activePiece(q, shown.length);
+      const next =
+        active !== null
+          ? shown[active].querySelector<HTMLElement>(".sort-bad i")
+          : root.dataset.state === "sorted"
+            ? root.querySelector<HTMLElement>("[data-hero-cta]")
+            : null;
+      if (next !== held) {
+        release();
+        if (next) {
+          next.setAttribute("data-dot", "into");
+          next.setAttribute("data-dot-pin", "");
+        }
+        held = next;
+      }
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(play);
+    };
+    const onResize = () => {
+      number();
+      onScroll();
+    };
+
+    number();
+    play();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      release();
+    };
+  }, [motion]);
+
   const headline = `${heroCopy.lines.join(" ")} ${heroCopy.emphasis}`;
 
   return (
     <section
       id="top"
+      ref={section}
       aria-labelledby="hero-title"
-      data-state={sorted ? "sorted" : "mess"}
-      data-intro={intro ? "" : undefined}
-      className="tone-cobalt relative isolate flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden"
+      data-state="mess"
+      data-pin=""
+      className="hero-scene tone-cobalt relative isolate"
+      style={{ "--q": 0, "--count": pieces.length } as CSSProperties}
     >
-      <Container className="relative grid flex-1 items-center gap-x-8 gap-y-10 pb-10 pt-10 sm:pt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:pb-16">
-        <div className="relative z-10 flex min-w-0 flex-col items-start gap-7">
+      <div className="hero-pin flex min-h-svh flex-col overflow-hidden">
+        <Container className="relative flex min-h-0 flex-1 flex-col gap-y-8 pb-10 pt-24 wide:gap-y-4 wide:pb-6 short:wide:gap-y-2 short:wide:pb-3 short:wide:pt-[90px]">
           <h1
             id="hero-title"
             aria-label={headline}
-            className="s-display text-[clamp(2.2rem,11.5vw,3.6rem)] [--lh:0.92] sm:text-[clamp(3.6rem,8.4vw,5rem)] lg:text-[clamp(3.6rem,5.7vw,5.9rem)]"
+            className="s-display relative z-10 text-[clamp(2.7rem,13.4vw,5.6rem)] [--lh:0.9] wide:text-[clamp(3.6rem,min(7.9vw,12.5svh),7.4rem)] short:wide:text-[clamp(2.6rem,min(7.2vw,9svh),4.2rem)]"
           >
             {heroCopy.lines.map((line) => (
               <span key={line}>
-                <span className="block">{line}</span>{" "}
+                <span className="block wide:inline">{line}</span>{" "}
               </span>
             ))}
-            <em className="mt-[0.08em]">
-              <span className="sort-word">
-                {heroCopy.emphasis.split("").map((letter, i) => {
-                  const [lx, ly, lr, lrx] = letterScatter[i % letterScatter.length];
-                  return (
-                    <span
-                      key={i}
-                      style={
-                        { "--i": i, "--lx": lx, "--ly": ly, "--lr": `${lr}deg`, "--lrx": `${lrx}deg` } as CSSProperties
-                      }
-                    >
-                      {letter}
-                    </span>
-                  );
-                })}
-              </span>
-            </em>
+            <span className="flex items-baseline gap-[0.12em]">
+              <Dot slot className="translate-y-[-0.08em] text-[0.86em]" />
+              <em>
+                <span className="sort-word">
+                  {heroCopy.emphasis.split("").map((letter, i) => {
+                    const [lx, ly, lr] = letterScatter[i % letterScatter.length];
+                    return (
+                      <span key={i} style={{ "--lx": lx, "--ly": ly, "--lr": `${lr}deg` } as CSSProperties}>
+                        {letter}
+                      </span>
+                    );
+                  })}
+                </span>
+              </em>
+            </span>
           </h1>
 
-          <p className="max-w-[540px] text-[clamp(17px,1.35vw,19.5px)] leading-[1.55] text-s-ink-soft">{heroCopy.copy}</p>
+          <div className="grid min-h-0 flex-1 items-end gap-x-12 gap-y-10 wide:grid-cols-[minmax(0,1fr)_minmax(0,1.02fr)] short:wide:gap-x-6 short:wide:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
+            <div className="relative z-10 flex min-w-0 flex-col items-start gap-7 wide:self-start wide:pt-6 short:wide:gap-5 short:wide:pt-2">
+              <p className="s-say max-w-[560px] text-[clamp(20px,1.9vw,27px)] text-s-ink">{heroCopy.copy}</p>
 
-          <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
-            <Link href="/book" className="s-key group/btn h-[54px] px-7 text-[17px]">
-              Book a call
-              <ArrowRight size={18} strokeWidth={2.6} aria-hidden className="transition-transform duration-300 group-hover/btn:translate-x-1" />
-            </Link>
-            <Link href="#work" className="s-ul inline-flex min-h-11 items-center text-[17px] font-semibold text-s-ink">
-              See the work
-            </Link>
-          </div>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+                <Link href="/book" data-hero-cta className="s-key group/btn h-14 px-7 text-[17px]">
+                  Book a call
+                  <ArrowRight size={18} strokeWidth={2.6} aria-hidden className="transition-transform duration-300 group-hover/btn:translate-x-1" />
+                </Link>
+                <Link href="#work" className="s-ul inline-flex min-h-11 items-center text-[17px] font-semibold text-s-ink">
+                  See the work
+                </Link>
+              </div>
+            </div>
 
-          <div className="mt-1 flex items-center gap-3.5">
-            <span aria-hidden className="s-label text-[13px] text-s-muted">
-              As found
-            </span>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={sorted}
-              aria-label="Show everything sorted"
-              onClick={() => {
-                setIntro(false);
-                setSorted((s) => !s);
-              }}
-              className="sort-switch"
-            />
-            <span aria-hidden className="s-label text-[13px] text-s-ink">
-              Sorted
-            </span>
-          </div>
-        </div>
-
-        <div
-          ref={stage}
-          role="img"
-          aria-label="Twelve parts of an organisation's digital side, from the website and email to backups, Wi-Fi and search, each one fixed and filed in its place."
-          className="sort-stage relative z-0 mx-auto w-full max-w-[520px] lg:max-w-none"
-        >
-          <div className="sort-parallax">
-            <div className="sort-table">
-              {pieces.map((piece) => (
-                <span key={`slot-${piece.key}`} className="sort-slot" data-extra={piece.extra ? "" : undefined} style={place(piece)} />
-              ))}
-              {pieces.map((piece, n) => {
-                const Icon = icons[piece.icon];
-                const s = scatterOf(n);
-                return (
-                  <div
-                    key={piece.key}
-                    className="slab sort-piece"
-                    data-extra={piece.extra ? "" : undefined}
-                    style={
-                      {
-                        ...place(piece),
-                        "--n": n,
-                        "--mx": s.mx,
-                        "--my": s.my,
-                        "--mz": s.mz,
-                        "--rx": `${s.rx}deg`,
-                        "--ry": `${s.ry}deg`,
-                        "--rz": `${s.rz}deg`,
-                        "--chip": serviceColour[piece.service],
-                        "--chip-ink": piece.service === "websites" ? "#ffffff" : "var(--s-navy)",
-                      } as CSSProperties
-                    }
-                  >
-                    <div className="sort-bob">
-                      <div className="sort-face">
-                        <div className="flex items-center justify-between gap-[1cqw]">
-                          <span className="font-extrabold tracking-[-0.02em] [font-stretch:108%]">{piece.title}</span>
-                          <span className="sort-chip">
-                            <Icon strokeWidth={2.3} />
-                          </span>
-                        </div>
-                        <div className="sort-status">
-                          <span className="sort-bad">
-                            <i />
-                            {piece.found}
-                          </span>
-                          <span className="sort-good">
-                            <i />
-                            {piece.sorted}
-                          </span>
+            <div
+              ref={stage}
+              role="img"
+              aria-label="Twelve parts of an organisation's digital side, from the website and email to backups, Wi-Fi and search, each one fixed and filed in its place."
+              className="sort-stage relative z-0 mx-auto w-full max-w-[520px] wide:max-w-[min(560px,56svh)] wide:justify-self-end short:wide:max-w-[max(432px,66svh)]"
+            >
+              <div className="sort-parallax">
+                <div className="sort-table">
+                  {pieces.map((piece, n) => (
+                    <span
+                      key={`slot-${piece.key}`}
+                      className="sort-slot"
+                      data-extra={piece.extra ? "" : undefined}
+                      style={{ ...place(piece), "--n": n } as CSSProperties}
+                    />
+                  ))}
+                  {pieces.map((piece, n) => {
+                    const Icon = icons[piece.icon];
+                    const s = scatterOf(n);
+                    return (
+                      <div
+                        key={piece.key}
+                        className="sort-piece"
+                        data-extra={piece.extra ? "" : undefined}
+                        style={
+                          {
+                            ...place(piece),
+                            "--n": n,
+                            "--mx": s.mx,
+                            "--my": s.my,
+                            "--rz": `${s.rz}deg`,
+                            "--chip": serviceColour[piece.service],
+                            "--chip-ink": piece.service === "websites" ? "#ffffff" : "var(--s-navy)",
+                          } as CSSProperties
+                        }
+                      >
+                        <div className="sort-bob">
+                          <div className="sort-face">
+                            <div className="flex items-center justify-between gap-[1cqw]">
+                              <span className="font-bold tracking-[-0.03em]">{piece.title}</span>
+                              <span className="sort-chip">
+                                <Icon strokeWidth={2.3} />
+                              </span>
+                            </div>
+                            <div className="sort-status">
+                              <span className="sort-bad">
+                                <i />
+                                {piece.found}
+                              </span>
+                              <span className="sort-good">
+                                <i />
+                                {piece.sorted}
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </Container>
-
-      <div className="border-t-2 border-s-line">
-        <Container className="s-label flex min-h-14 items-center justify-between gap-4 py-3 text-[12.5px] text-s-muted">
-          <span>{heroCopy.strip[0]}</span>
-          <span className="hidden lg:inline">{heroCopy.strip[1]}</span>
-          <span className="hidden sm:inline">{heroCopy.strip[2]}</span>
         </Container>
+
+        <Floor colour="paper" className="hero-floor">
+          <Container className="flex items-center justify-between gap-6 py-4 text-[#3a3836] sm:py-5 short:wide:py-2.5">
+            <ul className="s-mono m-0 flex list-none flex-col gap-1 p-0 text-[12.5px] sm:text-[13.5px]">
+              {heroCopy.strip.map((line, i) => (
+                <li key={line} className={i === 1 ? "hidden sm:flex short:wide:hidden" : "flex"}>
+                  <span aria-hidden className="mr-3 text-s-flame-deep">
+                    &gt;
+                  </span>
+                  {line}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#clients"
+              aria-label="Scroll to clients"
+              data-dot="top"
+              className="s-key s-key-navy s-mono h-11 shrink-0 gap-3 px-5 text-[13.5px] font-normal"
+            >
+              scroll
+              <span aria-hidden className="s-caret" />
+            </a>
+          </Container>
+        </Floor>
       </div>
     </section>
   );

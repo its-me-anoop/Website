@@ -2,7 +2,7 @@ import type { ServiceSlug } from "@/lib/marketing/services";
 
 /**
  * The colour code. Each service keeps one tone everywhere it appears:
- * its divider in the card index, its page hero, its tab on a project,
+ * its row in the services index, its page hero, its tab on a project,
  * its mark in the menu. Tone classes are defined in globals.css.
  */
 export const serviceTone: Record<ServiceSlug, string> = {

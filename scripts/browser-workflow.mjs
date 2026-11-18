@@ -4,8 +4,8 @@
  * Drives headless Chromium over every route at mobile and desktop viewports and
  * reports console errors, failed requests, broken images, overflow, missing
  * anchor targets, heading problems, reduced-motion issues and 404 behaviour.
- * It also exercises the homepage (the sorting table and its switch, the
- * card index, work, the studio badge, the menu and the audit bar), the
+ * It also exercises the homepage (the sticker wall and its switch, the
+ * services index, work, the studio portrait, the index menu and the audit bar), the
  * sample-site tabs on
  * the websites service page, and checks that key mobile content stays
  * inside the viewport.
@@ -127,7 +127,7 @@ async function auditPage(context, route, label = route) {
         /* Safari paints the page background into areas it reserves at
            the sides (landscape, and the iPhone Duo's side toolbar and
            corner camera) and tints its chrome with theme-color, so both
-           must match the chalk bar across the top of a Sorted page. */
+           must match the paper of a Rooms page. */
         sorted: Boolean(document.querySelector(".s-root")),
         pageBackground: getComputedStyle(document.documentElement).backgroundColor,
         themeColor: document.querySelector('meta[name="theme-color"]')?.getAttribute("content") ?? null,
@@ -146,9 +146,9 @@ async function auditPage(context, route, label = route) {
     if (data.broken.length) note(label, `broken images: ${data.broken.join(", ")}`);
     if (data.overflow > 1) note(label, `horizontal overflow ${data.overflow}px`);
     if (data.sorted) {
-      if (data.pageBackground !== "rgb(244, 243, 238)")
-        note(label, `page background is ${data.pageBackground}, expected chalk; Safari shows it in side safe areas`);
-      if (data.themeColor !== "#f4f3ee") note(label, `theme-color is ${data.themeColor}, expected #f4f3ee`);
+      if (data.pageBackground !== "rgb(244, 239, 232)")
+        note(label, `page background is ${data.pageBackground}, expected paper; Safari shows it in side safe areas`);
+      if (data.themeColor !== "#f4efe8") note(label, `theme-color is ${data.themeColor}, expected #f4efe8`);
     }
     if (data.wideFrames.length)
       note(label, `frames wider than the viewport: ${data.wideFrames.join(", ")}`);
@@ -249,15 +249,26 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 10) note("home", `expected 10 project cards, found ${projects}`);
 
-  /* The sorting table: the switch must flip it to "as found" and back,
-     and every piece must be on screen once sorted. */
+  /* The sticker wall: it opens as found, the scroll must sort it and
+     bring the travelling dot with it, and every piece must be on screen
+     once sorted. */
   const table = page.locator("#top");
-  const toggle = table.getByRole("switch");
-  await toggle.click();
-  if ((await table.getAttribute("data-state")) !== "mess") note("home", "the switch did not scatter the sorting table");
-  await toggle.click();
-  await page.waitForTimeout(1600);
-  if ((await table.getAttribute("data-state")) !== "sorted") note("home", "the switch did not sort the table again");
+  if ((await table.getAttribute("data-state")) !== "mess") note("home", "the hero did not open as found");
+  if (!(await page.locator("[data-dot-trail]").count())) note("home", "the travelling dot is missing");
+  await page.evaluate(() => {
+    document.documentElement.style.scrollBehavior = "auto";
+    const hero = document.querySelector("#top");
+    scrollTo(0, hero.offsetTop + hero.offsetHeight / 2);
+  });
+  await page.waitForTimeout(500);
+  if (!(await page.locator("#top .sort-piece [data-dot-pin]").count()) && (await table.getAttribute("data-state")) === "sorting")
+    note("home", "the dot is not held in a sticker's status light while the wall is being sorted");
+  await page.evaluate(() => {
+    const hero = document.querySelector("#top");
+    scrollTo(0, hero.offsetTop + hero.offsetHeight - innerHeight);
+  });
+  await page.waitForTimeout(1200);
+  if ((await table.getAttribute("data-state")) !== "sorted") note("home", "scrolling through the hero did not sort the wall");
   const strays = await page.evaluate(() =>
     [...document.querySelectorAll("#top .sort-piece")]
       .filter((el) => getComputedStyle(el).display !== "none")
@@ -265,6 +276,18 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
       .filter((r) => r.left < -2 || r.right > innerWidth + 2).length
   );
   if (strays) note("home", `${strays} sorted piece(s) sit outside the viewport`);
+
+  /* At the foot of the page the dot comes to rest as the dot of the wordmark. */
+  await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(1500);
+  const rest = await page.evaluate(() => {
+    const dot = document.querySelector("[data-dot-trail]").getBoundingClientRect();
+    const slot = document.querySelector('footer [data-dot="slot"]').getBoundingClientRect();
+    return Math.hypot(dot.x + dot.width / 2 - slot.x - slot.width / 2, dot.y + dot.height / 2 - slot.y - slot.height / 2);
+  });
+  if (rest > 6) note("home", `the dot rests ${Math.round(rest)}px from the footer wordmark's dot`);
+  await page.evaluate(() => scrollTo(0, 0));
+  await page.waitForTimeout(600);
 
   /* The founder's portrait sits on a badge that tilts: it must still be
      painted, unclipped, once scrolled to. */

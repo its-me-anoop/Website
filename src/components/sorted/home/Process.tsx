@@ -3,39 +3,42 @@
 import { ArrowRight } from "lucide-react";
 import { rebrandProcess } from "@/lib/marketing/content";
 import { Reveal } from "../effects/Motion";
+import { Floor } from "../ui/Room";
 import { Container, Eyebrow } from "../ui/primitives";
 
 /**
- * From first call to launch, and long after: four flaps on a sun-yellow
- * band that turn up in order, left to right, as the row scrolls in.
+ * From first call to launch, and long after: four paper cards in the
+ * mint room, numbered in the serif, that land in order and stand on
+ * the tomato floor.
  */
 export function Process() {
   return (
-    <section id="process" aria-labelledby="process-title" className="tone-sun scroll-mt-20 border-y-2 border-s-rule py-[clamp(72px,9vw,128px)]">
-      <Container className="flex flex-col gap-12">
+    <section id="process" aria-labelledby="process-title" className="tone-jade relative isolate scroll-mt-20">
+      <Container className="flex flex-col gap-12 pt-[clamp(80px,10vw,152px)]">
         <div>
           <Eyebrow>Process</Eyebrow>
-          <h2 id="process-title" className="s-display mt-5 max-w-[940px] text-[clamp(2.4rem,5.4vw,4.9rem)]">
+          <h2 id="process-title" className="s-display mt-5 max-w-[1000px] text-[clamp(2.6rem,6.4vw,6rem)]">
             From first call to <em>launch,</em> and long after.
           </h2>
         </div>
-        <ol className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
+        <ol data-dot="steps" className="relative z-10 m-0 -mb-[clamp(32px,5vw,74px)] grid list-none gap-3 p-0 sm:grid-cols-2 sm:gap-4 wide:grid-cols-4">
           {rebrandProcess.map(([step, copy], i) => (
-            <Reveal as="li" key={step} turn={84} delay={i * 0.13} className="h-full">
-              <div className="tone-white relative flex h-full flex-col gap-3 rounded-[12px] border-2 border-s-rule p-6 shadow-[0_6px_0_0_var(--s-rule)]">
+            <Reveal as="li" key={step} turn={i % 2 ? 1 : -1} delay={i * 0.1} className="h-full">
+              <div data-dot-step data-dot-x="-40px" className="dot-lift tone-white relative flex h-full flex-col gap-3 rounded-[28px] p-6 sm:p-7">
                 <div className="flex items-center justify-between">
-                  <span aria-hidden className="s-display s-num text-[52px] leading-none text-s-accent">
+                  <span aria-hidden className="s-mark s-num text-[72px] leading-[0.8]">
                     {i + 1}
                   </span>
-                  {i < rebrandProcess.length - 1 ? <ArrowRight aria-hidden size={26} strokeWidth={2.4} className="max-lg:hidden" /> : null}
+                  {i < rebrandProcess.length - 1 ? <ArrowRight aria-hidden size={26} strokeWidth={2.2} className="max-wide:hidden" /> : null}
                 </div>
-                <h3 className="s-display mt-3 text-[27px]">{step}</h3>
+                <h3 className="s-display mt-4 text-[30px]">{step}</h3>
                 <p className="text-[16px] leading-[1.55] text-s-ink-soft">{copy}</p>
               </div>
             </Reveal>
           ))}
         </ol>
       </Container>
+      <Floor colour="tomato" />
     </section>
   );
 }

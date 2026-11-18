@@ -1,6 +1,6 @@
 # Instant website audit
 
-The audit bar on every Sorted page submits a native GET form to
+The audit bar on every Rooms page submits a native GET form to
 `/audit?url=…`. That page calls `GET /api/audit`, which fetches the
 site server-side, runs the check modules and returns a scored report.
 The page then renders the report with a sales section keyed to the
@@ -123,9 +123,9 @@ see, and `perf-client-rendered` explains the trade-off.
 is not the web page but `sorted/audit/print/PrintReport.tsx`, a designed
 A4 document rendered next to the interactive report and swapped in by
 `@media print` (`.k-screen` hides, `.k-pdf` shows). It has its own small
-`--k-*` ramp in the site's palette (chalk sheets, navy bands, cobalt
-marks) and the same Archivo (via `print/print-parts.tsx`), so it reads as
-paper beside the on-screen Sorted report:
+`--k-*` ramp in the site's palette (paper sheets, ink bands, cobalt
+marks) and the same faces (via `print/print-parts.tsx`), so it reads as
+paper beside the on-screen Rooms report:
 
 1. **Cover** (navy, full bleed): host, title, platform tags, a chalk card
    with the score dial, grade, verdict and facts strip, and the seven

@@ -133,7 +133,7 @@ export function ReportPage() {
       ) : null}
 
       {state.kind === "loading" ? (
-        <section className="s-dots relative pt-14 sm:pt-20">
+        <section className="s-dots relative pt-28 sm:pt-36">
           <div className="mx-auto w-full max-w-[1280px] px-5 pb-24 sm:px-8 sm:pb-32">
             <h1 className="sr-only">Auditing {hostOf(url)}</h1>
             <Progress host={hostOf(url)} />
@@ -142,7 +142,7 @@ export function ReportPage() {
       ) : null}
 
       {state.kind === "error" ? (
-        <section className="s-dots relative pt-14 sm:pt-20">
+        <section className="s-dots relative pt-28 sm:pt-36">
           <div className="mx-auto w-full max-w-[1280px] px-5 pb-24 sm:px-8 sm:pb-32">
             <ErrorState failure={state.failure} url={url} onRetry={retry} />
           </div>
@@ -152,7 +152,7 @@ export function ReportPage() {
       {state.kind === "done" ? (
         <>
           <div className="k-screen">
-            <section className="s-dots relative isolate overflow-hidden border-b-2 border-s-rule pb-16 pt-12 sm:pb-20 sm:pt-16">
+            <section className="s-dots relative isolate overflow-hidden pb-16 pt-28 sm:pb-20 sm:pt-36">
               <ReportHeader report={state.report} url={url} />
             </section>
             <CategoryList categories={state.report.categories} />

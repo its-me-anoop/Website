@@ -5,21 +5,42 @@ import { site } from "@/lib/site";
 import { serviceHref, services } from "@/lib/marketing/services";
 
 /* Case-study pages render on the native SF-style system stack (see
-   globals.css). The Sorted marketing pages and the printed audit report
-   set one face, Archivo (SIL OFL), a variable font with weight and width
-   axes: wide and heavy for display, condensed capitals for labels,
-   regular for reading. Syne and Space Grotesk stay available to the demo
-   sites. Everything is self-hosted woff2 so builds never depend on a
-   font CDN. */
+   globals.css). The Rooms marketing pages and the printed audit report
+   set three faces, all SIL OFL: Bricolage Grotesque (variable weight)
+   for headlines, labels and reading; Instrument Serif for the one
+   emphasised word in a headline; Cutive Mono for the typewritten
+   captions. Syne and Space Grotesk stay available to the demo sites.
+   Everything is self-hosted woff2 so builds never depend on a font
+   CDN. */
 
-const archivo = localFont({
-  src: "../fonts/archivo-latin-var.woff2",
-  weight: "100 900",
-  variable: "--font-archivo-v",
+const bricolage = localFont({
+  src: "../fonts/bricolage-grotesque-latin-var.woff2",
+  weight: "200 800",
+  variable: "--font-brico-v",
   display: "swap",
-  declarations: [{ prop: "font-stretch", value: "62% 125%" }],
-  fallback: ["Arial", "Helvetica", "sans-serif"],
+  fallback: ["Helvetica Neue", "Arial", "sans-serif"],
   adjustFontFallback: "Arial",
+});
+
+/* The serif sets one word of the first headline, so it is preloaded;
+   the typewriter face only sets small captions and loads on demand. */
+const instrument = localFont({
+  src: [
+    { path: "../fonts/instrument-serif-latin-400.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/instrument-serif-latin-400-italic.woff2", weight: "400", style: "italic" },
+  ],
+  variable: "--font-serif-v",
+  display: "swap",
+  fallback: ["Georgia", "serif"],
+});
+
+const cutive = localFont({
+  src: "../fonts/cutive-mono-latin-400.woff2",
+  weight: "400",
+  variable: "--font-mono-v",
+  display: "swap",
+  preload: false,
+  fallback: ["ui-monospace", "Menlo", "monospace"],
 });
 
 /* Syne and Space Grotesk are only used by the care-home and physio demo
@@ -98,7 +119,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4f3ee",
+  themeColor: "#f4efe8",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -245,19 +266,19 @@ export default function RootLayout({
          that off for route changes, so a new page opens at its top. */
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${archivo.variable} ${syne.variable} ${grotesk.variable}`}
+      className={`${bricolage.variable} ${instrument.variable} ${cutive.variable} ${syne.variable} ${grotesk.variable}`}
     >
       <head>
         <JsonLd />
-        {/* Sections tilt into view with JavaScript; without it they are simply there. */}
+        {/* Sections rise into view, and the hero plays, with JavaScript; without it they are simply there, finished. */}
         <noscript>
-          <style>{".s-reveal{opacity:1!important;transform:none!important}"}</style>
+          <style>{".s-reveal{opacity:1!important;transform:none!important}.hero-scene{--q:99!important;height:auto!important}.hero-scene .hero-pin{position:static!important;height:auto!important}"}</style>
         </noscript>
       </head>
       <body className="antialiased bg-canvas text-ink font-sans min-h-screen">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-[8px] focus:bg-s-sun focus:px-4 focus:py-2 focus:font-semibold focus:text-s-navy focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:rounded-full focus:bg-s-sun focus:px-4 focus:py-2 focus:font-semibold focus:text-s-navy focus:shadow-lg"
         >
           Skip to main content
         </a>

@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /** Studio cobalt, so the embed's selected dates and buttons match the site. */
-const CAL_BRAND = "#2238e8";
+const CAL_BRAND = "#0b41c2";
 const NAMESPACE = "discovery";
 
 /**
@@ -43,7 +43,7 @@ export function CalEmbed({ className }: { className?: string }) {
   return (
     <div className={cn("w-full", className)}>
       {/* Cal draws its own card; this is the sheet it sits on. */}
-      <div className="min-h-[560px] overflow-hidden rounded-[16px] border-2 border-s-rule bg-white p-2 shadow-[0_8px_0_0_var(--s-rule)] sm:min-h-[600px]">
+      <div className="min-h-[560px] overflow-hidden rounded-[24px] bg-white p-2 sm:min-h-[600px]">
         <Cal
           namespace={NAMESPACE}
           calLink={site.booking.calLink}

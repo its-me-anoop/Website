@@ -32,12 +32,12 @@ export function Progress({ host }: { host: string }) {
   }, []);
 
   return (
-    <div className="mx-auto w-full max-w-[640px] overflow-hidden rounded-[14px] border-2 border-s-rule bg-s-raised text-s-ink shadow-[0_8px_0_0_var(--s-rule)]">
-      <div className="flex h-9 items-center gap-1.5 border-b-2 border-s-rule bg-s-bg-2 px-3">
+    <div className="mx-auto w-full max-w-[640px] overflow-hidden rounded-[24px] bg-s-raised text-s-ink">
+      <div className="flex h-9 items-center gap-1.5 border-b-[1.5px] border-s-rule bg-s-bg-2 px-3">
         <span className="flex gap-1.5" aria-hidden>
-          <span className="h-2.5 w-2.5 rounded-[2px] bg-s-flame" />
-          <span className="h-2.5 w-2.5 rounded-[2px] bg-s-sun" />
-          <span className="h-2.5 w-2.5 rounded-[2px] bg-s-jade" />
+          <span className="h-2.5 w-2.5 rounded-full bg-s-flame" />
+          <span className="h-2.5 w-2.5 rounded-full bg-s-sun" />
+          <span className="h-2.5 w-2.5 rounded-full bg-s-jade" />
         </span>
         <span className="ml-2 truncate text-[12.5px] font-semibold text-s-ink-soft">{host}</span>
       </div>
@@ -64,11 +64,11 @@ export function Progress({ host }: { host: string }) {
                 <span
                   aria-hidden
                   className={cn(
-                    "flex h-5 w-5 shrink-0 items-center justify-center rounded-[5px] border-2",
+                    "flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2",
                     done ? "border-s-jade bg-s-jade text-s-navy" : active ? "border-s-cobalt" : "border-s-line-2"
                   )}
                 >
-                  {done ? <Check size={12} strokeWidth={3.4} /> : active ? <span className="h-2 w-2 animate-pulse rounded-[2px] bg-s-cobalt" /> : null}
+                  {done ? <Check size={12} strokeWidth={3.4} /> : active ? <span className="h-2 w-2 animate-pulse rounded-full bg-s-cobalt" /> : null}
                 </span>
                 {label}
               </li>

@@ -54,7 +54,7 @@ export function Showcase() {
   return (
     <section id="samples" className="tone-navy relative scroll-mt-20 overflow-hidden py-20 sm:py-28">
       <Container>
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-8 wide:flex-row wide:items-end wide:justify-between">
           <SectionIntro
             eyebrow="Sample sites"
             title={
@@ -67,7 +67,7 @@ export function Showcase() {
           <div
             role="tablist"
             aria-label="Sample sites by sector"
-            className="s-tabs-scroll -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-3 pt-1 sm:mx-0 sm:px-0 lg:flex-wrap lg:justify-end"
+            className="s-tabs-scroll -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-3 pt-1 sm:mx-0 sm:px-0 wide:flex-wrap wide:justify-end"
           >
             {samples.map((s, i) => {
               const selected = i === active;
@@ -85,7 +85,7 @@ export function Showcase() {
                   tabIndex={selected ? 0 : -1}
                   onClick={() => setActive(i)}
                   onKeyDown={onKeyDown}
-                  className={cn("s-key h-11 shrink-0 px-4 text-[15px] [--key-depth:4px]", !selected && "s-key-outline")}
+                  className={cn("s-key h-11 shrink-0 px-4 text-[15px]", !selected && "s-key-outline")}
                 >
                   {s.tab}
                 </button>
@@ -98,7 +98,7 @@ export function Showcase() {
           id="sample-panel"
           role="tabpanel"
           aria-labelledby={`sample-tab-${sample.slug}`}
-          className="mt-12 grid items-center gap-12 lg:grid-cols-[5fr_7fr] lg:gap-14"
+          className="mt-12 grid items-center gap-12 wide:grid-cols-[5fr_7fr] wide:gap-14"
         >
           {/* Keyed remount: the new sample's content is in the DOM at once
               (no exit wait, so stale links never linger) and swings in. */}
@@ -111,13 +111,13 @@ export function Showcase() {
             <p className="s-label text-[13px] text-s-accent">{sample.sector}</p>
             <h3 className="s-display mt-3 text-[clamp(2rem,3.4vw,2.7rem)]">{sample.name}</h3>
             <p className="mt-5 text-[19px] leading-[1.5] text-s-ink">{sample.strap}</p>
-            <ul className="mt-7 space-y-3.5">
+            <ul data-dot="steps" className="mt-7 space-y-3.5">
               {sample.points.map((p) => (
                 <CheckItem key={p}>{p}</CheckItem>
               ))}
             </ul>
             <div className="mt-9 flex flex-wrap gap-4">
-              <ButtonLink href={sample.href} arrow="up">
+              <ButtonLink href={sample.href} arrow="up" dot>
                 Open the sample site
               </ButtonLink>
               {sample.sectorHref ? (
@@ -139,15 +139,15 @@ export function Showcase() {
             transition={{ duration: 0.75, ease: EASE }}
             className="relative min-w-0"
           >
-            <Link href={sample.href} tabIndex={-1} aria-hidden="true" className="block rounded-[12px]">
+            <Link href={sample.href} tabIndex={-1} aria-hidden="true" className="block rounded-[24px]">
               <SampleScene image={sample.image} mobileImage={sample.mobileImage} url={`${site.domain}${sample.href}`} />
             </Link>
           </m.div>
         </div>
 
         {/* Picker: every sample at a glance; the chosen one is marked. */}
-        <Reveal turn={0} className="mt-16">
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        <Reveal className="mt-16">
+          <ul data-dot="steps" className="grid grid-cols-2 gap-4 sm:grid-cols-3 wide:grid-cols-5">
             {samples.map((s, i) => {
               const selected = i === active;
               return (
@@ -156,15 +156,16 @@ export function Showcase() {
                     type="button"
                     aria-pressed={selected}
                     aria-label={`Show ${s.name}`}
+                    data-dot-step
                     onClick={() => setActive(i)}
                     className={cn(
-                      "group flex w-full flex-col gap-2.5 rounded-[12px] border-2 p-2 pb-3 text-left transition-[border-color,transform,box-shadow] duration-300",
+                      "group flex w-full flex-col gap-2.5 rounded-[24px] border-2 p-2 pb-3 text-left transition-[border-color,transform,box-shadow] duration-300",
                       selected
-                        ? "-translate-y-1 border-s-flame shadow-[0_5px_0_0_var(--s-flame)]"
+                        ? "-translate-y-1 border-s-flame"
                         : "border-s-line-2 hover:-translate-y-1 hover:border-s-ink"
                     )}
                   >
-                    <span className="relative block aspect-[1440/1000] w-full overflow-hidden rounded-[7px]">
+                    <span className="relative block aspect-[1440/1000] w-full overflow-hidden rounded-[14px]">
                       <Image src={s.image} alt="" fill sizes="(min-width: 1024px) 240px, 45vw" className="object-cover object-top" />
                     </span>
                     <span className="flex flex-col gap-1 px-1">

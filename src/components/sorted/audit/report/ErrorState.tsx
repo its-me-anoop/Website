@@ -56,7 +56,7 @@ export function ErrorState({
             Try again
           </button>
         ) : null}
-        <ButtonLink href={auditMailto(url)} tone={retryable ? "plain" : "primary"}>
+        <ButtonLink href={auditMailto(url)} tone={retryable ? "plain" : "primary"} dot={retryable ? undefined : "soft"}>
           Ask for the written audit instead
         </ButtonLink>
       </Reveal>

@@ -19,7 +19,7 @@ const frameClass: Record<Shot["frame"], string> = {
   browser: "w-full",
   phone: "w-[200px] rounded-[26px] border-[7px] border-[#2a3260]",
   "duo-outer": "w-[230px] rounded-[22px] border-[7px] border-[#2a3260]",
-  "duo-inner": "w-[330px] rounded-[20px] border-[7px] border-[#2a3260]",
+  "duo-inner": "w-[330px] rounded-[24px] border-[7px] border-[#2a3260]",
 };
 
 function Capture({ shot }: { shot: Shot }) {
@@ -39,7 +39,7 @@ function Capture({ shot }: { shot: Shot }) {
 }
 
 /**
- * A short case study in the Sorted language, rendered from one
+ * A short case study in the Rooms language, rendered from one
  * `CaseStudy`: the hero in the colour of the service it belongs to with
  * the project's mark on a slab, where it stands today, what it does,
  * and whatever real captures exist. A project with none shows none.
@@ -63,9 +63,9 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
         }
         copy={<p>{study.intro}</p>}
         art={
-          <div className="shot" style={{ "--turn-y": "-13deg" } as CSSProperties}>
+          <div className="shot" style={{ "--tilt": "-3deg" } as CSSProperties}>
             <div className={cn("shot-turn mx-auto", wideMark ? "w-full" : "w-[62%]")}>
-              <div className="slab shot-slab" style={{ "--edge": "#0b1026", "--edge-2": "#000" } as CSSProperties}>
+              <div className="shot-slab">
                 {wideMark ? (
                   <BrowserFrame src={study.mark.src} alt={study.mark.alt} width={study.mark.width} height={study.mark.height} priority />
                 ) : (
@@ -85,7 +85,7 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
         }
       >
         <div className="flex flex-wrap items-center gap-4">
-          <ButtonLink href="/book" size="lg" arrow="right">
+          <ButtonLink href="/book" size="lg" arrow="right" dot="soft">
             Book a call
           </ButtonLink>
           <ButtonLink href="/#work" tone="plain" size="lg">
@@ -95,15 +95,15 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
       </PageHero>
 
       <section aria-labelledby="status-title" className="tone-white py-[clamp(64px,8vw,112px)]">
-        <Container className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
-          <Reveal turn={0}>
+        <Container className="grid gap-12 wide:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] wide:gap-20">
+          <Reveal>
             <Eyebrow>Where it stands</Eyebrow>
             <h2 id="status-title" className="s-display mt-5 text-[clamp(1.6rem,2.6vw,2.2rem)] [--lh:1.08]">
               {study.status}
             </h2>
           </Reveal>
-          <Reveal turn={0} delay={0.08}>
-            <dl className="grid gap-x-8 border-t-2 border-s-rule sm:grid-cols-2">
+          <Reveal delay={0.08}>
+            <dl className="grid gap-x-8 border-t-[1.5px] border-s-rule sm:grid-cols-2">
               {study.facts.map(([label, value]) => (
                 <div key={label} className="flex flex-col gap-1 border-b-[1.5px] border-s-line-2 py-4">
                   <dt className="s-label text-[12.5px] text-s-muted">{label}</dt>
@@ -115,16 +115,16 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
         </Container>
       </section>
 
-      <section aria-labelledby="does-title" className="tone-chalk s-dots border-y-2 border-s-rule py-[clamp(64px,8vw,112px)]">
+      <section aria-labelledby="does-title" className="tone-chalk s-dots py-[clamp(64px,8vw,112px)]">
         <Container>
           <Eyebrow>{study.name}</Eyebrow>
           <h2 id="does-title" className="s-display mt-5 text-[clamp(2.2rem,4.6vw,4rem)]">
             What it <em>does.</em>
           </h2>
-          <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ol data-dot="steps" className="mt-12 grid gap-5 sm:grid-cols-2 wide:grid-cols-3">
             {study.features.map((feature, i) => (
-              <Reveal as="li" key={feature.title} turn={60} delay={(i % 3) * 0.08} className="h-full">
-                <article className="tone-white flex h-full flex-col rounded-[14px] border-2 border-s-rule p-6 shadow-[0_6px_0_0_var(--s-rule)]">
+              <Reveal as="li" key={feature.title} turn={1} delay={(i % 3) * 0.08} className="h-full">
+                <article data-dot-step data-dot-x="-36px" className="dot-lift tone-white flex h-full flex-col rounded-[24px] p-6">
                   <span aria-hidden className="s-display s-num text-[38px] text-s-accent">
                     0{i + 1}
                   </span>
@@ -141,18 +141,18 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
         <section aria-labelledby="shots-title" className="tone-navy overflow-hidden py-[clamp(64px,8vw,112px)]">
           <Container>
             <SectionIntro eyebrow="Screens" title={study.shotsTitle ?? "On screen."} copy={study.shotsNote} headingId="shots-title" />
-            <figure className="shot m-0 mt-14" style={{ "--turn-y": "-9deg" } as CSSProperties}>
+            <figure className="shot m-0 mt-14" style={{ "--tilt": "-1.5deg" } as CSSProperties}>
               <div className="shot-turn mx-auto max-w-[940px]">
-                <div className="slab shot-slab" style={{ "--edge": "#d6d5ca", "--edge-2": "#9b9a8e" } as CSSProperties}>
+                <div className="shot-slab">
                   <Capture shot={first} />
                 </div>
               </div>
               <figcaption className="s-label mt-8 text-center text-[13px] text-s-muted">{first.caption}</figcaption>
             </figure>
-            <ul className="mt-16 flex flex-wrap items-end justify-center gap-x-10 gap-y-12">
+            <ul data-dot="steps" className="mt-16 flex flex-wrap items-end justify-center gap-x-10 gap-y-12">
               {rest.map((shot, i) => (
-                <Reveal as="li" key={shot.src} turn={40} delay={i * 0.08}>
-                  <figure className="m-0 flex flex-col items-center gap-4">
+                <Reveal as="li" key={shot.src} turn={1} delay={i * 0.08}>
+                  <figure data-dot-step className="m-0 flex flex-col items-center gap-4">
                     <Capture shot={shot} />
                     <figcaption className="s-label text-[13px] text-s-muted">{shot.caption}</figcaption>
                   </figure>
@@ -163,11 +163,11 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
         </section>
       ) : null}
 
-      <nav aria-label="More work" className="border-t-2 border-s-rule">
-        <ul className="m-0 grid list-none p-0 sm:grid-cols-2">
+      <nav aria-label="More work" className="border-t-[1.5px] border-s-rule">
+        <ul data-dot="steps" className="m-0 grid list-none p-0 sm:grid-cols-2">
           {others.map((c) => (
             <li key={c.slug}>
-              <Link href={`/projects/${c.slug}`} className={`${serviceTone[c.service]} group flex min-h-[140px] flex-col justify-between gap-6 px-6 py-6 sm:px-8`}>
+              <Link href={`/projects/${c.slug}`} data-dot-step data-dot-x="-44px" className={`${serviceTone[c.service]} group flex min-h-[140px] flex-col justify-between gap-6 px-6 py-6 sm:px-8`}>
                 <span className="s-label text-[12.5px] text-s-ink-soft">{c.eyebrow}</span>
                 <span className="s-display flex items-center justify-between gap-3 text-[clamp(1.6rem,2.4vw,2.1rem)]">
                   {c.name}

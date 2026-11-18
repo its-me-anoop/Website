@@ -1,7 +1,7 @@
 import type { ServiceSlug } from "@/lib/marketing/services";
 
 /**
- * The twelve pieces on the hero's sorting table: the parts of an
+ * The twelve pieces on the hero's sticker wall: the parts of an
  * organisation's digital side, each with the state it is often found
  * in and the state it is left in. They are illustrations of the work,
  * not claims about a client, so none carries a statistic.
