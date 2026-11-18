@@ -70,7 +70,7 @@ export function BookPage() {
       </div>
 
       <section className="tone-white border-t-[1.5px] border-s-rule py-20 sm:py-28">
-        <Container className="grid gap-10 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-16">
+        <Container className="grid gap-10 wide:grid-cols-[minmax(0,360px)_1fr] wide:gap-16">
           <Reveal>
             <Eyebrow>On the call</Eyebrow>
             <Display size="md" className="mt-5">

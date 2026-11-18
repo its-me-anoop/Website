@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+/* `wide:` is where the Rooms pages take their desktop layout: a desktop
+   window, or a smaller screen held sideways with room for two columns
+   (an iPhone Duo open in landscape is 890 by 626). `max-wide:` is
+   everything else. The bar keeps the plain `lg:` breakpoint, because its
+   row of links needs the full width. */
+@custom-variant wide {
+  @media (min-width: 64rem), (min-width: 840px) and (orientation: landscape) {
+    @slot;
+  }
+}
+/* `short:` is a window with little height, where the hero's room has to
+   be packed tighter to fit. */
+@custom-variant short {
+  @media (max-height: 700px) {
+    @slot;
+  }
+}
+@custom-variant max-wide {
+  @media (max-width: 839.98px), (max-width: 63.99rem) and (orientation: portrait) {
+    @slot;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    Anoop Jose · Design System — "Porcelain"
    ───────────────────────────────────────────────────────────────────
@@ -1104,8 +1127,10 @@ button.s-card {
   --q: 99;
   --count: 12;
 }
-/* On a wide, tall window the room holds still while the scroll plays. */
-@media (min-width: 1024px) and (min-height: 720px) and (prefers-reduced-motion: no-preference) {
+/* Where the hero has its two columns and the window is tall enough to
+   show the whole room, the room holds still while the scroll plays:
+   a desktop window, or an iPhone Duo open in landscape. */
+@media (min-width: 840px) and (min-height: 600px) and (orientation: landscape) and (prefers-reduced-motion: no-preference) {
   .hero-scene[data-pin] {
     height: 300vh;
   }

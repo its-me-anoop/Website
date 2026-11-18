@@ -23,7 +23,7 @@ export function Pitch({ report }: { report: AuditReport }) {
   return (
     <section id="next-steps" aria-labelledby="next-steps-heading" className="border-t-[1.5px] border-s-line-2">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-20 sm:px-8 sm:py-28">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid gap-12 wide:grid-cols-2 wide:gap-16">
           <div>
             <Reveal>
               <Eyebrow className="text-s-ink-soft">What Flutterly would do</Eyebrow>

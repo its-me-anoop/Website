@@ -50,7 +50,7 @@ export function Footer({ credit }: { credit?: ReactNode } = {}) {
             </ul>
           </div>
 
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 wide:grid-cols-5">
             {footerColumns.map((column) => (
               <div key={column.title}>
                 <h3 className="s-eyebrow">{column.title}</h3>

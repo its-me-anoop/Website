@@ -95,7 +95,7 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
       </PageHero>
 
       <section aria-labelledby="status-title" className="tone-white py-[clamp(64px,8vw,112px)]">
-        <Container className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
+        <Container className="grid gap-12 wide:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] wide:gap-20">
           <Reveal>
             <Eyebrow>Where it stands</Eyebrow>
             <h2 id="status-title" className="s-display mt-5 text-[clamp(1.6rem,2.6vw,2.2rem)] [--lh:1.08]">
@@ -121,7 +121,7 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
           <h2 id="does-title" className="s-display mt-5 text-[clamp(2.2rem,4.6vw,4rem)]">
             What it <em>does.</em>
           </h2>
-          <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ol className="mt-12 grid gap-5 sm:grid-cols-2 wide:grid-cols-3">
             {study.features.map((feature, i) => (
               <Reveal as="li" key={feature.title} turn={1} delay={(i % 3) * 0.08} className="h-full">
                 <article className="tone-white flex h-full flex-col rounded-[24px] p-6">

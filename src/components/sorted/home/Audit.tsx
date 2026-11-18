@@ -17,7 +17,7 @@ export function Audit() {
   const [active, setActive] = useState<number | null>(null);
   return (
     <section id="audit" aria-labelledby="audit-title" className="tone-sky relative isolate scroll-mt-20 overflow-hidden">
-      <Container className="grid items-center gap-x-12 gap-y-6 pb-[clamp(40px,5vw,72px)] pt-[clamp(80px,10vw,152px)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+      <Container className="grid items-center gap-x-12 gap-y-6 pb-[clamp(40px,5vw,72px)] pt-[clamp(80px,10vw,152px)] wide:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
         <div className="min-w-0">
           <Reveal>
             <Eyebrow>Free website audit</Eyebrow>
@@ -46,7 +46,7 @@ export function Audit() {
             ))}
           </ol>
         </div>
-        <XRay active={active} className="relative z-10 mx-auto w-full max-w-[560px] max-lg:order-first max-lg:max-w-[400px] lg:-mb-[clamp(72px,8vw,130px)]" />
+        <XRay active={active} className="relative z-10 mx-auto w-full max-w-[560px] max-wide:order-first max-wide:max-w-[400px] wide:-mb-[clamp(72px,8vw,130px)]" />
       </Container>
       <Floor colour="tomato" />
     </section>

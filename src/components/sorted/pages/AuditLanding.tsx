@@ -94,7 +94,7 @@ export function AuditLanding() {
             }
             copy="Each area is weighted by how much it affects the people your website serves. Accessibility and content count most: accessibility and clear content help visitors find what they need and take the next step."
           />
-          <ol className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" onPointerLeave={() => setActive(null)}>
+          <ol className="mt-14 grid gap-4 sm:grid-cols-2 wide:grid-cols-4" onPointerLeave={() => setActive(null)}>
             {auditChecks.map((check, i) => (
               <Reveal
                 as="li"

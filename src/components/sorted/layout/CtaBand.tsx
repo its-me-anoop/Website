@@ -31,7 +31,7 @@ export function CtaBand({
   return (
     <section id={id} className="tone-cobalt relative isolate scroll-mt-20 overflow-hidden">
       <Porthole colour="var(--s-pink)" className="bottom-[-18%] right-[-8%] w-[min(62vw,720px)]" />
-      <Container className="grid items-center gap-12 py-20 sm:py-28 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
+      <Container className="grid items-center gap-12 py-20 sm:py-28 wide:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] wide:gap-16">
         <Reveal>
           <Eyebrow>Start here</Eyebrow>
           <Display size="xl" className="mt-6">

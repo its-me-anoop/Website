@@ -14,8 +14,8 @@ const isExternal = (href: string) => href.startsWith("http");
 const host = (href: string) => href.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
 const spanClass: Record<Tile["span"], string> = {
-  wide: "lg:col-span-7",
-  narrow: "lg:col-span-5",
+  wide: "wide:col-span-7",
+  narrow: "wide:col-span-5",
 };
 
 /** The mat behind each picture, in wall colours, in tile order. */
@@ -190,7 +190,7 @@ export function Work() {
             Websites for care providers, housing and suppliers, and the apps we build and run ourselves.
           </p>
         </div>
-        <div data-dot="steps" className="grid gap-x-5 gap-y-5 lg:grid-cols-12">
+        <div data-dot="steps" className="grid gap-x-5 gap-y-5 wide:grid-cols-12">
           {featuredWork.map((tile, i) => (
             <WorkTile key={tile.key} tile={tile} index={i} />
           ))}

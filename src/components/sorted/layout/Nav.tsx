@@ -25,8 +25,8 @@ const cards = [
  * room is at the top of the window, each with an ink outline so it
  * shows on every wall. On the left the butterfly, the
  * wordmark and its vermilion dot; in the middle (from `lg`) the routes
- * on a paper pill; on the right the audit link, the booking pill and
- * the pink index pill.
+ * on a paper pill; on the right the audit link (where there is room
+ * for it beside the routes), the booking pill and the pink index pill.
  *
  * The index opens the whole site as cards on an ochre wall: one per
  * route, numbered in the serif, then the five services and the two ways
@@ -115,7 +115,7 @@ export function Nav() {
         </nav>
 
         <div className="pointer-events-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
-          <Link href="/free-audit" className="s-key s-key-plain hidden h-12 border-[1.5px] border-s-navy px-5 text-[15px] sm:h-[52px] md:inline-flex">
+          <Link href="/free-audit" className="s-key s-key-plain hidden h-12 border-[1.5px] border-s-navy px-5 text-[15px] sm:h-[52px] md:inline-flex lg:hidden xl:inline-flex">
             Free audit
           </Link>
           <Link href="/book" className="s-key h-12 border-[1.5px] border-s-navy px-4 text-[15px] [--key-edge:#ff6a3d] [--key-face:var(--s-flame)] [--key-ink:var(--s-navy)] sm:h-[52px] sm:px-5">

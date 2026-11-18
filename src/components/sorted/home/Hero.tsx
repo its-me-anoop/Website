@@ -127,9 +127,10 @@ export function Hero() {
       const box = root.getBoundingClientRect();
       const pinned = getComputedStyle(root.firstElementChild!).position === "sticky";
       const wallBox = wall.getBoundingClientRect();
-      const distance = pinned
-        ? root.offsetHeight - window.innerHeight
-        : Math.max(320, wallBox.top - box.top + wallBox.height - window.innerHeight * 0.3);
+      /* Not held, the scene lasts until the wall has nearly crossed the window, and never past the hero's own end. */
+      const whole = root.offsetHeight - window.innerHeight;
+      const across = wallBox.top - box.top + wallBox.height - window.innerHeight * 0.3;
+      const distance = pinned ? whole : Math.max(240, whole > 240 ? Math.min(across, whole) : across);
       const q = scrollQ(-box.top, distance, shown.length);
       root.style.setProperty("--q", q.toFixed(3));
       root.dataset.state = heroState(q, shown.length);
@@ -179,15 +180,15 @@ export function Hero() {
       style={{ "--q": 0, "--count": pieces.length } as CSSProperties}
     >
       <div className="hero-pin flex min-h-svh flex-col overflow-hidden">
-        <Container className="relative flex min-h-0 flex-1 flex-col gap-y-8 pb-10 pt-24 lg:gap-y-4 lg:pb-6">
+        <Container className="relative flex min-h-0 flex-1 flex-col gap-y-8 pb-10 pt-24 wide:gap-y-4 wide:pb-6 short:wide:gap-y-2 short:wide:pb-3 short:wide:pt-[76px]">
           <h1
             id="hero-title"
             aria-label={headline}
-            className="s-display relative z-10 text-[clamp(2.7rem,13.4vw,5.6rem)] [--lh:0.9] lg:text-[clamp(3.6rem,min(7.9vw,12.5svh),7.4rem)]"
+            className="s-display relative z-10 text-[clamp(2.7rem,13.4vw,5.6rem)] [--lh:0.9] wide:text-[clamp(3.6rem,min(7.9vw,12.5svh),7.4rem)] short:wide:text-[clamp(2.6rem,min(7.4vw,9.6svh),4.4rem)]"
           >
             {heroCopy.lines.map((line) => (
               <span key={line}>
-                <span className="block lg:inline">{line}</span>{" "}
+                <span className="block wide:inline">{line}</span>{" "}
               </span>
             ))}
             <span className="flex items-baseline gap-[0.12em]">
@@ -207,8 +208,8 @@ export function Hero() {
             </span>
           </h1>
 
-          <div className="grid min-h-0 flex-1 items-end gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.02fr)]">
-            <div className="relative z-10 flex min-w-0 flex-col items-start gap-7 lg:self-start lg:pt-6">
+          <div className="grid min-h-0 flex-1 items-end gap-x-12 gap-y-10 wide:grid-cols-[minmax(0,1fr)_minmax(0,1.02fr)] short:wide:gap-x-6 short:wide:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
+            <div className="relative z-10 flex min-w-0 flex-col items-start gap-7 wide:self-start wide:pt-6 short:wide:gap-5 short:wide:pt-2">
               <p className="s-say max-w-[560px] text-[clamp(20px,1.9vw,27px)] text-s-ink">{heroCopy.copy}</p>
 
               <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
@@ -226,7 +227,7 @@ export function Hero() {
               ref={stage}
               role="img"
               aria-label="Twelve parts of an organisation's digital side, from the website and email to backups, Wi-Fi and search, each one fixed and filed in its place."
-              className="sort-stage relative z-0 mx-auto w-full max-w-[520px] lg:max-w-[min(560px,56svh)] lg:justify-self-end"
+              className="sort-stage relative z-0 mx-auto w-full max-w-[520px] wide:max-w-[min(560px,56svh)] wide:justify-self-end short:wide:max-w-[max(436px,68svh)]"
             >
               <div className="sort-parallax">
                 <div className="sort-table">
@@ -288,10 +289,10 @@ export function Hero() {
         </Container>
 
         <Floor colour="paper" className="hero-floor">
-          <Container className="flex items-center justify-between gap-6 py-4 text-[#3a3836] sm:py-5">
+          <Container className="flex items-center justify-between gap-6 py-4 text-[#3a3836] sm:py-5 short:wide:py-2.5">
             <ul className="s-mono m-0 flex list-none flex-col gap-1 p-0 text-[12.5px] sm:text-[13.5px]">
               {heroCopy.strip.map((line, i) => (
-                <li key={line} className={i === 1 ? "hidden sm:flex" : "flex"}>
+                <li key={line} className={i === 1 ? "hidden sm:flex short:wide:hidden" : "flex"}>
                   <span aria-hidden className="mr-3 text-s-flame-deep">
                     &gt;
                   </span>

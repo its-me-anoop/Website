@@ -90,7 +90,7 @@ export function ServicePage({ service }: { service: Service }) {
       {service.slug === "websites" ? <Showcase /> : null}
 
       <section aria-labelledby="fit-title" className="tone-chalk s-dots border-t-[1.5px] border-s-rule py-[clamp(72px,9vw,128px)]">
-        <Container className="grid gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
+        <Container className="grid gap-14 wide:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] wide:gap-20">
           <div className="flex flex-col gap-8">
             <h2 id="fit-title" className="s-display text-[clamp(2.1rem,4.2vw,3.5rem)]">
               Who it <em>suits.</em>
@@ -122,7 +122,7 @@ export function ServicePage({ service }: { service: Service }) {
       </section>
 
       <nav aria-label="Other services" className="border-t-[1.5px] border-s-rule">
-        <ul className="m-0 grid list-none p-0 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="m-0 grid list-none p-0 sm:grid-cols-2 wide:grid-cols-4">
           {others.map((s) => (
             <li key={s.slug}>
               <Link

@@ -58,7 +58,7 @@ export function PackagesPage() {
       <Compare />
 
       <section className="tone-white py-20 sm:py-28">
-        <Container className="grid gap-10 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-20">
+        <Container className="grid gap-10 wide:grid-cols-[minmax(0,380px)_1fr] wide:gap-20">
           <SectionIntro eyebrow="Questions" title="Before you get in touch." size="md" />
           <Reveal delay={0.08}>
             <FaqList items={packagesFaq} />

@@ -57,7 +57,7 @@ export function PageHero({
       <Container
         className={cn(
           "grid items-end gap-x-10 gap-y-6 pb-14 pt-28 sm:pb-20 sm:pt-40",
-          hasArt && "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]"
+          hasArt && "wide:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]"
         )}
       >
         <div className="min-w-0">
@@ -80,7 +80,7 @@ export function PageHero({
           ) : null}
         </div>
         {hasArt ? (
-          <div className="relative z-10 mx-auto w-full max-w-[300px] max-lg:order-first max-lg:hidden lg:-mb-[clamp(72px,9vw,150px)] lg:max-w-[440px]">
+          <div className="relative z-10 mx-auto w-full max-w-[300px] max-wide:order-first max-wide:hidden wide:-mb-[clamp(72px,9vw,150px)] wide:max-w-[440px]">
             {art ?? <SlabStack />}
           </div>
         ) : null}

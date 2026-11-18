@@ -54,7 +54,7 @@ export function Showcase() {
   return (
     <section id="samples" className="tone-navy relative scroll-mt-20 overflow-hidden py-20 sm:py-28">
       <Container>
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-8 wide:flex-row wide:items-end wide:justify-between">
           <SectionIntro
             eyebrow="Sample sites"
             title={
@@ -67,7 +67,7 @@ export function Showcase() {
           <div
             role="tablist"
             aria-label="Sample sites by sector"
-            className="s-tabs-scroll -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-3 pt-1 sm:mx-0 sm:px-0 lg:flex-wrap lg:justify-end"
+            className="s-tabs-scroll -mx-5 flex gap-2.5 overflow-x-auto px-5 pb-3 pt-1 sm:mx-0 sm:px-0 wide:flex-wrap wide:justify-end"
           >
             {samples.map((s, i) => {
               const selected = i === active;
@@ -98,7 +98,7 @@ export function Showcase() {
           id="sample-panel"
           role="tabpanel"
           aria-labelledby={`sample-tab-${sample.slug}`}
-          className="mt-12 grid items-center gap-12 lg:grid-cols-[5fr_7fr] lg:gap-14"
+          className="mt-12 grid items-center gap-12 wide:grid-cols-[5fr_7fr] wide:gap-14"
         >
           {/* Keyed remount: the new sample's content is in the DOM at once
               (no exit wait, so stale links never linger) and swings in. */}
@@ -147,7 +147,7 @@ export function Showcase() {
 
         {/* Picker: every sample at a glance; the chosen one is marked. */}
         <Reveal className="mt-16">
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 wide:grid-cols-5">
             {samples.map((s, i) => {
               const selected = i === active;
               return (

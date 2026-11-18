@@ -136,6 +136,19 @@ Three faces, all SIL OFL and self-hosted in `src/fonts/`.
 - **Notebook** (`.s-ruled`, `.s-hl`): the footer is a ruled page with a
   margin line; the pointer runs a pink highlighter under a link.
 
+## Breakpoints
+
+Rooms pages take their desktop layout at `wide:`, a custom variant
+defined at the top of `globals.css`: a window 1024px wide or more, **or**
+a smaller screen held sideways with room for two columns (840px or more
+in landscape). That second case is the iPhone Duo open in landscape
+(890 by 626), which gets the two-column hero, held still while the
+scroll plays, instead of the stacked phone layout. `max-wide:` is every
+other window. `short:` (700px high or less) packs the hero's room
+tighter so all of it fits. Use `wide:` rather than `lg:` in Rooms
+components. The bar is the exception and keeps `lg:`, because its row
+of links needs the full width.
+
 ## The bar and the index
 
 `layout/Nav.tsx`. There is no bar: three groups of outlined pills float

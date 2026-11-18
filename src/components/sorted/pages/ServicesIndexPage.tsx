@@ -44,7 +44,7 @@ export function ServicesIndexPage() {
             aria-labelledby={`pillar-${pillar.name}`}
             className="border-t-[1.5px] border-s-rule py-[clamp(56px,7vw,104px)] first:border-t-0"
           >
-            <Container className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
+            <Container className="grid gap-10 wide:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] wide:gap-16">
               <div className="flex flex-col gap-4">
                 <span aria-hidden className="s-label s-num text-[13px] text-s-accent">
                   {String(i + 1).padStart(2, "0")} / 03

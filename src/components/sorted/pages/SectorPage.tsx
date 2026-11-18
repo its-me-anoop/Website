@@ -79,7 +79,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
               </>
             }
           />
-          <ol className="mt-14 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
+          <ol className="mt-14 grid gap-x-8 sm:grid-cols-2 wide:grid-cols-3">
             {sector.features.map((feature, i) => (
               <Reveal as="li" key={feature.title} delay={(i % 3) * 0.06} className="border-t-[1.5px] border-s-rule pb-10 pt-5">
                 <span className="s-display s-num text-[40px] text-s-accent">0{i + 1}</span>
@@ -93,7 +93,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
 
       {/* The live sample, inner page */}
       <section className="tone-navy relative overflow-hidden py-20 sm:py-28">
-        <Container className="relative grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+        <Container className="relative grid items-center gap-14 wide:grid-cols-[0.9fr_1.1fr] wide:gap-20">
           <div>
             <Reveal>
               <Eyebrow>Live sample site</Eyebrow>
@@ -133,7 +133,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
       {/* Standards */}
       <section className="tone-sun py-20 sm:py-28">
         <Container>
-          <Reveal className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <Reveal className="grid gap-12 wide:grid-cols-2 wide:gap-16">
             <div>
               <span aria-hidden className="flex h-14 w-14 items-center justify-center rounded-[24px] bg-s-navy text-s-sun">
                 <ShieldCheck size={28} strokeWidth={2} />
@@ -180,7 +180,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
 
       {/* FAQ */}
       <section className="tone-white border-t-[1.5px] border-s-rule py-20 sm:py-28">
-        <Container className="grid gap-10 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-20">
+        <Container className="grid gap-10 wide:grid-cols-[minmax(0,380px)_1fr] wide:gap-20">
           <SectionIntro eyebrow="Questions" title="Asked and answered." size="md" />
           <Reveal delay={0.08}>
             <FaqList items={sector.faqs} />

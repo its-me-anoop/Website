@@ -25,8 +25,8 @@ const facts = [
 export function Studio() {
   return (
     <section id="studio" aria-labelledby="studio-title" className="tone-sun relative isolate scroll-mt-20 overflow-hidden">
-      <Container className="grid items-end gap-x-[clamp(40px,6vw,96px)] gap-y-14 pt-[clamp(80px,10vw,152px)] lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
-        <div className="relative z-10 mx-auto w-full max-w-[380px] max-lg:order-last lg:-mb-[clamp(40px,6vw,96px)]">
+      <Container className="grid items-end gap-x-[clamp(40px,6vw,96px)] gap-y-14 pt-[clamp(80px,10vw,152px)] wide:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
+        <div className="relative z-10 mx-auto w-full max-w-[380px] max-wide:order-last wide:-mb-[clamp(40px,6vw,96px)]">
           <Tilt max={5}>
             <figure className="m-0">
               <div data-dot="top" className="relative aspect-[4/5] overflow-hidden rounded-t-full bg-s-pink">

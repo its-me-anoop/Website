@@ -84,7 +84,7 @@ export function LeavingMswPage() {
 
       {/* Why */}
       <section className="tone-white py-20 sm:py-28">
-        <Container className="grid gap-10 lg:grid-cols-[minmax(0,440px)_1fr] lg:gap-20">
+        <Container className="grid gap-10 wide:grid-cols-[minmax(0,440px)_1fr] wide:gap-20">
           <SectionIntro
             eyebrow="Why this page exists"
             size="md"
@@ -188,7 +188,7 @@ export function LeavingMswPage() {
               </>
             }
           />
-          <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-12 grid gap-4 sm:grid-cols-2 wide:grid-cols-4">
             {clearPath.steps.map((step, i) => (
               <Reveal as="li" key={step.title} turn={1} delay={i * 0.12} className="h-full">
                 <div className="h-full rounded-[24px] bg-s-bg-2 p-6">
@@ -242,7 +242,7 @@ export function LeavingMswPage() {
 
       {/* Proof */}
       <section className="tone-chalk overflow-hidden py-20 sm:py-28">
-        <Container className="grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+        <Container className="grid items-center gap-14 wide:grid-cols-[0.9fr_1.1fr] wide:gap-20">
           <div>
             <Reveal>
               <Eyebrow>Proof</Eyebrow>
@@ -286,7 +286,7 @@ export function LeavingMswPage() {
       {/* Geography */}
       <section className="tone-jade border-t-[1.5px] border-s-rule py-14 sm:py-20">
         <Container>
-          <Reveal className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <Reveal className="flex flex-col gap-6 wide:flex-row wide:items-center wide:justify-between">
             <div>
               <Eyebrow>Geography</Eyebrow>
               <Display size="md" className="mt-4">

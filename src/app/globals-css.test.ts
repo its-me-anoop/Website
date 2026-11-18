@@ -42,8 +42,10 @@ describe("the hero's scroll scene", () => {
     expect(block(".sort-piece {")).toMatch(/var\(--u\)/);
   });
 
-  it("holds the room still only on a wide, tall window, and never under reduced motion", () => {
-    const start = css.indexOf("@media (min-width: 1024px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)");
+  it("holds the room still only on a wide, tall-enough window, and never under reduced motion", () => {
+    const start = css.indexOf(
+      "@media (min-width: 840px) and (min-height: 600px) and (orientation: landscape) and (prefers-reduced-motion: no-preference)"
+    );
     expect(start).toBeGreaterThan(-1);
     expect(css.slice(start, start + 400)).toMatch(/\.hero-scene\[data-pin\] \.hero-pin \{\s*position: sticky;/);
     expect(css.match(/position: sticky/g)).toHaveLength(1);
@@ -51,6 +53,16 @@ describe("the hero's scroll scene", () => {
 
   it("keeps the hero's key display in a layer so `hidden` utilities still win", () => {
     expect(css).toMatch(/@layer components\s*\{\s*\.s-key\s*\{\s*display: inline-flex;/);
+  });
+});
+
+describe("the desktop layout", () => {
+  it("is also given to a smaller screen held sideways, such as an iPhone Duo open in landscape", () => {
+    expect(block("@custom-variant wide {")).toContain("@media (min-width: 64rem), (min-width: 840px) and (orientation: landscape)");
+  });
+
+  it("has an opposite that covers every other window and no window twice", () => {
+    expect(block("@custom-variant max-wide {")).toContain("@media (max-width: 839.98px), (max-width: 63.99rem) and (orientation: portrait)");
   });
 });
 

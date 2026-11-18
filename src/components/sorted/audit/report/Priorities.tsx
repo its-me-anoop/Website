@@ -21,7 +21,7 @@ export function Priorities({ report }: { report: AuditReport }) {
   return (
     <section id="fix-first" aria-labelledby="fix-first-heading" className="">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-20 sm:px-8 sm:py-28">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-16">
+        <div className="grid gap-10 wide:grid-cols-[minmax(0,320px)_1fr] wide:gap-16">
           <Reveal>
             <Eyebrow className="text-s-ink-soft">Fix first</Eyebrow>
             <Display as="h2" id="fix-first-heading" size="md" className="mt-5 text-s-ink">
