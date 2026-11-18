@@ -46,10 +46,10 @@ export function Pitch({ report }: { report: AuditReport }) {
             </Reveal>
 
             {!keep ? (
-              <ol className="mt-10 grid">
+              <ol data-dot="steps" className="mt-10 grid">
                 {weakest.map((cat, i) => (
                   <Reveal as="li" key={cat.id} delay={i * 0.06} className="grid grid-cols-[4.5rem_1fr] gap-x-5 border-t-[1.5px] border-s-line-2 py-6">
-                    <span className={`s-display text-[40px] s-num ${scoreTone(cat.score)}`}>
+                    <span data-dot-step className={`s-display h-fit w-fit text-[40px] s-num ${scoreTone(cat.score)}`}>
                       {cat.score}
                     </span>
                     <div>
@@ -73,7 +73,7 @@ export function Pitch({ report }: { report: AuditReport }) {
                 scored, plain-English report within a week, yours to act on with anyone.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-3">
-                <ButtonLink href={mailto} arrow="right">
+                <ButtonLink href={mailto} arrow="right" dot>
                   Send me the written audit
                 </ButtonLink>
                 <ButtonLink href="/book" tone="plain" arrow="right">

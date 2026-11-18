@@ -92,6 +92,7 @@ describe("DotTrail", () => {
     await run(60);
     first.getBoundingClientRect = box(100, 100, 80, 40);
     const pill = anchor("into", box(500, 420, 240, 60));
+    Object.defineProperty(window, "scrollY", { value: 300, configurable: true });
     window.dispatchEvent(new Event("scroll"));
     await run(3000);
     const dot = document.querySelector<HTMLElement>("[data-dot-trail]")!;
@@ -102,6 +103,26 @@ describe("DotTrail", () => {
     unmount();
     first.remove();
     pill.remove();
+    Object.defineProperty(window, "scrollY", { value: 0, configurable: true });
+    vi.useRealTimers();
+  });
+
+  it("opens every page in sight: at the very top it does not go into anything, however near", async () => {
+    motion(true);
+    vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout", "requestAnimationFrame", "cancelAnimationFrame", "performance"] });
+    Object.defineProperty(window, "innerHeight", { value: 900, configurable: true });
+    const heading = anchor("top", box(100, 300, 200, 60));
+    const button = anchor("into", box(100, 440, 240, 60));
+    button.setAttribute("data-dot-pull", "220");
+    const { unmount } = render(<DotTrail />);
+    await run(600);
+    const dot = document.querySelector<HTMLElement>("[data-dot-trail]")!;
+    expect(heading).toHaveAttribute("data-dot-on");
+    expect(button).not.toHaveAttribute("data-dot-on");
+    expect(Number(dot.style.opacity)).toBe(1);
+    unmount();
+    heading.remove();
+    button.remove();
     vi.useRealTimers();
   });
 });

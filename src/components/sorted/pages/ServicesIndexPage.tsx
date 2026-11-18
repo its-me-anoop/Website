@@ -32,7 +32,7 @@ export function ServicesIndexPage() {
           </p>
         }
       >
-        <ButtonLink href="/book" size="lg" arrow="right">
+        <ButtonLink href="/book" size="lg" arrow="right" dot="soft">
           Book a call
         </ButtonLink>
       </PageHero>
@@ -46,7 +46,7 @@ export function ServicesIndexPage() {
           >
             <Container className="grid gap-10 wide:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] wide:gap-16">
               <div className="flex flex-col gap-4">
-                <span aria-hidden className="s-label s-num text-[13px] text-s-accent">
+                <span aria-hidden data-dot="top" data-dot-x="8px" className="s-label s-num w-fit text-[13px] text-s-accent">
                   {String(i + 1).padStart(2, "0")} / 03
                 </span>
                 <h2 id={`pillar-${pillar.name}`} className="s-display text-[clamp(2.6rem,5vw,4.4rem)]">
@@ -63,8 +63,8 @@ export function ServicesIndexPage() {
                     >
                       <span className="s-display text-[clamp(2rem,3.4vw,3rem)]">{service.name}</span>
                       <span className="text-[17px] font-medium leading-[1.5] text-s-ink-soft">{service.summary}</span>
-                      <span aria-hidden className="flex h-12 w-12 items-center justify-center rounded-full border-[1.5px] border-s-ink">
-                        <ArrowRight className="transition-transform duration-300 group-hover:-rotate-45" size={24} strokeWidth={2.4} />
+                      <span aria-hidden data-dot="into" className="flex h-12 w-12 items-center justify-center rounded-full border-[1.5px] border-s-ink">
+                        <ArrowRight className="dot-turn transition-transform duration-300 group-hover:-rotate-45" size={24} strokeWidth={2.4} />
                       </span>
                     </Link>
                   </Reveal>

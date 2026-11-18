@@ -17,6 +17,8 @@ type CardPackage = Pick<Package, "name" | "strap" | "copy" | "price" | "pricePer
  * One package as a price card that tips up into place: name, published
  * figure, what the build delivers and what the monthly fee covers, and
  * one action. The featured package is set on navy with a sun label.
+ * In a list marked `data-dot="steps"` the travelling dot lands on each
+ * card in turn, and it is drawn into the featured card's button.
  */
 export function PackageCard({
   pkg,
@@ -34,8 +36,10 @@ export function PackageCard({
   return (
     <Reveal as="li" turn={1} delay={index * 0.12} className="h-full">
       <article
+        data-dot-step
+        data-dot-x="-40px"
         className={cn(
-          "relative flex h-full flex-col rounded-[24px] p-6 sm:p-8",
+          "dot-lift relative flex h-full flex-col rounded-[24px] p-6 sm:p-8",
           pkg.featured ? "tone-navy" : "tone-white"
         )}
       >
@@ -63,7 +67,7 @@ export function PackageCard({
         )}
 
         <div className="mt-auto pt-9">
-          <ButtonLink href={href} tone={pkg.featured ? "primary" : "navy"} className="w-full">
+          <ButtonLink href={href} tone={pkg.featured ? "primary" : "navy"} dot={pkg.featured ? true : undefined} className="w-full">
             {pkg.cta}
           </ButtonLink>
         </div>

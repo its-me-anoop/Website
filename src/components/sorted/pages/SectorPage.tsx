@@ -38,7 +38,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
         art={null}
         after={
           <Container className="pb-14 sm:pb-20">
-            <a href={sector.demo.href} aria-label={`Open the ${sector.demo.name} sample website`} className="mx-auto block max-w-[1040px] rounded-[24px]">
+            <a href={sector.demo.href} aria-label={`Open the ${sector.demo.name} sample website`} data-dot="top" data-dot-x="0.3" className="mx-auto block max-w-[1040px] rounded-[24px]">
               <SampleScene
                 image={sector.demo.image}
                 mobileImage={sector.demo.mobileImage}
@@ -47,10 +47,10 @@ export function SectorPage({ sector }: { sector: Sector }) {
                 priority
               />
             </a>
-            <ul className="mt-12 grid gap-4 sm:grid-cols-3">
+            <ul data-dot="steps" className="mt-12 grid gap-4 sm:grid-cols-3">
               {sector.heroPoints.map((point, i) => (
                 <Reveal as="li" key={point} turn={1} delay={i * 0.08} className="rounded-[24px] bg-s-raised px-5 py-4">
-                  <span className="s-label s-num text-[13px] text-s-accent">0{i + 1}</span>
+                  <span data-dot-step className="s-label s-num block w-fit text-[13px] text-s-accent">0{i + 1}</span>
                   <p className="mt-2 text-[16px] font-medium leading-[1.5] text-s-ink">{point}</p>
                 </Reveal>
               ))}
@@ -59,7 +59,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
         }
       >
         <div className="flex flex-wrap gap-4">
-          <ButtonLink href="/free-audit" arrow="right" size="lg">
+          <ButtonLink href="/free-audit" arrow="right" size="lg" dot="soft">
             Get your free audit
           </ButtonLink>
           <ButtonLink href={sector.demo.href} tone="plain" size="lg" arrow="up">
@@ -79,10 +79,10 @@ export function SectorPage({ sector }: { sector: Sector }) {
               </>
             }
           />
-          <ol className="mt-14 grid gap-x-8 sm:grid-cols-2 wide:grid-cols-3">
+          <ol data-dot="steps" className="mt-14 grid gap-x-8 sm:grid-cols-2 wide:grid-cols-3">
             {sector.features.map((feature, i) => (
               <Reveal as="li" key={feature.title} delay={(i % 3) * 0.06} className="border-t-[1.5px] border-s-rule pb-10 pt-5">
-                <span className="s-display s-num text-[40px] text-s-accent">0{i + 1}</span>
+                <span data-dot-step className="s-display s-num block w-fit text-[40px] text-s-accent">0{i + 1}</span>
                 <h3 className="s-display mt-4 text-[24px]">{feature.title}</h3>
                 <p className="mt-3 text-[16px] leading-[1.6] text-s-ink-soft">{feature.copy}</p>
               </Reveal>
@@ -109,14 +109,14 @@ export function SectorPage({ sector }: { sector: Sector }) {
               <p className="mt-6 max-w-[520px] text-[17.5px] leading-[1.6] text-s-ink-soft">{sector.demo.copy}</p>
             </Reveal>
             <Reveal delay={0.1}>
-              <ul className="mt-8 space-y-3.5">
+              <ul data-dot="steps" className="mt-8 space-y-3.5">
                 {sector.demo.points.map((point) => (
                   <CheckItem key={point}>{point}</CheckItem>
                 ))}
               </ul>
             </Reveal>
             <Reveal delay={0.18} className="mt-10">
-              <ButtonLink href={sector.demo.href} arrow="up">
+              <ButtonLink href={sector.demo.href} arrow="up" dot>
                 Explore the sample site
               </ButtonLink>
             </Reveal>
@@ -135,7 +135,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
         <Container>
           <Reveal className="grid gap-12 wide:grid-cols-2 wide:gap-16">
             <div>
-              <span aria-hidden className="flex h-14 w-14 items-center justify-center rounded-[24px] bg-s-navy text-s-sun">
+              <span aria-hidden data-dot="into" className="flex h-14 w-14 items-center justify-center rounded-[24px] bg-s-navy text-s-sun">
                 <ShieldCheck size={28} strokeWidth={2} />
               </span>
               <Eyebrow className="mt-8">{sector.compliance.eyebrow}</Eyebrow>
@@ -144,7 +144,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
               </Display>
               <p className="mt-5 text-[17px] leading-[1.6] text-s-ink-soft">{sector.compliance.copy}</p>
             </div>
-            <ul className="space-y-3 self-center">
+            <ul data-dot="steps" className="space-y-3 self-center">
               {sector.compliance.points.map((point) => (
                 <CheckItem key={point} className="tone-white rounded-[24px] border-[1.5px] border-s-line-2 p-4">
                   {point}
@@ -167,7 +167,7 @@ export function SectorPage({ sector }: { sector: Sector }) {
             }
           />
           <Reveal className="mt-12 max-w-[1000px]">
-            <ul className="grid gap-x-10 border-t-[1.5px] border-s-rule sm:grid-cols-2">
+            <ul data-dot="steps" className="grid gap-x-10 border-t-[1.5px] border-s-rule sm:grid-cols-2">
               {sector.included.map((item) => (
                 <CheckItem key={item} className="border-b-[1.5px] border-s-line-2 py-4">
                   {item}

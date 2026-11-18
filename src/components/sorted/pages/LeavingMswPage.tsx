@@ -66,7 +66,7 @@ export function LeavingMswPage() {
         }
       >
         <div className="flex w-full max-w-[420px] flex-col gap-4 sm:max-w-none sm:flex-row">
-          <ButtonLink href="/free-audit" size="lg" arrow="right" className="w-full sm:w-auto">
+          <ButtonLink href="/free-audit" size="lg" arrow="right" dot="soft" className="w-full sm:w-auto">
             Book a free audit
           </ButtonLink>
           <ButtonLink href="/book" tone="plain" size="lg" className="w-full sm:w-auto">
@@ -124,7 +124,7 @@ export function LeavingMswPage() {
           <div className="mt-12 grid gap-5 md:grid-cols-2">
             <Reveal turn={1} className="tone-cobalt rounded-[24px] p-7">
               <Eyebrow>Who it is for</Eyebrow>
-              <ul className="mt-6 space-y-4">
+              <ul data-dot="steps" className="mt-6 space-y-4">
                 {forWho.map((item) => (
                   <CheckItem key={item}>{item}</CheckItem>
                 ))}
@@ -159,7 +159,7 @@ export function LeavingMswPage() {
             }
             copy="Published prices. Reserve by 31 October 2026. Capacity is capped, so the quote includes a go-live date you can plan around."
           />
-          <ul className="mt-12 grid max-w-[1000px] items-stretch gap-6 md:grid-cols-2">
+          <ul data-dot="steps" className="mt-12 grid max-w-[1000px] items-stretch gap-6 md:grid-cols-2">
             {clearPath.packages.map((pkg, i) => (
               <PackageCard key={pkg.name} pkg={pkg} index={i} badge="Premium custom" />
             ))}
@@ -188,10 +188,10 @@ export function LeavingMswPage() {
               </>
             }
           />
-          <ol className="mt-12 grid gap-4 sm:grid-cols-2 wide:grid-cols-4">
+          <ol data-dot="steps" className="mt-12 grid gap-4 sm:grid-cols-2 wide:grid-cols-4">
             {clearPath.steps.map((step, i) => (
               <Reveal as="li" key={step.title} turn={1} delay={i * 0.12} className="h-full">
-                <div className="h-full rounded-[24px] bg-s-bg-2 p-6">
+                <div data-dot-step data-dot-x="-36px" className="dot-lift h-full rounded-[24px] bg-s-bg-2 p-6">
                   <span aria-hidden className="s-display s-num text-[48px] text-s-accent">
                     {i + 1}
                   </span>
@@ -223,10 +223,10 @@ export function LeavingMswPage() {
             }
             copy="These dates cover the website move only. Check the dates in your own provider letter before planning the move."
           />
-          <ol className="mt-12 grid gap-5 sm:grid-cols-3">
+          <ol data-dot="steps" className="mt-12 grid gap-5 sm:grid-cols-3">
             {clearPath.dates.map((item, i) => (
               <Reveal as="li" key={item.label} turn={1} delay={i * 0.1} className="h-full">
-                <article className="flex h-full flex-col rounded-[24px] bg-s-raised p-7">
+                <article data-dot-step data-dot-x="-36px" className="dot-lift flex h-full flex-col rounded-[24px] bg-s-raised p-7">
                   <span className="flex items-center gap-2 text-s-accent">
                     <CalendarClock size={17} aria-hidden />
                     <span className="s-label text-[13px]">{item.label}</span>
@@ -255,7 +255,7 @@ export function LeavingMswPage() {
               </p>
             </Reveal>
             <Reveal delay={0.1}>
-              <ul className="mt-7 space-y-3">
+              <ul data-dot="steps" className="mt-7 space-y-3">
                 {proofLinks.map((item) => (
                   <CheckItem key={item.href}>
                     <Link href={item.href} className="font-semibold underline decoration-s-accent decoration-2 underline-offset-4">
@@ -266,7 +266,7 @@ export function LeavingMswPage() {
               </ul>
             </Reveal>
             <Reveal delay={0.18} className="mt-9 flex flex-wrap gap-4">
-              <ButtonLink href="/free-audit" arrow="right">
+              <ButtonLink href="/free-audit" arrow="right" dot>
                 Book a free audit
               </ButtonLink>
               <ButtonLink href={gpSector.demo.href} tone="plain" arrow="up">

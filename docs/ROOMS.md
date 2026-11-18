@@ -232,6 +232,32 @@ marked, as is that of a page heading (`Display dotEm`), and so is every
 `Eyebrow`, so inner pages get a route for free. `data-dot-pin` holds the
 dot on one anchor whatever else is nearer (the hero uses it).
 
+**On every page.** A route is made of anchors in the markup, and the
+shared components carry most of them, so a sub page built from those
+components has a route without asking for one:
+
+| Component | What the dot does there |
+|---|---|
+| `PageHero` | starts on the heading's serif word (or the label), in sight; at the very top of a page it does not go `into` anything |
+| `ButtonLink dot="soft"` | the hero's main button: the dot becomes it once the page has been scrolled a little |
+| `ButtonLink dot` | the button the page most wants pressed: the dot is drawn to it from further off (`CtaBand`'s booking pill, a featured package's button, "Open the sample site") |
+| `AuditBar` | goes into the Audit button |
+| `CheckItem` in a `data-dot="steps"` list | stands on each tick in turn |
+| `FaqList` | stands on each question's button in turn |
+| `PackageCard` in a `data-dot="steps"` list | lands on each card, which lifts |
+| `Eyebrow`, section headings | stands on the `##`, or on the serif word |
+| `Footer` | ends as the dot of the wordmark |
+
+Each page then marks what is its own: the numbers of a service's
+inclusions and of a sector's features, each service's arrow on the
+services index, the seven audit areas and three steps on the audit
+page, the sample sites' pictures, the Clear Path dates, a case study's
+features and screens, the report's score dial and fix-first list. Steps
+belong to the nearest list that asks for them, and a tick inside a card
+is never a step of the card's row. `pages/dot-routes.test.tsx` checks
+that every sub page has a start, something of its own to walk and an
+end.
+
 What the dot arrives at is told in attributes, and answers in CSS:
 `data-dot-hit` for the moment of landing (a nudge, written with
 `translate` and `scale` so it adds to the element's own transform) and

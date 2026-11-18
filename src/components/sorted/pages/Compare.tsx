@@ -34,7 +34,7 @@ export function Compare() {
                 <th scope="col" className="w-[41%] px-5 py-4 text-[16.5px] font-bold text-s-ink">
                   {comparison.them}
                 </th>
-                <th scope="col" className="tone-cobalt w-[41%] px-6 py-4 text-[16.5px] font-bold">
+                <th scope="col" data-dot="top" data-dot-x="-32px" className="tone-cobalt w-[41%] px-6 py-4 text-[16.5px] font-bold">
                   {comparison.us}
                 </th>
               </tr>

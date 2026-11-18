@@ -22,6 +22,8 @@ export function ScoreDial({ score, grade, className }: { score: number; grade: G
   const offset = CIRC * (1 - clamped / 100);
   return (
     <div
+      data-dot="top"
+      data-dot-x="0.5"
       className={cn(
         "relative h-[200px] w-[200px] rounded-[24px] bg-s-navy p-4 text-white sm:h-[232px] sm:w-[232px]",
         className

@@ -135,8 +135,13 @@ export function ButtonLink({
 }: {
   children: ReactNode;
   href: string;
-  /** What this page most wants pressed: the travelling dot is drawn to it and becomes it. */
-  dot?: boolean;
+  /**
+   * The travelling dot becomes this button. `true` is what the page
+   * most wants pressed: the dot is drawn to it from further off.
+   * `"soft"` is for a hero, where the dot should get there in its own
+   * time, after the headline.
+   */
+  dot?: boolean | "soft";
   tone?: keyof typeof btnTone;
   size?: keyof typeof btnSize;
   className?: string;
@@ -149,7 +154,7 @@ export function ButtonLink({
     btnTone[tone],
     className
   );
-  const attention = dot ? { "data-dot": "into", "data-dot-pull": "220" } : {};
+  const attention = dot === "soft" ? { "data-dot": "into" } : dot ? { "data-dot": "into", "data-dot-pull": "220" } : {};
   const content = (
     <>
       <span>{children}</span>
@@ -205,11 +210,14 @@ export function Tag({
   );
 }
 
-/** A ticked disc: the accent of whatever tone it sits on. */
+/**
+ * A ticked disc: the accent of whatever tone it sits on. In a list
+ * marked `data-dot="steps"` the travelling dot visits each disc in turn.
+ */
 export function CheckItem({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <li className={cn("flex items-start gap-3", className)}>
-      <span aria-hidden className="mt-[2px] flex h-[20px] w-[20px] shrink-0 items-center justify-center rounded-full bg-s-accent text-s-bg">
+      <span aria-hidden data-dot-step className="mt-[2px] flex h-[20px] w-[20px] shrink-0 items-center justify-center rounded-full bg-s-accent text-s-bg">
         <Check size={13} strokeWidth={3.4} />
       </span>
       <span className="text-[15.5px] leading-[1.55] text-s-ink">{children}</span>
@@ -219,13 +227,14 @@ export function CheckItem({ children, className }: { children: ReactNode; classN
 
 export function FaqList({ items, className }: { items: readonly { q: string; a: string }[]; className?: string }) {
   return (
-    <div className={cn("border-t-[1.5px] border-s-ink", className)}>
+    <div data-dot="steps" className={cn("border-t-[1.5px] border-s-ink", className)}>
       {items.map((item) => (
         <details key={item.q} className="group border-b-[1.5px] border-s-line-2">
           <summary className="flex cursor-pointer list-none items-start justify-between gap-5 py-5 text-[18px] font-semibold leading-snug tracking-[-0.02em] text-s-ink sm:text-[20px] [&::-webkit-details-marker]:hidden">
             <span className="min-w-0 flex-1 text-left">{item.q}</span>
             <span
               aria-hidden
+              data-dot-step
               className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-s-ink text-s-ink transition-[transform,background-color,color] duration-500 group-open:rotate-[135deg] group-open:bg-s-ink group-open:text-s-bg"
             >
               <Plus size={16} strokeWidth={2.6} />

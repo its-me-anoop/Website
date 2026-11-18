@@ -57,7 +57,9 @@ export function BookPage() {
       <div className="tone-chalk s-dots py-14 sm:py-20">
         <Container className="max-w-[1120px]">
           <Reveal turn={1}>
-            <CalEmbed />
+            <div data-dot="top" data-dot-x="0.5">
+              <CalEmbed />
+            </div>
             <p className="mx-auto mt-5 max-w-[640px] rounded-[24px] border-[1.5px] border-s-line-2 bg-s-raised px-5 py-4 text-center text-[16px] leading-snug text-s-ink-soft">
               No suitable time? Email{" "}
               <a href={`mailto:${site.email}`} className="font-semibold text-s-ink underline decoration-s-accent decoration-2 underline-offset-4">
@@ -78,7 +80,7 @@ export function BookPage() {
             </Display>
           </Reveal>
           <Reveal delay={0.08}>
-            <ul className="grid gap-x-8 border-t-[1.5px] border-s-rule sm:grid-cols-2">
+            <ul data-dot="steps" className="grid gap-x-8 border-t-[1.5px] border-s-rule sm:grid-cols-2">
               {covered.map((item) => (
                 <CheckItem key={item} className="border-b-[1.5px] border-s-line-2 py-4">
                   {item}

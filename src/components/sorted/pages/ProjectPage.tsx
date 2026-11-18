@@ -85,7 +85,7 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
         }
       >
         <div className="flex flex-wrap items-center gap-4">
-          <ButtonLink href="/book" size="lg" arrow="right">
+          <ButtonLink href="/book" size="lg" arrow="right" dot="soft">
             Book a call
           </ButtonLink>
           <ButtonLink href="/#work" tone="plain" size="lg">
@@ -121,10 +121,10 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
           <h2 id="does-title" className="s-display mt-5 text-[clamp(2.2rem,4.6vw,4rem)]">
             What it <em>does.</em>
           </h2>
-          <ol className="mt-12 grid gap-5 sm:grid-cols-2 wide:grid-cols-3">
+          <ol data-dot="steps" className="mt-12 grid gap-5 sm:grid-cols-2 wide:grid-cols-3">
             {study.features.map((feature, i) => (
               <Reveal as="li" key={feature.title} turn={1} delay={(i % 3) * 0.08} className="h-full">
-                <article className="tone-white flex h-full flex-col rounded-[24px] p-6">
+                <article data-dot-step data-dot-x="-36px" className="dot-lift tone-white flex h-full flex-col rounded-[24px] p-6">
                   <span aria-hidden className="s-display s-num text-[38px] text-s-accent">
                     0{i + 1}
                   </span>
@@ -149,10 +149,10 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
               </div>
               <figcaption className="s-label mt-8 text-center text-[13px] text-s-muted">{first.caption}</figcaption>
             </figure>
-            <ul className="mt-16 flex flex-wrap items-end justify-center gap-x-10 gap-y-12">
+            <ul data-dot="steps" className="mt-16 flex flex-wrap items-end justify-center gap-x-10 gap-y-12">
               {rest.map((shot, i) => (
                 <Reveal as="li" key={shot.src} turn={1} delay={i * 0.08}>
-                  <figure className="m-0 flex flex-col items-center gap-4">
+                  <figure data-dot-step className="m-0 flex flex-col items-center gap-4">
                     <Capture shot={shot} />
                     <figcaption className="s-label text-[13px] text-s-muted">{shot.caption}</figcaption>
                   </figure>
@@ -164,10 +164,10 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
       ) : null}
 
       <nav aria-label="More work" className="border-t-[1.5px] border-s-rule">
-        <ul className="m-0 grid list-none p-0 sm:grid-cols-2">
+        <ul data-dot="steps" className="m-0 grid list-none p-0 sm:grid-cols-2">
           {others.map((c) => (
             <li key={c.slug}>
-              <Link href={`/projects/${c.slug}`} className={`${serviceTone[c.service]} group flex min-h-[140px] flex-col justify-between gap-6 px-6 py-6 sm:px-8`}>
+              <Link href={`/projects/${c.slug}`} data-dot-step data-dot-x="-44px" className={`${serviceTone[c.service]} group flex min-h-[140px] flex-col justify-between gap-6 px-6 py-6 sm:px-8`}>
                 <span className="s-label text-[12.5px] text-s-ink-soft">{c.eyebrow}</span>
                 <span className="s-display flex items-center justify-between gap-3 text-[clamp(1.6rem,2.4vw,2.1rem)]">
                   {c.name}

@@ -1417,6 +1417,13 @@ button.s-card {
   translate: 0 -10px;
   rotate: -1deg;
 }
+/* An arrow in a disc the dot has gone into turns, as it does under a pointer. */
+.dot-turn {
+  transition: rotate 0.45s var(--s-ease);
+}
+[data-dot-on] > .dot-turn {
+  rotate: -45deg;
+}
 [data-dot-on] .shot-slab {
   transform: rotate(calc(var(--tilt, -2deg) * -1)) scale(1.035);
 }

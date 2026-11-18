@@ -37,7 +37,7 @@ export function PackagesPage() {
 
       <section className="tone-chalk py-16 sm:py-24">
         <Container>
-          <ul className="grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <ul data-dot="steps" className="grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">
             {packages.map((pkg, i) => (
               <PackageCard key={pkg.name} pkg={pkg} index={i} headingLevel="h2" />
             ))}

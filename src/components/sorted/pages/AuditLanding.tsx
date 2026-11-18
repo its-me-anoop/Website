@@ -94,7 +94,7 @@ export function AuditLanding() {
             }
             copy="Each area is weighted by how much it affects the people your website serves. Accessibility and content count most: accessibility and clear content help visitors find what they need and take the next step."
           />
-          <ol className="mt-14 grid gap-4 sm:grid-cols-2 wide:grid-cols-4" onPointerLeave={() => setActive(null)}>
+          <ol data-dot="steps" className="mt-14 grid gap-4 sm:grid-cols-2 wide:grid-cols-4" onPointerLeave={() => setActive(null)}>
             {auditChecks.map((check, i) => (
               <Reveal
                 as="li"
@@ -105,7 +105,9 @@ export function AuditLanding() {
               >
                 <article
                   onPointerEnter={() => setActive(i)}
-                  className={`${sheetTones[i]} flex h-full flex-col rounded-[24px] p-6`}
+                  data-dot-step
+                  data-dot-x="-36px"
+                  className={`${sheetTones[i]} dot-lift flex h-full flex-col rounded-[24px] p-6`}
                 >
                   <span aria-hidden className="s-display s-num text-[44px]">
                     0{i + 1}
@@ -129,10 +131,10 @@ export function AuditLanding() {
               </>
             }
           />
-          <ol className="mt-14 grid gap-5 md:grid-cols-3">
+          <ol data-dot="steps" className="mt-14 grid gap-5 md:grid-cols-3">
             {steps.map((step, i) => (
               <Reveal as="li" key={step.title} turn={1} delay={i * 0.12} className="h-full">
-                <article className="tone-white relative h-full rounded-[24px] p-7">
+                <article data-dot-step data-dot-x="-36px" className="dot-lift tone-white relative h-full rounded-[24px] p-7">
                   <p className="s-label inline-flex rounded-full bg-s-navy px-2 py-1.5 text-[12.5px] leading-none text-white">STEP {i + 1}</p>
                   <h3 className="s-display mt-7 text-[25px]">{step.title}</h3>
                   <p className="mt-3 text-[15.5px] leading-[1.6] text-s-ink-soft">{step.copy}</p>
@@ -152,7 +154,7 @@ export function AuditLanding() {
                   className={`${i === 1 ? "tone-navy" : "tone-white"} rounded-[24px] border-[1.5px] border-s-line-2 p-7`}
                 >
                   <Eyebrow>{col.label}</Eyebrow>
-                  <ul className="mt-6 grid gap-3.5">
+                  <ul data-dot="steps" className="mt-6 grid gap-3.5">
                     {col.points.map((p) => (
                       <CheckItem key={p}>{p}</CheckItem>
                     ))}
@@ -164,7 +166,7 @@ export function AuditLanding() {
 
           <Reveal className="mt-20 max-w-[900px]">
             <h2 className="s-display text-[clamp(1.7rem,3vw,2.5rem)]">The audit promise</h2>
-            <ul className="mt-7 grid gap-x-10 border-t-[1.5px] border-s-rule sm:grid-cols-2">
+            <ul data-dot="steps" className="mt-7 grid gap-x-10 border-t-[1.5px] border-s-rule sm:grid-cols-2">
               {auditPromises.map((promise) => (
                 <CheckItem key={promise} className="border-b-[1.5px] border-s-line-2 py-4">
                   {promise}

@@ -111,13 +111,13 @@ export function Showcase() {
             <p className="s-label text-[13px] text-s-accent">{sample.sector}</p>
             <h3 className="s-display mt-3 text-[clamp(2rem,3.4vw,2.7rem)]">{sample.name}</h3>
             <p className="mt-5 text-[19px] leading-[1.5] text-s-ink">{sample.strap}</p>
-            <ul className="mt-7 space-y-3.5">
+            <ul data-dot="steps" className="mt-7 space-y-3.5">
               {sample.points.map((p) => (
                 <CheckItem key={p}>{p}</CheckItem>
               ))}
             </ul>
             <div className="mt-9 flex flex-wrap gap-4">
-              <ButtonLink href={sample.href} arrow="up">
+              <ButtonLink href={sample.href} arrow="up" dot>
                 Open the sample site
               </ButtonLink>
               {sample.sectorHref ? (
@@ -147,7 +147,7 @@ export function Showcase() {
 
         {/* Picker: every sample at a glance; the chosen one is marked. */}
         <Reveal className="mt-16">
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 wide:grid-cols-5">
+          <ul data-dot="steps" className="grid grid-cols-2 gap-4 sm:grid-cols-3 wide:grid-cols-5">
             {samples.map((s, i) => {
               const selected = i === active;
               return (
@@ -156,6 +156,7 @@ export function Showcase() {
                     type="button"
                     aria-pressed={selected}
                     aria-label={`Show ${s.name}`}
+                    data-dot-step
                     onClick={() => setActive(i)}
                     className={cn(
                       "group flex w-full flex-col gap-2.5 rounded-[24px] border-2 p-2 pb-3 text-left transition-[border-color,transform,box-shadow] duration-300",

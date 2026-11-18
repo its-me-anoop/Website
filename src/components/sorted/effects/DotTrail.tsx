@@ -83,7 +83,9 @@ function corner(value: string, width: number): number {
  * - `steps`: a row or grid whose `data-dot-step` children it visits in
  *   turn.
  * The serif word of every section heading is an anchor too, as is that
- * of a page heading marked `data-dot-em`. `data-dot-pull` makes an
+ * of a page heading marked `data-dot-em`. At the very top of a page the
+ * dot does not go `into` anything, so every page opens with it in
+ * sight. `data-dot-pull` makes an
  * anchor count as nearer than it is, so what matters draws the dot from
  * further off; `data-dot-pin` holds it there whatever else is nearer.
  *
@@ -361,7 +363,10 @@ export function DotTrail() {
         const pinned = anchor.hasAttribute("data-dot-pin");
         const pull = parseFloat(anchor.dataset.dotPull ?? "") || 0;
         if (anchor.dataset.dot === "steps") {
-          const list = Array.from(anchor.querySelectorAll<HTMLElement>("[data-dot-step]"));
+          /* Its own steps only: not those of a list nested in it, nor the ticks inside one of its cards. */
+          const list = Array.from(anchor.querySelectorAll<HTMLElement>("[data-dot-step]")).filter(
+            (el) => el.closest('[data-dot="steps"]') === anchor && !el.parentElement?.closest("[data-dot-step]")
+          );
           const step = pickStep(
             list.map((el) => {
               const b = el.getBoundingClientRect();
@@ -377,7 +382,9 @@ export function DotTrail() {
         /* What must be on screen is where the dot would be: an element's top edge, or the middle of one it fills. */
         const mode = modeOf(anchor);
         const y = mode === "slot" || mode === "into" ? box.top + box.height / 2 : box.top;
-        return { id, y, visible: box.width > 0 && y > 8 && y < height, pinned, pull };
+        /* At the very top of a page the dot is not yet inside anything: it is out where it can be seen. */
+        const waiting = mode === "into" && !pinned && window.scrollY < 24;
+        return { id, y, visible: box.width > 0 && y > 8 && y < height && !waiting, pinned, pull };
       });
       const picked = pickAnchor(candidates, focus, on ? targets.indexOf(on) : null);
       const next = picked === null ? on : targets[picked];
