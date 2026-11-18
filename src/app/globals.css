@@ -909,9 +909,6 @@ body:has(.s-chrome) > a[href="#main"]:focus {
    under the pointer; it sinks a pixel when pressed. The custom
    properties are the ones components already set. */
 .s-key {
-  --key-face: var(--s-action);
-  --key-ink: var(--s-action-ink);
-  --key-edge: var(--s-action-edge);
   position: relative;
   align-items: center;
   justify-content: center;
@@ -927,10 +924,15 @@ body:has(.s-chrome) > a[href="#main"]:focus {
     transform 0.25s var(--s-ease),
     background-color 0.25s;
 }
-/* Display sits in a layer so `hidden` and `lg:hidden` still apply. */
+/* Display and the colour defaults sit in a layer, so `hidden` and
+   `lg:hidden` still apply and a `[--key-face:…]` utility can recolour
+   one pill. */
 @layer components {
   .s-key {
     display: inline-flex;
+    --key-face: var(--s-action);
+    --key-ink: var(--s-action-ink);
+    --key-edge: var(--s-action-edge);
   }
 }
 .s-key:hover {

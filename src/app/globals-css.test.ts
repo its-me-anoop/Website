@@ -90,6 +90,11 @@ describe("dark theme", () => {
 });
 
 describe("the language is flat", () => {
+  it("lets a utility recolour one pill: the colour defaults sit in the components layer", () => {
+    expect(block("@layer components")).toMatch(/--key-face: var\(--s-action\)/);
+    expect(block(".s-key {")).not.toMatch(/--key-face:/);
+  });
+
   it("draws every control as a pill with no pressed side", () => {
     const key = block(".s-key {");
     expect(key).toMatch(/border-radius: var\(--key-radius, 999px\)/);

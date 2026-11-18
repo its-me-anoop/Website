@@ -86,7 +86,7 @@ export function BookPage() {
               ))}
             </ul>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <ButtonLink href="/free-audit" tone="plain" size="sm" className="border-[1.5px] border-s-line-2 [--key-edge:var(--s-rule)]">
+              <ButtonLink href="/free-audit" tone="plain" size="sm" className="border-[1.5px] border-s-line-2">
                 Prefer a free website audit first?
               </ButtonLink>
               <ButtonLink href={url} tone="ghost" size="sm" external arrow="up">
