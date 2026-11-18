@@ -40,8 +40,7 @@ export function CtaBand({
           <p className="mt-7 max-w-[560px] text-[18px] leading-[1.55] text-s-ink-soft sm:text-[20px]">{copy}</p>
         </Reveal>
 
-        <Reveal delay={0.1} turn={1} className="tone-white relative rounded-[28px] p-6 sm:p-9">
-          <span aria-hidden data-dot="top" data-dot-x="-48px" className="absolute inset-x-0 top-0 h-px" />
+        <Reveal delay={0.1} turn={1} className="tone-white rounded-[28px] p-6 sm:p-9">
           {audit === "bar" ? (
             <>
               <p className="s-label text-[13.5px] text-s-muted">&gt; Free and instant. No sign-up.</p>
@@ -56,7 +55,7 @@ export function CtaBand({
           <p className="text-[17px] font-semibold text-s-ink">{showBooking ? "Talk it through:" : "Write directly:"}</p>
           <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-4">
             {showBooking ? (
-              <ButtonLink href="/book" tone={audit === "bar" ? "navy" : "primary"} arrow="right">
+              <ButtonLink href="/book" tone={audit === "bar" ? "navy" : "primary"} arrow="right" dot>
                 Book a {site.booking.durationMinutes}-minute call
               </ButtonLink>
             ) : null}

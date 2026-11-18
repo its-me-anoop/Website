@@ -131,9 +131,12 @@ export function ButtonLink({
   className,
   external,
   arrow,
+  dot,
 }: {
   children: ReactNode;
   href: string;
+  /** What this page most wants pressed: the travelling dot is drawn to it and becomes it. */
+  dot?: boolean;
   tone?: keyof typeof btnTone;
   size?: keyof typeof btnSize;
   className?: string;
@@ -146,6 +149,7 @@ export function ButtonLink({
     btnTone[tone],
     className
   );
+  const attention = dot ? { "data-dot": "into", "data-dot-pull": "220" } : {};
   const content = (
     <>
       <span>{children}</span>
@@ -163,11 +167,11 @@ export function ButtonLink({
     </>
   );
   return href.startsWith("/") || href.startsWith("#") ? (
-    <Link href={href} className={classes}>
+    <Link href={href} {...attention} className={classes}>
       {content}
     </Link>
   ) : (
-    <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={classes}>
+    <a href={href} {...attention} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={classes}>
       {content}
     </a>
   );
@@ -299,7 +303,8 @@ export function AuditBar({
         />
         <button
           type="submit"
-          data-dot="top"
+          data-dot="into"
+          data-dot-pull="160"
           className="s-key h-11 shrink-0 px-4 text-[15px] [--key-edge:#ff6a3d] [--key-face:var(--s-flame)] [--key-ink:var(--s-navy)] hover:!translate-y-0 sm:px-5"
           aria-label="Run the free website audit"
         >

@@ -73,13 +73,17 @@ the demo-site scopes.
   The bar is the hero action and the closing action on every page.
 - **The sticker wall**: the home hero is twelve stickers (website,
   domain, email, backups, Wi-Fi, search…), askew with a problem showing.
-  As you scroll, the room holds still and the dot lands on each one in
-  turn; it straightens and the problem turns into the fix. Without
+  As you scroll, the room holds still and the dot goes into each one's
+  red status light in turn; it straightens and the problem turns into
+  the fix. Then the dot goes into the booking pill. Without
   JavaScript, and under reduced motion, the wall is simply sorted.
-- **The travelling dot**: one vermilion dot is carried down every page,
-  hopping from element to element as you scroll and nudging what it
-  lands on. It starts in the headline and ends as the dot of the
-  footer's wordmark.
+- **The travelling dot**: one vermilion dot is carried down every page
+  and moves like a ball: it crouches, rolls off the rounded edge of what
+  it is on, is thrown in an arc, lands, bounces and settles. Some things
+  it becomes rather than lands on, taking the shape of a booking pill or
+  a sticker's status light, and it is drawn to what each page most wants
+  pressed. It starts in the headline and ends as the dot of the footer's
+  wordmark.
 - **A colour for each service**: cobalt, vermilion, mint, pink and sun
   follow Websites, Apps, IT support, Social media and SEO from the
   services index on the home page to each service's own page.

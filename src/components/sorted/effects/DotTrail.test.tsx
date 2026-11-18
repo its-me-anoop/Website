@@ -35,22 +35,73 @@ describe("DotTrail", () => {
     expect(document.documentElement).not.toHaveClass("dot-live");
   });
 
-  it("clears its mark from whatever it was standing on when it goes", async () => {
+  const box = (left: number, top: number, width: number, height: number) => () =>
+    ({ left, top, width, height, right: left + width, bottom: top + height, x: left, y: top, toJSON() {} }) as DOMRect;
+
+  function anchor(mode: string, rect: () => DOMRect) {
+    const el = document.createElement("button");
+    el.setAttribute("data-dot", mode);
+    el.getBoundingClientRect = rect;
+    document.body.append(el);
+    return el;
+  }
+
+  /** Run the page for `ms`, a frame every 16. */
+  const run = (ms: number) => vi.advanceTimersByTimeAsync(ms);
+
+  it("starts on the nearest anchor without a show, then is thrown to the next and settles there", async () => {
     motion(true);
-    vi.stubGlobal("requestAnimationFrame", (run: FrameRequestCallback) => setTimeout(() => run(performance.now()), 0) as unknown as number);
-    vi.stubGlobal("cancelAnimationFrame", (id: number) => clearTimeout(id));
-    const anchor = document.createElement("button");
-    anchor.setAttribute("data-dot", "top");
-    anchor.getBoundingClientRect = () => ({ left: 100, top: 300, width: 80, height: 40, right: 180, bottom: 340, x: 100, y: 300, toJSON() {} });
-    document.body.append(anchor);
+    vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout", "requestAnimationFrame", "cancelAnimationFrame", "performance"] });
+    Object.defineProperty(window, "innerHeight", { value: 900, configurable: true });
+    const first = anchor("top", box(100, 440, 80, 40));
     const { unmount } = render(<DotTrail />);
-    await new Promise((done) => setTimeout(done, 40));
+    await run(60);
     const dot = document.querySelector<HTMLElement>("[data-dot-trail]")!;
-    /* The first anchor is taken without a hop: the dot is simply there, perched on its top edge. */
-    expect(dot.style.opacity).toBe("1");
-    expect(dot.style.transform).toContain("translate3d(133.0px, 286.0px, 0)");
+    /* Perched on the first anchor's top edge, at its middle. */
+    expect(dot.style.transform).toContain("translate3d(133.0px, 426.0px, 0)");
+    expect(first).toHaveAttribute("data-dot-on");
+
+    /* A second anchor arrives nearer the eye's line: the dot leaves the first... */
+    first.getBoundingClientRect = box(100, 140, 80, 40);
+    const second = anchor("top", box(600, 450, 200, 60));
+    window.dispatchEvent(new Event("scroll"));
+    await run(400);
+    expect(first).not.toHaveAttribute("data-dot-on");
+    const mid = /translate3d\(([\d.-]+)px, ([\d.-]+)px/.exec(dot.style.transform)!;
+    expect(Number(mid[1])).toBeGreaterThan(140);
+    expect(Number(mid[1])).toBeLessThan(700);
+
+    /* ...and comes to rest on top of the second, round again, having told it so. */
+    await run(2500);
+    expect(second).toHaveAttribute("data-dot-on");
+    expect(dot.style.transform).toContain("translate3d(693.0px, 436.0px, 0)");
+    expect(dot.style.transform).toContain("scale(1.000, 1.000)");
     unmount();
-    expect(anchor).not.toHaveAttribute("data-dot-on");
-    anchor.remove();
+    expect(second).not.toHaveAttribute("data-dot-on");
+    first.remove();
+    second.remove();
+    vi.useRealTimers();
+  });
+
+  it("becomes an element it goes into: that element's shape, then out of sight so the element shows", async () => {
+    motion(true);
+    vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout", "requestAnimationFrame", "cancelAnimationFrame", "performance"] });
+    Object.defineProperty(window, "innerHeight", { value: 900, configurable: true });
+    const first = anchor("top", box(100, 440, 80, 40));
+    const { unmount } = render(<DotTrail />);
+    await run(60);
+    first.getBoundingClientRect = box(100, 100, 80, 40);
+    const pill = anchor("into", box(500, 420, 240, 60));
+    window.dispatchEvent(new Event("scroll"));
+    await run(3000);
+    const dot = document.querySelector<HTMLElement>("[data-dot-trail]")!;
+    expect(pill).toHaveAttribute("data-dot-on");
+    expect(parseFloat(dot.style.width)).toBe(240);
+    expect(parseFloat(dot.style.height)).toBe(60);
+    expect(Number(dot.style.opacity)).toBe(0);
+    unmount();
+    first.remove();
+    pill.remove();
+    vi.useRealTimers();
   });
 });

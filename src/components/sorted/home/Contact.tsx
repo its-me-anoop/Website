@@ -18,7 +18,7 @@ export function Contact() {
           Got something that needs <em>sorting?</em>
         </h2>
         <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
-          <Link href="/book" data-dot="top" className="s-key group/btn h-16 px-8 text-[19px]">
+          <Link href="/book" data-dot="into" data-dot-pull="260" className="s-key group/btn h-16 px-8 text-[19px]">
             Book a {site.booking.durationMinutes}-minute call
             <ArrowRight size={20} strokeWidth={2.6} aria-hidden className="transition-transform duration-300 group-hover/btn:translate-x-1" />
           </Link>

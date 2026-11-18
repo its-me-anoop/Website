@@ -179,36 +179,68 @@ page behind does not scroll.
 ## The travelling dot
 
 `effects/DotTrail.tsx`, mounted once in `Shell`. One dot is carried down
-every Rooms page. It stands on whichever **anchor** is nearest the
-middle of the window, moves with that element as the page scrolls, and
-hops to the next in an arc when another comes nearer: it stretches as it
-flies, squashes as it lands, and what it lands on gives a little. It
-starts as the dot beside "sorted." in the hero and ends, grown to size,
-as the dot of the footer's wordmark.
+every Rooms page, from one **anchor** to the next, and it moves like a
+ball. It starts as the dot beside "sorted." in the hero and ends, grown
+to size, as the dot of the footer's wordmark.
+
+**How it moves.** It rests on the top outline of an element, rounded
+corners and all, and moves with that element as the page scrolls. When
+another anchor comes nearer the middle of the window it:
+
+1. crouches;
+2. rolls to the edge it is leaving by, over the curve of the corner;
+3. is thrown: an arc under gravity, stretched along its path;
+4. lands a little short of where it will stand, and squashes;
+5. bounces, lower each time (three at most);
+6. rolls the rest of the way to rest.
+
+On a pill it rolls over the rounded end; on the portrait's arch it lands
+on the shoulder and settles at the crown. Corner radii are read from the
+element and scaled the way a browser draws them.
+
+**What it becomes.** Some anchors it does not stand on:
+
+- In a `slot` it grows to fill a placeholder (`<Dot slot />`).
+- Going `into` an element it takes that element's shape and colour, a
+  little too large and back, and then lets the element itself show
+  through: the element seems to be made of it. The element swells and
+  sends out a ring, and keeps a slow ring going while the dot is inside,
+  since the dot itself cannot be seen there. When the dot leaves it
+  comes back out of the same shape.
+
+**Where it takes the eye.** The dot goes `into` the things a page most
+wants looked at or pressed, and those carry `data-dot-pull`, which makes
+them count as nearer than they are, so the dot gets to them early and
+stays late: the booking pills (`ButtonLink dot`, the home page's close),
+the audit bar's button, a service's arrow. In the hero it goes into each
+sticker's red status light as that sticker is fixed, and once the wall
+is sorted it leaves the headline a dot of its own and goes into the
+booking pill.
 
 An anchor is any element with `data-dot`:
 
 | `data-dot` | The dot… |
 |---|---|
-| `top` (or empty) | perches on the element's top edge; `data-dot-x` says where along it (`"0.25"`, `"12px"`, `"-20px"` from the right) |
-| `slot` | fills a placeholder at the placeholder's own size (`<Dot slot />`) |
+| `top` (or empty) | stands on the element's top outline; `data-dot-x` says where along it (`"0.25"`, `"12px"`, `"-20px"` from the right), kept to the level part |
+| `slot` | fills a placeholder at the placeholder's own size |
+| `into` | becomes the element |
 | `start` | stands just before a line of text |
 | `steps` | visits the element's `data-dot-step` children in turn: a row left to right as it rises past the eye's line, a grid like a page |
 
 The serif word of every section heading is an anchor without being
-marked, as is that of a page heading (`Display dotEm`). `Eyebrow` and
-the audit bar's button are anchors wherever they appear, so inner pages
-get a route for free. `data-dot-pin` holds the dot on one anchor
-whatever else is nearer (the hero's sticker being fixed).
+marked, as is that of a page heading (`Display dotEm`), and so is every
+`Eyebrow`, so inner pages get a route for free. `data-dot-pin` holds the
+dot on one anchor whatever else is nearer (the hero uses it).
 
-What the dot lands on is told in attributes, and answers in CSS:
+What the dot arrives at is told in attributes, and answers in CSS:
 `data-dot-hit` for the moment of landing (a nudge, written with
 `translate` and `scale` so it adds to the element's own transform) and
 `data-dot-on` while the dot stays (a service's arrow turns, a client's
 tile turns pink and leans, a picture straightens, a process card lifts).
 
-The arithmetic (where the dot stands, which anchor wins, the spring) is
-in `effects/dot-math.ts` and tested there. The loop only runs while
+The arithmetic (the surface, the throw, the bounces, which anchor wins)
+is in `effects/dot-math.ts` and tested there; `DotTrail.test.tsx` plays
+a throw and a morph against a stopped clock. The loop only runs while
 something is moving. The dot is `aria-hidden`, takes no pointer events,
 is not printed, and does not exist under reduced motion or without
 JavaScript, where the placeholders show their own dots.

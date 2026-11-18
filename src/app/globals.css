@@ -1339,25 +1339,59 @@ button.s-card {
   opacity: 0;
   pointer-events: none;
   will-change: transform;
-  transition:
-    opacity 0.3s,
-    background-color 0.3s;
+  transition: background-color 0.28s;
 }
 .dot-live [data-dot="slot"] {
   visibility: hidden;
 }
-[data-dot-hit],
-.sort-piece[data-dot-hit] .sort-face {
-  animation: dot-hit 0.55s var(--s-spring);
+/* Once the hero's wall is sorted the headline keeps a dot of its own,
+   and the travelling one is free to go on. */
+.dot-live .hero-scene[data-state="sorted"] [data-dot="slot"] {
+  visibility: visible;
 }
-.sort-piece[data-dot-hit] {
-  animation: none;
+[data-dot-hit],
+.sort-piece:has([data-dot-hit]) .sort-face {
+  animation: dot-hit 0.55s var(--s-spring);
 }
 @keyframes dot-hit {
   30% {
     translate: 0 5px;
     scale: 1.025 0.95;
   }
+}
+/* What the dot goes into swells as it is filled and sends out a ring:
+   this is the thing to look at. */
+[data-dot="into"][data-dot-hit] {
+  animation: dot-fill 0.7s var(--s-spring);
+}
+@keyframes dot-fill {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 55%, transparent);
+  }
+  35% {
+    scale: 1.07;
+  }
+  100% {
+    box-shadow: 0 0 0 22px transparent;
+  }
+}
+/* While the dot is inside something it cannot be seen, so the thing
+   keeps a slow ring going: the dot is in here. */
+[data-dot="into"][data-dot-on]:not([data-dot-hit]) {
+  animation: dot-held 2.2s ease-out infinite;
+}
+@keyframes dot-held {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
+.sort-status [data-dot-hit],
+.sort-status [data-dot-on] {
+  animation: none !important;
 }
 /* While the dot is on something, that thing answers as it would to a
    pointer: a service's arrow turns, a client's tile turns pink and

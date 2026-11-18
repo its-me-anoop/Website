@@ -61,9 +61,11 @@ const letterScatter = [
  * The room is a scene the scroll plays. It opens as things were found:
  * the stickers askew with their problems showing, the letters of
  * "sorted." out of line. As the page scrolls, the dot leaves the
- * headline and lands on each sticker in turn; the sticker straightens
- * and its problem turns into the fix. When the last one is done the
- * letters settle and the dot goes back to its place. On a wide, tall
+ * headline and goes into each sticker's red status light in turn; the
+ * sticker straightens and its problem turns into the fix. When the last
+ * one is done the letters settle, the headline keeps a dot of its own,
+ * and the travelling one goes where the room wants you to look: into
+ * the booking pill. On a wide, tall
  * window the room holds still while this happens (`data-pin`); on a
  * small one it plays as the wall scrolls past.
  *
@@ -110,6 +112,13 @@ export function Hero() {
     let held: HTMLElement | null = null;
     let frame = 0;
 
+    /** Let go of whatever the dot was being held on: it is an anchor only while the scene holds the dot there. */
+    const release = () => {
+      held?.removeAttribute("data-dot-pin");
+      held?.removeAttribute("data-dot");
+      held = null;
+    };
+
     /* The stickers on this size of wall, numbered in the order the dot visits them. */
     const number = () => {
       shown = Array.from(wall.querySelectorAll<HTMLElement>(".sort-piece")).filter((piece) => piece.offsetParent !== null);
@@ -135,14 +144,19 @@ export function Hero() {
       root.style.setProperty("--q", q.toFixed(3));
       root.dataset.state = heroState(q, shown.length);
 
+      /* The dot goes into the status light of the sticker being fixed; once the wall is sorted, into the booking pill. */
       const active = activePiece(q, shown.length);
-      const next = active === null ? null : shown[active];
+      const next =
+        active !== null
+          ? shown[active].querySelector<HTMLElement>(".sort-bad i")
+          : root.dataset.state === "sorted"
+            ? root.querySelector<HTMLElement>("[data-hero-cta]")
+            : null;
       if (next !== held) {
-        if (held) ["data-dot", "data-dot-pin", "data-dot-x"].forEach((name) => held!.removeAttribute(name));
+        release();
         if (next) {
-          next.setAttribute("data-dot", "top");
+          next.setAttribute("data-dot", "into");
           next.setAttribute("data-dot-pin", "");
-          next.setAttribute("data-dot-x", "0.24");
         }
         held = next;
       }
@@ -163,7 +177,7 @@ export function Hero() {
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
-      if (held) ["data-dot", "data-dot-pin", "data-dot-x"].forEach((name) => held!.removeAttribute(name));
+      release();
     };
   }, [motion]);
 
@@ -213,7 +227,7 @@ export function Hero() {
               <p className="s-say max-w-[560px] text-[clamp(20px,1.9vw,27px)] text-s-ink">{heroCopy.copy}</p>
 
               <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
-                <Link href="/book" className="s-key group/btn h-14 px-7 text-[17px]">
+                <Link href="/book" data-hero-cta className="s-key group/btn h-14 px-7 text-[17px]">
                   Book a call
                   <ArrowRight size={18} strokeWidth={2.6} aria-hidden className="transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </Link>

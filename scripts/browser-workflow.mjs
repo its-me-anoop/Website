@@ -261,8 +261,8 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
     scrollTo(0, hero.offsetTop + hero.offsetHeight / 2);
   });
   await page.waitForTimeout(500);
-  if (!(await page.locator("#top .sort-piece[data-dot-pin]").count()) && (await table.getAttribute("data-state")) === "sorting")
-    note("home", "the dot is not on a sticker while the wall is being sorted");
+  if (!(await page.locator("#top .sort-piece [data-dot-pin]").count()) && (await table.getAttribute("data-state")) === "sorting")
+    note("home", "the dot is not held in a sticker's status light while the wall is being sorted");
   await page.evaluate(() => {
     const hero = document.querySelector("#top");
     scrollTo(0, hero.offsetTop + hero.offsetHeight - innerHeight);
