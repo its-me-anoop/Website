@@ -100,8 +100,15 @@ export function Hero() {
       aria-labelledby="hero-title"
       data-state={sorted ? "sorted" : "mess"}
       data-intro={intro ? "" : undefined}
-      className="tone-cobalt relative isolate flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden"
+      className="studio-opening tone-cobalt relative isolate flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden"
     >
+      <Container className="opening-index">
+        <nav aria-label="On this page">
+          {["Services", "Work", "Audit", "Studio", "Process", "Contact"].map((section) => (
+            <a key={section} href={`#${section.toLowerCase()}`}>{section}</a>
+          ))}
+        </nav>
+      </Container>
       <Container className="relative grid flex-1 items-center gap-x-8 gap-y-10 pb-10 pt-10 sm:pt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:pb-16">
         <div className="relative z-10 flex min-w-0 flex-col items-start gap-7">
           <h1

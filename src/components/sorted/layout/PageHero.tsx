@@ -36,11 +36,11 @@ export function PageHero({
 }) {
   const hasArt = art !== null;
   return (
-    <section id="top" className={cn(tone, "relative isolate overflow-hidden border-b-2 border-s-rule")}>
+    <section id="top" className={cn(tone, "studio-page-opening relative isolate overflow-hidden border-b border-s-rule")}>
       <Container
         className={cn(
-          "grid items-center gap-x-10 gap-y-6 pb-14 pt-12 sm:pb-20 sm:pt-16",
-          hasArt && "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]"
+          "grid items-center gap-x-12 gap-y-8 py-14 sm:py-20 lg:min-h-[62svh]",
+          hasArt && "lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]"
         )}
       >
         <div className="min-w-0">

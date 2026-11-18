@@ -1943,3 +1943,92 @@ body:has(.demo-physio-root) > a[href="#main"]:focus {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Flutterly studio — typeset chapters, paper surfaces and a graphite stage. */
+@media screen {
+  .s-root, .s-chrome {
+    --s-navy: #252322;
+    --s-navy-2: #373431;
+    --s-chalk: #f4f0e7;
+    --s-chalk-2: #e6e1d5;
+    --s-sky: #e3e7dd;
+    --s-cobalt: #49435e;
+    --s-cobalt-deep: #34303f;
+    --s-sun: #efd381;
+    --s-flame: #ff9872;
+    --s-jade: #93c9ac;
+    --s-pink: #dfb6c7;
+  }
+
+  :is(.s-root, .s-chrome) :is(h1,h2,h3).s-display {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    letter-spacing: -.055em;
+    line-height: 1.02;
+  }
+  .s-display em {
+    background: transparent;
+    color: inherit;
+    padding: 0 .04em 0 0;
+    margin: 0;
+    transform: none;
+    font-style: italic;
+  }
+  :is(.s-label, .s-eyebrow, .opening-index) {
+    font-family: ui-monospace, "Courier New", monospace;
+    font-weight: 500;
+    letter-spacing: .045em;
+  }
+  .s-eyebrow::before { width: 1.8em; height: 1px; background: currentColor; transform: none; }
+  .s-key { border-radius: 100px; box-shadow: none; }
+  .s-key:hover, .s-key:active { box-shadow: inset 0 0 0 1px currentColor; }
+  .s-card { border-radius: 4px; }
+  :is(.s-root, .s-chrome) header.fixed { border-bottom-width: 1px; }
+  header nav[aria-label="Primary"] .s-label { font-size: .77rem; }
+  .studio-opening {
+    --s-bg: #242222;
+    --s-ink: #f7f0e5;
+    --s-ink-soft: #e1d9cd;
+    --s-muted: #c6bdb4;
+    background-image: radial-gradient(ellipse at 83% 52%, #4a423c, transparent 54%);
+  }
+  .studio-opening::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: linear-gradient(#fff1 1px, transparent 1px), linear-gradient(90deg,#fff1 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(105deg, transparent 25%, black);
+    pointer-events: none;
+  }
+  .opening-index nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 .9rem;
+    border-bottom: 1px solid #ffffff36;
+    padding: .55rem 0;
+  }
+  .opening-index a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    font-size: .75rem;
+    color: var(--s-ink-soft);
+  }
+  .opening-index a:hover { text-decoration: underline; text-underline-offset: .3em; }
+  .studio-opening #hero-title { font-size: clamp(3.25rem, 7.5vw, 7.5rem); line-height: .91; }
+  .studio-opening #hero-title em { color: #ffb093; }
+  .studio-opening .sort-face { border-radius: 3px; }
+}
+@media screen {
+  .studio-page-opening::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(90deg, transparent 0 63px, var(--s-line) 63px 64px);
+    mask-image: linear-gradient(100deg, transparent 32%, #0009);
+  }
+}
