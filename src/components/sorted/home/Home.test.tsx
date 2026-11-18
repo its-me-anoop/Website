@@ -45,7 +45,7 @@ describe("Home", () => {
     expect(headings[0]).toHaveAccessibleName("Your digital side, sorted.");
   });
 
-  it("opens on the sorting table: every piece fixed and filed, described once for assistive technology", () => {
+  it("opens on the sticker wall: every piece fixed and filed, described once for assistive technology", () => {
     renderHome();
     const hero = document.getElementById("top")!;
     expect(hero).toHaveAttribute("data-state", "sorted");
@@ -54,7 +54,7 @@ describe("Home", () => {
     pieces.forEach((piece) => expect(within(table).getByText(piece.sorted)).toBeInTheDocument());
   });
 
-  it("flips the table back to how things were found, and sorted again, with one switch", () => {
+  it("puts the wall back to how things were found, and sorted again, with one switch", () => {
     renderHome();
     const hero = document.getElementById("top")!;
     const toggle = within(hero).getByRole("switch", { name: "Show everything sorted" });
@@ -77,7 +77,7 @@ describe("Home", () => {
     });
   });
 
-  it("lists all five services as dividers that open their pages", () => {
+  it("lists all five services as rows that open their pages", () => {
     renderHome();
     const section = document.getElementById("services")!;
     const rows = within(section).getAllByRole("link");
@@ -85,7 +85,7 @@ describe("Home", () => {
     services.forEach((s) => expect(within(section).getByText(s.summary)).toBeInTheDocument());
   });
 
-  it("files each service under its own colour, with its pillar on the tab", () => {
+  it("files each service under its own colour, with its pillar typed beside it", () => {
     renderHome();
     const section = document.getElementById("services")!;
     const items = within(section).getAllByRole("listitem");
@@ -189,7 +189,7 @@ describe("Home", () => {
     });
   });
 
-  it("keeps the 3D scenes out of the accessibility tree", () => {
+  it("keeps the decorative scenes out of the accessibility tree", () => {
     const { container } = renderHome();
     const scenes = container.querySelectorAll("[data-scene]");
     expect(scenes.length).toBeGreaterThanOrEqual(1);
@@ -210,6 +210,30 @@ describe("Home", () => {
     const studio = document.getElementById("studio")!;
     expect(within(studio).getByRole("heading", { level: 2 })).toHaveTextContent("The person you brief is the person who builds.");
     expect(within(studio).getByRole("img", { name: /Anoop Jose, founder of Flutterly/ })).toBeInTheDocument();
+  });
+
+  it("walks through eight rooms, each wall with the floor it ends on", () => {
+    renderHome();
+    const room = (id: string) => {
+      const el = document.getElementById(id)!;
+      return [Array.from(el.classList).find((c) => c.startsWith("tone-")), el.querySelector("[data-floor]")?.getAttribute("data-floor")];
+    };
+    expect(room("top")).toEqual(["tone-cobalt", "paper"]);
+    expect(room("clients")).toEqual(["tone-chalk", undefined]);
+    expect(room("services")).toEqual(["tone-navy", "pink"]);
+    expect(room("work")).toEqual(["tone-ochre", "bottle"]);
+    expect(room("audit")).toEqual(["tone-sky", "tomato"]);
+    expect(room("studio")).toEqual(["tone-sun", "paper"]);
+    expect(room("process")).toEqual(["tone-jade", "tomato"]);
+    expect(room("contact")).toEqual(["tone-flame", "cobalt"]);
+  });
+
+  it("types the studio's three lines on the hero's floor, where a screen reader can read them", () => {
+    renderHome();
+    const floor = document.getElementById("top")!.querySelector("[data-floor]")!;
+    expect(floor).not.toHaveAttribute("aria-hidden");
+    expect(within(floor as HTMLElement).getAllByRole("listitem")).toHaveLength(3);
+    expect(within(floor as HTMLElement).getByRole("link", { name: "Scroll to services" })).toHaveAttribute("href", "#services");
   });
 
   it("renders the four process steps and the footer contact details", () => {

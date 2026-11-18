@@ -56,9 +56,9 @@ export function BookPage() {
 
       <div className="tone-chalk s-dots py-14 sm:py-20">
         <Container className="max-w-[1120px]">
-          <Reveal turn={18}>
+          <Reveal turn={1}>
             <CalEmbed />
-            <p className="mx-auto mt-5 max-w-[640px] rounded-[12px] border-[1.5px] border-s-line-2 bg-s-raised px-5 py-4 text-center text-[16px] leading-snug text-s-ink-soft">
+            <p className="mx-auto mt-5 max-w-[640px] rounded-[24px] border-[1.5px] border-s-line-2 bg-s-raised px-5 py-4 text-center text-[16px] leading-snug text-s-ink-soft">
               No suitable time? Email{" "}
               <a href={`mailto:${site.email}`} className="font-semibold text-s-ink underline decoration-s-accent decoration-2 underline-offset-4">
                 {site.email}
@@ -69,16 +69,16 @@ export function BookPage() {
         </Container>
       </div>
 
-      <section className="tone-white border-t-2 border-s-rule py-20 sm:py-28">
+      <section className="tone-white border-t-[1.5px] border-s-rule py-20 sm:py-28">
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-16">
-          <Reveal turn={0}>
+          <Reveal>
             <Eyebrow>On the call</Eyebrow>
             <Display size="md" className="mt-5">
               Fifteen minutes, <em>plainly</em> spent.
             </Display>
           </Reveal>
-          <Reveal turn={0} delay={0.08}>
-            <ul className="grid gap-x-8 border-t-2 border-s-rule sm:grid-cols-2">
+          <Reveal delay={0.08}>
+            <ul className="grid gap-x-8 border-t-[1.5px] border-s-rule sm:grid-cols-2">
               {covered.map((item) => (
                 <CheckItem key={item} className="border-b-[1.5px] border-s-line-2 py-4">
                   {item}
@@ -86,7 +86,7 @@ export function BookPage() {
               ))}
             </ul>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <ButtonLink href="/free-audit" tone="plain" size="sm" className="border-2 border-s-rule [--key-edge:var(--s-rule)]">
+              <ButtonLink href="/free-audit" tone="plain" size="sm" className="border-[1.5px] border-s-line-2 [--key-edge:var(--s-rule)]">
                 Prefer a free website audit first?
               </ButtonLink>
               <ButtonLink href={url} tone="ghost" size="sm" external arrow="up">

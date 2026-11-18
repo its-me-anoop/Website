@@ -6,11 +6,12 @@ with a specialism in accessible healthcare websites.
 
 The marketing pages (home, services, GP practices, care homes, packages,
 Clear Path, free audit, booking, accessibility) run the
-["Sorted" design language](./docs/SORTED.md): chalk and navy, flat
-colour, one typeface (Archivo), five colours that code the five
-services, and small 3D scenes built from plain DOM. The home page opens
-on a sorting table where twelve pieces of a digital side arrive
-scattered and drop into rows, fixed. Case-study pages (`/projects/*`)
+["Rooms" design language](./docs/ROOMS.md): every section is a room
+with a wall of one flat colour and a floor of another, headlines in a
+heavy grotesque with one word in an italic serif, typewritten captions,
+pills for every control and five colours that code the five services.
+The home page opens on a cobalt wall where twelve stickers for the
+pieces of a digital side arrive askew and line up, fixed. Case-study pages (`/projects/*`)
 keep the light ["Porcelain" system](./docs/DESIGN-SYSTEM.md) for their
 content inside the Flutterly bar and footer (`ProductShell`), and five
 fictional sample sites under `/demo/*` each carry their own
@@ -24,7 +25,8 @@ sector-specific scope.
   reduced-motion aware)
 - **Vitest** + Testing Library for tests, **Playwright** for the
   browser workflow and axe-core accessibility audit
-- **Self-hosted fonts**: Archivo (variable weight and width) as woff2 in
+- **Self-hosted fonts**: Bricolage Grotesque (variable weight),
+  Instrument Serif and Cutive Mono, all SIL OFL, as woff2 in
   `src/fonts/`, for the marketing pages and the printed audit report;
   case-study and demo pages stay on system stacks
 
@@ -53,7 +55,7 @@ npm run dev      # http://localhost:3000
 ## Project structure & design system
 
 See [`docs/index.md`](./docs/index.md) for the architecture overview,
-[`docs/SORTED.md`](./docs/SORTED.md) for the marketing language,
+[`docs/ROOMS.md`](./docs/ROOMS.md) for the marketing language,
 [`docs/DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md) for the Porcelain
 tokens used by the case-study pages, and [`DESIGN.md`](./DESIGN.md) for
 the demo-site scopes.
@@ -69,22 +71,22 @@ the demo-site scopes.
   `src/lib/audit/` (see [`docs/AUDIT.md`](./docs/AUDIT.md)); the API is
   `GET /api/audit?url=…`, rate-limited, SSRF-guarded, nothing stored.
   The bar is the hero action and the closing action on every page.
-- **The sorting table**: the home hero is twelve tiles (website, domain,
-  email, backups, Wi-Fi, search…) that arrive scattered in 3D with a
-  problem showing, then drop into rows with it fixed. A switch flips the
-  table back to "as found". Plain DOM and CSS: it plays without
-  JavaScript and the first paint is the finished layout.
-- **A colour for each service**: cobalt, flame, jade, pink and sun
-  follow Websites, Apps, IT support, Social media and SEO from the card
-  index on the home page to each service's own page.
-- **3D that means something**: an audit page pulled apart into its seven
-  scored layers, captures of live sites on slabs that turn to face you,
-  a staff pass on a lanyard for the one-person studio, and route
-  changes that flip like a departure board. All of it stops under
-  reduced motion.
+- **The sticker wall**: the home hero is twelve stickers (website,
+  domain, email, backups, Wi-Fi, search…) that arrive askew with a
+  problem showing, then line up with it fixed. A switch puts the wall
+  back to "as found". Plain DOM and CSS: it plays without JavaScript and
+  the first paint is the finished layout.
+- **A colour for each service**: cobalt, vermilion, mint, pink and sun
+  follow Websites, Apps, IT support, Social media and SEO from the
+  services index on the home page to each service's own page.
+- **Rooms**: each section of a page has its own wall and floor, with a
+  few things standing in it: an audit page pulled apart into its seven
+  scored layers, captures of live sites pinned up a degree off square,
+  the founder's portrait in an arch. The pink index pill opens the whole
+  site as cards on an ochre wall. All motion stops under reduced motion.
 - **Showcase tabs**: an accessible tablist of the five sample sites,
-  each swung into place as a turned browser slab with its phone, a
-  five-up picker row, and arrow-key navigation.
+  each shown as a browser capture with its phone, a five-up picker row,
+  and arrow-key navigation.
 - **Accessibility as a feature**: WCAG 2.2 AA contrast on every pair,
   one `<h1>` per page, skip link, keyboard-operable menu and tabs,
   `prefers-reduced-motion` honoured everywhere, axe audited.

@@ -6,12 +6,12 @@ import { cn } from "@/lib/utils";
 import { useFinePointer, useMotionAllowed } from "./hooks";
 
 /** Shared curve for entrances: quick away, long settle. */
-export const EASE = [0.2, 0.9, 0.2, 1] as const;
+export const EASE = [0.16, 1, 0.3, 1] as const;
 
 /* ─────────────────────────────────────────────────────────────
-   Reveal: a block tips up into place as it scrolls into view, hinged
-   on its top edge like a flap. The perspective is the block's own
-   (`transformPerspective`), so no ancestor becomes a 3D context and
+   Reveal: a block rises into place as it scrolls into view, landing
+   a degree or two off square and settling, like something set down in
+   the room. Nothing is 3D, so no ancestor becomes a 3D context and
    nothing nested stops reporting itself as in view. Transform and
    opacity only: never a filter.
    ───────────────────────────────────────────────────────────── */
@@ -20,13 +20,13 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  turn = 26,
+  turn = 0,
   as = "div",
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
-  /** Degrees the block starts tipped back; 0 for a plain rise. */
+  /** How askew the block starts, as a share of two degrees; 0 for a plain rise. */
   turn?: number;
   as?: "div" | "li" | "article" | "figure" | "section";
 }) {
@@ -36,8 +36,8 @@ export function Reveal({
     <Tag
       className={cn("s-reveal", className)}
       style={{ transformOrigin: "50% 0%" }}
-      initial={{ y: 30, opacity: 0, rotateX: -turn, transformPerspective: 1100 }}
-      whileInView={{ y: 0, opacity: 1, rotateX: 0, transformPerspective: 1100 }}
+      initial={{ y: 36, opacity: 0, rotate: turn ? Math.sign(turn) * 2 : 0 }}
+      whileInView={{ y: 0, opacity: 1, rotate: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: motion ? 0.85 : 0, ease: EASE, delay: motion ? delay : 0 }}
     >
@@ -47,7 +47,7 @@ export function Reveal({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   SplitWords: headline words turn up one at a time (CSS, so the
+   SplitWords: headline words rise one at a time (CSS, so the
    finished text is in the server HTML). Strings are split on spaces;
    elements (e.g. <em>) turn as one group. The accessible text is
    unchanged.

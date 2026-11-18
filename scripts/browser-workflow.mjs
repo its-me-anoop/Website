@@ -4,8 +4,8 @@
  * Drives headless Chromium over every route at mobile and desktop viewports and
  * reports console errors, failed requests, broken images, overflow, missing
  * anchor targets, heading problems, reduced-motion issues and 404 behaviour.
- * It also exercises the homepage (the sorting table and its switch, the
- * card index, work, the studio badge, the menu and the audit bar), the
+ * It also exercises the homepage (the sticker wall and its switch, the
+ * services index, work, the studio portrait, the index menu and the audit bar), the
  * sample-site tabs on
  * the websites service page, and checks that key mobile content stays
  * inside the viewport.
@@ -127,7 +127,7 @@ async function auditPage(context, route, label = route) {
         /* Safari paints the page background into areas it reserves at
            the sides (landscape, and the iPhone Duo's side toolbar and
            corner camera) and tints its chrome with theme-color, so both
-           must match the chalk bar across the top of a Sorted page. */
+           must match the paper of a Rooms page. */
         sorted: Boolean(document.querySelector(".s-root")),
         pageBackground: getComputedStyle(document.documentElement).backgroundColor,
         themeColor: document.querySelector('meta[name="theme-color"]')?.getAttribute("content") ?? null,
@@ -146,9 +146,9 @@ async function auditPage(context, route, label = route) {
     if (data.broken.length) note(label, `broken images: ${data.broken.join(", ")}`);
     if (data.overflow > 1) note(label, `horizontal overflow ${data.overflow}px`);
     if (data.sorted) {
-      if (data.pageBackground !== "rgb(244, 243, 238)")
-        note(label, `page background is ${data.pageBackground}, expected chalk; Safari shows it in side safe areas`);
-      if (data.themeColor !== "#f4f3ee") note(label, `theme-color is ${data.themeColor}, expected #f4f3ee`);
+      if (data.pageBackground !== "rgb(244, 239, 232)")
+        note(label, `page background is ${data.pageBackground}, expected paper; Safari shows it in side safe areas`);
+      if (data.themeColor !== "#f4efe8") note(label, `theme-color is ${data.themeColor}, expected #f4efe8`);
     }
     if (data.wideFrames.length)
       note(label, `frames wider than the viewport: ${data.wideFrames.join(", ")}`);
@@ -249,15 +249,15 @@ const mobile = await browser.newContext({ ...devices["iPhone 13"] });
   const projects = await page.locator("[data-project-card]").count();
   if (projects !== 10) note("home", `expected 10 project cards, found ${projects}`);
 
-  /* The sorting table: the switch must flip it to "as found" and back,
+  /* The sticker wall: the switch must flip it to "as found" and back,
      and every piece must be on screen once sorted. */
   const table = page.locator("#top");
   const toggle = table.getByRole("switch");
   await toggle.click();
-  if ((await table.getAttribute("data-state")) !== "mess") note("home", "the switch did not scatter the sorting table");
+  if ((await table.getAttribute("data-state")) !== "mess") note("home", "the switch did not scatter the sticker wall");
   await toggle.click();
   await page.waitForTimeout(1600);
-  if ((await table.getAttribute("data-state")) !== "sorted") note("home", "the switch did not sort the table again");
+  if ((await table.getAttribute("data-state")) !== "sorted") note("home", "the switch did not sort the wall again");
   const strays = await page.evaluate(() =>
     [...document.querySelectorAll("#top .sort-piece")]
       .filter((el) => getComputedStyle(el).display !== "none")

@@ -34,9 +34,9 @@ export function AccessibilityStatement({
       />
       <div className="tone-white">
         <Container className="max-w-[1080px] py-16 sm:py-24">
-          <div className="border-t-2 border-s-rule">
+          <div className="border-t-[1.5px] border-s-rule">
             {sections.map((section, i) => (
-              <Reveal key={section.title} turn={0} delay={i * 0.04}>
+              <Reveal key={section.title} delay={i * 0.04}>
                 <section className="grid gap-4 border-b-[1.5px] border-s-line-2 py-8 md:grid-cols-[3rem_minmax(0,260px)_1fr] md:gap-8">
                   <span aria-hidden className="s-label s-num pt-1.5 text-[13px] text-s-accent">
                     0{i + 1}

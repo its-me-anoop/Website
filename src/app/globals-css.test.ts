@@ -16,8 +16,8 @@ function block(selector: string): string {
   return css.slice(start);
 }
 
-describe("Sorted tones", () => {
-  it.each(["chalk", "white", "sky", "cobalt", "navy", "flame", "sun", "jade", "pink"])(
+describe("Rooms tones", () => {
+  it.each(["chalk", "white", "sky", "cobalt", "navy", "flame", "sun", "jade", "pink", "ochre"])(
     "tone-%s paints its own canvas and ink",
     (tone) => {
       expect(css).toMatch(new RegExp(`\\.tone-${tone}[,\\s{]`));
@@ -47,7 +47,7 @@ describe("motion that respects the visitor", () => {
   const reduced = css.slice(css.lastIndexOf(".s-words .s-w > span,\n  .s-rise"));
 
   it("stops every scene under reduced motion", () => {
-    [".sort-piece", ".sort-bob", ".stack-slab", ".badge-hang", ".shot-turn", ".xray-stack"].forEach((selector) =>
+    [".sort-piece", ".sort-bob", ".stack-slab", ".shot-turn", ".xray-stack", ".menu-card", ".s-caret"].forEach((selector) =>
       expect(reduced).toContain(selector)
     );
   });
@@ -67,13 +67,13 @@ describe("motion that respects the visitor", () => {
 describe("dark theme", () => {
   const dark = block("@media (prefers-color-scheme: dark)");
 
-  it("declares both schemes, so Safari's Adaptive Dark Mode leaves Sorted pages to their own dark theme", () => {
+  it("declares both schemes, so Safari's Adaptive Dark Mode leaves Rooms pages to their own dark theme", () => {
     expect(block("html:has(.s-root) {")).toMatch(/color-scheme: light dark/);
   });
 
   it("re-inks only the neutral tones and leaves the coloured bands as they are", () => {
     [".tone-chalk", ".tone-white", ".tone-sky"].forEach((tone) => expect(dark).toContain(`.s-root ${tone}`));
-    [".tone-cobalt", ".tone-flame", ".tone-sun", ".tone-jade", ".tone-pink"].forEach((tone) =>
+    [".tone-cobalt", ".tone-flame", ".tone-sun", ".tone-jade", ".tone-pink", ".tone-ochre"].forEach((tone) =>
       expect(dark).not.toContain(tone)
     );
   });
@@ -83,8 +83,33 @@ describe("dark theme", () => {
     expect(dark).not.toMatch(/(^|\n)\s*\.tone-/);
   });
 
-  it("gives rules and card sides a colour that shows on navy", () => {
-    expect(dark).toMatch(/--s-rule: #8f99d6/);
+  it("gives rules a colour that shows in the dark room", () => {
+    expect(dark).toMatch(/--s-rule: #8d8a85/);
     expect(css).toMatch(/--color-s-rule: var\(--s-rule\)/);
+  });
+});
+
+describe("the language is flat", () => {
+  it("draws every control as a pill with no pressed side", () => {
+    const key = block(".s-key {");
+    expect(key).toMatch(/border-radius: var\(--key-radius, 999px\)/);
+    expect(key).not.toMatch(/box-shadow/);
+  });
+
+  it("sets the emphasised word of a headline in the italic serif, in the tone's mark colour", () => {
+    const em = block(".s-display em,\n.s-mark");
+    expect(em).toMatch(/font-family: var\(--font-instrument\)/);
+    expect(em).toMatch(/font-style: italic/);
+    expect(em).toMatch(/color: var\(--s-mark\)/);
+  });
+
+  it("gives a room's floor a skirting board in the shade of its wall", () => {
+    expect(block(".s-floor {")).toMatch(/border-top: .*color-mix\(in srgb, var\(--s-bg\)/);
+  });
+
+  it("keeps the sticker wall two-dimensional", () => {
+    [".sort-stage {", ".sort-piece {", ".sort-table {"].forEach((selector) =>
+      expect(block(selector)).not.toMatch(/perspective|preserve-3d|rotate[XY]/)
+    );
   });
 });

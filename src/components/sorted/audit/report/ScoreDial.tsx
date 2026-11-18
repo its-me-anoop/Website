@@ -23,7 +23,7 @@ export function ScoreDial({ score, grade, className }: { score: number; grade: G
   return (
     <div
       className={cn(
-        "relative h-[200px] w-[200px] rounded-[20px] bg-s-navy p-4 text-white shadow-[0_8px_0_0_var(--s-cobalt)] sm:h-[232px] sm:w-[232px]",
+        "relative h-[200px] w-[200px] rounded-[24px] bg-s-navy p-4 text-white sm:h-[232px] sm:w-[232px]",
         className
       )}
       role="img"

@@ -88,82 +88,89 @@
   --signal-ink: var(--accent-ink);
 
   /* ── Printed audit report (`--k-*`) ─────────────────────────────
-     The PDF is a paper document, so it has its own small ramp: chalk
-     sheets, navy bands, cobalt for marks and sun as the highlight. It
-     follows the Sorted palette below so the report and the site read
+     The PDF is a paper document, so it has its own small ramp: paper
+     sheets, ink bands, cobalt for marks and sun as the highlight. It
+     follows the Rooms palette below so the report and the site read
      as one studio. Every pairing is measured against WCAG 2.2 AA. */
-  --k-bone: #f4f3ee; /* page */
-  --k-bone-2: #e9e8e0; /* deeper band */
-  --k-paper: #ffffff; /* raised surfaces */
-  --k-ink: #0b1026; /* primary text */
-  --k-ink-soft: #343a5a; /* secondary text (≈10:1) */
-  --k-muted: #596080; /* captions (≈5.5:1) */
-  --k-line: rgba(11, 16, 38, 0.12);
-  --k-line-2: rgba(11, 16, 38, 0.24);
-  --k-coal: #0b1026; /* dark bands */
-  --k-coal-2: #141a3a;
-  --k-coal-3: #1d2550;
-  --k-coal-ink: #f4f3ee;
-  --k-coal-soft: #c5c9de; /* secondary text on navy (≈11:1) */
-  --k-coal-line: rgba(244, 243, 238, 0.14);
-  --k-fire: #2238e8; /* marks and actions; chalk text on it ≈6.7:1 */
-  --k-fire-hover: #1727b3;
-  --k-fire-soft: #dfe4ff;
-  --k-fire-lite: #8fa0ff; /* cobalt as text on navy (≈7.7:1) */
-  --k-butter: #ffd23a;
-  --k-butter-soft: #fff0b3;
-  --k-moss: #0a7446; /* pass on chalk (≈5.2:1) */
-  --k-moss-lite: #5fe0a3; /* pass on navy (≈11:1) */
-  --k-ochre: #8a5600; /* warn on chalk (≈5.5:1) */
-  --k-ochre-lite: #ffd23a; /* warn on navy (≈13:1) */
+  --k-bone: #f4efe8; /* page */
+  --k-bone-2: #e6e2db; /* deeper band */
+  --k-paper: #fffdf8; /* raised surfaces */
+  --k-ink: #201e1f; /* primary text */
+  --k-ink-soft: #3a3836; /* secondary text (≈10:1) */
+  --k-muted: #66625d; /* captions (≈5.2:1) */
+  --k-line: rgba(32, 30, 31, 0.12);
+  --k-line-2: rgba(32, 30, 31, 0.24);
+  --k-coal: #201e1f; /* dark bands */
+  --k-coal-2: #2b2a29;
+  --k-coal-3: #3a3836;
+  --k-coal-ink: #f4efe8;
+  --k-coal-soft: #d1cbc2; /* secondary text on ink (≈10:1) */
+  --k-coal-line: rgba(244, 239, 232, 0.14);
+  --k-fire: #0b41c2; /* marks and actions; paper text on it ≈7.3:1 */
+  --k-fire-hover: #08349c;
+  --k-fire-soft: #dbe4fb;
+  --k-fire-lite: #9db6ff; /* cobalt as text on ink (≈8:1) */
+  --k-butter: #f8d867;
+  --k-butter-soft: #fcefbd;
+  --k-moss: #1f6b3a; /* pass on paper (≈5.6:1) */
+  --k-moss-lite: #8fd9ab; /* pass on ink (≈10:1) */
+  --k-ochre: #7d5410; /* warn on paper (≈5.6:1) */
+  --k-ochre-lite: #f8d867; /* warn on ink (≈11:1) */
 
-  /* ── "Sorted" marketing palette ─────────────────────────────────
-     Flat colour, hard edges, no gradients. Chalk is the desk the page
-     sits on; navy is the ink; cobalt is the studio's own colour; flame
-     (lifted from the butterfly) is the one action colour. Sun, jade
-     and pink complete the five colours that code the five services.
-     Raw values first, then the semantic tokens every component reads;
-     `.tone-*` classes remap the semantic tokens for a coloured band. */
-  --s-chalk: #f4f3ee;
-  --s-chalk-2: #e9e8e0;
-  --s-white: #ffffff;
-  --s-navy: #0b1026;
-  --s-navy-2: #141a3a;
-  --s-navy-3: #1d2550;
-  --s-cobalt: #2238e8;
-  --s-cobalt-deep: #1727b3;
-  --s-flame: #ff5c1f;
-  --s-flame-deep: #c9400d;
-  --s-sun: #ffd23a;
-  --s-sun-deep: #c99a00;
-  --s-jade: #1fb57a;
-  --s-jade-deep: #128556;
-  --s-pink: #ff93d1;
-  --s-pink-deep: #d9589f;
-  --s-sky: #dfe4ff;
+  /* ── "Rooms" marketing palette ──────────────────────────────────
+     Every section is a room: a wall of one flat colour and a floor of
+     another. Paper and ink are the neutrals; cobalt is the studio's
+     wall; vermilion (lifted from the butterfly) is the dot and the
+     action. Pink, lilac, sun, mint and ochre are the other walls, and
+     bottle green and tomato the other floors. The token names are the
+     slots the components read (`navy` is the ink, `chalk` the paper,
+     `sky` the lilac wall, `flame` the vermilion, `jade` the mint).
+     Raw values first, then the semantic tokens; `.tone-*` classes
+     remap the semantic tokens for a coloured room. */
+  --s-chalk: #f4efe8;
+  --s-chalk-2: #e6e2db;
+  --s-white: #fffdf8;
+  --s-navy: #201e1f;
+  --s-navy-2: #2b2a29;
+  --s-navy-3: #3a3836;
+  --s-cobalt: #0b41c2;
+  --s-cobalt-deep: #08349c;
+  --s-flame: #fc4109;
+  --s-flame-deep: #c93205;
+  --s-sun: #f8d867;
+  --s-sun-deep: #c7963c;
+  --s-jade: #69b488;
+  --s-jade-deep: #26512f;
+  --s-pink: #ffabc8;
+  --s-pink-deep: #e0709b;
+  --s-sky: #e7bfff;
+  --s-ochre: #c7963c;
+  --s-bottle: #1c3d24;
+  --s-tomato: #e83729;
 
-  --s-bg: var(--s-chalk); /* the band's canvas */
+  --s-bg: var(--s-chalk); /* the room's wall */
   --s-bg-2: var(--s-chalk-2); /* inset wells */
   --s-raised: var(--s-white); /* cards */
-  --s-ink: var(--s-navy); /* primary text (≈17:1 on chalk) */
-  --s-ink-soft: #343a5a; /* body (≈10:1) */
-  --s-muted: #596080; /* captions (≈5.5:1) */
-  --s-line: rgba(11, 16, 38, 0.14);
-  --s-line-2: rgba(11, 16, 38, 0.32);
-  --s-accent: var(--s-cobalt); /* marks, ticks and links as text (≈6.7:1) */
-  --s-mark: var(--s-cobalt); /* the label stuck behind an emphasised word */
+  --s-ink: var(--s-navy); /* primary text (≈14:1 on paper) */
+  --s-ink-soft: #3a3836; /* body (≈10:1) */
+  --s-muted: #66625d; /* captions (≈5.2:1) */
+  --s-line: rgba(32, 30, 31, 0.14);
+  --s-line-2: rgba(32, 30, 31, 0.3);
+  --s-accent: var(--s-cobalt); /* ticks, numbers and links as text (≈7.3:1) */
+  --s-mark: var(--s-flame-deep); /* the serif word in a headline (≈4.6:1) */
   --s-mark-ink: #ffffff;
-  --s-action: var(--s-flame); /* the action colour: navy text on it ≈6:1 */
+  --s-action: var(--s-flame); /* the action pill: ink text on it ≈4.5:1 */
   --s-action-ink: var(--s-navy);
-  --s-action-edge: var(--s-flame-deep);
-  --s-plain-edge: #c2c1b6; /* the side of a white key */
-  --s-rule: var(--s-navy); /* firm rules and the sides of cards */
-  --s-key-shadow: var(--s-navy); /* the side of the audit field */
+  --s-action-edge: #ff6a3d; /* the pill under the pointer */
+  --s-plain-edge: #ffffff; /* a paper pill under the pointer */
+  --s-rule: var(--s-navy); /* firm rules */
+  --s-key-shadow: var(--s-navy);
   --s-page: var(--s-chalk); /* what Safari paints behind the page */
-  --s-pass: #0a7446;
-  --s-warn: #8a5600;
-  --s-fail: #c22a0a;
-  --s-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+  --s-floor: var(--s-chalk-2); /* the room's floor */
+  --s-pass: #1f6b3a;
+  --s-warn: #7d5410;
+  --s-fail: #b3260d;
+  --s-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --s-spring: cubic-bezier(0.22, 1.25, 0.36, 1);
 }
 
@@ -281,6 +288,9 @@
   --color-s-jade: var(--s-jade);
   --color-s-pink: var(--s-pink);
   --color-s-sky: var(--s-sky);
+  --color-s-ochre: var(--s-ochre);
+  --color-s-bottle: var(--s-bottle);
+  --color-s-tomato: var(--s-tomato);
   --color-s-bg: var(--s-bg);
   --color-s-bg-2: var(--s-bg-2);
   --color-s-raised: var(--s-raised);
@@ -319,8 +329,10 @@
   /* Display type system (self-hosted via next/font, see layout.tsx) */
   --font-syne: var(--font-syne-v), "Syne", var(--font-display);
   --font-grotesk: var(--font-grotesk-v), "Space Grotesk", var(--font-sans);
-  /* Sorted marketing pages: one variable face, weight and width. */
-  --font-archivo: var(--font-archivo-v), "Archivo", var(--font-sans);
+  /* Rooms marketing pages: a grotesque, a serif for one word, a typewriter. */
+  --font-brico: var(--font-brico-v), "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-instrument: var(--font-serif-v), "Instrument Serif", Georgia, serif;
+  --font-cutive: var(--font-mono-v), "Cutive Mono", ui-monospace, Menlo, monospace;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -469,9 +481,9 @@ p {
   animation: route-enter 0.45s var(--s-ease);
 }
 
-/* Between pages (template.tsx): five flaps, one per service colour,
-   cover the new page and turn away in 3D like a departure board. They
-   never render on the first load, so they cannot delay first paint. */
+/* Between pages (template.tsx): five curtains, one per wall colour,
+   cover the new page and lift away one after another. They never
+   render on the first load, so they cannot delay first paint. */
 .route-flaps {
   position: fixed;
   inset: 0;
@@ -479,28 +491,25 @@ p {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   pointer-events: none;
-  perspective: 1400px;
-  perspective-origin: 50% 0%;
 }
 .route-flaps span {
-  transform-origin: 50% 0%;
-  backface-visibility: hidden;
-  animation: route-flap 0.62s cubic-bezier(0.7, 0, 0.25, 1) both;
-  animation-delay: calc(var(--i) * 55ms);
+  animation: route-flap 0.7s cubic-bezier(0.65, 0, 0.35, 1) both;
+  animation-delay: calc(var(--i) * 60ms);
 }
 @keyframes route-flap {
   to {
-    transform: rotateX(-96deg);
+    transform: translateY(-101%);
   }
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Sorted: the marketing-site design language
-   "Your digital side, sorted." The page is a desk: chalk sheets,
-   navy ink, flat colour and hard edges. Things arrive scattered and
-   settle into rows; cards have real thickness and turn in 3D; an
-   emphasised word wears a label. One typeface, Archivo, set wide for
-   display and condensed for labels. Scoped to `.s-root` (and
+   Rooms: the marketing-site design language
+   Every section is a room. A wall of one flat colour, a floor of
+   another, and a few things standing in it: a headline, a card, a
+   stack of sheets. Headlines are a heavy grotesque with one word in
+   an italic serif; captions are typewritten and marked up like a
+   plain-text file (`##`, `>`); every control is a pill; a vermilion
+   dot follows the wordmark around. Scoped to `.s-root` (and
    `.s-chrome` for the nav and footer around a product page), so the
    case studies and the demo sites are untouched. Every text pairing
    is checked against WCAG 2.2 AA on its tone.
@@ -512,7 +521,7 @@ p {
   inherits: true;
 }
 
-/* Sorted pages have a light and a dark theme of their own, and say so:
+/* Rooms pages have a light and a dark theme of their own, and say so:
    `color-scheme: light dark` is what tells Safari's Adaptive Dark Mode
    (27.3) to leave the page alone rather than repaint it. */
 html:has(.s-root) {
@@ -525,7 +534,6 @@ html:has(.s-root)::-webkit-scrollbar-track {
 html:has(.s-root)::-webkit-scrollbar-thumb {
   background: var(--s-rule);
   border-color: var(--s-page);
-  border-radius: 3px;
 }
 html:has(.s-root) body {
   background: var(--s-page);
@@ -537,9 +545,8 @@ html:has(.s-root) body {
   isolation: isolate;
   background: var(--s-bg);
   color: var(--s-ink);
-  font-family: var(--font-archivo);
-  font-stretch: 100%;
-  letter-spacing: -0.004em;
+  font-family: var(--font-brico);
+  letter-spacing: -0.012em;
 }
 .s-chrome {
   /* No stacking context of its own, so the fixed nav keeps its z-index. */
@@ -553,16 +560,15 @@ html:has(.s-root) body {
 }
 .s-root ::selection,
 .s-chrome ::selection {
-  background: var(--s-sun);
+  background: var(--s-pink);
   color: var(--s-navy);
 }
-/* Two rings, navy inside sun, so focus shows on every tone. */
+/* Two rings, ink inside sun, so focus shows on every wall. */
 .s-root :focus-visible,
 .s-chrome :focus-visible {
   outline: 3px solid var(--s-navy);
   outline-offset: 2px;
   box-shadow: 0 0 0 7px var(--s-sun);
-  border-radius: 6px;
 }
 body:has(.s-root) > a[href="#main"]:focus,
 body:has(.s-chrome) > a[href="#main"]:focus {
@@ -571,7 +577,7 @@ body:has(.s-chrome) > a[href="#main"]:focus {
 }
 
 /* ── Tones ─────────────────────────────────────────────────────
-   A band or a card picks a tone; everything inside reads the same
+   A room or a card picks a tone; everything inside reads the same
    semantic tokens and comes out right. */
 .tone-chalk,
 .tone-white,
@@ -581,7 +587,8 @@ body:has(.s-chrome) > a[href="#main"]:focus {
 .tone-flame,
 .tone-sun,
 .tone-jade,
-.tone-pink {
+.tone-pink,
+.tone-ochre {
   background-color: var(--s-bg);
   color: var(--s-ink);
 }
@@ -592,91 +599,105 @@ body:has(.s-chrome) > a[href="#main"]:focus {
   --s-bg-2: var(--s-chalk-2);
   --s-raised: var(--s-white);
   --s-ink: var(--s-navy);
-  --s-ink-soft: #343a5a;
-  --s-muted: #596080;
-  --s-line: rgba(11, 16, 38, 0.14);
-  --s-line-2: rgba(11, 16, 38, 0.32);
+  --s-ink-soft: #3a3836;
+  --s-muted: #66625d;
+  --s-line: rgba(32, 30, 31, 0.14);
+  --s-line-2: rgba(32, 30, 31, 0.3);
   --s-accent: var(--s-cobalt);
-  --s-mark: var(--s-cobalt);
+  --s-mark: var(--s-flame-deep);
   --s-mark-ink: #ffffff;
   --s-action: var(--s-flame);
   --s-action-ink: var(--s-navy);
-  --s-action-edge: var(--s-flame-deep);
-  --s-plain-edge: #c2c1b6;
+  --s-action-edge: #ff6a3d;
+  --s-plain-edge: #ffffff;
   --s-rule: var(--s-navy);
   --s-key-shadow: var(--s-navy);
-  --s-pass: #0a7446;
-  --s-warn: #8a5600;
-  --s-fail: #c22a0a;
+  --s-pass: #1f6b3a;
+  --s-warn: #7d5410;
+  --s-fail: #b3260d;
 }
 .tone-white {
   --s-bg: var(--s-white);
   --s-bg-2: var(--s-chalk);
   --s-raised: var(--s-chalk);
 }
+/* The lilac wall. */
 .tone-sky {
   --s-bg: var(--s-sky);
-  --s-bg-2: #cfd6ff;
-  --s-muted: #4d5475;
-  --s-plain-edge: #aab3ee;
+  --s-bg-2: #dcaaf9;
+  --s-ink-soft: #33243d;
+  --s-muted: #4f3a5c;
+  --s-accent: #2a1a6e;
+  --s-mark: #3413a8;
+  --s-line: rgba(32, 30, 31, 0.2);
+  --s-line-2: rgba(32, 30, 31, 0.42);
+  --s-action: var(--s-navy);
+  --s-action-ink: var(--s-chalk);
+  --s-action-edge: #3a3836;
+  --s-pass: #17512c;
+  --s-warn: #5e3d08;
+  --s-fail: #8f1c08;
 }
 .tone-cobalt {
   --s-bg: var(--s-cobalt);
   --s-bg-2: var(--s-cobalt-deep);
   --s-raised: var(--s-cobalt-deep);
-  --s-ink: #ffffff;
-  --s-ink-soft: #e1e5ff;
-  --s-muted: #c6cdff;
-  --s-line: rgba(255, 255, 255, 0.24);
-  --s-line-2: rgba(255, 255, 255, 0.5);
+  --s-ink: var(--s-chalk);
+  --s-ink-soft: #e2e9fb;
+  --s-muted: #c3d0f5;
+  --s-line: rgba(244, 239, 232, 0.24);
+  --s-line-2: rgba(244, 239, 232, 0.5);
   --s-accent: var(--s-sun);
-  --s-mark: var(--s-flame);
+  --s-mark: var(--s-pink);
   --s-mark-ink: var(--s-navy);
-  --s-action: var(--s-flame);
+  --s-action: var(--s-pink);
   --s-action-ink: var(--s-navy);
-  --s-action-edge: var(--s-navy);
-  --s-plain-edge: #9aa6ff;
-  --s-rule: var(--s-navy);
+  --s-action-edge: #ffc4d9;
+  --s-plain-edge: #ffffff;
+  --s-rule: var(--s-chalk);
   --s-key-shadow: var(--s-navy);
   --s-pass: #b9f5d6;
   --s-warn: var(--s-sun);
   --s-fail: #ffd3c2;
 }
+/* The dark room. */
 .tone-navy {
   --s-bg: var(--s-navy);
-  --s-bg-2: var(--s-navy-2);
+  --s-bg-2: #171516;
   --s-raised: var(--s-navy-2);
   --s-ink: var(--s-chalk);
-  --s-ink-soft: #c5c9de;
-  --s-muted: #9aa0bf;
-  --s-line: rgba(244, 243, 238, 0.16);
-  --s-line-2: rgba(244, 243, 238, 0.36);
+  --s-ink-soft: #d1cbc2;
+  --s-muted: #a8a29a;
+  --s-line: rgba(244, 239, 232, 0.16);
+  --s-line-2: rgba(244, 239, 232, 0.36);
   --s-accent: var(--s-sun);
-  --s-mark: var(--s-flame);
+  --s-mark: var(--s-pink);
   --s-mark-ink: var(--s-navy);
   --s-action: var(--s-flame);
   --s-action-ink: var(--s-navy);
-  --s-action-edge: var(--s-flame-deep);
-  --s-plain-edge: #8a90b4;
-  --s-rule: var(--s-navy);
+  --s-action-edge: #ff6a3d;
+  --s-plain-edge: #ffffff;
+  --s-rule: var(--s-chalk);
   --s-key-shadow: #000000;
-  --s-pass: #5fe0a3;
+  --s-pass: #8fd9ab;
   --s-warn: var(--s-sun);
-  --s-fail: #ff8a6b;
+  --s-fail: #ff9a80;
 }
 .tone-flame,
 .tone-sun,
 .tone-jade,
-.tone-pink {
+.tone-pink,
+.tone-ochre {
   --s-ink: var(--s-navy);
-  --s-line: rgba(11, 16, 38, 0.22);
-  --s-line-2: rgba(11, 16, 38, 0.5);
+  --s-line: rgba(32, 30, 31, 0.22);
+  --s-line-2: rgba(32, 30, 31, 0.5);
   --s-accent: var(--s-navy);
   --s-mark: var(--s-navy);
   --s-mark-ink: #ffffff;
   --s-action: var(--s-navy);
-  --s-action-ink: #ffffff;
-  --s-action-edge: #000000;
+  --s-action-ink: var(--s-chalk);
+  --s-action-edge: #3a3836;
+  --s-plain-edge: #ffffff;
   --s-rule: var(--s-navy);
   --s-key-shadow: var(--s-navy);
   --s-raised: var(--s-white);
@@ -686,169 +707,194 @@ body:has(.s-chrome) > a[href="#main"]:focus {
 }
 .tone-flame {
   --s-bg: var(--s-flame);
-  --s-bg-2: #ff7a47;
-  --s-ink-soft: #1b1433;
-  --s-muted: #1b1433;
-  --s-plain-edge: var(--s-flame-deep);
+  --s-bg-2: #ff6a3d;
+  --s-ink-soft: var(--s-navy);
+  --s-muted: var(--s-navy);
 }
 .tone-sun {
   --s-bg: var(--s-sun);
-  --s-bg-2: #ffe07a;
-  --s-ink-soft: #3b3412;
-  --s-muted: #574a14;
-  --s-plain-edge: var(--s-sun-deep);
+  --s-bg-2: #fbe592;
+  --s-ink-soft: #37300f;
+  --s-muted: #51460f;
 }
 .tone-jade {
   --s-bg: var(--s-jade);
-  --s-bg-2: #4fc998;
+  --s-bg-2: #85c4a0;
   --s-ink-soft: var(--s-navy);
-  --s-muted: var(--s-navy);
-  --s-plain-edge: var(--s-jade-deep);
+  --s-muted: #16301f;
 }
 .tone-pink {
   --s-bg: var(--s-pink);
-  --s-bg-2: #ffb5df;
-  --s-ink-soft: #3a1830;
-  --s-muted: #3a1830;
-  --s-plain-edge: var(--s-pink-deep);
+  --s-bg-2: #ffc4d9;
+  --s-ink-soft: #3a1826;
+  --s-muted: #54283a;
+}
+.tone-ochre {
+  --s-bg: var(--s-ochre);
+  --s-bg-2: #d4a955;
+  --s-ink-soft: var(--s-navy);
+  --s-muted: #2b2209;
 }
 
-
 /* ── Dark ──────────────────────────────────────────────────────
-   The same desk at night. Only the neutral tones change: chalk, white
-   and sky become three depths of navy, with chalk ink and a pale
-   cobalt for marks. The coloured bands (cobalt, flame, sun, jade,
-   pink) are the brand and stay exactly as they are, as do captures of
-   real sites and the audit field, which stays a white slot. Scoped to
-   `.s-root`, so the bar and footer around a light case-study page
-   (`.s-chrome`) do not turn dark on their own. Every pairing is
-   checked against WCAG 2.2 AA. */
+   The same rooms with the lights down. Only the neutral walls change:
+   paper, white and lilac become three depths of ink, with paper type
+   and pink for the serif word. The coloured rooms (cobalt, vermilion,
+   sun, mint, pink, ochre) are the brand and stay exactly as they are,
+   as do captures of real sites and the audit field, which stays a
+   paper slot. Scoped to `.s-root`, so the bar and footer around a
+   light case-study page (`.s-chrome`) do not turn dark on their own.
+   Every pairing is checked against WCAG 2.2 AA. */
 @media (prefers-color-scheme: dark) {
   .s-root {
-    --s-page: #10162f;
+    --s-page: #201e1f;
   }
   .s-root,
   .s-root .tone-chalk,
   .s-root .tone-white,
   .s-root .tone-sky {
-    --s-bg: #10162f;
-    --s-bg-2: #0b1026;
-    --s-raised: #1a2145;
+    --s-bg: #201e1f;
+    --s-bg-2: #171516;
+    --s-raised: #2e2c2b;
     --s-ink: var(--s-chalk);
-    --s-ink-soft: #c5c9de;
-    --s-muted: #a3a9c8;
-    --s-line: rgba(244, 243, 238, 0.16);
-    --s-line-2: rgba(244, 243, 238, 0.36);
-    --s-accent: #a9b8ff;
-    --s-mark: var(--s-cobalt);
-    --s-mark-ink: #ffffff;
+    --s-ink-soft: #d1cbc2;
+    --s-muted: #a8a29a;
+    --s-line: rgba(244, 239, 232, 0.16);
+    --s-line-2: rgba(244, 239, 232, 0.36);
+    --s-accent: #9db6ff;
+    --s-mark: var(--s-pink);
+    --s-mark-ink: var(--s-navy);
     --s-action: var(--s-flame);
     --s-action-ink: var(--s-navy);
-    --s-action-edge: var(--s-flame-deep);
-    --s-plain-edge: #8a90b4;
-    --s-rule: #8f99d6;
-    --s-key-shadow: #8f99d6;
-    --s-pass: #5fe0a3;
+    --s-action-edge: #ff6a3d;
+    --s-plain-edge: #ffffff;
+    --s-rule: #8d8a85;
+    --s-key-shadow: #8d8a85;
+    --s-pass: #8fd9ab;
     --s-warn: var(--s-sun);
-    --s-fail: #ff8a6b;
+    --s-fail: #ff9a80;
   }
   .s-root .tone-white {
-    --s-bg: #161d3d;
-    --s-bg-2: #10162f;
-    --s-raised: #1f2850;
+    --s-bg: #282627;
+    --s-bg-2: #201e1f;
+    --s-raised: #353332;
   }
   .s-root .tone-sky {
-    --s-bg: #1a2350;
-    --s-bg-2: #141b40;
-    --s-raised: #242e63;
+    --s-bg: #2b2233;
+    --s-bg-2: #211a28;
+    --s-raised: #3a2e45;
   }
-  /* A navy card on a navy page needs an edge it did not need on chalk. */
+  /* A dark card in a dark room needs an edge it did not need on paper. */
   .s-root .tone-navy {
-    --s-rule: #8f99d6;
-    --s-key-shadow: #8f99d6;
+    --s-rule: #8d8a85;
+    --s-key-shadow: #8d8a85;
   }
   .s-root ::selection {
-    background: var(--s-sun);
+    background: var(--s-pink);
     color: var(--s-navy);
   }
 }
 
 /* ── Type ──────────────────────────────────────────────────────
-   Display is Archivo pushed wide and heavy. Emphasis is not italic:
-   the word gets a label stuck behind it, slightly off square, the
-   way you would mark a box you have just packed. */
+   Display is Bricolage Grotesque set heavy and tight. The emphasised
+   word changes voice instead of weight: an italic serif in the tone's
+   mark colour, the way a title card sets one word by hand. */
 .s-display {
   font-weight: 800;
-  font-stretch: 116%;
-  letter-spacing: -0.038em;
+  letter-spacing: -0.052em;
   line-height: var(--lh, 0.94);
   text-wrap: balance;
 }
 .s-display em,
 .s-mark {
-  display: inline-block;
-  font-style: normal;
-  background: var(--s-mark);
-  color: var(--s-mark-ink);
-  padding: 0.02em 0.16em 0.07em;
-  margin: 0 0.03em;
-  border-radius: 0.09em;
-  transform: rotate(-1.4deg);
-  /* A label never breaks: a long emphasis is marked up as two labels. */
-  white-space: nowrap;
+  font-family: var(--font-instrument);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  color: var(--s-mark);
+  /* An italic overhangs its box; a little room keeps the last letter whole. */
+  padding-inline-end: 0.05em;
 }
-/* Labels: the same face squeezed narrow, in capitals. */
-.s-label {
-  font-stretch: 74%;
-  font-weight: 650;
-  text-transform: uppercase;
-  letter-spacing: 0.085em;
-  line-height: 1.2;
+/* The serif runs small beside the grotesque, so in a headline it is set up a size. */
+.s-display em {
+  font-size: 1.07em;
 }
+/* A sentence said out loud: the same face, light and large. */
+.s-say {
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+/* Captions are typewritten, in the case they were written in. */
+.s-label,
+.s-mono {
+  font-family: var(--font-cutive);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  /* A typewriter's space is a full cell; pull the words back together. */
+  word-spacing: -0.28em;
+  line-height: 1.25;
+}
+/* A section's label is marked up like a heading in a plain-text file. */
 .s-eyebrow {
   display: inline-flex;
-  align-items: center;
-  gap: 0.6em;
-  font-size: 13px;
-  font-stretch: 74%;
-  font-weight: 650;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
+  align-items: baseline;
+  gap: 0.55em;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
   line-height: 1.2;
-  color: var(--s-ink-soft);
+  text-transform: lowercase;
+  color: var(--s-ink);
 }
 .s-eyebrow::before {
-  content: "";
-  width: 0.72em;
-  height: 0.72em;
-  flex-shrink: 0;
-  background: var(--s-action);
-  transform: rotate(45deg);
+  content: "##";
+  font-family: var(--font-cutive);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--s-mark);
 }
 .s-num {
   font-variant-numeric: tabular-nums;
 }
+/* The vermilion dot. */
+.s-dot {
+  display: inline-block;
+  width: 0.3em;
+  height: 0.3em;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--s-flame);
+}
+/* A word on a sticker: paper, ink, a corner that is not quite square. */
+.s-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.5em 0.62em 0.5em 0.58em;
+  background: var(--s-white);
+  color: var(--s-navy);
+  padding: 0.3em 0.62em 0.34em;
+  line-height: 1.1;
+}
 
-/* Headline words turn up one at a time, like flaps on a board. Only a
-   transform, so the text is in the first paint and counts for LCP. */
+/* Headline words rise one at a time. Only a transform, so the text is
+   in the first paint and counts for LCP. */
 .s-words .s-w {
   display: inline-block;
-  perspective: 700px;
 }
 .s-words .s-w > span {
   display: inline-block;
-  transform-origin: 50% 100%;
-  backface-visibility: hidden;
-  animation: s-word 0.7s var(--s-spring) both;
-  animation-delay: calc(var(--d, 0ms) + var(--i) * 60ms);
+  animation: s-word 0.8s var(--s-ease) both;
+  animation-delay: calc(var(--d, 0ms) + var(--i) * 55ms);
 }
 @keyframes s-word {
   from {
-    transform: rotateX(-88deg);
+    transform: translateY(0.42em) rotate(2.5deg);
   }
 }
 .s-rise {
-  animation: s-rise 0.7s var(--s-ease) both;
+  animation: s-rise 0.8s var(--s-ease) both;
   animation-delay: var(--d, 0ms);
 }
 @keyframes s-rise {
@@ -858,29 +904,28 @@ body:has(.s-chrome) > a[href="#main"]:focus {
   }
 }
 
-/* ── Keys: buttons with a side you can press ─────────────────── */
+/* ── Pills: every control ──────────────────────────────────────
+   Flat, fully round, one colour. The pill lightens and its arrow moves
+   under the pointer; it sinks a pixel when pressed. The custom
+   properties are the ones components already set. */
 .s-key {
   --key-face: var(--s-action);
   --key-ink: var(--s-action-ink);
   --key-edge: var(--s-action-edge);
-  --key-depth: 5px;
   position: relative;
   align-items: center;
   justify-content: center;
   gap: 0.55em;
-  border-radius: var(--key-radius, 9px);
+  border-radius: var(--key-radius, 999px);
   background: var(--key-face);
   color: var(--key-ink);
   font-weight: 700;
-  font-stretch: 104%;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   line-height: 1;
   white-space: nowrap;
-  box-shadow: 0 var(--key-depth) 0 0 var(--key-edge);
   transition:
-    transform 0.16s var(--s-ease),
-    box-shadow 0.16s var(--s-ease),
-    background-color 0.2s;
+    transform 0.25s var(--s-ease),
+    background-color 0.25s;
 }
 /* Display sits in a layer so `hidden` and `lg:hidden` still apply. */
 @layer components {
@@ -889,58 +934,52 @@ body:has(.s-chrome) > a[href="#main"]:focus {
   }
 }
 .s-key:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 calc(var(--key-depth) + 2px) 0 0 var(--key-edge);
+  background: var(--key-edge);
+  transform: translateY(-1px);
 }
 .s-key:active {
-  transform: translateY(calc(var(--key-depth) - 1px));
-  box-shadow: 0 1px 0 0 var(--key-edge);
+  transform: translateY(1px) scale(0.985);
 }
 .s-key-plain {
-  --key-face: var(--s-white);
+  --key-face: var(--s-chalk);
   --key-ink: var(--s-navy);
   --key-edge: var(--s-plain-edge);
 }
 .s-key-navy {
   --key-face: var(--s-navy);
-  --key-ink: #ffffff;
-  --key-edge: #000000;
+  --key-ink: var(--s-chalk);
+  --key-edge: #3a3836;
+}
+.s-key-pink {
+  --key-face: var(--s-pink);
+  --key-ink: var(--s-navy);
+  --key-edge: #ffc4d9;
 }
 .s-key-outline {
   --key-face: transparent;
   --key-ink: var(--s-ink);
-  --key-edge: var(--s-ink);
-  --key-depth: 3px;
-  border: 2px solid var(--s-ink);
+  --key-edge: var(--s-line);
+  border: 1.5px solid var(--s-ink);
 }
 
 /* ── Cards ─────────────────────────────────────────────────────
-   A sheet on the desk: flat fill, one firm rule. A card that is a
-   link lifts and shows its side. */
+   A flat sheet with generous corners and no outline: the colour
+   against the wall is the edge. A card that is a link lifts. */
 .s-card {
   background: var(--s-raised);
-  border: 1.5px solid var(--s-line-2);
-  border-radius: var(--card-radius, 12px);
+  border-radius: var(--card-radius, 28px);
 }
 .s-card-lift {
-  transition:
-    transform 0.3s var(--s-ease),
-    box-shadow 0.3s var(--s-ease),
-    border-color 0.3s;
+  transition: transform 0.4s var(--s-ease);
 }
 .s-card-lift:hover,
 a.s-card:hover,
 button.s-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--s-ink);
-  box-shadow: 0 5px 0 0 var(--s-ink);
+  transform: translateY(-5px) rotate(-0.4deg);
 }
 a.s-card,
 button.s-card {
-  transition:
-    transform 0.3s var(--s-ease),
-    box-shadow 0.3s var(--s-ease),
-    border-color 0.3s;
+  transition: transform 0.4s var(--s-ease);
 }
 
 /* Underline that draws in from the left. */
@@ -954,13 +993,49 @@ button.s-card {
   background-size: 100% 2px;
 }
 
-/* A square grid of dots, like the cutting mat under the work. */
+/* A square grid of dots, for a wall that holds objects. */
 .s-dots {
   background-image: radial-gradient(var(--s-line-2) 1.1px, transparent 1.3px);
   background-size: 22px 22px;
 }
+/* A ruled notebook page with a margin line (the footer). */
+.s-ruled {
+  background-image:
+    linear-gradient(90deg, transparent 0 var(--margin, 44px), color-mix(in srgb, var(--s-flame) 55%, transparent) var(--margin, 44px) calc(var(--margin, 44px) + 1.5px), transparent calc(var(--margin, 44px) + 1.5px)),
+    repeating-linear-gradient(to bottom, transparent 0 35px, var(--s-line) 35px 36px);
+}
+/* Pink highlighter drawn under a line of text. */
+.s-hl {
+  background: linear-gradient(var(--hl, var(--s-pink)), var(--hl, var(--s-pink))) 0 78% / 0 0.62em no-repeat;
+  transition: background-size 0.4s var(--s-ease);
+}
+.s-hl:hover,
+.s-hl:focus-visible,
+.s-hl[aria-current="page"] {
+  background-size: 100% 0.62em;
+}
 
-/* ── Slabs: boxes with real sides ──────────────────────────────
+/* ── Rooms ─────────────────────────────────────────────────────
+   The floor is a block at the foot of a section, in its own colour,
+   with a skirting board the shade of the wall. Things that should
+   stand on it are pulled down over it with a negative margin. A
+   porthole is a disc of another colour let into the wall. */
+.s-floor {
+  position: relative;
+  min-height: var(--floor-h, clamp(64px, 10vw, 148px));
+  background: var(--floor-c, var(--s-floor));
+  border-top: clamp(6px, 0.8vw, 12px) solid color-mix(in srgb, var(--s-bg) 84%, #000);
+}
+.s-porthole {
+  position: absolute;
+  z-index: -1;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--hole, var(--s-pink));
+  pointer-events: none;
+}
+
+/* ── Slabs: boxes with real sides (the stacked sheets) ─────────
    The face is the element; ::after is the side below it and ::before
    the side to its right (or left with data-edge="left"). They only
    show once an ancestor turns the slab in 3D. Never put overflow on
@@ -1008,44 +1083,35 @@ button.s-card {
   overflow: hidden;
 }
 
-/* ── The sorting table (home hero) ─────────────────────────────
-   Twelve pieces of a digital side. `data-state="mess"` scatters them
-   in depth with their problems showing; `sorted` drops each into its
-   slot with the problem fixed. The first paint is the sorted layout
-   and `data-intro` plays the scatter-to-sorted move as a CSS
-   animation, so it runs without JavaScript and ends in the real
-   layout. Sizes are container units, so the whole table scales. */
+/* ── The sticker wall (home hero) ──────────────────────────────
+   Twelve pieces of a digital side, each a paper sticker on the cobalt
+   wall. `data-state="mess"` leaves them where they were found, askew,
+   with their problems showing; `sorted` lines each up in its slot with
+   the problem fixed. The first paint is the sorted layout and
+   `data-intro` plays the move as a CSS animation, so it runs without
+   JavaScript and ends in the real layout. Sizes are container units,
+   so the whole wall scales. Flat: nothing here is 3D. */
 .sort-stage {
   container-type: inline-size;
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1.3;
-  perspective: 1500px;
-  perspective-origin: 50% 42%;
+  aspect-ratio: 1 / 1.16;
 }
 .sort-parallax,
 .sort-table {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
 }
 .sort-parallax {
-  transform: rotateX(var(--py, 0deg)) rotateY(var(--px, 0deg));
-  transition: transform 0.35s ease-out;
-}
-.sort-table {
-  transform: rotateX(12deg) rotateY(-20deg);
-  transition: transform 1.1s var(--s-ease);
-}
-[data-state="mess"] .sort-table {
-  transform: rotateX(26deg) rotateY(-24deg);
+  transform: translate(var(--px, 0px), var(--py, 0px));
+  transition: transform 0.5s ease-out;
 }
 .sort-piece,
 .sort-slot {
-  --w: 45cqw;
-  --h: 27cqw;
-  --x: calc((var(--mc) - 0.5) * 49cqw);
-  --y: calc((var(--mr) - 1.5) * 31.5cqw);
+  --w: 47cqw;
+  --h: 25cqw;
+  --x: calc((var(--mc) - 0.5) * 51cqw);
+  --y: calc((var(--mr) - 1.5) * 29cqw);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -1054,23 +1120,19 @@ button.s-card {
   margin: calc(var(--h) / -2) 0 0 calc(var(--w) / -2);
 }
 .sort-piece {
-  --t: 4cqw;
-  --edge: var(--chip);
-  --edge-2: color-mix(in srgb, var(--chip) 66%, #000);
-  --home: translate3d(var(--x), var(--y), 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-  --away: translate3d(calc(var(--x) + var(--mx) * 1cqw), calc(var(--y) + var(--my) * 1cqw), calc(var(--mz) * 1cqw))
-    rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz));
+  --home: translate(var(--x), var(--y)) rotate(0deg);
+  --away: translate(calc(var(--x) + var(--mx) * 0.55cqw), calc(var(--y) + var(--my) * 0.55cqw)) rotate(var(--rz));
   transform: var(--home);
-  transition: transform 1s var(--s-spring);
-  transition-delay: calc(var(--n) * 45ms);
+  transition: transform 0.9s var(--s-spring);
+  transition-delay: calc(var(--n) * 40ms);
 }
 [data-state="mess"] .sort-piece {
   transform: var(--away);
 }
 .sort-slot {
-  transform: translate3d(var(--x), var(--y), -1px);
-  border: 0.4cqw dashed rgba(255, 255, 255, 0.5);
-  border-radius: 1.2cqw;
+  transform: translate(var(--x), var(--y));
+  border: 0.35cqw dashed rgba(244, 239, 232, 0.55);
+  border-radius: 3.4cqw;
   opacity: 0;
   transition: opacity 0.5s;
 }
@@ -1080,7 +1142,6 @@ button.s-card {
 .sort-bob {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
 }
 [data-state="mess"] .sort-bob {
   animation: sort-bob 5.5s ease-in-out infinite;
@@ -1088,7 +1149,7 @@ button.s-card {
 }
 @keyframes sort-bob {
   50% {
-    transform: translate3d(0, -1.8cqw, 2.5cqw) rotateZ(1.6deg);
+    transform: translateY(-1.4cqw) rotate(1.2deg);
   }
 }
 .sort-face {
@@ -1097,12 +1158,12 @@ button.s-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2.6cqw 2.8cqw 2.4cqw;
-  border-radius: 1.2cqw;
-  background: #ffffff;
+  padding: 3cqw 3.4cqw 3cqw;
+  border-radius: 3.2cqw 3.8cqw 3.2cqw 3.6cqw;
+  background: var(--s-white);
   color: var(--s-navy);
-  font-size: 3.7cqw;
-  line-height: 1.12;
+  font-size: 4.3cqw;
+  line-height: 1.1;
 }
 .sort-chip {
   display: flex;
@@ -1110,27 +1171,30 @@ button.s-card {
   justify-content: center;
   width: 7.6cqw;
   height: 7.6cqw;
-  border-radius: 1cqw;
+  border-radius: 50%;
   background: var(--chip);
   color: var(--chip-ink, var(--s-navy));
 }
 .sort-chip svg {
-  width: 4.6cqw;
-  height: 4.6cqw;
+  width: 4.4cqw;
+  height: 4.4cqw;
 }
 .sort-status {
   display: grid;
-  font-weight: 600;
+  font-family: var(--font-cutive);
+  font-size: 0.84em;
+  letter-spacing: 0;
+  word-spacing: -0.28em;
 }
 .sort-status > span {
   grid-area: 1 / 1;
   display: flex;
   align-items: center;
-  gap: 1.3cqw;
+  gap: 1.5cqw;
   transition:
     opacity 0.35s,
     transform 0.45s var(--s-ease);
-  transition-delay: calc(0.35s + var(--n) * 45ms);
+  transition-delay: calc(0.3s + var(--n) * 40ms);
 }
 .sort-status i {
   width: 1.9cqw;
@@ -1139,15 +1203,15 @@ button.s-card {
   border-radius: 50%;
 }
 .sort-bad {
-  color: #b3250a;
+  color: #a8230c;
   opacity: 0;
   transform: translateY(-70%);
 }
 .sort-bad i {
-  background: #e23b12;
+  background: var(--s-tomato);
 }
 .sort-good i {
-  background: var(--s-jade);
+  background: #2f8f55;
 }
 [data-state="mess"] .sort-bad {
   opacity: 1;
@@ -1166,68 +1230,62 @@ button.s-card {
 @container (min-width: 430px) {
   .sort-piece,
   .sort-slot {
-    --w: 30cqw;
-    --h: 20.5cqw;
-    --x: calc((var(--c) - 1) * 33.6cqw);
-    --y: calc((var(--r) - 1.5) * 24.2cqw);
-  }
-  .sort-piece {
-    --t: 3cqw;
+    --w: 31.4cqw;
+    --h: 17cqw;
+    --x: calc((var(--c) - 1) * 34.3cqw);
+    --y: calc((var(--r) - 1.5) * 20cqw);
   }
   .sort-table [data-extra] {
     display: block;
   }
   .sort-face {
-    padding: 1.8cqw 2cqw 1.7cqw;
-    font-size: 2.55cqw;
-    border-radius: 0.9cqw;
+    padding: 2cqw 2.2cqw 2cqw;
+    font-size: 2.75cqw;
+    border-radius: 2.2cqw 2.6cqw 2.2cqw 2.5cqw;
+  }
+  .sort-slot {
+    border-radius: 2.4cqw;
   }
   .sort-chip {
-    width: 5.4cqw;
-    height: 5.4cqw;
-    border-radius: 0.8cqw;
+    width: 5cqw;
+    height: 5cqw;
   }
   .sort-chip svg {
-    width: 3.2cqw;
-    height: 3.2cqw;
+    width: 2.9cqw;
+    height: 2.9cqw;
+  }
+  .sort-status > span {
+    gap: 1cqw;
   }
   .sort-status i {
-    width: 1.4cqw;
-    height: 1.4cqw;
+    width: 1.3cqw;
+    height: 1.3cqw;
   }
 }
 @media (min-width: 640px) {
   .sort-stage {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 0.8;
   }
 }
 /* The opening move. */
 [data-intro] .sort-piece {
-  animation: sort-in 1.15s var(--s-spring) both;
-  animation-delay: calc(0.75s + var(--n) * 55ms);
-}
-[data-intro] .sort-table {
-  animation: sort-table-in 1.5s var(--s-ease) 0.6s both;
+  animation: sort-in 1.1s var(--s-spring) both;
+  animation-delay: calc(0.7s + var(--n) * 55ms);
 }
 [data-intro] .sort-bad {
   animation: sort-bad-out 0.4s ease both;
-  animation-delay: calc(1.5s + var(--n) * 55ms);
+  animation-delay: calc(1.4s + var(--n) * 55ms);
 }
 [data-intro] .sort-good {
   animation: sort-good-in 0.45s var(--s-ease) both;
-  animation-delay: calc(1.55s + var(--n) * 55ms);
+  animation-delay: calc(1.45s + var(--n) * 55ms);
 }
 [data-intro] .sort-slot {
-  animation: sort-slot-out 0.6s ease 1.9s both;
+  animation: sort-slot-out 0.6s ease 1.8s both;
 }
 @keyframes sort-in {
   from {
     transform: var(--away);
-  }
-}
-@keyframes sort-table-in {
-  from {
-    transform: rotateX(26deg) rotateY(-24deg);
   }
 }
 @keyframes sort-bad-out {
@@ -1249,10 +1307,9 @@ button.s-card {
 }
 
 /* "sorted." in the headline: the letters start out of order and find
-   their places with the pieces. */
+   their places with the stickers. */
 .sort-word {
   display: inline-flex;
-  perspective: 600px;
 }
 .sort-word > span {
   display: inline-block;
@@ -1260,89 +1317,68 @@ button.s-card {
   transition-delay: calc(var(--i) * 45ms);
 }
 [data-state="mess"] .sort-word > span {
-  transform: translate(calc(var(--lx) * 1em), calc(var(--ly) * 1em)) rotateX(var(--lrx)) rotate(var(--lr));
+  transform: translate(calc(var(--lx) * 1em), calc(var(--ly) * 1em)) rotate(var(--lr));
 }
 [data-intro] .sort-word > span {
   animation: sort-letter 0.9s var(--s-spring) both;
-  animation-delay: calc(0.95s + var(--i) * 60ms);
+  animation-delay: calc(0.9s + var(--i) * 60ms);
 }
 @keyframes sort-letter {
   from {
-    transform: translate(calc(var(--lx) * 1em), calc(var(--ly) * 1em)) rotateX(var(--lrx)) rotate(var(--lr));
+    transform: translate(calc(var(--lx) * 1em), calc(var(--ly) * 1em)) rotate(var(--lr));
   }
 }
 
-/* The switch between the two states. */
+/* The switch between the two states: a pill with a paper knob. */
 .sort-switch {
-  --key-depth: 4px;
   position: relative;
-  width: 68px;
-  height: 36px;
+  width: 62px;
+  height: 34px;
   flex-shrink: 0;
-  border-radius: 8px;
+  border-radius: 999px;
   background: var(--s-navy);
-  box-shadow: inset 0 0 0 2px var(--s-navy);
   transition: background-color 0.3s;
 }
 .sort-switch[aria-checked="true"] {
-  background: var(--s-jade);
+  background: var(--s-pink);
 }
 .sort-switch::after {
   content: "";
   position: absolute;
   top: 4px;
   left: 4px;
-  width: 28px;
-  height: 24px;
-  border-radius: 5px;
-  background: #ffffff;
-  box-shadow: 0 4px 0 0 #b9bfd6;
-  transition: transform 0.35s var(--s-spring);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--s-chalk);
+  transition:
+    transform 0.4s var(--s-spring),
+    background-color 0.3s;
 }
 .sort-switch[aria-checked="true"]::after {
-  transform: translateX(32px);
+  transform: translateX(28px);
+  background: var(--s-navy);
 }
 
-/* ── The card index (services) ─────────────────────────────────
-   Five dividers standing in a drawer, each in its service's colour
-   with a tab on top. Point at one and it stands up and opens. */
+/* ── The services index ────────────────────────────────────────
+   Five rounded rows, each in its service's colour. Point at one (or
+   tab to it) and it opens; the first is open until you choose. */
 .idx {
-  perspective: 1800px;
-  perspective-origin: 50% 0%;
+  display: grid;
+  gap: 10px;
 }
 .idx-item {
   position: relative;
-  margin-top: -14px;
-}
-.idx-item:first-child {
-  margin-top: 34px;
-}
-.idx-tab {
-  position: absolute;
-  bottom: calc(100% - 1px);
-  left: calc(var(--i) * 15.5% + 2%);
-  height: 34px;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  border-radius: 9px 9px 0 0;
-  background: var(--s-bg);
-  color: var(--s-ink);
 }
 .idx-card {
   position: relative;
   display: block;
-  border-radius: 14px 14px 0 0;
+  border-radius: clamp(22px, 2.6vw, 36px);
   background: var(--s-bg);
   color: var(--s-ink);
-  padding-bottom: 14px;
-  transform-origin: 50% 100%;
-  transform: rotateX(-7deg);
-  transition: transform 0.55s var(--s-ease);
-}
-.idx-item:last-child .idx-card {
-  border-radius: 14px;
-  padding-bottom: 0;
+  transition:
+    transform 0.5s var(--s-ease),
+    border-radius 0.5s var(--s-ease);
 }
 .idx-body {
   display: grid;
@@ -1356,11 +1392,6 @@ button.s-card {
 .idx-arrow {
   transition: transform 0.45s var(--s-ease);
 }
-.idx-card:hover,
-.idx-card:focus-visible,
-.idx:not(:hover):not(:focus-within) .idx-item:first-child .idx-card {
-  transform: rotateX(0deg) translateY(-6px);
-}
 .idx-card:hover .idx-body,
 .idx-card:focus-visible .idx-body,
 .idx:not(:hover):not(:focus-within) .idx-item:first-child .idx-body {
@@ -1370,45 +1401,36 @@ button.s-card {
 .idx-card:focus-visible .idx-arrow {
   transform: rotate(-45deg);
 }
-/* No hover: every divider is open, and nothing leans. */
+/* No hover: every row is open. */
 @media (hover: none) {
-  .idx-card,
-  .idx-card:hover,
-  .idx-card:focus-visible {
-    transform: none !important;
-  }
   .idx-body {
     grid-template-rows: 1fr;
   }
 }
 
-/* ── Screens that turn (work, samples) ─────────────────────────
-   A capture on a slab. It starts turned away, comes round as it
-   scrolls into view, and squares up under the pointer. */
-.shot {
-  perspective: 1500px;
-}
+/* ── Pictures on the wall (work, samples) ──────────────────────
+   A capture pinned up a degree or two off square. It straightens and
+   comes forward under the pointer, and drifts a little as it scrolls
+   through the room. */
 .shot-turn {
-  transform-style: preserve-3d;
-  transform: rotateY(var(--turn-y, -11deg)) rotateX(5deg);
+  transform: rotate(var(--tilt, -2deg));
 }
 .shot-slab {
-  --t: 16px;
   transition: transform 0.6s var(--s-ease);
 }
 .shot:hover .shot-slab,
 a:focus-visible .shot-slab {
-  transform: rotateY(calc(var(--turn-y, -11deg) * -1)) rotateX(-5deg) translateZ(24px);
+  transform: rotate(calc(var(--tilt, -2deg) * -1)) scale(1.035);
 }
 @supports (animation-timeline: view()) {
   .shot-turn {
     animation: shot-turn linear both;
     animation-timeline: view();
-    animation-range: entry 5% cover 42%;
+    animation-range: entry 0% cover 45%;
   }
   @keyframes shot-turn {
     from {
-      transform: rotateY(calc(var(--turn-y, -11deg) * 3.4)) rotateX(16deg) translateZ(-90px);
+      transform: translateY(34px) rotate(calc(var(--tilt, -2deg) * 3));
     }
   }
 }
@@ -1441,8 +1463,7 @@ a:focus-visible .shot-slab {
     opacity 0.4s;
   background: var(--sheet);
   color: var(--sheet-ink, var(--s-navy));
-  border: 0.3cqw solid var(--s-navy);
-  border-radius: 1cqw;
+  border-radius: 2.4cqw;
   padding: 3cqw;
   font-size: 3.1cqw;
 }
@@ -1470,8 +1491,8 @@ a:focus-visible .shot-slab {
 }
 
 /* ── Stacked slabs (page heroes) ───────────────────────────────
-   Five slabs in the service colours, seen from above, breathing a
-   little apart. */
+   Slabs in the room colours, seen from above, breathing a little
+   apart. */
 .stack {
   container-type: inline-size;
   position: relative;
@@ -1510,24 +1531,40 @@ a:focus-visible .shot-slab {
   }
 }
 
-/* ── The staff badge (studio) ──────────────────────────────── */
-.badge-hang {
-  transform-origin: 50% -140px;
-  animation: badge-sway 6s ease-in-out infinite;
+/* ── The index (site menu) ─────────────────────────────────────
+   The whole site laid out as cards on an ochre wall. Each card lands
+   a little askew and squares up under the pointer. */
+.menu-card {
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.45s var(--s-ease);
 }
-@keyframes badge-sway {
-  0%,
-  100% {
-    transform: rotate(-1.6deg);
+.menu-card:hover,
+.menu-card:focus-visible {
+  transform: rotate(0deg) translateY(-6px);
+}
+@keyframes menu-card-in {
+  from {
+    transform: translateY(46px) rotate(calc(var(--tilt, 0deg) * 4));
+    opacity: 0;
   }
-  50% {
-    transform: rotate(1.6deg);
-  }
+}
+.menu-open .menu-card {
+  animation: menu-card-in 0.7s var(--s-ease) both;
+  animation-delay: calc(var(--i) * 45ms);
 }
 
-/* ── Process flaps ─────────────────────────────────────────── */
-.flap-row {
-  perspective: 1400px;
+/* The scroll hint in the hero: a typewriter cursor that blinks. */
+.s-caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 1.05em;
+  background: currentColor;
+  animation: s-caret 1.1s steps(1) infinite;
+}
+@keyframes s-caret {
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Audit report: the score dial's arc draws in on load. */
@@ -1552,28 +1589,24 @@ a:focus-visible .shot-slab {
   }
 }
 
-/* Touch screens: scenes stay 3D but stop following anything, and the
-   pieces of a scene never bob while nobody is looking. */
+/* Reduced motion: every scene is shown in its finished state. */
 @media (prefers-reduced-motion: reduce) {
   .s-words .s-w > span,
   .s-rise,
   .s-reveal,
   .sort-piece,
-  .sort-table,
   .sort-bob,
   .sort-word > span,
   .stack-slab,
-  .badge-hang,
   .shot-turn,
   .xray-stack,
+  .menu-card,
+  .s-caret,
   .k-dial-arc {
     animation: none !important;
   }
   .s-reveal {
     opacity: 1 !important;
-    transform: none !important;
-  }
-  .idx-card {
     transform: none !important;
   }
   .xray-stack {
@@ -1583,25 +1616,26 @@ a:focus-visible .shot-slab {
 
 /* Printed audit report typography (see PrintReport.tsx). */
 .k-pdf {
-  font-family: var(--font-archivo);
+  font-family: var(--font-brico);
 }
 .k-pdf .k-display {
   font-weight: 800;
-  font-stretch: 112%;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.045em;
   line-height: 1;
   text-wrap: balance;
 }
 .k-pdf .k-display em {
-  font-style: normal;
+  font-family: var(--font-instrument);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
   color: var(--k-fire);
 }
 .k-pdf .k-eyebrow {
+  font-family: var(--font-cutive);
   font-size: 11px;
-  font-stretch: 76%;
-  font-weight: 650;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.04em;
 }
 
 /* ─────────────────────────────────────────────────────────────

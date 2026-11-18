@@ -2,28 +2,31 @@
 
 Six scoped design systems coexist. Never leak tokens across scopes.
 
-## 1. Sorted (marketing: home, services, sectors, packages, Clear Path, audit, booking, accessibility, 404)
+## 1. Rooms (marketing: home, services, sectors, packages, Clear Path, audit, booking, accessibility, 404)
 
-See docs/SORTED.md. "Your digital side, sorted." taken literally: the
-page is a desk of chalk `#f4f3ee` and navy `#0b1026`, flat colour and
-hard edges, no gradients. Cobalt `#2238e8` is the studio's colour and
-**flame `#ff5c1f` is the only action colour, always a fill with navy
-text**. Sun, jade and pink complete the five colours that code the five
-services (`ui/tones.ts`). One typeface, Archivo: wide and heavy for
-display (`.s-display`), condensed capitals for labels (`.s-label`); an
-emphasised word wears a label (`<em>` is a tilted colour block, never
-italic). Buttons are keys with a side that presses (`.s-key`); cards are
-flat sheets with a navy rule. 3D is DOM only, in small bounded scenes:
-the sorting table in the home hero, the card index, turning screen
-slabs, the exploded audit page, slab stacks, the staff pass, and flaps
-for section, headline and route transitions. `tone-*` classes remap the
-semantic tokens for a coloured band. `.s-root` scope; `.s-chrome` for
-the bar and footer around a case study. Reduced-motion and no-JS
-fallbacks everywhere; the first paint is always the finished layout.
-Sorted pages have their own dark theme (`prefers-color-scheme: dark`)
-and declare `color-scheme: light dark`, which also keeps Safari 27.3's
-Adaptive Dark Mode from repainting them; use `border-s-rule` /
-`var(--s-rule)` for rules that must show in both.
+See docs/ROOMS.md. Every section is a room: a wall of one flat colour
+(a `tone-*` class), a floor of another (`ui/Room.tsx`), and a few things
+standing in it. Paper `#f4efe8` and ink `#201e1f` are the neutrals;
+cobalt `#0b41c2` is the studio's wall; **vermilion `#fc4109` is the dot
+and the action on paper** (pink on cobalt, ink on a bright wall). Pink,
+lilac, sun, mint and ochre are the other walls; bottle green and tomato
+are floors only. Five of the colours code the five services
+(`ui/tones.ts`). Three faces: Bricolage Grotesque, heavy and tight for
+display (`.s-display`) and light for a statement (`.s-say`); Instrument
+Serif italic for the one emphasised word (`<em>`, in the tone's mark
+colour); Cutive Mono for captions (`.s-label`), with `##` before a
+section label and `>` before small print. Every control is a flat pill
+(`.s-key`); cards are flat sheets with 24–28px corners and no outline or
+shadow. The bar is a row of floating pills; the pink **index** pill
+opens the site as cards on an ochre wall. Motion is flat except two
+small DOM scenes (the exploded audit page and the slab stack). `tone-*`
+classes remap the semantic tokens for a coloured room. `.s-root` scope;
+`.s-chrome` for the bar and footer around a case study. Reduced-motion
+and no-JS fallbacks everywhere; the first paint is always the finished
+layout. Rooms pages have their own dark theme
+(`prefers-color-scheme: dark`) and declare `color-scheme: light dark`,
+which also keeps Safari 27.3's Adaptive Dark Mode from repainting them;
+use `border-s-rule` / `var(--s-rule)` for rules that must show in both.
 
 ## 2. Porcelain (case studies `/projects/*`)
 

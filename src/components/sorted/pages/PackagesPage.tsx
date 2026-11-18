@@ -42,7 +42,7 @@ export function PackagesPage() {
               <PackageCard key={pkg.name} pkg={pkg} index={i} headingLevel="h2" />
             ))}
           </ul>
-          <Reveal turn={0} className="mx-auto mt-12 max-w-[660px] text-center">
+          <Reveal className="mx-auto mt-12 max-w-[660px] text-center">
             <p className="text-[16.5px] leading-[1.6] text-s-ink-soft">
               Not sure which fits? Start with the{" "}
               <Link href="/free-audit" className="font-semibold text-s-ink underline decoration-s-accent decoration-2 underline-offset-4">
@@ -60,7 +60,7 @@ export function PackagesPage() {
       <section className="tone-white py-20 sm:py-28">
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-20">
           <SectionIntro eyebrow="Questions" title="Before you get in touch." size="md" />
-          <Reveal turn={0} delay={0.08}>
+          <Reveal delay={0.08}>
             <FaqList items={packagesFaq} />
           </Reveal>
         </Container>

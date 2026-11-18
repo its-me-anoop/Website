@@ -24,7 +24,7 @@ function CheckRow({ check }: { check: Check }) {
             {check.evidence.map((e) => (
               <li
                 key={e}
-                className="max-w-full truncate rounded-[6px] bg-s-chalk-2 px-2 py-1 font-mono text-[12px] text-s-ink-soft"
+                className="max-w-full truncate rounded-full bg-s-chalk-2 px-2 py-1 font-mono text-[12px] text-s-ink-soft"
                 title={e}
               >
                 {e}
@@ -56,7 +56,7 @@ export function CategoryRow({ category, index }: { category: CategoryScore; inde
             <span className="flex items-center justify-between text-[13px] text-s-muted">
               <span>{category.summary}</span>
             </span>
-            <span className="mt-2 block h-2 w-full overflow-hidden rounded-[2px] bg-s-chalk-2">
+            <span className="mt-2 block h-2 w-full overflow-hidden rounded-full bg-s-chalk-2">
               <span
                 className={cn("block h-full", scoreBar(score))}
                 style={{ width: `${score ?? 0}%` }}

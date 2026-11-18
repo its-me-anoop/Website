@@ -5,16 +5,17 @@ import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 
 /**
- * Shared chrome for every Sorted marketing page: the bar, the page and
- * the footer. `.s-root` scopes the language so case-study pages and
- * demo sites are untouched. The bar is fixed and 64px tall, so the page
- * starts below it.
+ * Shared chrome for every Rooms marketing page: the floating bar, the
+ * page and the footer. `.s-root` scopes the language so case-study
+ * pages and demo sites are untouched. The bar is a row of pills that
+ * floats over the first room, so a page's opening section runs to the
+ * top of the window and leaves room for it (`pt-28` or more).
  */
 export function Shell({ children, mainClassName }: { children: ReactNode; mainClassName?: string }) {
   return (
     <div className="s-root min-h-screen overflow-x-clip">
       <Nav />
-      <main id="main" className={mainClassName ? `pt-16 ${mainClassName}` : "pt-16"}>
+      <main id="main" className={mainClassName}>
         {children}
       </main>
       <Footer />

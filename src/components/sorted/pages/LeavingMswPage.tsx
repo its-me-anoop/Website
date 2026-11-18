@@ -75,7 +75,7 @@ export function LeavingMswPage() {
         </div>
         <ul className="mt-9 flex flex-wrap gap-2">
           {heroPoints.map((point) => (
-            <li key={point} className="s-label rounded-[6px] border-[1.5px] border-s-line-2 bg-s-raised px-3 py-2 text-[13px] text-s-ink">
+            <li key={point} className="s-label rounded-full border-[1.5px] border-s-line-2 bg-s-raised px-3 py-2 text-[13px] text-s-ink">
               {point}
             </li>
           ))}
@@ -94,7 +94,7 @@ export function LeavingMswPage() {
               </>
             }
           />
-          <Reveal turn={0} delay={0.08} className="max-w-[62ch] space-y-5 border-t-2 border-s-rule pt-6 text-[17.5px] leading-[1.65] text-s-ink-soft">
+          <Reveal delay={0.08} className="max-w-[62ch] space-y-5 border-t-[1.5px] border-s-rule pt-6 text-[17.5px] leading-[1.65] text-s-ink-soft">
             <p>
               My Surgery Website (MSW / FPM) is shutting down. Public notices point to pressure on domain instructions
               around September 2026 and hosting ending 31 March 2027 — check your own MSW letter for your exact
@@ -109,7 +109,7 @@ export function LeavingMswPage() {
       </section>
 
       {/* What it is */}
-      <section className="tone-chalk s-dots border-y-2 border-s-rule py-20 sm:py-28">
+      <section className="tone-chalk s-dots py-20 sm:py-28">
         <Container>
           <SectionIntro
             eyebrow="What Clear Path is"
@@ -122,7 +122,7 @@ export function LeavingMswPage() {
             copy="We move your content, sort the domain, and get you live on a modern site you own. Built for WCAG 2.2 AA. No WordPress page-builder stack. Founder-led: you brief the person who builds."
           />
           <div className="mt-12 grid gap-5 md:grid-cols-2">
-            <Reveal turn={50} className="tone-cobalt rounded-[14px] border-2 border-s-rule p-7 shadow-[0_6px_0_0_var(--s-rule)]">
+            <Reveal turn={1} className="tone-cobalt rounded-[24px] p-7">
               <Eyebrow>Who it is for</Eyebrow>
               <ul className="mt-6 space-y-4">
                 {forWho.map((item) => (
@@ -130,12 +130,12 @@ export function LeavingMswPage() {
                 ))}
               </ul>
             </Reveal>
-            <Reveal turn={50} delay={0.1} className="tone-white rounded-[14px] border-2 border-s-rule p-7 shadow-[0_6px_0_0_var(--s-rule)]">
+            <Reveal turn={1} delay={0.1} className="tone-white rounded-[24px] p-7">
               <p className="s-eyebrow">Who it isn&rsquo;t for</p>
               <ul className="mt-6 space-y-4">
                 {notForWho.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <span aria-hidden className="mt-[3px] flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[4px] bg-s-fail text-white">
+                    <span aria-hidden className="mt-[3px] flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-s-fail text-white">
                       <X size={12} strokeWidth={3.4} />
                     </span>
                     <span className="text-[15.5px] leading-[1.55] text-s-ink-soft">{item}</span>
@@ -148,7 +148,7 @@ export function LeavingMswPage() {
       </section>
 
       {/* Packages */}
-      <section id="packages" className="tone-sun relative scroll-mt-20 border-b-2 border-s-rule py-20 sm:py-28">
+      <section id="packages" className="tone-sun relative scroll-mt-20 py-20 sm:py-28">
         <Container className="relative">
           <SectionIntro
             eyebrow="Packages"
@@ -164,7 +164,7 @@ export function LeavingMswPage() {
               <PackageCard key={pkg.name} pkg={pkg} index={i} badge="Premium custom" />
             ))}
           </ul>
-          <Reveal turn={0} className="mt-12 flex flex-col items-start gap-5">
+          <Reveal className="mt-12 flex flex-col items-start gap-5">
             <p className="max-w-[640px] text-[16px] leading-[1.6] text-s-ink-soft">
               Reserve by 31 October 2026. Not sure which fits? Start with the free audit and say you&rsquo;re leaving
               MSW — we&rsquo;ll map the move.
@@ -190,8 +190,8 @@ export function LeavingMswPage() {
           />
           <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {clearPath.steps.map((step, i) => (
-              <Reveal as="li" key={step.title} turn={84} delay={i * 0.12} className="h-full">
-                <div className="h-full rounded-[12px] border-2 border-s-rule bg-s-bg-2 p-6 shadow-[0_6px_0_0_var(--s-rule)]">
+              <Reveal as="li" key={step.title} turn={1} delay={i * 0.12} className="h-full">
+                <div className="h-full rounded-[24px] bg-s-bg-2 p-6">
                   <span aria-hidden className="s-display s-num text-[48px] text-s-accent">
                     {i + 1}
                   </span>
@@ -201,7 +201,7 @@ export function LeavingMswPage() {
               </Reveal>
             ))}
           </ol>
-          <Reveal turn={0} className="mt-12 max-w-[760px] border-l-0 border-t-2 border-s-rule pt-6">
+          <Reveal className="mt-12 max-w-[760px] border-l-0 border-t-[1.5px] border-s-rule pt-6">
             <p className="text-[16.5px] leading-[1.65] text-s-ink-soft">
               Capacity is capped (about 2–3 builds/mo) so delivery stays honest. Explore the live GP sample, read the
               accessibility statement and ask for an audit of your current site.
@@ -225,8 +225,8 @@ export function LeavingMswPage() {
           />
           <ol className="mt-12 grid gap-5 sm:grid-cols-3">
             {clearPath.dates.map((item, i) => (
-              <Reveal as="li" key={item.label} turn={70} delay={i * 0.1} className="h-full">
-                <article className="flex h-full flex-col rounded-[14px] border-2 border-s-line-2 bg-s-raised p-7">
+              <Reveal as="li" key={item.label} turn={1} delay={i * 0.1} className="h-full">
+                <article className="flex h-full flex-col rounded-[24px] bg-s-raised p-7">
                   <span className="flex items-center gap-2 text-s-accent">
                     <CalendarClock size={17} aria-hidden />
                     <span className="s-label text-[13px]">{item.label}</span>
@@ -244,7 +244,7 @@ export function LeavingMswPage() {
       <section className="tone-chalk overflow-hidden py-20 sm:py-28">
         <Container className="grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <div>
-            <Reveal turn={0}>
+            <Reveal>
               <Eyebrow>Proof</Eyebrow>
               <Display size="md" className="mt-5 max-w-[16ch]">
                 Click around <em>{gpSector.demo.name}</em> before you talk to anyone.
@@ -254,7 +254,7 @@ export function LeavingMswPage() {
                 you&rsquo;re leaving MSW and we&rsquo;ll map the move.
               </p>
             </Reveal>
-            <Reveal turn={0} delay={0.1}>
+            <Reveal delay={0.1}>
               <ul className="mt-7 space-y-3">
                 {proofLinks.map((item) => (
                   <CheckItem key={item.href}>
@@ -265,7 +265,7 @@ export function LeavingMswPage() {
                 ))}
               </ul>
             </Reveal>
-            <Reveal turn={0} delay={0.18} className="mt-9 flex flex-wrap gap-4">
+            <Reveal delay={0.18} className="mt-9 flex flex-wrap gap-4">
               <ButtonLink href="/free-audit" arrow="right">
                 Book a free audit
               </ButtonLink>
@@ -275,7 +275,7 @@ export function LeavingMswPage() {
             </Reveal>
           </div>
           <div className="min-w-0">
-            <a href={gpSector.demo.href} aria-label={`Open the ${gpSector.demo.name} sample website`} className="block rounded-[12px]">
+            <a href={gpSector.demo.href} aria-label={`Open the ${gpSector.demo.name} sample website`} className="block rounded-[24px]">
               <SampleScene image={gpSector.demo.image} mobileImage={gpSector.demo.mobileImage} url={`${site.domain}${gpSector.demo.href}`} />
             </a>
             <p className="mt-8 text-center text-[14px] text-s-muted">A live, hosted sample. The organisation shown is fictional.</p>
@@ -284,9 +284,9 @@ export function LeavingMswPage() {
       </section>
 
       {/* Geography */}
-      <section className="tone-jade border-t-2 border-s-rule py-14 sm:py-20">
+      <section className="tone-jade border-t-[1.5px] border-s-rule py-14 sm:py-20">
         <Container>
-          <Reveal turn={0} className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <Reveal className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <Eyebrow>Geography</Eyebrow>
               <Display size="md" className="mt-4">

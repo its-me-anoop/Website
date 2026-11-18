@@ -29,14 +29,14 @@ const loadFeatures = () =>
  * builds, so they render without the motion wrapper — content is visible
  * before hydration and the motion feature chunk never loads there.
  *
- * In-app navigations also get the flaps: five panels in the five service
- * colours cover the new page and turn away in 3D, one after another, like a
- * departure board. They never play on the first load (the server render and
- * hydration always omit them), so they cannot delay first paint, and CSS
- * removes them for reduced motion.
+ * In-app navigations also get the curtains: five panels in five wall
+ * colours cover the new page and lift away one after another. They never
+ * play on the first load (the server render and hydration always omit
+ * them), so they cannot delay first paint, and CSS removes them for
+ * reduced motion.
  */
 
-const FLAPS = ["bg-s-cobalt", "bg-s-flame", "bg-s-sun", "bg-s-jade", "bg-s-pink"] as const;
+const FLAPS = ["bg-s-cobalt", "bg-s-pink", "bg-s-sky", "bg-s-jade", "bg-s-sun"] as const;
 
 /**
  * Client-only: flips once the first page has committed. It is written in an

@@ -12,9 +12,10 @@ import { Contact } from "./Contact";
 
 /**
  * The homepage: one studio for websites, apps, IT support, social
- * media and SEO. Cobalt for the opening, chalk for the clients, the
- * card index and the studio, navy for the work, sky for the audit, sun
- * for the process and flame for the close.
+ * media and SEO, as a walk through eight rooms. A cobalt wall for the
+ * opening, paper for the clients, the dark room for the services, ochre
+ * for the work, lilac for the audit, sun for the studio, mint for the
+ * process and vermilion for the close.
  */
 export function Home() {
   return (

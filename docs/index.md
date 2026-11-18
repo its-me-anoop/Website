@@ -3,13 +3,14 @@
 The site of Flutterly Ltd — the product studio of Anoop Jose. Built
 with Next.js 16 (App Router), React 19 and Tailwind CSS v4. The
 marketing pages (home, services, GP practices, care homes, packages,
-free audit, accessibility, Clear Path, booking) run the "Sorted"
+free audit, accessibility, Clear Path, booking) run the "Rooms"
 language; case-study pages run the light "Porcelain" system.
 
 ## Contents
 
-- [Design Language — "Sorted"](./SORTED.md) — marketing-site palette,
-  tones, type, controls, the 3D scenes and the rules that keep them fast.
+- [Design Language — "Rooms"](./ROOMS.md) — marketing-site palette,
+  tones, type, controls, walls and floors, the index, and the rules that
+  keep motion fast.
 - [Design System — "Porcelain"](./DESIGN-SYSTEM.md) — tokens,
   primitives, motion, and accessibility rules for case-study pages.
 - [Demo-site CMS](./CMS.md) — schema-validated content layer feeding
@@ -40,7 +41,7 @@ src/
 │   ├── accessibility/      # Accessibility statement
 │   └── projects/           # Case-study subpages (sipli, artling)
 ├── components/
-│   ├── sorted/             # Sorted marketing site (effects, ui, layout,
+│   ├── sorted/             # Rooms marketing site (effects, ui, layout,
 │   │                       # home, pages, booking, audit report + print);
 │   │                       # layout/ProductShell frames the case-study pages
 │   ├── ui/                 # Porcelain primitives (Button, LiftCard, …)
@@ -73,6 +74,7 @@ src/
   with `SoftwareApplication` JSON-LD on product pages.
 - `sitemap.ts` and `robots.ts` generate `/sitemap.xml` and `/robots.txt`.
 - Shared constants come from `src/lib/site.ts` so details never drift.
-- The marketing font (Archivo, variable) is a self-hosted woff2 file in
-  `src/fonts/` with no CDN dependency; case-study pages stay on
+- The marketing fonts (Bricolage Grotesque, Instrument Serif, Cutive
+  Mono) are self-hosted woff2 files in `src/fonts/` with no CDN
+  dependency; case-study pages stay on
   zero-payload system stacks.

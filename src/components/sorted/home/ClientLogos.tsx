@@ -6,25 +6,26 @@ import { Reveal } from "../effects/Motion";
 import { Container, Eyebrow } from "../ui/primitives";
 
 /**
- * The clients, filed in a tray of white tiles that tip up one after
- * another as the row scrolls in. Every logo is drawn as a mask in navy,
- * so marks that arrived in purple, blue or white sit together, and a
- * linked tile turns cobalt under the pointer. Clients without a logo
- * file are set as a wordmark in the display face.
+ * The clients, on the paper the hero's floor runs into: a row of
+ * rounded tiles that rise one after another as they scroll in. Every
+ * logo is drawn as a mask in ink, so marks that arrived in purple, blue
+ * or white sit together, and a linked tile turns pink and leans under
+ * the pointer. Clients without a logo file are set as a wordmark in the
+ * display face.
  */
 export function ClientLogos() {
   return (
-    <section id="clients" aria-labelledby="clients-title" className="tone-chalk scroll-mt-20 border-b-2 border-s-rule py-[clamp(56px,6vw,88px)]">
+    <section id="clients" aria-labelledby="clients-title" className="tone-chalk scroll-mt-20 py-[clamp(56px,7vw,104px)]">
       <Container className="flex flex-col gap-9">
         <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-3">
-          <h2 id="clients-title" className="s-display text-[clamp(1.7rem,3vw,2.5rem)]">
+          <h2 id="clients-title" className="s-display text-[clamp(1.9rem,3.6vw,3.1rem)]">
             Already <em>sorting</em> things for
           </h2>
           <Eyebrow>Clients</Eyebrow>
         </div>
         <ul className="m-0 grid list-none grid-cols-2 gap-3 p-0 md:grid-cols-4">
           {clients.map((client, i) => (
-            <Reveal as="li" key={client.name} turn={70} delay={(i % 4) * 0.07} className="max-sm:odd:last:col-span-2">
+            <Reveal as="li" key={client.name} turn={i % 2 ? 1 : -1} delay={(i % 4) * 0.07} className="max-sm:odd:last:col-span-2">
               <ClientCell client={client} />
             </Reveal>
           ))}
@@ -35,7 +36,7 @@ export function ClientLogos() {
 }
 
 const cellClass =
-  "group flex h-full min-h-[124px] flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-[10px] border-[1.5px] border-s-line-2 bg-s-raised px-4 py-7 text-s-ink";
+  "group flex h-full min-h-[124px] flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-[24px] bg-s-raised px-4 py-7 text-s-ink";
 
 function ClientCell({ client }: { client: Client }) {
   const body = <ClientMark client={client} />;
@@ -45,7 +46,7 @@ function ClientCell({ client }: { client: Client }) {
       href={client.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${cellClass} transition-[background-color,color,transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-s-rule hover:bg-s-cobalt hover:text-white hover:shadow-[0_5px_0_0_var(--s-rule)]`}
+      className={`${cellClass} transition-[background-color,color,transform] duration-300 hover:-translate-y-1 hover:-rotate-1 hover:bg-s-pink hover:text-s-navy`}
     >
       {body}
     </a>

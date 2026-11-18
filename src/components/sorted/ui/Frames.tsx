@@ -49,14 +49,14 @@ export function BrowserFrame({
   return (
     <figure
       {...(alt ? { role: "img", "aria-label": alt } : { "aria-hidden": true })}
-      className={cn("m-0 w-full min-w-0 overflow-hidden rounded-[10px] border-2 border-s-navy bg-white", className)}
+      className={cn("m-0 w-full min-w-0 overflow-hidden rounded-[24px] border-[1.5px] border-s-navy bg-white", className)}
     >
-      <div data-browser-bar aria-hidden="true" className="flex h-8 min-w-0 items-center gap-1.5 overflow-hidden border-b-2 border-s-navy bg-s-chalk px-3">
-        <span className="h-2.5 w-2.5 rounded-[2px] bg-s-flame" />
-        <span className="h-2.5 w-2.5 rounded-[2px] bg-s-sun" />
-        <span className="h-2.5 w-2.5 rounded-[2px] bg-s-jade" />
+      <div data-browser-bar aria-hidden="true" className="flex h-8 min-w-0 items-center gap-1.5 overflow-hidden border-b-[1.5px] border-s-navy bg-s-chalk px-3">
+        <span className="h-2.5 w-2.5 rounded-full bg-s-flame" />
+        <span className="h-2.5 w-2.5 rounded-full bg-s-sun" />
+        <span className="h-2.5 w-2.5 rounded-full bg-s-jade" />
         {url ? (
-          <span className="s-label ml-2 min-w-0 truncate text-[11.5px] normal-case tracking-[0.02em] text-[#343a5a]">{url}</span>
+          <span className="s-label ml-2 min-w-0 truncate text-[12px] text-[#3a3836]">{url}</span>
         ) : null}
       </div>
       <div data-screen className="relative bg-s-chalk-2" style={{ aspectRatio: `${width} / ${height}` }}>

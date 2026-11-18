@@ -3,8 +3,8 @@
  *
  * For each piece of text in the coloured heroes and the closing band it
  * hides the glyphs, samples the pixels actually painted behind them
- * (the tone, a label behind an emphasised word, a card, a 3D scene that
- * strays behind the copy) and checks WCAG AA (4.5:1, or 3:1 for large
+ * (the wall, a porthole, the floor, a card, a scene that strays behind
+ * the copy) and checks WCAG AA (4.5:1, or 3:1 for large
  * text). The home hero is measured sorted and scattered.
  *
  *   1. npm run build && PORT=3100 npm start
@@ -14,7 +14,7 @@ import { chromium, devices } from "playwright";
 
 const BASE = process.env.BASE_URL || "http://localhost:3100";
 
-/** The bands with text on a colour. `mess` flips the sorting table first. */
+/** The bands with text on a colour. `mess` flips the sticker wall first. */
 const TARGETS = [
   { route: "/", selector: "#top" },
   { route: "/", selector: "#top", mess: true },
@@ -81,7 +81,7 @@ for (const [label, options] of VIEWPORTS) {
           const node = walker.currentNode;
           const el = node.parentElement;
           if (!node.textContent.trim() || seen.has(el)) continue;
-          /* The sorting table is one labelled image; its tiles carry their own white faces. */
+          /* The sticker wall is one labelled image; its stickers carry their own paper faces. */
           if (el.closest("[aria-hidden=true], [role=img], .sr-only, input, textarea")) continue;
           const style = getComputedStyle(el);
           if (style.visibility === "hidden" || style.display === "none") continue;
@@ -91,8 +91,8 @@ for (const [label, options] of VIEWPORTS) {
           for (const rect of range.getClientRects()) {
             if (rect.width < 4 || rect.height < 4 || rect.bottom < 0 || rect.top > innerHeight) continue;
             const size = parseFloat(style.fontSize);
-            /* An emphasised word sits on a label turned 1.4°, so the
-               corners of its upright box fall off the label: sample the
+            /* An emphasised word is an italic serif whose box is taller
+               than its glyphs, and can sit beside the dot: sample the
                band the glyphs actually cross. */
             const label = Boolean(el.closest("em"));
             const slack = Math.min(rect.height * 0.3, rect.width * 0.03 + 3);

@@ -32,10 +32,10 @@ export function PackageCard({
   const Heading = headingLevel;
   const href = pkg.ctaHref ?? `mailto:${site.email}?subject=${encodeURIComponent(`Enquiry: ${pkg.name} package`)}`;
   return (
-    <Reveal as="li" turn={50} delay={index * 0.12} className="h-full">
+    <Reveal as="li" turn={1} delay={index * 0.12} className="h-full">
       <article
         className={cn(
-          "relative flex h-full flex-col rounded-[16px] border-2 border-s-rule p-6 shadow-[0_8px_0_0_var(--s-rule)] sm:p-8",
+          "relative flex h-full flex-col rounded-[24px] p-6 sm:p-8",
           pkg.featured ? "tone-navy" : "tone-white"
         )}
       >
@@ -55,7 +55,7 @@ export function PackageCard({
             <IncludedList label="Every month" items={pkg.monthly} />
           </>
         ) : (
-          <ul className="mt-7 space-y-3 border-t-2 border-s-line-2 pt-6">
+          <ul className="mt-7 space-y-3 border-t-[1.5px] border-s-line-2 pt-6">
             {pkg.features.map((feature) => (
               <CheckItem key={feature}>{feature}</CheckItem>
             ))}
@@ -76,7 +76,7 @@ export function PackageCard({
 function IncludedList({ label, items }: { label: string; items: readonly string[] }) {
   const id = useId();
   return (
-    <div className="mt-7 border-t-2 border-s-line-2 pt-5">
+    <div className="mt-7 border-t-[1.5px] border-s-line-2 pt-5">
       <p id={id} className="s-label text-[12.5px] text-s-muted">
         {label}
       </p>

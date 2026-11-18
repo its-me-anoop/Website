@@ -85,7 +85,7 @@ export function Showcase() {
                   tabIndex={selected ? 0 : -1}
                   onClick={() => setActive(i)}
                   onKeyDown={onKeyDown}
-                  className={cn("s-key h-11 shrink-0 px-4 text-[15px] [--key-depth:4px]", !selected && "s-key-outline")}
+                  className={cn("s-key h-11 shrink-0 px-4 text-[15px]", !selected && "s-key-outline")}
                 >
                   {s.tab}
                 </button>
@@ -139,14 +139,14 @@ export function Showcase() {
             transition={{ duration: 0.75, ease: EASE }}
             className="relative min-w-0"
           >
-            <Link href={sample.href} tabIndex={-1} aria-hidden="true" className="block rounded-[12px]">
+            <Link href={sample.href} tabIndex={-1} aria-hidden="true" className="block rounded-[24px]">
               <SampleScene image={sample.image} mobileImage={sample.mobileImage} url={`${site.domain}${sample.href}`} />
             </Link>
           </m.div>
         </div>
 
         {/* Picker: every sample at a glance; the chosen one is marked. */}
-        <Reveal turn={0} className="mt-16">
+        <Reveal className="mt-16">
           <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {samples.map((s, i) => {
               const selected = i === active;
@@ -158,13 +158,13 @@ export function Showcase() {
                     aria-label={`Show ${s.name}`}
                     onClick={() => setActive(i)}
                     className={cn(
-                      "group flex w-full flex-col gap-2.5 rounded-[12px] border-2 p-2 pb-3 text-left transition-[border-color,transform,box-shadow] duration-300",
+                      "group flex w-full flex-col gap-2.5 rounded-[24px] border-2 p-2 pb-3 text-left transition-[border-color,transform,box-shadow] duration-300",
                       selected
-                        ? "-translate-y-1 border-s-flame shadow-[0_5px_0_0_var(--s-flame)]"
+                        ? "-translate-y-1 border-s-flame"
                         : "border-s-line-2 hover:-translate-y-1 hover:border-s-ink"
                     )}
                   >
-                    <span className="relative block aspect-[1440/1000] w-full overflow-hidden rounded-[7px]">
+                    <span className="relative block aspect-[1440/1000] w-full overflow-hidden rounded-[14px]">
                       <Image src={s.image} alt="" fill sizes="(min-width: 1024px) 240px, 45vw" className="object-cover object-top" />
                     </span>
                     <span className="flex flex-col gap-1 px-1">
