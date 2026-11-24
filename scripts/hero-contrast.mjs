@@ -21,7 +21,6 @@ const TARGETS = [
   { route: "/", selector: "#contact" },
   { route: "/services/apps", selector: "#top" },
   { route: "/services/seo", selector: "#top" },
-  { route: "/book", selector: "#top" },
   { route: "/free-audit", selector: "#top" },
   { route: "/services", selector: "#top" },
   { route: "/services/websites", selector: "#top" },

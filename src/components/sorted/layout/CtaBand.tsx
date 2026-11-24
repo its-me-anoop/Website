@@ -10,22 +10,19 @@ import { AuditBar, ButtonLink, Container, Display, Eyebrow } from "../ui/primiti
 /**
  * Closing room on every marketing page: a cobalt wall with a pink
  * porthole, the question on the left and, on a paper card, the two
- * ways to start: the audit bar, then a booking pill and a direct
- * email. The paper floor runs into the footer. The booking page hides
- * the link to itself. Pages whose visitors may not have a website to
+ * ways to start: the audit bar, then a direct email. The paper floor
+ * runs into the footer. Pages whose visitors may not have a website to
  * audit pass `audit="link"` to turn the bar into a small cross-link.
  */
 export function CtaBand({
   title,
   copy,
   id,
-  showBooking = true,
   audit = "bar",
 }: {
   title: ReactNode;
   copy: string;
   id?: string;
-  showBooking?: boolean;
   audit?: "bar" | "link";
 }) {
   return (
@@ -52,14 +49,9 @@ export function CtaBand({
               </div>
             </>
           ) : null}
-          <p className="text-[17px] font-semibold text-s-ink">{showBooking ? "Talk it through:" : "Write directly:"}</p>
+          <p className="text-[17px] font-semibold text-s-ink">Talk it through:</p>
           <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-4">
-            {showBooking ? (
-              <ButtonLink href="/book" tone={audit === "bar" ? "navy" : "primary"} arrow="right" dot>
-                Book a {site.booking.durationMinutes}-minute call
-              </ButtonLink>
-            ) : null}
-            <ButtonLink href={`mailto:${site.email}`} tone="ghost">
+            <ButtonLink href={`mailto:${site.email}`} tone={audit === "bar" ? "navy" : "primary"} arrow="right" dot>
               {site.email}
             </ButtonLink>
           </div>

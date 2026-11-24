@@ -37,6 +37,11 @@ describe("canonical host", () => {
     expect(urls).toContain(`${site.url}/projects/artling/privacy-policy`);
   });
 
+  it("sitemap drops the retired /book page", () => {
+    const urls = sitemap().map((entry) => entry.url);
+    expect(urls).not.toContain(`${site.url}/book`);
+  });
+
   it("sitemap lists the Little Lifeline project page", () => {
     const urls = sitemap().map((entry) => entry.url);
     expect(urls).toContain(`${site.url}/projects/little-lifeline`);

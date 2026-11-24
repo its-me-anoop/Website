@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { site } from "@/lib/site";
 import { Floor, Porthole } from "../ui/Room";
@@ -6,7 +5,7 @@ import { Container } from "../ui/primitives";
 
 /**
  * The close: one question on the vermilion wall beside a sun-yellow
- * porthole, the booking pill and the email address, and a cobalt
+ * porthole, and the email address as the one action, and a cobalt
  * floor. The free audit has its own room above.
  */
 export function Contact() {
@@ -18,12 +17,9 @@ export function Contact() {
           Got something that needs <em>sorting?</em>
         </h2>
         <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
-          <Link href="/book" data-dot="into" data-dot-pull="260" className="s-key group/btn h-16 px-8 text-[19px]">
-            Book a {site.booking.durationMinutes}-minute call
-            <ArrowRight size={20} strokeWidth={2.6} aria-hidden className="transition-transform duration-300 group-hover/btn:translate-x-1" />
-          </Link>
-          <a href={`mailto:${site.email}`} data-dot="top" data-dot-x="0.5" className="s-ul s-display text-[clamp(21px,2.6vw,36px)] text-s-ink">
+          <a href={`mailto:${site.email}`} data-dot="into" data-dot-pull="260" className="s-key group/btn h-16 px-8 text-[19px]">
             {site.email}
+            <ArrowRight size={20} strokeWidth={2.6} aria-hidden className="transition-transform duration-300 group-hover/btn:translate-x-1" />
           </a>
         </div>
         <p className="max-w-[520px] border-t-[1.5px] border-s-ink pt-6 text-[17.5px] font-medium leading-[1.5] text-s-ink">

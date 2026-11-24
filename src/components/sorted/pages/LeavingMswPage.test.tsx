@@ -35,9 +35,10 @@ describe("LeavingMswPage", () => {
     expect(auditCtas.length).toBeGreaterThan(0);
     auditCtas.forEach((link) => expect(link).toHaveAttribute("href", "/free-audit"));
 
-    const callCtas = screen.getAllByRole("link", { name: /^Book a call$/i });
-    expect(callCtas.length).toBeGreaterThan(0);
-    callCtas.forEach((link) => expect(link).toHaveAttribute("href", "/book"));
+    const contactCtas = screen.getAllByRole("link", { name: /^Get in touch$/i });
+    expect(contactCtas.length).toBeGreaterThan(0);
+    contactCtas.forEach((link) => expect(link).toHaveAttribute("href", "/#contact"));
+    expect(screen.queryByRole("link", { name: /^Book a call$/i })).toBeNull();
   });
 
   it("publishes the locked Move Essentials and Move Standard prices", () => {
@@ -75,7 +76,8 @@ describe("LeavingMswPage", () => {
     expect(linksTo("/accessibility").length).toBeGreaterThan(0);
     expect(linksTo("/packages").length).toBeGreaterThan(0);
     expect(linksTo("/free-audit").length).toBeGreaterThan(0);
-    expect(linksTo("/book").length).toBeGreaterThan(0);
+    expect(linksTo("/#contact").length).toBeGreaterThan(0);
+    expect(linksTo("/book")).toHaveLength(0);
   });
 
   it("does not send package CTAs to mailto or a packages-only pitch", () => {

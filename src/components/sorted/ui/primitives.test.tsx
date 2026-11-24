@@ -22,8 +22,8 @@ describe("ButtonLink", () => {
   });
 
   it("keeps internal routes in the same tab", () => {
-    wrap(<ButtonLink href="/book">Book a call</ButtonLink>);
-    expect(screen.getByRole("link", { name: "Book a call" })).not.toHaveAttribute("target");
+    wrap(<ButtonLink href="/#contact">Get in touch</ButtonLink>);
+    expect(screen.getByRole("link", { name: "Get in touch" })).not.toHaveAttribute("target");
   });
 });
 

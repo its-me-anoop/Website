@@ -125,10 +125,18 @@ describe("Home", () => {
     ["/services", "/#work", "/gp-websites"].forEach((href) => expect(linksTo(href).length).toBeGreaterThan(0));
   });
 
-  it("links to the booking page from the nav, hero and close", () => {
+  it("points the nav and hero at the contact section, which offers email", () => {
     renderHome();
-    expect(linksTo("/book").length).toBeGreaterThanOrEqual(3);
-    expect(screen.getByRole("link", { name: /Book a 15-minute call/i })).toHaveAttribute("href", "/book");
+    expect(linksTo("/#contact").length).toBeGreaterThanOrEqual(2);
+    const contact = document.getElementById("contact")!;
+    expect(within(contact).getAllByRole("link").some((a) => a.getAttribute("href") === "mailto:anoop@flutterly.co.uk")).toBe(true);
+  });
+
+  it("no longer offers a Cal.com booking anywhere", () => {
+    renderHome();
+    expect(linksTo("/book")).toHaveLength(0);
+    expect(screen.getAllByRole("link").some((a) => /cal\.com/.test(a.getAttribute("href") ?? ""))).toBe(false);
+    expect(screen.queryByRole("link", { name: /book a (call|\d+-minute call)/i })).toBeNull();
   });
 
   it("keeps the free website audit as a GET form to /audit", () => {

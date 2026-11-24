@@ -20,7 +20,7 @@ export const site = {
   role: "Developer & Designer · Founder of Flutterly",
   description:
     "Flutterly is a studio in Reading, UK, for websites, apps, IT support, social media and SEO: designed, built and looked after by one person, with a specialism in accessible healthcare websites.",
-  /** New business and general enquiries: quotes, audits, bookings. */
+  /** New business and general enquiries: quotes, audits, new projects. */
   email: "anoop@flutterly.co.uk",
   /** Existing clients and issues: accessibility reports, privacy, app support. */
   supportEmail: "support@flutterly.co.uk",
@@ -54,16 +54,12 @@ export const site = {
   },
   logo: "/flutterly-logo.png",
   /**
-   * Cal.com booking. `calLink` is what the embed takes (username/event
-   * slug); `url` is the public page used by fallback links. The event
-   * is "Short Discovery Meeting", 15 minutes, on cal.com.
+   * Where every "talk to us" action goes: the contact section on the
+   * homepage (email). The retired /book route redirects here too.
    */
-  booking: {
-    calLink: "anoop-jose-jtij1j/short-discovery-meeting",
-    url: "https://cal.com/anoop-jose-jtij1j/short-discovery-meeting",
-    label: "Book a short discovery call",
-    eventName: "Short Discovery Meeting",
-    durationMinutes: 15,
+  contact: {
+    href: "/#contact",
+    label: "Get in touch",
   },
 } as const;
 

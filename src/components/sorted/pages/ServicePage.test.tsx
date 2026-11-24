@@ -48,9 +48,10 @@ describe("ServicePage", () => {
     ]);
   });
 
-  it("offers a booking call and the free audit on the websites page", () => {
+  it("offers a way to get in touch and the free audit on the websites page", () => {
     wrap(<ServicePage service={getService("websites")!} />);
-    expect(screen.getAllByRole("link", { name: /book a call/i })[0]).toHaveAttribute("href", "/book");
+    expect(screen.getAllByRole("link", { name: /get in touch/i })[0]).toHaveAttribute("href", "/#contact");
+    expect(screen.queryByRole("link", { name: /book a call/i })).toBeNull();
     expect(screen.getAllByRole("textbox", { name: /your website address/i }).length).toBeGreaterThan(0);
   });
 
@@ -87,7 +88,8 @@ describe("ServicesIndexPage", () => {
     expect(band.textContent).not.toMatch(/start with a free audit of the website you have today/);
     expect(within(band).queryByRole("textbox")).toBeNull();
     expect(within(band).getByRole("link", { name: /free website audit/i })).toHaveAttribute("href", "/free-audit");
-    expect(within(band).getByRole("link", { name: /Book a 15-minute call/i })).toHaveAttribute("href", "/book");
+    expect(within(band).getByRole("link", { name: "anoop@flutterly.co.uk" })).toHaveAttribute("href", "mailto:anoop@flutterly.co.uk");
+    expect(within(band).queryByRole("link", { name: /book a \d+-minute call/i })).toBeNull();
   });
 
   it.each(["websites", "seo"])("%s keeps the audit bar as the main alternative", (slug) => {

@@ -9,6 +9,7 @@ import { PageHero } from "../layout/PageHero";
 import { CtaBand } from "../layout/CtaBand";
 import { ButtonLink, Container } from "../ui/primitives";
 import { serviceTone } from "../ui/tones";
+import { site } from "@/lib/site";
 
 /**
  * Every service, grouped under the three pillars: Build (websites,
@@ -32,8 +33,8 @@ export function ServicesIndexPage() {
           </p>
         }
       >
-        <ButtonLink href="/book" size="lg" arrow="right" dot="soft">
-          Book a call
+        <ButtonLink href={site.contact.href} size="lg" arrow="right" dot="soft">
+          {site.contact.label}
         </ButtonLink>
       </PageHero>
 

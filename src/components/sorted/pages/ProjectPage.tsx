@@ -13,6 +13,7 @@ import { Shell } from "../layout/Shell";
 import { BrowserFrame } from "../ui/Frames";
 import { ButtonLink, Container, Eyebrow, SectionIntro } from "../ui/primitives";
 import { serviceTone } from "../ui/tones";
+import { site } from "@/lib/site";
 
 /** How wide each kind of capture sits in the gallery, and the bezel it wears. */
 const frameClass: Record<Shot["frame"], string> = {
@@ -85,8 +86,8 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
         }
       >
         <div className="flex flex-wrap items-center gap-4">
-          <ButtonLink href="/book" size="lg" arrow="right" dot="soft">
-            Book a call
+          <ButtonLink href={site.contact.href} size="lg" arrow="right" dot="soft">
+            {site.contact.label}
           </ButtonLink>
           <ButtonLink href="/#work" tone="plain" size="lg">
             All work

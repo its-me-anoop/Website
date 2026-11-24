@@ -9,7 +9,7 @@ import { displayUrl } from "@/lib/audit/url";
 import { cn } from "@/lib/utils";
 import { pitchModel, promise } from "../report/pitch-model";
 import { Eyebrow, ScoreDial, scoreBar, scoreTone, StatusMark, statusLabel, Tag } from "./print-parts";
-import { QrBook } from "./QrBook";
+import { QrContact } from "./QrContact";
 
 /**
  * The report as a designed A4 document, in the Kiln language: a coal
@@ -508,13 +508,12 @@ function NextSteps({ report }: { report: AuditReport }) {
               scored, plain-English report within a week, yours to act on with anyone.
             </p>
             <p className="mt-[2mm] text-[8.5pt] leading-[1.5] text-k-coal-ink">
-              Email <span className="font-medium">{site.email}</span> with this report, or book a{" "}
-              {`${site.booking.durationMinutes}-minute`} call at <span className="font-medium">{`${shortDomain}/book`}</span>.
+              Email <span className="font-medium">{site.email}</span> with this report, or get in touch at <span className="font-medium">{shortDomain}</span>.
             </p>
           </div>
           <div className="rounded-[10px] bg-k-paper p-[3mm] text-k-ink">
-            <QrBook className="h-[22mm] w-[22mm]" />
-            <p className="mt-[1.5mm] text-center text-[7pt] leading-none text-k-muted">Scan to book</p>
+            <QrContact className="h-[22mm] w-[22mm]" />
+            <p className="mt-[1.5mm] text-center text-[7pt] leading-none text-k-muted">Scan to get in touch</p>
           </div>
         </div>
         <PageFoot onCoal label="Next steps" />
