@@ -187,7 +187,7 @@ export function ProjectPage({ study }: { study: CaseStudy }) {
             Got an app that needs <em>building?</em>
           </>
         }
-        copy="A short call is the quickest way to a written plan and a price, before any work starts."
+        copy="Email me about your idea for a written plan and a price, before any work starts."
         audit="link"
       />
     </Shell>

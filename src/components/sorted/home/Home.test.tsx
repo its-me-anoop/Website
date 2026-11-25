@@ -266,7 +266,7 @@ describe("Home", () => {
 
   it("renders the four process steps and the footer contact details", () => {
     renderHome();
-    ["Call", "Plan", "Build", "Look after"].forEach((step) =>
+    ["Talk", "Plan", "Build", "Look after"].forEach((step) =>
       expect(screen.getByRole("heading", { level: 3, name: step })).toBeInTheDocument()
     );
     expect(screen.getAllByText(new RegExp(`© ${new Date().getFullYear()}`)).length).toBeGreaterThan(0);

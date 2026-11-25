@@ -43,7 +43,7 @@ export type Service = {
   /** Meta description for the service page (≤ 160 characters). */
   metaDescription: string;
   /**
-   * The closing band: what to tell Flutterly before a call, and whether
+   * The closing band: what to tell Flutterly in an email, and whether
    * the website audit is the main alternative (websites, SEO) or only a
    * small cross-link (services that are not about an existing site).
    */
@@ -99,7 +99,7 @@ export const services: readonly Service[] = [
       },
       {
         q: "What does a website cost?",
-        a: "Healthcare packages are published on the packages page. Other sites are quoted in writing after a short call, before any work starts.",
+        a: "Healthcare packages are published on the packages page. Other sites are quoted in writing, by email, before any work starts.",
       },
     ],
     related: [
@@ -111,7 +111,7 @@ export const services: readonly Service[] = [
     metaDescription:
       "Custom-coded Next.js websites from Flutterly in Reading: accessible to WCAG 2.2 AA, fast on a phone, easy to update and looked after.",
     nextStep: {
-      prompt: "A short call about your website is the quickest way to a written plan and a price. Or start with a free audit of the website you have today.",
+      prompt: "Email me about your website for a written plan and a price. Or start with a free audit of the website you have today.",
       audit: "primary",
     },
   },
@@ -170,7 +170,7 @@ export const services: readonly Service[] = [
     metaDescription:
       "iPhone, Apple Watch and Android apps in SwiftUI and Flutter from Flutterly in Reading, from first prototype to the App Store and beyond.",
     nextStep: {
-      prompt: "Tell me what your app needs to do, who it is for and whether you have a prototype. A short call is the quickest way to a written plan and a price.",
+      prompt: "Tell me what your app needs to do, who it is for and whether you have a prototype, and you get a written plan and a price by email.",
       audit: "link",
     },
   },
@@ -214,7 +214,7 @@ export const services: readonly Service[] = [
     faqs: [
       {
         q: "How much is a support plan?",
-        a: "Plans are priced on the number of people and devices. You get a written quote after a short call about your setup.",
+        a: "Plans are priced on the number of people and devices. Email me about your setup and you get a written quote.",
       },
       {
         q: "Do you work on site?",
@@ -228,7 +228,7 @@ export const services: readonly Service[] = [
     metaDescription:
       "IT support from Flutterly in Reading: domains, email, devices and backups for small teams, set up properly and looked after on a monthly plan.",
     nextStep: {
-      prompt: "Tell me what is getting in the way, how many people need help and what you use today. A short call is the quickest way to a written plan and a price.",
+      prompt: "Tell me what is getting in the way, how many people need help and what you use today, and you get a written plan and a price by email.",
       audit: "link",
     },
   },
@@ -286,7 +286,7 @@ export const services: readonly Service[] = [
     metaDescription:
       "Social media from Flutterly in Reading: planned posts and short-form video for Instagram, LinkedIn, Facebook and X, written in your voice.",
     nextStep: {
-      prompt: "Tell me which channels you use, who you want to reach and what you need help creating. A short call is the quickest way to a written plan and a price.",
+      prompt: "Tell me which channels you use, who you want to reach and what you need help creating, and you get a written plan and a price by email.",
       audit: "link",
     },
   },
@@ -344,7 +344,7 @@ export const services: readonly Service[] = [
     metaDescription:
       "SEO from Flutterly in Reading: technical fixes, local search and Google Business Profile, and useful pages that help people nearby find you.",
     nextStep: {
-      prompt: "A short call about your SEO is the quickest way to a written plan and a price. Or start with a free audit of the website you have today.",
+      prompt: "Email me about your SEO for a written plan and a price. Or start with a free audit of the website you have today.",
       audit: "primary",
     },
   },

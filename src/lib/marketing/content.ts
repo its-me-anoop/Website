@@ -448,7 +448,7 @@ export const auditPromises = [
 
 /* ─────────────────────────────────────────────────────────────
    Packages. Essentials and Standard publish a figure; Partnership
-   is scoped after a short call.
+   is scoped by email.
    ───────────────────────────────────────────────────────────── */
 
 export type Package = {
@@ -537,7 +537,7 @@ export const packages: readonly Package[] = [
 export const packagesFaq = [
   {
     q: "How much does a website cost?",
-    a: "Every package is £29 a month on a 5-year term, or £49 a month on a 1-year term, with hosting and backups included. Essentials is £999 to build and you make your own content changes. Standard is £1,499 to build, with a larger site, and Flutterly makes your content changes (up to 2 hours a month), applies updates and runs regular checks. Both include same-week support. Partnership is scoped after a short call, with a written quote within two working days.",
+    a: "Every package is £29 a month on a 5-year term, or £49 a month on a 1-year term, with hosting and backups included. Essentials is £999 to build and you make your own content changes. Standard is £1,499 to build, with a larger site, and Flutterly makes your content changes (up to 2 hours a month), applies updates and runs regular checks. Both include same-week support. Partnership is scoped by email, with a written quote within two working days.",
   },
   {
     q: "Is there a minimum term?",
@@ -1105,7 +1105,7 @@ export const featuredWork = [
 ] as const;
 
 export const rebrandProcess = [
-  ["Call", "A short call about what you need and what good looks like."],
+  ["Talk", "An email about what you need and what good looks like."],
   ["Plan", "A written proposal with scope, price and timeline before anything gets built."],
   ["Build", "Designed, coded and tested, with a working link you can click through as it grows."],
   ["Look after", "Hosting, updates, IT, search and social for as long as you want them."],

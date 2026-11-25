@@ -78,9 +78,9 @@ describe("ServicesIndexPage", () => {
   });
 
   it.each([
-    ["apps", "Tell me what your app needs to do, who it is for and whether you have a prototype."],
-    ["it-support", "Tell me what is getting in the way, how many people need help and what you use today."],
-    ["social-media", "Tell me which channels you use, who you want to reach and what you need help creating."],
+    ["apps", "Tell me what your app needs to do, who it is for and whether you have a prototype"],
+    ["it-support", "Tell me what is getting in the way, how many people need help and what you use today"],
+    ["social-media", "Tell me which channels you use, who you want to reach and what you need help creating"],
   ])("%s closes with its own next step, and the audit only as a small cross-link", (slug, prompt) => {
     wrap(<ServicePage service={getService(slug)!} />);
     const band = document.getElementById("contact")!;

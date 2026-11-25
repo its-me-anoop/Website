@@ -83,7 +83,7 @@ export function ServicesIndexPage() {
             Not sure where to <em>start?</em>
           </>
         }
-        copy="Most people start with a short call or a free audit of their current website. Either way you get a plain written answer about what to do first."
+        copy="Most people start with an email or a free audit of their current website. Either way you get a plain written answer about what to do first."
       />
     </Shell>
   );
