@@ -25,6 +25,7 @@ import { Dot, Floor } from "../ui/Room";
 import { serviceColour } from "../ui/tones";
 import { activePiece, heroState, scrollQ } from "./hero-scroll";
 import { pieces, scatterOf, type Piece } from "./pieces";
+import { site } from "@/lib/site";
 
 const icons: Record<Piece["icon"], LucideIcon> = {
   globe: Globe,
@@ -65,7 +66,7 @@ const letterScatter = [
  * sticker straightens and its problem turns into the fix. When the last
  * one is done the letters settle, the headline keeps a dot of its own,
  * and the travelling one goes where the room wants you to look: into
- * the booking pill. On a wide, tall
+ * the contact pill. On a wide, tall
  * window the room holds still while this happens (`data-pin`); on a
  * small one it plays as the wall scrolls past.
  *
@@ -144,7 +145,7 @@ export function Hero() {
       root.style.setProperty("--q", q.toFixed(3));
       root.dataset.state = heroState(q, shown.length);
 
-      /* The dot goes into the status light of the sticker being fixed; once the wall is sorted, into the booking pill. */
+      /* The dot goes into the status light of the sticker being fixed; once the wall is sorted, into the contact pill. */
       const active = activePiece(q, shown.length);
       const next =
         active !== null
@@ -227,8 +228,8 @@ export function Hero() {
               <p className="s-say max-w-[560px] text-[clamp(20px,1.9vw,27px)] text-s-ink">{heroCopy.copy}</p>
 
               <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
-                <Link href="/book" data-hero-cta className="s-key group/btn h-14 px-7 text-[17px]">
-                  Book a call
+                <Link href={site.contact.href} data-hero-cta className="s-key group/btn h-14 px-7 text-[17px]">
+                  {site.contact.label}
                   <ArrowRight size={18} strokeWidth={2.6} aria-hidden className="transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </Link>
                 <Link href="#work" className="s-ul inline-flex min-h-11 items-center text-[17px] font-semibold text-s-ink">

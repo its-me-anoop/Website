@@ -138,7 +138,7 @@ describe("ReportPage", () => {
     expect(href).toContain("Score 58/100 (grade D)");
     expect(href).toContain("Images have alternative text");
     const pitch = screen.getByRole("region", { name: /same list before launch/i });
-    expect(within(pitch).getByRole("link", { name: /book a 15-minute call/i })).toHaveAttribute("href", "/book");
+    expect(within(pitch).queryByRole("link", { name: /book a \d+-minute call/i })).toBeNull();
   });
 
   it("renders the printable document alongside the report, hidden on screen", async () => {
@@ -166,8 +166,9 @@ describe("ReportPage", () => {
     expect(last.textContent).toContain("same list before launch");
     expect(last.textContent).toContain("Standard");
     expect(last.textContent).toContain("anoop@flutterly.co.uk");
-    expect(last.textContent).toContain("flutterly.co.uk/book");
-    expect(last.querySelector('svg[aria-label*="flutterly.co.uk/book"]')).not.toBeNull();
+    expect(last.textContent).not.toContain("flutterly.co.uk/book");
+    expect(last.textContent).toContain("get in touch at flutterly.co.uk");
+    expect(last.querySelector('svg[aria-label*="contact section of flutterly.co.uk"]')).not.toBeNull();
 
     /* The interactive report is what screen users see; the document only prints. */
     expect(document.querySelector(".k-screen")).not.toBeNull();

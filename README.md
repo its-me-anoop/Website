@@ -5,7 +5,7 @@ The site of **Flutterly Ltd**, the one-person studio of **Anoop Jose**
 with a specialism in accessible healthcare websites.
 
 The marketing pages (home, services, GP practices, care homes, packages,
-Clear Path, free audit, booking, accessibility) run the
+Clear Path, free audit, accessibility) run the
 ["Rooms" design language](./docs/ROOMS.md): every section is a room
 with a wall of one flat colour and a floor of another, headlines in a
 heavy grotesque with one word in an italic serif, typewritten captions,
@@ -75,12 +75,12 @@ the demo-site scopes.
   domain, email, backups, Wi-Fi, search…), askew with a problem showing.
   As you scroll, the room holds still and the dot goes into each one's
   red status light in turn; it straightens and the problem turns into
-  the fix. Then the dot goes into the booking pill. Without
+  the fix. Then the dot goes into the contact pill. Without
   JavaScript, and under reduced motion, the wall is simply sorted.
 - **The travelling dot**: one vermilion dot is carried down every page
   and moves like a ball: it crouches, rolls off the rounded edge of what
   it is on, is thrown in an arc, lands, bounces and settles. Some things
-  it becomes rather than lands on, taking the shape of a booking pill or
+  it becomes rather than lands on, taking the shape of a contact pill or
   a sticker's status light, and it is drawn to what each page most wants
   pressed. It starts in the headline and ends as the dot of the footer's
   wordmark.

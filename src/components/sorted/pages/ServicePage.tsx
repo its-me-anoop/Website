@@ -11,6 +11,7 @@ import { SlabStack, type SlabColour } from "../ui/SlabStack";
 import { ButtonLink, CheckItem, Container, Eyebrow, FaqList } from "../ui/primitives";
 import { serviceTone } from "../ui/tones";
 import { Showcase } from "./Showcase";
+import { site } from "@/lib/site";
 
 /** The stack beside each hero ends on a white slab over the page's own colour. */
 const stackFor: Record<Service["slug"], readonly SlabColour[]> = {
@@ -48,8 +49,8 @@ export function ServicePage({ service }: { service: Service }) {
         copy={<p>{service.intro}</p>}
       >
         <div className="flex flex-wrap items-center gap-4">
-          <ButtonLink href="/book" size="lg" arrow="right" dot="soft">
-            Book a call
+          <ButtonLink href={site.contact.href} size="lg" arrow="right" dot="soft">
+            {site.contact.label}
           </ButtonLink>
           {service.slug === "websites" ? (
             <ButtonLink href="#samples" tone="plain" size="lg">

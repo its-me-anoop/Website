@@ -1,7 +1,7 @@
 # Design Language — "Rooms"
 
 The marketing site (home, services, GP practices, care homes, packages,
-Clear Path, free audit, audit report, booking, accessibility statement,
+Clear Path, free audit, audit report, accessibility statement,
 404) runs Rooms. Every section is a room: a wall of one flat colour, a
 floor of another, and a few things standing in it. Headlines are a heavy
 grotesque with one word in an italic serif; captions are typewritten and
@@ -73,8 +73,8 @@ instead of repainting it.
 - `--s-rule` is the colour of firm rules: ink in light, `#8d8a85` in
   dark. Use `border-s-rule`, never a literal ink, for a rule that must
   show on both.
-- Captures of real sites (`Frames.tsx`), the audit field, the pills of
-  the bar and the Cal.com booker stay light on purpose.
+- Captures of real sites (`Frames.tsx`), the audit field and the pills
+  of the bar stay light on purpose.
 - The dark block is scoped to `.s-root`, so the bar and footer around a
   light case-study page (`.s-chrome`) do not turn dark on their own.
 - `theme-color` is `#f4efe8` in light and `#201e1f` in dark.
@@ -155,7 +155,7 @@ of links needs the full width.
 over whatever room is at the top of the window (the page's first section
 runs to the top and leaves `pt-28` or more for them). The wordmark and
 its dot on the left; the routes on a paper pill from `lg`; the audit
-link, the booking pill and the pink **index** pill on the right.
+link, the contact pill and the pink **index** pill on the right.
 
 The index opens the whole site as cards on an ochre wall: one per
 route, numbered in the serif and landing a little askew, then the five
@@ -211,11 +211,11 @@ element and scaled the way a browser draws them.
 **Where it takes the eye.** The dot goes `into` the things a page most
 wants looked at or pressed, and those carry `data-dot-pull`, which makes
 them count as nearer than they are, so the dot gets to them early and
-stays late: the booking pills (`ButtonLink dot`, the home page's close),
+stays late: the contact buttons (`ButtonLink dot`, the home page's close),
 the audit bar's button, a service's arrow. In the hero it goes into each
 sticker's red status light as that sticker is fixed, and once the wall
 is sorted it leaves the headline a dot of its own and goes into the
-booking pill.
+contact pill.
 
 An anchor is any element with `data-dot`:
 
@@ -240,7 +240,7 @@ components has a route without asking for one:
 |---|---|
 | `PageHero` | starts on the heading's serif word (or the label), in sight; at the very top of a page it does not go `into` anything |
 | `ButtonLink dot="soft"` | the hero's main button: the dot becomes it once the page has been scrolled a little |
-| `ButtonLink dot` | the button the page most wants pressed: the dot is drawn to it from further off (`CtaBand`'s booking pill, a featured package's button, "Open the sample site") |
+| `ButtonLink dot` | the button the page most wants pressed: the dot is drawn to it from further off (`CtaBand`'s email button, a featured package's button, "Open the sample site") |
 | `AuditBar` | goes into the Audit button |
 | `CheckItem` in a `data-dot="steps"` list | stands on each tick in turn |
 | `FaqList` | stands on each question's button in turn |

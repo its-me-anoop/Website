@@ -22,7 +22,6 @@ const routes: readonly {
   { path: "/care-home-websites", changeFrequency: "monthly", priority: 0.9 },
   { path: "/packages", changeFrequency: "monthly", priority: 0.8 },
   { path: "/free-audit", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/book", changeFrequency: "monthly", priority: 0.8 },
   { path: "/leaving-msw", changeFrequency: "monthly", priority: 0.8 },
   { path: "/projects/sipli", changeFrequency: "monthly", priority: 0.7 },
   { path: "/projects/artling", changeFrequency: "monthly", priority: 0.7 },

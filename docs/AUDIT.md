@@ -115,7 +115,7 @@ see, and `perf-client-rendered` explains the trade-off.
 - **done** — `ReportHeader` (score dial, page facts, sector override),
   `CategoryList` (expandable rows), `Priorities`, `Pitch` (weakest
   areas → what Flutterly builds, suggested package, prefilled written-
-  audit email, booking link) and the closing `CtaBand`.
+  audit email) and the closing `CtaBand`.
 
 ## The PDF
 
@@ -141,7 +141,7 @@ paper beside the on-screen Rooms report:
 5. **Next steps** (navy): the three weakest areas against what a
    Flutterly build does about each (or "keep what you have" for strong
    sites), the suggested package as a chalk card, the free written audit
-   with email and booking URL, and a QR code to `/book` (`QrBook.tsx`,
+   with email and contact line, and a QR code to `/#contact` (`QrContact.tsx`,
    generated once and embedded as a path).
 
 Geometry lives in the `k-pdf-*` rules in `globals.css`: `@page` is A4

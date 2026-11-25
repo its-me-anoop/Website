@@ -9,6 +9,7 @@ import { navLinks } from "@/lib/marketing/content";
 import { serviceHref, services } from "@/lib/marketing/services";
 import { Dot } from "../ui/Room";
 import { serviceTone } from "../ui/tones";
+import { site } from "@/lib/site";
 
 /** One wall colour and a lean per card of the index, in route order. */
 const cards = [
@@ -26,7 +27,7 @@ const cards = [
  * shows on every wall. On the left the butterfly, the
  * wordmark and its vermilion dot; in the middle (from `lg`) the routes
  * on a paper pill; on the right the audit link (where there is room
- * for it beside the routes), the booking pill and the pink index pill.
+ * for it beside the routes), the contact pill and the pink index pill.
  *
  * The index opens the whole site as cards on an ochre wall: one per
  * route, numbered in the serif, then the five services and the two ways
@@ -118,8 +119,8 @@ export function Nav() {
           <Link href="/free-audit" className="s-key s-key-plain hidden h-12 border-[1.5px] border-s-navy px-5 text-[15px] sm:h-[52px] md:inline-flex lg:hidden xl:inline-flex">
             Free audit
           </Link>
-          <Link href="/book" className="s-key h-12 border-[1.5px] border-s-navy px-4 text-[15px] [--key-edge:#ff6a3d] [--key-face:var(--s-flame)] [--key-ink:var(--s-navy)] sm:h-[52px] sm:px-5">
-            Book a call
+          <Link href={site.contact.href} className="s-key h-12 border-[1.5px] border-s-navy px-4 text-[15px] [--key-edge:#ff6a3d] [--key-face:var(--s-flame)] [--key-ink:var(--s-navy)] sm:h-[52px] sm:px-5">
+            {site.contact.label}
           </Link>
           <button
             ref={toggleRef}
@@ -218,8 +219,8 @@ export function Nav() {
                 <Link href="/free-audit" onClick={close} data-index-stop className="s-key s-key-plain h-14 text-[16.5px]">
                   Free website audit
                 </Link>
-                <Link href="/book" onClick={close} data-index-stop className="s-key h-14 text-[16.5px]">
-                  Book a call
+                <Link href={site.contact.href} onClick={close} data-index-stop className="s-key h-14 text-[16.5px]">
+                  {site.contact.label}
                 </Link>
               </div>
             </div>

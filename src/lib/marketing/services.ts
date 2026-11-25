@@ -9,6 +9,8 @@
  * call, and says so.
  */
 
+import { site } from "@/lib/site";
+
 export type ServiceSlug = "websites" | "apps" | "it-support" | "social-media" | "seo";
 
 /** Build, Support, Grow: the three pillars the five services sit under. */
@@ -220,7 +222,7 @@ export const services: readonly Service[] = [
       },
     ],
     related: [
-      { label: "Book a call about your setup", href: "/book" },
+      { label: "Get in touch about your setup", href: site.contact.href },
       { label: "Websites", href: "/services/websites" },
     ],
     metaDescription:
@@ -279,7 +281,7 @@ export const services: readonly Service[] = [
     ],
     related: [
       { label: "SEO", href: "/services/seo" },
-      { label: "Book a call", href: "/book" },
+      { label: site.contact.label, href: site.contact.href },
     ],
     metaDescription:
       "Social media from Flutterly in Reading: planned posts and short-form video for Instagram, LinkedIn, Facebook and X, written in your voice.",

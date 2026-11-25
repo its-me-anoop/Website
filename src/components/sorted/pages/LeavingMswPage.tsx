@@ -69,8 +69,8 @@ export function LeavingMswPage() {
           <ButtonLink href="/free-audit" size="lg" arrow="right" dot="soft" className="w-full sm:w-auto">
             Book a free audit
           </ButtonLink>
-          <ButtonLink href="/book" tone="plain" size="lg" className="w-full sm:w-auto">
-            Book a call
+          <ButtonLink href={site.contact.href} tone="plain" size="lg" className="w-full sm:w-auto">
+            {site.contact.label}
           </ButtonLink>
         </div>
         <ul className="mt-9 flex flex-wrap gap-2">
@@ -169,8 +169,8 @@ export function LeavingMswPage() {
               Reserve by 31 October 2026. Not sure which fits? Start with the free audit and say you&rsquo;re leaving
               MSW — we&rsquo;ll map the move.
             </p>
-            <ButtonLink href="/book" size="sm" arrow="right">
-              Book a call
+            <ButtonLink href={site.contact.href} size="sm" arrow="right">
+              {site.contact.label}
             </ButtonLink>
           </Reveal>
         </Container>

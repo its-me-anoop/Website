@@ -18,7 +18,6 @@ async function metadataFor(path: string): Promise<Metadata> {
     "/services": () => import("./services/page"),
     "/free-audit": () => import("./free-audit/page"),
     "/packages": () => import("./packages/page"),
-    "/book": () => import("./book/page"),
     "/accessibility": () => import("./accessibility/page"),
     "/gp-websites": () => import("./gp-websites/page"),
     "/care-home-websites": () => import("./care-home-websites/page"),
@@ -44,7 +43,6 @@ describe("social preview images", () => {
     "/services/seo",
     "/free-audit",
     "/packages",
-    "/book",
     "/accessibility",
   ])("%s uses the broad studio card with matching alt text", async (path) => {
     const m = await metadataFor(path);

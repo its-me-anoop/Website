@@ -7,6 +7,7 @@
  * statistics. Fictional sample sites are always called sample sites.
  */
 
+import { site } from "@/lib/site";
 import { serviceHref, services } from "./services";
 
 /* ─────────────────────────────────────────────────────────────
@@ -704,7 +705,7 @@ export const gpSector: Sector = {
     },
   ],
   ctaTitle: "Ready to give your patients a better front door?",
-  ctaCopy: "Start with the free audit, a written review of your current site against WCAG 2.2 AA and the NHS service manual, or book a short call to talk about a quote.",
+  ctaCopy: "Start with the free audit, a written review of your current site against WCAG 2.2 AA and the NHS service manual, or email to talk about a quote.",
 };
 
 export const careSector: Sector = {
@@ -801,7 +802,7 @@ export const careSector: Sector = {
     },
   ],
   ctaTitle: "Ready to give families a better first visit?",
-  ctaCopy: "Start with the free audit, a written review of how your current site serves families, or book a short call to talk about your home.",
+  ctaCopy: "Start with the free audit, a written review of how your current site serves families, or email to talk about your home.",
 };
 
 export const sectors = [gpSector, careSector] as const;
@@ -959,7 +960,7 @@ export const footerColumns = [
       { label: "About", href: "/#studio" },
       { label: "Process", href: "/#process" },
       { label: "Packages", href: "/packages" },
-      { label: "Book a call", href: "/book" },
+      { label: site.contact.label, href: site.contact.href },
       { label: "Accessibility statement", href: "/accessibility" },
       { label: "GitHub", href: "https://github.com/its-me-anoop" },
       { label: "LinkedIn", href: "https://www.linkedin.com/in/anoop-jose-0b308a296/" },

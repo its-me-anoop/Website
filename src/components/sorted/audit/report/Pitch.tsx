@@ -1,6 +1,5 @@
 "use client";
 
-import { site } from "@/lib/site";
 import { categoryMeta } from "@/lib/audit/score";
 import type { AuditReport } from "@/lib/audit/types";
 import { Reveal } from "../../effects/Motion";
@@ -75,9 +74,6 @@ export function Pitch({ report }: { report: AuditReport }) {
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <ButtonLink href={mailto} arrow="right" dot>
                   Send me the written audit
-                </ButtonLink>
-                <ButtonLink href="/book" tone="plain" arrow="right">
-                  Book a {site.booking.durationMinutes}-minute call
                 </ButtonLink>
               </div>
               <p className="mt-4 text-[13.5px] text-s-ink-soft">

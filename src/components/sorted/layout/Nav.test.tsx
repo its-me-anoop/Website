@@ -18,10 +18,10 @@ const toggle = () => screen.getByRole("button", { name: /menu/ });
 const index = () => screen.queryByRole("navigation", { name: "Site menu" });
 
 describe("the floating bar", () => {
-  it("links the wordmark home and keeps the booking pill in reach", () => {
+  it("links the wordmark home and keeps the contact pill in reach", () => {
     render(<Nav />);
     expect(screen.getByRole("link", { name: "Flutterly home" })).toHaveAttribute("href", "/");
-    expect(screen.getByRole("link", { name: "Book a call" })).toHaveAttribute("href", "/book");
+    expect(screen.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/#contact");
     expect(screen.getByRole("link", { name: "Free audit" })).toHaveAttribute("href", "/free-audit");
   });
 
@@ -53,7 +53,7 @@ describe("the index", () => {
       ...navLinks.map((l) => l.href),
       ...services.map((s) => `/services/${s.slug}`),
       "/free-audit",
-      "/book",
+      "/#contact",
     ]);
     /* The numerals are decoration: a card is named by its route alone. */
     navLinks.forEach((l) => expect(within(sheet).getByRole("link", { name: l.label })).toBeInTheDocument());

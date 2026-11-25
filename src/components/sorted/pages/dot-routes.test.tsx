@@ -6,7 +6,6 @@ import domMax from "@/lib/motion-features";
 import { caseStudies } from "@/lib/marketing/case-studies";
 import { careSector, gpSector, packages } from "@/lib/marketing/content";
 import { services } from "@/lib/marketing/services";
-import { BookPage } from "../booking/BookPage";
 import { AccessibilityStatement } from "./AccessibilityStatement";
 import { AuditLanding } from "./AuditLanding";
 import { LeavingMswPage } from "./LeavingMswPage";
@@ -25,7 +24,6 @@ import { ServicesIndexPage } from "./ServicesIndexPage";
  */
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/" }));
-vi.mock("@calcom/embed-react", () => ({ default: () => null, getCalApi: async () => () => {} }));
 
 beforeAll(() => {
   vi.stubGlobal(
@@ -56,7 +54,6 @@ const pages: [string, () => React.ReactNode][] = [
   ["gp-websites", () => <SectorPage sector={gpSector} />],
   ["care-home-websites", () => <SectorPage sector={careSector} />],
   ["free-audit", () => <AuditLanding />],
-  ["book", () => <BookPage />],
   ["leaving-msw", () => <LeavingMswPage />],
   ...caseStudies.map((c): [string, () => React.ReactNode] => [`projects/${c.slug}`, () => <ProjectPage study={c} />]),
   [
@@ -91,10 +88,10 @@ describe("where the dot takes the eye", () => {
   it("goes into each page's main action, drawn to the closing one from further off", () => {
     const root = page(<ServicePage service={services[0]} />);
     const hero = root.querySelector('#top a[data-dot="into"]')!;
-    expect(hero).toHaveAttribute("href", "/book");
+    expect(hero).toHaveAttribute("href", "/#contact");
     /* The hero's button waits its turn after the headline: no pull. */
     expect(hero).not.toHaveAttribute("data-dot-pull");
-    const close = root.querySelector('#contact a[href="/book"]')!;
+    const close = root.querySelector('#contact a[href="mailto:anoop@flutterly.co.uk"]')!;
     expect(close).toHaveAttribute("data-dot", "into");
     expect(Number(close.getAttribute("data-dot-pull"))).toBeGreaterThan(100);
   });

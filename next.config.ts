@@ -22,6 +22,13 @@ const nextConfig: NextConfig = {
         destination: "/projects/artling/privacy-policy",
         permanent: true,
       },
+      // Cal.com booking was retired; old links and the QR code on earlier
+      // printed audit reports still point at /book.
+      {
+        source: "/book",
+        destination: "/#contact",
+        permanent: true,
+      },
       // Campaign alt slug from the Clear Path brief; canonical is /leaving-msw.
       {
         source: "/clear-path",
